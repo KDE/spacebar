@@ -63,6 +63,7 @@ KTp::TextChannelObserver::TextChannelObserver(QObject *parent)
                                                               "("
                                                                "id INTEGER PRIMARY KEY, "
                                                                "messageDateTime DATETIME, "
+                                                               "account VARCHAR(50), "
                                                                "targetContact VARCHAR(50), "
                                                                "message TEXT, "
                                                                "isIncoming BOOLEAN, "
@@ -112,15 +113,40 @@ void KTp::TextChannelObserver::observeChannels(const Tp::MethodInvocationContext
                 continue;
             }
 
-            ChannelWatcherPtr watcher = ChannelWatcherPtr(new ChannelWatcher(textChannel));
+            ChannelWatcherPtr watcher = ChannelWatcherPtr(new ChannelWatcher(textChannel, account->objectPath()));
             d->currentChannels[targetContact] = watcher;
 
-            connect(watcher.data(), SIGNAL(messagesChanged()), SLOT(onChannelMessagesChanged()));
+            connect(watcher.data(), &ChannelWatcher::storeMessage, this, &KTp::TextChannelObserver::onMessageStoreRequest);
+            connect(watcher.data(), &ChannelWatcher::updateMessage, this, &KTp::TextChannelObserver::onMessageUpdateRequest);
         }
     }
 }
 
-void KTp::TextChannelObserver::onChannelMessagesChanged()
+void KTp::TextChannelObserver::onMessageStoreRequest(const StorageMessage &message)
+{
+    QSqlQuery storeQuery;
+    storeQuery.prepare("INSERT INTO data VALUES (NULL, :messageDateTime, :accountObjectPath, :targetContact, :message, :isIncoming, :isDelivered, :type)");
+    storeQuery.bindValue(":messageDateTime", message.messageDateTime);
+    storeQuery.bindValue(":accountObjectPath", message.accountObjectPath);
+    storeQuery.bindValue(":targetContact", message.targetContact);
+    storeQuery.bindValue(":message", message.message);
+    storeQuery.bindValue(":isIncoming", message.isIncoming);
+    storeQuery.bindValue(":isDelivered", message.isDelivered);
+    storeQuery.bindValue(":type", message.type);
+
+    bool transactionBegin = d->db.transaction();
+    qDebug() << "Transaction begins" << transactionBegin;
+    bool queryResult = storeQuery.exec();
+    qDebug() << "Query gut" << queryResult;
+    if (queryResult) {
+        d->db.commit();
+    } else {
+        qWarning() << storeQuery.lastError().text();
+        d->db.rollback();
+    }
+}
+
+void KTp::TextChannelObserver::onMessageUpdateRequest(const StorageMessage &message)
 {
 
 }

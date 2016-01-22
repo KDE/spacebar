@@ -24,6 +24,8 @@
 
 #include <QObject>
 
+#include "channel-watcher.h"
+
 namespace KTp
 {
 
@@ -43,7 +45,8 @@ public:
                                  const Tp::AbstractClientObserver::ObserverInfo &observerInfo);
 
 private Q_SLOTS:
-    void onChannelMessagesChanged();
+    void onMessageStoreRequest(const StorageMessage &message);
+    void onMessageUpdateRequest(const StorageMessage &message);
     void onChannelInvalidated();
 
 private:
