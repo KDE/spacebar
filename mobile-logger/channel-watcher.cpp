@@ -29,63 +29,52 @@
 #include <KTp/contact.h>
 #include <KTp/message.h>
 
-ChannelWatcher::ChannelWatcher(const Tp::TextChannelPtr &channel, QObject *parent)
+ChannelWatcher::ChannelWatcher(const Tp::TextChannelPtr &channel, const QString &accountObjectPath, QObject *parent)
     : QObject(parent),
       m_channel(channel),
-      m_lastMessageDirection(KTp::Message::LocalToRemote)
+      m_accountObjectPath(accountObjectPath)
 {
-    connect(channel.data(), &Tp::TextChannel::pendingMessageRemoved, [=](Tp::ReceivedMessage message) {
-        qDebug() << "Message removed" << message.text();
-    });
     connect(channel.data(), &Tp::TextChannel::invalidated, this, &ChannelWatcher::invalidated);
     connect(channel.data(), &Tp::TextChannel::invalidated, this, [=]() {
         qDebug() << "Channel invalidated";
     });
 
-    connect(channel.data(), SIGNAL(messageReceived(Tp::ReceivedMessage)), SLOT(onMessageReceived(Tp::ReceivedMessage)));
-    connect(channel.data(), SIGNAL(messageSent(Tp::Message,Tp::MessageSendingFlags,QString)), SLOT(onMessageSent(Tp::Message)));
-
-    //trigger an update to the contact straight away
-    QTimer::singleShot(0, this, SIGNAL(messagesChanged()));
+    connect(channel.data(), &Tp::TextChannel::messageReceived, this, &ChannelWatcher::onMessageReceived);
+    connect(channel.data(), &Tp::TextChannel::messageSent, this, &ChannelWatcher::onMessageSent);
 
     qDebug() << this << "New channel being watched" << channel.data();
-
 }
 
 ChannelWatcher::~ChannelWatcher()
 {
 }
 
-int ChannelWatcher::unreadMessageCount() const
-{
-    return m_channel->messageQueue().size();
-}
-
-QString ChannelWatcher::lastMessage() const
-{
-    return m_lastMessage;
-}
-
-KTp::Message::MessageDirection ChannelWatcher::lastMessageDirection() const
-{
-    return m_lastMessageDirection;
-}
-
 void ChannelWatcher::onMessageReceived(const Tp::ReceivedMessage &message)
 {
     if (!message.isDeliveryReport()) {
-        m_lastMessage = message.text();
-        m_lastMessageDirection = KTp::Message::RemoteToLocal;
-        Q_EMIT messagesChanged();
-    }
+        StorageMessage msg;
+        msg.messageDateTime = message.received();
+        msg.accountObjectPath = m_accountObjectPath;
+        msg.targetContact = message.sender()->id();
+        msg.message = message.text();
+        msg.isIncoming = true;
+        msg.type = 1;
 
-    qDebug() << m_lastMessage;
+        Q_EMIT storeMessage(msg);
+    } else {
+
+    }
 }
 
 void ChannelWatcher::onMessageSent(const Tp::Message &message)
 {
-    m_lastMessage = message.text();
-    m_lastMessageDirection = KTp::Message::LocalToRemote;
-    qDebug() << m_lastMessage;
-    Q_EMIT messagesChanged();
+    StorageMessage msg;
+    msg.messageDateTime = message.sent();
+    msg.accountObjectPath = m_accountObjectPath;
+    msg.targetContact = m_channel->targetContact()->id();
+    msg.message = message.text();
+    msg.isIncoming = false;
+    msg.type = 1;
+
+    Q_EMIT storeMessage(msg);
 }

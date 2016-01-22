@@ -17,6 +17,9 @@
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
+#ifndef KTP_CHANNEL_WATCHER_H
+#define KTP_CHANNEL_WATCHER_H
+
 #include <TelepathyQt/TextChannel>
 #include <TelepathyQt/ChannelClassSpecList>
 #include <TelepathyQt/MethodInvocationContext>
@@ -29,19 +32,28 @@
 
 #include <QObject>
 
+class StorageMessage {
+public:
+    QDateTime messageDateTime;
+    QString accountObjectPath;
+    QString targetContact;
+    QString message;
+    bool isIncoming;
+    bool isDelivered;
+    uint type;
+};
+
 class ChannelWatcher : public QObject, public Tp::RefCounted
 {
     Q_OBJECT
 
 public:
-    ChannelWatcher(const Tp::TextChannelPtr &channel, QObject *parent=0);
+    ChannelWatcher(const Tp::TextChannelPtr &channel, const QString &accountObjectPath, QObject *parent = 0);
     ~ChannelWatcher();
-    int unreadMessageCount() const;
-    QString lastMessage() const;
-    KTp::Message::MessageDirection lastMessageDirection() const;
 
 Q_SIGNALS:
-    void messagesChanged();
+    void storeMessage(const StorageMessage &message);
+    void updateMessage(const StorageMessage &message);
     void invalidated();
 
 private Q_SLOTS:
@@ -50,8 +62,9 @@ private Q_SLOTS:
 
 private:
     Tp::TextChannelPtr m_channel;
-    QString m_lastMessage;
-    KTp::Message::MessageDirection m_lastMessageDirection;
+    QString m_accountObjectPath;
 };
 
 typedef Tp::SharedPtr<ChannelWatcher> ChannelWatcherPtr;
+
+#endif
