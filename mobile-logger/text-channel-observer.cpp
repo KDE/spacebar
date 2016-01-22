@@ -63,6 +63,7 @@ KTp::TextChannelObserver::TextChannelObserver(QObject *parent)
                                                               "("
                                                                "id INTEGER PRIMARY KEY, "
                                                                "messageDateTime DATETIME, "
+                                                               "deliveredDateTime DATETIME, "
                                                                "account VARCHAR(50), "
                                                                "targetContact VARCHAR(50), "
                                                                "message TEXT, "
@@ -125,7 +126,7 @@ void KTp::TextChannelObserver::observeChannels(const Tp::MethodInvocationContext
 void KTp::TextChannelObserver::onMessageStoreRequest(const StorageMessage &message)
 {
     QSqlQuery storeQuery;
-    storeQuery.prepare("INSERT INTO data VALUES (NULL, :messageDateTime, :accountObjectPath, :targetContact, :message, :isIncoming, :isDelivered, :type)");
+    storeQuery.prepare("INSERT INTO data VALUES (NULL, :messageDateTime, NULL, :accountObjectPath, :targetContact, :message, :isIncoming, :isDelivered, :type)");
     storeQuery.bindValue(":messageDateTime", message.messageDateTime);
     storeQuery.bindValue(":accountObjectPath", message.accountObjectPath);
     storeQuery.bindValue(":targetContact", message.targetContact);
@@ -148,14 +149,23 @@ void KTp::TextChannelObserver::onMessageStoreRequest(const StorageMessage &messa
 
 void KTp::TextChannelObserver::onMessageUpdateRequest(const StorageMessage &message)
 {
+    QSqlQuery updateQuery;
+    updateQuery.prepare("UPDATE data SET deliveredDateTime = :deliveredDateTime, isDelivered = :isDelivered WHERE id = :id");
+    updateQuery.bindValue(":deliveredDateTime", message.deliveredDateTime);
+    updateQuery.bindValue(":isDelivered", message.isDelivered);
+    updateQuery.bindValue(":id", message.id);
 
+    bool transactionBegin = d->db.transaction();
+    bool queryResult = updateQuery.exec();
+    if (queryResult) {
+        d->db.commit();
+    } else {
+        qWarning() << updateQuery.lastError().text();
+        d->db.rollback();
+    }
 }
 
 void KTp::TextChannelObserver::onChannelInvalidated()
 {
-//     ChannelWatcher* watcher = qobject_cast<ChannelWatcher*>(sender());
-//     Q_ASSERT(watcher);
-//     const QModelIndex &index = mapFromSource(watcher->modelIndex());
-//     const KTp::ContactPtr &contact = index.data(KTp::ContactRole).value<KTp::ContactPtr>();
-
+    // do something?
 }

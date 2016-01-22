@@ -34,7 +34,9 @@
 
 class StorageMessage {
 public:
+    int id;
     QDateTime messageDateTime;
+    QDateTime deliveredDateTime;
     QString accountObjectPath;
     QString targetContact;
     QString message;

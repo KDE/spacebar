@@ -74,7 +74,7 @@ int main(int argc, char *argv[])
         qDebug() << "Manager ready, setting client registrar";
 
         Tp::ChannelFactoryPtr channelFactory = Tp::ChannelFactory::create(QDBusConnection::sessionBus());
-        channelFactory->addFeaturesForTextChats(Tp::Features() << Tp::Channel::FeatureCore << Tp::TextChannel::FeatureMessageQueue << Tp::TextChannel::FeatureMessageSentSignal);
+        channelFactory->addFeaturesForTextChats(Tp::Features() << Tp::Channel::FeatureCore << Tp::TextChannel::FeatureMessageQueue << Tp::TextChannel::FeatureMessageSentSignal << Tp::TextChannel::FeatureMessageCapabilities);
 
         oa->channelWatcherObserver = Tp::SharedPtr<KTp::TextChannelObserver>(new KTp::TextChannelObserver());
 
