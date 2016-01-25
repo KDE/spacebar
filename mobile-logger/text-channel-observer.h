@@ -45,8 +45,6 @@ public:
                                  const Tp::AbstractClientObserver::ObserverInfo &observerInfo);
 
 private Q_SLOTS:
-    void onMessageStoreRequest(const StorageMessage &message);
-    void onMessageUpdateRequest(const StorageMessage &message);
     void onChannelInvalidated();
 
 private:

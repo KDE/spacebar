@@ -31,15 +31,17 @@
 #include <KTp/message.h>
 
 #include <QObject>
+#include <QSqlDatabase>
 
 class StorageMessage {
 public:
     int id;
     QDateTime messageDateTime;
     QDateTime deliveredDateTime;
-    QString accountObjectPath;
-    QString targetContact;
+    uint accountObjectPathId;
+    uint targetContactId;
     QString message;
+    QString messageToken;
     bool isIncoming;
     bool isDelivered;
     uint type;
@@ -54,8 +56,6 @@ public:
     ~ChannelWatcher();
 
 Q_SIGNALS:
-    void storeMessage(const StorageMessage &message);
-    void updateMessage(const StorageMessage &message);
     void invalidated();
 
 private Q_SLOTS:
@@ -63,8 +63,15 @@ private Q_SLOTS:
     void onMessageSent(const Tp::Message &message);
 
 private:
+    void storeContactInfo();
+    void storeAccountInfo();
+    void storeMessage(const StorageMessage &message);
+
     Tp::TextChannelPtr m_channel;
     QString m_accountObjectPath;
+    QSqlDatabase m_db;
+    uint m_contactDbId;
+    uint m_accountDbId;
 };
 
 typedef Tp::SharedPtr<ChannelWatcher> ChannelWatcherPtr;

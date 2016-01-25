@@ -29,11 +29,20 @@
 #include <KTp/contact.h>
 #include <KTp/message.h>
 
+#include <QSqlQuery>
+#include <QSqlError>
+#include <QSqlRecord>
+
 ChannelWatcher::ChannelWatcher(const Tp::TextChannelPtr &channel, const QString &accountObjectPath, QObject *parent)
     : QObject(parent),
       m_channel(channel),
-      m_accountObjectPath(accountObjectPath)
+      m_accountObjectPath(accountObjectPath),
+      m_db(QSqlDatabase::database()),
+      m_contactDbId(0), //sqlite auto-increment starts at 1
+      m_accountDbId(0)
 {
+    qDebug() << "Delivery reports support" << channel->deliveryReportingSupport();
+
     connect(channel.data(), &Tp::TextChannel::invalidated, this, &ChannelWatcher::invalidated);
     connect(channel.data(), &Tp::TextChannel::invalidated, this, [=]() {
         qDebug() << "Channel invalidated";
@@ -43,10 +52,75 @@ ChannelWatcher::ChannelWatcher(const Tp::TextChannelPtr &channel, const QString 
     connect(channel.data(), &Tp::TextChannel::messageSent, this, &ChannelWatcher::onMessageSent);
 
     qDebug() << this << "New channel being watched" << channel.data();
+
+    storeContactInfo();
+    storeAccountInfo();
 }
 
 ChannelWatcher::~ChannelWatcher()
 {
+}
+
+void ChannelWatcher::storeContactInfo()
+{
+    QSqlQuery insertContactIdQuery;
+    insertContactIdQuery.prepare(QStringLiteral("INSERT INTO contactData VALUES (NULL, :contactId);"));
+    insertContactIdQuery.bindValue(QStringLiteral(":contactId"), m_channel->targetContact()->id());
+
+    if (!m_db.transaction()) {
+        qWarning() << "Cannot get a transaction lock for inserting contact data!";
+    }
+
+    if (insertContactIdQuery.exec()) {
+        m_db.commit();
+        m_contactDbId = insertContactIdQuery.lastInsertId().toUInt();
+    } else {
+        qWarning() << "Inserting contact data into database has failed:" << insertContactIdQuery.lastError().text();
+        m_db.rollback();
+
+        // Now we assume here that it failed because of the UNIQUE constraint
+        // so try to get the id from the database, assuming it already exists
+        QSqlQuery selectContactId;
+        selectContactId.prepare(QStringLiteral("SELECT id FROM contactData WHERE targetContact = ':targetContact'"));
+        selectContactId.bindValue(QStringLiteral(":targetContact"), m_channel->targetContact()->id());
+        selectContactId.exec();
+
+        if (!selectContactId.lastError().isValid()) {
+            m_contactDbId = selectContactId.record().value(QStringLiteral("id")).toUInt();
+        }
+    }
+}
+
+void ChannelWatcher::storeAccountInfo()
+{
+    QSqlQuery insertAccountObjectPathQuery;
+    insertAccountObjectPathQuery.prepare(QStringLiteral("INSERT INTO accountData VALUES (NULL, :accountObjectPath);"));
+    insertAccountObjectPathQuery.bindValue(QStringLiteral(":accountObjectPath"), m_accountObjectPath);
+
+    if (!m_db.transaction()) {
+        // no special handling is required as commit()/rollback() will do nothing
+        // if no transaction exists
+        qWarning() << "Cannot get a transaction lock for inserting account data!";
+    }
+
+    if (insertAccountObjectPathQuery.exec()) {
+        m_db.commit();
+        m_accountDbId = insertAccountObjectPathQuery.lastInsertId().toUInt();
+    } else {
+        qWarning() << "Inserting account data into database has failed:" << insertAccountObjectPathQuery.lastError().text();
+        m_db.rollback();
+
+        // Now we assume here that it failed because of the UNIQUE constraint
+        // so try to get the id from the database, assuming it already exists
+        QSqlQuery selectAccountId;
+        selectAccountId.prepare(QStringLiteral("SELECT id FROM accountData WHERE accountObjectPath = ':accountObjectPath'"));
+        selectAccountId.bindValue(QStringLiteral(":accountObjectPath"), m_accountObjectPath);
+        selectAccountId.exec();
+
+        if (!selectAccountId.lastError().isValid()) {
+            m_accountDbId = selectAccountId.record().value(QStringLiteral("id")).toUInt();
+        }
+    }
 }
 
 void ChannelWatcher::onMessageReceived(const Tp::ReceivedMessage &message)
@@ -54,14 +128,35 @@ void ChannelWatcher::onMessageReceived(const Tp::ReceivedMessage &message)
     if (!message.isDeliveryReport()) {
         StorageMessage msg;
         msg.messageDateTime = message.received();
-        msg.accountObjectPath = m_accountObjectPath;
-        msg.targetContact = message.sender()->id();
+        msg.accountObjectPathId = m_accountDbId;
+        msg.targetContactId = m_contactDbId;
         msg.message = message.text();
+        msg.messageToken = message.messageToken();
         msg.isIncoming = true;
+        msg.isDelivered = true;
         msg.type = 1;
 
-        Q_EMIT storeMessage(msg);
+        storeMessage(msg);
     } else {
+        qDebug() << "Received a delivery report for message" << message.deliveryDetails().originalToken();
+
+        //TODO
+        //     QSqlQuery updateQuery;
+        //     updateQuery.prepare("UPDATE data SET deliveredDateTime = :deliveredDateTime, isDelivered = :isDelivered WHERE id = :id");
+        //     updateQuery.bindValue(":deliveredDateTime", message.deliveredDateTime);
+        //     updateQuery.bindValue(":isDelivered", message.isDelivered);
+        //     updateQuery.bindValue(":id", message.id);
+        //
+        //     bool transactionBegin = d->db.transaction();
+        //     qDebug() << "Update transaction begins" << transactionBegin;
+        //     bool queryResult = updateQuery.exec();
+        //     qDebug() << "Update query gut" << queryResult;
+        //     if (queryResult) {
+        //         d->db.commit();
+        //     } else {
+        //         qWarning() << updateQuery.lastError().text();
+        //         d->db.rollback();
+        //     }
 
     }
 }
@@ -70,11 +165,38 @@ void ChannelWatcher::onMessageSent(const Tp::Message &message)
 {
     StorageMessage msg;
     msg.messageDateTime = message.sent();
-    msg.accountObjectPath = m_accountObjectPath;
-    msg.targetContact = m_channel->targetContact()->id();
+    msg.accountObjectPathId = m_accountDbId;
+    msg.targetContactId = m_contactDbId;
     msg.message = message.text();
+    msg.messageToken = message.messageToken();
     msg.isIncoming = false;
+    msg.isDelivered = false;
     msg.type = 1;
 
-    Q_EMIT storeMessage(msg);
+    storeMessage(msg);
+}
+
+void ChannelWatcher::storeMessage(const StorageMessage &message)
+{
+    QSqlQuery storeQuery;
+    storeQuery.prepare("INSERT INTO data VALUES (NULL, :messageDateTime, NULL, :accountObjectPath, :targetContact, :message, :messageToken, :isIncoming, :isDelivered, :type)");
+    storeQuery.bindValue(":messageDateTime", message.messageDateTime);
+    storeQuery.bindValue(":accountObjectPath", message.accountObjectPathId);
+    storeQuery.bindValue(":targetContact", message.targetContactId);
+    storeQuery.bindValue(":message", message.message);
+    storeQuery.bindValue(":messageToken", message.messageToken);
+    storeQuery.bindValue(":isIncoming", message.isIncoming);
+    storeQuery.bindValue(":isDelivered", message.isDelivered);
+    storeQuery.bindValue(":type", message.type);
+
+    if (m_db.transaction()) {
+        qWarning() << "Cannot get a transaction lock for inserting the message!";
+    }
+
+    if (storeQuery.exec()) {
+        m_db.commit();
+    } else {
+        qWarning() << "Error when inserting the message to the database:" << storeQuery.lastError().text();
+        m_db.rollback();
+    }
 }

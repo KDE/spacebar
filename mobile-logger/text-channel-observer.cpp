@@ -57,22 +57,63 @@ KTp::TextChannelObserver::TextChannelObserver(QObject *parent)
     d->db = QSqlDatabase::addDatabase(QStringLiteral("QSQLITE"));
     d->db.setDatabaseName(dbLocation + QStringLiteral("history.db3"));
     if (d->db.open()) {
+        //TODO: should this also be one transaction?
         const QStringList tables = d->db.tables();
         if (!tables.contains(QLatin1String("data"))) {
-            QSqlQuery createTable = d->db.exec(QStringLiteral("CREATE TABLE data"
-                                                              "("
-                                                               "id INTEGER PRIMARY KEY, "
-                                                               "messageDateTime DATETIME, "
-                                                               "deliveredDateTime DATETIME, "
-                                                               "account VARCHAR(50), "
-                                                               "targetContact VARCHAR(50), "
-                                                               "message TEXT, "
-                                                               "isIncoming BOOLEAN, "
-                                                               "isDelivered BOOLEAN, "
-                                                               "type SMALLINT "
-                                                            ");"));
-            if (createTable.lastError().isValid()) {
-                qWarning() << "Failed to create the database table:" << createTable.lastError().text();
+            QStringList queries = QStringLiteral("CREATE TABLE data ("
+                                                  "id INTEGER PRIMARY KEY, "
+                                                  "messageDateTime DATETIME, "
+                                                  "deliveredDateTime DATETIME, "
+                                                  "accountId INTEGER, "
+                                                  "targetContactId INTEGER, "
+                                                  "message TEXT, "
+                                                  "messageToken VARCHAR(192), "
+                                                  "isIncoming BOOLEAN, "
+                                                  "isDelivered BOOLEAN, "
+                                                  "type SMALLINT "
+                                                 ");"
+
+                                                 "CREATE TABLE accountData ("
+                                                  "id INTEGER PRIMARY KEY, "
+                                                  "accountObjectPath VARCHAR(50) UNIQUE"
+                                                 ");"
+
+                                                 "CREATE TABLE contactData ("
+                                                  "id INTEGER PRIMARY KEY, "
+                                                  "targetContact VARCHAR(72) UNIQUE"
+                                                 ");"
+
+                                                 "CREATE TABLE control ("
+                                                  "key VARCHAR(20) PRIMARY KEY,"
+                                                  "value VARCHAR(100)"
+                                                 ");").split(QLatin1Char(';'));
+
+            QSqlError error;
+
+            Q_FOREACH (const QString &query, queries) {
+                QSqlQuery createTable = d->db.exec(query);
+                if (d->db.lastError().isValid()) {
+                    error = d->db.lastError();
+                }
+            }
+
+            if (error.isValid()) {
+                qWarning() << "Failed to create the database tables:" << error.text();
+            } else {
+                QSqlQuery insertSchemeVersion;
+                insertSchemeVersion.prepare(QStringLiteral("INSERT INTO control VALUES (:key, :value);"));
+                insertSchemeVersion.bindValue(QStringLiteral(":key"), QStringLiteral("schemeVersion"));
+                insertSchemeVersion.bindValue(QStringLiteral(":value"), QStringLiteral("1"));
+
+                if (!d->db.transaction()) {
+                    qWarning() << "Cannot get a transaction lock for inserting schema version data!";
+                }
+                if (insertSchemeVersion.exec()) {
+                    d->db.commit();
+                } else {
+                    qWarning() << "Inserting schema data into the database has failed:" << insertSchemeVersion.lastError().text();
+                    d->db.rollback();
+                }
             }
         }
     } else {
@@ -94,12 +135,11 @@ void KTp::TextChannelObserver::observeChannels(const Tp::MethodInvocationContext
                                                const QList<Tp::ChannelRequestPtr> &requestsSatisfied,
                                                const Tp::AbstractClientObserver::ObserverInfo &observerInfo)
 {
-//     Q_UNUSED(context)
-//     Q_UNUSED(account)
-//     Q_UNUSED(connection)
-//     Q_UNUSED(dispatchOperation)
-//     Q_UNUSED(requestsSatisfied)
-//     Q_UNUSED(observerInfo)
+    Q_UNUSED(context)
+    Q_UNUSED(connection)
+    Q_UNUSED(dispatchOperation)
+    Q_UNUSED(requestsSatisfied)
+    Q_UNUSED(observerInfo)
 
     qDebug() << "Observing channel";
 
@@ -116,52 +156,7 @@ void KTp::TextChannelObserver::observeChannels(const Tp::MethodInvocationContext
 
             ChannelWatcherPtr watcher = ChannelWatcherPtr(new ChannelWatcher(textChannel, account->objectPath()));
             d->currentChannels[targetContact] = watcher;
-
-            connect(watcher.data(), &ChannelWatcher::storeMessage, this, &KTp::TextChannelObserver::onMessageStoreRequest);
-            connect(watcher.data(), &ChannelWatcher::updateMessage, this, &KTp::TextChannelObserver::onMessageUpdateRequest);
         }
-    }
-}
-
-void KTp::TextChannelObserver::onMessageStoreRequest(const StorageMessage &message)
-{
-    QSqlQuery storeQuery;
-    storeQuery.prepare("INSERT INTO data VALUES (NULL, :messageDateTime, NULL, :accountObjectPath, :targetContact, :message, :isIncoming, :isDelivered, :type)");
-    storeQuery.bindValue(":messageDateTime", message.messageDateTime);
-    storeQuery.bindValue(":accountObjectPath", message.accountObjectPath);
-    storeQuery.bindValue(":targetContact", message.targetContact);
-    storeQuery.bindValue(":message", message.message);
-    storeQuery.bindValue(":isIncoming", message.isIncoming);
-    storeQuery.bindValue(":isDelivered", message.isDelivered);
-    storeQuery.bindValue(":type", message.type);
-
-    bool transactionBegin = d->db.transaction();
-    qDebug() << "Transaction begins" << transactionBegin;
-    bool queryResult = storeQuery.exec();
-    qDebug() << "Query gut" << queryResult;
-    if (queryResult) {
-        d->db.commit();
-    } else {
-        qWarning() << storeQuery.lastError().text();
-        d->db.rollback();
-    }
-}
-
-void KTp::TextChannelObserver::onMessageUpdateRequest(const StorageMessage &message)
-{
-    QSqlQuery updateQuery;
-    updateQuery.prepare("UPDATE data SET deliveredDateTime = :deliveredDateTime, isDelivered = :isDelivered WHERE id = :id");
-    updateQuery.bindValue(":deliveredDateTime", message.deliveredDateTime);
-    updateQuery.bindValue(":isDelivered", message.isDelivered);
-    updateQuery.bindValue(":id", message.id);
-
-    bool transactionBegin = d->db.transaction();
-    bool queryResult = updateQuery.exec();
-    if (queryResult) {
-        d->db.commit();
-    } else {
-        qWarning() << updateQuery.lastError().text();
-        d->db.rollback();
     }
 }
 
