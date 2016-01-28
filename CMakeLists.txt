@@ -5,11 +5,13 @@ cmake_minimum_required(VERSION 2.8.12)
 find_package(ECM 1.3.0 REQUIRED NO_MODULE)
 set(CMAKE_MODULE_PATH ${ECM_MODULE_PATH} ${ECM_KDE_MODULE_DIR})
 
-# find_package (KF5 REQUIRED COMPONENTS Archive Sonnet WidgetsAddons Service Emoticons
+
+find_package (KF5 REQUIRED COMPONENTS Package Declarative DBusAddons I18n)
+# Archive Sonnet WidgetsAddons Service Emoticons
 #                                       KIO KCMUtils NotifyConfig Notifications I18n
 #                                       WebKit WindowSystem XmlGui ItemViews TextWidgets
 #                                       IconThemes DBusAddons)
-find_package (Qt5 REQUIRED COMPONENTS Core Network Xml DBus Sql)
+find_package (Qt5 REQUIRED COMPONENTS Core Qml Quick Network Xml DBus Sql Gui)
 find_package (KTp REQUIRED)
 
 # find_package (KF5People)
@@ -25,7 +27,7 @@ include(FeatureSummary)
 # )
 
 add_subdirectory(mobile-logger)
-
+add_subdirectory(app)
 
 
 configure_file(${CMAKE_CURRENT_SOURCE_DIR}/org.kde.ktp-mobile.presence/metadata.desktop.cmake
