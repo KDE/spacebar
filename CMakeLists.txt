@@ -6,7 +6,7 @@ find_package(ECM 1.3.0 REQUIRED NO_MODULE)
 set(CMAKE_MODULE_PATH ${ECM_MODULE_PATH} ${ECM_KDE_MODULE_DIR})
 
 
-find_package (KF5 REQUIRED COMPONENTS Package Declarative DBusAddons I18n)
+find_package (KF5 REQUIRED COMPONENTS Package Declarative DBusAddons I18n Service)
 # Archive Sonnet WidgetsAddons Service Emoticons
 #                                       KIO KCMUtils NotifyConfig Notifications I18n
 #                                       WebKit WindowSystem XmlGui ItemViews TextWidgets
@@ -27,6 +27,7 @@ include(FeatureSummary)
 # )
 
 add_subdirectory(mobile-logger)
+add_subdirectory(ktp-logger-plugin)
 add_subdirectory(app)
 
 
