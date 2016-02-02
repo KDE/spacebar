@@ -38,7 +38,8 @@ MobileLoggerPendingDates::MobileLoggerPendingDates(const Tp::AccountPtr &account
     query.prepare(QStringLiteral("SELECT messageDateTime FROM data INNER JOIN contactData ON data.targetContactId = contactData.id "
                                  "INNER JOIN accountData ON data.accountId = accountData.id "
                                  "WHERE contactData.targetContact = :entityId "
-                                 "AND accountData.accountObjectPath = :accountObjectPath"));
+                                 "AND accountData.accountObjectPath = :accountObjectPath
+                                 "GROUP BY date(messageDateTime)"));
     query.bindValue(QStringLiteral(":entityId"), entity.id());
     query.bindValue(QStringLiteral(":accountObjectPath"), account->objectPath());
     query.exec();
