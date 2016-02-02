@@ -43,7 +43,7 @@ MobileLoggerPendingEntities::MobileLoggerPendingEntities(const Tp::AccountPtr &a
     query.exec();
 
     if (query.lastError().isValid()) {
-        qDebug() << "Error:" << query.executedQuery() << query.boundValues() << query.lastError().text();
+        qWarning() << "SQL Error:" << query.lastError().text();
         setError(query.lastError().text());
         emitFinished();
         return;
