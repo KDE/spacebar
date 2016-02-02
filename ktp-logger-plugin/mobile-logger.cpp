@@ -57,17 +57,17 @@ KTp::MobileLoggerPlugin::~MobileLoggerPlugin()
 
 KTp::PendingLoggerDates* KTp::MobileLoggerPlugin::queryDates(const Tp::AccountPtr &account, const KTp::LogEntity &entity)
 {
-    return new MobileLoggerPendingDates(account, entity);
+    return new MobileLoggerPendingDates(account, entity, this);
 }
 
 KTp::PendingLoggerLogs* KTp::MobileLoggerPlugin::queryLogs(const Tp::AccountPtr &account, const KTp::LogEntity &entity, const QDate &date)
 {
-    return new MobileLoggerPendingLogs(account, entity, date);
+    return new MobileLoggerPendingLogs(account, entity, date, this);
 }
 
 KTp::PendingLoggerEntities* KTp::MobileLoggerPlugin::queryEntities(const Tp::AccountPtr &account)
 {
-    return new MobileLoggerPendingEntities(account);
+    return new MobileLoggerPendingEntities(account, this);
 }
 
 bool KTp::MobileLoggerPlugin::handlesAccount(const Tp::AccountPtr &account)
