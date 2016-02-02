@@ -32,13 +32,11 @@
 MobileLoggerPendingDates::MobileLoggerPendingDates(const Tp::AccountPtr &account, const KTp::LogEntity &entity, QObject *parent)
     : KTp::PendingLoggerDates(account, entity, parent)
 {
-//     QSqlDatabase db = ;
-
     QSqlQuery query;
     query.prepare(QStringLiteral("SELECT messageDateTime FROM data INNER JOIN contactData ON data.targetContactId = contactData.id "
                                  "INNER JOIN accountData ON data.accountId = accountData.id "
                                  "WHERE contactData.targetContact = :entityId "
-                                 "AND accountData.accountObjectPath = :accountObjectPath
+                                 "AND accountData.accountObjectPath = :accountObjectPath "
                                  "GROUP BY date(messageDateTime)"));
     query.bindValue(QStringLiteral(":entityId"), entity.id());
     query.bindValue(QStringLiteral(":accountObjectPath"), account->objectPath());
@@ -53,10 +51,8 @@ MobileLoggerPendingDates::MobileLoggerPendingDates(const Tp::AccountPtr &account
 
     QSet<QDate> dates;
     while (query.next()) {
-        qDebug() << QDate::fromString(query.value(0).toString(), Qt::ISODate);
         dates << QDate::fromString(query.value(0).toString(), Qt::ISODate);
     }
-
 
     setDates(dates.toList());
     emitFinished();
