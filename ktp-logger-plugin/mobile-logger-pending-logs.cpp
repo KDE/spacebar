@@ -65,6 +65,9 @@ MobileLoggerPendingLogs::MobileLoggerPendingLogs(const Tp::AccountPtr &account, 
             }
             messages << KTp::LogMessage(targetContact, account, QDateTime::fromString(query.value(2).toString(), Qt::ISODate),
                                         query.value(0).toString(), query.value(3).toString());
+        } else {
+            messages << KTp::LogMessage(me, account, QDateTime::fromString(query.value(2).toString(), Qt::ISODate),
+                                        query.value(0).toString(), query.value(3).toString());
         }
     }
 
