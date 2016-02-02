@@ -52,7 +52,8 @@ MobileLoggerPendingEntities::MobileLoggerPendingEntities(const Tp::AccountPtr &a
     QList<KTp::LogEntity> logEntities;
 
     while (query.next()) {
-        logEntities << KTp::LogEntity(Tp::HandleTypeContact, query.value(0).toString(), QString());
+        const QString contactId = query.value(0).toString();
+        logEntities << KTp::LogEntity(Tp::HandleTypeContact, contactId, contactId);
     }
 
     appendEntities(logEntities);
