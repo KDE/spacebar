@@ -85,8 +85,10 @@ void ChannelWatcher::storeContactInfo()
         selectContactId.bindValue(QStringLiteral(":targetContact"), m_channel->targetContact()->id());
         selectContactId.exec();
 
-        if (!selectContactId.lastError().isValid()) {
-            m_contactDbId = selectContactId.record().value(QStringLiteral("id")).toUInt();
+        if (!selectContactId.lastError().isValid() && selectContactId.first()) {
+            m_contactDbId = selectContactId.value(0).toUInt();
+        } else {
+            qWarning() << "Error while getting contact id from database:" << selectContactId.lastError().text();
         }
     }
 }
@@ -117,8 +119,10 @@ void ChannelWatcher::storeAccountInfo()
         selectAccountId.bindValue(QStringLiteral(":accountObjectPath"), m_accountObjectPath);
         selectAccountId.exec();
 
-        if (!selectAccountId.lastError().isValid()) {
-            m_accountDbId = selectAccountId.record().value(QStringLiteral("id")).toUInt();
+        if (!selectAccountId.lastError().isValid() && selectAccountId.first()) {
+            m_accountDbId = selectAccountId.value(0).toUInt();
+        } else {
+            qWarning() << "Error while getting account id from database:" << selectAccountId.lastError().text();
         }
     }
 }
