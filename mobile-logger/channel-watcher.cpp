@@ -81,7 +81,7 @@ void ChannelWatcher::storeContactInfo()
         // Now we assume here that it failed because of the UNIQUE constraint
         // so try to get the id from the database, assuming it already exists
         QSqlQuery selectContactId;
-        selectContactId.prepare(QStringLiteral("SELECT id FROM contactData WHERE targetContact = ':targetContact'"));
+        selectContactId.prepare(QStringLiteral("SELECT id FROM contactData WHERE targetContact = :targetContact"));
         selectContactId.bindValue(QStringLiteral(":targetContact"), m_channel->targetContact()->id());
         selectContactId.exec();
 
@@ -115,7 +115,7 @@ void ChannelWatcher::storeAccountInfo()
         // Now we assume here that it failed because of the UNIQUE constraint
         // so try to get the id from the database, assuming it already exists
         QSqlQuery selectAccountId;
-        selectAccountId.prepare(QStringLiteral("SELECT id FROM accountData WHERE accountObjectPath = ':accountObjectPath'"));
+        selectAccountId.prepare(QStringLiteral("SELECT id FROM accountData WHERE accountObjectPath = :accountObjectPath"));
         selectAccountId.bindValue(QStringLiteral(":accountObjectPath"), m_accountObjectPath);
         selectAccountId.exec();
 
