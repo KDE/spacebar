@@ -71,7 +71,6 @@ MobileLoggerPendingLogs::MobileLoggerPendingLogs(const Tp::AccountPtr &account, 
         }
     }
 
-    qDebug() << messages.size();
     appendLogs(messages);
     emitFinished();
 }
