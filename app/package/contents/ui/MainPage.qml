@@ -37,6 +37,7 @@ MobileComponents.Page {
             ListView {
                 Layout.fillHeight: true
                 Layout.fillWidth: true
+                clip: true
 
                 model: KTp.MainLogModel {
                     id: mainModel
@@ -57,20 +58,32 @@ MobileComponents.Page {
                     }
 
                     ColumnLayout {
-                        Layout.fillWidth: true
+                        width: parent.width
 
                         PlasmaExtras.Heading {
-                            wrapMode: Text.WordWrap
+                            Layout.fillWidth: true
+
                             text: model.contactId
+                            wrapMode: Text.WordWrap
+                            elide: Text.ElideRight
+                            maximumLineCount: 1
                             level: 4
                         }
                         PlasmaComponents.Label {
-                            wrapMode: Text.WordWrap
+                            Layout.fillWidth: true
+
                             text: model.lastMessageText
+                            wrapMode: Text.WordWrap
+                            elide: Text.ElideRight
+                            maximumLineCount: 2
                         }
                         PlasmaComponents.Label {
-                            wrapMode: Text.WordWrap
+                            Layout.fillWidth: true
+
                             text: Qt.formatDateTime(model.lastMessageDate)
+                            wrapMode: Text.WordWrap
+                            elide: Text.ElideRight
+                            maximumLineCount: 1
                         }
 
                     }
