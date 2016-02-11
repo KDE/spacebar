@@ -24,37 +24,58 @@ import org.kde.plasma.core 2.0 as PlasmaCore
 import org.kde.plasma.components 2.0 as PlasmaComponents
 import org.kde.plasma.mobilecomponents 0.2 as MobileComponents
 import org.kde.plasma.extras 2.0 as PlasmaExtras
-import org.kde.plasma.private.spacebar 1.0
+import org.kde.telepathy 0.1 as KTp
 
-ColumnLayout {
-    id: rootLayout
+MobileComponents.Page {
     anchors.fill: parent
 
-    ListView {
-        Layout.fillHeight: true
-        Layout.fillWidth: true
+//     MobileComponents.RefreshableScrollView {
+        ColumnLayout {
+            id: rootLayout
+            anchors.fill: parent
 
-        model: MainLogModel {
-        }
+            ListView {
+                Layout.fillHeight: true
+                Layout.fillWidth: true
 
-        delegate: PlasmaComponents.ListItem {
+                model: KTp.MainLogModel {
+                    id: mainModel
 
-            onClicked: {
-                root.pageStack.push(root.conversationPageComponent);
+                    Component.onCompleted: {
+                        mainModel.setAccountManager(telepathyManager.accountManager);
+                    }
+                }
+
+                delegate: PlasmaComponents.ListItem {
+                    enabled: true
+
+                    onClicked: {
+                        root.pageStack.pop();
+                        root.pageStack.push(conversationPageComponent);
+                        mainModel.startChat(accountId, contactId);
+                        root.pageStack.currentPage.conversation = model.conversation;
+                    }
+
+                    ColumnLayout {
+                        Layout.fillWidth: true
+
+                        PlasmaExtras.Heading {
+                            wrapMode: Text.WordWrap
+                            text: model.contactId
+                            level: 4
+                        }
+                        PlasmaComponents.Label {
+                            wrapMode: Text.WordWrap
+                            text: model.lastMessageText
+                        }
+                        PlasmaComponents.Label {
+                            wrapMode: Text.WordWrap
+                            text: Qt.formatDateTime(model.lastMessageDate)
+                        }
+
+                    }
+                }
             }
-
-            ColumnLayout {
-                PlasmaComponents.Label {
-                    text: model.lastMessageDate
-                }
-                PlasmaComponents.Label {
-                    text: model.contactIdRole
-                }
-
-                PlasmaComponents.Label {
-                    text: model.lastMessageText
-                }
-            }
         }
-    }
+//     }
 }
