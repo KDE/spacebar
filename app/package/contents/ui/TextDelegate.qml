@@ -65,12 +65,12 @@ Item {
             anchors {
                 left: isIncoming ? parent.left : undefined
                 right: isIncoming ? undefined : parent.right
-                bottom: parent.bottom
+                top: parent.top
             }
             color: parent.color
             width: units.gridUnit
             height: units.gridUnit
-            visible: isBottomPart || isSinglePart
+            visible: isTopPart || isSinglePart
         }
 
         TextEdit {
