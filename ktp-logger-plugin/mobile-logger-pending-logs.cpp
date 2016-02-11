@@ -61,7 +61,7 @@ MobileLoggerPendingLogs::MobileLoggerPendingLogs(const Tp::AccountPtr &account, 
     while (query.next()) {
         if (query.value(1).toBool()) {
             if (!targetContact.isValid()) {
-                targetContact = KTp::LogEntity(Tp::HandleTypeContact, query.value(4).toString(), QString());
+                targetContact = KTp::LogEntity(Tp::HandleTypeContact, query.value(4).toString(), query.value(4).toString());
             }
             messages << KTp::LogMessage(targetContact, account, QDateTime::fromString(query.value(2).toString(), Qt::ISODate),
                                         query.value(0).toString(), query.value(3).toString());
