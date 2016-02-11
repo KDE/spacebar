@@ -55,7 +55,7 @@ MobileLoggerPendingLogs::MobileLoggerPendingLogs(const Tp::AccountPtr &account, 
 
 
     QList<KTp::LogMessage> messages;
-    KTp::LogEntity me = KTp::LogEntity(Tp::HandleTypeContact, QStringLiteral("me"), QStringLiteral("me"));
+    KTp::LogEntity me = KTp::LogEntity(Tp::HandleTypeContact, account->normalizedName(), QStringLiteral("me"));
     KTp::LogEntity targetContact;
 
     while (query.next()) {
