@@ -24,33 +24,132 @@ import org.kde.plasma.core 2.0 as PlasmaCore
 import org.kde.plasma.components 2.0 as PlasmaComponents
 import org.kde.plasma.mobilecomponents 0.2 as MobileComponents
 import org.kde.plasma.extras 2.0 as PlasmaExtras
-import org.kde.plasma.private.spacebar 1.0
+// import org.kde.plasma.private.spacebar 1.0
+import org.kde.telepathy 0.1
 
-ColumnLayout {
-    Rectangle {
-        Layout.fillWidth: true
+MobileComponents.Page {
+    anchors.fill: parent
 
-        height: 100
+    property Conversation conversation
 
-        color: "green"
-        opacity: 0.1
+    Loader {
+        anchors.fill: parent
+        active: conversation !== null && conversation.valid
+        sourceComponent: conversationComponent
     }
 
-    Rectangle {
-        Layout.fillHeight: true
-        Layout.fillWidth: true
+    Component {
+        id: conversationComponent
 
-        color: "blue"
-        opacity: 0.1
-    }
+        ColumnLayout {
+            anchors.fill: parent
 
-    RowLayout {
-        PlasmaComponents.TextField {
-            Layout.fillWidth: true
-        }
+            RowLayout {
+                Layout.fillWidth: true
 
-        PlasmaComponents.Button {
-            text: i18nc("Button label; Send message", "Send")
+                PlasmaCore.IconItem {
+                    source: conversation.presenceIcon
+                }
+
+                PlasmaComponents.Label {
+                    Layout.fillWidth: true
+                    text: conversation.title
+
+                }
+            }
+
+            Rectangle {
+                Layout.fillWidth: true
+
+                height: 1
+                color: "#888888" //FIXME use theme color
+                opacity: 0.4
+            }
+
+            ListView {
+                id: view
+                property bool followConversation: true
+
+                Layout.fillWidth: true
+                Layout.fillHeight: true
+
+                boundsBehavior: Flickable.StopAtBounds
+
+                section.property: "senderAlias"
+                section.delegate: PlasmaComponents.Label {
+                    text: section
+                    font.bold: true
+                    anchors.right: parent.right
+                }
+                clip: true
+
+                add: Transition {
+                    id: addTrans
+                    NumberAnimation {
+                        properties: "x"
+                        //FIXME: this doesn't seem to do what it should
+                        from: addTrans.ViewTransition.item.isIncoming ? -100 : 100
+                        duration: 60
+
+                    }
+                    PropertyAnimation {
+                        properties: "opacity"
+                        from: 0.0
+                        to: 1.0
+                        duration: 60
+                    }
+                }
+
+                //we need this so that scrolling down to the last element works properly
+                //this means that all the list is in memory
+                cacheBuffer: Math.max(0, contentHeight)
+
+                delegate: Loader {
+                    Component.onCompleted: {
+                        switch (model.type) {
+                            case MessagesModel.MessageTypeOutgoing:
+                            case MessagesModel.MessageTypeIncoming:
+                                source = "TextDelegate.qml"
+                                break;
+                            case MessagesModel.MessageTypeAction:
+                                source = "ActionDelegate.qml";
+                                break;
+                        }
+                    }
+                }
+
+                model: conversation.messages // : undefined
+                onMovementEnded: followConversation = atYEnd //we only follow the conversation if moved to the end
+
+                onContentHeightChanged: {
+                    if (followConversation && contentHeight > height) {
+                        view.positionViewAtEnd()
+                    }
+                }
+
+                Component.onCompleted: {
+                    conversation.messages.visibleToUser = true;
+                }
+            }
+
+            RowLayout {
+                PlasmaComponents.TextField {
+                    Layout.fillWidth: true
+
+                    Keys.onReturnPressed: {
+                        view.model.sendNewMessage(text);
+                        text = "";
+                    }
+                }
+
+                PlasmaComponents.Button {
+                    text: i18nc("Button label; Send message", "Send")
+                }
+            }
+
+            Item {
+                height: 100
+            }
         }
     }
 }
