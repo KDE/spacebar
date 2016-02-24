@@ -43,7 +43,12 @@ MobileComponents.Page {
                     id: mainModel
 
                     Component.onCompleted: {
+                        telepathyManager.registerClient(mainModel, "SpaceBar");
                         mainModel.setAccountManager(telepathyManager.accountManager);
+                    }
+
+                    Component.onDestruction: {
+                        telepathyManager.unregisterClient(mainModel);
                     }
                 }
 

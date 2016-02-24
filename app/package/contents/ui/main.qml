@@ -156,4 +156,8 @@ MobileComponents.ApplicationWindow {
         ConversationPage {}
     }
 
+    Component.onCompleted: {
+        telepathyManager.addTextChatFeatures();
+        telepathyManager.becomeReady();
+    }
 }
