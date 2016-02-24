@@ -1,13 +1,10 @@
 
-
 set(spacebar_SRCS
     main.cpp
 )
 
 add_executable(spacebar ${spacebar_SRCS})
 target_compile_definitions(spacebar PRIVATE -DPROJECT_VERSION="${PROJECT_VERSION}")
-
-#find_package(ActiveApp REQUIRED)
 
 target_link_libraries(spacebar
  Qt5::Gui
@@ -23,5 +20,11 @@ target_link_libraries(spacebar
 #  ${TELEPATHY_QT5_LIBRARIES}
 )
 
-# install(TARGETS spacebar ${INSTALL_TARGETS_DEFAULT_ARGS})
-# install(FILES plasma_dialer.notifyrc DESTINATION ${KDE_INSTALL_KNOTIFY5RCDIR})
+install(TARGETS spacebar ${INSTALL_TARGETS_DEFAULT_ARGS})
+
+configure_file(org.freedesktop.Telepathy.Client.SpaceBar.service.in
+               ${CMAKE_CURRENT_BINARY_DIR}/org.freedesktop.Telepathy.Client.SpaceBar.service)
+
+install(FILES ${CMAKE_CURRENT_BINARY_DIR}/org.freedesktop.Telepathy.Client.SpaceBar.service
+        DESTINATION ${DBUS_SERVICES_INSTALL_DIR})
+install(FILES SpaceBar.client DESTINATION ${SHARE_INSTALL_PREFIX}/telepathy/clients/)
