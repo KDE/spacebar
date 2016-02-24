@@ -83,7 +83,7 @@ int main(int argc, char *argv[])
                                                                              channelFactory,
                                                                              m_accountManager->contactFactory());
 
-        qDebug() << oa->clientRegistrar->registerClient(Tp::AbstractClientPtr::dynamicCast(oa->channelWatcherObserver), QLatin1String("KDE.Mobile.Logger"));
+        oa->clientRegistrar->registerClient(Tp::AbstractClientPtr::dynamicCast(oa->channelWatcherObserver), QLatin1String("KTp.Mobile.Logger"));
     });
 
     return app.exec();
