@@ -32,7 +32,7 @@ MobileComponents.ApplicationWindow {
 
     actionButton.onClicked: {
         pageStack.pop(pageStack.initialPage);
-        pageStack.push(conversationPageComponent);
+        pageStack.push(newConversationPageComponent);
         print("Action button clicked")
     }
     actionButton.iconSource: "document-edit"
@@ -154,6 +154,12 @@ MobileComponents.ApplicationWindow {
         id: conversationPageComponent
 
         ConversationPage {}
+    }
+
+    Component {
+        id: newConversationPageComponent
+
+        NewConversationPage {}
     }
 
     Component.onCompleted: {
