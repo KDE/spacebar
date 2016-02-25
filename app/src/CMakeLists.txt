@@ -3,10 +3,10 @@ set(spacebar_SRCS
     main.cpp
 )
 
-add_executable(spacebar ${spacebar_SRCS})
-target_compile_definitions(spacebar PRIVATE -DPROJECT_VERSION="${PROJECT_VERSION}")
+add_executable(org.kde.spacebar ${spacebar_SRCS})
+target_compile_definitions(org.kde.spacebar PRIVATE -DPROJECT_VERSION="${PROJECT_VERSION}")
 
-target_link_libraries(spacebar
+target_link_libraries(org.kde.spacebar
  Qt5::Gui
  Qt5::Quick
 #  Qt5::Widgets
@@ -20,7 +20,7 @@ target_link_libraries(spacebar
 #  ${TELEPATHY_QT5_LIBRARIES}
 )
 
-install(TARGETS spacebar ${INSTALL_TARGETS_DEFAULT_ARGS})
+install(TARGETS org.kde.spacebar ${INSTALL_TARGETS_DEFAULT_ARGS})
 
 configure_file(org.freedesktop.Telepathy.Client.SpaceBar.service.in
                ${CMAKE_CURRENT_BINARY_DIR}/org.freedesktop.Telepathy.Client.SpaceBar.service)
