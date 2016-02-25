@@ -158,6 +158,8 @@ void KTp::TextChannelObserver::observeChannels(const Tp::MethodInvocationContext
             d->currentChannels[targetContact] = watcher;
         }
     }
+
+    context->setFinished();
 }
 
 void KTp::TextChannelObserver::onChannelInvalidated()
