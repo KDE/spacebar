@@ -21,6 +21,7 @@ include(KDECMakeSettings)
 include(KDECompilerSettings)
 include(ECMSetupVersion)
 include(FeatureSummary)
+include(ECMInstallIcons)
 
 # set_package_properties(KF5People PROPERTIES DESCRIPTION "KDE Contacts aggregation"
 #                        TYPE OPTIONAL
