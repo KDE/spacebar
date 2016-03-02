@@ -55,6 +55,10 @@ ChannelWatcher::ChannelWatcher(const Tp::TextChannelPtr &channel, const QString 
 
     storeContactInfo();
     storeAccountInfo();
+
+    Q_FOREACH (const Tp::ReceivedMessage &message, channel->messageQueue()) {
+        onMessageReceived(message);
+    }
 }
 
 ChannelWatcher::~ChannelWatcher()
