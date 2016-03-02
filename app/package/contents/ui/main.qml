@@ -30,12 +30,7 @@ MobileComponents.ApplicationWindow {
     width: 800
     height: 1080
 
-    actionButton.onClicked: {
-        pageStack.pop(pageStack.initialPage);
-        pageStack.push(newConversationPageComponent);
-        print("Action button clicked")
-    }
-    actionButton.iconSource: "document-edit"
+    property string requestedChannel
 
     globalDrawer: MobileComponents.GlobalDrawer {
         title: "SpaceBar"
