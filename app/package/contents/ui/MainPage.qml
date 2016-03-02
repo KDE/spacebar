@@ -29,6 +29,17 @@ import org.kde.telepathy 0.1 as KTp
 MobileComponents.Page {
     anchors.fill: parent
 
+    mainAction: Action {
+        text: "Start New Conversation"
+        iconName: "document-edit"
+
+        onTriggered: {
+//             pageStack.pop(pageStack.initialPage);
+            root.pageStack.push(newConversationPageComponent);
+            print("Action button clicked")
+        }
+    }
+
 //     MobileComponents.RefreshableScrollView {
         ColumnLayout {
             id: rootLayout
