@@ -146,10 +146,6 @@ MobileComponents.Page {
                     text: i18nc("Button label; Send message", "Send")
                 }
             }
-
-            Item {
-                height: 100
-            }
         }
     }
 }
