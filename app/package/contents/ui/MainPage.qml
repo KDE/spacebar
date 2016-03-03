@@ -73,7 +73,6 @@ MobileComponents.Page {
                     enabled: true
 
                     onClicked: {
-                        root.pageStack.pop();
                         root.pageStack.push(conversationPageComponent);
                         mainModel.startChat(accountId, contactId);
                         root.pageStack.currentPage.conversation = model.conversation;
