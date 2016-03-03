@@ -134,6 +134,7 @@ MobileComponents.Page {
 
             RowLayout {
                 PlasmaComponents.TextField {
+                    id: messageTextField
                     Layout.fillWidth: true
 
                     Keys.onReturnPressed: {
@@ -144,6 +145,10 @@ MobileComponents.Page {
 
                 PlasmaComponents.Button {
                     text: i18nc("Button label; Send message", "Send")
+
+                    onClicked: {
+                        view.model.sendNewMessage(messageTextField.text)
+                    }
                 }
             }
         }
