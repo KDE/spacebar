@@ -50,16 +50,22 @@ MobileComponents.Page {
                 Layout.fillWidth: true
                 clip: true
 
-                model: KTp.MainLogModel {
-                    id: mainModel
+                model: PlasmaCore.SortFilterModel {
+                    id: plasmaSortFilterModel
+                    sortRole: "lastMessageDate"
+                    sortOrder: Qt.DescendingOrder
+                    sourceModel: KTp.MainLogModel {
+                        id: mainModel
 
-                    Component.onCompleted: {
-                        telepathyManager.registerClient(mainModel, "SpaceBar");
-                        mainModel.setAccountManager(telepathyManager.accountManager);
-                    }
 
-                    Component.onDestruction: {
-                        telepathyManager.unregisterClient(mainModel);
+                        Component.onCompleted: {
+                            telepathyManager.registerClient(mainModel, "SpaceBar");
+                            mainModel.setAccountManager(telepathyManager.accountManager);
+                        }
+
+                        Component.onDestruction: {
+                            telepathyManager.unregisterClient(mainModel);
+                        }
                     }
                 }
 
