@@ -79,6 +79,13 @@ MobileComponents.Page {
                         root.pageStack.currentPage.conversation = model.conversation;
                     }
 
+                    Rectangle {
+                        anchors.fill: parent
+                        color: "white"
+                        opacity: 0.8
+                        visible: model.hasUnreadMessages
+                    }
+
                     ColumnLayout {
                         width: parent.width
 
