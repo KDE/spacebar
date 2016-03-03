@@ -62,6 +62,7 @@ MobileComponents.Page {
             contentItem: ContactList {
                 id: contactListView
                 requiredProperties: ["phoneNumber", "telepathy-contactUri"]
+                executeDefaultAction: true
                 filterRegExp: toInputField.text
                 sourceModel: KPeopleHelper {
                     id: contactsModel
