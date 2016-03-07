@@ -32,39 +32,45 @@ MobileComponents.Page {
 
     property Conversation conversation
 
-    Loader {
+    ColumnLayout {
         anchors.fill: parent
-        active: conversation !== null && conversation.valid
-        sourceComponent: conversationComponent
-    }
 
-    Component {
-        id: conversationComponent
+        RowLayout {
+            Layout.fillWidth: true
+            Layout.alignment: Qt.AlignVCenter
 
-        ColumnLayout {
-            anchors.fill: parent
-
-            RowLayout {
-                Layout.fillWidth: true
-
-                PlasmaCore.IconItem {
-                    source: conversation.presenceIcon
-                }
-
-                PlasmaComponents.Label {
-                    Layout.fillWidth: true
-                    text: conversation.title
-
-                }
+            PlasmaCore.IconItem {
+                source: conversation.presenceIcon
             }
 
-            Rectangle {
+            PlasmaComponents.Label {
                 Layout.fillWidth: true
+                text: conversation.title
 
-                height: 1
-                color: "#888888" //FIXME use theme color
-                opacity: 0.4
             }
+
+            PlasmaComponents.Button {
+                text: i18nc("Close an active conversation", "Close")
+
+                onClicked: root.pageStack.pop();
+            }
+        }
+
+        Rectangle {
+            Layout.fillWidth: true
+
+            height: 1
+            color: "#888888" //FIXME use theme color
+            opacity: 0.4
+        }
+
+//             Flickable {
+//                 id: conversationFlickable
+//                 onAtYBeginningChanged: {
+//                     if (conversationFlickable.atYBeginning) {
+//
+//                     }
+//                 }
 
             ListView {
                 id: view
@@ -77,9 +83,13 @@ MobileComponents.Page {
 
                 section.property: "senderAlias"
                 section.delegate: PlasmaComponents.Label {
+                    anchors.right: parent.right
+                    anchors.left: parent.left
+                    height: paintedHeight * 1.5
+                    horizontalAlignment: section === conversation.title ? Text.AlignLeft : Text.AlignRight
+                    verticalAlignment: Text.AlignBottom
                     text: section
                     font.bold: true
-                    anchors.right: parent.right
                 }
                 clip: true
 
@@ -127,28 +137,36 @@ MobileComponents.Page {
                     }
                 }
 
+                onAtYBeginningChanged: {
+                    if (atYBeginning) {
+                        model.fetchMoreHistory();
+                    }
+                }
+
                 Component.onCompleted: {
                     conversation.messages.visibleToUser = true;
                 }
+//                 }
+        }
+
+        RowLayout {
+            enabled: conversation !== null && conversation.valid
+
+            PlasmaComponents.TextField {
+                id: messageTextField
+                Layout.fillWidth: true
+
+                Keys.onReturnPressed: {
+                    view.model.sendNewMessage(text);
+                    text = "";
+                }
             }
 
-            RowLayout {
-                PlasmaComponents.TextField {
-                    id: messageTextField
-                    Layout.fillWidth: true
+            PlasmaComponents.Button {
+                text: i18nc("Button label; Send message", "Send")
 
-                    Keys.onReturnPressed: {
-                        view.model.sendNewMessage(text);
-                        text = "";
-                    }
-                }
-
-                PlasmaComponents.Button {
-                    text: i18nc("Button label; Send message", "Send")
-
-                    onClicked: {
-                        view.model.sendNewMessage(messageTextField.text)
-                    }
+                onClicked: {
+                    view.model.sendNewMessage(messageTextField.text)
                 }
             }
         }
