@@ -74,8 +74,8 @@ MobileComponents.Page {
 
                     onClicked: {
                         root.pageStack.push(conversationPageComponent);
-                        mainModel.startChat(accountId, contactId);
                         root.pageStack.currentPage.conversation = model.conversation;
+                        mainModel.startChat(accountId, contactId);
                     }
 
                     Rectangle {
