@@ -150,7 +150,6 @@ MobileComponents.Page {
         }
 
         RowLayout {
-            enabled: conversation !== null && conversation.valid
 
             PlasmaComponents.TextField {
                 id: messageTextField
@@ -163,7 +162,10 @@ MobileComponents.Page {
             }
 
             PlasmaComponents.Button {
-                text: i18nc("Button label; Send message", "Send")
+                enabled: conversation !== null
+                text: conversation.account !== null && conversation.account.online ?
+                                  i18nc("Button label; Send message", "Send")
+                                : i18nc("Button label; Connect first and then send message", "Connect and Send")
 
                 onClicked: {
                     view.model.sendNewMessage(messageTextField.text)
