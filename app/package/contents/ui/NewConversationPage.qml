@@ -67,6 +67,10 @@ MobileComponents.Page {
                 sourceModel: KPeopleHelper {
                     id: contactsModel
                 }
+
+                onContactClicked: {
+                    root.requestedChannel = personUri;
+                }
             }
         }
     }

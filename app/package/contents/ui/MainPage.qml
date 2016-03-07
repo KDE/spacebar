@@ -57,6 +57,14 @@ MobileComponents.Page {
                     sourceModel: KTp.MainLogModel {
                         id: mainModel
 
+                        onRowsInserted: {
+                            if (mainModel.data(first, "personUri") == root.requestedChannel) {
+                                root.requestedChannel = "";
+                                root.pageStack.pop();
+                                root.pageStack.push(conversationPageComponent);
+                                root.pageStack.currentPage.conversation = mainModel.data(first, "conversation");
+                            }
+                        }
 
                         Component.onCompleted: {
                             telepathyManager.registerClient(mainModel, "SpaceBar");
