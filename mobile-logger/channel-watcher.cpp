@@ -32,6 +32,7 @@
 #include <QSqlQuery>
 #include <QSqlError>
 #include <QSqlRecord>
+#include <QCryptographicHash>
 
 ChannelWatcher::ChannelWatcher(const Tp::TextChannelPtr &channel, const QString &accountObjectPath, QObject *parent)
     : QObject(parent),
@@ -144,6 +145,11 @@ void ChannelWatcher::onMessageReceived(const Tp::ReceivedMessage &message)
         msg.isDelivered = true;
         msg.type = 1;
 
+        if (msg.messageToken.isEmpty()) {
+            msg.messageToken = QCryptographicHash::hash(QString(msg.messageDateTime.toString() + msg.message).toUtf8(),
+                                                        QCryptographicHash::Md5);
+        }
+
         storeMessage(msg);
     } else {
         qDebug() << "Received a delivery report for message" << message.deliveryDetails().originalToken();
@@ -180,6 +186,11 @@ void ChannelWatcher::onMessageSent(const Tp::Message &message)
     msg.isIncoming = false;
     msg.isDelivered = false;
     msg.type = 1;
+
+    if (msg.messageToken.isEmpty()) {
+        msg.messageToken = QCryptographicHash::hash(QString(msg.messageDateTime.toString() + msg.message).toUtf8(),
+                                                    QCryptographicHash::Md5);
+    }
 
     storeMessage(msg);
 }
