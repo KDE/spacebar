@@ -32,143 +32,153 @@ MobileComponents.Page {
 
     property Conversation conversation
 
-    ColumnLayout {
+    Loader {
         anchors.fill: parent
+        active: conversation !== null
+        sourceComponent: conversationComponent
+    }
 
-        RowLayout {
-            Layout.fillWidth: true
-            Layout.alignment: Qt.AlignVCenter
+    Component {
+        id: conversationComponent
 
-            PlasmaCore.IconItem {
-                source: conversation.presenceIcon
-            }
+        ColumnLayout {
+            anchors.fill: parent
 
-            PlasmaComponents.Label {
+            RowLayout {
                 Layout.fillWidth: true
-                text: conversation.title
+                Layout.alignment: Qt.AlignVCenter
 
-            }
-
-            PlasmaComponents.Button {
-                text: i18nc("Close an active conversation", "Close")
-
-                onClicked: root.pageStack.pop();
-            }
-        }
-
-        Rectangle {
-            Layout.fillWidth: true
-
-            height: 1
-            color: "#888888" //FIXME use theme color
-            opacity: 0.4
-        }
-
-//             Flickable {
-//                 id: conversationFlickable
-//                 onAtYBeginningChanged: {
-//                     if (conversationFlickable.atYBeginning) {
-//
-//                     }
-//                 }
-
-            ListView {
-                id: view
-                property bool followConversation: true
-
-                Layout.fillWidth: true
-                Layout.fillHeight: true
-
-                boundsBehavior: Flickable.StopAtBounds
-
-                section.property: "senderAlias"
-                section.delegate: PlasmaComponents.Label {
-                    anchors.right: parent.right
-                    anchors.left: parent.left
-                    height: paintedHeight * 1.5
-                    horizontalAlignment: section === conversation.title ? Text.AlignLeft : Text.AlignRight
-                    verticalAlignment: Text.AlignBottom
-                    text: section
-                    font.bold: true
-                }
-                clip: true
-
-                add: Transition {
-                    id: addTrans
-                    NumberAnimation {
-                        properties: "x"
-                        //FIXME: this doesn't seem to do what it should
-                        from: addTrans.ViewTransition.item.isIncoming ? -100 : 100
-                        duration: 60
-
-                    }
-                    PropertyAnimation {
-                        properties: "opacity"
-                        from: 0.0
-                        to: 1.0
-                        duration: 60
-                    }
+                PlasmaCore.IconItem {
+                    source: conversation.presenceIcon
                 }
 
-                //we need this so that scrolling down to the last element works properly
-                //this means that all the list is in memory
-                cacheBuffer: Math.max(0, contentHeight)
+                PlasmaComponents.Label {
+                    Layout.fillWidth: true
+                    text: conversation.title
 
-                delegate: Loader {
-                    Component.onCompleted: {
-                        switch (model.type) {
-                            case MessagesModel.MessageTypeOutgoing:
-                            case MessagesModel.MessageTypeIncoming:
-                                source = "TextDelegate.qml"
-                                break;
-                            case MessagesModel.MessageTypeAction:
-                                source = "ActionDelegate.qml";
-                                break;
+                }
+
+                PlasmaComponents.Button {
+                    text: i18nc("Close an active conversation", "Close")
+
+                    onClicked: root.pageStack.pop();
+                }
+            }
+
+            Rectangle {
+                Layout.fillWidth: true
+
+                height: 1
+                color: "#888888" //FIXME use theme color
+                opacity: 0.4
+            }
+
+    //             Flickable {
+    //                 id: conversationFlickable
+    //                 onAtYBeginningChanged: {
+    //                     if (conversationFlickable.atYBeginning) {
+    //
+    //                     }
+    //                 }
+
+                ListView {
+                    id: view
+                    property bool followConversation: true
+
+                    Layout.fillWidth: true
+                    Layout.fillHeight: true
+
+                    boundsBehavior: Flickable.StopAtBounds
+
+                    section.property: "senderAlias"
+                    section.delegate: PlasmaComponents.Label {
+                        anchors.right: parent.right
+                        anchors.left: parent.left
+                        height: paintedHeight * 1.5
+                        horizontalAlignment: section === conversation.title ? Text.AlignLeft : Text.AlignRight
+                        verticalAlignment: Text.AlignBottom
+                        text: section
+                        font.bold: true
+                    }
+                    clip: true
+
+                    add: Transition {
+                        id: addTrans
+                        NumberAnimation {
+                            properties: "x"
+                            //FIXME: this doesn't seem to do what it should
+                            from: addTrans.ViewTransition.item.isIncoming ? -100 : 100
+                            duration: 60
+
+                        }
+                        PropertyAnimation {
+                            properties: "opacity"
+                            from: 0.0
+                            to: 1.0
+                            duration: 60
                         }
                     }
-                }
 
-                model: conversation.messages // : undefined
-                onMovementEnded: followConversation = atYEnd //we only follow the conversation if moved to the end
+                    //we need this so that scrolling down to the last element works properly
+                    //this means that all the list is in memory
+                    cacheBuffer: Math.max(0, contentHeight)
 
-                onContentHeightChanged: {
-                    if (followConversation && contentHeight > height) {
-                        view.positionViewAtEnd()
+                    delegate: Loader {
+                        Component.onCompleted: {
+                            switch (model.type) {
+                                case MessagesModel.MessageTypeOutgoing:
+                                case MessagesModel.MessageTypeIncoming:
+                                    source = "TextDelegate.qml"
+                                    break;
+                                case MessagesModel.MessageTypeAction:
+                                    source = "ActionDelegate.qml";
+                                    break;
+                            }
+                        }
                     }
-                }
 
-                onAtYBeginningChanged: {
-                    if (atYBeginning) {
-                        model.fetchMoreHistory();
+                    model: conversation.messages // : undefined
+                    onMovementEnded: followConversation = atYEnd //we only follow the conversation if moved to the end
+
+                    onContentHeightChanged: {
+                        if (followConversation && contentHeight > height) {
+                            view.positionViewAtEnd()
+                        }
                     }
-                }
 
-                Component.onCompleted: {
-                    conversation.messages.visibleToUser = true;
-                }
-//                 }
-        }
+                    onAtYBeginningChanged: {
+                        if (atYBeginning) {
+                            model.fetchMoreHistory();
+                        }
+                    }
 
-        RowLayout {
-
-            PlasmaComponents.TextField {
-                id: messageTextField
-                Layout.fillWidth: true
-
-                Keys.onReturnPressed: {
-                    view.model.sendNewMessage(text);
-                    text = "";
-                }
+                    Component.onCompleted: {
+                        conversation.messages.visibleToUser = true;
+                    }
+    //                 }
             }
 
-            PlasmaComponents.Button {
-                enabled: conversation !== null
-                text: conversation.account !== null && conversation.account.online ?
-                                  i18nc("Button label; Send message", "Send")
-                                : i18nc("Button label; Connect first and then send message", "Connect and Send")
+            RowLayout {
 
-                onClicked: {
-                    view.model.sendNewMessage(messageTextField.text)
+                PlasmaComponents.TextField {
+                    id: messageTextField
+                    Layout.fillWidth: true
+
+                    Keys.onReturnPressed: {
+                        view.model.sendNewMessage(text);
+                        text = "";
+                    }
+                }
+
+                PlasmaComponents.Button {
+                    enabled: conversation !== null
+                    text: conversation.account !== null && conversation.account.online ?
+                                    i18nc("Button label; Send message", "Send")
+                                    : i18nc("Button label; Connect first and then send message", "Connect and Send")
+
+                    onClicked: {
+                        view.model.sendNewMessage(messageTextField.text)
+                    }
                 }
             }
         }
