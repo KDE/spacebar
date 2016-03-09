@@ -67,7 +67,7 @@ KTp::TextChannelObserver::TextChannelObserver(QObject *parent)
                                                   "accountId INTEGER, "
                                                   "targetContactId INTEGER, "
                                                   "message TEXT, "
-                                                  "messageToken VARCHAR(192), "
+                                                  "messageToken VARCHAR(192) UNIQUE, "
                                                   "isIncoming BOOLEAN, "
                                                   "isDelivered BOOLEAN, "
                                                   "type SMALLINT "
