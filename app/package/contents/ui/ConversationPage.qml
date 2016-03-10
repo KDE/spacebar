@@ -62,7 +62,11 @@ MobileComponents.Page {
                 PlasmaComponents.Button {
                     text: i18nc("Close an active conversation", "Close")
 
-                    onClicked: root.pageStack.pop();
+                    onClicked: {
+                        conversation.messages.visibleToUser = false;
+                        conversation.requestClose();
+                        root.pageStack.pop();
+                    }
                 }
             }
 
