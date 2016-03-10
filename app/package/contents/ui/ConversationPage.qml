@@ -31,6 +31,7 @@ MobileComponents.Page {
     anchors.fill: parent
 
     property Conversation conversation
+    property string pageName: "conversationPage"
 
     Loader {
         anchors.fill: parent

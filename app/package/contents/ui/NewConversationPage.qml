@@ -31,6 +31,7 @@ import org.kde.telepathy 0.1
 
 MobileComponents.Page {
     anchors.fill: parent
+    property string pageName: "newConversationPage"
 
     GridLayout {
         anchors.fill: parent

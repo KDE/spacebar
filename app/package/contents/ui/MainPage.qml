@@ -57,12 +57,11 @@ MobileComponents.Page {
                     sourceModel: KTp.MainLogModel {
                         id: mainModel
 
-                        onRowsInserted: {
-                            if (mainModel.data(first, "personUri") == root.requestedChannel) {
-                                root.requestedChannel = "";
+                        onNewRequestedChannel: {
+                            if (root.pageStack.currentPage.pageName === "newConversationPage") {
                                 root.pageStack.pop();
                                 root.pageStack.push(conversationPageComponent);
-                                root.pageStack.currentPage.conversation = mainModel.data(first, "conversation");
+                                root.pageStack.currentPage.conversation = mainModel.data(index.row, "conversation");
                             }
                         }
 
