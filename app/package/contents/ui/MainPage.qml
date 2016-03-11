@@ -100,7 +100,7 @@ MobileComponents.Page {
                         PlasmaExtras.Heading {
                             Layout.fillWidth: true
 
-                            text: model.contactId
+                            text: model.contactDisplayName === "" ? model.contactId : model.contactDisplayName
                             wrapMode: Text.WordWrap
                             elide: Text.ElideRight
                             maximumLineCount: 1
