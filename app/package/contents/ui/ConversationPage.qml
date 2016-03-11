@@ -183,6 +183,7 @@ MobileComponents.Page {
 
                     onClicked: {
                         view.model.sendNewMessage(messageTextField.text)
+                        messageTextField.text = "";
                     }
                 }
             }
