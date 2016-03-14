@@ -29,6 +29,8 @@
 #include <KTp/contact.h>
 #include <KTp/message.h>
 
+#include <KPeople/PersonData>
+
 #include <QSqlQuery>
 #include <QSqlError>
 #include <QSqlRecord>
@@ -69,8 +71,12 @@ ChannelWatcher::~ChannelWatcher()
 void ChannelWatcher::storeContactInfo()
 {
     QSqlQuery insertContactIdQuery;
-    insertContactIdQuery.prepare(QStringLiteral("INSERT INTO contactData VALUES (NULL, :contactId);"));
+    insertContactIdQuery.prepare(QStringLiteral("INSERT INTO contactData VALUES (NULL, :contactId, :displayName);"));
     insertContactIdQuery.bindValue(QStringLiteral(":contactId"), m_channel->targetContact()->id());
+
+    const KPeople::PersonData person(QStringLiteral("ktp://") + m_accountObjectPath.mid(35) + QStringLiteral("?") + m_channel->targetContact()->id());
+
+    insertContactIdQuery.bindValue(QStringLiteral(":displayName"), person.name());
 
     if (!m_db.transaction()) {
         qWarning() << "Cannot get a transaction lock for inserting contact data!";

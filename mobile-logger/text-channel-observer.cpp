@@ -80,7 +80,8 @@ KTp::TextChannelObserver::TextChannelObserver(QObject *parent)
 
                                                  "CREATE TABLE contactData ("
                                                   "id INTEGER PRIMARY KEY, "
-                                                  "targetContact VARCHAR(72) UNIQUE"
+                                                  "targetContact VARCHAR(72) UNIQUE, "
+                                                  "displayName VARCHAR(72)"
                                                  ");"
 
                                                  "CREATE TABLE control ("

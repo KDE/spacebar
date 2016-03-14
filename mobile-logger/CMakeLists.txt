@@ -8,6 +8,7 @@ add_executable(ktp-mobile-logger ${ktp-mobile-logger_SRCS})
 
 target_link_libraries(ktp-mobile-logger
             ${TELEPATHY_QT5_LIBRARIES}
+            KF5::People
             KTp::CommonInternals
             KTp::Logger
             Qt5::Core

@@ -6,11 +6,7 @@ find_package(ECM 1.3.0 REQUIRED NO_MODULE)
 set(CMAKE_MODULE_PATH ${ECM_MODULE_PATH} ${ECM_KDE_MODULE_DIR})
 
 
-find_package (KF5 REQUIRED COMPONENTS Package Declarative DBusAddons I18n Service)
-# Archive Sonnet WidgetsAddons Service Emoticons
-#                                       KIO KCMUtils NotifyConfig Notifications I18n
-#                                       WebKit WindowSystem XmlGui ItemViews TextWidgets
-#                                       IconThemes DBusAddons)
+find_package (KF5 REQUIRED COMPONENTS Package Declarative DBusAddons I18n Service People)
 find_package (Qt5 REQUIRED COMPONENTS Core Qml Quick Network Xml DBus Sql Gui)
 find_package (KTp REQUIRED)
 
