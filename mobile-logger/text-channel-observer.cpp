@@ -50,6 +50,8 @@ KTp::TextChannelObserver::TextChannelObserver(QObject *parent)
     : Tp::AbstractClientObserver(channelClasses(), true),
       d(new TextChannelObserver::Private)
 {
+    Q_UNUSED(parent);
+
     const QString dbLocation = QStandardPaths::writableLocation(QStandardPaths::AppDataLocation) + QLatin1Char('/');
     QDir dir;
     dir.mkpath(dbLocation);
