@@ -34,7 +34,7 @@ MobileLoggerPendingLogs::MobileLoggerPendingLogs(const Tp::AccountPtr &account, 
     : KTp::PendingLoggerLogs(account, entity, date, parent)
 {
     QSqlQuery query;
-    query.prepare(QStringLiteral("SELECT message, isIncoming, messageDateTime, messageToken, contactData.targetContact, accountData.accountObjectPath FROM data "
+    query.prepare(QStringLiteral("SELECT message, isIncoming, messageDateTime, messageToken, contactData.targetContact, accountData.accountObjectPath, contactData.displayName FROM data "
                                  "INNER JOIN contactData ON data.targetContactId = contactData.id "
                                  "INNER JOIN accountData ON data.accountId = accountData.id "
                                  "WHERE contactData.targetContact = :entityId "
@@ -61,7 +61,7 @@ MobileLoggerPendingLogs::MobileLoggerPendingLogs(const Tp::AccountPtr &account, 
     while (query.next()) {
         if (query.value(1).toBool()) {
             if (!targetContact.isValid()) {
-                targetContact = KTp::LogEntity(Tp::HandleTypeContact, query.value(4).toString(), query.value(4).toString());
+                targetContact = KTp::LogEntity(Tp::HandleTypeContact, query.value(4).toString(), query.value(6).toString());
             }
             messages << KTp::LogMessage(targetContact, account, QDateTime::fromString(query.value(2).toString(), Qt::ISODate),
                                         query.value(0).toString(), query.value(3).toString());

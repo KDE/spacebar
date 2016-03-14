@@ -34,7 +34,7 @@ MobileLoggerPendingEntities::MobileLoggerPendingEntities(const Tp::AccountPtr &a
     : KTp::PendingLoggerEntities(account, parent)
 {
     QSqlQuery query;
-    query.prepare(QStringLiteral("SELECT targetContact FROM contactData "
+    query.prepare(QStringLiteral("SELECT targetContact, displayName FROM contactData "
                                  "INNER JOIN data ON data.targetContactId = contactData.id "
                                  "INNER JOIN accountData ON data.accountId = accountData.id "
                                  "AND accountData.accountObjectPath = :accountObjectPath "
@@ -53,7 +53,8 @@ MobileLoggerPendingEntities::MobileLoggerPendingEntities(const Tp::AccountPtr &a
 
     while (query.next()) {
         const QString contactId = query.value(0).toString();
-        logEntities << KTp::LogEntity(Tp::HandleTypeContact, contactId, contactId);
+        const QString displayName = query.value(1).toString();
+        logEntities << KTp::LogEntity(Tp::HandleTypeContact, contactId, displayName);
     }
 
     appendEntities(logEntities);
