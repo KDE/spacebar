@@ -48,6 +48,7 @@ MobileComponents.Page {
             RowLayout {
                 Layout.fillWidth: true
                 Layout.alignment: Qt.AlignVCenter
+                Layout.topMargin: parent.spacing
 
                 PlasmaCore.IconItem {
                     source: conversation.presenceIcon
