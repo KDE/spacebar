@@ -30,7 +30,10 @@ import org.kde.telepathy 0.1
 MobileComponents.Page {
     anchors.fill: parent
 
-    property Conversation conversation
+    // This is somewhat a hack, the type should be Conversation
+    // but QML does not allow for uncreatable types to be property
+    // types, so needs to be QtObject instead
+    property QtObject conversation
     property string pageName: "conversationPage"
 
     Loader {
