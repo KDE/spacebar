@@ -40,7 +40,15 @@ MobileComponents.Page {
         }
     }
 
-//     MobileComponents.RefreshableScrollView {
+    Loader {
+        anchors.fill: parent
+        active: telepathyManager.ready
+        sourceComponent: mainModelComponent
+    }
+
+    Component {
+        id: mainModelComponent
+
         ColumnLayout {
             id: rootLayout
             anchors.fill: parent
@@ -95,6 +103,7 @@ MobileComponents.Page {
                     }
 
                     ColumnLayout {
+                        id: messageLayout
                         width: parent.width
 
                         PlasmaExtras.Heading {
@@ -127,5 +136,5 @@ MobileComponents.Page {
                 }
             }
         }
-//     }
+    }
 }
