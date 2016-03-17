@@ -167,6 +167,17 @@ MobileComponents.Page {
     //                 }
             }
 
+            PlasmaComponents.Label {
+                Layout.fillWidth: true
+                // FIXME the i18n seems wrong
+                text: conversation.isContactTyping ? i18n(conversation.title + " is typing...") : ""
+                height: text.length == 0 ? 0 : paintedHeight
+
+                Behavior on height {
+                    NumberAnimation {}
+                }
+            }
+
             RowLayout {
 
                 PlasmaComponents.TextField {
