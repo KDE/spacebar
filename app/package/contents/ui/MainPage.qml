@@ -66,10 +66,11 @@ MobileComponents.Page {
                         id: mainModel
 
                         onNewRequestedChannel: {
-                            if (root.pageStack.currentPage.pageName === "newConversationPage") {
+                            if (root.pageStack.currentPage.pageName === "newConversationPage" || openIncomingChannel) {
                                 root.pageStack.pop();
                                 root.pageStack.push(conversationPageComponent);
                                 root.pageStack.currentPage.conversation = mainModel.data(index.row, "conversation");
+                                openIncomingChannel = false;
                             }
                         }
 

@@ -44,6 +44,7 @@ int main(int argc, char** argv)
 
     QCommandLineParser parser;
     parser.addOption(QCommandLineOption("contact", i18n("Open with the conversation matching the contact id")));
+    parser.addOption(QCommandLineOption("openIncomingChannel", i18n("If defined, it will automatically open the first handed channel")));
     parser.addHelpOption();
     parser.process(app);
 
@@ -63,6 +64,8 @@ int main(int argc, char** argv)
     obj->setInitializationDelayed(true);
     obj->loadPackage(packagePath);
     obj->engine()->rootContext()->setContextProperty("commandlineArguments", parser.positionalArguments());
+
+    obj->engine()->rootContext()->setContextProperty("openIncomingChannel", parser.isSet("openIncomingChannel"));
 
     obj->completeInitialization();
 
