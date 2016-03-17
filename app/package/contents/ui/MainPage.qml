@@ -109,7 +109,15 @@ MobileComponents.Page {
                         PlasmaExtras.Heading {
                             Layout.fillWidth: true
 
-                            text: model.contactDisplayName === "" ? model.contactId : model.contactDisplayName
+                            text: {
+                                var t = model.contactDisplayName === "" ? model.contactId : model.contactDisplayName;
+                                if (model.hasUnreadMessages) {
+                                    t += " ";
+                                    t += i18nc("N unread messages", "(%1 unread)", model.unreadMessagesCount);
+                                }
+
+                                return t;
+                            }
                             wrapMode: Text.WordWrap
                             elide: Text.ElideRight
                             maximumLineCount: 1
