@@ -92,6 +92,8 @@ MobileComponents.Page {
                     onClicked: {
                         root.pageStack.push(conversationPageComponent);
                         root.pageStack.currentPage.conversation = model.conversation;
+
+                        // If the account is online, request a channel
                         if (mainModel.canChat(accountId)) {
                             mainModel.startChat(accountId, contactId);
                         }
