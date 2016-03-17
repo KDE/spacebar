@@ -75,6 +75,7 @@ MobileComponents.Page {
 
                         Component.onCompleted: {
                             telepathyManager.registerClient(mainModel, "SpaceBar");
+                            telepathyManager.registerClient(mainModel.observerProxy(), "SpaceBarObserverProxy");
                             mainModel.setAccountManager(telepathyManager.accountManager);
                         }
 
