@@ -21,20 +21,23 @@ import QtQuick 2.3
 import QtQuick.Controls 1.4
 import QtQuick.Layouts 1.1
 import org.kde.plasma.core 2.0 as PlasmaCore
-import org.kde.plasma.components 2.0 as PlasmaComponents
-import org.kde.plasma.mobilecomponents 0.2 as MobileComponents
+import org.kde.kirigami 1.0 as Kirigami
 import org.kde.plasma.extras 2.0 as PlasmaExtras
 import org.kde.telepathy 0.1 as KTp
 
-MobileComponents.Page {
+Kirigami.Page {
     anchors.fill: parent
 
-    mainAction: Action {
+    title: "Your Conversations"
+
+    mainAction: Kirigami.Action {
         text: "Start New Conversation"
         iconName: "document-edit"
 
         onTriggered: {
-//             pageStack.pop(pageStack.initialPage);
+            if (root.pageStack.depth == 2) {
+                root.pageStack.pop();
+            }
             root.pageStack.push(newConversationPageComponent);
             print("Action button clicked")
         }
@@ -86,12 +89,15 @@ MobileComponents.Page {
                     }
                 }
 
-                delegate: PlasmaComponents.ListItem {
-                    enabled: true
+                delegate: Kirigami.AbstractListItem {
+                    supportsMouseEvents: true
 
                     onClicked: {
+                        if (root.pageStack.depth == 2) {
+                            root.pageStack.pop();
+                        }
                         root.pageStack.push(conversationPageComponent);
-                        root.pageStack.currentPage.conversation = model.conversation;
+                        root.pageStack.currentItem.conversation = model.conversation;
 
                         // If the account is online, request a channel
                         if (mainModel.canChat(accountId)) {
@@ -127,7 +133,7 @@ MobileComponents.Page {
                             maximumLineCount: 1
                             level: 4
                         }
-                        PlasmaComponents.Label {
+                        Kirigami.Label {
                             Layout.fillWidth: true
 
                             text: model.lastMessageText
@@ -135,7 +141,7 @@ MobileComponents.Page {
                             elide: Text.ElideRight
                             maximumLineCount: 2
                         }
-                        PlasmaComponents.Label {
+                        Kirigami.Label {
                             Layout.fillWidth: true
 
                             text: Qt.formatDateTime(model.lastMessageDate)
@@ -143,7 +149,6 @@ MobileComponents.Page {
                             elide: Text.ElideRight
                             maximumLineCount: 1
                         }
-
                     }
                 }
             }

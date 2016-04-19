@@ -20,17 +20,16 @@
 import QtQuick 2.3
 import QtQuick.Controls 1.4
 import QtQuick.Layouts 1.1
-import org.kde.people 1.0 as KPeople
 import org.kde.plasma.private.kpeoplehelper 1.0
-import org.kde.kquickcontrolsaddons 2.0 as ExtraComponents
-import org.kde.plasma.core 2.0 as PlasmaCore
 import org.kde.plasma.components 2.0 as PlasmaComponents
-import org.kde.plasma.mobilecomponents 0.2 as MobileComponents
+import org.kde.kirigami 1.0 as Kirigami
 import org.kde.plasma.extras 2.0 as PlasmaExtras
 import org.kde.telepathy 0.1
 
-MobileComponents.Page {
+Kirigami.Page {
     anchors.fill: parent
+    focus: true
+
     property string pageName: "newConversationPage"
 
     GridLayout {
@@ -44,7 +43,7 @@ MobileComponents.Page {
             text: i18n("Start New Conversation")
         }
 
-        PlasmaComponents.Label {
+        Kirigami.Label {
             Layout.alignment: Qt.AlignRight
             text: i18n("To:")
         }

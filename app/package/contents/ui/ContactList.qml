@@ -26,6 +26,7 @@ import org.kde.kquickcontrolsaddons 2.0 as ExtraComponents
 import org.kde.plasma.core 2.1 as PlasmaCore
 import org.kde.plasma.components 2.0 as PlasmaComponents
 import org.kde.plasma.mobilecomponents 0.2 as MobileComponents
+import org.kde.kirigami 1.0 as Kirigami
 import org.kde.plasma.extras 2.0 as PlasmaExtras
 import org.kde.telepathy 0.1
 
@@ -123,7 +124,7 @@ ListView {
                     Layout.fillHeight: true
                     Layout.fillWidth: true
 
-                    Label {
+                    Kirigami.Label {
                         id: nickLabel
 
                         Layout.fillWidth: true
@@ -132,7 +133,7 @@ ListView {
                         elide: Text.ElideRight
                     }
 
-                    Label {
+                    Kirigami.Label {
                         id: dataLabel
 
                         Layout.fillWidth: true

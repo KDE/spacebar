@@ -22,9 +22,9 @@ import QtQuick.Controls 1.4
 import QtQuick.Layouts 1.1
 import org.kde.plasma.core 2.0 as PlasmaCore
 import org.kde.plasma.components 2.0 as PlasmaComponents
-import org.kde.plasma.mobilecomponents 0.2 as MobileComponents
+import org.kde.kirigami 1.0 as Kirigami
 
-MobileComponents.ApplicationWindow {
+Kirigami.ApplicationWindow {
     id: root
 
     width: 800
@@ -32,13 +32,13 @@ MobileComponents.ApplicationWindow {
 
     property string requestedChannel
 
-    globalDrawer: MobileComponents.GlobalDrawer {
+    globalDrawer: Kirigami.GlobalDrawer {
         title: "SpaceBar"
         titleIcon: "spacebar"
 //         bannerImageSource: "banner.jpg"
 
         actions: [
-//         MobileComponents.ActionGroup {
+//         Kirigami.ActionGroup {
 //             text: "View"
 //             iconName: "view-list-icons"
 //             Action {
@@ -105,15 +105,15 @@ MobileComponents.ApplicationWindow {
 //             enabled: false
 //         }
     }
-    contextDrawer: MobileComponents.ContextDrawer {
+    contextDrawer: Kirigami.ContextDrawer {
         id: contextDrawer
     }
 
-    initialPage: mainPageComponent
+    pageStack.initialPage: mainPageComponent
 
 //     Component {
 //         id: settingsComponent
-//         MobileComponents.Page {
+//         Kirigami.Page {
 //             objectName: "settingsPage"
 //             Rectangle {
 //                 anchors.fill: parent
@@ -137,7 +137,9 @@ MobileComponents.ApplicationWindow {
     Component {
         id: newConversationPageComponent
 
-        NewConversationPage {}
+        NewConversationPage {
+            id: newConversationPage
+        }
     }
 
     Component.onCompleted: {

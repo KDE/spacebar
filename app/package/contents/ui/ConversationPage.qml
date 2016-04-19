@@ -22,12 +22,12 @@ import QtQuick.Controls 1.4
 import QtQuick.Layouts 1.1
 import org.kde.plasma.core 2.0 as PlasmaCore
 import org.kde.plasma.components 2.0 as PlasmaComponents
-import org.kde.plasma.mobilecomponents 0.2 as MobileComponents
+import org.kde.kirigami 1.0 as Kirigami
 import org.kde.plasma.extras 2.0 as PlasmaExtras
 // import org.kde.plasma.private.spacebar 1.0
 import org.kde.telepathy 0.1
 
-MobileComponents.Page {
+Kirigami.Page {
     anchors.fill: parent
 
     // This is somewhat a hack, the type should be Conversation
@@ -57,13 +57,13 @@ MobileComponents.Page {
                     source: conversation.presenceIcon
                 }
 
-                PlasmaComponents.Label {
+                Kirigami.Label {
                     Layout.fillWidth: true
                     text: conversation.title
 
                 }
 
-                PlasmaComponents.Button {
+                Button {
                     text: i18nc("Close an active conversation", "Close")
 
                     onClicked: {
@@ -146,7 +146,18 @@ MobileComponents.Page {
                         }
                     }
 
-                    model: conversation.messages // : undefined
+                    model: conversation.messages
+
+                    Connections {
+                        target: conversation.messages
+
+                        onRowsInserted: {
+                            if (view.followConversation) {
+                                view.positionViewAtEnd();
+                            }
+                        }
+                    }
+
                     onMovementEnded: followConversation = atYEnd //we only follow the conversation if moved to the end
 
                     onContentHeightChanged: {
@@ -171,8 +182,9 @@ MobileComponents.Page {
     //                 }
             }
 
-            PlasmaComponents.Label {
+            Kirigami.Label {
                 Layout.fillWidth: true
+                Layout.maximumHeight: height
                 text: conversation.isContactTyping ? i18nc("Contact is composing a message",
                                                            "%1 is typing...", conversation.title) : ""
                 height: text.length == 0 ? 0 : paintedHeight
@@ -194,7 +206,7 @@ MobileComponents.Page {
                     }
                 }
 
-                PlasmaComponents.Button {
+                Button {
                     enabled: conversation !== null
                     text: conversation.account !== null && conversation.account.online ?
                                     i18nc("Button label; Send message", "Send")
