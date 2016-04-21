@@ -18,11 +18,9 @@
 */
 
 import QtQuick 2.1
-import org.kde.plasma.components 2.0 as PlasmaComponents
-import org.kde.plasma.core 2.0 as PlasmaCore
-import org.kde.telepathy 0.1
+import org.kde.kirigami 1.0 as Kirigami
 
-PlasmaComponents.Label {
+Kirigami.Label {
     wrapMode: Text.Wrap
     width: view.width
     text: "<i>* " + model.senderAlias + " " + model.text + "</i>"

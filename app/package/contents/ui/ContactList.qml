@@ -24,10 +24,7 @@ import org.kde.people 1.0 as KPeople
 import org.kde.plasma.private.kpeoplehelper 1.0
 import org.kde.kquickcontrolsaddons 2.0 as ExtraComponents
 import org.kde.plasma.core 2.1 as PlasmaCore
-import org.kde.plasma.components 2.0 as PlasmaComponents
-import org.kde.plasma.mobilecomponents 0.2 as MobileComponents
 import org.kde.kirigami 1.0 as Kirigami
-import org.kde.plasma.extras 2.0 as PlasmaExtras
 import org.kde.telepathy 0.1
 
 ListView {
@@ -62,9 +59,9 @@ ListView {
 
     boundsBehavior: Flickable.StopAtBounds
 //     highlightRangeMode: ListView.ApplyRange
-    highlight: PlasmaComponents.Highlight {
-
-    }
+//     highlight: PlasmaComponents.Highlight {
+//
+//     }
     highlightMoveDuration: 0
 
     KPeople.PersonActions {
@@ -73,7 +70,8 @@ ListView {
 
     onCurrentIndexChanged: print("---> " + currentIndex);
 
-    delegate: PlasmaComponents.ListItem {
+    delegate: Kirigami.AbstractListItem {
+        supportsMouseEvents: true
         height: actionsRow.visible ? units.gridUnit * 6 : units.gridUnit * 3
         enabled: true
         clip: true
@@ -87,92 +85,98 @@ ListView {
             } else {
                 actionsListProxy.sourceModel = personActionsModel;
             }
+
+            contactsList.contactClicked(model.personUri);
         }
 
-        // Clear the actions model when index is switched
-        Connections {
-            target: contactsList
-            onCurrentIndexChanged: {
-                if (contactsList.currentIndex != index) {
-                    actionsListProxy.sourceModel = null;
-                }
-            }
-        }
-
-        ColumnLayout {
+        Item {
             anchors.fill: parent
 
-            RowLayout {
-                id: mainLayout
-                Layout.fillHeight: true
-                Layout.maximumHeight: units.gridUnit * 3
-                Layout.fillWidth: true
-
-                ExtraComponents.QPixmapItem {
-                    id: avatarLabel
-
-                    Layout.maximumWidth: parent.height
-                    Layout.minimumWidth: parent.height
-                    Layout.fillHeight: true
-
-                    pixmap: model.decoration
-                    fillMode: ExtraComponents.QPixmapItem.PreserveAspectFit
-                    smooth: true
-                }
-
-                ColumnLayout {
-                    Layout.fillHeight: true
-                    Layout.fillWidth: true
-
-                    Kirigami.Label {
-                        id: nickLabel
-
-                        Layout.fillWidth: true
-
-                        text: model.display
-                        elide: Text.ElideRight
+            // Clear the actions model when index is switched
+            Connections {
+                target: contactsList
+                onCurrentIndexChanged: {
+                    if (contactsList.currentIndex != index) {
+                        actionsListProxy.sourceModel = null;
                     }
-
-                    Kirigami.Label {
-                        id: dataLabel
-
-                        Layout.fillWidth: true
-
-                        text: model.phoneNumber !== undefined ? model.phoneNumber : (model.accountDisplayName !== undefined ? model.accountDisplayName : "")
-                        elide: Text.ElideRight
-                        visible: dataLabel.text != nickLabel.text
-                        opacity: 0.4
-                    }
-
                 }
             }
 
-            RowLayout {
-                id: actionsRow
-                Layout.fillWidth: true
-                Layout.fillHeight: true
+            ColumnLayout {
+                anchors.fill: parent
 
-                visible: actionsList.count > 0
-
-                ListView {
-                    id: actionsList
-                    Layout.fillWidth: true
+                RowLayout {
+                    id: mainLayout
                     Layout.fillHeight: true
-                    orientation: ListView.Horizontal
+                    Layout.maximumHeight: units.gridUnit * 3
+                    Layout.fillWidth: true
 
-                    model: PlasmaCore.SortFilterModel {
-                        id: actionsListProxy
-                        filterRole: "actionType"
-                        filterCallback: function(source_row, value) { return value == KPeople.ActionType.TextChatAction; }
+                    ExtraComponents.QPixmapItem {
+                        id: avatarLabel
+
+                        Layout.maximumWidth: parent.height
+                        Layout.minimumWidth: parent.height
+                        Layout.fillHeight: true
+
+                        pixmap: model.decoration
+                        fillMode: ExtraComponents.QPixmapItem.PreserveAspectFit
+                        smooth: true
                     }
 
-                    delegate: PlasmaComponents.Button {
+                    ColumnLayout {
+                        Layout.fillHeight: true
                         Layout.fillWidth: true
-                        text: model.display
-                        iconSource: model.iconName
 
-                        onClicked: {
-                            personActionsModel.triggerAction(actionsListProxy.mapRowToSource(index));
+                        Kirigami.Label {
+                            id: nickLabel
+
+                            Layout.fillWidth: true
+
+                            text: model.display
+                            elide: Text.ElideRight
+                        }
+
+                        Kirigami.Label {
+                            id: dataLabel
+
+                            Layout.fillWidth: true
+
+                            text: model.phoneNumber !== undefined ? model.phoneNumber : (model.accountDisplayName !== undefined ? model.accountDisplayName : "")
+                            elide: Text.ElideRight
+                            visible: dataLabel.text != nickLabel.text
+                            opacity: 0.4
+                        }
+
+                    }
+                }
+
+                RowLayout {
+                    id: actionsRow
+                    Layout.fillWidth: true
+                    Layout.fillHeight: true
+
+                    visible: actionsList.count > 0
+
+                    ListView {
+                        id: actionsList
+                        Layout.fillWidth: true
+                        Layout.fillHeight: true
+                        orientation: ListView.Horizontal
+
+                        model: PlasmaCore.SortFilterModel {
+                            id: actionsListProxy
+                            filterRole: "actionType"
+                            filterCallback: function(source_row, value) { return value == KPeople.ActionType.TextChatAction; }
+                        }
+
+                        delegate: Button {
+                            Layout.fillWidth: true
+                            text: model.display
+                            iconSource: model.iconName
+
+                            onClicked: {
+                                personActionsModel.triggerAction(actionsListProxy.mapRowToSource(index));
+                            }
                         }
                     }
                 }

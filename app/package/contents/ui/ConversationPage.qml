@@ -21,7 +21,6 @@ import QtQuick 2.3
 import QtQuick.Controls 1.4
 import QtQuick.Layouts 1.1
 import org.kde.plasma.core 2.0 as PlasmaCore
-import org.kde.plasma.components 2.0 as PlasmaComponents
 import org.kde.kirigami 1.0 as Kirigami
 import org.kde.plasma.extras 2.0 as PlasmaExtras
 // import org.kde.plasma.private.spacebar 1.0
@@ -100,7 +99,7 @@ Kirigami.Page {
                     boundsBehavior: Flickable.StopAtBounds
 
                     section.property: "senderAlias"
-                    section.delegate: PlasmaComponents.Label {
+                    section.delegate: Kirigami.Label {
                         anchors.right: parent.right
                         anchors.left: parent.left
                         height: paintedHeight * 1.5
@@ -196,7 +195,7 @@ Kirigami.Page {
 
             RowLayout {
 
-                PlasmaComponents.TextField {
+                TextField {
                     id: messageTextField
                     Layout.fillWidth: true
 
