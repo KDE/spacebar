@@ -198,9 +198,17 @@ Kirigami.Page {
                 TextArea {
                     id: messageTextField
                     Layout.fillWidth: true
+                    Layout.minimumHeight: sendButton.height
+                    Layout.maximumHeight: lineCount * fontMetrics.lineSpacing + units.largeSpacing
 
                     verticalScrollBarPolicy: Qt.ScrollBarAlwaysOff
                     horizontalScrollBarPolicy: Qt.ScrollBarAlwaysOff
+                    wrapMode: TextEdit.WordWrap
+
+                    FontMetrics {
+                        id: fontMetrics
+                        font: messageTextField.font
+                    }
 
                     Keys.onReturnPressed: {
                         view.model.sendNewMessage(text);
