@@ -219,6 +219,17 @@ Kirigami.Page {
                 }
 
                 Button {
+                    id: emojisButton
+
+                    Layout.maximumWidth: implicitWidth / 2
+
+                    text: ":)"
+
+                    onClicked: {
+                        emojisRect.open();
+                    }
+                }
+
                 Button {
                     id: sendButton
                     enabled: conversation !== null
