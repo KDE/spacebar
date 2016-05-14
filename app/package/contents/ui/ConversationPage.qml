@@ -211,8 +211,19 @@ Kirigami.Page {
                     }
 
                     Keys.onReturnPressed: {
-                        view.model.sendNewMessage(text);
-                        text = "";
+                        if (event.modifiers == Qt.NoModifier) {
+                            if (conversation.canSendMessages) {
+                                view.model.sendNewMessage(text);
+                                text = "";
+                            } else {
+                                // TODO better text
+                                showPassiveNotification(i18n("You need to connect first"), 3000);
+                            }
+                        } else if (event.modifiers != Qt.NoModifier) {
+                            event.accepted = false;
+                        }
+                    }
+
                     }
                 }
 
