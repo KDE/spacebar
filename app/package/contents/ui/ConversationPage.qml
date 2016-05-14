@@ -17,7 +17,7 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-import QtQuick 2.3
+import QtQuick 2.5
 import QtQuick.Controls 1.4
 import QtQuick.Layouts 1.1
 import org.kde.plasma.core 2.0 as PlasmaCore
@@ -195,9 +195,12 @@ Kirigami.Page {
 
             RowLayout {
 
-                TextField {
+                TextArea {
                     id: messageTextField
                     Layout.fillWidth: true
+
+                    verticalScrollBarPolicy: Qt.ScrollBarAlwaysOff
+                    horizontalScrollBarPolicy: Qt.ScrollBarAlwaysOff
 
                     Keys.onReturnPressed: {
                         view.model.sendNewMessage(text);
