@@ -27,6 +27,7 @@ import org.kde.plasma.extras 2.0 as PlasmaExtras
 import org.kde.telepathy 0.1
 
 Kirigami.Page {
+    id: conversationPage
     anchors.fill: parent
 
     // This is somewhat a hack, the type should be Conversation
@@ -34,6 +35,53 @@ Kirigami.Page {
     // types, so needs to be QtObject instead
     property QtObject conversation
     property string pageName: "conversationPage"
+
+    Kirigami.OverlaySheet {
+        id: emojisRect
+        z: 300
+
+        ColumnLayout {
+            height: conversationPage.height / 3
+            width: conversationPage.width
+
+            GridView {
+                clip: true
+                Layout.fillWidth: true
+                Layout.fillHeight: true
+
+                model: EmojisModel { }
+                cellWidth: Math.floor(width / 9)
+                cellHeight: cellWidth
+
+                delegate: MouseArea {
+                    height: 24
+                    width: 24
+
+                    onClicked: {
+                        conversationPage.insertEmoji(model.emojiText);
+                        emojisRect.close();
+                        conversationPage.focusTextInput();
+                    }
+
+                    PlasmaCore.IconItem {
+                        height: 24
+                        width: 24
+                        source: model.emojiFullPath
+                    }
+                }
+            }
+
+            Button {
+                id: closeEmojis
+                text: i18n("Close")
+                Layout.fillWidth: true
+
+                onClicked: {
+                    emojisRect.close();
+                }
+            }
+        }
+    }
 
     Loader {
         anchors.fill: parent
