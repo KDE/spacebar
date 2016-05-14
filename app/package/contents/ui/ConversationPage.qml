@@ -36,6 +36,10 @@ Kirigami.Page {
     property QtObject conversation
     property string pageName: "conversationPage"
 
+    signal insertEmoji(var emoji);
+
+    signal focusTextInput();
+
     Kirigami.OverlaySheet {
         id: emojisRect
         z: 300
@@ -263,6 +267,14 @@ Kirigami.Page {
                         }
                     }
 
+                    Connections {
+                        target: conversationPage
+                        onInsertEmoji: {
+                            messageTextField.insert(messageTextField.cursorPosition, emoji + " ");
+                        }
+                        onFocusTextInput: {
+                            messageTextField.forceActiveFocus();
+                        }
                     }
                 }
 
