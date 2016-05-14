@@ -81,104 +81,95 @@ Kirigami.Page {
                 opacity: 0.4
             }
 
-    //             Flickable {
-    //                 id: conversationFlickable
-    //                 onAtYBeginningChanged: {
-    //                     if (conversationFlickable.atYBeginning) {
-    //
-    //                     }
-    //                 }
+            ListView {
+                id: view
+                property bool followConversation: true
 
-                ListView {
-                    id: view
-                    property bool followConversation: true
+                Layout.fillWidth: true
+                Layout.fillHeight: true
 
-                    Layout.fillWidth: true
-                    Layout.fillHeight: true
+                boundsBehavior: Flickable.StopAtBounds
 
-                    boundsBehavior: Flickable.StopAtBounds
+                section.property: "senderAlias"
+                section.delegate: Kirigami.Label {
+                    anchors.right: parent.right
+                    anchors.left: parent.left
+                    height: paintedHeight * 1.5
+                    horizontalAlignment: section === conversation.title ? Text.AlignLeft : Text.AlignRight
+                    verticalAlignment: Text.AlignBottom
+                    text: section
+                    font.bold: true
+                }
+                clip: true
 
-                    section.property: "senderAlias"
-                    section.delegate: Kirigami.Label {
-                        anchors.right: parent.right
-                        anchors.left: parent.left
-                        height: paintedHeight * 1.5
-                        horizontalAlignment: section === conversation.title ? Text.AlignLeft : Text.AlignRight
-                        verticalAlignment: Text.AlignBottom
-                        text: section
-                        font.bold: true
+                add: Transition {
+                    id: addTrans
+                    NumberAnimation {
+                        properties: "x"
+                        //FIXME: this doesn't seem to do what it should
+                        from: addTrans.ViewTransition.item.isIncoming ? -100 : 100
+                        duration: 60
+
                     }
-                    clip: true
-
-                    add: Transition {
-                        id: addTrans
-                        NumberAnimation {
-                            properties: "x"
-                            //FIXME: this doesn't seem to do what it should
-                            from: addTrans.ViewTransition.item.isIncoming ? -100 : 100
-                            duration: 60
-
-                        }
-                        PropertyAnimation {
-                            properties: "opacity"
-                            from: 0.0
-                            to: 1.0
-                            duration: 60
-                        }
+                    PropertyAnimation {
+                        properties: "opacity"
+                        from: 0.0
+                        to: 1.0
+                        duration: 60
                     }
+                }
 
-                    //we need this so that scrolling down to the last element works properly
-                    //this means that all the list is in memory
-                    cacheBuffer: Math.max(0, contentHeight)
+                //we need this so that scrolling down to the last element works properly
+                //this means that all the list is in memory
+                cacheBuffer: Math.max(0, contentHeight)
 
-                    delegate: Loader {
-                        Component.onCompleted: {
-                            switch (model.type) {
-                                case MessagesModel.MessageTypeOutgoing:
-                                case MessagesModel.MessageTypeIncoming:
-                                    source = "TextDelegate.qml"
-                                    break;
-                                case MessagesModel.MessageTypeAction:
-                                    source = "ActionDelegate.qml";
-                                    break;
-                            }
-                        }
-                    }
-
-                    model: conversation.messages
-
-                    Connections {
-                        target: conversation.messages
-
-                        onRowsInserted: {
-                            if (view.followConversation) {
-                                view.positionViewAtEnd();
-                            }
-                        }
-                    }
-
-                    onMovementEnded: followConversation = atYEnd //we only follow the conversation if moved to the end
-
-                    onContentHeightChanged: {
-                        if (followConversation && contentHeight > height) {
-                            view.positionViewAtEnd()
-                        }
-                    }
-
-                    onAtYBeginningChanged: {
-                        if (atYBeginning) {
-                            model.fetchMoreHistory();
-                        }
-                    }
-
+                delegate: Loader {
                     Component.onCompleted: {
-                        conversation.messages.visibleToUser = true;
+                        switch (model.type) {
+                            case MessagesModel.MessageTypeOutgoing:
+                            case MessagesModel.MessageTypeIncoming:
+                                source = "TextDelegate.qml"
+                                break;
+                            case MessagesModel.MessageTypeAction:
+                                source = "ActionDelegate.qml";
+                                break;
+                        }
                     }
+                }
 
-                    Component.onDestruction: {
-                        conversation.messages.visibleToUser = false;
+                model: conversation.messages
+
+                Connections {
+                    target: conversation.messages
+
+                    onRowsInserted: {
+                        if (view.followConversation) {
+                            view.positionViewAtEnd();
+                        }
                     }
-    //                 }
+                }
+
+                onMovementEnded: followConversation = atYEnd //we only follow the conversation if moved to the end
+
+                onContentHeightChanged: {
+                    if (followConversation && contentHeight > height) {
+                        view.positionViewAtEnd()
+                    }
+                }
+
+                onAtYBeginningChanged: {
+                    if (atYBeginning) {
+                        model.fetchMoreHistory();
+                    }
+                }
+
+                Component.onCompleted: {
+                    conversation.messages.visibleToUser = true;
+                }
+
+                Component.onDestruction: {
+                    conversation.messages.visibleToUser = false;
+                }
             }
 
             Kirigami.Label {
