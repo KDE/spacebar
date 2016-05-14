@@ -219,6 +219,8 @@ Kirigami.Page {
                 }
 
                 Button {
+                Button {
+                    id: sendButton
                     enabled: conversation !== null
                     text: conversation.account !== null && conversation.account.online ?
                                     i18nc("Button label; Send message", "Send")
