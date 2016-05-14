@@ -46,11 +46,11 @@ Kirigami.Page {
 
         ColumnLayout {
             anchors.fill: parent
+            spacing: 2
 
             RowLayout {
                 Layout.fillWidth: true
                 Layout.alignment: Qt.AlignVCenter
-                Layout.topMargin: parent.spacing
 
                 PlasmaCore.IconItem {
                     source: conversation.presenceIcon
