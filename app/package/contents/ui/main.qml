@@ -25,9 +25,9 @@ import org.kde.kirigami 1.0 as Kirigami
 
 Kirigami.ApplicationWindow {
     id: root
-
-    width: 800
-    height: 1080
+    width: 500
+    height: 800
+    visible: true
 
     property string requestedChannel
 
