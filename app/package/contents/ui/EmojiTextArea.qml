@@ -155,14 +155,4 @@ TextArea {
             event.accepted = false;
         }
     }
-
-    Connections {
-        target: conversationPage
-        onInsertEmoji: {
-            messageTextField.insert(messageTextField.cursorPosition, emoji + " ");
-        }
-        onFocusTextInput: {
-            messageTextField.forceActiveFocus();
-        }
-    }
 }

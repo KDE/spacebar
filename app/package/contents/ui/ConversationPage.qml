@@ -239,6 +239,16 @@ Kirigami.Page {
                     Layout.maximumHeight: emojiTextArea.lineCount * emojiTextArea.lineSpacing + units.largeSpacing
 
                     emojisAutocompletionModel: emojisModel
+
+                    Connections {
+                        target: conversationPage
+                        onInsertEmoji: {
+                            emojiTextArea.insert(emojiTextArea.cursorPosition, emoji + " ");
+                        }
+                        onFocusTextInput: {
+                            emojiTextArea.forceActiveFocus();
+                        }
+                    }
                 }
 
                 Button {
