@@ -238,44 +238,13 @@ Kirigami.Page {
 
             RowLayout {
 
-                TextArea {
-                    id: messageTextField
+                EmojiTextArea {
+                    id: emojiTextArea
                     Layout.fillWidth: true
                     Layout.minimumHeight: sendButton.height
-                    Layout.maximumHeight: lineCount * fontMetrics.lineSpacing + units.largeSpacing
+                    Layout.maximumHeight: emojiTextArea.lineCount * emojiTextArea.lineSpacing + units.largeSpacing
 
-                    verticalScrollBarPolicy: Qt.ScrollBarAlwaysOff
-                    horizontalScrollBarPolicy: Qt.ScrollBarAlwaysOff
-                    wrapMode: TextEdit.WordWrap
-
-                    FontMetrics {
-                        id: fontMetrics
-                        font: messageTextField.font
-                    }
-
-                    Keys.onReturnPressed: {
-                        if (event.modifiers == Qt.NoModifier) {
-                            if (conversation.canSendMessages) {
-                                view.model.sendNewMessage(text);
-                                text = "";
-                            } else {
-                                // TODO better text
-                                showPassiveNotification(i18n("You need to connect first"), 3000);
-                            }
-                        } else if (event.modifiers != Qt.NoModifier) {
-                            event.accepted = false;
-                        }
-                    }
-
-                    Connections {
-                        target: conversationPage
-                        onInsertEmoji: {
-                            messageTextField.insert(messageTextField.cursorPosition, emoji + " ");
-                        }
-                        onFocusTextInput: {
-                            messageTextField.forceActiveFocus();
-                        }
-                    }
+                    emojisAutocompletionModel: emojisModel
                 }
 
                 Button {
