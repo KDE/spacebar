@@ -20,7 +20,7 @@
 import QtQuick 2.5
 import QtQuick.Controls 1.4
 import QtQuick.Layouts 1.1
-import org.kde.plasma.core 2.0 as PlasmaCore
+import org.kde.plasma.core 2.1 as PlasmaCore
 import org.kde.kirigami 1.0 as Kirigami
 import org.kde.plasma.extras 2.0 as PlasmaExtras
 // import org.kde.plasma.private.spacebar 1.0
@@ -218,6 +218,7 @@ Kirigami.Page {
             }
 
             Kirigami.Label {
+                id: statusMessageLabel
                 Layout.fillWidth: true
                 Layout.maximumHeight: height
                 text: conversation.isContactTyping ? i18nc("Contact is composing a message",
