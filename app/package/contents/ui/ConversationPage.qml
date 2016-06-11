@@ -40,48 +40,41 @@ Kirigami.Page {
 
     signal focusTextInput();
 
+    EmojisModel {
+        id: emojisModel
+    }
+
+
     Kirigami.OverlaySheet {
         id: emojisRect
         z: 300
 
-        ColumnLayout {
-            height: conversationPage.height / 3
+        GridView {
+            id: emojisGridView
             width: conversationPage.width
+            height: conversationPage.height / 3
+            clip: true
 
-            GridView {
-                clip: true
-                Layout.fillWidth: true
-                Layout.fillHeight: true
+            property int iconSize: units.roundToIconSize(cellWidth)
 
-                model: EmojisModel { }
-                cellWidth: Math.floor(width / 9)
-                cellHeight: cellWidth
+            model: emojisModel
+            cellWidth: Math.floor(width / 10)
+            cellHeight: cellWidth
 
-                delegate: MouseArea {
-                    height: 24
-                    width: 24
-
-                    onClicked: {
-                        conversationPage.insertEmoji(model.emojiText);
-                        emojisRect.close();
-                        conversationPage.focusTextInput();
-                    }
-
-                    PlasmaCore.IconItem {
-                        height: 24
-                        width: 24
-                        source: model.emojiFullPath
-                    }
-                }
-            }
-
-            Button {
-                id: closeEmojis
-                text: i18n("Close")
-                Layout.fillWidth: true
+            delegate: MouseArea {
+                height: emojisGridView.iconSize
+                width: emojisGridView.iconSize
 
                 onClicked: {
+                    conversationPage.insertEmoji(model.emojiText);
                     emojisRect.close();
+                    conversationPage.focusTextInput();
+                }
+
+                PlasmaCore.IconItem {
+                    height: emojisGridView.iconSize
+                    width: emojisGridView.iconSize
+                    source: model.emojiFullPath
                 }
             }
         }
