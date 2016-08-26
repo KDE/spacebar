@@ -39,6 +39,7 @@ int main(int argc, char** argv)
 {
     QGuiApplication app(argc, argv);
     app.setApplicationDisplayName("SpaceBar");
+    app.setOrganizationDomain("kde.org");
 
     KDBusService service(KDBusService::Unique);
 
