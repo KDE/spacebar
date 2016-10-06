@@ -1,8 +1,6 @@
 [Desktop Entry]
 Name=Instant Messaging Presence
-Name[x-test]=xxInstant Messaging Presencexx
 Comment=Displays and sets your Instant Messaging Presence
-Comment[x-test]=xxDisplays and sets your Instant Messaging Presencexx
 
 Type=Service
 ServiceTypes=Plasma/Applet
