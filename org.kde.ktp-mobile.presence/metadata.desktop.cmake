@@ -1,6 +1,16 @@
 [Desktop Entry]
 Name=Instant Messaging Presence
+Name[nl]=Aanwezigheid in Instant Messaging
+Name[pt]=Presença nas Mensagens Instantâneas
+Name[sv]=Direktmeddelandenärvaro
+Name[uk]=Присутність у обміні повідомленнями
+Name[x-test]=xxInstant Messaging Presencexx
 Comment=Displays and sets your Instant Messaging Presence
+Comment[nl]=Toont en stelt in de aanwezigheid in Instant Messaging
+Comment[pt]=Mostrar e altera a sua presença nas Mensagens Instantâneas
+Comment[sv]=Visar och ställer in din direktmeddelandenärvaro
+Comment[uk]=Показує і встановлює ваше повідомлення про присутність у обміні повідомленнями
+Comment[x-test]=xxDisplays and sets your Instant Messaging Presencexx
 
 Type=Service
 ServiceTypes=Plasma/Applet

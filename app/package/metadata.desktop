@@ -1,6 +1,16 @@
 [Desktop Entry]
 Name=SpaceBar
+Name[nl]=Spatiebalk
+Name[pt]=SpaceBar
+Name[sv]=SpaceBar
+Name[uk]=SpaceBar
+Name[x-test]=xxSpaceBarxx
 Comment=Messages Application
+Comment[nl]=Toepassing voor meldingen
+Comment[pt]=Aplicação de Mensagens
+Comment[sv]=Meddelandeprogram
+Comment[uk]=Програма для обміну повідомленнями
+Comment[x-test]=xxMessages Applicationxx
 Encoding=UTF-8
 Keywords=
 Type=Application
