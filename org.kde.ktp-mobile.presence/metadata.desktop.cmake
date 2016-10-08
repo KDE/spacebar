@@ -1,12 +1,16 @@
 [Desktop Entry]
 Name=Instant Messaging Presence
+Name[ca]=Presència a la missatgeria instantània
 Name[nl]=Aanwezigheid in Instant Messaging
+Name[pl]=Obecność komunikatora internetowego
 Name[pt]=Presença nas Mensagens Instantâneas
 Name[sv]=Direktmeddelandenärvaro
 Name[uk]=Присутність у обміні повідомленнями
 Name[x-test]=xxInstant Messaging Presencexx
 Comment=Displays and sets your Instant Messaging Presence
+Comment[ca]=Mostra i defineix la vostra presència a la missatgeria instantània
 Comment[nl]=Toont en stelt in de aanwezigheid in Instant Messaging
+Comment[pl]=Wyświetla i ustawia obecność komunikatora internetowego
 Comment[pt]=Mostrar e altera a sua presença nas Mensagens Instantâneas
 Comment[sv]=Visar och ställer in din direktmeddelandenärvaro
 Comment[uk]=Показує і встановлює ваше повідомлення про присутність у обміні повідомленнями
