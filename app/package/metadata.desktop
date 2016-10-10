@@ -1,6 +1,7 @@
 [Desktop Entry]
 Name=SpaceBar
 Name[ca]=Barra d'espai
+Name[ca@valencia]=Barra d'espai
 Name[nl]=Spatiebalk
 Name[pl]=SpaceBar
 Name[pt]=SpaceBar
@@ -9,6 +10,7 @@ Name[uk]=SpaceBar
 Name[x-test]=xxSpaceBarxx
 Comment=Messages Application
 Comment[ca]=Aplicació de missatges
+Comment[ca@valencia]=Aplicació de missatges
 Comment[es]=Aplicación de mensajes
 Comment[nl]=Toepassing voor meldingen
 Comment[pl]=Komunikator internetowy
