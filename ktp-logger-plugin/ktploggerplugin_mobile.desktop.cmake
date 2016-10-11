@@ -11,6 +11,7 @@ Name[x-test]=xxMobile Logger pluginxx
 Comment=Provides integration with Telepathy Logger
 Comment[ca]=Aquest connector proporciona integració amb l'enregistrador del Telepathy
 Comment[ca@valencia]=Este connector proporciona integració amb l'enregistrador del Telepathy
+Comment[de]=Stellt Integration mit Telepathy-Protokollen zur Verfügung
 Comment[nl]=Biedt integratie met loggen van Telepathy
 Comment[pl]=Zapewnia integrację z dziennikiem Telepathy
 Comment[pt]=Oferece a integração com o sistema de registo Telepathy Logger
