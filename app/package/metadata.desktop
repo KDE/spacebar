@@ -2,6 +2,7 @@
 Name=SpaceBar
 Name[ca]=Barra d'espai
 Name[ca@valencia]=Barra d'espai
+Name[en_GB]=SpaceBar
 Name[nl]=Spatiebalk
 Name[pl]=SpaceBar
 Name[pt]=SpaceBar
@@ -11,6 +12,7 @@ Name[x-test]=xxSpaceBarxx
 Comment=Messages Application
 Comment[ca]=Aplicació de missatges
 Comment[ca@valencia]=Aplicació de missatges
+Comment[en_GB]=Messages Application
 Comment[es]=Aplicación de mensajes
 Comment[nl]=Toepassing voor meldingen
 Comment[pl]=Komunikator internetowy
