@@ -10,6 +10,7 @@ Name[pt]='Plugin' de Registos Móveis
 Name[sv]=Mobilt loggningsinsticksprogram
 Name[uk]=Додаток ведення мобільного журналу
 Name[x-test]=xxMobile Logger pluginxx
+Name[zh_TW]=行動紀錄器外掛程式
 Comment=Provides integration with Telepathy Logger
 Comment[ca]=Aquest connector proporciona integració amb l'enregistrador del Telepathy
 Comment[ca@valencia]=Este connector proporciona integració amb l'enregistrador del Telepathy
@@ -22,6 +23,7 @@ Comment[pt]=Oferece a integração com o sistema de registo Telepathy Logger
 Comment[sv]=Tillhandahåller integrering med Telepathy-loggningsprogram
 Comment[uk]=Забезпечує інтеграцію з засобом ведення журналу Telepathy
 Comment[x-test]=xxProvides integration with Telepathy Loggerxx
+Comment[zh_TW]=提供 Telepathy 紀錄器的整合
 
 ServiceTypes=KTpLogger/Plugin
 

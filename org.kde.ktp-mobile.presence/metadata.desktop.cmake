@@ -10,6 +10,7 @@ Name[pt]=Presença nas Mensagens Instantâneas
 Name[sv]=Direktmeddelandenärvaro
 Name[uk]=Присутність у обміні повідомленнями
 Name[x-test]=xxInstant Messaging Presencexx
+Name[zh_TW]=即時訊息
 Comment=Displays and sets your Instant Messaging Presence
 Comment[ca]=Mostra i defineix la vostra presència a la missatgeria instantània
 Comment[ca@valencia]=Mostra i defineix la vostra presència a la missatgeria instantània
@@ -21,6 +22,7 @@ Comment[pt]=Mostrar e altera a sua presença nas Mensagens Instantâneas
 Comment[sv]=Visar och ställer in din direktmeddelandenärvaro
 Comment[uk]=Показує і встановлює ваше повідомлення про присутність у обміні повідомленнями
 Comment[x-test]=xxDisplays and sets your Instant Messaging Presencexx
+Comment[zh_TW]=顯示並設定您的即時訊息
 
 Type=Service
 ServiceTypes=Plasma/Applet
