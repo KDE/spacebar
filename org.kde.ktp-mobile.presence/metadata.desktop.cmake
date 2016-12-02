@@ -2,6 +2,7 @@
 Name=Instant Messaging Presence
 Name[ca]=Presència a la missatgeria instantània
 Name[ca@valencia]=Presència a la missatgeria instantània
+Name[cs]=Widget stavu komunikátoru
 Name[en_GB]=Instant Messaging Presence
 Name[nl]=Aanwezigheid in Instant Messaging
 Name[nn]=Tilgjengeleg via lynmeldingar

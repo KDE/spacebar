@@ -14,6 +14,7 @@ Name[zh_TW]=行動紀錄器外掛程式
 Comment=Provides integration with Telepathy Logger
 Comment[ca]=Aquest connector proporciona integració amb l'enregistrador del Telepathy
 Comment[ca@valencia]=Este connector proporciona integració amb l'enregistrador del Telepathy
+Comment[cs]=Poskytuje integraci se zaznamenáváním Telepathy
 Comment[de]=Stellt Integration mit Telepathy-Protokollen zur Verfügung
 Comment[en_GB]=Provides integration with Telepathy Logger
 Comment[nl]=Biedt integratie met loggen van Telepathy
