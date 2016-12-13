@@ -1,5 +1,6 @@
 [Desktop Entry]
 Name=Instant Messaging Presence
+Name[ast]=Estáu de mensaxería nel intre
 Name[ca]=Presència a la missatgeria instantània
 Name[ca@valencia]=Presència a la missatgeria instantània
 Name[cs]=Widget stavu komunikátoru
@@ -13,6 +14,7 @@ Name[uk]=Присутність у обміні повідомленнями
 Name[x-test]=xxInstant Messaging Presencexx
 Name[zh_TW]=即時訊息
 Comment=Displays and sets your Instant Messaging Presence
+Comment[ast]=Amuesa y afita'l to estáu de mensaxería nel intre
 Comment[ca]=Mostra i defineix la vostra presència a la missatgeria instantània
 Comment[ca@valencia]=Mostra i defineix la vostra presència a la missatgeria instantània
 Comment[en_GB]=Displays and sets your Instant Messaging Presence
