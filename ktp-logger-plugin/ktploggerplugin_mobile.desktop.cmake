@@ -1,6 +1,5 @@
 [Desktop Entry]
 Name=Mobile Logger plugin
-Name[ast]=Complementu rexistrador móvil
 Name[ca]=Connector del registre del mòbil
 Name[ca@valencia]=Connector del registre del mòbil
 Name[en_GB]=Mobile Logger plugin
@@ -13,7 +12,6 @@ Name[uk]=Додаток ведення мобільного журналу
 Name[x-test]=xxMobile Logger pluginxx
 Name[zh_TW]=行動紀錄器外掛程式
 Comment=Provides integration with Telepathy Logger
-Comment[ast]=Forne integración col rexistrador de Telepathy
 Comment[ca]=Aquest connector proporciona integració amb l'enregistrador del Telepathy
 Comment[ca@valencia]=Este connector proporciona integració amb l'enregistrador del Telepathy
 Comment[cs]=Poskytuje integraci se zaznamenáváním Telepathy
