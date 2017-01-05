@@ -12,6 +12,7 @@ Name[uk]=Додаток ведення мобільного журналу
 Name[x-test]=xxMobile Logger pluginxx
 Name[zh_TW]=行動紀錄器外掛程式
 Comment=Provides integration with Telepathy Logger
+Comment[ast]=Forne integración col rexistrador de Telepathy
 Comment[ca]=Aquest connector proporciona integració amb l'enregistrador del Telepathy
 Comment[ca@valencia]=Este connector proporciona integració amb l'enregistrador del Telepathy
 Comment[cs]=Poskytuje integraci se zaznamenáváním Telepathy
