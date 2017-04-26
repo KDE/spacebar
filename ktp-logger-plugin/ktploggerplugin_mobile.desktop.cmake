@@ -18,6 +18,7 @@ Comment[ca]=Aquest connector proporciona integració amb l'enregistrador del Tel
 Comment[ca@valencia]=Este connector proporciona integració amb l'gravadora del Telepathy
 Comment[cs]=Poskytuje integraci se zaznamenáváním Telepathy
 Comment[de]=Stellt Integration mit Telepathy-Protokollen zur Verfügung
+Comment[el]=Παρέχει ολοκλήρωση με τον καταγραφέα Telepathy
 Comment[en_GB]=Provides integration with Telepathy Logger
 Comment[nl]=Biedt integratie met loggen van Telepathy
 Comment[nn]=Gjev integrasjon med Telepathy-loggaren
