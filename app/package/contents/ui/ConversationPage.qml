@@ -21,7 +21,7 @@ import QtQuick 2.5
 import QtQuick.Controls 1.4
 import QtQuick.Layouts 1.1
 import org.kde.plasma.core 2.1 as PlasmaCore
-import org.kde.kirigami 1.0 as Kirigami
+import org.kde.kirigami 2.1 as Kirigami
 import org.kde.plasma.extras 2.0 as PlasmaExtras
 // import org.kde.plasma.private.spacebar 1.0
 import org.kde.telepathy 0.1
@@ -47,7 +47,6 @@ Kirigami.Page {
 
     Kirigami.OverlaySheet {
         id: emojisRect
-        z: 300
 
         GridView {
             id: emojisGridView

@@ -24,7 +24,7 @@ import org.kde.people 1.0 as KPeople
 import org.kde.plasma.private.kpeoplehelper 1.0
 import org.kde.kquickcontrolsaddons 2.0 as ExtraComponents
 import org.kde.plasma.core 2.1 as PlasmaCore
-import org.kde.kirigami 1.0 as Kirigami
+import org.kde.kirigami 2.1 as Kirigami
 import org.kde.telepathy 0.1
 
 ListView {
