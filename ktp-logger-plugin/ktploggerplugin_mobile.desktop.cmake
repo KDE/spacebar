@@ -2,6 +2,7 @@
 Name=Mobile Logger plugin
 Name[ca]=Connector del registre del mòbil
 Name[ca@valencia]=Connector del registre del mòbil
+Name[de]=Modul „Mobile Logger“
 Name[en_GB]=Mobile Logger plugin
 Name[es]=Complemento de registro del móvil
 Name[fr]=Module complémentaires d'enregistreur de journaux mobile
