@@ -26,8 +26,6 @@ import org.kde.plasma.extras 2.0 as PlasmaExtras
 import org.kde.telepathy 0.1 as KTp
 
 Kirigami.Page {
-    anchors.fill: parent
-
     title: "Your Conversations"
 
     mainAction: Kirigami.Action {
@@ -35,7 +33,7 @@ Kirigami.Page {
         iconName: "document-edit"
 
         onTriggered: {
-            if (root.pageStack.depth == 2) {
+            if (root.pageStack.depth === 2) {
                 root.pageStack.pop();
             }
             root.pageStack.push(newConversationPageComponent);

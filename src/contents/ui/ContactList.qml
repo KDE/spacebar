@@ -21,7 +21,6 @@ import QtQuick 2.3
 import QtQuick.Controls 1.4
 import QtQuick.Layouts 1.1
 import org.kde.people 1.0 as KPeople
-import org.kde.plasma.private.kpeoplehelper 1.0
 import org.kde.kquickcontrolsaddons 2.0 as ExtraComponents
 import org.kde.plasma.core 2.1 as PlasmaCore
 import org.kde.kirigami 2.1 as Kirigami
