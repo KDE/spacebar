@@ -26,7 +26,6 @@ import org.kde.plasma.extras 2.0 as PlasmaExtras
 import org.kde.telepathy 0.1
 
 Kirigami.Page {
-    anchors.fill: parent
     focus: true
 
     property string pageName: "newConversationPage"
