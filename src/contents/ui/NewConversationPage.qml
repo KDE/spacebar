@@ -34,11 +34,11 @@ Kirigami.ScrollablePage {
     header: Rectangle {
         clip: true
         id: header
-        height: searchField.implicitHeight + 2 * Kirigami.Units.largeSpacing
+        height: toInputField.implicitHeight + 2 * Kirigami.Units.largeSpacing
         width: root.width
 
         Controls.TextField {
-            id: searchField
+            id: toInputField
             placeholderText: i18n("Search")
             anchors.centerIn: parent
             anchors.margins: Kirigami.Units.largeSpacing
