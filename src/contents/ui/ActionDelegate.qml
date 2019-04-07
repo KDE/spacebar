@@ -18,9 +18,9 @@
 */
 
 import QtQuick 2.1
-import org.kde.kirigami 2.1 as Kirigami
+import QtQuick.Controls 2.1
 
-Kirigami.Label {
+Label {
     wrapMode: Text.Wrap
     width: view.width
     text: "<i>* " + model.senderAlias + " " + model.text + "</i>"

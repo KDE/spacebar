@@ -40,6 +40,8 @@ int main(int argc, char** argv)
     app.setApplicationDisplayName("SpaceBar");
     app.setOrganizationDomain("kde.org");
 
+    KDBusService service(KDBusService::Unique);
+
     QCommandLineParser parser;
     parser.addOption(QCommandLineOption("contact", i18n("Open with the conversation matching the contact id")));
     parser.addOption(QCommandLineOption("openIncomingChannel", i18n("If defined, it will automatically open the first handed channel")));
