@@ -30,7 +30,7 @@ public:
     explicit MobileLoggerPendingLogs(const Tp::AccountPtr &account,
                                      const KTp::LogEntity &entity,
                                      const QDate &date,
-                                     QObject *parent = 0);
+                                     QObject *parent = nullptr);
 };
 
 #endif // KTP_MOBILELOGGERPENDINGLOGS_H

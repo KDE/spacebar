@@ -52,8 +52,8 @@ class ChannelWatcher : public QObject, public Tp::RefCounted
     Q_OBJECT
 
 public:
-    ChannelWatcher(const Tp::TextChannelPtr &channel, const QString &accountObjectPath, QObject *parent = 0);
-    ~ChannelWatcher();
+    ChannelWatcher(const Tp::TextChannelPtr &channel, const QString &accountObjectPath, QObject *parent = nullptr);
+    ~ChannelWatcher() override;
 
 Q_SIGNALS:
     void invalidated();

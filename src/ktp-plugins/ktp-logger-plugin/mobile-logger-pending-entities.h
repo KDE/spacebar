@@ -29,7 +29,7 @@ class MobileLoggerPendingEntities : public KTp::PendingLoggerEntities
 
 public:
     explicit MobileLoggerPendingEntities(const Tp::AccountPtr &account,
-                                         QObject *parent = 0);
+                                         QObject *parent = nullptr);
 };
 
 #endif // KTP_MOBILELOGGERPENDINGENTITIES_H
