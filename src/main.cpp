@@ -17,7 +17,7 @@
  *
  */
 
-#include <QQmlEngine>
+#include <QQmlApplicationEngine>
 #include <QQmlContext>
 #include <QQmlComponent>
 
@@ -27,7 +27,6 @@
 
 #include <KDBusService>
 #include <KLocalizedString>
-#include <KDeclarative/QmlObject>
 
 #include <QGuiApplication>
 #include <QCommandLineParser>
@@ -40,8 +39,6 @@ int main(int argc, char** argv)
     QGuiApplication app(argc, argv);
     app.setApplicationDisplayName("SpaceBar");
     app.setOrganizationDomain("kde.org");
-
-    KDBusService service(KDBusService::Unique);
 
     QCommandLineParser parser;
     parser.addOption(QCommandLineOption("contact", i18n("Open with the conversation matching the contact id")));
@@ -57,30 +54,15 @@ int main(int argc, char** argv)
         // TODO
     }
 
-    const QString packagePath("org.kde.spacebar");
+    QQmlApplicationEngine engine;
 
-    //usually we have an ApplicationWindow here, so we do not need to create a window by ourselves
-    KDeclarative::QmlObject *obj = new KDeclarative::QmlObject();
-    obj->setTranslationDomain(packagePath);
-    obj->setInitializationDelayed(true);
-    obj->loadPackage(packagePath);
-    obj->engine()->rootContext()->setContextProperty("commandlineArguments", parser.positionalArguments());
+    engine.load(QUrl(QStringLiteral("qrc:///main.qml")));
 
-    obj->engine()->rootContext()->setContextProperty("openIncomingChannel", parser.isSet("openIncomingChannel"));
-
-    obj->completeInitialization();
-
-    if (!obj->package().metadata().isValid()) {
+    if (engine.rootObjects().isEmpty()) {
         return -1;
     }
-
-    QWindow *window = qobject_cast<QWindow *>(obj->rootObject());
-    if (window) {
-        window->show();
-        window->requestActivate();
-        window->setTitle(obj->package().metadata().name());
-        window->setIcon(QIcon::fromTheme(obj->package().metadata().iconName()));
-    }
+    int ret = app.exec();
+    return ret;
 
     return app.exec();
 }

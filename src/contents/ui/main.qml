@@ -33,7 +33,7 @@ Kirigami.ApplicationWindow {
 
     globalDrawer: Kirigami.GlobalDrawer {
         title: "SpaceBar"
-        titleIcon: "spacebar"
+        titleIcon: "org.kde.spacebar"
 //         bannerImageSource: "banner.jpg"
 
         actions: [
@@ -83,7 +83,7 @@ Kirigami.ApplicationWindow {
             }
             exclusiveGroup: filterOptions
         }
-        ]
+       ]
 
         ExclusiveGroup { id: filterOptions }
 

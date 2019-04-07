@@ -1,0 +1,10 @@
+[Desktop Entry]
+Name=Spacebar
+Comment=My first Plasma Mobile App
+Version=1.0
+Exec=Spacebar
+MimeType=application/x-Spacebar;
+Icon=applications-development
+Type=Application
+Terminal=false
+Categories=Qt;KDE;
