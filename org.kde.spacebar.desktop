@@ -1,10 +1,9 @@
 [Desktop Entry]
 Name=Spacebar
-Comment=My first Plasma Mobile App
+Comment=Instant Messenger
 Version=1.0
-Exec=Spacebar
-MimeType=application/x-Spacebar;
-Icon=applications-development
+Exec=spacebar
+Icon=org.kde.spectacle
 Type=Application
 Terminal=false
 Categories=Qt;KDE;
