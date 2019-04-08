@@ -18,17 +18,15 @@
  */
 
 import QtQuick 2.5
-import QtQuick.Controls 1.4
+import QtQuick.Controls 2.4 as Controls
 import QtQuick.Layouts 1.1
 import org.kde.plasma.core 2.1 as PlasmaCore
 import org.kde.kirigami 2.1 as Kirigami
-import org.kde.plasma.extras 2.0 as PlasmaExtras
 // import org.kde.plasma.private.spacebar 1.0
 import org.kde.telepathy 0.1
 
 Kirigami.Page {
     id: conversationPage
-    anchors.fill: parent
 
     // This is somewhat a hack, the type should be Conversation
     // but QML does not allow for uncreatable types to be property
@@ -45,13 +43,15 @@ Kirigami.Page {
     }
 
 
-    Kirigami.OverlaySheet {
+    Kirigami.OverlayDrawer {
         id: emojisRect
+        edge: Qt.BottomEdge
+        height: conversationPage.height / 3
 
-        GridView {
+        contentItem: GridView {
             id: emojisGridView
-            width: conversationPage.width
-            height: conversationPage.height / 3
+            Layout.alignment: Qt.AlignHCenter
+            Layout.fillWidth: true
             clip: true
 
             property int iconSize: units.roundToIconSize(cellWidth)
@@ -70,7 +70,7 @@ Kirigami.Page {
                     conversationPage.focusTextInput();
                 }
 
-                PlasmaCore.IconItem {
+                Kirigami.Icon {
                     height: emojisGridView.iconSize
                     width: emojisGridView.iconSize
                     source: model.emojiFullPath
@@ -96,17 +96,17 @@ Kirigami.Page {
                 Layout.fillWidth: true
                 Layout.alignment: Qt.AlignVCenter
 
-                PlasmaCore.IconItem {
+                Kirigami.Icon {
                     source: conversation.presenceIcon
                 }
 
-                Kirigami.Label {
+                Controls.Label {
                     Layout.fillWidth: true
                     text: conversation.title
 
                 }
 
-                Button {
+                Controls.Button {
                     text: i18nc("Close an active conversation", "Close")
 
                     onClicked: {
@@ -135,7 +135,7 @@ Kirigami.Page {
                 boundsBehavior: Flickable.StopAtBounds
 
                 section.property: "senderAlias"
-                section.delegate: Kirigami.Label {
+                section.delegate: Controls.Label {
                     anchors.right: parent.right
                     anchors.left: parent.left
                     height: paintedHeight * 1.5
@@ -216,7 +216,7 @@ Kirigami.Page {
                 }
             }
 
-            Kirigami.Label {
+            Controls.Label {
                 id: statusMessageLabel
                 Layout.fillWidth: true
                 Layout.maximumHeight: height
@@ -250,7 +250,7 @@ Kirigami.Page {
                     }
                 }
 
-                Button {
+                Controls.Button {
                     id: emojisButton
 
                     Layout.maximumWidth: implicitWidth / 2
@@ -262,7 +262,7 @@ Kirigami.Page {
                     }
                 }
 
-                Button {
+                Controls.Button {
                     id: sendButton
                     enabled: conversation !== null
                     text: conversation.account !== null && conversation.account.online ?
