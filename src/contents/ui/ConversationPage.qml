@@ -270,8 +270,8 @@ Kirigami.Page {
                                     : i18nc("Button label; Connect first and then send message", "Connect and Send")
 
                     onClicked: {
-                        view.model.sendNewMessage(emojiTextArea.getText())
-                        messageTextField.text = "";
+                        view.model.sendNewMessage(emojiTextArea.getEmojiText())
+                        emojiTextArea.text = "";
                     }
                 }
             }
