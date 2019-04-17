@@ -23,20 +23,18 @@
 
 #include <QStandardPaths>
 #include <QDebug>
-#include <QThread>
 
 #include <KDBusService>
 #include <KLocalizedString>
 
-#include <QGuiApplication>
+#include <QApplication>
 #include <QCommandLineParser>
 #include <QCommandLineOption>
 
-#include <iostream>
 
-int main(int argc, char** argv)
+Q_DECL_EXPORT int main(int argc, char *argv[])
 {
-    QGuiApplication app(argc, argv);
+    QApplication app(argc, argv);
     app.setApplicationDisplayName("SpaceBar");
     app.setOrganizationDomain("kde.org");
 
@@ -59,12 +57,12 @@ int main(int argc, char** argv)
     QQmlApplicationEngine engine;
 
     engine.load(QUrl(QStringLiteral("qrc:///main.qml")));
+    engine.rootContext()->setContextProperty("commandlineArguments", parser.positionalArguments());
+    engine.rootContext()->setContextProperty("openIncomingChannel", parser.isSet("openIncomingChannel"));
 
     if (engine.rootObjects().isEmpty()) {
         return -1;
     }
-    int ret = app.exec();
-    return ret;
 
     return app.exec();
 }
