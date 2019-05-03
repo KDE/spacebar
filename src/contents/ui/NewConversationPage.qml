@@ -18,7 +18,7 @@
  */
 
 import QtQuick 2.3
-import QtQuick.Controls 2.5 as Controls
+import QtQuick.Controls 2.4 as Controls
 import QtQuick.Layouts 1.1
 import org.kde.plasma.private.kpeoplehelper 1.0
 import org.kde.kirigami 2.1 as Kirigami
@@ -36,6 +36,7 @@ Kirigami.ScrollablePage {
         id: header
         height: toInputField.implicitHeight + 2 * Kirigami.Units.largeSpacing
         width: root.width
+        color: Kirigami.Theme.backgroundColor
 
         Controls.TextField {
             id: toInputField

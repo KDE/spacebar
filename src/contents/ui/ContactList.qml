@@ -18,7 +18,7 @@
  */
 
 import QtQuick 2.3
-import QtQuick.Controls 2.5 as Controls
+import QtQuick.Controls 2.3 as Controls
 import QtQuick.Layouts 1.1
 import org.kde.people 1.0 as KPeople
 import org.kde.kquickcontrolsaddons 2.0 as ExtraComponents
