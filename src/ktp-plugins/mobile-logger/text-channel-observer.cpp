@@ -93,7 +93,7 @@ KTp::TextChannelObserver::TextChannelObserver(QObject *parent)
 
             QSqlError error;
 
-            Q_FOREACH (const QString &query, queries) {
+            for (const QString &query : queries) {
                 QSqlQuery createTable = d->db.exec(query);
                 if (d->db.lastError().isValid()) {
                     error = d->db.lastError();
@@ -146,7 +146,7 @@ void KTp::TextChannelObserver::observeChannels(const Tp::MethodInvocationContext
 
     qDebug() << "Observing channel";
 
-    Q_FOREACH(const Tp::ChannelPtr & channel, channels) {
+    for (const Tp::ChannelPtr & channel : channels) {
         Tp::TextChannelPtr textChannel = Tp::TextChannelPtr::dynamicCast(channel);
         if (textChannel) {
             KTp::ContactPtr targetContact = KTp::ContactPtr::qObjectCast(textChannel->targetContact());
