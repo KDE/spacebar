@@ -6,4 +6,4 @@ Exec=spacebar
 Icon=org.kde.spacebar
 Type=Application
 Terminal=false
-Categories=Qt;KDE;
+Categories=Qt;KDE;Chat;InstantMessaging;Network;
