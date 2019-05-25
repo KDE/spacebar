@@ -1,3 +1,0 @@
-[D-BUS Service]
-Name=org.freedesktop.Telepathy.Client.SpaceBar
-Exec=@CMAKE_INSTALL_FULL_BINDIR@/org.kde.spacebar --openIncomingChannel

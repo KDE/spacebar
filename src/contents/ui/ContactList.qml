@@ -18,10 +18,9 @@
  */
 
 import QtQuick 2.3
-import QtQuick.Controls 1.4
+import QtQuick.Controls 2.3 as Controls
 import QtQuick.Layouts 1.1
 import org.kde.people 1.0 as KPeople
-import org.kde.plasma.private.kpeoplehelper 1.0
 import org.kde.kquickcontrolsaddons 2.0 as ExtraComponents
 import org.kde.plasma.core 2.1 as PlasmaCore
 import org.kde.kirigami 2.1 as Kirigami
@@ -127,7 +126,7 @@ ListView {
                         Layout.fillHeight: true
                         Layout.fillWidth: true
 
-                        Kirigami.Label {
+                        Controls.Label {
                             id: nickLabel
 
                             Layout.fillWidth: true
@@ -136,14 +135,14 @@ ListView {
                             elide: Text.ElideRight
                         }
 
-                        Kirigami.Label {
+                        Controls.Label {
                             id: dataLabel
 
                             Layout.fillWidth: true
 
                             text: model.phoneNumber !== undefined ? model.phoneNumber : (model.accountDisplayName !== undefined ? model.accountDisplayName : "")
                             elide: Text.ElideRight
-                            visible: dataLabel.text != nickLabel.text
+                            visible: dataLabel.text !== nickLabel.text
                             opacity: 0.4
                         }
 
@@ -169,10 +168,10 @@ ListView {
                             filterCallback: function(source_row, value) { return value == KPeople.ActionType.TextChatAction; }
                         }
 
-                        delegate: Button {
+                        delegate: Controls.Button {
                             Layout.fillWidth: true
                             text: model.display
-                            iconSource: model.iconName
+                            icon.source: model.iconName
 
                             onClicked: {
                                 personActionsModel.triggerAction(actionsListProxy.mapRowToSource(index));
@@ -182,8 +181,6 @@ ListView {
                 }
             }
         }
-
-
     }
 
 //                 CustomSectionScroller {

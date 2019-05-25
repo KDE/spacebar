@@ -17,27 +17,24 @@
  *
  */
 
-#include <QQmlEngine>
+#include <QQmlApplicationEngine>
 #include <QQmlContext>
 #include <QQmlComponent>
 
 #include <QStandardPaths>
 #include <QDebug>
-#include <QThread>
 
 #include <KDBusService>
 #include <KLocalizedString>
-#include <KDeclarative/QmlObject>
 
-#include <QGuiApplication>
+#include <QApplication>
 #include <QCommandLineParser>
 #include <QCommandLineOption>
 
-#include <iostream>
 
-int main(int argc, char** argv)
+Q_DECL_EXPORT int main(int argc, char *argv[])
 {
-    QGuiApplication app(argc, argv);
+    QApplication app(argc, argv);
     app.setApplicationDisplayName("SpaceBar");
     app.setOrganizationDomain("kde.org");
 
@@ -57,29 +54,14 @@ int main(int argc, char** argv)
         // TODO
     }
 
-    const QString packagePath("org.kde.spacebar");
+    QQmlApplicationEngine engine;
 
-    //usually we have an ApplicationWindow here, so we do not need to create a window by ourselves
-    KDeclarative::QmlObject *obj = new KDeclarative::QmlObject();
-    obj->setTranslationDomain(packagePath);
-    obj->setInitializationDelayed(true);
-    obj->loadPackage(packagePath);
-    obj->engine()->rootContext()->setContextProperty("commandlineArguments", parser.positionalArguments());
+    engine.load(QUrl(QStringLiteral("qrc:///main.qml")));
+    engine.rootContext()->setContextProperty("commandlineArguments", parser.positionalArguments());
+    engine.rootContext()->setContextProperty("openIncomingChannel", parser.isSet("openIncomingChannel"));
 
-    obj->engine()->rootContext()->setContextProperty("openIncomingChannel", parser.isSet("openIncomingChannel"));
-
-    obj->completeInitialization();
-
-    if (!obj->package().metadata().isValid()) {
+    if (engine.rootObjects().isEmpty()) {
         return -1;
-    }
-
-    QWindow *window = qobject_cast<QWindow *>(obj->rootObject());
-    if (window) {
-        window->show();
-        window->requestActivate();
-        window->setTitle(obj->package().metadata().name());
-        window->setIcon(QIcon::fromTheme(obj->package().metadata().iconName()));
     }
 
     return app.exec();

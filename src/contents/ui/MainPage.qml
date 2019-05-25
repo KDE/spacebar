@@ -18,16 +18,13 @@
  */
 
 import QtQuick 2.3
-import QtQuick.Controls 1.4
+import QtQuick.Controls 2.3 as Controls
 import QtQuick.Layouts 1.1
 import org.kde.plasma.core 2.0 as PlasmaCore
 import org.kde.kirigami 2.1 as Kirigami
-import org.kde.plasma.extras 2.0 as PlasmaExtras
 import org.kde.telepathy 0.1 as KTp
 
 Kirigami.Page {
-    anchors.fill: parent
-
     title: "Your Conversations"
 
     mainAction: Kirigami.Action {
@@ -35,7 +32,7 @@ Kirigami.Page {
         iconName: "document-edit"
 
         onTriggered: {
-            if (root.pageStack.depth == 2) {
+            if (root.pageStack.depth === 2) {
                 root.pageStack.pop();
             }
             root.pageStack.push(newConversationPageComponent);
@@ -70,8 +67,7 @@ Kirigami.Page {
 
                         onNewRequestedChannel: {
                             if (root.pageStack.currentPage.pageName === "newConversationPage" || openIncomingChannel) {
-                                root.pageStack.pop();
-                                root.pageStack.push(conversationPageComponent);
+                                root.pageStack.replace(conversationPageComponent);
                                 root.pageStack.currentPage.conversation = mainModel.data(index.row, "conversation");
                                 openIncomingChannel = false;
                             }
@@ -93,7 +89,7 @@ Kirigami.Page {
                     supportsMouseEvents: true
 
                     onClicked: {
-                        if (root.pageStack.depth == 2) {
+                        if (root.pageStack.depth === 2) {
                             root.pageStack.pop();
                         }
                         root.pageStack.push(conversationPageComponent);
@@ -116,7 +112,7 @@ Kirigami.Page {
                         id: messageLayout
                         width: parent.width
 
-                        PlasmaExtras.Heading {
+                        Kirigami.Heading {
                             Layout.fillWidth: true
 
                             text: {
@@ -133,7 +129,7 @@ Kirigami.Page {
                             maximumLineCount: 1
                             level: 4
                         }
-                        Kirigami.Label {
+                        Controls.Label {
                             Layout.fillWidth: true
 
                             text: model.lastMessageText
@@ -141,7 +137,7 @@ Kirigami.Page {
                             elide: Text.ElideRight
                             maximumLineCount: 2
                         }
-                        Kirigami.Label {
+                        Controls.Label {
                             Layout.fillWidth: true
 
                             text: Qt.formatDateTime(model.lastMessageDate)

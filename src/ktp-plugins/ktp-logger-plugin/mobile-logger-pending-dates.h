@@ -33,7 +33,7 @@ class MobileLoggerPendingDates : public KTp::PendingLoggerDates
 public:
     explicit MobileLoggerPendingDates(const Tp::AccountPtr &account,
                                       const KTp::LogEntity &entity,
-                                      QObject *parent = 0);
+                                      QObject *parent = nullptr);
 };
 
 #endif

@@ -1,0 +1,9 @@
+[Desktop Entry]
+Name=Spacebar
+Comment=Instant Messenger
+Version=1.0
+Exec=spacebar
+Icon=org.kde.spacebar
+Type=Application
+Terminal=false
+Categories=Qt;KDE;Chat;InstantMessaging;Network;

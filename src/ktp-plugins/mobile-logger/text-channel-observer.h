@@ -33,16 +33,16 @@ class TextChannelObserver : public QObject, public Tp::AbstractClientObserver
 {
     Q_OBJECT
 public:
-    explicit TextChannelObserver(QObject *parent = 0);
-    virtual ~TextChannelObserver();
+    explicit TextChannelObserver(QObject *parent = nullptr);
+    ~TextChannelObserver() override;
 
-    virtual void observeChannels(const Tp::MethodInvocationContextPtr<> &context,
+    void observeChannels(const Tp::MethodInvocationContextPtr<> &context,
                                  const Tp::AccountPtr &account,
                                  const Tp::ConnectionPtr &connection,
                                  const QList<Tp::ChannelPtr> &channels,
                                  const Tp::ChannelDispatchOperationPtr &dispatchOperation,
                                  const QList<Tp::ChannelRequestPtr> &requestsSatisfied,
-                                 const Tp::AbstractClientObserver::ObserverInfo &observerInfo);
+                                 const Tp::AbstractClientObserver::ObserverInfo &observerInfo) override;
 
 private Q_SLOTS:
     void onChannelInvalidated();

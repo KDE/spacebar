@@ -1,0 +1,12 @@
+<RCC>
+    <qresource prefix="/">
+        <file alias="main.qml">contents/ui/main.qml</file>
+        <file alias="ActionDelegate.qml">contents/ui/ActionDelegate.qml</file>
+        <file alias="ContactList.qml">contents/ui/ContactList.qml</file>
+        <file alias="ConversationPage.qml">contents/ui/ConversationPage.qml</file>
+        <file alias="EmojiTextArea.qml">contents/ui/EmojiTextArea.qml</file>
+        <file alias="MainPage.qml">contents/ui/MainPage.qml</file>
+        <file alias="NewConversationPage.qml">contents/ui/NewConversationPage.qml</file>
+        <file alias="TextDelegate.qml">contents/ui/TextDelegate.qml</file>
+    </qresource>
+</RCC>

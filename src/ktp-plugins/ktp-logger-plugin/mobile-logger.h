@@ -47,7 +47,7 @@ class MobileLoggerPlugin : public AbstractLoggerPlugin
     /**
      * Destructor.
      */
-    virtual ~MobileLoggerPlugin();
+    ~MobileLoggerPlugin() override;
 
     /**
      * Queries all available plugins that handle given @p account for list of dates
@@ -58,7 +58,7 @@ class MobileLoggerPlugin : public AbstractLoggerPlugin
      * @return Returns KTp::PendingLoggerDates operation that will emit finished()
      *         signal when all backends are finished.
      */
-    virtual KTp::PendingLoggerDates* queryDates(const Tp::AccountPtr &account,
+    KTp::PendingLoggerDates* queryDates(const Tp::AccountPtr &account,
                                                 const KTp::LogEntity &entity) Q_DECL_OVERRIDE;
 
     /**
@@ -71,7 +71,7 @@ class MobileLoggerPlugin : public AbstractLoggerPlugin
      * @return Returns KTp::PendingLoggerLogs operation that will emit finished()
      *         signal when all backends are finished.
      */
-    virtual KTp::PendingLoggerLogs* queryLogs(const Tp::AccountPtr &account,
+    KTp::PendingLoggerLogs* queryLogs(const Tp::AccountPtr &account,
                                               const KTp::LogEntity &entity,
                                               const QDate &date) Q_DECL_OVERRIDE;
 
@@ -83,7 +83,7 @@ class MobileLoggerPlugin : public AbstractLoggerPlugin
      * @return Returns KTp::PendingLoggerEntities operation that will emit finished()
      *         signal when all backends are finished.
      */
-    virtual KTp::PendingLoggerEntities* queryEntities(const Tp::AccountPtr &account) Q_DECL_OVERRIDE;
+    KTp::PendingLoggerEntities* queryEntities(const Tp::AccountPtr &account) Q_DECL_OVERRIDE;
 
     /**
      * Returnes whether plugin handles logs for given @p account.
@@ -95,7 +95,7 @@ class MobileLoggerPlugin : public AbstractLoggerPlugin
      * By default this method returns true, which means that plugin supports any
      * kind of account.
      */
-    virtual bool handlesAccount(const Tp::AccountPtr &account) Q_DECL_OVERRIDE;
+    bool handlesAccount(const Tp::AccountPtr &account) Q_DECL_OVERRIDE;
 
     /**
      * Removes all logs for given @p account from all available plugins that
@@ -103,7 +103,7 @@ class MobileLoggerPlugin : public AbstractLoggerPlugin
      *
      * @param account Account of which to remove logs
      */
-    virtual void clearAccountLogs(const Tp::AccountPtr &account) Q_DECL_OVERRIDE;
+    void clearAccountLogs(const Tp::AccountPtr &account) Q_DECL_OVERRIDE;
 
     /**
      * Removes all logs for given @p entity from all available plugins that
@@ -112,7 +112,7 @@ class MobileLoggerPlugin : public AbstractLoggerPlugin
      * @param account Account to query
      * @param entity Entity whose logs to remove
      */
-    virtual void clearContactLogs(const Tp::AccountPtr &account,
+    void clearContactLogs(const Tp::AccountPtr &account,
                                   const KTp::LogEntity &entity) Q_DECL_OVERRIDE;
 
     /**
@@ -122,7 +122,7 @@ class MobileLoggerPlugin : public AbstractLoggerPlugin
      * @return Returns KTp::PendingLoggerSearch operation that will emit finished()
      *         when all results are available
      */
-    virtual KTp::PendingLoggerSearch* search(const QString &term) Q_DECL_OVERRIDE;
+    KTp::PendingLoggerSearch* search(const QString &term) Q_DECL_OVERRIDE;
 
     /**
      * Sets a new Tp::AccountManager to be used by the plugin.
@@ -148,7 +148,7 @@ class MobileLoggerPlugin : public AbstractLoggerPlugin
      * @param contact Contact to query
      * @return Returns whether there are any logs for given person
      */
-    virtual bool logsExist(const Tp::AccountPtr &account, const KTp::LogEntity &contact)  Q_DECL_OVERRIDE;
+    bool logsExist(const Tp::AccountPtr &account, const KTp::LogEntity &contact)  Q_DECL_OVERRIDE;
 
   private:
 //     class Private;

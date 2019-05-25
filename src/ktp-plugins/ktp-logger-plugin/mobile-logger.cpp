@@ -34,7 +34,7 @@ class A : public KTp::PendingLoggerSearch
     Q_OBJECT
 
 public:
-    A(const QString &term, QObject *parent = 0) : KTp::PendingLoggerSearch(term, parent)
+    A(const QString &term, QObject *parent = nullptr) : KTp::PendingLoggerSearch(term, parent)
     {
 
     }
