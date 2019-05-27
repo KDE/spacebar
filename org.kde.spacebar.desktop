@@ -1,6 +1,18 @@
 [Desktop Entry]
 Name=Spacebar
+Name[ca]=Spacebar
+Name[ca@valencia]=Spacebar
+Name[es]=Spacebar
+Name[pt]=Spacebar
+Name[uk]=Spacebar
+Name[x-test]=xxSpacebarxx
 Comment=Instant Messenger
+Comment[ca]=Missatgeria instantània
+Comment[ca@valencia]=Missatgeria instantània
+Comment[es]=Mensajería instantánea
+Comment[pt]=Mensageiro Instantâneo
+Comment[uk]=Обмін миттєвими повідомленнями
+Comment[x-test]=xxInstant Messengerxx
 Version=1.0
 Exec=spacebar
 Icon=org.kde.spacebar
