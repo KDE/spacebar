@@ -2,6 +2,7 @@
 Name=Spacebar
 Name[ca]=Spacebar
 Name[ca@valencia]=Spacebar
+Name[de]=Spacebar
 Name[es]=Spacebar
 Name[it]=Spacebar
 Name[ko]=Spacebar
@@ -15,6 +16,7 @@ Comment=Instant Messenger
 Comment[ca]=Missatgeria instantània
 Comment[ca@valencia]=Missatgeria instantània
 Comment[cs]=Komunikátor
+Comment[de]=Instant Messenger
 Comment[es]=Mensajería instantánea
 Comment[fr]=Messagerie instantanée
 Comment[it]=Messaggistica istantanea
