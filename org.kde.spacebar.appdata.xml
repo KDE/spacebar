@@ -4,6 +4,7 @@
   <name>Spacebar</name>
   <name xml:lang="ca">Spacebar</name>
   <name xml:lang="ca-valencia">Spacebar</name>
+  <name xml:lang="de">Spacebar</name>
   <name xml:lang="es">Spacebar</name>
   <name xml:lang="fi">Spacebar</name>
   <name xml:lang="it">Spacebar</name>
@@ -17,6 +18,7 @@
   <summary>SMS and telepathy client</summary>
   <summary xml:lang="ca">Client SMS i del Telepathy</summary>
   <summary xml:lang="ca-valencia">Client SMS i del Telepathy</summary>
+  <summary xml:lang="de">Dienstprogramm für SMS und Telepathy</summary>
   <summary xml:lang="es">Cliente de SMS y de Telepathy</summary>
   <summary xml:lang="fi">Tekstiviesti- ja Telepathy-asiakas</summary>
   <summary xml:lang="it">Client SMS e di telepathy</summary>
@@ -32,6 +34,7 @@
   <developer_name>KDE Community</developer_name>
   <developer_name xml:lang="ca">Comunitat KDE</developer_name>
   <developer_name xml:lang="ca-valencia">Comunitat KDE</developer_name>
+  <developer_name xml:lang="de">KDE-Gemeinschaft</developer_name>
   <developer_name xml:lang="es">Comunidad KDE</developer_name>
   <developer_name xml:lang="fi">KDE-yhteisö</developer_name>
   <developer_name xml:lang="it">Comunità KDE</developer_name>
