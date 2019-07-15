@@ -25,10 +25,10 @@ Item {
     width: view.width
     height: mainRect.height
 
-    property bool isIncoming: model.type == MessagesModel.MessageTypeIncoming
-    property bool isTopPart: model.previousMessageType != model.type && model.nextMessageType == model.type
-    property bool isMiddlePart: model.previousMessageType == model.type && model.nextMessageType == model.type
-    property bool isBottomPart: model.previousMessageType == model.type && model.nextMessageType != model.type
+    property bool isIncoming: model.type === MessagesModel.MessageTypeIncoming
+    property bool isTopPart: model.previousMessageType !== model.type && model.nextMessageType === model.type
+    property bool isMiddlePart: model.previousMessageType === model.type && model.nextMessageType === model.type
+    property bool isBottomPart: model.previousMessageType === model.type && model.nextMessageType !== model.type
     property bool isSinglePart: !isTopPart && !isMiddlePart && !isBottomPart
 
     Rectangle {

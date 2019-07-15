@@ -27,6 +27,11 @@ import org.kde.telepathy 0.1 as KTp
 Kirigami.Page {
     title: "Your Conversations"
 
+    topPadding: 0
+    bottomPadding: 0
+    leftPadding: 0
+    rightPadding: 0
+
     mainAction: Kirigami.Action {
         text: "Start New Conversation"
         iconName: "document-edit"
