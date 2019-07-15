@@ -1,7 +1,7 @@
 project(spacebar)
 
 cmake_minimum_required(VERSION 2.8.12)
-set(KF5_MIN_VERSION "5.18.0")
+set(KF5_MIN_VERSION "5.61.0")
 set(QT_MIN_VERSION "5.5.0")
 
 ################# Disallow in-source build #################
@@ -31,7 +31,7 @@ include(ECMPoQmTools)
 
 find_package(Qt5 ${QT_MIN_VERSION} REQUIRED NO_MODULE COMPONENTS Core Quick Test Gui Svg QuickControls2 Sql)
 find_package(KF5 ${KF5_MIN_VERSION} REQUIRED COMPONENTS Kirigami2 People Service DBusAddons I18n)
-find_package (KTp REQUIRED)
+find_package(KTp REQUIRED)
 
 ################# Enable C++11 features for clang and gcc #################
 
