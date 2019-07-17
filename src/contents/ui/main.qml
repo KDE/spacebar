@@ -18,9 +18,8 @@
  */
 
 import QtQuick 2.3
-import QtQuick.Controls 1.4
 import QtQuick.Layouts 1.1
-import org.kde.plasma.core 2.0 as PlasmaCore
+import QtQuick.Controls 2.2 as Controls
 import org.kde.kirigami 2.1 as Kirigami
 
 Kirigami.ApplicationWindow {
@@ -37,69 +36,56 @@ Kirigami.ApplicationWindow {
 //         bannerImageSource: "banner.jpg"
 
         actions: [
-//         Kirigami.ActionGroup {
-//             text: "View"
-//             iconName: "view-list-icons"
-//             Action {
-//                 text: "action 1"
-//             }
-//             Action {
-//                 text: "action 2"
-//             }
-//             Action {
-//                 text: "action 3"
-//             }
-//         },
-        Action {
-            text: "Show All Conversations"
-            iconName: "view-list-details"
-            checkable: true
-            checked: true
-            enabled: false
-            onTriggered: {
-                print("Action checked:" + checked)
+            Kirigami.Action {
+                text: "Show All Conversations"
+                iconName: "view-list-details"
+                checkable: true
+                checked: true
+                enabled: false
+                onTriggered: {
+                    print("Action checked:" + checked)
+                }
+                Controls.ButtonGroup.group: filterOptions
+            },
+            Kirigami.Action {
+                text: "Show Only SMS"
+                iconName: "view-list-details"
+                checkable: true
+                checked: false
+                enabled: false
+                onTriggered: {
+                    print("Action checked:" + checked)
+                }
+                Controls.ButtonGroup.group: filterOptions
+            },
+            Kirigami.Action {
+                text: "Show Only IM Chat"
+                iconName: "view-list-details"
+                checkable: true
+                checked: false
+                enabled: false
+                onTriggered: {
+                    print("Action checked:" + checked)
+                }
+                Controls.ButtonGroup.group: filterOptions
             }
-            exclusiveGroup: filterOptions
-        },
-        Action {
-            text: "Show Only SMS"
-            iconName: "view-list-details"
-            checkable: true
-            checked: false
-            enabled: false
-            onTriggered: {
-                print("Action checked:" + checked)
-            }
-            exclusiveGroup: filterOptions
-        },
-        Action {
-            text: "Show Only IM Chat"
-            iconName: "view-list-details"
-            checkable: true
-            checked: false
-            enabled: false
-            onTriggered: {
-                print("Action checked:" + checked)
-            }
-            exclusiveGroup: filterOptions
-        }
-       ]
+        ]
 
-        ExclusiveGroup { id: filterOptions }
+        Controls.ButtonGroup { id: filterOptions }
 
 //         RadioButton {
-//             exclusiveGroup: filterOptions
+//             Controls.ButtonGroup.group: filterOptions
 //             checked: true
 //             text: "All Conversations"
 //             enabled: false
 //         }
 //         RadioButton {
-//             exclusiveGroup: filterOptions
+//             Controls.ButtonGroup.group: filterOptions
 //             text: "Only SMS"
 //             enabled: false
 //         }
 //         RadioButton {
-//             exclusiveGroup: filterOptions
+//             Controls.ButtonGroup.group: filterOptions
 //             text: "Only IM Chat"
 //             enabled: false
 //         }
