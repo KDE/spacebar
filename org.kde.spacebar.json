@@ -31,22 +31,23 @@
             "sources": [ { "type": "git", "url": "https://github.com/TelepathyIM/telepathy-glib", "tag": "telepathy-glib-0.24.1" } ]
         },
         {
-            "name": "telepathy-qt",
-            "buildsystem": "cmake-ninja",
-            "builddir": true,
-            "sources": [ { "type": "git", "url": "https://github.com/TelepathyIM/telepathy-qt" } ]
-        },
-        {
             "name": "kpeople",
             "buildsystem": "cmake-ninja",
             "builddir": true,
-            "sources": [ { "type": "git", "url": "git://anongit.kde.org/kpeople", "tag": "v5.56.0" } ]
+            "sources": [ { "type": "git", "url": "git://anongit.kde.org/kpeople", "tag": "v5.61.0" } ]
+        },
+        {
+            "name": "telepathy-qt",
+            "buildsystem": "cmake-ninja",
+            "config-opts": [ "-DDESIRED_QT_VERSION=5" ],
+            "builddir": true,
+            "sources": [ { "type": "git", "url": "https://github.com/TelepathyIM/telepathy-qt" } ]
         },
         {
             "name": "ktp-common-internals",
             "buildsystem": "cmake-ninja",
             "builddir": true,
-            "sources": [ { "type": "git", "url": "git://anongit.kde.org/ktp-common-internals.git", "branch": "mklapetek/SpaceBar" } ]
+            "sources": [ { "type": "git", "url": "https://github.com/TelepathyIM/ktp-common-internals.git", "branch": "kaffeine/SpaceBar" } ]
         },
         {
             "name": "spacebar",
