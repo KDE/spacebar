@@ -4,6 +4,7 @@
   <name>Spacebar</name>
   <name xml:lang="ca">Spacebar</name>
   <name xml:lang="ca-valencia">Spacebar</name>
+  <name xml:lang="cs">Spacebar</name>
   <name xml:lang="de">Spacebar</name>
   <name xml:lang="es">Spacebar</name>
   <name xml:lang="fi">Spacebar</name>
@@ -42,6 +43,7 @@
   <developer_name>KDE Community</developer_name>
   <developer_name xml:lang="ca">Comunitat KDE</developer_name>
   <developer_name xml:lang="ca-valencia">Comunitat KDE</developer_name>
+  <developer_name xml:lang="cs">Komunita KDE</developer_name>
   <developer_name xml:lang="de">KDE-Gemeinschaft</developer_name>
   <developer_name xml:lang="es">Comunidad KDE</developer_name>
   <developer_name xml:lang="fi">KDE-yhteisö</developer_name>
