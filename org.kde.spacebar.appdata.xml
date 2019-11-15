@@ -17,6 +17,7 @@
   <name xml:lang="pl">Spacebar</name>
   <name xml:lang="pt">Spacebar</name>
   <name xml:lang="sv">Spacebar</name>
+  <name xml:lang="tg">Фосилагузор</name>
   <name xml:lang="uk">Spacebar</name>
   <name xml:lang="x-test">xxSpacebarxx</name>
   <name xml:lang="zh-TW">空間列</name>
@@ -35,6 +36,7 @@
   <summary xml:lang="pl">Klient telepathy oraz SMSów</summary>
   <summary xml:lang="pt">Cliente de SMS e Telepathy</summary>
   <summary xml:lang="sv">SMS- och Telepathy-klient</summary>
+  <summary xml:lang="tg">Мизоҷи интиқоли фикрҳо ва паёмҳои СМС</summary>
   <summary xml:lang="uk">Клієнт SMS та telepathy</summary>
   <summary xml:lang="x-test">xxSMS and telepathy clientxx</summary>
   <summary xml:lang="zh-TW">簡訊及 Telepathy 客戶端</summary>
@@ -56,6 +58,7 @@
   <developer_name xml:lang="pl">Społeczność KDE</developer_name>
   <developer_name xml:lang="pt">Comunidade do KDE</developer_name>
   <developer_name xml:lang="sv">KDE-gemenskapen</developer_name>
+  <developer_name xml:lang="tg">Ҷамъияти KDE</developer_name>
   <developer_name xml:lang="uk">Спільнота KDE</developer_name>
   <developer_name xml:lang="x-test">xxKDE Communityxx</developer_name>
   <developer_name xml:lang="zh-TW">KDE 社群</developer_name>
@@ -75,6 +78,7 @@
     <p xml:lang="pl">Spacebar jest klientem telepathy dla Plasma Mobile, który został głównie napisany do wysyłania i odbierania esemesów.</p>
     <p xml:lang="pt">O Spacebar é um cliente de Telepathy para o Plasma Mobile, que foi criado principalmente para receber e enviar SMS.</p>
     <p xml:lang="sv">Spacebar är en Telepathy-klient för Plasma Mobil, som i huvudsak är skriven för att skicka och ta emot SMS.</p>
+    <p xml:lang="tg">Фосилагузор ин мизоҷи интиқоли фикрҳо дар Плазмаи мобилӣ мебошад, ки асосан барои ирсол ва қабул кардани паёмҳои СМС таҳия карда шудааст.</p>
     <p xml:lang="uk">Spacebar — клієнт telepathy для мобільної версії Плазми. Основним завданням програми є надсилання і отримання SMS.</p>
     <p xml:lang="x-test">xxSpacebar is a telepathy client for Plasma Mobile, that is primarily written for sending and receiving SMS.xx</p>
     <p xml:lang="zh-TW">《空間列》為 Plasma 手機版的 Telepathy（主要寫來傳送及接收簡訊）的客戶端。</p>
