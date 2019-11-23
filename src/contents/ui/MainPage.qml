@@ -24,7 +24,7 @@ import org.kde.plasma.core 2.0 as PlasmaCore
 import org.kde.kirigami 2.1 as Kirigami
 import org.kde.telepathy 0.1 as KTp
 
-Kirigami.Page {
+Kirigami.ScrollablePage {
     title: "Your Conversations"
 
     topPadding: 0
@@ -45,119 +45,117 @@ Kirigami.Page {
         }
     }
 
-    Loader {
+    ListView {
         anchors.fill: parent
-        active: telepathyManager.ready
-        sourceComponent: mainModelComponent
-    }
+        clip: true
 
-    Component {
-        id: mainModelComponent
+        Controls.Label {
+            text: i18n("No conversations yet")
+            anchors.centerIn: parent
+            visible: plasmaSortFilterModel.count === 0 && telepathyManager.ready
+        }
 
-        Item {
-            Controls.Label {
-                text: i18n("No conversations yet")
-                anchors.centerIn: parent
-                visible: plasmaSortFilterModel.count === 0
+        Controls.BusyIndicator {
+            running: !telepathyManager.ready
+            anchors.centerIn: parent
+            width: Kirigami.Units.gridUnit * 5
+        }
+
+        model: PlasmaCore.SortFilterModel {
+            id: plasmaSortFilterModel
+            sortRole: "lastMessageDate"
+            sortOrder: Qt.DescendingOrder
+            sourceModel: KTp.MainLogModel {
+                id: mainModel
+
+                onNewRequestedChannel: {
+                    if (root.pageStack.currentPage.pageName === "newConversationPage" || openIncomingChannel) {
+                        root.pageStack.replace(conversationPageComponent);
+                        root.pageStack.currentPage.conversation = mainModel.data(index.row, "conversation");
+                        openIncomingChannel = false;
+                    }
+                }
+
+                Component.onCompleted: {
+                    telepathyManager.registerClient(mainModel, "SpaceBar");
+                    telepathyManager.registerClient(mainModel.observerProxy(), "SpaceBarObserverProxy");
+                    mainModel.setAccountManager(telepathyManager.accountManager);
+                }
+
+                Component.onDestruction: {
+                    telepathyManager.unregisterClient(mainModel);
+                }
+            }
+        }
+
+        delegate: Kirigami.AbstractListItem {
+            supportsMouseEvents: true
+
+            onClicked: {
+                if (root.pageStack.depth === 2) {
+                    root.pageStack.pop();
+                }
+                root.pageStack.push(conversationPageComponent);
+                root.pageStack.currentItem.conversation = model.conversation;
+
+                // If the account is online, request a channel
+                if (mainModel.canChat(accountId)) {
+                    mainModel.startChat(accountId, contactId);
+                }
             }
 
-            ColumnLayout {
-                id: rootLayout
-                anchors.fill: parent
+            RowLayout {
+                Kirigami.Icon {
+                    source: "user-identity"
+                    width: Kirigami.Units.gridUnit * 4
+                    height: width
+                }
 
-                ListView {
-                    Layout.fillHeight: true
-                    Layout.fillWidth: true
-                    clip: true
+                ColumnLayout {
+                    id: messageLayout
+                    width: parent.width
 
-                    model: PlasmaCore.SortFilterModel {
-                        id: plasmaSortFilterModel
-                        sortRole: "lastMessageDate"
-                        sortOrder: Qt.DescendingOrder
-                        sourceModel: KTp.MainLogModel {
-                            id: mainModel
+                    Kirigami.Heading {
+                        Layout.fillWidth: true
 
-                            onNewRequestedChannel: {
-                                if (root.pageStack.currentPage.pageName === "newConversationPage" || openIncomingChannel) {
-                                    root.pageStack.replace(conversationPageComponent);
-                                    root.pageStack.currentPage.conversation = mainModel.data(index.row, "conversation");
-                                    openIncomingChannel = false;
-                                }
-                            }
-
-                            Component.onCompleted: {
-                                telepathyManager.registerClient(mainModel, "SpaceBar");
-                                telepathyManager.registerClient(mainModel.observerProxy(), "SpaceBarObserverProxy");
-                                mainModel.setAccountManager(telepathyManager.accountManager);
-                            }
-
-                            Component.onDestruction: {
-                                telepathyManager.unregisterClient(mainModel);
-                            }
-                        }
+                        text: model.contactDisplayName ? model.contactDisplayName : model.contactId;
+                        wrapMode: Text.WordWrap
+                        elide: Text.ElideRight
+                        maximumLineCount: 1
+                        level: 4
                     }
+                    Controls.Label {
+                        Layout.fillWidth: true
 
-                    delegate: Kirigami.AbstractListItem {
-                        supportsMouseEvents: true
+                        text: model.lastMessageText
+                        wrapMode: Text.WordWrap
+                        elide: Text.ElideRight
+                        maximumLineCount: 2
+                    }
+                    Controls.Label {
+                        Layout.fillWidth: true
 
-                        onClicked: {
-                            if (root.pageStack.depth === 2) {
-                                root.pageStack.pop();
-                            }
-                            root.pageStack.push(conversationPageComponent);
-                            root.pageStack.currentItem.conversation = model.conversation;
+                        text: Qt.formatDateTime(model.lastMessageDate)
+                        wrapMode: Text.WordWrap
+                        elide: Text.ElideRight
+                        maximumLineCount: 1
+                        color: Kirigami.Theme.disabledTextColor
+                    }
+                }
+                Rectangle {
+                    Layout.preferredHeight: Kirigami.Units.gridUnit * 1.25
+                    Layout.preferredWidth: Kirigami.Units.gridUnit * 1.25
 
-                            // If the account is online, request a channel
-                            if (mainModel.canChat(accountId)) {
-                                mainModel.startChat(accountId, contactId);
-                            }
-                        }
+                    id: counterCircle
+                    radius: counterCircle.height * 0.5
+                    color: Kirigami.Theme.positiveTextColor
 
-                        Rectangle {
-                            anchors.fill: parent
-                            color: "white"
-                            opacity: 0.8
-                            visible: model.hasUnreadMessages
-                        }
-
-                        ColumnLayout {
-                            id: messageLayout
-                            width: parent.width
-
-                            Kirigami.Heading {
-                                Layout.fillWidth: true
-
-                                text: {
-                                    var t = model.contactDisplayName === "" ? model.contactId : model.contactDisplayName;
-                                    if (model.hasUnreadMessages) {
-                                        t += " ";
-                                        t += i18nc("N unread messages", "(%1 unread)", model.unreadMessagesCount);
-                                    }
-
-                                    return t;
-                                }
-                                wrapMode: Text.WordWrap
-                                elide: Text.ElideRight
-                                maximumLineCount: 1
-                                level: 4
-                            }
-                            Controls.Label {
-                                Layout.fillWidth: true
-
-                                text: model.lastMessageText
-                                wrapMode: Text.WordWrap
-                                elide: Text.ElideRight
-                                maximumLineCount: 2
-                            }
-                            Controls.Label {
-                                Layout.fillWidth: true
-
-                                text: Qt.formatDateTime(model.lastMessageDate)
-                                wrapMode: Text.WordWrap
-                                elide: Text.ElideRight
-                                maximumLineCount: 1
-                            }
-                        }
+                    Text {
+                        id: msgCounter
+                        text: model.unreadMessagesCount
+                        color: "white"
+                        anchors.centerIn: parent
+                        visible: model.hasUnreadMessages
                     }
                 }
             }
