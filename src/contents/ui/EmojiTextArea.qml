@@ -32,17 +32,8 @@ Controls.TextArea {
 
     background: Item {}
 
-    property int acc: -1
-    //property alias emojisAutocompletionModel: emojisAutocompletionFilter.sourceModel
-    property alias lineSpacing: fontMetrics.lineSpacing
-
     function getEmojiText() {
         return emojisHandler.getText();
-    }
-
-    FontMetrics {
-        id: fontMetrics
-        font: messageTextField.font
     }
 
     TextAreaEmojisHandler {

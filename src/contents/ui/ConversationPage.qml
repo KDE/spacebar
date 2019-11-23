@@ -174,7 +174,7 @@ Kirigami.ScrollablePage {
                     id: emojiTextArea
                     Layout.fillWidth: true
                     Layout.minimumHeight: sendButton.height
-                    Layout.maximumHeight: emojiTextArea.lineCount * emojiTextArea.lineSpacing + units.largeSpacing
+                    Layout.maximumHeight: emojiTextArea.paintedHeight + units.largeSpacing
 
                     Connections {
                         target: conversationPage
