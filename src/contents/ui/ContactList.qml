@@ -110,15 +110,14 @@ ListView {
                     Layout.maximumHeight: units.gridUnit * 3
                     Layout.fillWidth: true
 
-                    ExtraComponents.QPixmapItem {
+                    Kirigami.Icon {
                         id: avatarLabel
 
                         Layout.maximumWidth: parent.height
                         Layout.minimumWidth: parent.height
                         Layout.fillHeight: true
 
-                        pixmap: model.decoration
-                        fillMode: ExtraComponents.QPixmapItem.PreserveAspectFit
+                        source: model.decoration
                         smooth: true
                     }
 
