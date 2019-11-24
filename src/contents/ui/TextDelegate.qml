@@ -74,9 +74,8 @@ Item {
             visible: isTopPart || isSinglePart
         }
 
-        EmojiTextArea {
+        TextEdit {
             id: body
-            background: Item {}
             anchors {
                 left: parent.left
                 right: parent.right

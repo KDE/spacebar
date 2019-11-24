@@ -143,6 +143,8 @@ Kirigami.ScrollablePage {
                     }
                 }
                 Rectangle {
+                    visible: model.hasUnreadMessages
+
                     Layout.preferredHeight: Kirigami.Units.gridUnit * 1.25
                     Layout.preferredWidth: Kirigami.Units.gridUnit * 1.25
 
@@ -155,7 +157,6 @@ Kirigami.ScrollablePage {
                         text: model.unreadMessagesCount
                         color: "white"
                         anchors.centerIn: parent
-                        visible: model.hasUnreadMessages
                     }
                 }
             }

@@ -37,8 +37,6 @@ Kirigami.ScrollablePage {
     property QtObject conversation
     property string pageName: "conversationPage"
 
-    signal insertEmoji(var emoji);
-
     signal focusTextInput();
 
     // TODO
@@ -47,10 +45,6 @@ Kirigami.ScrollablePage {
     ListView {
         id: view
         property bool followConversation: true
-
-        EmojisModel {
-            id: emojisModel
-        }
 
         Layout.fillWidth: true
         Layout.fillHeight: true
@@ -170,19 +164,34 @@ Kirigami.ScrollablePage {
 
             RowLayout {
                 anchors.fill: parent
-                EmojiTextArea {
-                    id: emojiTextArea
+                Controls.TextArea {
+                    id: messageArea
                     Layout.fillWidth: true
                     Layout.minimumHeight: sendButton.height
-                    Layout.maximumHeight: emojiTextArea.paintedHeight + units.largeSpacing
+                    Layout.maximumHeight: messageArea.paintedHeight + Kirigami.Units.largeSpacing
+
+                    background: Item {}
+
+                    function send() {
+                        if (conversation.canSendMessages) {
+                            view.model.sendNewMessage(messageArea.text)
+                            text = ""
+                        } else {
+                            showPassiveNotification(i18n("Message could not be sent, because SpaceBar is not connected"), 3000)
+                        }
+                    }
 
                     Connections {
                         target: conversationPage
-                        onInsertEmoji: {
-                            emojiTextArea.insert(emojiTextArea.cursorPosition, emoji + " ");
-                        }
                         onFocusTextInput: {
-                            emojiTextArea.forceActiveFocus();
+                            messageArea.forceActiveFocus();
+                        }
+                    }
+                    Keys.onReturnPressed: {
+                        if (event.modifiers === Qt.NoModifier) {
+                            send()
+                        } else if (event.modifiers !== Qt.NoModifier) {
+                            event.accepted = false
                         }
                     }
                 }
@@ -200,43 +209,18 @@ Kirigami.ScrollablePage {
                     icon.name: "document-send"
 
                     onClicked: {
-                        view.model.sendNewMessage(emojiTextArea.getEmojiText())
-                        emojiTextArea.text = "";
+                        messageArea.send()
                     }
                 }
             }
         }
-        GridView {
+        EmojiPicker {
             id: emojisGridView
+            textArea: messageArea
             Layout.fillWidth: true
-            height: conversationPage.height / 3
-            Layout.leftMargin: conversationPage.width % cellWidth * 0.5
-            Layout.rightMargin: Layout.leftMargin
-            clip: true
+            Layout.fillHeight: true
+            emojiAreaHeight: root.height / 3
             visible: emojisButton.checked
-
-            property int iconSize: Kirigami.Units.iconSizes.medium
-
-            model: emojisModel
-            cellWidth: Kirigami.Units.gridUnit * 3
-            cellHeight: cellWidth
-
-            delegate: MouseArea {
-                height: emojisGridView.iconSize
-                width: emojisGridView.iconSize
-
-                onClicked: {
-                    conversationPage.insertEmoji(model.emojiText);
-                    emojisButton.checked = false
-                    conversationPage.focusTextInput();
-                }
-
-                Kirigami.Icon {
-                    height: emojisGridView.iconSize
-                    width: emojisGridView.iconSize
-                    source: model.emojiFullPath
-                }
-            }
         }
     }
 }
