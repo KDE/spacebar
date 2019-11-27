@@ -11,5 +11,5 @@ Make sure to install the [telepathy-ofono](https://github.com/TelepathyIM/telepa
 
 Then, set up ofono-phonesim according to [docs.plasma-mobile.org/Ofono.html](https://docs.plasma-mobile.org/Ofono.html#phonesim), to add a fake modem.
 
-As a last step copy the [telepathy mission-control accounts configuration file](https://raw.githubusercontent.com/KDE/plasma-phone-settings/master/etc/skel/.local/share/telepathy/mission-control/accounts.cfg)
+As a last step copy the [telepathy mission-control accounts configuration file](https://invent.kde.org/snippets/588/raw)
 to `.local/share/telepathy/mission-control/accounts.cfg`.
