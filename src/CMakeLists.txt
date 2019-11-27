@@ -2,6 +2,7 @@ add_subdirectory(ktp-plugins)
 
 set(spacebar_SRCS
     main.cpp
+    EmojiModel.cpp
     )
 
 qt5_add_resources(RESOURCES resources.qrc)

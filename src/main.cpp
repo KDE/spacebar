@@ -31,6 +31,7 @@
 #include <QCommandLineParser>
 #include <QCommandLineOption>
 
+#include "EmojiModel.h"
 
 Q_DECL_EXPORT int main(int argc, char *argv[])
 {
@@ -53,6 +54,11 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
     if (parser.isSet("contact")) {
         // TODO
     }
+
+    qmlRegisterType<EmojiModel>("EmojiModel", 0, 1, "EmojiModel");
+    qmlRegisterType<EmojiProxyModel>("EmojiModel", 0, 1, "EmojiProxyModel");
+    qmlRegisterUncreatableType<QAbstractItemModel>("EmojiModel", 0, 1, "QAbstractItemModel", "Used by proxy models");
+    qmlRegisterUncreatableType<Emoji>("EmojiModel", 0, 1, "Emoji", "Used by emoji models");
 
     QQmlApplicationEngine engine;
 

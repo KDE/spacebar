@@ -52,7 +52,7 @@ Kirigami.ScrollablePage {
         id: contactListView
         requiredProperties: ["phoneNumber", "telepathy-contactUri"]
         executeDefaultAction: true
-        filterRegExp: toInputField.text
+        filterString: toInputField.text
         sourceModel: KPeople.PersonsModel {
             id: contactsModel
         }

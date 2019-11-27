@@ -19,7 +19,9 @@
 */
 
 import QtQuick 2.1
+
 import org.kde.telepathy 0.1
+import org.kde.kirigami 2.2 as Kirigami
 
 Item {
     width: view.width
@@ -77,19 +79,19 @@ Item {
             anchors {
                 left: parent.left
                 right: parent.right
-                leftMargin: units.gridUnit
-                rightMargin: units.gridUnit
+                leftMargin: Kirigami.Units.gridUnit
+                rightMargin: Kirigami.Units.gridUnit
 
                 verticalCenter: isMiddlePart || isSinglePart ? parent.verticalCenter : undefined
 
                 bottom: isTopPart ? parent.bottom : undefined
-                topMargin: isTopPart ? units.gridUnit * 2 : undefined
+                topMargin: isTopPart ? Kirigami.Units.gridUnit * 2 : undefined
 
                 top: isBottomPart ? parent.top : undefined
-                bottomMargin: isBottomPart ? units.gridUnit * 2 : undefined
+                bottomMargin: isBottomPart ? Kirigami.Units.gridUnit * 2 : undefined
             }
 
-            height: paintedHeight
+            //height: paintedHeight
 
             text: model.text
             textFormat: TextEdit.RichText
