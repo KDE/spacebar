@@ -69,8 +69,8 @@ Item {
                 top: parent.top
             }
             color: parent.color
-            width: Kirigami.Kirigami.Units.gridUnit
-            height: Kirigami.Kirigami.Units.gridUnit
+            width: Kirigami.Units.gridUnit
+            height: Kirigami.Units.gridUnit
             visible: isTopPart || isSinglePart
         }
 
@@ -79,8 +79,8 @@ Item {
             anchors {
                 left: parent.left
                 right: parent.right
-                leftMargin: Kirigami.Kirigami.Units.gridUnit
-                rightMargin: Kirigami.Kirigami.Units.gridUnit
+                leftMargin: Kirigami.Units.gridUnit
+                rightMargin: Kirigami.Units.gridUnit
 
                 verticalCenter: isMiddlePart || isSinglePart ? parent.verticalCenter : undefined
 
