@@ -36,17 +36,17 @@ Item {
     Rectangle {
         id: mainRect
 
-        width: parent.width - units.gridUnit * 5
-        height: body.paintedHeight + units.gridUnit
+        width: parent.width - Kirigami.Units.gridUnit * 5
+        height: body.paintedHeight + Kirigami.Units.gridUnit
 
         anchors {
             left: isIncoming ? parent.left : undefined
             right: isIncoming ? undefined : parent.right
-            leftMargin: isIncoming ? units.smallSpacing : 0
-            rightMargin: isIncoming ? 0 : units.smallSpacing
+            leftMargin: isIncoming ? Kirigami.Units.smallSpacing : 0
+            rightMargin: isIncoming ? 0 : Kirigami.Units.smallSpacing
         }
 
-        radius: isMiddlePart ? 0 : units.gridUnit
+        radius: isMiddlePart ? 0 : Kirigami.Units.gridUnit
         color: isIncoming ? Qt.rgba(0.7, 0.85, 0.92, 1) : Qt.rgba(1, 0.6, 0.25, 1)
 
         Rectangle {
@@ -69,8 +69,8 @@ Item {
                 top: parent.top
             }
             color: parent.color
-            width: units.gridUnit
-            height: units.gridUnit
+            width: Kirigami.Kirigami.Units.gridUnit
+            height: Kirigami.Kirigami.Units.gridUnit
             visible: isTopPart || isSinglePart
         }
 
@@ -79,8 +79,8 @@ Item {
             anchors {
                 left: parent.left
                 right: parent.right
-                leftMargin: Kirigami.Units.gridUnit
-                rightMargin: Kirigami.Units.gridUnit
+                leftMargin: Kirigami.Kirigami.Units.gridUnit
+                rightMargin: Kirigami.Kirigami.Units.gridUnit
 
                 verticalCenter: isMiddlePart || isSinglePart ? parent.verticalCenter : undefined
 
