@@ -1,0 +1,125 @@
+diff --git a/KTp/CMakeLists.txt b/KTp/CMakeLists.txt
+index 85d578b..2b77737 100644
+--- a/KTp/CMakeLists.txt
++++ b/KTp/CMakeLists.txt
+@@ -100,6 +100,7 @@ target_link_libraries (KTpCommonInternals
+                     KF5::IconThemes
+                     KF5::Notifications
+                     KF5::IconThemes
++                    Qt5::Xml
+ )
+ target_include_directories(KTpCommonInternals PUBLIC ${TELEPATHY_QT5_INCLUDE_DIR}) # TODO: Remove when TelepathyQt exports include paths properly
+ 
+diff --git a/KTp/Declarative/CMakeLists.txt b/KTp/Declarative/CMakeLists.txt
+index e6a6de8..d7d6183 100644
+--- a/KTp/Declarative/CMakeLists.txt
++++ b/KTp/Declarative/CMakeLists.txt
+@@ -24,6 +24,7 @@ target_link_libraries (ktpqmlplugin
+     Qt5::Qml
+     Qt5::Sql
+     Qt5::Quick
++    Qt5::DBus
+ 
+     KF5::WindowSystem
+     KF5::I18n
+diff --git a/KTp/Logger/CMakeLists.txt b/KTp/Logger/CMakeLists.txt
+index af5a1d4..c261d37 100644
+--- a/KTp/Logger/CMakeLists.txt
++++ b/KTp/Logger/CMakeLists.txt
+@@ -52,6 +52,7 @@ target_link_libraries (KTpLogger
+                        KTp::CommonInternals
+                        ${TELEPATHY_LOGGER_LIBRARIES}
+                 PRIVATE
++                       Qt5::DBus
+                        KF5::Service
+ )
+ 
+diff --git a/KTp/Models/CMakeLists.txt b/KTp/Models/CMakeLists.txt
+index 8d4c8cb..b4841f4 100644
+--- a/KTp/Models/CMakeLists.txt
++++ b/KTp/Models/CMakeLists.txt
+@@ -61,6 +61,7 @@ target_link_libraries (KTpModels
+     PUBLIC
+         KTp::CommonInternals
+     PRIVATE
++        Qt5::DBus
+         KF5::I18n
+         KF5::ConfigCore
+         KF5::WidgetsAddons
+diff --git a/KTp/OTR/CMakeLists.txt b/KTp/OTR/CMakeLists.txt
+index 12e28de..777912f 100644
+--- a/KTp/OTR/CMakeLists.txt
++++ b/KTp/OTR/CMakeLists.txt
+@@ -31,6 +31,7 @@ target_link_libraries (KTpOTR
+                             ${TELEPATHY_QT5_LIBRARIES}
+                         PRIVATE
+                             KF5::I18n
++                            Qt5::DBus
+ )
+ target_include_directories(KTpOTR PUBLIC ${TELEPATHY_QT5_INCLUDE_DIR}) # TODO: Remove when TelepathyQt exports include paths properly
+ 
+diff --git a/kpeople/actionsplugin/CMakeLists.txt b/kpeople/actionsplugin/CMakeLists.txt
+index 51bd86a..4837408 100644
+--- a/kpeople/actionsplugin/CMakeLists.txt
++++ b/kpeople/actionsplugin/CMakeLists.txt
+@@ -7,4 +7,5 @@ target_link_libraries (ktp_kpeople_plugin
+     KF5::I18n
+     KF5::Service
+     KTp::CommonInternals
++    Qt5::DBus
+ )
+diff --git a/kpeople/datasourceplugin/CMakeLists.txt b/kpeople/datasourceplugin/CMakeLists.txt
+index cef87d2..66c4f79 100644
+--- a/kpeople/datasourceplugin/CMakeLists.txt
++++ b/kpeople/datasourceplugin/CMakeLists.txt
+@@ -4,6 +4,7 @@ kcoreaddons_add_plugin (im_persons_data_source_plugin SOURCES im-persons-data-so
+ 
+ target_link_libraries (im_persons_data_source_plugin
+     Qt5::Sql
++    Qt5::DBus
+     KF5::CoreAddons
+     KF5::ConfigCore
+     KF5::People
+diff --git a/kpeople/uiplugins/CMakeLists.txt b/kpeople/uiplugins/CMakeLists.txt
+index 868a182..f09766c 100644
+--- a/kpeople/uiplugins/CMakeLists.txt
++++ b/kpeople/uiplugins/CMakeLists.txt
+@@ -1,6 +1,7 @@
+ kcoreaddons_add_plugin(imdetailswidgetplugin SOURCES imdetailswidget.cpp JSON "imdetailswidgetplugin.json" INSTALL_NAMESPACE "kpeople/widgets")
+ target_link_libraries(imdetailswidgetplugin Qt5::Core
+     Qt5::Gui
++    Qt5::DBus
+     KF5::PeopleWidgets
+     KF5::CoreAddons
+     KF5::I18n
+diff --git a/kpeople/uiplugins/chatplugin/CMakeLists.txt b/kpeople/uiplugins/chatplugin/CMakeLists.txt
+index 35a81aa..ef4ad57 100644
+--- a/kpeople/uiplugins/chatplugin/CMakeLists.txt
++++ b/kpeople/uiplugins/chatplugin/CMakeLists.txt
+@@ -1,5 +1,6 @@
+ kcoreaddons_add_plugin(kpeople_chat_plugin SOURCES chatlistviewdelegate.cpp kpeople_chat_plugin.cpp JSON "kpeople_chat_plugin.json" INSTALL_NAMESPACE "kpeople/widgets")
+ target_link_libraries(kpeople_chat_plugin ${QT_QTCORE_LIBRARY}
++    Qt5::DBus
+     KF5::PeopleWidgets
+     KF5::CoreAddons
+     KF5::I18n
+diff --git a/tests/CMakeLists.txt b/tests/CMakeLists.txt
+index 0fa57ae..a36e449 100644
+--- a/tests/CMakeLists.txt
++++ b/tests/CMakeLists.txt
+@@ -19,6 +19,7 @@ add_executable(ktp_contact_list_model_view
+ target_link_libraries(ktp_contact_list_model_view
+   Qt5::Test
+   Qt5::Widgets
++  Qt5::DBus
+   KF5::CoreAddons
+   KF5::I18n
+   KTp::CommonInternals
+@@ -35,6 +36,7 @@ if (KF5People_FOUND)
+     target_link_libraries(ktp_kpeople_list_model_view
+     Qt5::Test
+     Qt5::Widgets
++    Qt5::DBus
+     KF5::I18n
+     KF5::People
+     KF5::CoreAddons
