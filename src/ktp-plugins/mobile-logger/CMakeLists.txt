@@ -11,6 +11,7 @@ target_link_libraries(ktp-mobile-logger
             KF5::People
             KTp::CommonInternals
             KTp::Logger
+            Qt5::DBus
             Qt5::Core
             Qt5::Sql)
 

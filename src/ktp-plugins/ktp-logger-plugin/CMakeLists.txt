@@ -11,8 +11,8 @@ target_link_libraries (ktploggerplugin_mobile
     KTp::Logger
     Qt5::Sql
     Qt5::Core
-                ${TELEPATHY_QT5_LIBRARIES}
-
+    Qt5::DBus
+    ${TELEPATHY_QT5_LIBRARIES}
     KF5::Service
 )
 kde_target_enable_exceptions(ktploggerplugin_mobile PRIVATE)
