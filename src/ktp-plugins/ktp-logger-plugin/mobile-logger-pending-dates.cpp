@@ -54,6 +54,6 @@ MobileLoggerPendingDates::MobileLoggerPendingDates(const Tp::AccountPtr &account
         dates << QDate::fromString(query.value(0).toString(), Qt::ISODate);
     }
 
-    setDates(dates.toList());
+    setDates(dates.values());
     emitFinished();
 }
