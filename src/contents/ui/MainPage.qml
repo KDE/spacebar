@@ -114,7 +114,7 @@ Kirigami.ScrollablePage {
 
             RowLayout {
                 Kirigami.Icon {
-                    source: "user-identity"
+                    source: model.chatPicture
                     width: Kirigami.Units.gridUnit * 4
                     height: width
                 }
