@@ -7,13 +7,13 @@ set(ktp-mobile-logger_SRCS
 add_executable(ktp-mobile-logger ${ktp-mobile-logger_SRCS})
 
 target_link_libraries(ktp-mobile-logger
-            ${TELEPATHY_QT5_LIBRARIES}
             KF5::People
             KTp::CommonInternals
             KTp::Logger
-            Qt5::DBus
             Qt5::Core
-            Qt5::Sql)
+            Qt5::Sql
+            TelepathyQt5::Core
+)
 
 target_include_directories(ktp-mobile-logger PUBLIC ${TELEPATHY_QT5_INCLUDE_DIR}) # TODO: Remove when TelepathyQt exports include paths properly
 

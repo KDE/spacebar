@@ -48,8 +48,7 @@
             "buildsystem": "cmake-ninja",
             "builddir": true,
             "sources": [
-                { "type": "git", "url": "https://github.com/TelepathyIM/ktp-common-internals.git", "branch": "kaffeine/SpaceBar" },
-                { "type": "patch", "path": "flatpak/ktp-common-internals-link-dbus.patch" }
+                { "type": "git", "url": "https://github.com/TelepathyIM/ktp-common-internals.git", "branch": "master" }
             ]
         },
         {
