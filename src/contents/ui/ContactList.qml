@@ -50,6 +50,7 @@ ListView {
         id: kpeopleProxyModel
         sourceModel: contactsList.sourceModel
         filterRole: Qt.DisplayRole
+        filterCaseSensitivity: Qt.CaseInsensitive
     }
 
 //     highlightRangeMode: ListView.ApplyRange
