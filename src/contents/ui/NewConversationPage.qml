@@ -58,7 +58,7 @@ Kirigami.ScrollablePage {
         }
 
         onContactClicked: {
-            root.requestedChannel = personUri;
+            root.startChat(personUri)
         }
     }
 }

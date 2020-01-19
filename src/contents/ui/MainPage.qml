@@ -45,6 +45,14 @@ Kirigami.ScrollablePage {
         }
     }
 
+    Connections {
+        target: root
+
+        onStartChat: {
+            mainModel.startChat(personUri)
+        }
+    }
+
     ListView {
         anchors.fill: parent
         clip: true

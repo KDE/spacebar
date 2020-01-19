@@ -28,7 +28,7 @@ Kirigami.ApplicationWindow {
     height: 800
     visible: true
 
-    property string requestedChannel
+    signal startChat(string personUri)
 
     globalDrawer: Kirigami.GlobalDrawer {
         title: "SpaceBar"
