@@ -1501,14 +1501,20 @@ QHash<int, QByteArray> EmojiModel::roleNames() const
 EmojiProxyModel::EmojiProxyModel(QObject *parent)
 	: QSortFilterProxyModel(parent)
 {
-    QSettings settings;
-    m_favoriteEmojis = settings.value(QLatin1String(FAVORITES_EMOJIS_SETTINGS_PATH)).toStringList().toSet();
+	QSettings settings;
+#if QT_VERSION < QT_VERSION_CHECK(5, 14, 0)
+	m_favoriteEmojis = 		settings.value(QLatin1String(FAVORITES_EMOJIS_SETTINGS_PATH)).toStringList().toSet();
+#else
+	m_favoriteEmojis = QSet<QString>(settings.value(QLatin1String(FAVORITES_EMOJIS_SETTINGS_PATH)).toStringList().begin(),
+									 settings.value(QLatin1String(FAVORITES_EMOJIS_SETTINGS_PATH)).toStringList().end());
+
+#endif
 }
 
 EmojiProxyModel::~EmojiProxyModel()
 {
-    QSettings settings;
-    settings.setValue(QLatin1String(FAVORITES_EMOJIS_SETTINGS_PATH), QStringList(m_favoriteEmojis.toList()));
+	QSettings settings;
+	settings.setValue(QLatin1String(FAVORITES_EMOJIS_SETTINGS_PATH), QStringList(m_favoriteEmojis.values()));
 }
 
 Emoji::Group EmojiProxyModel::group() const
