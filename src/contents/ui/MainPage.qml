@@ -77,9 +77,9 @@ Kirigami.ScrollablePage {
                 id: mainModel
 
                 onNewRequestedChannel: {
-                    if (root.pageStack.currentPage.pageName === "newConversationPage" || openIncomingChannel) {
+                    if (root.pageStack.currentItem.pageName === "newConversationPage" || openIncomingChannel) {
                         root.pageStack.replace(conversationPageComponent);
-                        root.pageStack.currentPage.conversation = mainModel.data(index.row, "conversation");
+                        root.pageStack.currentItem.conversation = mainModel.data(index.row, "conversation");
                         openIncomingChannel = false;
                     }
                 }
