@@ -1503,10 +1503,9 @@ EmojiProxyModel::EmojiProxyModel(QObject *parent)
 {
 	QSettings settings;
 #if QT_VERSION < QT_VERSION_CHECK(5, 14, 0)
-	m_favoriteEmojis = 		settings.value(QLatin1String(FAVORITES_EMOJIS_SETTINGS_PATH)).toStringList().toSet();
+	m_favoriteEmojis = settings.value(QLatin1String(FAVORITES_EMOJIS_SETTINGS_PATH)).toStringList().toSet();
 #else
-	m_favoriteEmojis = QSet<QString>(settings.value(QLatin1String(FAVORITES_EMOJIS_SETTINGS_PATH)).toStringList().begin(),
-									 settings.value(QLatin1String(FAVORITES_EMOJIS_SETTINGS_PATH)).toStringList().end());
+	m_favoriteEmojis = QSet<QString>::fromList(settings.value(QLatin1String(FAVORITES_EMOJIS_SETTINGS_PATH)).toStringList());
 
 #endif
 }
