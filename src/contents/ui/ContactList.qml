@@ -53,10 +53,6 @@ ListView {
         filterCaseSensitivity: Qt.CaseInsensitive
     }
 
-//     highlightRangeMode: ListView.ApplyRange
-//     highlight: PlasmaComponents.Highlight {
-//
-//     }
     highlightMoveDuration: 0
 
     KPeople.PersonActions {
@@ -67,22 +63,11 @@ ListView {
 
     delegate: Kirigami.AbstractListItem {
         supportsMouseEvents: true
-        height: actionsRow.visible ? Kirigami.Units.gridUnit * 6 : Kirigami.Units.gridUnit * 3
+        height: Kirigami.Units.gridUnit * 3
         enabled: true
         clip: true
-        opacity: contactsList.delegateSelected && contactsList.currentIndex != index ? 0.4 : 1
 
-        onClicked: {
-            contactsList.currentIndex = index;
-            personActionsModel.personUri = model.personUri;
-            if (contactsList.executeDefaultAction) {
-                personActionsModel.triggerAction(0);
-            } else {
-                actionsListProxy.sourceModel = personActionsModel;
-            }
-
-            contactsList.contactClicked(model.personUri);
-        }
+        onClicked: contactsList.contactClicked(model.personUri)
 
         ColumnLayout {
             anchors.fill: parent
@@ -130,52 +115,6 @@ ListView {
 
                 }
             }
-
-            // Clear the actions model when index is switched
-            Connections {
-                target: contactsList
-                onCurrentIndexChanged: {
-                    if (contactsList.currentIndex != index) {
-                        actionsListProxy.sourceModel = null;
-                    }
-                }
-            }
-
-            RowLayout {
-                id: actionsRow
-                Layout.fillWidth: true
-                Layout.fillHeight: true
-
-                visible: actionsList.count > 0
-
-                ListView {
-                    id: actionsList
-                    Layout.fillWidth: true
-                    Layout.fillHeight: true
-                    orientation: ListView.Horizontal
-
-                    model: PlasmaCore.SortFilterModel {
-                        id: actionsListProxy
-                        filterRole: "actionType"
-                        filterCallback: function(source_row, value) { return value === KPeople.ActionType.TextChatAction; }
-                    }
-
-                    delegate: Controls.Button {
-                        Layout.fillWidth: true
-                        text: model.display
-                        icon.source: model.iconName
-
-                        onClicked: {
-                            personActionsModel.triggerAction(actionsListProxy.mapRowToSource(index));
-                        }
-                    }
-                }
-            }
         }
     }
-
-//                 CustomSectionScroller {
-//                     listView: contactsList
-//                 }
-
 }
