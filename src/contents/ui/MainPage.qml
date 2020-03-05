@@ -49,7 +49,13 @@ Kirigami.ScrollablePage {
         target: root
 
         onStartChat: {
-            mainModel.startChat(personUri)
+            if (personUri.startsWith("ktp:/")) {
+                // This overload only accepts ktp uris, but figures out the account id itself.
+                mainModel.startChat(personUri)
+            } else {
+                // assume vcard contacts as sms
+                mainModel.startChat("ofono/ofono/account0", personUri)
+            }
         }
     }
 
@@ -107,8 +113,8 @@ Kirigami.ScrollablePage {
                 root.pageStack.currentItem.conversation = model.conversation;
 
                 // If the account is online, request a channel
-                if (mainModel.canChat(accountId)) {
-                    mainModel.startChat(accountId, contactId);
+                if (mainModel.canChat(model.accountId)) {
+                    mainModel.startChat(model.accountId, model.contactId);
                 }
             }
 
