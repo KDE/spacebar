@@ -24,6 +24,8 @@ import org.kde.plasma.core 2.0 as PlasmaCore
 import org.kde.kirigami 2.1 as Kirigami
 import org.kde.telepathy 0.1 as KTp
 
+import org.kde.people 1.0 as KPeople
+
 Kirigami.ScrollablePage {
     title: "Your Conversations"
 
@@ -45,6 +47,10 @@ Kirigami.ScrollablePage {
         }
     }
 
+    KPeople.PersonData {
+        id: personData
+    }
+
     Connections {
         target: root
 
@@ -54,7 +60,8 @@ Kirigami.ScrollablePage {
                 mainModel.startChat(personUri)
             } else {
                 // assume vcard contacts as sms
-                mainModel.startChat("ofono/ofono/account0", personUri)
+                personData.personUri = personUri
+                mainModel.startChat("ofono/ofono/account0", personData.person.contactCustomProperty("phoneNumber"))
             }
         }
     }
