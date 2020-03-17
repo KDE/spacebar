@@ -1,0 +1,6 @@
+<RCC>
+    <qresource prefix="/">
+        <file alias="main.qml">contents/ui/main.qml</file>
+        <file alias="ChatsPage.qml">contents/ui/ChatsPage.qml</file>
+    </qresource>
+</RCC>
