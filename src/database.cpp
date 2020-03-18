@@ -42,9 +42,10 @@ QVector<Message> Database::messagesForNumber(const QString &phoneNumber) const
     QVector<Message> messages;
 
     QSqlQuery fetch(this->m_database);
-    fetch.prepare(SL("SELECT phoneNumber, text, time, read, sentByMe, FROM Messages WHERE phoneNumber == :phoneNumber"));
+    fetch.prepare(SL("SELECT phoneNumber, text, time, read, sentByMe FROM Messages WHERE phoneNumber == :phoneNumber"));
     fetch.bindValue(SL(":phoneNumber"), phoneNumber);
     fetch.exec();
+    qDebug() << fetch.lastError();
 
     while (fetch.next()) {
         Message message;
@@ -53,6 +54,8 @@ QVector<Message> Database::messagesForNumber(const QString &phoneNumber) const
         message.time = QDateTime::fromMSecsSinceEpoch(fetch.value(2).toInt());
         message.read = fetch.value(3).toBool();
         message.sentByMe = fetch.value(4).toBool();
+
+        qDebug() << "TEXT" << message.text;
 
         messages.append(message);
     }

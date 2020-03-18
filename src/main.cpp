@@ -4,7 +4,10 @@
 #include <QUrl>
 #include <QtQml>
 
+// Models
 #include "chatlistmodel.h"
+#include "messagemodel.h"
+
 #include "contactmapper.h"
 #include "global.h"
 
@@ -18,7 +21,8 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
 
     QQmlApplicationEngine engine;
 
-    qmlRegisterType<ChatListModel>("org.kde.spacebear", 1, 0, "ChatListModel");
+    qmlRegisterType<ChatListModel>(APPLICATION_ID, 1, 0, "ChatListModel");
+    qmlRegisterUncreatableType<MessageModel>(APPLICATION_ID, 1, 0, "MessageModel", SL("Created by ChatListModel whenever a new chat was opened"));
     engine.rootContext()->setContextObject(new KLocalizedContext(&engine));
     engine.load(QUrl(SL("qrc:///main.qml")));
 

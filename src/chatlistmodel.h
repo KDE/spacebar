@@ -6,6 +6,7 @@
 #include <QSqlDatabase>
 #include <TelepathyQt/Account>
 
+#include "messagemodel.h"
 #include "contactmapper.h"
 #include "database.h"
 
@@ -40,6 +41,9 @@ public:
 
 private slots:
     void fetchChats();
+
+signals:
+    void chatStarted(MessageModel* messageModel);
 
 private:
     Database *m_database;

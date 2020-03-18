@@ -3,6 +3,7 @@ set(spacebear_SRCS
     database.cpp
     main.cpp
     contactmapper.cpp
+    messagemodel.cpp
     global.h
     resources.qrc
 )

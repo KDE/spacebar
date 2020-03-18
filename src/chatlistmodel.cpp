@@ -81,20 +81,17 @@ QVariant ChatListModel::data(const QModelIndex &index, int role) const
 
     switch (role) {
     // All roles that need the personData object
-    case DisplayNameRole: case PhotoRole: {
+    case DisplayNameRole: {
         const auto *person = new KPeople::PersonData(m_mapper->uriForNumber(m_chats.at(index.row()).phoneNumber));
-        switch(role) {
-        case DisplayNameRole: {
-            const QString name = person->name();
-            delete person;
-            return name;
-        }
-        case PhotoRole: {
-            const auto photo = person->photo();
-            delete person;
-            return photo;
-        }
-        }
+        const QString name = person->name();
+        delete person;
+        return name;
+    }
+    case PhotoRole: {
+        const auto *person = new KPeople::PersonData(m_mapper->uriForNumber(m_chats.at(index.row()).phoneNumber));
+        const auto photo = person->photo();
+        delete person;
+        return photo;
     }
     // everything else
     case PhoneNumberRole:
@@ -128,6 +125,10 @@ void ChatListModel::startChat(const QString &phoneNumber)
             }
         }
     });
+
+    // TODO: add logic
+    auto *model = new MessageModel(m_database, phoneNumber, this);
+    emit chatStarted(model);
 }
 
 void ChatListModel::fetchChats()

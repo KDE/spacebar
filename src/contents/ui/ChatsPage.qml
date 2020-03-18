@@ -16,7 +16,10 @@ Kirigami.ScrollablePage {
     }
 
     ListView {
-        model: Spacebear.ChatListModel {id: chatModel}
+        model: Spacebear.ChatListModel {
+            id: chatModel
+            onChatStarted: pageStack.push("qrc:/ChatPage.qml", {"messageModel": messageModel})
+        }
 
         delegate: Kirigami.BasicListItem {
             height: Kirigami.Units.gridUnit * 2.5

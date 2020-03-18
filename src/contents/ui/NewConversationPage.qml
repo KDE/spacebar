@@ -73,7 +73,10 @@ Kirigami.ScrollablePage {
             Kirigami.BasicListItem {
                 icon: model && model.decoration
                 label: model && model.display
-                onClicked: chatModel.startChat(model.phoneNumber) && pageStack.pop()
+                onClicked: {
+                    chatModel.startChat(model.phoneNumber)
+                    pageStack.pop()
+                }
             }
         }
 

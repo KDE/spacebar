@@ -3,5 +3,6 @@
         <file alias="main.qml">contents/ui/main.qml</file>
         <file alias="ChatsPage.qml">contents/ui/ChatsPage.qml</file>
         <file alias="NewConversationPage.qml">contents/ui/NewConversationPage.qml</file>
+        <file alias="ChatPage.qml">contents/ui/ChatPage.qml</file>
     </qresource>
 </RCC>
