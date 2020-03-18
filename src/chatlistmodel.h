@@ -1,13 +1,13 @@
 ﻿#pragma once
 
-#include <QObject>
 #include <QAbstractListModel>
-#include <QSqlDatabase>
 #include <QDateTime>
+#include <QObject>
+#include <QSqlDatabase>
 #include <TelepathyQt/Account>
 
-#include "database.h"
 #include "contactmapper.h"
+#include "database.h"
 
 struct ChatData {
     QString displayName;
@@ -25,7 +25,8 @@ public:
         DisplayNameRole = Qt::UserRole + 1,
         PhoneNumberRole,
         UnreadMessagesRole,
-        LastContactedRole
+        LastContactedRole,
+        PhotoRole
     };
     Q_ENUM(Role)
 

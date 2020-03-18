@@ -1,9 +1,7 @@
-#ifndef CONTACTMAPPER_H
-#define CONTACTMAPPER_H
+#pragma once
 
-#include <QObject>
 #include <KPeople/PersonsModel>
-
+#include <QObject>
 
 class ContactMapper : public QObject
 {
@@ -30,7 +28,7 @@ signals:
     void contactsChanged(const QVector<QString> phoneNumbers);
 
 private slots:
-    void processRows(int first, int last);
+    void processRows(const int first, const int last);
 
 public slots:
     /**
@@ -43,5 +41,3 @@ private:
     KPeople::PersonsModel *m_model;
     QHash<QString, QString> m_numberToUri;
 };
-
-#endif // CONTACTMAPPER_H

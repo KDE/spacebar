@@ -1,13 +1,12 @@
+#include <KLocalizedContext>
 #include <QApplication>
 #include <QQmlApplicationEngine>
-#include <QtQml>
 #include <QUrl>
-#include <KLocalizedContext>
+#include <QtQml>
 
-#include "Global.h"
 #include "chatlistmodel.h"
 #include "contactmapper.h"
-
+#include "global.h"
 
 Q_DECL_EXPORT int main(int argc, char *argv[])
 {
@@ -19,18 +18,9 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
 
     QQmlApplicationEngine engine;
 
-    //auto beforeTime = QTime::currentTime();
-//    ContactMapper mapper;
-//    qDebug() << mapper.uriForNumber(SL("+49 163 39366399"));
-    //auto afterTime = QTime::currentTime();
-
-    //qDebug() << "TimeBefore" << beforeTime.msecsSinceStartOfDay();
-    //qDebug() << "AfterTime" << afterTime.msecsSinceStartOfDay();
-    //qDebug() << "Time taken:" << afterTime.msecsSinceStartOfDay() - beforeTime.msecsSinceStartOfDay();
-
     qmlRegisterType<ChatListModel>("org.kde.spacebear", 1, 0, "ChatListModel");
     engine.rootContext()->setContextObject(new KLocalizedContext(&engine));
-    engine.load(QUrl(QStringLiteral("qrc:///main.qml")));
+    engine.load(QUrl(SL("qrc:///main.qml")));
 
     if (engine.rootObjects().isEmpty()) {
         return -1;

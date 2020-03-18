@@ -1,13 +1,13 @@
 #include "database.h"
 
-#include <QSqlDatabase>
-#include <QSqlQuery>
-#include <QStandardPaths>
-#include <QSqlError>
 #include <QDebug>
 #include <QDir>
+#include <QSqlDatabase>
+#include <QSqlError>
+#include <QSqlQuery>
+#include <QStandardPaths>
 
-#include "Global.h"
+#include "global.h"
 
 Database::Database(QObject *parent)
     : QObject(parent)
@@ -17,17 +17,15 @@ Database::Database(QObject *parent)
         qDebug() << "Could not create the database directory at" << QStandardPaths::writableLocation(QStandardPaths::AppLocalDataLocation);
     }
 
-    qDebug() << "path" << QStandardPaths::writableLocation(QStandardPaths::AppLocalDataLocation);
-
-    m_database.setDatabaseName(QStandardPaths::writableLocation(QStandardPaths::AppLocalDataLocation) + SL("/messages.sqlite"));
-    bool open = m_database.open();
+    this->m_database.setDatabaseName(QStandardPaths::writableLocation(QStandardPaths::AppLocalDataLocation) + SL("/messages.sqlite"));
+    bool open = this->m_database.open();
 
     if (!open) {
-        qWarning() << "Could not open call database" << m_database.lastError();
+        qWarning() << "Could not open call database" << this->m_database.lastError();
     }
 
-    QSqlQuery createTable(m_database);
-    createTable.exec(QStringLiteral("CREATE TABLE IF NOT EXISTS Messages (phoneNumber TEXT, text TEXT, time DATETIME, read BOOLEAN, sentByMe BOOLEAN)"));
+    QSqlQuery createTable(this->m_database);
+    createTable.exec(SL("CREATE TABLE IF NOT EXISTS Messages (phoneNumber TEXT, text TEXT, time DATETIME, read BOOLEAN, sentByMe BOOLEAN)"));
 
     /*
     QString phoneNumber;
@@ -36,14 +34,14 @@ Database::Database(QObject *parent)
     bool read;
     bool sentByMe;
     */
-    addMessage({SL("12345"), SL("Hey"), {}, false, true});
+    this->addMessage({SL("12345"), SL("Hey"), {}, false, true});
 }
 
 QVector<Message> Database::messagesForNumber(const QString &phoneNumber) const
 {
     QVector<Message> messages;
 
-    QSqlQuery fetch(m_database);
+    QSqlQuery fetch(this->m_database);
     fetch.prepare(SL("SELECT phoneNumber, text, time, read, sentByMe, FROM Messages WHERE phoneNumber == :phoneNumber"));
     fetch.bindValue(SL(":phoneNumber"), phoneNumber);
     fetch.exec();
@@ -66,9 +64,8 @@ QVector<Chat> Database::chats() const
 {
     QVector<Chat> chats;
 
-    QSqlQuery fetch(m_database);
+    QSqlQuery fetch(this->m_database);
     fetch.exec(SL("SELECT DISTINCT phoneNumber FROM Messages"));
-
 
     while (fetch.next()) {
         Chat chat;
@@ -82,7 +79,7 @@ QVector<Chat> Database::chats() const
 
 void Database::addMessage(const Message &message)
 {
-    QSqlQuery putCall(m_database);
+    QSqlQuery putCall(this->m_database);
     putCall.prepare(SL("INSERT INTO Messages (phoneNumber, text, time, read, sentByMe) VALUES (:phoneNumber, :text, :time, :read, :sentByMe)"));
     putCall.bindValue(SL(":phoneNumber"), message.phoneNumber);
     putCall.bindValue(SL(":text"), message.text);

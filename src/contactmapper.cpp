@@ -1,7 +1,8 @@
 #include "contactmapper.h"
 
-#include <QDebug>
 #include <KContacts/VCardConverter>
+#include <KPeopleBackend/AbstractContact>
+#include <QDebug>
 #include <QThread>
 
 ContactMapper::ContactMapper(QObject *parent)
@@ -15,14 +16,20 @@ ContactMapper::ContactMapper(QObject *parent)
     });
 }
 
-void ContactMapper::processRows(int first, int last)
+void ContactMapper::processRows(const int first, const int last)
 {
     QVector<QString> affectedNumbers;
     for (int i = first; i <= last; i++) {
-        const auto index = m_model->index(i);
+        const auto index = this->m_model->index(i);
 
-        const auto vcard = m_model->data(index, KPeople::PersonsModel::PersonVCardRole).toByteArray();
-        const auto personUri = m_model->data(index, KPeople::PersonsModel::PersonUriRole).toString();
+        // Yes, this code has to be illogical. PersonsModel::PersonVCardRole is actually supposed
+        // to return an AbstractContact::Ptr, although the name suggests differneltly. Luckily we can get
+        // the actual VCard from it.
+        const QByteArray vcard = this->m_model->data(index, KPeople::PersonsModel::PersonVCardRole)
+                        .value<KPeople::AbstractContact::Ptr>()
+                        ->customProperty(KPeople::AbstractContact::VCardProperty).toByteArray();
+
+        const auto personUri = this->m_model->data(index, KPeople::PersonsModel::PersonUriRole).toString();
 
         // Note: evaluate whether catching multiple phone numbers per contact is worth
         // the performance bottleneck of parsing a vcard.
@@ -30,14 +37,15 @@ void ContactMapper::processRows(int first, int last)
         // otherwise the default phone number from kpeople is used
         if (vcard.isEmpty()) {
             KContacts::VCardConverter converter;
-            auto addressee = converter.parseVCard(vcard);
-            for (const auto &phoneNumber : addressee.phoneNumbers()) {
-                m_numberToUri[phoneNumber.number()] = personUri;
+            const auto addressee = converter.parseVCard(vcard);
+            const auto phoneNumbers = addressee.phoneNumbers();
+            for (const auto &phoneNumber : phoneNumbers) {
+                this->m_numberToUri[phoneNumber.number()] = personUri;
                 affectedNumbers.append(phoneNumber.number());
             }
         } else {
-            auto phoneNumber = m_model->data(index, KPeople::PersonsModel::PhoneNumberRole).toString();
-            m_numberToUri[phoneNumber] = personUri;
+            const auto phoneNumber = this->m_model->data(index, KPeople::PersonsModel::PhoneNumberRole).toString();
+            this->m_numberToUri[phoneNumber] = personUri;
             affectedNumbers.append(phoneNumber);
         }
     }
@@ -47,7 +55,7 @@ void ContactMapper::processRows(int first, int last)
 
 void ContactMapper::performInitialScan()
 {
-    processRows(0, m_model->rowCount());
+    processRows(0, this->m_model->rowCount() - 1);
 }
 
 QString ContactMapper::uriForNumber(const QString &phoneNumber) const

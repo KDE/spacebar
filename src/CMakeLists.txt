@@ -3,6 +3,7 @@ set(spacebear_SRCS
     database.cpp
     main.cpp
     contactmapper.cpp
+    global.h
     resources.qrc
 )
 
@@ -17,6 +18,7 @@ target_link_libraries(spacebear
     Qt5::Widgets
     KF5::I18n
     KF5::People
+    KF5::PeopleBackend
     KF5::Contacts
     TelepathyQt5::Core
 )

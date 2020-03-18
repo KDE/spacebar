@@ -1,9 +1,8 @@
-#ifndef DATABASE_H
-#define DATABASE_H
+#pragma once
 
+#include <QDateTime>
 #include <QObject>
 #include <QSqlDatabase>
-#include <QDateTime>
 
 struct Message {
     QString phoneNumber;
@@ -40,5 +39,3 @@ private:
 signals:
     void messagesChanged(const QString &phoneNumber);
 };
-
-#endif // DATABASE_H
