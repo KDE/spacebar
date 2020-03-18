@@ -113,7 +113,7 @@ int ChatListModel::rowCount(const QModelIndex &parent) const
 void ChatListModel::startChat(const QString &phoneNumber)
 {
     auto *pendingRequest = this->m_simAccount->ensureTextChat(phoneNumber);
-    this->connect(pendingRequest, &Tp::PendingChannelRequest::finished, pendingRequest, [=]() {
+    connect(pendingRequest, &Tp::PendingChannelRequest::finished, pendingRequest, [=]() {
         if (pendingRequest->isError()) {
             qWarning() << "Error while requesting channel" << pendingRequest->errorMessage();
         }
