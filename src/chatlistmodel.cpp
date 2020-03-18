@@ -14,6 +14,8 @@
 
 #include <KPeople/PersonData>
 
+#include <KContacts/PhoneNumber>
+
 #include "global.h"
 
 ChatListModel::ChatListModel(QObject *parent)
@@ -26,11 +28,11 @@ ChatListModel::ChatListModel(QObject *parent)
     connect(m_database, &Database::messagesChanged, this, &ChatListModel::fetchChats);
     connect(m_mapper, &ContactMapper::contactsChanged, this, [this](const QVector<QString> &affectedNumbers) {
         qDebug() << "New data for" << affectedNumbers;
-        for (const auto &uri : affectedNumbers) {
+        for (const auto &number : affectedNumbers) {
             for (int i = 0; i < m_chats.count(); i++) {
-                if (m_chats.at(i).phoneNumber == uri) {
-                    const auto row = this->index(i);
-                    emit this->dataChanged(row, row, {Role::DisplayNameRole});
+                if (KContacts::PhoneNumber(m_chats.at(i).phoneNumber).normalizedNumber() == number) {
+                    const auto row = index(i);
+                    emit dataChanged(row, row, {Role::DisplayNameRole});
                 }
             }
         }
@@ -51,7 +53,7 @@ ChatListModel::ChatListModel(QObject *parent)
             QLatin1String("tel"),
         };
         if (supportedProtocols.contains(account->protocolName())) {
-            this->m_simAccount = account;
+            m_simAccount = account;
             break;
         }
     }
@@ -76,7 +78,7 @@ QHash<int, QByteArray> ChatListModel::roleNames() const
 
 QVariant ChatListModel::data(const QModelIndex &index, int role) const
 {
-    if (!index.isValid() || index.row() < 0 || index.row() >= this->m_chats.count()) {
+    if (!index.isValid() || index.row() < 0 || index.row() >= m_chats.count()) {
         return false;
     }
 
@@ -96,13 +98,13 @@ QVariant ChatListModel::data(const QModelIndex &index, int role) const
     }
     // everything else
     case PhoneNumberRole:
-        return this->m_chats.at(index.row()).phoneNumber;
+        return m_chats.at(index.row()).phoneNumber;
     case LastContactedRole:
-        return this->m_chats.at(index.row()).lastContacted;
+        return m_chats.at(index.row()).lastContacted;
     case UnreadMessagesRole:
-        return this->m_chats.at(index.row()).unreadMessages;
+        return m_chats.at(index.row()).unreadMessages;
     case LastMessageRole:
-        return this->m_chats.at(index.row()).lastMessage;
+        return m_chats.at(index.row()).lastMessage;
     };
 
     return {};
