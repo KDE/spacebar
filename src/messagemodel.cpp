@@ -11,7 +11,6 @@ MessageModel::MessageModel(Database *database, const QString &phoneNumber, QObje
     this->m_phoneNumber = phoneNumber;
 
     this->m_messages = this->m_database->messagesForNumber(m_phoneNumber);
-    qDebug() << "ROWS" << this->rowCount({}) << "for" << phoneNumber;
 
     for (const auto &message : qAsConst(m_messages)) {
         qDebug() << message.text;

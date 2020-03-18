@@ -69,7 +69,8 @@ QHash<int, QByteArray> ChatListModel::roleNames() const
         {Role::PhoneNumberRole, BL("phoneNumber")},
         {Role::LastContactedRole, BL("lastContacted")},
         {Role::UnreadMessagesRole, BL("unreadMessages")},
-        {Role::PhotoRole, BL("photo")}
+        {Role::PhotoRole, BL("photo")},
+        {Role::LastMessageRole, BL("lastMessage")}
     };
 }
 
@@ -100,6 +101,8 @@ QVariant ChatListModel::data(const QModelIndex &index, int role) const
         return this->m_chats.at(index.row()).lastContacted;
     case UnreadMessagesRole:
         return this->m_chats.at(index.row()).unreadMessages;
+    case LastMessageRole:
+        return this->m_chats.at(index.row()).lastMessage;
     };
 
     return {};

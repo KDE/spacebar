@@ -27,7 +27,8 @@ public:
         PhoneNumberRole,
         UnreadMessagesRole,
         LastContactedRole,
-        PhotoRole
+        PhotoRole,
+        LastMessageRole
     };
     Q_ENUM(Role)
 

@@ -18,12 +18,12 @@ Kirigami.ScrollablePage {
     ListView {
         model: Spacebear.ChatListModel {
             id: chatModel
-            onChatStarted: pageStack.push("qrc:/ChatPage.qml", {"messageModel": messageModel})
+            onChatStarted: pageStack.push("qrc:/MessagesPage.qml", {"messageModel": messageModel})
         }
 
         delegate: Kirigami.BasicListItem {
             height: Kirigami.Units.gridUnit * 2.5
-            text: model.displayName || model.phoneNumber
+            text: "%1 (%2) (Last Message: %3, From: %4)".arg(model.displayName || model.phoneNumber).arg(model.unreadMessages).arg(model.lastMessage).arg(lastContacted)
             reserveSpaceForIcon: true
             icon: model.photo
             onClicked: chatModel.startChat(model.phoneNumber)

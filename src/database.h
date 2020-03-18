@@ -32,6 +32,9 @@ public:
 
     // Chats
     QVector<Chat> chats() const;
+    int unreadMessagesForNumber(const QString &phoneNumber) const;
+    QString lastMessageForNumber(const QString &phoneNumber) const;
+    QDateTime lastContactedForNumber(const QString &phoneNumber) const;
 
 private:
     QSqlDatabase m_database;
