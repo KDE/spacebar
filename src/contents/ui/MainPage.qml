@@ -78,6 +78,7 @@ Kirigami.ScrollablePage {
 
         Controls.BusyIndicator {
             running: !telepathyManager.ready
+            visible: running
             anchors.centerIn: parent
             width: Kirigami.Units.gridUnit * 5
         }
