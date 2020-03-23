@@ -17,35 +17,38 @@ Database::Database(QObject *parent)
         qDebug() << "Could not create the database directory at" << QStandardPaths::writableLocation(QStandardPaths::AppLocalDataLocation);
     }
 
-    this->m_database.setDatabaseName(QStandardPaths::writableLocation(QStandardPaths::AppLocalDataLocation) + SL("/messages.sqlite"));
-    bool open = this->m_database.open();
+    m_database.setDatabaseName(QStandardPaths::writableLocation(QStandardPaths::AppLocalDataLocation) + SL("/messages.sqlite"));
+    bool open = m_database.open();
 
     if (!open) {
-        qWarning() << "Could not open call database" << this->m_database.lastError();
+        qWarning() << "Could not open call database" << m_database.lastError();
     }
 
-    QSqlQuery createTable(this->m_database);
-    createTable.exec(SL("CREATE TABLE IF NOT EXISTS Messages (phoneNumber TEXT, text TEXT, time DATETIME, read BOOLEAN, sentByMe BOOLEAN)"));
+    QSqlQuery createTable(m_database);
+    createTable.exec(SL("CREATE TABLE IF NOT EXISTS Messages (phoneNumber TEXT, text TEXT, time DATETIME, read BOOLEAN, delivered BOOLEAN, sentByMe BOOLEAN)"));
 
     /*
+    struct Message {
     QString phoneNumber;
     QString text;
     QDateTime time;
     bool read;
     bool sentByMe;
-    */
-    this->addMessage({SL("+49 179 1281926"), SL("Nabend"), QDateTime::currentDateTime(), false, true});
-    this->addMessage({SL("1751155152"), SL("Guten Abend"), QDateTime::currentDateTime(), false, true});
+    };*/
+
+    addMessage({SL("4234"), SL("Halloooooo"), QDateTime::currentDateTime(), false, true, true});
 }
 
 QVector<Message> Database::messagesForNumber(const QString &phoneNumber) const
 {
     QVector<Message> messages;
 
-    QSqlQuery fetch(this->m_database);
-    fetch.prepare(SL("SELECT phoneNumber, text, time, read, sentByMe FROM Messages WHERE phoneNumber == :phoneNumber"));
+    QSqlQuery fetch(m_database);
+    fetch.prepare(SL("SELECT phoneNumber, text, time, read, delivered, sentByMe FROM Messages WHERE phoneNumber == :phoneNumber"));
     fetch.bindValue(SL(":phoneNumber"), phoneNumber);
     fetch.exec();
+
+    qDebug() << fetch.lastError();
 
     while (fetch.next()) {
         Message message;
@@ -53,7 +56,8 @@ QVector<Message> Database::messagesForNumber(const QString &phoneNumber) const
         message.text = fetch.value(1).toString();
         message.time = QDateTime::fromMSecsSinceEpoch(fetch.value(2).toInt());
         message.read = fetch.value(3).toBool();
-        message.sentByMe = fetch.value(4).toBool();
+        message.delivered = fetch.value(4).toBool();
+        message.sentByMe = fetch.value(5).toBool();
 
         messages.append(message);
     }
@@ -65,27 +69,31 @@ QVector<Chat> Database::chats() const
 {
     QVector<Chat> chats;
 
-    QSqlQuery fetch(this->m_database);
+    auto before = QTime::currentTime().msecsSinceStartOfDay();
+
+    QSqlQuery fetch(m_database);
     fetch.exec(SL("SELECT DISTINCT phoneNumber FROM Messages"));
 
     while (fetch.next()) {
         Chat chat;
         chat.phoneNumber = fetch.value(0).toString();
-        chat.unreadMessages = this->unreadMessagesForNumber(chat.phoneNumber);
-        chat.lastMessage = this->lastMessageForNumber(chat.phoneNumber);
-        chat.lastContacted = this->lastContactedForNumber(chat.phoneNumber);
-        qDebug() << chat.lastMessage;
+        chat.unreadMessages = unreadMessagesForNumber(chat.phoneNumber);
+        chat.lastMessage = lastMessageForNumber(chat.phoneNumber);
+        chat.lastContacted = lastContactedForNumber(chat.phoneNumber);
 
         chats.append(chat);
     }
+
+    auto after = QTime::currentTime().msecsSinceStartOfDay();
+    qDebug() << "TOOK TIME" << after - before;
 
     return chats;
 }
 
 int Database::unreadMessagesForNumber(const QString &phoneNumber) const
 {
-    QSqlQuery fetch(this->m_database);
-    fetch.prepare(SL("SELECT Count(*) FROM Messages WHERE phoneNumber == :phoneNumber"));
+    QSqlQuery fetch(m_database);
+    fetch.prepare(SL("SELECT Count(*) FROM Messages WHERE phoneNumber == :phoneNumber AND read == False"));
     fetch.bindValue(SL(":phoneNumber"), phoneNumber);
     fetch.exec();
 
@@ -95,7 +103,7 @@ int Database::unreadMessagesForNumber(const QString &phoneNumber) const
 
 QString Database::lastMessageForNumber(const QString &phoneNumber) const
 {
-    QSqlQuery fetch(this->m_database);
+    QSqlQuery fetch(m_database);
     fetch.prepare(SL("SELECT text FROM Messages WHERE phoneNumber == :phoneNumber ORDER BY time DESC LIMIT 1"));
     fetch.bindValue(SL(":phoneNumber"), phoneNumber);
     fetch.exec();
@@ -106,7 +114,7 @@ QString Database::lastMessageForNumber(const QString &phoneNumber) const
 
 QDateTime Database::lastContactedForNumber(const QString &phoneNumber) const
 {
-    QSqlQuery fetch(this->m_database);
+    QSqlQuery fetch(m_database);
     fetch.prepare(SL("SELECT time FROM Messages WHERE phoneNumber == :phoneNumber ORDER BY time DESC LIMIT 1"));
     fetch.bindValue(SL(":phoneNumber"), phoneNumber);
     fetch.exec();
@@ -115,16 +123,30 @@ QDateTime Database::lastContactedForNumber(const QString &phoneNumber) const
     return QDateTime::fromMSecsSinceEpoch(fetch.value(0).toInt());
 }
 
+void Database::markChatAsRead(const QString &phoneNumber)
+{
+    QSqlQuery update(m_database);
+    update.prepare(SL("UPDATE Messages SET read = True WHERE phoneNumber = :phoneNumber AND NOT read == True"));
+    update.bindValue(SL(":phoneNumber"), phoneNumber);
+    update.exec();
+
+    emit messagesChanged(phoneNumber);
+}
+
 void Database::addMessage(const Message &message)
 {
-    QSqlQuery putCall(this->m_database);
-    putCall.prepare(SL("INSERT INTO Messages (phoneNumber, text, time, read, sentByMe) VALUES (:phoneNumber, :text, :time, :read, :sentByMe)"));
+    //auto before = QTime::currentTime().msecsSinceStartOfDay();
+    QSqlQuery putCall(m_database);
+    putCall.prepare(SL("INSERT INTO Messages (phoneNumber, text, time, read, delivered, sentByMe) VALUES (:phoneNumber, :text, :time, :read, :delivered, :sentByMe)"));
     putCall.bindValue(SL(":phoneNumber"), message.phoneNumber);
     putCall.bindValue(SL(":text"), message.text);
     putCall.bindValue(SL(":time"), message.time.toMSecsSinceEpoch());
     putCall.bindValue(SL(":read"), message.read);
     putCall.bindValue(SL(":sentByMe"), message.sentByMe);
+    putCall.bindValue(SL(":delivered"), message.delivered);
     putCall.exec();
+
+    //qDebug() << "WRITING TOOK TIME" << QTime::currentTime().msecsSinceStartOfDay() - before;
 
     emit messagesChanged(message.phoneNumber);
 }

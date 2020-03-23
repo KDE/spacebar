@@ -3,11 +3,17 @@
 #include <QObject>
 #include <QAbstractListModel>
 
+#include <KPeople/PersonData>
+
+#include <TelepathyQt/Channel>
+
 #include "database.h"
 
 class MessageModel : public QAbstractListModel
 {
     Q_OBJECT
+    Q_PROPERTY(QString phoneNumber READ phoneNumber NOTIFY phoneNumberChanged)
+    Q_PROPERTY(KPeople::PersonData *person READ person NOTIFY personChanged)
 
 public:
     enum Role {
@@ -18,14 +24,27 @@ public:
     };
     Q_ENUM(Role)
 
-    explicit MessageModel(Database *database, const QString &phoneNumber, QObject *parent = nullptr);
+    explicit MessageModel(Database *database, const QString &phoneNumber, Tp::TextChannelPtr channel, const QString &personUri = {}, QObject *parent = nullptr);
 
     QHash<int, QByteArray> roleNames() const override;
     QVariant data(const QModelIndex &index, int role) const override;
-    int rowCount(const QModelIndex &index) const override;
+    int rowCount(const QModelIndex &index = {}) const override;
+
+    KPeople::PersonData *person() const;
+
+    QString phoneNumber() const;
+
+    void addMessage(const Message &message);
+    Q_INVOKABLE void sendMessage(const QString &text);
 
 private:
     Database *m_database;
     QVector<Message> m_messages;
     QString m_phoneNumber;
+    KPeople::PersonData *m_personData;
+    Tp::TextChannelPtr m_channel;
+
+signals:
+    void phoneNumberChanged();
+    void personChanged();
 };

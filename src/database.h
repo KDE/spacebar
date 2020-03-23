@@ -10,6 +10,7 @@ struct Message {
     QDateTime time;
     bool read;
     bool sentByMe;
+    bool delivered;
 };
 
 struct Chat {
@@ -28,6 +29,7 @@ public:
 
     // Messages
     void addMessage(const Message &message);
+    void setMessageDelivered();
     QVector<Message> messagesForNumber(const QString &phoneNumber) const;
 
     // Chats
@@ -35,6 +37,7 @@ public:
     int unreadMessagesForNumber(const QString &phoneNumber) const;
     QString lastMessageForNumber(const QString &phoneNumber) const;
     QDateTime lastContactedForNumber(const QString &phoneNumber) const;
+    void markChatAsRead(const QString &phoneNumber);
 
 private:
     QSqlDatabase m_database;

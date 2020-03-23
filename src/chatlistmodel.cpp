@@ -11,6 +11,8 @@
 #include <TelepathyQt/AccountSet>
 #include <TelepathyQt/PendingChannelRequest>
 #include <TelepathyQt/PendingReady>
+#include <TelepathyQt/PendingChannel>
+#include <TelepathyQt/TextChannel>
 
 #include <KPeople/PersonData>
 
@@ -29,6 +31,7 @@ ChatListModel::ChatListModel(QObject *parent)
     connect(m_mapper, &ContactMapper::contactsChanged, this, [this](const QVector<QString> &affectedNumbers) {
         qDebug() << "New data for" << affectedNumbers;
         for (const auto &number : affectedNumbers) {
+            // Find the Chat object for the phone number
             for (int i = 0; i < m_chats.count(); i++) {
                 if (KContacts::PhoneNumber(m_chats.at(i).phoneNumber).normalizedNumber() == number) {
                     const auto row = index(i);
@@ -48,6 +51,8 @@ ChatListModel::ChatListModel(QObject *parent)
     const Tp::AccountSetPtr accountSet = manager->validAccounts();
     const auto accounts = accountSet->accounts();
     for (const Tp::AccountPtr &account : accounts) {
+        qDebug() << account->protocolName();
+
         static const QStringList supportedProtocols = {
             QLatin1String("ofono"),
             QLatin1String("tel"),
@@ -92,7 +97,7 @@ QVariant ChatListModel::data(const QModelIndex &index, int role) const
     }
     case PhotoRole: {
         const auto *person = new KPeople::PersonData(m_mapper->uriForNumber(m_chats.at(index.row()).phoneNumber));
-        const auto photo = person->photo();
+        const QPixmap photo = person->photo();
         delete person;
         return photo;
     }
@@ -112,33 +117,37 @@ QVariant ChatListModel::data(const QModelIndex &index, int role) const
 
 int ChatListModel::rowCount(const QModelIndex &parent) const
 {
-    return parent.isValid() ? 0 : this->m_chats.count();
+    return parent.isValid() ? 0 : m_chats.count();
 }
 
 void ChatListModel::startChat(const QString &phoneNumber)
 {
-    auto *pendingRequest = this->m_simAccount->ensureTextChat(phoneNumber);
-    connect(pendingRequest, &Tp::PendingChannelRequest::finished, pendingRequest, [=]() {
-        if (pendingRequest->isError()) {
-            qWarning() << "Error while requesting channel" << pendingRequest->errorMessage();
+    Tp::PendingChannel *pendingChannel = m_simAccount->ensureAndHandleTextChat(phoneNumber);
+    qDebug() << pendingChannel;
+    connect(pendingChannel, &Tp::PendingChannel::finished, [=](Tp::PendingOperation *op) {
+        if (op->isError()) {
+            qWarning() << "Requesting text channel failed:" << op->errorName() << op->errorMessage();
+            return;
         }
-        if (pendingRequest->channelRequest()) {
-            if (pendingRequest->channelRequest()->channel()) {
-                auto channel = pendingRequest->channelRequest()->channel();
-                channel->becomeReady();
-                qDebug() << "channel is ready" << channel->isReady();
-            }
+
+        auto *pc = qobject_cast<Tp::PendingChannel *>(op);
+        if (pc) {
+            Tp::TextChannel *channel = qobject_cast<Tp::TextChannel *>(pc->channel().data());
+            qDebug() << "CHANNEL" << channel;
+            auto *model = new MessageModel(m_database, phoneNumber, Tp::TextChannelPtr(channel), m_mapper->uriForNumber(phoneNumber), this);
+            emit chatStarted(model);
         }
     });
+}
 
-    // TODO: add logic
-    auto *model = new MessageModel(m_database, phoneNumber, this);
-    emit chatStarted(model);
+void ChatListModel::markChatAsRead(const QString &phoneNumber)
+{
+    m_database->markChatAsRead(phoneNumber);
 }
 
 void ChatListModel::fetchChats()
 {
     beginResetModel();
-    this->m_chats = m_database->chats();
+    m_chats = m_database->chats();
     endResetModel();
 }
