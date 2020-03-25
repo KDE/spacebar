@@ -53,6 +53,8 @@ Kirigami.ScrollablePage {
                     Controls.Label {
                         id: lastMessage
                         text: model.lastMessage
+                        maximumLineCount: 1
+                        elide: Qt.ElideRight
                         color: Qt.tint(Kirigami.Theme.disabledTextColor, Kirigami.Theme.textColor)
                     }
                 }

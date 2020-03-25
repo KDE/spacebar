@@ -9,13 +9,15 @@
 
 #include "global.h"
 
-constexpr int ID_COL = 0;
-constexpr int PHONE_NUMBER_COL = 1;
-constexpr int TEXT_COL = 2;
-constexpr int TIME_COL = 3;
-constexpr int READ_COL = 4;
-constexpr int DELIVERED_COL = 5;
-constexpr int SENT_BY_ME_COL = 6;
+enum Column {
+    Id = 0,
+    PhoneNumber,
+    Text,
+    DateTime,
+    Read,
+    Delivered,
+    SentByMe
+};
 
 Database::Database(QObject *parent)
     : QObject(parent)
@@ -41,19 +43,19 @@ QVector<Message> Database::messagesForNumber(const QString &phoneNumber) const
     QVector<Message> messages;
 
     QSqlQuery fetch(m_database);
-    fetch.prepare(SL("SELECT id, phoneNumber, text, time, read, delivered, sentByMe FROM Messages WHERE phoneNumber == :phoneNumber"));
+    fetch.prepare(SL("SELECT id, phoneNumber, text, time, read, delivered, sentByMe FROM Messages WHERE phoneNumber == :phoneNumber ORDER BY id DESC"));
     fetch.bindValue(SL(":phoneNumber"), phoneNumber);
     fetch.exec();
 
     while (fetch.next()) {
         Message message;
-        message.id = fetch.value(ID_COL).toInt();
-        message.phoneNumber = fetch.value(PHONE_NUMBER_COL).toString();
-        message.text = fetch.value(TEXT_COL).toString();
-        message.datetime = QDateTime::fromMSecsSinceEpoch(fetch.value(TIME_COL).value<quint64>());
-        message.read = fetch.value(READ_COL).toBool();
-        message.delivered = fetch.value(DELIVERED_COL).toBool();
-        message.sentByMe = fetch.value(SENT_BY_ME_COL).toBool();
+        message.id = fetch.value(Column::Id).toInt();
+        message.phoneNumber = fetch.value(Column::PhoneNumber).toString();
+        message.text = fetch.value(Column::Text).toString();
+        message.datetime = QDateTime::fromMSecsSinceEpoch(fetch.value(Column::DateTime).value<quint64>());
+        message.read = fetch.value(Column::Read).toBool();
+        message.delivered = fetch.value(Column::Delivered).toBool();
+        message.sentByMe = fetch.value(Column::SentByMe).toBool();
 
         messages.append(message);
     }
@@ -152,12 +154,10 @@ void Database::addMessage(const Message &message)
     //auto before = QTime::currentTime().msecsSinceStartOfDay();
     QSqlQuery putCall(m_database);
     putCall.prepare(SL("INSERT INTO Messages (id, phoneNumber, text, time, read, delivered, sentByMe) VALUES (:id, :phoneNumber, :text, :time, :read, :delivered, :sentByMe)"));
-    qDebug() << "db: id" << message.id;
     putCall.bindValue(SL(":id"), message.id);
     putCall.bindValue(SL(":phoneNumber"), message.phoneNumber);
     putCall.bindValue(SL(":text"), message.text);
     putCall.bindValue(SL(":time"), message.datetime.toMSecsSinceEpoch());
-    qDebug() << message.datetime.toMSecsSinceEpoch();
     putCall.bindValue(SL(":read"), message.read);
     putCall.bindValue(SL(":sentByMe"), message.sentByMe);
     putCall.bindValue(SL(":delivered"), message.delivered);

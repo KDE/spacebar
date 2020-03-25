@@ -1,6 +1,6 @@
 import QtQuick 2.0
 import QtQuick.Layouts 1.0
-import QtQuick.Controls 2.0 as Controls
+import QtQuick.Controls 2.4 as Controls
 
 import org.kde.kirigami 2.12 as Kirigami
 
@@ -12,10 +12,6 @@ Kirigami.ScrollablePage {
     title: messageModel.person.name || messageModel.person.phoneNumber || messageModel.phoneNumber
     property MessageModel messageModel;
 
-    Connections {
-        target: messageModel
-    }
-
     Controls.BusyIndicator {
         anchors.centerIn: parent
         running: !messageModel.isReady
@@ -26,18 +22,18 @@ Kirigami.ScrollablePage {
         id: listView
         model: messageModel
         spacing: 10
-        currentIndex: count - 1
 
-        // HACK
-        Timer {
-            interval: 1
-            repeat: false
-            running: true
+        verticalLayoutDirection: ListView.BottomToTop
 
-            onTriggered: listView.positionViewAtIndex(listView.count - 1, ListView.End)
+        add: Transition {
+            NumberAnimation { properties: "x,y"; duration: Kirigami.Units.shortDuration }
+        }
+        addDisplaced: Transition {
+            NumberAnimation { properties: "x,y"; duration: Kirigami.Units.shortDuration }
         }
 
         section.property: "date"
+        section.labelPositioning: ViewSection.NextLabelAtEnd
         section.delegate: Item {
             anchors.horizontalCenter: parent.horizontalCenter
             height: 50
@@ -69,7 +65,6 @@ Kirigami.ScrollablePage {
                 anchors.right: model.sentByMe ? parent.right : undefined
                 radius: 10
                 shadow.size: 3
-                //Kirigami.Theme.colorSet: model.sentByMe ? Kirigami.Theme.Selection : Kirigami.Theme.View
                 color: {
                     if (model.sentByMe) {
                         var col = Kirigami.Theme.highlightColor

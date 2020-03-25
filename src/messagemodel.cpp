@@ -65,7 +65,6 @@ QVariant MessageModel::data(const QModelIndex &index, int role) const
     case Role::TextRole:
         return m_messages.at(index.row()).text;
     case Role::TimeRole:
-        qDebug() << m_messages.at(index.row()).datetime.time();
         return m_messages.at(index.row()).datetime.time();
     case Role::DateRole:
         return m_messages.at(index.row()).datetime.date();
@@ -95,8 +94,8 @@ QString MessageModel::phoneNumber() const
 
 void MessageModel::addMessage(const Message &message)
 {
-    beginInsertRows({}, m_messages.count(), m_messages.count());
-    m_messages.append(message);
+    beginInsertRows({}, 0, 0);
+    m_messages.prepend(message);
     endInsertRows();
     m_database->addMessage(message);
 }
