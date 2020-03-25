@@ -3,6 +3,7 @@
 #include <QQmlApplicationEngine>
 #include <QUrl>
 #include <QtQml>
+#include <QQuickWindow>
 
 #include <TelepathyQt/AccountFactory>
 #include <TelepathyQt/ClientRegistrar>
@@ -15,6 +16,7 @@
 #include "contactmapper.h"
 #include "global.h"
 #include "channelhandler.h"
+#include "utils.h"
 
 Q_DECL_EXPORT int main(int argc, char *argv[])
 {
@@ -49,6 +51,9 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
     Q_ASSERT(handler->isRegistered());
 
     auto *chatListModel = new ChatListModel(handler);
+    // Use using the instance getter
+    new Utils(&engine);
+
     // Register types
     qmlRegisterSingletonInstance(APPLICATION_ID, 1, 0 , "ChatListModel", chatListModel);
     qmlRegisterUncreatableType<MessageModel>(APPLICATION_ID, 1, 0, "MessageModel", SL("Created by ChatListModel whenever a new chat was opened"));

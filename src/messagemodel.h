@@ -19,6 +19,7 @@ class MessageModel : public QAbstractListModel
 public:
     enum Role {
         TextRole = Qt::UserRole + 1,
+        DateRole,
         TimeRole,
         SentByMeRole,
         ReadRole

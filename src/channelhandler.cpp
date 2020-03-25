@@ -9,6 +9,9 @@
 #include <TelepathyQt/AccountSet>
 #include <TelepathyQt/ReceivedMessage>
 
+#include "utils.h"
+#include "global.h"
+
 ChannelHandler::ChannelHandler()
     : Tp::AbstractClientHandler(Tp::ChannelClassSpecList({
         Tp::ChannelClassSpec::textChat(), Tp::ChannelClassSpec::unnamedTextChat()
@@ -59,6 +62,9 @@ void ChannelHandler::handleChannels(const Tp::MethodInvocationContextPtr<> &cont
 
         connect(textChannel.data(), &Tp::TextChannel::messageReceived, this, [](const Tp::ReceivedMessage &message) {
             qDebug() << "received message" << message.text();
+
+            // TODO addMessage
+            // TODO normalize phoneNumber
         });
         qDebug() << "Found a new text channel, yay" << channel.data();
         if (m_channels.contains(textChannel)) {
@@ -71,6 +77,11 @@ void ChannelHandler::handleChannels(const Tp::MethodInvocationContextPtr<> &cont
 
 void ChannelHandler::openChannel(const QString &phoneNumber)
 {
+    if (!m_simAccount) {
+        Utils::instance()->showPassiveNotification(SL("Could not start conversation"));
+        return;
+    }
+
     // Look for an existing channel
     for (const auto &channelptr : m_channels) {
         if (channelptr.data()->targetId() == phoneNumber) {

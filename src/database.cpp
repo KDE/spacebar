@@ -50,7 +50,7 @@ QVector<Message> Database::messagesForNumber(const QString &phoneNumber) const
         message.id = fetch.value(ID_COL).toInt();
         message.phoneNumber = fetch.value(PHONE_NUMBER_COL).toString();
         message.text = fetch.value(TEXT_COL).toString();
-        message.time = QDateTime::fromMSecsSinceEpoch(fetch.value(TIME_COL).toInt());
+        message.datetime = QDateTime::fromMSecsSinceEpoch(fetch.value(TIME_COL).value<quint64>());
         message.read = fetch.value(READ_COL).toBool();
         message.delivered = fetch.value(DELIVERED_COL).toBool();
         message.sentByMe = fetch.value(SENT_BY_ME_COL).toBool();
@@ -156,7 +156,8 @@ void Database::addMessage(const Message &message)
     putCall.bindValue(SL(":id"), message.id);
     putCall.bindValue(SL(":phoneNumber"), message.phoneNumber);
     putCall.bindValue(SL(":text"), message.text);
-    putCall.bindValue(SL(":time"), message.time.toMSecsSinceEpoch());
+    putCall.bindValue(SL(":time"), message.datetime.toMSecsSinceEpoch());
+    qDebug() << message.datetime.toMSecsSinceEpoch();
     putCall.bindValue(SL(":read"), message.read);
     putCall.bindValue(SL(":sentByMe"), message.sentByMe);
     putCall.bindValue(SL(":delivered"), message.delivered);

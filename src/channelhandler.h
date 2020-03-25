@@ -1,5 +1,4 @@
-#ifndef CHANNELHANDLER_H
-#define CHANNELHANDLER_H
+#pragma once
 
 #include <QObject>
 #include <TelepathyQt/AbstractClientHandler>
@@ -35,5 +34,3 @@ private:
 signals:
     void channelOpen(Tp::TextChannelPtr pc, const QString &phoneNumber);
 };
-
-#endif // CHANNELHANDLER_H

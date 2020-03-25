@@ -8,7 +8,7 @@ struct Message {
     int id;
     QString phoneNumber;
     QString text;
-    QDateTime time;
+    QDateTime datetime;
     bool read;
     bool sentByMe;
     bool delivered;

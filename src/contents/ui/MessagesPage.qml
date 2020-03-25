@@ -27,12 +27,35 @@ Kirigami.ScrollablePage {
         model: messageModel
         spacing: 10
         currentIndex: count - 1
+
+        // HACK
         Timer {
             interval: 1
             repeat: false
             running: true
 
             onTriggered: listView.positionViewAtIndex(listView.count - 1, ListView.End)
+        }
+
+        section.property: "date"
+        section.delegate: Item {
+            anchors.horizontalCenter: parent.horizontalCenter
+            height: 50
+
+            Rectangle {
+                anchors.centerIn: parent
+                id: dateRect
+                color: "lightgrey"
+                opacity: 0.2
+                height: label.implicitHeight + 5
+                width: label.implicitWidth + 10
+                radius: height * 0.5
+            }
+            Controls.Label {
+                id: label
+                anchors.centerIn: dateRect
+                text: Qt.formatDate(section, Qt.DefaultLocaleLongDate)
+            }
         }
 
         delegate: Item {
@@ -45,11 +68,21 @@ Kirigami.ScrollablePage {
                 anchors.left: model.sentByMe ? undefined : parent.left
                 anchors.right: model.sentByMe ? parent.right : undefined
                 radius: 10
-                shadow.size: 4
-                color: Qt.lighter(Kirigami.Theme.visitedLinkBackgroundColor, 1.05)
+                shadow.size: 3
+                //Kirigami.Theme.colorSet: model.sentByMe ? Kirigami.Theme.Selection : Kirigami.Theme.View
+                color: {
+                    if (model.sentByMe) {
+                        var col = Kirigami.Theme.highlightColor
+                        col.a = 0.1
+                        Qt.tint(Kirigami.Theme.visitedLinkBackgroundColor, col)
+                    } else {
+                        Qt.lighter(Kirigami.Theme.visitedLinkBackgroundColor, 1.04)
+                    }
+                }
                 height: content.height + 10
                 width: content.width + 10
                 ColumnLayout {
+                    spacing: 0
                     id: content
                     anchors.centerIn: parent
                     Controls.Label {
@@ -60,6 +93,11 @@ Kirigami.ScrollablePage {
                         Layout.minimumHeight: 30
                         Layout.maximumWidth: msgPage.width * 0.7
                     }
+                    Controls.Label {
+                        color: Kirigami.Theme.disabledTextColor
+                        Layout.alignment: Qt.AlignBottom | Qt.AlignRight
+                        text: Qt.formatTime(model.time, Qt.DefaultLocaleShortDate)
+                    }
                 }
             }
         }
@@ -69,7 +107,7 @@ Kirigami.ScrollablePage {
         id: field
         height: 40
         placeholderText: i18n("Write Message...")
-        onAccepted: sendAction.triggered()
+        onAccepted: text !== "" && sendAction.triggered()
         rightActions: [
             Kirigami.Action {
                 id: sendAction

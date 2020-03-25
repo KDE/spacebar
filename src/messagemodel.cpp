@@ -1,4 +1,4 @@
-#include "messagemodel.h"
+﻿#include "messagemodel.h"
 
 #include <QDebug>
 #include <QtQml>
@@ -23,7 +23,7 @@ MessageModel::MessageModel(Database *database, const QString &phoneNumber, Tp::T
         message.id = m_database->lastId() + 1;
         message.read = false;
         message.text = receivedMessage.text();
-        message.time = receivedMessage.received();
+        message.datetime = receivedMessage.received();
         message.sentByMe = false;
         message.delivered = true; // If it arrived here, it was
         message.phoneNumber = receivedMessage.sender()->id();
@@ -49,8 +49,9 @@ QHash<int, QByteArray> MessageModel::roleNames() const
     return {
         {Role::TextRole, BL("text")},
         {Role::TimeRole, BL("time")},
+        {Role::DateRole, BL("date")},
         {Role::SentByMeRole, BL("sentByMe")},
-        {Role::ReadRole, BL("read")}
+        {Role::ReadRole, BL("read")},
     };
 }
 
@@ -64,7 +65,10 @@ QVariant MessageModel::data(const QModelIndex &index, int role) const
     case Role::TextRole:
         return m_messages.at(index.row()).text;
     case Role::TimeRole:
-        return m_messages.at(index.row()).time;
+        qDebug() << m_messages.at(index.row()).datetime.time();
+        return m_messages.at(index.row()).datetime.time();
+    case Role::DateRole:
+        return m_messages.at(index.row()).datetime.date();
     case Role::SentByMeRole:
         return m_messages.at(index.row()).sentByMe;
     case Role::ReadRole:
@@ -105,7 +109,8 @@ void MessageModel::sendMessage(const QString &text)
     qDebug() << "id" << message.id;
     message.phoneNumber = m_phoneNumber;
     message.text = text;
-    message.time = QDateTime::currentDateTime(); // NOTE: there is also tpMessage.sent(), doesn't seem to return a proper time, but maybe a backend bug?
+    message.datetime = QDateTime::currentDateTime(); // NOTE: there is also tpMessage.sent(), doesn't seem to return a proper time, but maybe a backend bug?
+    qDebug() << message.datetime.toString();
     message.read = true; // Messages sent by us are automatically read.
     message.sentByMe = true; // only called if message sent by us.
     message.delivered = false; // if this signal is called, the message was delivered.

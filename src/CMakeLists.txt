@@ -6,6 +6,7 @@ set(spacebear_SRCS
     messagemodel.cpp
     global.h
     channelhandler.cpp
+    utils.cpp
     resources.qrc
 )
 
