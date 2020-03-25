@@ -53,7 +53,7 @@ Kirigami.ScrollablePage {
                     Controls.Label {
                         id: lastMessage
                         text: model.lastMessage
-                        color: Qt.darker(Kirigami.Theme.disabledTextColor)
+                        color: Qt.tint(Kirigami.Theme.disabledTextColor, Kirigami.Theme.textColor)
                     }
                 }
 

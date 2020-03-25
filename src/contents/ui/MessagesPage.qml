@@ -46,7 +46,7 @@ Kirigami.ScrollablePage {
                 anchors.right: model.sentByMe ? parent.right : undefined
                 radius: 10
                 shadow.size: 4
-                color: Kirigami.Theme.visitedLinkBackgroundColor
+                color: Qt.lighter(Kirigami.Theme.visitedLinkBackgroundColor, 1.05)
                 height: content.height + 10
                 width: content.width + 10
                 ColumnLayout {
