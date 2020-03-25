@@ -43,7 +43,6 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
         channelFactory, contactFactory);
 
     // Create client
-
     auto handler = ChannelHandlerPtr::dynamicCast(Tp::SharedPtr<ChannelHandler>(new ChannelHandler()));
     registrar->registerClient(handler, SL("Spacebear"));
 

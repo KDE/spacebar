@@ -10,4 +10,4 @@ constexpr auto APPLICATION_ID = "org.kde.spacebear";
 #define SL QStringLiteral
 #define BL QByteArrayLiteral
 
-typedef Tp::SharedPtr<ChannelHandler> ChannelHandlerPtr;
+using ChannelHandlerPtr = Tp::SharedPtr<ChannelHandler>;
