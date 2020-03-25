@@ -18,11 +18,27 @@ MessageModel::MessageModel(Database *database, const QString &phoneNumber, Tp::T
 
     m_channel = channel;
 
-    connect(channel->becomeReady(), &Tp::PendingReady::finished, this, [](Tp::PendingOperation  *op) {
+    connect(channel.data(), &Tp::TextChannel::messageReceived, this, [=](Tp::ReceivedMessage receivedMessage){
+        Message message;
+        message.read = false;
+        message.text = receivedMessage.text();
+        message.time = receivedMessage.received();
+        message.sentByMe = false;
+        message.delivered = true; // If it arrived here, it was
+        message.phoneNumber = receivedMessage.sender()->id();
+        qDebug() << "Received from id" << receivedMessage.sender()->id();
+        addMessage(message);
+    });
+
+    connect(channel->becomeReady(), &Tp::PendingReady::finished, this, [=](Tp::PendingOperation  *op) {
         if (op->isError()) {
-            qDebug() << op->errorMessage();
+            qDebug() << "channel not ready" << op->errorMessage();
             return;
         }
+
+        m_isReady = true;
+        qDebug() << "channel is now officially ready";
+        emit isReadyChanged();
     });
     m_messages = m_database->messagesForNumber(m_phoneNumber);
 }
@@ -82,7 +98,7 @@ void MessageModel::addMessage(const Message &message)
 
 void MessageModel::sendMessage(const QString &text)
 {
-    auto *op = m_channel->send(text);
+    auto *op = m_channel->send(text, Tp::ChannelTextMessageTypeNormal, {});
     connect(op, &Tp::PendingOperation::finished, this, [=]() {
         qDebug() << "Message sent";
         auto tpMessage = op->message();
@@ -90,11 +106,16 @@ void MessageModel::sendMessage(const QString &text)
         Message message;
         message.phoneNumber = m_phoneNumber;
         message.text = tpMessage.text();
-        message.time = tpMessage.sent();
+        message.time = QDateTime::currentDateTime(); // NOTE: there is also tpMessage.sent(), doesn't seem to return a proper time, but maybe a backend bug?
         message.read = true; // Messages sent by us are automatically read.
         message.sentByMe = true; // only called if message sent by us.
         message.delivered = true; // if this signal is called, the message was delivered.
 
         addMessage(message);
     });
+}
+
+bool MessageModel::isReady() const
+{
+    return m_isReady;
 }

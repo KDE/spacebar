@@ -7,10 +7,12 @@
 #include <TelepathyQt/Account>
 #include <TelepathyQt/TextChannel>
 
-#include "messagemodel.h"
 #include "contactmapper.h"
 #include "database.h"
+#include "global.h"
 
+class MessageModel;
+class ChannelHandler;
 
 struct ChatData {
     QString displayName;
@@ -34,7 +36,7 @@ public:
     };
     Q_ENUM(Role)
 
-    explicit ChatListModel(QObject *parent = nullptr);
+    explicit ChatListModel(ChannelHandlerPtr handler);
 
     QHash<int, QByteArray> roleNames() const override;
     QVariant data(const QModelIndex &index, int role) const override;
@@ -55,4 +57,5 @@ private:
     QVector<Chat> m_chats;
     ContactMapper *m_mapper;
     Tp::AccountPtr m_simAccount;
+    ChannelHandlerPtr m_handler;
 };

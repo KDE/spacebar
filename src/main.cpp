@@ -14,6 +14,7 @@
 
 #include "contactmapper.h"
 #include "global.h"
+#include "channelhandler.h"
 
 Q_DECL_EXPORT int main(int argc, char *argv[])
 {
@@ -27,35 +28,33 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
 
     Tp::registerTypes();
 
-    Tp::AccountFactoryPtr accountFactory = Tp::AccountFactory::create(QDBusConnection::sessionBus(),
-                                                     Tp::Features({Tp::Account::FeatureCore}));
-    Tp::ConnectionFactoryPtr connectionFactory = Tp::ConnectionFactory::create(QDBusConnection::sessionBus(),
-        Tp::Features({Tp::Connection::FeatureCore,
-                      Tp::Connection::FeatureSelfContact, Tp::Connection::FeatureConnected})
-    );
-    Tp::ChannelFactoryPtr channelFactory = Tp::ChannelFactory::create(QDBusConnection::sessionBus());
+    // Create registrar
+    auto accountFactory = Tp::AccountFactory::create(QDBusConnection::sessionBus(),
+        Tp::Features({Tp::Account::FeatureCore}));
+    auto connectionFactory = Tp::ConnectionFactory::create(QDBusConnection::sessionBus(),
+        Tp::Features({Tp::Connection::FeatureCore, Tp::Connection::FeatureSelfContact, Tp::Connection::FeatureConnected}));
+    auto channelFactory = Tp::ChannelFactory::create(QDBusConnection::sessionBus());
     channelFactory->addCommonFeatures(Tp::Channel::FeatureCore);
-    Tp::ContactFactoryPtr contactFactory = Tp::ContactFactory::create(Tp::Features({Tp::Contact::FeatureAlias,
-                                                                                    Tp::Contact::FeatureAvatarData}));
 
-    channelFactory->addFeaturesForTextChats({Tp::TextChannel::FeatureCore});
-//     channelFactory->addFeaturesForTextChats(Tp::Features() << Tp::TextChannel::FeatureMessageQueue
-//                                                            << Tp::TextChannel::FeatureMessageSentSignal
-//                                                            << Tp::TextChannel::FeatureChatState
-//                                                            << Tp::TextChannel::FeatureMessageCapabilities);
+    auto contactFactory = Tp::ContactFactory::create({});
+    channelFactory->addFeaturesForTextChats(Tp::Features({Tp::TextChannel::FeatureCore, Tp::TextChannel::FeatureMessageQueue}));
 
-    Tp::ClientRegistrarPtr registrar = Tp::ClientRegistrar::create(accountFactory, connectionFactory,
-                                                                   channelFactory, contactFactory);
-    QEventLoop loop;
+    auto registrar = Tp::ClientRegistrar::create(accountFactory, connectionFactory,
+        channelFactory, contactFactory);
 
-    qmlRegisterType<ChatListModel>(APPLICATION_ID, 1, 0, "ChatListModel");
+    // Create client
+
+    auto handler = ChannelHandlerPtr::dynamicCast(Tp::SharedPtr<ChannelHandler>(new ChannelHandler()));
+    registrar->registerClient(handler, SL("Spacebear"));
+
+    Q_ASSERT(handler->isRegistered());
+
+    auto *chatListModel = new ChatListModel(handler);
+    // Register types
+    qmlRegisterSingletonInstance(APPLICATION_ID, 1, 0 , "ChatListModel", chatListModel);
     qmlRegisterUncreatableType<MessageModel>(APPLICATION_ID, 1, 0, "MessageModel", SL("Created by ChatListModel whenever a new chat was opened"));
     qRegisterMetaType<KPeople::PersonData *>("PersonData*");
-#if (QT_VERSION >= QT_VERSION_CHECK(5, 14, 0))
-    qmlRegisterAnonymousType<QAbstractItemModel>("org.kde.phonebook", 1);
-#else
-    qmlRegisterType<QAbstractItemModel>();
-#endif
+    qmlRegisterAnonymousType<QAbstractItemModel>(APPLICATION_ID, 1);
     engine.rootContext()->setContextObject(new KLocalizedContext(&engine));
     engine.load(QUrl(SL("qrc:///main.qml")));
 

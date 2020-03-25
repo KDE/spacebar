@@ -14,6 +14,7 @@ class MessageModel : public QAbstractListModel
     Q_OBJECT
     Q_PROPERTY(QString phoneNumber READ phoneNumber NOTIFY phoneNumberChanged)
     Q_PROPERTY(KPeople::PersonData *person READ person NOTIFY personChanged)
+    Q_PROPERTY(bool isReady READ isReady NOTIFY isReady NOTIFY isReadyChanged)
 
 public:
     enum Role {
@@ -37,14 +38,20 @@ public:
     void addMessage(const Message &message);
     Q_INVOKABLE void sendMessage(const QString &text);
 
+    bool isReady() const;
+
 private:
     Database *m_database;
     QVector<Message> m_messages;
+    Tp::TextChannelPtr m_channel;
+
+    // properties
     QString m_phoneNumber;
     KPeople::PersonData *m_personData;
-    Tp::TextChannelPtr m_channel;
+    bool m_isReady = false;
 
 signals:
     void phoneNumberChanged();
     void personChanged();
+    void isReadyChanged();
 };

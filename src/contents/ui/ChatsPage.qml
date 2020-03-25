@@ -3,7 +3,7 @@ import QtQuick.Layouts 1.0
 import org.kde.kirigami 2.2 as Kirigami
 import QtQuick.Controls 2.4 as Controls
 
-import org.kde.spacebear 1.0 as Spacebear
+import org.kde.spacebear 1.0
 
 Kirigami.ScrollablePage {
     title: i18n("Chats")
@@ -11,7 +11,7 @@ Kirigami.ScrollablePage {
     actions {
         main: Kirigami.Action {
             text: i18n("New Conversation")
-            onTriggered: pageStack.push("qrc:/NewConversationPage.qml", {"chatModel": chatModel})
+            onTriggered: pageStack.push("qrc:/NewConversationPage.qml")
             icon.name: "contact-new"
         }
     }
@@ -19,14 +19,16 @@ Kirigami.ScrollablePage {
     Controls.Label {
         anchors.centerIn: parent
         text: i18n("No chats yet")
-        visible: chatModel.count === 0
+        visible: ChatListModel.count === 0
+    }
+
+    Connections {
+        target: ChatListModel
+        onChatStarted: pageStack.push("qrc:/MessagesPage.qml", {"messageModel": messageModel})
     }
 
     ListView {
-        model: Spacebear.ChatListModel {
-            id: chatModel
-            onChatStarted: pageStack.push("qrc:/MessagesPage.qml", {"messageModel": messageModel})
-        }
+        model: ChatListModel
 
         delegate: Kirigami.AbstractListItem {
             checkable: false
@@ -78,8 +80,8 @@ Kirigami.ScrollablePage {
             }
 
             onClicked: {
-                chatModel.startChat(model.phoneNumber);
-                chatModel.markChatAsRead(model.phoneNumber);
+                ChatListModel.startChat(model.phoneNumber);
+                ChatListModel.markChatAsRead(model.phoneNumber);
             }
         }
     }

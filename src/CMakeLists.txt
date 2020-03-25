@@ -5,6 +5,7 @@ set(spacebear_SRCS
     contactmapper.cpp
     messagemodel.cpp
     global.h
+    channelhandler.cpp
     resources.qrc
 )
 

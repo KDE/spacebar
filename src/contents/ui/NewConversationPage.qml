@@ -28,8 +28,6 @@ import org.kde.spacebear 1.0
 Kirigami.ScrollablePage {
     title: i18n("Contacts")
 
-    property ChatListModel chatModel
-
     header: Kirigami.SearchField {
         id: searchField
         onTextChanged: contactsProxyModel.setFilterFixedString(text)
@@ -74,7 +72,7 @@ Kirigami.ScrollablePage {
                 icon: model && model.decoration
                 label: model && model.display
                 onClicked: {
-                    chatModel.startChat(model.phoneNumber)
+                    ChatListModel.startChat(model.phoneNumber)
                     pageStack.pop()
                 }
             }

@@ -26,17 +26,6 @@ Database::Database(QObject *parent)
 
     QSqlQuery createTable(m_database);
     createTable.exec(SL("CREATE TABLE IF NOT EXISTS Messages (phoneNumber TEXT, text TEXT, time DATETIME, read BOOLEAN, delivered BOOLEAN, sentByMe BOOLEAN)"));
-
-    /*
-    struct Message {
-    QString phoneNumber;
-    QString text;
-    QDateTime time;
-    bool read;
-    bool sentByMe;
-    };*/
-
-    addMessage({SL("4234"), SL("Halloooooo"), QDateTime::currentDateTime(), false, true, true});
 }
 
 QVector<Message> Database::messagesForNumber(const QString &phoneNumber) const

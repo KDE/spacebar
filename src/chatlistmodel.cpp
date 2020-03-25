@@ -19,12 +19,15 @@
 #include <KContacts/PhoneNumber>
 
 #include "global.h"
+#include "channelhandler.h"
+#include "messagemodel.h"
 
-ChatListModel::ChatListModel(QObject *parent)
-    : QAbstractListModel(parent)
+ChatListModel::ChatListModel(ChannelHandlerPtr handler)
+    : QAbstractListModel()
     , m_database(new Database(this))
     , m_chats(m_database->chats())
     , m_mapper(new ContactMapper(this))
+    , m_handler(handler)
 {
     m_mapper->performInitialScan();
     connect(m_database, &Database::messagesChanged, this, &ChatListModel::fetchChats);
@@ -41,32 +44,11 @@ ChatListModel::ChatListModel(QObject *parent)
         }
     });
 
-    // Set up sms account
-    QEventLoop loop;
-    Tp::AccountManagerPtr manager = Tp::AccountManager::create();
-    Tp::PendingReady *ready = manager->becomeReady();
-    QObject::connect(ready, &Tp::PendingReady::finished, &loop, &QEventLoop::quit);
-    loop.exec(QEventLoop::ExcludeUserInputEvents);
-
-    const Tp::AccountSetPtr accountSet = manager->validAccounts();
-    const auto accounts = accountSet->accounts();
-    for (const Tp::AccountPtr &account : accounts) {
-        qDebug() << account->protocolName();
-
-        static const QStringList supportedProtocols = {
-            QLatin1String("ofono"),
-            QLatin1String("tel"),
-        };
-        if (supportedProtocols.contains(account->protocolName())) {
-            m_simAccount = account;
-            break;
-        }
-    }
-
-    if (m_simAccount.isNull()) {
-        qCritical() << "Unable to get SIM account;"
-                    << "is the telepathy-ofono or telepathy-ring backend installed?";
-    }
+    connect(m_handler.data(), &ChannelHandler::channelOpen, this, [=](Tp::TextChannelPtr channel, const QString &number) {
+        const auto personUri = m_mapper->uriForNumber(number);
+        auto *model = new MessageModel(m_database, number, channel, personUri);
+        emit chatStarted(model);
+    });
 }
 
 QHash<int, QByteArray> ChatListModel::roleNames() const
@@ -122,22 +104,7 @@ int ChatListModel::rowCount(const QModelIndex &parent) const
 
 void ChatListModel::startChat(const QString &phoneNumber)
 {
-    Tp::PendingChannel *pendingChannel = m_simAccount->ensureAndHandleTextChat(phoneNumber);
-    qDebug() << pendingChannel;
-    connect(pendingChannel, &Tp::PendingChannel::finished, [=](Tp::PendingOperation *op) {
-        if (op->isError()) {
-            qWarning() << "Requesting text channel failed:" << op->errorName() << op->errorMessage();
-            return;
-        }
-
-        auto *pc = qobject_cast<Tp::PendingChannel *>(op);
-        if (pc) {
-            Tp::TextChannel *channel = qobject_cast<Tp::TextChannel *>(pc->channel().data());
-            qDebug() << "CHANNEL" << channel;
-            auto *model = new MessageModel(m_database, phoneNumber, Tp::TextChannelPtr(channel), m_mapper->uriForNumber(phoneNumber), this);
-            emit chatStarted(model);
-        }
-    });
+    m_handler->openChannel(phoneNumber);
 }
 
 void ChatListModel::markChatAsRead(const QString &phoneNumber)
