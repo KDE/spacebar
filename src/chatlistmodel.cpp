@@ -1,4 +1,4 @@
-#include "chatlistmodel.h"
+﻿#include "chatlistmodel.h"
 
 #include <QDebug>
 #include <QSqlError>
@@ -22,9 +22,8 @@
 #include "channelhandler.h"
 #include "messagemodel.h"
 
-ChatListModel::ChatListModel(ChannelHandlerPtr handler)
-    : QAbstractListModel()
-    , m_database(new Database(this))
+ChatListModel::ChatListModel(const ChannelHandlerPtr &handler)
+    : m_database(new Database(this))
     , m_chats(m_database->chats())
     , m_mapper(new ContactMapper(this))
     , m_handler(handler)
@@ -44,7 +43,7 @@ ChatListModel::ChatListModel(ChannelHandlerPtr handler)
         }
     });
 
-    connect(m_handler.data(), &ChannelHandler::channelOpen, this, [=](Tp::TextChannelPtr channel, const QString &number) {
+    connect(m_handler.data(), &ChannelHandler::channelOpen, this, [=](const Tp::TextChannelPtr& channel, const QString &number) {
         const auto personUri = m_mapper->uriForNumber(number);
         auto *model = new MessageModel(m_database, number, channel, personUri);
         emit chatStarted(model);

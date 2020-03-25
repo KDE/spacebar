@@ -36,7 +36,7 @@ public:
     };
     Q_ENUM(Role)
 
-    explicit ChatListModel(ChannelHandlerPtr handler);
+    explicit ChatListModel(const ChannelHandlerPtr &handler);
 
     QHash<int, QByteArray> roleNames() const override;
     QVariant data(const QModelIndex &index, int role) const override;

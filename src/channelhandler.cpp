@@ -51,7 +51,7 @@ void ChannelHandler::handleChannels(const Tp::MethodInvocationContextPtr<> &cont
     const Tp::AbstractClientHandler::HandlerInfo &/*handlerInfo*/)
 {
     qDebug() << "handler called";
-    for (const Tp::ChannelPtr channel : channels) {
+    for (const Tp::ChannelPtr &channel : channels) {
         auto textChannel = Tp::TextChannelPtr::qObjectCast(channel);
         if (!channel) {
             qDebug() << "channel is not a text channel. None of my business";
@@ -72,7 +72,7 @@ void ChannelHandler::handleChannels(const Tp::MethodInvocationContextPtr<> &cont
 void ChannelHandler::openChannel(const QString &phoneNumber)
 {
     // Look for an existing channel
-    for (const auto channelptr : m_channels) {
+    for (const auto &channelptr : m_channels) {
         if (channelptr.data()->targetId() == phoneNumber) {
             qDebug() << "found existing channel" << channelptr.data();
             emit channelOpen(channelptr, phoneNumber);
@@ -83,7 +83,7 @@ void ChannelHandler::openChannel(const QString &phoneNumber)
     // If there is none just ask for a new one
     Tp::PendingChannel *pendingChannel = m_simAccount->ensureAndHandleTextChat(phoneNumber);
     qDebug() << pendingChannel;
-    connect(pendingChannel, &Tp::PendingChannel::finished, [=](Tp::PendingOperation *op) {
+    connect(pendingChannel, &Tp::PendingChannel::finished, this, [=](Tp::PendingOperation *op) {
         if (op->isError()) {
             qWarning() << "Requesting text channel failed:" << op->errorName() << op->errorMessage();
             return;

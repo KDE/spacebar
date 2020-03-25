@@ -9,6 +9,14 @@
 
 #include "global.h"
 
+constexpr int ID_COL = 0;
+constexpr int PHONE_NUMBER_COL = 1;
+constexpr int TEXT_COL = 2;
+constexpr int TIME_COL = 3;
+constexpr int READ_COL = 4;
+constexpr int DELIVERED_COL = 5;
+constexpr int SENT_BY_ME_COL = 6;
+
 Database::Database(QObject *parent)
     : QObject(parent)
     , m_database(QSqlDatabase::addDatabase(QStringLiteral("QSQLITE"), QStringLiteral("messages")))
@@ -37,17 +45,15 @@ QVector<Message> Database::messagesForNumber(const QString &phoneNumber) const
     fetch.bindValue(SL(":phoneNumber"), phoneNumber);
     fetch.exec();
 
-    qDebug() << Q_FUNC_INFO << fetch.lastError();
-
     while (fetch.next()) {
         Message message;
-        message.id = fetch.value(0).toInt();
-        message.phoneNumber = fetch.value(1).toString();
-        message.text = fetch.value(2).toString();
-        message.time = QDateTime::fromMSecsSinceEpoch(fetch.value(3).toInt());
-        message.read = fetch.value(4).toBool();
-        message.delivered = fetch.value(5).toBool();
-        message.sentByMe = fetch.value(6).toBool();
+        message.id = fetch.value(ID_COL).toInt();
+        message.phoneNumber = fetch.value(PHONE_NUMBER_COL).toString();
+        message.text = fetch.value(TEXT_COL).toString();
+        message.time = QDateTime::fromMSecsSinceEpoch(fetch.value(TIME_COL).toInt());
+        message.read = fetch.value(READ_COL).toBool();
+        message.delivered = fetch.value(DELIVERED_COL).toBool();
+        message.sentByMe = fetch.value(SENT_BY_ME_COL).toBool();
 
         messages.append(message);
     }
