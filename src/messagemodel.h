@@ -35,7 +35,18 @@ public:
 
     QString phoneNumber() const;
 
+    /**
+     * @brief Adds a message to the model and the database.
+     * Can be used for example when a new message is received.
+     * @param message
+     */
     void addMessage(const Message &message);
+
+    /**
+     * @brief sends a message with the specified text,
+     * and adds it to the model and database by calling addMessage(const QString&)
+     * @param text
+     */
     Q_INVOKABLE void sendMessage(const QString &text);
 
     bool isReady() const;

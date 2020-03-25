@@ -20,6 +20,7 @@ MessageModel::MessageModel(Database *database, const QString &phoneNumber, Tp::T
 
     connect(channel.data(), &Tp::TextChannel::messageReceived, this, [=](Tp::ReceivedMessage receivedMessage){
         Message message;
+        message.id = m_database->lastId() + 1;
         message.read = false;
         message.text = receivedMessage.text();
         message.time = receivedMessage.received();
@@ -99,19 +100,22 @@ void MessageModel::addMessage(const Message &message)
 void MessageModel::sendMessage(const QString &text)
 {
     auto *op = m_channel->send(text, Tp::ChannelTextMessageTypeNormal, {});
+    Message message;
+    message.id = m_database->lastId() + 1;
+    qDebug() << "id" << message.id;
+    message.phoneNumber = m_phoneNumber;
+    message.text = text;
+    message.time = QDateTime::currentDateTime(); // NOTE: there is also tpMessage.sent(), doesn't seem to return a proper time, but maybe a backend bug?
+    message.read = true; // Messages sent by us are automatically read.
+    message.sentByMe = true; // only called if message sent by us.
+    message.delivered = false; // if this signal is called, the message was delivered.
+
+    addMessage(message);
+
     connect(op, &Tp::PendingOperation::finished, this, [=]() {
         qDebug() << "Message sent";
-        auto tpMessage = op->message();
-
-        Message message;
-        message.phoneNumber = m_phoneNumber;
-        message.text = tpMessage.text();
-        message.time = QDateTime::currentDateTime(); // NOTE: there is also tpMessage.sent(), doesn't seem to return a proper time, but maybe a backend bug?
-        message.read = true; // Messages sent by us are automatically read.
-        message.sentByMe = true; // only called if message sent by us.
-        message.delivered = true; // if this signal is called, the message was delivered.
-
-        addMessage(message);
+        //auto tpMessage = op->message(); // NOTE: This exist. We don't need it right now though.
+        m_database->markMessageDelivered(message.id);
     });
 }
 

@@ -25,7 +25,7 @@ Database::Database(QObject *parent)
     }
 
     QSqlQuery createTable(m_database);
-    createTable.exec(SL("CREATE TABLE IF NOT EXISTS Messages (phoneNumber TEXT, text TEXT, time DATETIME, read BOOLEAN, delivered BOOLEAN, sentByMe BOOLEAN)"));
+    createTable.exec(SL("CREATE TABLE IF NOT EXISTS Messages (id INTEGER, phoneNumber TEXT, text TEXT, time DATETIME, read BOOLEAN, delivered BOOLEAN, sentByMe BOOLEAN)"));
 }
 
 QVector<Message> Database::messagesForNumber(const QString &phoneNumber) const
@@ -33,25 +33,44 @@ QVector<Message> Database::messagesForNumber(const QString &phoneNumber) const
     QVector<Message> messages;
 
     QSqlQuery fetch(m_database);
-    fetch.prepare(SL("SELECT phoneNumber, text, time, read, delivered, sentByMe FROM Messages WHERE phoneNumber == :phoneNumber"));
+    fetch.prepare(SL("SELECT id, phoneNumber, text, time, read, delivered, sentByMe FROM Messages WHERE phoneNumber == :phoneNumber"));
     fetch.bindValue(SL(":phoneNumber"), phoneNumber);
     fetch.exec();
 
-    qDebug() << fetch.lastError();
+    qDebug() << Q_FUNC_INFO << fetch.lastError();
 
     while (fetch.next()) {
         Message message;
-        message.phoneNumber = fetch.value(0).toString();
-        message.text = fetch.value(1).toString();
-        message.time = QDateTime::fromMSecsSinceEpoch(fetch.value(2).toInt());
-        message.read = fetch.value(3).toBool();
-        message.delivered = fetch.value(4).toBool();
-        message.sentByMe = fetch.value(5).toBool();
+        message.id = fetch.value(0).toInt();
+        message.phoneNumber = fetch.value(1).toString();
+        message.text = fetch.value(2).toString();
+        message.time = QDateTime::fromMSecsSinceEpoch(fetch.value(3).toInt());
+        message.read = fetch.value(4).toBool();
+        message.delivered = fetch.value(5).toBool();
+        message.sentByMe = fetch.value(6).toBool();
 
         messages.append(message);
     }
 
     return messages;
+}
+
+int Database::lastId() const
+{
+    QSqlQuery fetch(m_database);
+    fetch.prepare(SL("SELECT id FROM Messages ORDER BY id DESC LIMIT 1"));
+    fetch.exec();
+    fetch.first();
+
+    return fetch.value(0).toInt();
+}
+
+void Database::markMessageDelivered(int id)
+{
+    QSqlQuery put(m_database);
+    put.prepare(SL("UPDATE Messages SET delivered = True WHERE id == :id"));
+    put.bindValue(SL(":id"), id);
+    put.exec();
 }
 
 QVector<Chat> Database::chats() const
@@ -126,7 +145,9 @@ void Database::addMessage(const Message &message)
 {
     //auto before = QTime::currentTime().msecsSinceStartOfDay();
     QSqlQuery putCall(m_database);
-    putCall.prepare(SL("INSERT INTO Messages (phoneNumber, text, time, read, delivered, sentByMe) VALUES (:phoneNumber, :text, :time, :read, :delivered, :sentByMe)"));
+    putCall.prepare(SL("INSERT INTO Messages (id, phoneNumber, text, time, read, delivered, sentByMe) VALUES (:id, :phoneNumber, :text, :time, :read, :delivered, :sentByMe)"));
+    qDebug() << "db: id" << message.id;
+    putCall.bindValue(SL(":id"), message.id);
     putCall.bindValue(SL(":phoneNumber"), message.phoneNumber);
     putCall.bindValue(SL(":text"), message.text);
     putCall.bindValue(SL(":time"), message.time.toMSecsSinceEpoch());

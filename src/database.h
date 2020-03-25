@@ -5,6 +5,7 @@
 #include <QSqlDatabase>
 
 struct Message {
+    int id;
     QString phoneNumber;
     QString text;
     QDateTime time;
@@ -31,6 +32,8 @@ public:
     void addMessage(const Message &message);
     void setMessageDelivered();
     QVector<Message> messagesForNumber(const QString &phoneNumber) const;
+    int lastId() const;
+    void markMessageDelivered(int id);
 
     // Chats
     QVector<Chat> chats() const;
