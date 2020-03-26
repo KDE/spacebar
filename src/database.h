@@ -33,7 +33,8 @@ public:
     void setMessageDelivered();
     QVector<Message> messagesForNumber(const QString &phoneNumber) const;
     int lastId() const;
-    void markMessageDelivered(int id);
+    void markMessageDelivered(const int id);
+    void markMessageRead(const int id);
 
     // Chats
     QVector<Chat> chats() const;

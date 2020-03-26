@@ -50,7 +50,7 @@ Kirigami.ScrollablePage {
                         id: nameLabel
                         text: model.displayName || model.phoneNumber
                     }
-                    Controls.Label {
+                    Text {
                         id: lastMessage
                         text: model.lastMessage
                         maximumLineCount: 1

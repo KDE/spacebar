@@ -22,7 +22,8 @@ public:
         DateRole,
         TimeRole,
         SentByMeRole,
-        ReadRole
+        ReadRole,
+        DeliveredRole
     };
     Q_ENUM(Role)
 
@@ -49,6 +50,11 @@ public:
      * @param text
      */
     Q_INVOKABLE void sendMessage(const QString &text);
+
+    /**
+     * @brief marks a message as read by calling the respective database function
+     */
+    Q_INVOKABLE void markMessageRead(const int id);
 
     bool isReady() const;
 

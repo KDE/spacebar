@@ -73,10 +73,18 @@ int Database::lastId() const
     return fetch.value(0).toInt();
 }
 
-void Database::markMessageDelivered(int id)
+void Database::markMessageDelivered(const int id)
 {
     QSqlQuery put(m_database);
-    put.prepare(SL("UPDATE Messages SET delivered = True WHERE id == :id"));
+    put.prepare(SL("UPDATE Messages SET delivered = True WHERE id == :id AND NOT delivered = True"));
+    put.bindValue(SL(":id"), id);
+    put.exec();
+}
+
+void Database::markMessageRead(const int id)
+{
+    QSqlQuery put(m_database);
+    put.prepare(SL("UPDATE Messages SET read = True WHERE id == :id AND NOT read = True"));
     put.bindValue(SL(":id"), id);
     put.exec();
 }

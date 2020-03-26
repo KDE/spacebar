@@ -52,6 +52,7 @@ QHash<int, QByteArray> MessageModel::roleNames() const
         {Role::DateRole, BL("date")},
         {Role::SentByMeRole, BL("sentByMe")},
         {Role::ReadRole, BL("read")},
+        {Role::DeliveredRole, BL("delivered")}
     };
 }
 
@@ -72,6 +73,8 @@ QVariant MessageModel::data(const QModelIndex &index, int role) const
         return m_messages.at(index.row()).sentByMe;
     case Role::ReadRole:
         return m_messages.at(index.row()).read;
+    case Role::DeliveredRole:
+        return m_messages.at(index.row()).delivered;
     }
 
     return {};
@@ -105,11 +108,9 @@ void MessageModel::sendMessage(const QString &text)
     auto *op = m_channel->send(text, Tp::ChannelTextMessageTypeNormal, {});
     Message message;
     message.id = m_database->lastId() + 1;
-    qDebug() << "id" << message.id;
     message.phoneNumber = m_phoneNumber;
     message.text = text;
     message.datetime = QDateTime::currentDateTime(); // NOTE: there is also tpMessage.sent(), doesn't seem to return a proper time, but maybe a backend bug?
-    qDebug() << message.datetime.toString();
     message.read = true; // Messages sent by us are automatically read.
     message.sentByMe = true; // only called if message sent by us.
     message.delivered = false; // if this signal is called, the message was delivered.
@@ -121,6 +122,11 @@ void MessageModel::sendMessage(const QString &text)
         //auto tpMessage = op->message(); // NOTE: This exist. We don't need it right now though.
         m_database->markMessageDelivered(message.id);
     });
+}
+
+void MessageModel::markMessageRead(const int id)
+{
+    m_database->markMessageRead(id);
 }
 
 bool MessageModel::isReady() const

@@ -58,6 +58,14 @@ Kirigami.ScrollablePage {
             width: listView.width
             height: rect.height
 
+            Component.onCompleted: {
+                // Avoid unneccessary invocations
+                // TODO: is this stupid?
+                if (!model.sentByMe && !model.read) {
+                    messageModel.markMessageRead(model.id)
+                }
+            }
+
             Kirigami.ShadowedRectangle {
                 id: rect
                 anchors.margins: 20
@@ -88,10 +96,20 @@ Kirigami.ScrollablePage {
                         Layout.minimumHeight: 30
                         Layout.maximumWidth: msgPage.width * 0.7
                     }
-                    Controls.Label {
-                        color: Kirigami.Theme.disabledTextColor
+                    RowLayout {
                         Layout.alignment: Qt.AlignBottom | Qt.AlignRight
-                        text: Qt.formatTime(model.time, Qt.DefaultLocaleShortDate)
+                        Controls.Label {
+                            Layout.alignment: Qt.AlignRight
+                            color: Kirigami.Theme.disabledTextColor
+                            text: Qt.formatTime(model.time, Qt.DefaultLocaleShortDate)
+                        }
+                        Kirigami.Icon {
+                            Layout.alignment: Qt.AlignRight
+                            height: 15
+                            width: height
+                            source: visible ? "answer-correct" : undefined
+                            visible: model.delivered && model.sentByMe
+                        }
                     }
                 }
             }
