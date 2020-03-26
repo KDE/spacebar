@@ -25,6 +25,8 @@ class ChatListModel : public QAbstractListModel
 {
     Q_OBJECT
 
+    Q_PROPERTY(bool ready READ ready NOTIFY readyChanged)
+
 public:
     enum Role {
         DisplayNameRole = Qt::UserRole + 1,
@@ -45,6 +47,8 @@ public:
     Q_INVOKABLE void startChat(const QString &phoneNumber);
     Q_INVOKABLE void markChatAsRead(const QString &phoneNumber);
 
+    bool ready() const;
+
 private slots:
     void fetchChats();
 
@@ -52,10 +56,13 @@ signals:
     void chatStarted(MessageModel* messageModel);
     void startingChatFailed(const QString &errorMessage);
 
+    void readyChanged();
+
 private:
     Database *m_database;
     QVector<Chat> m_chats;
     ContactMapper *m_mapper;
     Tp::AccountPtr m_simAccount;
     ChannelHandlerPtr m_handler;
+    bool m_ready;
 };

@@ -32,5 +32,6 @@ private:
     Tp::AccountPtr m_simAccount;
 
 signals:
+    void handlerReady();
     void channelOpen(Tp::TextChannelPtr pc, const QString &phoneNumber);
 };

@@ -18,31 +18,31 @@ ChannelHandler::ChannelHandler()
     }))
 {
     // Set up sms account
-    QEventLoop loop;
     Tp::AccountManagerPtr manager = Tp::AccountManager::create();
     Tp::PendingReady *ready = manager->becomeReady();
-    QObject::connect(ready, &Tp::PendingReady::finished, &loop, &QEventLoop::quit);
-    loop.exec(QEventLoop::ExcludeUserInputEvents);
+    QObject::connect(ready, &Tp::PendingReady::finished, this, [=] {
+        const Tp::AccountSetPtr accountSet = manager->validAccounts();
+        const auto accounts = accountSet->accounts();
+        for (const Tp::AccountPtr &account : accounts) {
+            qDebug() << account->protocolName();
 
-    const Tp::AccountSetPtr accountSet = manager->validAccounts();
-    const auto accounts = accountSet->accounts();
-    for (const Tp::AccountPtr &account : accounts) {
-        qDebug() << account->protocolName();
-
-        static const QStringList supportedProtocols = {
-            QLatin1String("ofono"),
-            QLatin1String("tel"),
-        };
-        if (supportedProtocols.contains(account->protocolName())) {
-            m_simAccount = account;
-            break;
+            static const QStringList supportedProtocols = {
+                QLatin1String("ofono"),
+                QLatin1String("tel"),
+            };
+            if (supportedProtocols.contains(account->protocolName())) {
+                m_simAccount = account;
+                break;
+            }
         }
-    }
 
-    if (m_simAccount.isNull()) {
-        qCritical() << "Unable to get SIM account;"
-                    << "is the telepathy-ofono or telepathy-ring backend installed?";
-    }
+        if (m_simAccount.isNull()) {
+            qCritical() << "Unable to get SIM account;"
+                        << "is the telepathy-ofono or telepathy-ring backend installed?";
+        }
+
+        emit handlerReady();
+    });
 }
 
 void ChannelHandler::handleChannels(const Tp::MethodInvocationContextPtr<> &context,
@@ -78,7 +78,7 @@ void ChannelHandler::handleChannels(const Tp::MethodInvocationContextPtr<> &cont
 void ChannelHandler::openChannel(const QString &phoneNumber)
 {
     if (!m_simAccount) {
-        Utils::instance()->showPassiveNotification(SL("Could not start conversation"));
+        Utils::instance()->showPassiveNotification(SL("Could not find a sim account, can't open chat. Please check the log for details"), Utils::LongNotificationDuration);
         return;
     }
 
@@ -97,6 +97,7 @@ void ChannelHandler::openChannel(const QString &phoneNumber)
     connect(pendingChannel, &Tp::PendingChannel::finished, this, [=](Tp::PendingOperation *op) {
         if (op->isError()) {
             qWarning() << "Requesting text channel failed:" << op->errorName() << op->errorMessage();
+            Utils::instance()->showPassiveNotification(SL("Failed to request channel. Please check the log for details"), Utils::LongNotificationDuration);
             return;
         }
 

@@ -43,6 +43,11 @@ ChatListModel::ChatListModel(const ChannelHandlerPtr &handler)
         }
     });
 
+    connect(m_handler.data(), &ChannelHandler::handlerReady, this, [=] {
+        m_ready = true;
+        readyChanged();
+    });
+
     connect(m_handler.data(), &ChannelHandler::channelOpen, this, [=](const Tp::TextChannelPtr& channel, const QString &number) {
         const auto personUri = m_mapper->uriForNumber(number);
         auto *model = new MessageModel(m_database, number, channel, personUri);
@@ -116,4 +121,9 @@ void ChatListModel::fetchChats()
     beginResetModel();
     m_chats = m_database->chats();
     endResetModel();
+}
+
+bool ChatListModel::ready() const
+{
+    return m_ready;
 }

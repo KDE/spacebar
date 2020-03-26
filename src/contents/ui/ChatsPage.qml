@@ -6,7 +6,7 @@ import QtQuick.Controls 2.4 as Controls
 import org.kde.spacebear 1.0
 
 Kirigami.ScrollablePage {
-    title: i18n("Chats")
+    title: ChatListModel.ready ? i18n("Chats") : i18n("Loading...")
 
     actions {
         main: Kirigami.Action {
