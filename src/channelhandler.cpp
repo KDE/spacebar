@@ -56,8 +56,9 @@ void ChannelHandler::handleChannels(const Tp::MethodInvocationContextPtr<> &cont
     qDebug() << "handler called";
     for (const Tp::ChannelPtr &channel : channels) {
         auto textChannel = Tp::TextChannelPtr::qObjectCast(channel);
-        if (!channel) {
+        if (!textChannel) {
             qDebug() << "channel is not a text channel. None of my business";
+            continue;
         }
 
         connect(textChannel.data(), &Tp::TextChannel::messageReceived, this, [](const Tp::ReceivedMessage &message) {
@@ -67,7 +68,7 @@ void ChannelHandler::handleChannels(const Tp::MethodInvocationContextPtr<> &cont
             // TODO normalize phoneNumber
         });
         qDebug() << "Found a new text channel, yay" << channel.data();
-        if (m_channels.contains(textChannel)) {
+        if (!m_channels.contains(textChannel)) {
             m_channels.append(textChannel);
         }
     }
@@ -103,9 +104,11 @@ void ChannelHandler::openChannel(const QString &phoneNumber)
 
         auto *pc = qobject_cast<Tp::PendingChannel *>(op);
         if (pc) {
-            auto channel = Tp::TextChannelPtr::dynamicCast(pc->channel());
-            m_channels.append(channel);
-            emit channelOpen(channel, phoneNumber);
+            auto channel = Tp::TextChannelPtr::qObjectCast(pc->channel());
+            if (channel) {
+                m_channels.append(channel);
+                emit channelOpen(channel, phoneNumber);
+            }
             return;
         }
     });

@@ -43,7 +43,7 @@ ChatListModel::ChatListModel(const ChannelHandlerPtr &handler)
         }
     });
 
-    connect(m_handler.data(), &ChannelHandler::handlerReady, this, [=] {
+    connect(m_handler.data(), &ChannelHandler::handlerReady, this, [this] {
         m_ready = true;
         readyChanged();
     });
@@ -75,19 +75,10 @@ QVariant ChatListModel::data(const QModelIndex &index, int role) const
 
     switch (role) {
     // All roles that need the personData object
-    case DisplayNameRole: {
-        const auto *person = new KPeople::PersonData(m_mapper->uriForNumber(m_chats.at(index.row()).phoneNumber));
-        const QString name = person->name();
-        delete person;
-        return name;
-    }
-    case PhotoRole: {
-        const auto *person = new KPeople::PersonData(m_mapper->uriForNumber(m_chats.at(index.row()).phoneNumber));
-        const QPixmap photo = person->photo();
-        delete person;
-        return photo;
-    }
-    // everything else
+    case DisplayNameRole:
+        return KPeople::PersonData{m_mapper->uriForNumber(m_chats.at(index.row()).phoneNumber)}.name();
+    case PhotoRole:
+        return KPeople::PersonData{m_mapper->uriForNumber(m_chats.at(index.row()).phoneNumber)}.photo();
     case PhoneNumberRole:
         return m_chats.at(index.row()).phoneNumber;
     case LastContactedRole:
@@ -96,7 +87,7 @@ QVariant ChatListModel::data(const QModelIndex &index, int role) const
         return m_chats.at(index.row()).unreadMessages;
     case LastMessageRole:
         return m_chats.at(index.row()).lastMessage;
-    };
+    }
 
     return {};
 }
