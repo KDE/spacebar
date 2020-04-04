@@ -11,11 +11,13 @@
 
 #include "utils.h"
 #include "global.h"
+#include "database.h"
 
 ChannelHandler::ChannelHandler()
     : Tp::AbstractClientHandler(Tp::ChannelClassSpecList({
         Tp::ChannelClassSpec::textChat(), Tp::ChannelClassSpec::unnamedTextChat()
     }))
+    , m_database(new Database(this))
 {
     // Set up sms account
     Tp::AccountManagerPtr manager = Tp::AccountManager::create();
@@ -61,11 +63,23 @@ void ChannelHandler::handleChannels(const Tp::MethodInvocationContextPtr<> &cont
             continue;
         }
 
-        connect(textChannel.data(), &Tp::TextChannel::messageReceived, this, [](const Tp::ReceivedMessage &message) {
-            qDebug() << "received message" << message.text();
+        connect(textChannel.data(), &Tp::TextChannel::messageReceived, this, [this](const Tp::ReceivedMessage &receivedMessage) {
+            qDebug() << "received message" << receivedMessage.text();
 
-            // TODO addMessage
-            // TODO normalize phoneNumber
+            if (receivedMessage.isDeliveryReport()) {
+                qDebug() << "received delivery report";
+                // TODO: figure out correct ID and mark it as delivered.
+                return;
+            }
+
+            Message message;
+            message.text = receivedMessage.text();
+            message.sentByMe = false; // SMS doesn't have any kind of synchronization, so received messages are always from the chat partner.
+            message.datetime = receivedMessage.received();
+            message.delivered = true; // It arrived, soo
+            message.phoneNumber = receivedMessage.sender()->id();
+            message.id = m_database->lastId() + 1;
+            m_database->addMessage(message);
         });
         qDebug() << "Found a new text channel, yay" << channel.data();
         if (!m_channels.contains(textChannel)) {
@@ -85,7 +99,7 @@ void ChannelHandler::openChannel(const QString &phoneNumber)
 
     // Look for an existing channel
     for (const auto &channelptr : m_channels) {
-        if (channelptr.data()->targetId() == phoneNumber) {
+        if (channelptr->targetId() == phoneNumber) {
             qDebug() << "found existing channel" << channelptr.data();
             emit channelOpen(channelptr, phoneNumber);
             return;
@@ -112,4 +126,9 @@ void ChannelHandler::openChannel(const QString &phoneNumber)
             return;
         }
     });
+}
+
+Database *ChannelHandler::database() const
+{
+    return m_database;
 }

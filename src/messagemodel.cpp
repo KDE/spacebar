@@ -19,8 +19,13 @@ MessageModel::MessageModel(Database *database, const QString &phoneNumber, Tp::T
     m_channel = channel;
 
     connect(channel.data(), &Tp::TextChannel::messageReceived, this, [=](Tp::ReceivedMessage receivedMessage){
+        if (receivedMessage.isDeliveryReport()) {
+            qDebug() << "received delivery report";
+            // TODO: figure out correct ID and mark it as delivered.
+            return;
+        }
         Message message;
-        message.id = m_database->lastId() + 1;
+        // message.id = m_database->lastId() + 1; FIXME, we don't know the id so this message will not be marked as read.
         message.read = false;
         message.text = receivedMessage.text();
         message.datetime = receivedMessage.received();
@@ -100,7 +105,6 @@ void MessageModel::addMessage(const Message &message)
     beginInsertRows({}, 0, 0);
     m_messages.prepend(message);
     endInsertRows();
-    m_database->addMessage(message);
 }
 
 void MessageModel::sendMessage(const QString &text)
@@ -115,12 +119,22 @@ void MessageModel::sendMessage(const QString &text)
     message.sentByMe = true; // only called if message sent by us.
     message.delivered = false; // if this signal is called, the message was delivered.
 
+    // Add message to model
     addMessage(message);
+
+    // Store message in database
+    m_database->addMessage(message);
 
     connect(op, &Tp::PendingOperation::finished, this, [=]() {
         qDebug() << "Message sent";
-        //auto tpMessage = op->message(); // NOTE: This exist. We don't need it right now though.
+        //auto tpMessage = op->message(); // NOTE: This exists. We don't need it right now though.
         m_database->markMessageDelivered(message.id);
+        for (int i = 0; i < m_messages.size(); i++) {
+            if (m_messages.at(i).id == message.id) {
+                m_messages[i].delivered = true;
+                emit dataChanged(index(i), index(i), {Role::DeliveredRole});
+            };
+        }
     });
 }
 

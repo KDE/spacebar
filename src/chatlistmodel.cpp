@@ -23,10 +23,10 @@
 #include "messagemodel.h"
 
 ChatListModel::ChatListModel(const ChannelHandlerPtr &handler)
-    : m_database(new Database(this))
+    : m_handler(handler)
+    , m_database(m_handler->database())
     , m_chats(m_database->chats())
     , m_mapper(new ContactMapper(this))
-    , m_handler(handler)
 {
     m_mapper->performInitialScan();
     connect(m_database, &Database::messagesChanged, this, &ChatListModel::fetchChats);
@@ -48,7 +48,7 @@ ChatListModel::ChatListModel(const ChannelHandlerPtr &handler)
         readyChanged();
     });
 
-    connect(m_handler.data(), &ChannelHandler::channelOpen, this, [=](const Tp::TextChannelPtr& channel, const QString &number) {
+    connect(m_handler.data(), &ChannelHandler::channelOpen, this, [=](const Tp::TextChannelPtr &channel, const QString &number) {
         const auto personUri = m_mapper->uriForNumber(number);
         auto *model = new MessageModel(m_database, number, channel, personUri);
         emit chatStarted(model);

@@ -5,6 +5,8 @@
 #include <TelepathyQt/Channel>
 #include <TelepathyQt/TextChannel>
 
+#include "database.h"
+
 namespace Tp {
 class PendingChannel;
 }
@@ -27,9 +29,12 @@ public:
      */
     void openChannel(const QString &phoneNumber);
 
+    Database *database() const;
+
 private:
     QVector<Tp::TextChannelPtr> m_channels;
     Tp::AccountPtr m_simAccount;
+    Database *m_database;
 
 signals:
     void handlerReady();
