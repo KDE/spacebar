@@ -24,5 +24,5 @@ public:
 
 private:
     QQmlApplicationEngine *m_engine;
-    QQuickWindow *m_window;
+    QQuickWindow *m_window = nullptr;
 };

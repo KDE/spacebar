@@ -18,7 +18,7 @@ MessageModel::MessageModel(Database *database, const QString &phoneNumber, Tp::T
 
     m_channel = channel;
 
-    connect(channel.data(), &Tp::TextChannel::messageReceived, this, [=](Tp::ReceivedMessage receivedMessage){
+    connect(channel.data(), &Tp::TextChannel::messageReceived, this, [=](const Tp::ReceivedMessage &receivedMessage){
         if (receivedMessage.isDeliveryReport()) {
             qDebug() << "received delivery report";
             // TODO: figure out correct ID and mark it as delivered.

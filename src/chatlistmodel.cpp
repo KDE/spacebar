@@ -45,7 +45,7 @@ ChatListModel::ChatListModel(const ChannelHandlerPtr &handler)
 
     connect(m_handler.data(), &ChannelHandler::handlerReady, this, [this] {
         m_ready = true;
-        readyChanged();
+        emit readyChanged();
     });
 
     connect(m_handler.data(), &ChannelHandler::channelOpen, this, [=](const Tp::TextChannelPtr &channel, const QString &number) {
