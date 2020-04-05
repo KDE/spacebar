@@ -1,5 +1,8 @@
 cmake_minimum_required(VERSION 3.0)
 
+set(KF5_MIN_VERSION "5.69.0")
+set(QT_MIN_VERSION "5.14.0")
+
 project(spacebear)
 
 include(FeatureSummary)
@@ -19,8 +22,8 @@ include(ECMGenerateHeaders)
 include(ECMPoQmTools)
 
 ################# Find dependencies #################
-find_package(Qt5 REQUIRED COMPONENTS Core Gui Qml Quick Widgets Sql)
-find_package(KF5 REQUIRED COMPONENTS Kirigami2 I18n People Contacts)
+find_package(Qt5 ${QT_MIN_VERSION} REQUIRED COMPONENTS Core Gui Qml Quick Widgets Sql)
+find_package(KF5 ${KF5_MIN_VERSION} REQUIRED COMPONENTS Kirigami2 I18n People Contacts)
 
 ################# build and install #################
 add_subdirectory(src)
