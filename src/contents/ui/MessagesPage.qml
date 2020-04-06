@@ -32,28 +32,6 @@ Kirigami.ScrollablePage {
             NumberAnimation { properties: "x,y"; duration: Kirigami.Units.shortDuration }
         }
 
-        section.property: "date"
-        section.labelPositioning: ViewSection.NextLabelAtEnd
-        section.delegate: Item {
-            anchors.horizontalCenter: parent.horizontalCenter
-            height: 50
-
-            Rectangle {
-                anchors.centerIn: parent
-                id: dateRect
-                color: "lightgrey"
-                opacity: 0.2
-                height: label.implicitHeight + 5
-                width: label.implicitWidth + 10
-                radius: height * 0.5
-            }
-            Controls.Label {
-                id: label
-                anchors.centerIn: dateRect
-                text: Qt.formatDate(section, Qt.DefaultLocaleLongDate)
-            }
-        }
-
         delegate: Item {
             width: listView.width
             height: rect.height
