@@ -25,27 +25,14 @@ void ContactMapper::processRows(const int first, const int last)
         // Yes, this code has to be illogical. PersonsModel::PersonVCardRole is actually supposed
         // to return an AbstractContact::Ptr, although the name suggests differneltly. Luckily we can get
         // the actual VCard from it.
-        const QByteArray vcard = m_model->data(index, KPeople::PersonsModel::PersonVCardRole)
+        const auto phoneNumbers = m_model->data(index, KPeople::PersonsModel::PersonVCardRole)
                         .value<KPeople::AbstractContact::Ptr>()
-                        ->customProperty(KPeople::AbstractContact::VCardProperty).toByteArray();
+                        ->customProperty(KPeople::AbstractContact::AllPhoneNumbersProperty).toStringList();
 
         const auto personUri = m_model->data(index, KPeople::PersonsModel::PersonUriRole).toString();
 
-        // Note: evaluate whether catching multiple phone numbers per contact is worth
-        // the performance bottleneck of parsing a vcard.
-        // For now vcard is used for backends that support it,
-        // otherwise the default phone number from kpeople is used
-        if (!vcard.isEmpty()) {
-            KContacts::VCardConverter converter;
-            const auto addressee = converter.parseVCard(vcard);
-            const auto phoneNumbers = addressee.phoneNumbers();
-            for (const auto &phoneNumber : phoneNumbers) {
-                m_numberToUri[phoneNumber.normalizedNumber()] = personUri;
-                affectedNumbers.append(phoneNumber.number());
-            }
-        } else {
-            const auto phoneNumber = m_model->data(index, KPeople::PersonsModel::PhoneNumberRole).toString();
-            const auto normalizedNumber = KContacts::PhoneNumber(phoneNumber).normalizedNumber();
+        for (const auto &number : phoneNumbers) {
+            const auto normalizedNumber = KContacts::PhoneNumber(number).normalizedNumber();
             m_numberToUri[normalizedNumber] = personUri;
             affectedNumbers.append(normalizedNumber);
         }
