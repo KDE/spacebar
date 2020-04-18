@@ -8,6 +8,7 @@
 #include <TelepathyQt/AbstractClientHandler>
 #include <TelepathyQt/Channel>
 #include <TelepathyQt/TextChannel>
+#include <TelepathyQt/Account>
 
 #include "database.h"
 

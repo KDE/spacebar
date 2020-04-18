@@ -14,7 +14,9 @@
 #include <TelepathyQt/AccountSet>
 #include <TelepathyQt/ReceivedMessage>
 
+#ifndef SPACEBEARD
 #include "utils.h"
+#endif
 #include "global.h"
 #include "database.h"
 
@@ -89,7 +91,11 @@ void ChannelHandler::handleChannels(const Tp::MethodInvocationContextPtr<> &cont
 void ChannelHandler::openChannel(const QString &phoneNumber)
 {
     if (!m_simAccount) {
+#ifndef SPACEBEARD
         Utils::instance()->showPassiveNotification(SL("Could not find a sim account, can't open chat. Please check the log for details"), Utils::LongNotificationDuration);
+#else
+        qDebug() << "Could not find sim account";
+#endif
         return;
     }
 
@@ -108,7 +114,9 @@ void ChannelHandler::openChannel(const QString &phoneNumber)
     connect(pendingChannel, &Tp::PendingChannel::finished, this, [=](Tp::PendingOperation *op) {
         if (op->isError()) {
             qWarning() << "Requesting text channel failed:" << op->errorName() << op->errorMessage();
+#ifndef SPACEBEARD
             Utils::instance()->showPassiveNotification(SL("Failed to request channel. Please check the log for details"), Utils::LongNotificationDuration);
+#endif
             return;
         }
 
@@ -151,6 +159,8 @@ void ChannelHandler::handleIncomingMessage(Tp::TextChannelPtr channel, const Tp:
     message.phoneNumber = receivedMessage.sender()->id();
     message.id = m_database->lastId() + 1;
     message.read = false;
+
+    qDebug() << "writing to db";
     m_database->addMessage(message);
 
     channel->acknowledge({receivedMessage});

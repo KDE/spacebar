@@ -163,7 +163,7 @@ void Database::markChatAsRead(const QString &phoneNumber)
 
 void Database::addMessage(const Message &message)
 {
-    //auto before = QTime::currentTime().msecsSinceStartOfDay();
+    auto before = QTime::currentTime().msecsSinceStartOfDay();
     QSqlQuery putCall(m_database);
     putCall.prepare(SL("INSERT INTO Messages (id, phoneNumber, text, time, read, delivered, sentByMe) VALUES (:id, :phoneNumber, :text, :time, :read, :delivered, :sentByMe)"));
     putCall.bindValue(SL(":id"), message.id);
@@ -175,7 +175,7 @@ void Database::addMessage(const Message &message)
     putCall.bindValue(SL(":delivered"), message.delivered);
     putCall.exec();
 
-    //qDebug() << "WRITING TOOK TIME" << QTime::currentTime().msecsSinceStartOfDay() - before;
+    qDebug() << "WRITING TOOK TIME" << QTime::currentTime().msecsSinceStartOfDay() - before;
 
     emit messagesChanged(message.phoneNumber);
 }
