@@ -28,10 +28,33 @@ import org.kde.spacebear 1.0
 Kirigami.ScrollablePage {
     title: i18n("Contacts")
 
-    header: Kirigami.SearchField {
+    header: Kirigami.ActionTextField {
         id: searchField
         onTextChanged: contactsProxyModel.setFilterFixedString(text)
-        visible: contactsList.count > 0
+        placeholderText: i18n("Search or enter number…")
+        focusSequence: "Ctrl+F"
+        rightActions: [
+            Kirigami.Action {
+                icon.name: searchField.LayoutMirroring.enabled ? "edit-clear-locationbar-ltr" : "edit-clear-locationbar-rtl"
+                visible: searchField.text.length > 0 && !Utils.isPhoneNumber(searchField.text)
+                onTriggered: {
+                    searchField.text = ""
+                    searchField.accepted()
+                }
+            },
+            Kirigami.Action {
+                icon.name: "document-send"
+                visible: searchField.text.length > 0 && Utils.isPhoneNumber(searchField.text)
+                onTriggered: {
+                    searchField.text = ""
+
+                    // close new conversation page
+                    pageStack.pop()
+
+                    ChatListModel.startChat(searchField.text)
+                }
+            }
+        ]
     }
 
     Controls.Label {

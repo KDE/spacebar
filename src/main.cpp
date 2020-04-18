@@ -59,6 +59,7 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
     qmlRegisterUncreatableType<MessageModel>(APPLICATION_ID, 1, 0, "MessageModel", SL("Created by ChatListModel whenever a new chat was opened"));
     qRegisterMetaType<KPeople::PersonData *>("PersonData*");
     qmlRegisterAnonymousType<QAbstractItemModel>(APPLICATION_ID, 1);
+    qmlRegisterSingletonInstance<Utils>(APPLICATION_ID, 1, 0, "Utils", Utils::instance());
     engine.rootContext()->setContextObject(new KLocalizedContext(&engine));
     engine.load(QUrl(SL("qrc:///main.qml")));
 

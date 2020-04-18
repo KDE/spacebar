@@ -2,6 +2,7 @@
 
 #include <QQmlApplicationEngine>
 #include <QQuickWindow>
+#include <QRegularExpression>
 
 #include "global.h"
 
@@ -40,6 +41,17 @@ void Utils::showPassiveNotification(const QString &message, Utils::PassiveNotifi
     if (m_window) {
         QMetaObject::invokeMethod(m_window, "showPassiveNotification", Q_ARG(QVariant, message), Q_ARG(QVariant, timeoutStr), Q_ARG(QVariant, {}), Q_ARG(QVariant, {}));
     }
+}
+
+bool Utils::isPhoneNumber(const QString text)
+{
+    if (m_phoneNumberRegex.pattern().isEmpty()) {
+        qDebug() << "compiling regex";
+        m_phoneNumberRegex = QRegularExpression(SL(R"(^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9]*$)"));
+        m_phoneNumberRegex.optimize();
+    }
+
+    return m_phoneNumberRegex.match(text).hasMatch();
 }
 
 Utils *Utils::instance()

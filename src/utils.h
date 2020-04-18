@@ -1,6 +1,7 @@
 #pragma once
 
 #include <QObject>
+#include <QRegularExpression>
 class QQmlApplicationEngine;
 class QQuickWindow;
 
@@ -18,6 +19,8 @@ public:
     void showPassiveNotification(const QString &message, int timeout = 0);
     void showPassiveNotification(const QString &message, PassiveNotificationDuation timeout);
 
+    Q_INVOKABLE bool isPhoneNumber(const QString text);
+
     static Utils *instance();
 
     static Utils *s_instance;
@@ -25,4 +28,5 @@ public:
 private:
     QQmlApplicationEngine *m_engine;
     QQuickWindow *m_window = nullptr;
+    QRegularExpression m_phoneNumberRegex;
 };
