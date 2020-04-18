@@ -138,8 +138,4 @@ void ChannelHandler::handleIncomingMessage(const Tp::ReceivedMessage receivedMes
     message.id = m_database->lastId() + 1;
     message.read = false;
     m_database->addMessage(message);
-
-    if (m_exitAfterStore) {
-        QCoreApplication::exit();
-    }
 }
