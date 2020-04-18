@@ -31,6 +31,7 @@ Kirigami.ScrollablePage {
     header: Kirigami.SearchField {
         id: searchField
         onTextChanged: contactsProxyModel.setFilterFixedString(text)
+        visible: contactsList.count > 0
     }
 
     Controls.Label {
