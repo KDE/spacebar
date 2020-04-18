@@ -9,6 +9,7 @@
 
 namespace Tp {
 class PendingChannel;
+class ReceivedMessage;
 }
 
 class ChannelHandler : public QObject, public Tp::AbstractClientHandler
@@ -32,6 +33,8 @@ public:
     Database *database() const;
 
 private:
+    void handleIncomingMessage(const Tp::ReceivedMessage receivedMessage);
+
     QVector<Tp::TextChannelPtr> m_channels;
     Tp::AccountPtr m_simAccount;
     Database *m_database;

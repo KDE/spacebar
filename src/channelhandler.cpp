@@ -63,24 +63,8 @@ void ChannelHandler::handleChannels(const Tp::MethodInvocationContextPtr<> &cont
             continue;
         }
 
-        connect(textChannel.data(), &Tp::TextChannel::messageReceived, this, [this](const Tp::ReceivedMessage &receivedMessage) {
-            qDebug() << "received message" << receivedMessage.text();
-
-            if (receivedMessage.isDeliveryReport()) {
-                qDebug() << "received delivery report";
-                // TODO: figure out correct ID and mark it as delivered.
-                return;
-            }
-
-            Message message;
-            message.text = receivedMessage.text();
-            message.sentByMe = false; // SMS doesn't have any kind of synchronization, so received messages are always from the chat partner.
-            message.datetime = receivedMessage.received();
-            message.delivered = true; // It arrived, soo
-            message.phoneNumber = receivedMessage.sender()->id();
-            message.id = m_database->lastId() + 1;
-            m_database->addMessage(message);
-        });
+        // FIXME Only gets second message, first is already gone at this point
+        connect(textChannel.data(), &Tp::TextChannel::messageReceived, this, &ChannelHandler::handleIncomingMessage);
         qDebug() << "Found a new text channel, yay" << channel.data();
         if (!m_channels.contains(textChannel)) {
             m_channels.append(textChannel);
@@ -119,6 +103,8 @@ void ChannelHandler::openChannel(const QString &phoneNumber)
         auto *pc = qobject_cast<Tp::PendingChannel *>(op);
         if (pc) {
             auto channel = Tp::TextChannelPtr::qObjectCast(pc->channel());
+            connect(channel.data(), &Tp::TextChannel::messageReceived, this, &ChannelHandler::handleIncomingMessage);
+
             if (channel) {
                 m_channels.append(channel);
                 emit channelOpen(channel, phoneNumber);
@@ -131,4 +117,29 @@ void ChannelHandler::openChannel(const QString &phoneNumber)
 Database *ChannelHandler::database() const
 {
     return m_database;
+}
+
+void ChannelHandler::handleIncomingMessage(const Tp::ReceivedMessage receivedMessage)
+{
+    qDebug() << "received message" << receivedMessage.text();
+
+    if (receivedMessage.isDeliveryReport()) {
+        qDebug() << "received delivery report";
+        // TODO: figure out correct ID and mark it as delivered.
+        return;
+    }
+
+    Message message;
+    message.text = receivedMessage.text();
+    message.sentByMe = false; // SMS doesn't have any kind of synchronization, so received messages are always from the chat partner.
+    message.datetime = receivedMessage.received();
+    message.delivered = true; // It arrived, soo
+    message.phoneNumber = receivedMessage.sender()->id();
+    message.id = m_database->lastId() + 1;
+    message.read = false;
+    m_database->addMessage(message);
+
+    if (m_exitAfterStore) {
+        QCoreApplication::exit();
+    }
 }

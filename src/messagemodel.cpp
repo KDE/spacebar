@@ -36,7 +36,7 @@ MessageModel::MessageModel(Database *database, const QString &phoneNumber, Tp::T
         addMessage(message);
     });
 
-    connect(channel->becomeReady(), &Tp::PendingReady::finished, this, [=](Tp::PendingOperation  *op) {
+    connect(m_channel->becomeReady(), &Tp::PendingReady::finished, this, [=](Tp::PendingOperation *op) {
         if (op->isError()) {
             qDebug() << "channel not ready" << op->errorMessage();
             return;
