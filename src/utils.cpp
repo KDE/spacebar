@@ -47,7 +47,7 @@ void Utils::showPassiveNotification(const QString &message, Utils::PassiveNotifi
     }
 }
 
-bool Utils::isPhoneNumber(const QString text)
+bool Utils::isPhoneNumber(const QString &text)
 {
     if (m_phoneNumberRegex.pattern().isEmpty()) {
         qDebug() << "compiling regex";
