@@ -69,7 +69,9 @@ void ChannelHandler::handleChannels(const Tp::MethodInvocationContextPtr<> &cont
         }
 
         // FIXME Only gets second message, first is already gone at this point
-        connect(textChannel.data(), &Tp::TextChannel::messageReceived, this, &ChannelHandler::handleIncomingMessage);
+        connect(textChannel.data(), &Tp::TextChannel::messageReceived, this, [this, textChannel](Tp::ReceivedMessage receivedMessage) {
+            handleIncomingMessage(textChannel, receivedMessage);
+        });
         qDebug() << "Found a new text channel, yay" << channel.data();
         if (!m_channels.contains(textChannel)) {
             m_channels.append(textChannel);
@@ -108,7 +110,9 @@ void ChannelHandler::openChannel(const QString &phoneNumber)
         auto *pc = qobject_cast<Tp::PendingChannel *>(op);
         if (pc) {
             auto channel = Tp::TextChannelPtr::qObjectCast(pc->channel());
-            connect(channel.data(), &Tp::TextChannel::messageReceived, this, &ChannelHandler::handleIncomingMessage);
+            connect(channel.data(), &Tp::TextChannel::messageReceived, this, [this, channel](Tp::ReceivedMessage receivedMessage) {
+                handleIncomingMessage(channel, receivedMessage);
+            });
 
             if (channel) {
                 m_channels.append(channel);
@@ -124,7 +128,7 @@ Database *ChannelHandler::database() const
     return m_database;
 }
 
-void ChannelHandler::handleIncomingMessage(const Tp::ReceivedMessage receivedMessage)
+void ChannelHandler::handleIncomingMessage(Tp::TextChannelPtr channel, const Tp::ReceivedMessage receivedMessage)
 {
     qDebug() << "received message" << receivedMessage.text();
 
@@ -143,4 +147,6 @@ void ChannelHandler::handleIncomingMessage(const Tp::ReceivedMessage receivedMes
     message.id = m_database->lastId() + 1;
     message.read = false;
     m_database->addMessage(message);
+
+    channel->acknowledge({receivedMessage});
 }
