@@ -23,7 +23,7 @@ public:
     void showPassiveNotification(const QString &message, int timeout = 0);
     void showPassiveNotification(const QString &message, PassiveNotificationDuation timeout);
 
-    Q_INVOKABLE bool isPhoneNumber(const QString text);
+    Q_INVOKABLE bool isPhoneNumber(const QString &text);
 
     static Utils *instance();
 

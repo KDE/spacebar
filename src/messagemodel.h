@@ -31,7 +31,7 @@ public:
     };
     Q_ENUM(Role)
 
-    explicit MessageModel(Database *database, const QString &phoneNumber, Tp::TextChannelPtr channel, const QString &personUri = {}, QObject *parent = nullptr);
+    explicit MessageModel(Database *database, const QString &phoneNumber, const Tp::TextChannelPtr& channel, const QString &personUri = {}, QObject *parent = nullptr);
 
     QHash<int, QByteArray> roleNames() const override;
     QVariant data(const QModelIndex &index, int role) const override;

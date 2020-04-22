@@ -13,7 +13,7 @@
 
 #include "global.h"
 
-MessageModel::MessageModel(Database *database, const QString &phoneNumber, Tp::TextChannelPtr channel, const QString &personUri, QObject *parent)
+MessageModel::MessageModel(Database *database, const QString &phoneNumber, const Tp::TextChannelPtr &channel, const QString &personUri, QObject *parent)
     : QAbstractListModel(parent)
 {
     m_database = database;
