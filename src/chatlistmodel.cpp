@@ -1,3 +1,8 @@
+// SPDX-FileCopyrightText: 2020 Anthony Fieroni <bvbfan@abv.bg>
+// SPDX-FileCopyrightText: 2020 Jonah Brüchert <jbb@kaidan.im>
+//
+// SPDX-License-Identifier: LicenseRef-KDE-Accepted-GPL
+
 ﻿#include "chatlistmodel.h"
 
 #include <QDebug>

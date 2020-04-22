@@ -1,3 +1,7 @@
+// SPDX-FileCopyrightText: 2020 Jonah Brüchert <jbb@kaidan.im>
+//
+// SPDX-License-Identifier: LicenseRef-KDE-Accepted-GPL
+
 import QtQuick 2.0
 import QtQuick.Layouts 1.0
 import org.kde.kirigami 2.2 as Kirigami
