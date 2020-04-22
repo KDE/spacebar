@@ -2,7 +2,7 @@
 //
 // SPDX-License-Identifier: LicenseRef-KDE-Accepted-GPL
 
-﻿#include "messagemodel.h"
+#include "messagemodel.h"
 
 #include <QDebug>
 #include <QtQml>

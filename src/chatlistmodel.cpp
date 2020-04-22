@@ -3,7 +3,7 @@
 //
 // SPDX-License-Identifier: LicenseRef-KDE-Accepted-GPL
 
-﻿#include "chatlistmodel.h"
+#include "chatlistmodel.h"
 
 #include <QDebug>
 #include <QSqlError>

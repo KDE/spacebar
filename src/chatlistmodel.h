@@ -2,7 +2,7 @@
 //
 // SPDX-License-Identifier: LicenseRef-KDE-Accepted-GPL
 
-﻿#pragma once
+#pragma once
 
 #include <QAbstractListModel>
 #include <QDateTime>
