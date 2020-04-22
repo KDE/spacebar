@@ -31,12 +31,12 @@ Kirigami.ScrollablePage {
                 icon.name: "document-send"
                 visible: searchField.text.length > 0 && Utils.isPhoneNumber(searchField.text)
                 onTriggered: {
-                    searchField.text = ""
-
                     // close new conversation page
                     pageStack.pop()
 
                     ChatListModel.startChat(searchField.text)
+
+                    searchField.text = ""
                 }
             }
         ]
