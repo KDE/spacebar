@@ -27,8 +27,9 @@
 #include "channelhandler.h"
 #include "messagemodel.h"
 
-ChatListModel::ChatListModel(const ChannelHandlerPtr &handler)
-    : m_handler(handler)
+ChatListModel::ChatListModel(const ChannelHandlerPtr &handler, QObject *parent)
+    : QAbstractListModel(parent)
+    , m_handler(handler)
     , m_database(m_handler->database())
     , m_chats(m_database->chats())
     , m_mapper(new ContactMapper(this))

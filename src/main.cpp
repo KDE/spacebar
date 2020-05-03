@@ -54,7 +54,7 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
 
     Q_ASSERT(handler->isRegistered());
 
-    auto *chatListModel = new ChatListModel(handler);
+    auto *chatListModel = new ChatListModel(handler, &engine);
     // Use using the instance getter
     new Utils(&engine);
 

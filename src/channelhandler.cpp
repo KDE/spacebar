@@ -18,10 +18,11 @@
 #include "global.h"
 #include "database.h"
 
-ChannelHandler::ChannelHandler()
-    : Tp::AbstractClientHandler(Tp::ChannelClassSpecList({
-        Tp::ChannelClassSpec::textChat(), Tp::ChannelClassSpec::unnamedTextChat()
-    }))
+ChannelHandler::ChannelHandler(QObject *parent)
+    : QObject(parent)
+    , Tp::AbstractClientHandler(Tp::ChannelClassSpecList({
+          Tp::ChannelClassSpec::textChat(), Tp::ChannelClassSpec::unnamedTextChat()
+      }))
     , m_database(new Database(this))
 {
     // Set up sms account

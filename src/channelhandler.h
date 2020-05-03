@@ -21,7 +21,7 @@ class ChannelHandler : public QObject, public Tp::AbstractClientHandler
     Q_OBJECT
 
 public:
-    explicit ChannelHandler();
+    explicit ChannelHandler(QObject *parent = nullptr);
 
     bool bypassApproval() const override { return true; };
     void handleChannels(const Tp::MethodInvocationContextPtr<> &context, const Tp::AccountPtr &, const Tp::ConnectionPtr &,
