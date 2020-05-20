@@ -61,7 +61,8 @@ QHash<int, QByteArray> MessageModel::roleNames() const
         {Role::DateRole, BL("date")},
         {Role::SentByMeRole, BL("sentByMe")},
         {Role::ReadRole, BL("read")},
-        {Role::DeliveredRole, BL("delivered")}
+        {Role::DeliveredRole, BL("delivered")},
+        {Role::IdRole, BL("id")}
     };
 }
 
@@ -84,6 +85,8 @@ QVariant MessageModel::data(const QModelIndex &index, int role) const
         return m_messages.at(index.row()).read;
     case Role::DeliveredRole:
         return m_messages.at(index.row()).delivered;
+    case Role::IdRole:
+        return m_messages.at(index.row()).id;
     }
 
     return {};

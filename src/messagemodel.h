@@ -27,7 +27,8 @@ public:
         TimeRole,
         SentByMeRole,
         ReadRole,
-        DeliveredRole
+        DeliveredRole,
+        IdRole
     };
     Q_ENUM(Role)
 
