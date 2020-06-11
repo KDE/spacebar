@@ -34,7 +34,7 @@
             "name": "kpeople",
             "buildsystem": "cmake-ninja",
             "builddir": true,
-            "sources": [ { "type": "git", "url": "git://anongit.kde.org/kpeople", "tag": "v5.65.0" } ]
+            "sources": [ { "type": "git", "url": "https://anongit.kde.org/frameworks/kpeople", "tag": "v5.65.0" } ]
         },
         {
             "name": "telepathy-qt",
@@ -48,7 +48,7 @@
             "buildsystem": "cmake-ninja",
             "builddir": true,
             "sources": [
-                { "type": "git", "url": "git://anongit.kde.org/ktp-common-internals.git", "branch": "master" }
+                { "type": "git", "url": "https://anongit.kde.org/network/ktp-common-internals", "branch": "master" }
             ]
         },
         {
