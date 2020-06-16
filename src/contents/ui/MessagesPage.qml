@@ -8,7 +8,7 @@ import QtQuick.Controls 2.4 as Controls
 
 import org.kde.kirigami 2.12 as Kirigami
 
-import org.kde.spacebear 1.0
+import org.kde.spacebar 1.0
 
 Kirigami.ScrollablePage {
     id: msgPage

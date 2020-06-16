@@ -8,7 +8,7 @@ import QtQuick.Layouts 1.1
 
 import org.kde.kirigami 2.10 as Kirigami
 import org.kde.people 1.0 as KPeople
-import org.kde.spacebear 1.0
+import org.kde.spacebar 1.0
 
 Kirigami.ScrollablePage {
     title: i18n("Contacts")

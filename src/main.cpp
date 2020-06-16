@@ -28,7 +28,7 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
     QApplication app(argc, argv);
     QCoreApplication::setOrganizationName(SL("KDE"));
     QCoreApplication::setOrganizationDomain(SL("kde.org"));
-    QCoreApplication::setApplicationName(SL("spacebear"));
+    QCoreApplication::setApplicationName(SL("spacebar"));
 
     QQmlApplicationEngine engine;
 
@@ -50,7 +50,7 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
 
     // Create client
     auto handler = ChannelHandlerPtr::dynamicCast(Tp::SharedPtr<ChannelHandler>(new ChannelHandler()));
-    registrar->registerClient(handler, SL("Spacebear"));
+    registrar->registerClient(handler, SL("Spacebar"));
 
     Q_ASSERT(handler->isRegistered());
 

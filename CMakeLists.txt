@@ -3,7 +3,7 @@ cmake_minimum_required(VERSION 3.0)
 set(KF5_MIN_VERSION "5.69.0")
 set(QT_MIN_VERSION "5.14.0")
 
-project(spacebear)
+project(spacebar)
 
 include(FeatureSummary)
 
@@ -28,7 +28,7 @@ find_package(KF5 ${KF5_MIN_VERSION} REQUIRED COMPONENTS Kirigami2 I18n People Co
 ################# build and install #################
 add_subdirectory(src)
 
-install(PROGRAMS org.kde.spacebear.desktop DESTINATION ${KDE_INSTALL_APPDIR})
-install(FILES org.kde.spacebear.appdata.xml DESTINATION ${KDE_INSTALL_METAINFODIR})
+install(PROGRAMS org.kde.spacebar.desktop DESTINATION ${KDE_INSTALL_APPDIR})
+install(FILES org.kde.spacebar.appdata.xml DESTINATION ${KDE_INSTALL_METAINFODIR})
 
 feature_summary(WHAT ALL INCLUDE_QUIET_PACKAGES FATAL_ON_MISSING_REQUIRED_PACKAGES)

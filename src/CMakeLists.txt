@@ -1,4 +1,4 @@
-set(spacebear_SRCS
+set(spacebar_SRCS
     chatlistmodel.cpp
     database.cpp
     main.cpp
@@ -10,9 +10,9 @@ set(spacebear_SRCS
     resources.qrc
 )
 
-add_executable(spacebear ${spacebear_SRCS})
-target_compile_definitions(spacebear PRIVATE -DQT_NO_CAST_FROM_ASCII)
-target_link_libraries(spacebear
+add_executable(spacebar ${spacebar_SRCS})
+target_compile_definitions(spacebar PRIVATE -DQT_NO_CAST_FROM_ASCII)
+target_link_libraries(spacebar
     Qt5::Core
     Qt5::Gui
     Qt5::Qml
@@ -25,4 +25,4 @@ target_link_libraries(spacebear
     KF5::Contacts
     TelepathyQt5::Core
 )
-install(TARGETS spacebear ${KF5_INSTALL_TARGETS_DEFAULT_ARGS})
+install(TARGETS spacebar ${KF5_INSTALL_TARGETS_DEFAULT_ARGS})

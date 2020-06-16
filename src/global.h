@@ -9,7 +9,7 @@
 
 class ChannelHandler;
 
-constexpr auto APPLICATION_ID = "org.kde.spacebear";
+constexpr auto APPLICATION_ID = "org.kde.spacebar";
 
 #define SL QStringLiteral
 #define BL QByteArrayLiteral
