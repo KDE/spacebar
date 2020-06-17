@@ -39,6 +39,7 @@ Comment[nl]=Biedt integratie met loggen van Telepathy
 Comment[nn]=Gjev integrasjon med Telepathy-loggaren
 Comment[pl]=Zapewnia integrację z dziennikiem Telepathy
 Comment[pt]=Oferece a integração com o sistema de registo Telepathy Logger
+Comment[pt_BR]=Fornece integração com o Telepathy Logger
 Comment[sk]=Poskytuje integráciu so záznamom Telepathy
 Comment[sl]=Nudi integracijo s programom za pisanjem dnevnika Telepathy Logger
 Comment[sv]=Tillhandahåller integrering med Telepathy-loggningsprogram
