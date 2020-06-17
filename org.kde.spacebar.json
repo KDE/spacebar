@@ -1,0 +1,53 @@
+{
+    "id": "org.kde.spacebar",
+    "runtime": "org.kde.Platform",
+    "runtime-version": "5.14",
+    "sdk": "org.kde.Sdk",
+    "command": "spacebar",
+    "tags": ["nightly"],
+    "desktop-file-name-suffix": " (Nightly)",
+    "finish-args": [
+        "--share=ipc",
+        "--share=network",
+        "--socket=x11",
+        "--socket=wayland",
+        "--device=dri",
+        "--filesystem=home",
+        "--talk-name=org.freedesktop.Notifications"
+    ],
+    "separate-locales": false,
+
+    "modules": [
+        {
+            "name": "dbus-glib",
+            "buildsystem": "autotools",
+            "builddir": true,
+            "sources": [ { "type": "git", "url": "https://gitlab.freedesktop.org/dbus/dbus-glib", "tag": "dbus-glib-0.110" } ]
+        },
+        {
+            "name": "telepathy-glib",
+            "buildsystem": "autotools",
+            "builddir": true,
+            "sources": [ { "type": "git", "url": "https://github.com/TelepathyIM/telepathy-glib", "tag": "telepathy-glib-0.24.1" } ]
+        },
+        {
+            "name": "kpeople",
+            "buildsystem": "cmake-ninja",
+            "builddir": true,
+            "sources": [ { "type": "git", "url": "https://anongit.kde.org/frameworks/kpeople", "tag": "v5.69.0" } ]
+        },
+        {
+            "name": "telepathy-qt",
+            "buildsystem": "cmake-ninja",
+            "config-opts": [ "-DDESIRED_QT_VERSION=5", "-DENABLE_TESTS=OFF", "-DENABLE_EXAMPLES=OFF" ],
+            "builddir": true,
+            "sources": [ { "type": "git", "url": "https://github.com/TelepathyIM/telepathy-qt" } ]
+        },
+        {
+            "name": "spacebar",
+            "buildsystem": "cmake-ninja",
+            "builddir": true,
+            "sources": [ { "type": "dir", "path": ".", "skip": [".git"] } ]
+        }
+    ]
+}
