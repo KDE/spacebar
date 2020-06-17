@@ -25,7 +25,6 @@
   <name xml:lang="sv">Spacebar</name>
   <name xml:lang="tg">Фосилагузор</name>
   <name xml:lang="uk">Spacebar</name>
-  <name xml:lang="x-test">xxSpacebarxx</name>
   <name xml:lang="zh-TW">空間列</name>
   <summary>SMS and telepathy client</summary>
   <summary xml:lang="ca">Client SMS i del Telepathy</summary>
@@ -50,7 +49,6 @@
   <summary xml:lang="sv">SMS- och Telepathy-klient</summary>
   <summary xml:lang="tg">Мизоҷи интиқоли фикрҳо ва паёмҳои СМС</summary>
   <summary xml:lang="uk">Клієнт SMS та telepathy</summary>
-  <summary xml:lang="x-test">xxSMS and telepathy clientxx</summary>
   <summary xml:lang="zh-TW">簡訊及 Telepathy 用戶端</summary>
   <metadata_license>CC-0</metadata_license>
   <project_license>GPL-2+</project_license>
@@ -78,7 +76,6 @@
   <developer_name xml:lang="sv">KDE-gemenskapen</developer_name>
   <developer_name xml:lang="tg">Ҷамъияти KDE</developer_name>
   <developer_name xml:lang="uk">Спільнота KDE</developer_name>
-  <developer_name xml:lang="x-test">xxKDE Communityxx</developer_name>
   <developer_name xml:lang="zh-TW">KDE 社群</developer_name>
   <description>
     <p>Spacebar is a telepathy client for Plasma Mobile, that is primarily written for sending and receiving SMS.</p>
@@ -103,7 +100,6 @@
     <p xml:lang="sv">Spacebar är en Telepathy-klient för Plasma Mobil, som i huvudsak är skriven för att skicka och ta emot SMS.</p>
     <p xml:lang="tg">Фосилагузор ин мизоҷи интиқоли фикрҳо дар Плазмаи мобилӣ мебошад, ки асосан барои ирсол ва қабул кардани паёмҳои СМС таҳия карда шудааст.</p>
     <p xml:lang="uk">Spacebar — клієнт telepathy для мобільної версії Плазми. Основним завданням програми є надсилання і отримання SMS.</p>
-    <p xml:lang="x-test">xxSpacebar is a telepathy client for Plasma Mobile, that is primarily written for sending and receiving SMS.xx</p>
     <p xml:lang="zh-TW">《空間列》為 Plasma 手機版的 Telepathy（主要寫來傳送及接收簡訊）的用戶端。</p>
   </description>
 </component>
