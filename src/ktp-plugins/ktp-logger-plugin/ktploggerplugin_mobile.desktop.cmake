@@ -19,6 +19,7 @@ Name[sv]=Mobilt loggningsinsticksprogram
 Name[tg]=Васлкунаки сабткунии мобилӣ
 Name[tr]=Mobil Günlük eklentisi
 Name[uk]=Додаток ведення мобільного журналу
+Name[x-test]=xxMobile Logger pluginxx
 Name[zh_CN]=移动日志插件
 Name[zh_TW]=行動紀錄器外掛程式
 Comment=Provides integration with Telepathy Logger
@@ -45,6 +46,7 @@ Comment[sv]=Tillhandahåller integrering med Telepathy-loggningsprogram
 Comment[tg]=Барои барномаи сабткунии интиқоли фикрҳо ҳампайвандиро таъмин менамояд
 Comment[tr]=Telephaty Günlükleme ile bütünleştirme sağlar
 Comment[uk]=Забезпечує інтеграцію з засобом ведення журналу Telepathy
+Comment[x-test]=xxProvides integration with Telepathy Loggerxx
 Comment[zh_CN]=提供与 Telepathy 日志的集成
 Comment[zh_TW]=提供 Telepathy 紀錄器的整合
 

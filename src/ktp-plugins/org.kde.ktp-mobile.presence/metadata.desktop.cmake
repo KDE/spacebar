@@ -21,6 +21,7 @@ Name[sv]=Direktmeddelandenärvaro
 Name[tg]=Ҳузури шумо дар паёмнависии фаврӣ
 Name[tr]=Anlık İleti Yapısı
 Name[uk]=Присутність у обміні повідомленнями
+Name[x-test]=xxInstant Messaging Presencexx
 Name[zh_CN]=即时消息呈现
 Name[zh_TW]=即時訊息
 Comment=Displays and sets your Instant Messaging Presence
@@ -44,6 +45,7 @@ Comment[sv]=Visar och ställer in din direktmeddelandenärvaro
 Comment[tg]=Ҳузури шуморо дар барномаи паёмнависии фаврӣ танзим карда, нишон медиҳад
 Comment[tr]=Anlık İleti Yapınızı ayarlar ve görüntüler
 Comment[uk]=Показує і встановлює ваше повідомлення про присутність у обміні повідомленнями
+Comment[x-test]=xxDisplays and sets your Instant Messaging Presencexx
 Comment[zh_CN]=显示和设置您的即时消息呈现方式
 Comment[zh_TW]=顯示並設定您的即時訊息
 
