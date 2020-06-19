@@ -130,12 +130,12 @@ void MessageModel::sendMessage(const QString &text)
     addMessage(message);
 
     // Store message in database
-    m_database->addMessage(message);
+    //m_database->addMessage(message);
 
     connect(op, &Tp::PendingOperation::finished, this, [=]() {
         qDebug() << "Message sent";
         //auto tpMessage = op->message(); // NOTE: This exists. We don't need it right now though.
-        m_database->markMessageDelivered(message.id);
+        m_database->markMessageDelivered(message.id); // TODO DAEMON
         for (int i = 0; i < m_messages.size(); i++) {
             if (m_messages.at(i).id == message.id) {
                 m_messages[i].delivered = true;
@@ -147,7 +147,7 @@ void MessageModel::sendMessage(const QString &text)
 
 void MessageModel::markMessageRead(const int id)
 {
-    m_database->markMessageRead(id);
+    m_database->markMessageRead(id);  // TODO DAEMON
 }
 
 bool MessageModel::isReady() const
