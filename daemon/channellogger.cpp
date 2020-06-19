@@ -19,7 +19,7 @@
 
 ChannelLogger::ChannelLogger(QObject *parent)
     : QObject(parent)
-    , Tp::AbstractClientHandler(Tp::ChannelClassSpecList({
+    , Tp::AbstractClientObserver(Tp::ChannelClassSpecList({
           Tp::ChannelClassSpec::textChat(), Tp::ChannelClassSpec::unnamedTextChat()
       }))
     , m_database(new Database(this))
@@ -52,15 +52,9 @@ ChannelLogger::ChannelLogger(QObject *parent)
     });
 }
 
-void ChannelLogger::handleChannels(const Tp::MethodInvocationContextPtr<> &context,
-    const Tp::AccountPtr &/*account*/,
-    const Tp::ConnectionPtr &/*connection*/,
-    const QList<Tp::ChannelPtr> &channels,
-    const QList<Tp::ChannelRequestPtr> &/*requestsSatisfied*/,
-    const QDateTime &/*userActionTime*/,
-    const Tp::AbstractClientHandler::HandlerInfo &/*handlerInfo*/)
+void ChannelLogger::observeChannels(const Tp::MethodInvocationContextPtr<> &context, const Tp::AccountPtr & /*account*/, const Tp::ConnectionPtr & /*connection*/, const QList<Tp::ChannelPtr> &channels, const Tp::ChannelDispatchOperationPtr & /*dispatchOperation*/, const QList<Tp::ChannelRequestPtr> & /*requestsSatisfied*/, const Tp::AbstractClientObserver::ObserverInfo & /*observerInfo*/)
 {
-    qDebug() << "handler called";
+    qDebug() << "observer called";
     for (const Tp::ChannelPtr &channel : channels) {
         auto textChannel = Tp::TextChannelPtr::qObjectCast(channel);
         if (!textChannel) {
@@ -89,7 +83,7 @@ void ChannelLogger::handleChannels(const Tp::MethodInvocationContextPtr<> &conte
     context->setFinished();
 }
 
-void ChannelLogger::handleIncomingMessage(Tp::TextChannelPtr channel, const Tp::ReceivedMessage &receivedMessage)
+void ChannelLogger::handleIncomingMessage(const Tp::TextChannelPtr&  /*channel*/, const Tp::ReceivedMessage &receivedMessage)
 {
     qDebug() << "received message" << receivedMessage.text();
 
@@ -111,7 +105,7 @@ void ChannelLogger::handleIncomingMessage(Tp::TextChannelPtr channel, const Tp::
     qDebug() << "writing to db";
     m_database->addMessage(message);
 
-    channel->acknowledge({receivedMessage});
+    //channel->acknowledge({receivedMessage});
 }
 
 void ChannelLogger::handleOutgoingMessage(Tp::TextChannelPtr channel, const Tp::Message &sentMessage)

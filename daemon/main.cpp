@@ -1,10 +1,8 @@
 #include <QCoreApplication>
 #include <TelepathyQt/Types>
 
-#include <TelepathyQt/AccountFactory>
 #include <TelepathyQt/ClientRegistrar>
 #include <TelepathyQt/ConnectionFactory>
-#include <TelepathyQt/TextChannel>
 
 #include "global.h"
 #include "channellogger.h"
@@ -24,18 +22,12 @@ int main(int argc, char *argv[])
         Tp::Features({Tp::Account::FeatureCore}));
     auto connectionFactory = Tp::ConnectionFactory::create(QDBusConnection::sessionBus(),
         Tp::Features({Tp::Connection::FeatureCore, Tp::Connection::FeatureSelfContact, Tp::Connection::FeatureConnected}));
-    auto channelFactory = Tp::ChannelFactory::create(QDBusConnection::sessionBus());
-    channelFactory->addCommonFeatures(Tp::Channel::FeatureCore);
 
-    auto contactFactory = Tp::ContactFactory::create({});
-    channelFactory->addFeaturesForTextChats(Tp::Features({Tp::TextChannel::FeatureCore, Tp::TextChannel::FeatureMessageQueue}));
+    auto registrar = Tp::ClientRegistrar::create(accountFactory, connectionFactory);
 
-    auto registrar = Tp::ClientRegistrar::create(accountFactory, connectionFactory,
-        channelFactory, contactFactory);
-
-    // Create client
+    // Create observer
     auto handler = Tp::SharedPtr<ChannelLogger>(new ChannelLogger());
-    registrar->registerClient(handler, SL("Spacebar.Observer"));
+    registrar->registerClient(handler, SL("SpaceObserver"));
 
     Q_ASSERT(handler->isRegistered());
 

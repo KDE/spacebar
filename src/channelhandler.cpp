@@ -133,7 +133,7 @@ Database *ChannelHandler::database() const
     return m_database;
 }
 
-void ChannelHandler::handleIncomingMessage(Tp::TextChannelPtr channel, const Tp::ReceivedMessage &receivedMessage)
+void ChannelHandler::handleIncomingMessage(const Tp::TextChannelPtr&  /*channel*/, const Tp::ReceivedMessage &receivedMessage)
 {
     qDebug() << "received message" << receivedMessage.text();
 
@@ -152,5 +152,5 @@ void ChannelHandler::handleIncomingMessage(Tp::TextChannelPtr channel, const Tp:
     message.id = m_database->lastId() + 1;
     message.read = false;
 
-    channel->acknowledge({receivedMessage});
+    //channel->acknowledge({receivedMessage});
 }
