@@ -9,6 +9,7 @@
 #include <TelepathyQt/Channel>
 #include <TelepathyQt/TextChannel>
 #include <TelepathyQt/Account>
+#include <TelepathyQt/Types>
 
 #include "database.h"
 
@@ -17,19 +18,24 @@ class PendingChannel;
 class ReceivedMessage;
 }
 
-class ChannelLogger : public QObject, public Tp::AbstractClientHandler
+class ChannelLogger : public QObject, public Tp::AbstractClientObserver
 {
     Q_OBJECT
 
 public:
     explicit ChannelLogger(QObject *parent = nullptr);
 
-    bool bypassApproval() const override { return true; };
-    void handleChannels(const Tp::MethodInvocationContextPtr<> &context, const Tp::AccountPtr &, const Tp::ConnectionPtr &,
-        const QList<Tp::ChannelPtr> &channels, const QList<Tp::ChannelRequestPtr> &, const QDateTime &, const Tp::AbstractClientHandler::HandlerInfo &) override;
+
+    void observeChannels(const Tp::MethodInvocationContextPtr<> &context,
+            const Tp::AccountPtr &account,
+            const Tp::ConnectionPtr &connection,
+            const QList<Tp::ChannelPtr> &channels,
+            const Tp::ChannelDispatchOperationPtr &dispatchOperation,
+            const QList<Tp::ChannelRequestPtr> &requestsSatisfied,
+            const ObserverInfo &observerInfo) override;
 
 private:
-    void handleIncomingMessage(Tp::TextChannelPtr, const Tp::ReceivedMessage &receivedMessage);
+    void handleIncomingMessage(const Tp::TextChannelPtr&, const Tp::ReceivedMessage &receivedMessage);
     void handleOutgoingMessage(Tp::TextChannelPtr channel, const Tp::Message &sentMessage);
 
     QVector<Tp::TextChannelPtr> m_channels;
