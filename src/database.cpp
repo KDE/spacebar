@@ -27,11 +27,12 @@ Database::Database(QObject *parent)
     : QObject(parent)
     , m_database(QSqlDatabase::addDatabase(QStringLiteral("QSQLITE"), QStringLiteral("messages")))
 {
-    if (!QDir().mkpath(QStandardPaths::writableLocation(QStandardPaths::AppLocalDataLocation))) {
-        qDebug() << "Could not create the database directory at" << QStandardPaths::writableLocation(QStandardPaths::AppLocalDataLocation);
+    const auto databaseLocation = QStandardPaths::writableLocation(QStandardPaths::AppLocalDataLocation);
+    if (!QDir().mkpath(databaseLocation)) {
+        qDebug() << "Could not create the database directory at" << databaseLocation;
     }
 
-    m_database.setDatabaseName(QStandardPaths::writableLocation(QStandardPaths::AppLocalDataLocation) + SL("/messages.sqlite"));
+    m_database.setDatabaseName(databaseLocation + SL("messages.sqlite"));
     bool open = m_database.open();
 
     if (!open) {

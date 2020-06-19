@@ -3,7 +3,7 @@
 //
 // SPDX-License-Identifier: LicenseRef-KDE-Accepted-GPL
 
-#include "channelhandler.h"
+#include "channellogger.h"
 
 #include <TelepathyQt/ChannelClassSpec>
 #include <TelepathyQt/PendingChannelRequest>
@@ -14,11 +14,10 @@
 #include <TelepathyQt/AccountSet>
 #include <TelepathyQt/ReceivedMessage>
 
-#include "utils.h"
 #include "global.h"
 #include "database.h"
 
-ChannelHandler::ChannelHandler(QObject *parent)
+ChannelLogger::ChannelLogger(QObject *parent)
     : QObject(parent)
     , Tp::AbstractClientHandler(Tp::ChannelClassSpecList({
           Tp::ChannelClassSpec::textChat(), Tp::ChannelClassSpec::unnamedTextChat()
@@ -53,7 +52,7 @@ ChannelHandler::ChannelHandler(QObject *parent)
     });
 }
 
-void ChannelHandler::handleChannels(const Tp::MethodInvocationContextPtr<> &context,
+void ChannelLogger::handleChannels(const Tp::MethodInvocationContextPtr<> &context,
     const Tp::AccountPtr &/*account*/,
     const Tp::ConnectionPtr &/*connection*/,
     const QList<Tp::ChannelPtr> &channels,
@@ -77,6 +76,10 @@ void ChannelHandler::handleChannels(const Tp::MethodInvocationContextPtr<> &cont
         connect(textChannel.data(), &Tp::TextChannel::messageReceived, this, [this, textChannel](const Tp::ReceivedMessage &receivedMessage) {
             handleIncomingMessage(textChannel, receivedMessage);
         });
+        connect(textChannel.data(), &Tp::TextChannel::messageSent, this, [this, textChannel](const Tp::Message &sentMessage) {
+            handleOutgoingMessage(textChannel, sentMessage);
+        });
+
         qDebug() << "Found a new text channel, yay" << channel.data();
         if (!m_channels.contains(textChannel)) {
             m_channels.append(textChannel);
@@ -86,54 +89,7 @@ void ChannelHandler::handleChannels(const Tp::MethodInvocationContextPtr<> &cont
     context->setFinished();
 }
 
-void ChannelHandler::openChannel(const QString &phoneNumber)
-{
-    if (!m_simAccount) {
-        Utils::instance()->showPassiveNotification(SL("Could not find a sim account, can't open chat. Please check the log for details"), Utils::LongNotificationDuration);
-        return;
-    }
-
-    // Look for an existing channel
-    for (const auto &channelptr : qAsConst(m_channels)) {
-        if (channelptr->targetId() == phoneNumber) {
-            qDebug() << "found existing channel" << channelptr.data();
-            emit channelOpen(channelptr, phoneNumber);
-            return;
-        }
-    }
-
-    // If there is none just ask for a new one
-    Tp::PendingChannel *pendingChannel = m_simAccount->ensureAndHandleTextChat(phoneNumber);
-    qDebug() << pendingChannel;
-    connect(pendingChannel, &Tp::PendingChannel::finished, this, [=](Tp::PendingOperation *op) {
-        if (op->isError()) {
-            qWarning() << "Requesting text channel failed:" << op->errorName() << op->errorMessage();
-            Utils::instance()->showPassiveNotification(SL("Failed to request channel. Please check the log for details"), Utils::LongNotificationDuration);
-            return;
-        }
-
-        auto *pc = qobject_cast<Tp::PendingChannel *>(op);
-        if (pc) {
-            auto channel = Tp::TextChannelPtr::qObjectCast(pc->channel());
-            connect(channel.data(), &Tp::TextChannel::messageReceived, this, [this, channel](const Tp::ReceivedMessage &receivedMessage) {
-                handleIncomingMessage(channel, receivedMessage);
-            });
-
-            if (channel) {
-                m_channels.append(channel);
-                emit channelOpen(channel, phoneNumber);
-            }
-            return;
-        }
-    });
-}
-
-Database *ChannelHandler::database() const
-{
-    return m_database;
-}
-
-void ChannelHandler::handleIncomingMessage(Tp::TextChannelPtr channel, const Tp::ReceivedMessage &receivedMessage)
+void ChannelLogger::handleIncomingMessage(Tp::TextChannelPtr channel, const Tp::ReceivedMessage &receivedMessage)
 {
     qDebug() << "received message" << receivedMessage.text();
 
@@ -152,5 +108,24 @@ void ChannelHandler::handleIncomingMessage(Tp::TextChannelPtr channel, const Tp:
     message.id = m_database->lastId() + 1;
     message.read = false;
 
+    qDebug() << "writing to db";
+    m_database->addMessage(message);
+
     channel->acknowledge({receivedMessage});
+}
+
+void ChannelLogger::handleOutgoingMessage(Tp::TextChannelPtr channel, const Tp::Message &sentMessage)
+{
+    qDebug() << "sent message" << sentMessage.text();
+
+    Message message;
+    message.text = sentMessage.text();
+    message.sentByMe = true; // it is outgoing
+    message.datetime = sentMessage.sent();
+    message.phoneNumber = channel->targetId();
+    message.id = m_database->lastId() + 1;
+    message.read = true; // sent by us, so already read by us
+
+    qDebug() << "writing to db";
+    m_database->addMessage(message);
 }
