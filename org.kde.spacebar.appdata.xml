@@ -9,6 +9,7 @@
   <name xml:lang="en-GB">Spacebar</name>
   <name xml:lang="es">Spacebar</name>
   <name xml:lang="et">Spacebar</name>
+  <name xml:lang="eu">Spacebar</name>
   <name xml:lang="fi">Spacebar</name>
   <name xml:lang="fr">Spacebar</name>
   <name xml:lang="gl">Spacebar</name>
@@ -34,6 +35,7 @@
   <summary xml:lang="en-GB">SMS and telepathy client</summary>
   <summary xml:lang="es">Cliente de SMS y de Telepathy</summary>
   <summary xml:lang="et">SMS-ide ja Telepathy klient</summary>
+  <summary xml:lang="eu">SMS eta Telepathy-ren bezeroa</summary>
   <summary xml:lang="fi">Tekstiviesti- ja Telepathy-asiakas</summary>
   <summary xml:lang="fr">Client SMS et Telepathy</summary>
   <summary xml:lang="gl">Cliente de SMS e Telepathy</summary>
@@ -62,6 +64,7 @@
   <developer_name xml:lang="en-GB">KDE Community</developer_name>
   <developer_name xml:lang="es">Comunidad KDE</developer_name>
   <developer_name xml:lang="et">KDE kogukond</developer_name>
+  <developer_name xml:lang="eu">KDE komunitatea</developer_name>
   <developer_name xml:lang="fi">KDE-yhteisö</developer_name>
   <developer_name xml:lang="fr">La communauté KDE</developer_name>
   <developer_name xml:lang="gl">Comunidade KDE</developer_name>
@@ -88,6 +91,7 @@
     <p xml:lang="en-GB">Spacebar is a telepathy client for Plasma Mobile, that is primarily written for sending and receiving SMS.</p>
     <p xml:lang="es">Spacebar es un cliente de Telepathy para Plasma Mobile, escrito principalmente para enviar y recibir SMS.</p>
     <p xml:lang="et">Spacebar on Plasma Mobile Telepathy klient, mis esijoones on loodud SMS-ide saatmiseks ja vastuvõtmiseks.</p>
+    <p xml:lang="eu">Spacebar Plasma Mobile-rako Telepathy-ren bezero bat da, nagusiki SMSak bidaltzeko eta jasotzeko idatzia.</p>
     <p xml:lang="fi">Spacebar on Plasma Mobilen Telepathy-asiakas, joka on etusijassa tarkoitettu tekstiviestien lähettämiseen ja vastaanottoon.</p>
     <p xml:lang="fr">Spacebar est un client Telepathy pour Plasma Mobile, il a été développé principalement pour envoyer et recevoir des SMS.</p>
     <p xml:lang="gl">Spacebar é un cliente de Telepathy para Plasma Móbil escrito principalmente para enviar e recibir SMS.</p>
