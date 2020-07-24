@@ -15,6 +15,7 @@ Name[nl]=Plug-in voor loggen van mobiel
 Name[nn]=Programtillegg for mobillogg
 Name[pl]=Wtyczka logowania na urządzenia mobilne
 Name[pt]='Plugin' de Registos Móveis
+Name[pt_BR]=Plugin de registro móvel
 Name[sl]=Mobilni vtičnik za pisanje dnevnika
 Name[sv]=Mobilt loggningsinsticksprogram
 Name[tg]=Васлкунаки сабткунии мобилӣ
