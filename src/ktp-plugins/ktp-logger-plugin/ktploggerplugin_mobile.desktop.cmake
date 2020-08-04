@@ -1,7 +1,7 @@
 [Desktop Entry]
 Name=Mobile Logger plugin
-Name[ca]=Connector del registre del mòbil
-Name[ca@valencia]=Connector del registre del mòbil
+Name[ca]=Connector per al registre del mòbil
+Name[ca@valencia]=Connector per al registre del mòbil
 Name[de]=Modul „Mobile Logger“
 Name[en_GB]=Mobile Logger plugin
 Name[es]=Complemento de registro del móvil
