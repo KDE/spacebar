@@ -21,6 +21,7 @@
   <name xml:lang="pl">Spacebar</name>
   <name xml:lang="pt">Spacebar</name>
   <name xml:lang="pt-BR">Spacebar</name>
+  <name xml:lang="ro">Spacebar</name>
   <name xml:lang="sk">Spacebar</name>
   <name xml:lang="sl">Spacebar</name>
   <name xml:lang="sv">Spacebar</name>
@@ -47,6 +48,7 @@
   <summary xml:lang="pl">Klient telepathy oraz SMSów</summary>
   <summary xml:lang="pt">Cliente de SMS e Telepathy</summary>
   <summary xml:lang="pt-BR">Cliente SMS e Telepathy</summary>
+  <summary xml:lang="ro">Client pentru SMS și Telepathy</summary>
   <summary xml:lang="sk">Klient pre SMS a telepathy</summary>
   <summary xml:lang="sl">Odjemalec za SMS in telepathy</summary>
   <summary xml:lang="sv">SMS- och Telepathy-klient</summary>
@@ -76,6 +78,7 @@
   <developer_name xml:lang="pl">Społeczność KDE</developer_name>
   <developer_name xml:lang="pt">Comunidade do KDE</developer_name>
   <developer_name xml:lang="pt-BR">Comunidade KDE</developer_name>
+  <developer_name xml:lang="ro">Comunitatea KDE</developer_name>
   <developer_name xml:lang="sk">KDE komunita</developer_name>
   <developer_name xml:lang="sl">Skupnost KDE</developer_name>
   <developer_name xml:lang="sv">KDE-gemenskapen</developer_name>
