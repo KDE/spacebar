@@ -56,13 +56,9 @@ Kirigami.ScrollablePage {
                 radius: 10
                 shadow.size: 3
                 color: {
-                    if (model.sentByMe) {
-                        var col = Kirigami.Theme.highlightColor
-                        col.a = 0.1
-                        Qt.tint(Kirigami.Theme.visitedLinkBackgroundColor, col)
-                    } else {
-                        Qt.lighter(Kirigami.Theme.visitedLinkBackgroundColor, 1.04)
-                    }
+                    const myColor = Qt.lighter(Kirigami.Theme.positiveTextColor, 1.8)
+                    const chatParterColor = Qt.lighter(Kirigami.Theme.neutralTextColor, 1.8)
+                    model.sentByMe ? myColor : chatParterColor
                 }
                 height: content.height + 10
                 width: content.width + 10
