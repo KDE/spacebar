@@ -29,7 +29,5 @@ int main(int argc, char *argv[])
     auto handler = Tp::SharedPtr<ChannelLogger>(new ChannelLogger());
     registrar->registerClient(handler, SL("SpaceObserver"));
 
-    Q_ASSERT(handler->isRegistered());
-
     QCoreApplication::exec();
 }
