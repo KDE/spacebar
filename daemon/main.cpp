@@ -22,8 +22,10 @@ int main(int argc, char *argv[])
         Tp::Features({Tp::Account::FeatureCore}));
     auto connectionFactory = Tp::ConnectionFactory::create(QDBusConnection::sessionBus(),
         Tp::Features({Tp::Connection::FeatureCore, Tp::Connection::FeatureSelfContact, Tp::Connection::FeatureConnected}));
+    auto channelFactory = Tp::ChannelFactory::create(QDBusConnection::sessionBus());
+    channelFactory->addFeaturesForTextChats(Tp::Features({Tp::TextChannel::FeatureCore, Tp::TextChannel::FeatureMessageQueue}));
 
-    auto registrar = Tp::ClientRegistrar::create(accountFactory, connectionFactory);
+    auto registrar = Tp::ClientRegistrar::create(accountFactory, connectionFactory, channelFactory);
 
     // Create observer
     auto handler = Tp::SharedPtr<ChannelLogger>(new ChannelLogger());

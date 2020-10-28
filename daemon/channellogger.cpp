@@ -79,7 +79,6 @@ void ChannelLogger::observeChannels(const Tp::MethodInvocationContextPtr<> &cont
             m_channels.append(textChannel);
         }
     }
-
     context->setFinished();
 }
 
