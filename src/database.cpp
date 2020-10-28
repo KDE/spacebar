@@ -32,7 +32,7 @@ Database::Database(QObject *parent)
         qDebug() << "Could not create the database directory at" << databaseLocation;
     }
 
-    m_database.setDatabaseName(databaseLocation + SL("messages.sqlite"));
+    m_database.setDatabaseName(databaseLocation + SL("/messages.sqlite"));
     bool open = m_database.open();
 
     if (!open) {
