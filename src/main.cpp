@@ -22,6 +22,9 @@
 #include "channelhandler.h"
 #include "utils.h"
 
+constexpr auto APPLICATION_ID = "org.kde.spacebar";
+
+
 Q_DECL_EXPORT int main(int argc, char *argv[])
 {
     QGuiApplication::setAttribute(Qt::AA_EnableHighDpiScaling);

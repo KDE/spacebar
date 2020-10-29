@@ -26,6 +26,7 @@ find_package(Qt5 ${QT_MIN_VERSION} REQUIRED COMPONENTS Core Gui Qml Quick Widget
 find_package(KF5 ${KF5_MIN_VERSION} REQUIRED COMPONENTS Kirigami2 I18n People Contacts)
 
 ################# build and install #################
+add_subdirectory(lib)
 add_subdirectory(src)
 add_subdirectory(daemon)
 
