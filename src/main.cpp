@@ -43,7 +43,7 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
     channelFactory->addCommonFeatures(Tp::Channel::FeatureCore);
 
     auto contactFactory = Tp::ContactFactory::create({});
-    channelFactory->addFeaturesForTextChats(Tp::Features({Tp::TextChannel::FeatureCore, Tp::TextChannel::FeatureMessageQueue}));
+    channelFactory->addFeaturesForTextChats(Tp::Features({Tp::TextChannel::FeatureCore, Tp::TextChannel::FeatureMessageQueue, Tp::TextChannel::FeatureMessageSentSignal}));
 
     auto registrar = Tp::ClientRegistrar::create(accountFactory, connectionFactory,
         channelFactory, contactFactory);

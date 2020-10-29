@@ -23,7 +23,7 @@ int main(int argc, char *argv[])
     auto connectionFactory = Tp::ConnectionFactory::create(QDBusConnection::sessionBus(),
         Tp::Features({Tp::Connection::FeatureCore, Tp::Connection::FeatureSelfContact, Tp::Connection::FeatureConnected}));
     auto channelFactory = Tp::ChannelFactory::create(QDBusConnection::sessionBus());
-    channelFactory->addFeaturesForTextChats(Tp::Features({Tp::TextChannel::FeatureCore, Tp::TextChannel::FeatureMessageQueue}));
+    channelFactory->addFeaturesForTextChats(Tp::Features({Tp::TextChannel::FeatureCore, Tp::TextChannel::FeatureMessageQueue, Tp::TextChannel::FeatureMessageSentSignal}));
 
     auto registrar = Tp::ClientRegistrar::create(accountFactory, connectionFactory, channelFactory);
 
