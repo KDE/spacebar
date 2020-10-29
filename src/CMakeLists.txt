@@ -1,10 +1,8 @@
 set(spacebar_SRCS
     chatlistmodel.cpp
-    database.cpp
     main.cpp
     contactmapper.cpp
     messagemodel.cpp
-    global.h
     channelhandler.cpp
     utils.cpp
     resources.qrc
@@ -24,5 +22,6 @@ target_link_libraries(spacebar
     KF5::PeopleBackend
     KF5::Contacts
     TelepathyQt5::Core
+    database
 )
 install(TARGETS spacebar ${KF5_INSTALL_TARGETS_DEFAULT_ARGS})

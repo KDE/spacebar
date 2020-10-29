@@ -8,8 +8,10 @@
 #include <QDateTime>
 #include <QObject>
 #include <QSqlDatabase>
+
 #include <TelepathyQt/Account>
 #include <TelepathyQt/TextChannel>
+#include <TelepathyQt/SharedPtr>
 
 #include "contactmapper.h"
 #include "database.h"
@@ -17,6 +19,8 @@
 
 class MessageModel;
 class ChannelHandler;
+
+using ChannelHandlerPtr = Tp::SharedPtr<ChannelHandler>;
 
 struct ChatData {
     QString displayName;
