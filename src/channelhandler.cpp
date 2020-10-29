@@ -14,6 +14,8 @@
 #include <TelepathyQt/AccountSet>
 #include <TelepathyQt/ReceivedMessage>
 
+#include <KLocalizedString>
+
 #include "utils.h"
 #include "global.h"
 #include "database.h"
@@ -82,7 +84,7 @@ void ChannelHandler::handleChannels(const Tp::MethodInvocationContextPtr<> &cont
 void ChannelHandler::openChannel(const QString &phoneNumber)
 {
     if (!m_simAccount) {
-        Utils::instance()->showPassiveNotification(SL("Could not find a sim account, can't open chat. Please check the log for details"), Utils::LongNotificationDuration);
+        Utils::instance()->showPassiveNotification(i18n("Could not find a sim account, can't open chat. Please check the log for details"), Utils::LongNotificationDuration);
         return;
     }
 
@@ -100,7 +102,7 @@ void ChannelHandler::openChannel(const QString &phoneNumber)
     connect(pendingChannel, &Tp::PendingChannelRequest::finished, this, [=](Tp::PendingOperation *op) {
         if (op->isError()) {
             qWarning() << "Requesting text channel failed:" << op->errorName() << op->errorMessage();
-            Utils::instance()->showPassiveNotification(SL("Failed to request channel. Please check the log for details"), Utils::LongNotificationDuration);
+            Utils::instance()->showPassiveNotification(i18n("Failed to request channel: %1", op->errorMessage()), Utils::LongNotificationDuration);
             return;
         }
 
