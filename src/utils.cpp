@@ -7,6 +7,7 @@
 #include <QQmlApplicationEngine>
 #include <QQuickWindow>
 #include <QRegularExpression>
+#include <QProcess>
 
 #include "global.h"
 
@@ -56,6 +57,11 @@ bool Utils::isPhoneNumber(const QString &text)
     }
 
     return m_phoneNumberRegex.match(text).hasMatch();
+}
+
+void Utils::launchPhonebook()
+{
+    QProcess::startDetached(SL("plasma-phonebook"), {});
 }
 
 Utils *Utils::instance()

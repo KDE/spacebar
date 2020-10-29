@@ -30,7 +30,9 @@ Kirigami.ScrollablePage {
     Kirigami.PlaceholderMessage {
         anchors.centerIn: parent
         text: i18n("No chats yet")
-        visible: ChatListModel.count === 0
+        helpfulAction: actions.main
+
+        visible: listView.count === 0
     }
 
     Connections {
@@ -47,6 +49,7 @@ Kirigami.ScrollablePage {
     }
 
     ListView {
+        id: listView
         model: ChatListModel
 
         delegate: Kirigami.AbstractListItem {

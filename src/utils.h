@@ -18,12 +18,14 @@ public:
         ShortNotificationDuration,
         LongNotificationDuration
     };
+    Q_ENUM(PassiveNotificationDuation)
 
     explicit Utils(QQmlApplicationEngine *engine);
     void showPassiveNotification(const QString &message, int timeout = 0);
     void showPassiveNotification(const QString &message, PassiveNotificationDuation timeout);
 
     Q_INVOKABLE bool isPhoneNumber(const QString &text);
+    Q_INVOKABLE static void launchPhonebook();
 
     static Utils *instance();
 
