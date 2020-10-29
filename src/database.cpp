@@ -9,6 +9,7 @@
 #include <QSqlDatabase>
 #include <QSqlError>
 #include <QSqlQuery>
+#include <QSqlDriver>
 #include <QStandardPaths>
 
 #include "global.h"
@@ -41,6 +42,12 @@ Database::Database(QObject *parent)
 
     QSqlQuery createTable(m_database);
     createTable.exec(SL("CREATE TABLE IF NOT EXISTS Messages (id INTEGER, phoneNumber TEXT, text TEXT, time DATETIME, read BOOLEAN, delivered BOOLEAN, sentByMe BOOLEAN)"));
+    auto *driver = m_database.driver();
+    driver->subscribeToNotification(SL("Messages"));
+    connect(driver, QOverload<const QString &, QSqlDriver::NotificationSource, const QVariant &>::of(&QSqlDriver::notification),
+        [=]() {
+            emit this->messagesChanged(SL(""));
+        });
 }
 
 QVector<Message> Database::messagesForNumber(const QString &phoneNumber) const
@@ -158,8 +165,6 @@ void Database::markChatAsRead(const QString &phoneNumber)
     update.prepare(SL("UPDATE Messages SET read = True WHERE phoneNumber = :phoneNumber AND NOT read == True"));
     update.bindValue(SL(":phoneNumber"), phoneNumber);
     update.exec();
-
-    emit messagesChanged(phoneNumber);
 }
 
 void Database::addMessage(const Message &message)
@@ -177,6 +182,4 @@ void Database::addMessage(const Message &message)
     putCall.exec();
 
     qDebug() << "WRITING TOOK TIME" << QTime::currentTime().msecsSinceStartOfDay() - before;
-
-    emit messagesChanged(message.phoneNumber);
 }
