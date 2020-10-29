@@ -40,10 +40,9 @@ Kirigami.ScrollablePage {
             width: listView.width
             height: rect.height
 
-            Component.onCompleted: {
+            onVisibleChanged: {
                 // Avoid unneccessary invocations
-                // TODO: is this stupid?
-                if (!model.sentByMe && !model.read) {
+                if (visible && !model.sentByMe && !model.read) {
                     messageModel.markMessageRead(model.id)
                 }
             }
