@@ -89,12 +89,14 @@ void ChannelHandler::openChannel(const QString &phoneNumber)
     }
 
     // Look for an existing channel
-    for (const auto &channelptr : qAsConst(m_channels)) {
-        if (channelptr->targetId() == phoneNumber) {
-            qDebug() << "found existing channel" << channelptr.data();
-            emit channelOpen(channelptr, phoneNumber);
-            return;
-        }
+    const auto channelIt = std::find_if(m_channels.begin(), m_channels.end(), [&phoneNumber](const Tp::ChannelPtr &channelptr) {
+        return channelptr->targetId() == phoneNumber;
+    });
+
+    if (channelIt != m_channels.end()) {
+        qDebug() << "found existing channel" << channelIt->data();
+        emit channelOpen(*channelIt, phoneNumber);
+        return;
     }
 
     // If there is none just ask for a new one
