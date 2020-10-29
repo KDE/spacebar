@@ -33,20 +33,19 @@ ChannelHandler::ChannelHandler(QObject *parent)
     QObject::connect(ready, &Tp::PendingReady::finished, this, [=] {
         const Tp::AccountSetPtr accountSet = manager->validAccounts();
         const auto accounts = accountSet->accounts();
-        for (const Tp::AccountPtr &account : accounts) {
-            qDebug() << account->protocolName();
 
+        auto accountIt = std::find_if(accounts.begin(), accounts.end(), [](const Tp::AccountPtr &account) {
             static const QStringList supportedProtocols = {
                 QLatin1String("ofono"),
                 QLatin1String("tel"),
             };
-            if (supportedProtocols.contains(account->protocolName())) {
-                m_simAccount = account;
-                break;
-            }
-        }
 
-        if (m_simAccount.isNull()) {
+            return supportedProtocols.contains(account->protocolName());
+        });
+
+        if (accountIt != accounts.end() && !accountIt->isNull()) {
+            m_simAccount = *accountIt;
+        } else {
             qCritical() << "Unable to get SIM account;"
                         << "is the telepathy-ofono or telepathy-ring backend installed?";
         }
