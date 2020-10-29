@@ -15,13 +15,11 @@
 
 MessageModel::MessageModel(Database *database, const QString &phoneNumber, const Tp::TextChannelPtr &channel, const QString &personUri, QObject *parent)
     : QAbstractListModel(parent)
+    , m_database(database)
+    , m_channel(channel)
+    , m_phoneNumber(phoneNumber)
+    , m_personData(new KPeople::PersonData(personUri, this))
 {
-    m_database = database;
-    m_phoneNumber = phoneNumber;
-    m_personData = new KPeople::PersonData(personUri, this);
-
-    m_channel = channel;
-
     connect(channel.data(), &Tp::TextChannel::messageReceived, this, [=](const Tp::ReceivedMessage &receivedMessage){
         if (receivedMessage.isDeliveryReport()) {
             qDebug() << "received delivery report";

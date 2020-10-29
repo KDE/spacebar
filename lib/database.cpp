@@ -33,7 +33,7 @@ Database::Database(QObject *parent)
     }
 
     m_database.setDatabaseName(databaseLocation + SL("/messages.sqlite"));
-    bool open = m_database.open();
+    const bool open = m_database.open();
 
     if (!open) {
         qWarning() << "Could not open call database" << m_database.lastError();

@@ -84,6 +84,7 @@ Kirigami.ScrollablePage {
                         Kirigami.Icon {
                             Layout.alignment: Qt.AlignRight
                             height: 15
+                            implicitHeight: height
                             width: height
                             source: visible ? "answer-correct" : undefined
                             visible: model.delivered && model.sentByMe
