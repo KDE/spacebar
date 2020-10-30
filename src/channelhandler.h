@@ -38,7 +38,6 @@ public:
     Database *database() const;
 
 private:
-    void handleIncomingMessage(const Tp::TextChannelPtr&, const Tp::ReceivedMessage &receivedMessage);
 
     QVector<Tp::TextChannelPtr> m_channels;
     Tp::AccountPtr m_simAccount;
