@@ -28,7 +28,12 @@ Kirigami.ScrollablePage {
 
     Connections {
         target: ChatListModel
-        onChatStarted: pageStack.push("qrc:/MessagesPage.qml", {"messageModel": messageModel})
+        onChatStarted: {
+            if (pageStack.depth > 1) {
+                pageStack.pop()
+            }
+            pageStack.push("qrc:/MessagesPage.qml", {"messageModel": messageModel})
+        }
     }
 
     ListView {
