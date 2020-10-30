@@ -10,13 +10,20 @@ import QtQuick.Controls 2.4 as Controls
 import org.kde.spacebar 1.0
 
 Kirigami.ScrollablePage {
+    id: chatPage
     title: ChatListModel.ready ? i18n("Chats") : i18n("Loading...")
-
+    supportsRefreshing: true
     actions {
         main: Kirigami.Action {
             text: i18n("New Conversation")
             onTriggered: pageStack.push("qrc:/NewConversationPage.qml")
             icon.name: "contact-new"
+        }
+    }
+
+    onRefreshingChanged: {
+        if (refreshing) {
+            ChatListModel.fetchChats()
         }
     }
 
@@ -33,6 +40,9 @@ Kirigami.ScrollablePage {
                 pageStack.pop()
             }
             pageStack.push("qrc:/MessagesPage.qml", {"messageModel": messageModel})
+        }
+        onChatsFetched: {
+            chatPage.refreshing = false
         }
     }
 

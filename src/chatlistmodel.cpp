@@ -118,6 +118,7 @@ void ChatListModel::fetchChats()
     beginResetModel();
     m_chats = m_database->chats();
     endResetModel();
+    emit chatsFetched();
 }
 
 bool ChatListModel::ready() const

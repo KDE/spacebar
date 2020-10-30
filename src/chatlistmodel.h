@@ -57,7 +57,7 @@ public:
 
     bool ready() const;
 
-private slots:
+public slots:
     void fetchChats();
 
 signals:
@@ -65,6 +65,7 @@ signals:
     void startingChatFailed(const QString &errorMessage);
 
     void readyChanged();
+    void chatsFetched();
 
 private:
     ChannelHandlerPtr m_handler;
