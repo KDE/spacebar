@@ -4,7 +4,7 @@
 
 import QtQuick 2.0
 import QtQuick.Layouts 1.0
-import org.kde.kirigami 2.2 as Kirigami
+import org.kde.kirigami 2.12 as Kirigami
 import QtQuick.Controls 2.4 as Controls
 
 import org.kde.spacebar 1.0
@@ -20,7 +20,7 @@ Kirigami.ScrollablePage {
         }
     }
 
-    Controls.Label {
+    Kirigami.PlaceholderMessage {
         anchors.centerIn: parent
         text: i18n("No chats yet")
         visible: ChatListModel.count === 0
