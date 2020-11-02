@@ -50,7 +50,18 @@ Kirigami.ScrollablePage {
         model: ChatListModel
 
         delegate: Kirigami.AbstractListItem {
+            id: delegateRoot
+
+            required property string displayName
+            required property string phoneNumber
+            required property string lastContacted
+            required property int unreadMessages
+            required property var photo
+            required property string lastMessage
+
             checkable: false
+            highlighted: false
+
             height: Kirigami.Units.gridUnit * 3
             contentItem: RowLayout {
                 RoundImage {
@@ -58,7 +69,7 @@ Kirigami.ScrollablePage {
                     height: parent.height * 0.8
                     width: height
                     smooth: true
-                    source: model.photo
+                    source: delegateRoot.photo
                 }
 
                 ColumnLayout {
@@ -67,11 +78,11 @@ Kirigami.ScrollablePage {
                     Kirigami.Heading {
                         level: 4
                         id: nameLabel
-                        text: model.displayName || model.phoneNumber
+                        text: delegateRoot.displayName || delegateRoot.phoneNumber
                     }
                     Text {
                         id: lastMessage
-                        text: model.lastMessage
+                        text: delegateRoot.lastMessage
                         maximumLineCount: 1
                         elide: Qt.ElideRight
                         color: Qt.tint(Kirigami.Theme.disabledTextColor, Kirigami.Theme.textColor)
@@ -85,7 +96,7 @@ Kirigami.ScrollablePage {
 
                 Rectangle {
                     Layout.alignment: Qt.AlignRight
-                    visible: model.unreadMessages !== 0
+                    visible: delegateRoot.unreadMessages !== 0
                     height: Kirigami.Units.gridUnit * 1.2
                     width: number.width + 5 < height ? height: number.width + 5
                     radius: height * 0.5
@@ -93,16 +104,17 @@ Kirigami.ScrollablePage {
                     Controls.Label {
                         id: number
                         anchors.centerIn: parent
-                        visible: model.unreadMessages !== 0
-                        text: model.unreadMessages
+                        visible: delegateRoot.unreadMessages !== 0
+                        text: delegateRoot.unreadMessages
                         color: Qt.rgba(1, 1, 1, 1)
                     }
                 }
             }
 
             onClicked: {
-                ChatListModel.startChat(model.phoneNumber);
-                ChatListModel.markChatAsRead(model.phoneNumber);
+                // mark as read first, so data is correct when the model is initialized. This saves us a model reset
+                ChatListModel.markChatAsRead(delegateRoot.phoneNumber);
+                ChatListModel.startChat(delegateRoot.phoneNumber);
             }
         }
     }
