@@ -45,12 +45,12 @@ Kirigami.ScrollablePage {
 
                 // This code is only for marking messages as read that arrived after opening the chat.
                 // However we currently don't know the id of those messages.
-                // On opening the chat, all existing messages are marked as read.
-                /*
+                // For now we use the function to mark all messages as read, but this should actually use
+                // messageModel.markMessageRead(model.id)
+
                 if (visible && !model.sentByMe && !model.read) {
-                    messageModel.markMessageRead(model.id)
+                    Qt.callLater(ChatListModel.markChatAsRead, messageModel.phoneNumber);
                 }
-                */
             }
 
             Kirigami.ShadowedRectangle {
