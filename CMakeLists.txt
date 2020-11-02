@@ -26,8 +26,7 @@ include(ECMPoQmTools)
 
 ################# Find dependencies #################
 find_package(Qt5 ${QT_MIN_VERSION} REQUIRED COMPONENTS Core Gui Qml Quick Widgets Sql)
-find_package(KF5 ${KF5_MIN_VERSION} REQUIRED COMPONENTS Kirigami2 I18n People Contacts)
-find_package(KF5Notifications ${KF5_MIN_VERSION} REQUIRED)
+find_package(KF5 ${KF5_MIN_VERSION} REQUIRED COMPONENTS Kirigami2 I18n People Contacts Notifications)
 
 ################# build and install #################
 add_subdirectory(lib)

@@ -15,6 +15,7 @@
 #include <TelepathyQt/ReceivedMessage>
 
 #include <KLocalizedString>
+#include <KNotification>
 
 #include <global.h>
 #include <database.h>
@@ -84,7 +85,7 @@ void ChannelLogger::handleIncomingMessage(const Tp::TextChannelPtr& /* channel *
     message.read = false;
 
     m_database->addMessage(message);
-    m_notification = new KNotification(QStringLiteral("incomingMessage"), KNotification::Persistent, nullptr);
+    m_notification = new KNotification(QStringLiteral("incomingMessage"), KNotification::Persistent);
     m_notification->setComponentName(SL("spacebar"));
     m_notification->setIconName(SL("org.kde.spacebar"));
     m_notification->setTitle(i18n("Message from %1", receivedMessage.sender()->id()));

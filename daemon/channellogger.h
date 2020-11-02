@@ -10,7 +10,6 @@
 #include <TelepathyQt/TextChannel>
 #include <TelepathyQt/Account>
 #include <TelepathyQt/Types>
-#include <KNotifications/KNotification>
 
 #include "database.h"
 
@@ -18,6 +17,8 @@ namespace Tp {
 class PendingChannel;
 class ReceivedMessage;
 }
+
+class KNotification;
 
 class ChannelLogger : public QObject, public Tp::AbstractClientObserver
 {
