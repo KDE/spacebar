@@ -3,6 +3,9 @@ cmake_minimum_required(VERSION 3.0)
 set(KF5_MIN_VERSION "5.70.0")
 set(QT_MIN_VERSION "5.14.0")
 
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+
 project(spacebar)
 
 include(FeatureSummary)

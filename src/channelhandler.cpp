@@ -17,8 +17,9 @@
 #include <KLocalizedString>
 
 #include "utils.h"
-#include "global.h"
-#include "database.h"
+#include <global.h>
+#include <database.h>
+#include <accountutils.h>
 
 ChannelHandler::ChannelHandler(QObject *parent)
     : QObject(parent)
@@ -31,25 +32,7 @@ ChannelHandler::ChannelHandler(QObject *parent)
     Tp::AccountManagerPtr manager = Tp::AccountManager::create();
     Tp::PendingReady *ready = manager->becomeReady();
     QObject::connect(ready, &Tp::PendingReady::finished, this, [=] {
-        const Tp::AccountSetPtr accountSet = manager->validAccounts();
-        const auto accounts = accountSet->accounts();
-
-        auto accountIt = std::find_if(accounts.begin(), accounts.end(), [](const Tp::AccountPtr &account) {
-            static const QStringList supportedProtocols = {
-                QLatin1String("ofono"),
-                QLatin1String("tel"),
-            };
-
-            return supportedProtocols.contains(account->protocolName());
-        });
-
-        if (accountIt != accounts.end() && !accountIt->isNull()) {
-            m_simAccount = *accountIt;
-        } else {
-            qCritical() << "Unable to get SIM account;"
-                        << "is the telepathy-ofono or telepathy-ring backend installed?";
-        }
-
+        m_simAccount = *AccountUtils::findTelephonyAccount(manager);
         emit handlerReady();
     });
 }

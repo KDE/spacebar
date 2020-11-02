@@ -23,5 +23,6 @@ target_link_libraries(spacebar
     KF5::Contacts
     TelepathyQt5::Core
     database
+    tputils
 )
 install(TARGETS spacebar ${KF5_INSTALL_TARGETS_DEFAULT_ARGS})
