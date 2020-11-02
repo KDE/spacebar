@@ -15,4 +15,11 @@ target_link_libraries(spacebar-daemon
     TelepathyQt5::Core
     database
 )
-install(TARGETS spacebar-daemon ${KF5_INSTALL_TARGETS_DEFAULT_ARGS})
+
+install(TARGETS spacebar-daemon DESTINATION ${KDE_INSTALL_FULL_LIBEXECDIR})
+configure_file(org.freedesktop.Telepathy.Client.SpaceObserver.service.in
+    ${CMAKE_CURRENT_BINARY_DIR}/org.freedesktop.Telepathy.Client.SpaceObserver.service)
+
+install(FILES ${CMAKE_CURRENT_BINARY_DIR}/org.freedesktop.Telepathy.Client.SpaceObserver.service
+        DESTINATION ${DBUS_SERVICES_INSTALL_DIR})
+install(FILES SpaceObserver.client DESTINATION ${KDE_INSTALL_DATAROOTDIR}/telepathy/clients/)
