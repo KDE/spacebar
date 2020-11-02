@@ -56,7 +56,9 @@ void ChannelHandler::handleChannels(const Tp::MethodInvocationContextPtr<> &cont
         qDebug() << "Found a new text channel, yay" << channel.data();
 
         // Refresh chat list
-        emit m_database->messagesChanged(textChannel->targetId());
+        connect(textChannel.data(), &Tp::TextChannel::messageReceived, this, [this, textChannel] {
+            emit m_database->messagesChanged(textChannel->targetId());
+        });
 
         if (!m_channels.contains(textChannel)) {
             m_channels.append(textChannel);
@@ -97,6 +99,11 @@ void ChannelHandler::openChannel(const QString &phoneNumber)
         if (request) {
             auto channel = Tp::TextChannelPtr::qObjectCast(request->channelRequest()->channel());
             if (channel) {
+                // Refresh chat list
+                connect(channel.data(), &Tp::TextChannel::messageReceived, this, [this, channel] {
+                    emit m_database->messagesChanged(channel->targetId());
+                });
+
                 m_channels.append(channel);
                 emit channelOpen(channel, phoneNumber);
             }
