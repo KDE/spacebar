@@ -70,8 +70,11 @@ void ChannelHandler::handleChannels(const Tp::MethodInvocationContextPtr<> &cont
             continue;
         }
 
-        const auto messageQueue = textChannel->messageQueue();
         qDebug() << "Found a new text channel, yay" << channel.data();
+
+        // Refresh chat list
+        emit m_database->messagesChanged(textChannel->targetId());
+
         if (!m_channels.contains(textChannel)) {
             m_channels.append(textChannel);
         }
