@@ -44,8 +44,8 @@ Kirigami.ScrollablePage {
                 // Avoid unneccessary invocations
 
                 // This code is only for marking messages as read that arrived after opening the chat.
+                // However we currently don't know the id of those messages.
                 // On opening the chat, all existing messages are marked as read.
-                // However we currently don't know the id of those messages
                 /*
                 if (visible && !model.sentByMe && !model.read) {
                     messageModel.markMessageRead(model.id)
