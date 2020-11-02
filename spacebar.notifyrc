@@ -1,0 +1,9 @@
+[Global]
+IconName=org.kde.spacebar
+Comment=Spacebar
+
+[Event/incomingMessage]
+Name=Incoming message
+Comment=Incoming message from someone
+Action=Popup|Sound
+Sound=Oxygen-Im-Nudge.ogg

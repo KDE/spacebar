@@ -14,6 +14,8 @@
 #include <TelepathyQt/AccountSet>
 #include <TelepathyQt/ReceivedMessage>
 
+#include <KLocalizedString>
+
 #include "global.h"
 #include "database.h"
 
@@ -82,10 +84,8 @@ void ChannelLogger::observeChannels(const Tp::MethodInvocationContextPtr<> &cont
     context->setFinished();
 }
 
-void ChannelLogger::handleIncomingMessage(const Tp::TextChannelPtr&  /*channel*/, const Tp::ReceivedMessage &receivedMessage)
+void ChannelLogger::handleIncomingMessage(const Tp::TextChannelPtr& /* channel */, const Tp::ReceivedMessage &receivedMessage)
 {
-    qDebug() << "received message" << receivedMessage.text();
-
     if (receivedMessage.isDeliveryReport()) {
         qDebug() << "received delivery report";
         // TODO: figure out correct ID and mark it as delivered.
@@ -101,16 +101,23 @@ void ChannelLogger::handleIncomingMessage(const Tp::TextChannelPtr&  /*channel*/
     message.id = m_database->lastId() + 1;
     message.read = false;
 
-    qDebug() << "writing to db";
     m_database->addMessage(message);
+    m_notification = new KNotification(QStringLiteral("incomingMessage"), KNotification::Persistent, nullptr);
+    m_notification->setComponentName(SL("spacebar"));
+    m_notification->setIconName(SL("org.kde.spacebar"));
+    m_notification->setTitle(i18n("Message from %1", receivedMessage.sender()->id()));
+    m_notification->setText(receivedMessage.text());
+    m_notification->sendEvent();
+    m_notification->setDefaultAction(i18nc("Open", "@action open message in application"));
 
-    //channel->acknowledge({receivedMessage});
+    connect(m_notification, &KNotification::defaultActivated, this, [this]() {
+        m_notification->close();
+        QProcess::startDetached(SL("spacebar"), QStringList{});
+    });
 }
 
 void ChannelLogger::handleOutgoingMessage(Tp::TextChannelPtr channel, const Tp::Message &sentMessage)
 {
-    qDebug() << "sent message" << sentMessage.text();
-
     Message message;
     message.text = sentMessage.text();
     message.sentByMe = true; // it is outgoing
@@ -119,6 +126,5 @@ void ChannelLogger::handleOutgoingMessage(Tp::TextChannelPtr channel, const Tp::
     message.id = m_database->lastId() + 1;
     message.read = true; // sent by us, so already read by us
 
-    qDebug() << "writing to db";
     m_database->addMessage(message);
 }

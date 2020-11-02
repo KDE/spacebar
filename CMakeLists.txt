@@ -24,6 +24,7 @@ include(ECMPoQmTools)
 ################# Find dependencies #################
 find_package(Qt5 ${QT_MIN_VERSION} REQUIRED COMPONENTS Core Gui Qml Quick Widgets Sql)
 find_package(KF5 ${KF5_MIN_VERSION} REQUIRED COMPONENTS Kirigami2 I18n People Contacts)
+find_package(KF5Notifications ${KF5_MIN_VERSION} REQUIRED)
 
 ################# build and install #################
 add_subdirectory(lib)
@@ -33,5 +34,6 @@ add_subdirectory(daemon)
 install(PROGRAMS org.kde.spacebar.desktop DESTINATION ${KDE_INSTALL_APPDIR})
 install(FILES org.kde.spacebar.appdata.xml DESTINATION ${KDE_INSTALL_METAINFODIR})
 install(FILES org.kde.spacebar.svg DESTINATION ${KDE_INSTALL_FULL_ICONDIR}/hicolor/scalable/apps)
+install(FILES spacebar.notifyrc DESTINATION ${KDE_INSTALL_KNOTIFY5RCDIR})
 
 feature_summary(WHAT ALL INCLUDE_QUIET_PACKAGES FATAL_ON_MISSING_REQUIRED_PACKAGES)

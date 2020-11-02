@@ -12,6 +12,7 @@ target_link_libraries(spacebar-daemon
     Qt5::Quick
     Qt5::Sql
     KF5::I18n
+    KF5::Notifications
     TelepathyQt5::Core
     database
 )
