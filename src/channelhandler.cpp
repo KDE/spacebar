@@ -96,18 +96,17 @@ void ChannelHandler::openChannel(const QString &phoneNumber)
     }
 
     // If there is none just ask for a new one
-    Tp::PendingChannel *pendingChannel = m_simAccount->ensureAndHandleTextChat(phoneNumber);
-    qDebug() << pendingChannel;
-    connect(pendingChannel, &Tp::PendingChannel::finished, this, [=](Tp::PendingOperation *op) {
+    Tp::PendingChannelRequest *pendingChannel = m_simAccount->ensureTextChat(phoneNumber, QDateTime::currentDateTime(), SL("org.freedesktop.Telepathy.Client.SpaceBar"));
+    connect(pendingChannel, &Tp::PendingChannelRequest::finished, this, [=](Tp::PendingOperation *op) {
         if (op->isError()) {
             qWarning() << "Requesting text channel failed:" << op->errorName() << op->errorMessage();
             Utils::instance()->showPassiveNotification(SL("Failed to request channel. Please check the log for details"), Utils::LongNotificationDuration);
             return;
         }
 
-        auto *pc = qobject_cast<Tp::PendingChannel *>(op);
-        if (pc) {
-            auto channel = Tp::TextChannelPtr::qObjectCast(pc->channel());
+        auto *request = qobject_cast<Tp::PendingChannelRequest *>(op);
+        if (request) {
+            auto channel = Tp::TextChannelPtr::qObjectCast(request->channelRequest()->channel());
             if (channel) {
                 m_channels.append(channel);
                 emit channelOpen(channel, phoneNumber);
