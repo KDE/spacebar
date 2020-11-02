@@ -106,7 +106,7 @@ void ChannelHandler::openChannel(const QString &phoneNumber)
     connect(pendingChannel, &Tp::PendingChannelRequest::finished, this, [=](Tp::PendingOperation *op) {
         if (op->isError()) {
             qWarning() << "Requesting text channel failed:" << op->errorName() << op->errorMessage();
-            Utils::instance()->showPassiveNotification(i18n("Failed to request channel: %1", op->errorMessage()), Utils::LongNotificationDuration);
+            Utils::instance()->showPassiveNotification(i18n("Failed to open chat: %1", op->errorMessage()), Utils::LongNotificationDuration);
             return;
         }
 
