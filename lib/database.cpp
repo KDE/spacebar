@@ -158,6 +158,8 @@ void Database::markChatAsRead(const QString &phoneNumber)
     update.prepare(SL("UPDATE Messages SET read = True WHERE phoneNumber = :phoneNumber AND NOT read == True"));
     update.bindValue(SL(":phoneNumber"), phoneNumber);
     update.exec();
+
+    Q_EMIT messagesChanged(phoneNumber);
 }
 
 void Database::addMessage(const Message &message)
