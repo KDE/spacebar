@@ -34,7 +34,7 @@
             "name": "kpeople",
             "buildsystem": "cmake-ninja",
             "builddir": true,
-            "sources": [ { "type": "git", "url": "https://anongit.kde.org/frameworks/kpeople", "tag": "v5.75.0" } ]
+            "sources": [ { "type": "git", "url": "https://anongit.kde.org/frameworks/kpeople", "tag": "v5.74.0" } ]
         },
         {
             "name": "telepathy-qt",
