@@ -1,9 +1,27 @@
 [Global]
 IconName=org.kde.spacebar
 Comment=Spacebar
+Comment[ca]=Spacebar
+Comment[es]=Spacebar
+Comment[nl]=Spatiebalk
+Comment[sv]=SpaceBar
+Comment[uk]=Spacebar
+Comment[x-test]=xxSpacebarxx
 
 [Event/incomingMessage]
 Name=Incoming message
+Name[ca]=Missatge entrant
+Name[es]=Mensaje entrante
+Name[nl]=Inkomend bericht
+Name[sv]=Inkommande meddelande
+Name[uk]=Вхідне повідомлення
+Name[x-test]=xxIncoming messagexx
 Comment=Incoming message from someone
+Comment[ca]=Missatge entrant d'algú
+Comment[es]=Mensaje entrante de alguien
+Comment[nl]=Inkomend bericht van iemand
+Comment[sv]=Inkommande meddelande från någon
+Comment[uk]=Вхідне повідомлення від когось
+Comment[x-test]=xxIncoming message from someonexx
 Action=Popup|Sound
 Sound=Oxygen-Im-Nudge.ogg
