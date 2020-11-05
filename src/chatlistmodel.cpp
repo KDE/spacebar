@@ -41,12 +41,13 @@ ChatListModel::ChatListModel(const ChannelHandlerPtr &handler, QObject *parent)
         qDebug() << "New data for" << affectedNumbers;
         for (const auto &number : affectedNumbers) {
             // Find the Chat object for the phone number
-            for (int i = 0; i < m_chats.count(); i++) {
-                if (KContacts::PhoneNumber(m_chats.at(i).phoneNumber).normalizedNumber() == number) {
-                    const auto row = index(i);
-                    emit dataChanged(row, row, {Role::DisplayNameRole});
-                }
-            }
+            const auto chatIt = std::find_if(m_chats.begin(), m_chats.end(), [&number](const Chat &chat) {
+                return KContacts::PhoneNumber(chat.phoneNumber).normalizedNumber() == number;
+            });
+
+            int i = std::distance(m_chats.begin(), chatIt);
+            const auto row = index(i);
+            emit dataChanged(row, row, {Role::DisplayNameRole});
         }
     });
 

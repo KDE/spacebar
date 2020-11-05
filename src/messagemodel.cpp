@@ -127,19 +127,22 @@ void MessageModel::sendMessage(const QString &text)
     // Add message to model
     addMessage(message);
 
-    // Store message in database
-    //m_database->addMessage(message);
-
     connect(op, &Tp::PendingOperation::finished, this, [=]() {
         qDebug() << "Message sent";
         //auto tpMessage = op->message(); // NOTE: This exists. We don't need it right now though.
         m_database->markMessageDelivered(message.id); // TODO DAEMON
-        for (int i = 0; i < m_messages.size(); i++) {
-            if (m_messages.at(i).id == message.id) {
-                m_messages[i].delivered = true;
-                emit dataChanged(index(i), index(i), {Role::DeliveredRole});
-            };
-        }
+
+        const auto sentMessageIt = std::find_if(m_messages.begin(), m_messages.end(), [&message](const Message &chatMessage) {
+            return chatMessage.id == message.id;
+        });
+
+        // every sent message should be in the history
+        Q_ASSERT(sentMessageIt != m_messages.end());
+
+        sentMessageIt->delivered = true;
+
+        auto modelIndex = index(std::distance(m_messages.begin(), sentMessageIt));
+        emit dataChanged(modelIndex, modelIndex, {Role::DeliveredRole});
     });
 }
 
