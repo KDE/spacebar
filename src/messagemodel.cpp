@@ -142,6 +142,10 @@ void MessageModel::sendMessage(const QString &text)
         sentMessageIt->delivered = true;
 
         auto modelIndex = index(std::distance(m_messages.begin(), sentMessageIt));
+
+        // to check the distance
+        Q_ASSERT(modelIndex.data(MessageModel::TextRole).toString() == sentMessageIt->text);
+
         emit dataChanged(modelIndex, modelIndex, {Role::DeliveredRole});
     });
 }
