@@ -61,8 +61,9 @@ Kirigami.ScrollablePage {
                 radius: 10
                 shadow.size: 3
                 color: {
-                    const myColor = Qt.lighter(Kirigami.Theme.positiveTextColor, 1.8)
-                    const chatParterColor = Qt.lighter(Kirigami.Theme.neutralTextColor, 1.8)
+                    const isDarkTheme = Kirigami.ColorUtils.brightnessForColor(Kirigami.Theme.backgroundColor) === Kirigami.ColorUtils.Dark
+                    const myColor = isDarkTheme ? "#395066" : "#3daee9"
+                    const chatParterColor = isDarkTheme ? "#2c3e50" : "#e6e8e9"
                     model.sentByMe ? myColor : chatParterColor
                 }
                 height: content.height + 10
@@ -83,7 +84,6 @@ Kirigami.ScrollablePage {
                         Layout.alignment: Qt.AlignBottom | Qt.AlignRight
                         Controls.Label {
                             Layout.alignment: Qt.AlignRight
-                            color: Kirigami.Theme.disabledTextColor
                             text: Qt.formatTime(model.time, Qt.DefaultLocaleShortDate)
                         }
                         Kirigami.Icon {
