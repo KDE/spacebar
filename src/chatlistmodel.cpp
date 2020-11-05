@@ -33,11 +33,11 @@ ChatListModel::ChatListModel(const ChannelHandlerPtr &handler, QObject *parent)
     , m_handler(handler)
     , m_database(m_handler->database())
     , m_chats(m_database->chats())
-    , m_mapper(new ContactMapper(this))
+    , m_mapper(ContactMapper::instance())
 {
-    m_mapper->performInitialScan();
+    m_mapper.performInitialScan();
     connect(m_database, &Database::messagesChanged, this, &ChatListModel::fetchChats);
-    connect(m_mapper, &ContactMapper::contactsChanged, this, [this](const QVector<QString> &affectedNumbers) {
+    connect(&m_mapper, &ContactMapper::contactsChanged, this, [this](const QVector<QString> &affectedNumbers) {
         qDebug() << "New data for" << affectedNumbers;
         for (const auto &number : affectedNumbers) {
             // Find the Chat object for the phone number
@@ -57,7 +57,7 @@ ChatListModel::ChatListModel(const ChannelHandlerPtr &handler, QObject *parent)
     });
 
     connect(m_handler.data(), &ChannelHandler::channelOpen, this, [=](const Tp::TextChannelPtr &channel, const QString &number) {
-        const auto personUri = m_mapper->uriForNumber(number);
+        const auto personUri = m_mapper.uriForNumber(number);
         auto *model = new MessageModel(m_database, number, channel, personUri);
         Utils::instance()->qmlEngine()->setObjectOwnership(model, QQmlApplicationEngine::JavaScriptOwnership);
         emit chatStarted(model);
@@ -85,11 +85,11 @@ QVariant ChatListModel::data(const QModelIndex &index, int role) const
     switch (role) {
     // All roles that need the personData object
     case DisplayNameRole:
-        return KPeople::PersonData{m_mapper->uriForNumber(m_chats.at(index.row()).phoneNumber)}.name();
+        return KPeople::PersonData(m_mapper.uriForNumber(m_chats.at(index.row()).phoneNumber)).name();
     case PhotoRole:
-        return KPeople::PersonData{m_mapper->uriForNumber(m_chats.at(index.row()).phoneNumber)}.photo();
+        return KPeople::PersonData(m_mapper.uriForNumber(m_chats.at(index.row()).phoneNumber)).photo();
     case PhoneNumberRole:
-        return m_chats.at(index.row()).phoneNumber;
+        return KContacts::PhoneNumber(m_chats.at(index.row()).phoneNumber).normalizedNumber();
     case LastContactedRole:
         return m_chats.at(index.row()).lastContacted;
     case UnreadMessagesRole:

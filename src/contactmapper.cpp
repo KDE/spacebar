@@ -9,8 +9,8 @@
 #include <QDebug>
 #include <QThread>
 
-ContactMapper::ContactMapper(QObject *parent)
-    : QObject(parent)
+ContactMapper::ContactMapper()
+    : QObject()
     , m_model(new KPeople::PersonsModel(this))
 {
     // data updates
@@ -53,4 +53,11 @@ void ContactMapper::performInitialScan()
 QString ContactMapper::uriForNumber(const QString &phoneNumber) const
 {
     return m_numberToUri.value(KContacts::PhoneNumber(phoneNumber).normalizedNumber());
+}
+
+ContactMapper &ContactMapper::instance()
+{
+    static ContactMapper instance;
+
+    return instance;
 }

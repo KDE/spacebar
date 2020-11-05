@@ -11,9 +11,9 @@ class ContactMapper : public QObject
 {
     Q_OBJECT
 
-public:
-    explicit ContactMapper(QObject *parent = nullptr);
+    explicit ContactMapper();
 
+public:
     /**
      * @brief Returns the KPeople URI belonging to phone number,
      * provided a contact exists containing the phone number.
@@ -22,6 +22,8 @@ public:
      * @return the uri belonging to the phone number
      */
     QString uriForNumber(const QString &phoneNumber) const;
+
+    static ContactMapper &instance();
 
 signals:
     /**

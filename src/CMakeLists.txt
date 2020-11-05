@@ -5,6 +5,7 @@ set(spacebar_SRCS
     messagemodel.cpp
     channelhandler.cpp
     utils.cpp
+    avatarimageprovider.cpp
     resources.qrc
 )
 

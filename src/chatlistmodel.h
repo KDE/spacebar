@@ -71,7 +71,7 @@ private:
     ChannelHandlerPtr m_handler;
     Database *m_database;
     QVector<Chat> m_chats;
-    ContactMapper *m_mapper;
+    ContactMapper &m_mapper;
     Tp::AccountPtr m_simAccount;
     bool m_ready;
 };

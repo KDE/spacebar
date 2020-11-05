@@ -21,6 +21,7 @@
 #include "global.h"
 #include "channelhandler.h"
 #include "utils.h"
+#include "avatarimageprovider.h"
 
 constexpr auto APPLICATION_ID = "org.kde.spacebar";
 
@@ -68,6 +69,7 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
     qmlRegisterAnonymousType<QAbstractItemModel>(APPLICATION_ID, 1);
     qmlRegisterSingletonInstance<Utils>(APPLICATION_ID, 1, 0, "Utils", Utils::instance());
     engine.rootContext()->setContextObject(new KLocalizedContext(&engine));
+    engine.addImageProvider(SL("avatar"), new AvatarImageProvider());
     engine.load(QUrl(SL("qrc:///main.qml")));
 
     if (engine.rootObjects().isEmpty()) {
