@@ -68,3 +68,8 @@ Utils *Utils::instance()
 {
     return s_instance;
 }
+
+QQmlApplicationEngine *Utils::qmlEngine() const
+{
+    return m_engine;
+}

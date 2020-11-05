@@ -31,6 +31,8 @@ public:
 
     static Utils *s_instance;
 
+    QQmlApplicationEngine *qmlEngine() const;
+
 private:
     QQmlApplicationEngine *m_engine;
     QQuickWindow *m_window = nullptr;

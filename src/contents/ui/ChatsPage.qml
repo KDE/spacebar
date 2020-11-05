@@ -37,7 +37,7 @@ Kirigami.ScrollablePage {
 
     Connections {
         target: ChatListModel
-        onChatStarted: {
+        onChatStarted: (messageModel) => {
             Qt.callLater(pageStack.push, "qrc:/MessagesPage.qml", {"messageModel": messageModel})
         }
         onChatsFetched: {

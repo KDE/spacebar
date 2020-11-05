@@ -9,7 +9,7 @@
 #include <QSqlError>
 #include <QSqlQuery>
 #include <QStandardPaths>
-#include <QThread>
+#include <QQmlApplicationEngine>
 
 #include <TelepathyQt/Account>
 #include <TelepathyQt/AccountManager>
@@ -26,6 +26,7 @@
 #include "global.h"
 #include "channelhandler.h"
 #include "messagemodel.h"
+#include "utils.h"
 
 ChatListModel::ChatListModel(const ChannelHandlerPtr &handler, QObject *parent)
     : QAbstractListModel(parent)
@@ -57,6 +58,7 @@ ChatListModel::ChatListModel(const ChannelHandlerPtr &handler, QObject *parent)
     connect(m_handler.data(), &ChannelHandler::channelOpen, this, [=](const Tp::TextChannelPtr &channel, const QString &number) {
         const auto personUri = m_mapper->uriForNumber(number);
         auto *model = new MessageModel(m_database, number, channel, personUri);
+        Utils::instance()->qmlEngine()->setObjectOwnership(model, QQmlApplicationEngine::JavaScriptOwnership);
         emit chatStarted(model);
     });
 }
