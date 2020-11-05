@@ -38,6 +38,11 @@ Kirigami.ScrollablePage {
     Connections {
         target: ChatListModel
         onChatStarted: (messageModel) => {
+            // Don't open two MessagesPages at the same time
+            if (pageStack.currentItem.hasOwnProperty("messageModel")) {
+                pageStack.pop()
+            }
+
             Qt.callLater(pageStack.push, "qrc:/MessagesPage.qml", {"messageModel": messageModel})
         }
         onChatsFetched: {
