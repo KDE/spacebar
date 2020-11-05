@@ -85,16 +85,17 @@ void ChannelLogger::handleIncomingMessage(const Tp::TextChannelPtr& /* channel *
     message.read = false;
 
     m_database->addMessage(message);
-    m_notification = new KNotification(QStringLiteral("incomingMessage"), KNotification::Persistent);
-    m_notification->setComponentName(SL("spacebar"));
-    m_notification->setIconName(SL("org.kde.spacebar"));
-    m_notification->setTitle(i18n("Message from %1", receivedMessage.sender()->id()));
-    m_notification->setText(receivedMessage.text());
-    m_notification->sendEvent();
-    m_notification->setDefaultAction(i18nc("Open", "@action open message in application"));
+    auto *notification = new KNotification(QStringLiteral("incomingMessage"), KNotification::Persistent);
+    notification->setComponentName(SL("spacebar"));
+    notification->setIconName(SL("org.kde.spacebar"));
+    notification->setTitle(i18n("Message from %1", receivedMessage.sender()->id()));
+    notification->setText(receivedMessage.text());
+    notification->setDefaultAction(i18nc("Open", "@action open message in application"));
+    notification->sendEvent();
 
-    connect(m_notification, &KNotification::defaultActivated, this, [this]() {
-        m_notification->close();
+    // copy current pointer to notification, otherwise this would just close the most recent one.
+    connect(notification, &KNotification::defaultActivated, this, [notification]() {
+        notification->close();
         QProcess::startDetached(SL("spacebar"), QStringList{});
     });
 }
