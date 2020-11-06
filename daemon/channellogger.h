@@ -18,8 +18,6 @@ class PendingChannel;
 class ReceivedMessage;
 }
 
-class KNotification;
-
 class ChannelLogger : public QObject, public Tp::AbstractClientObserver
 {
     Q_OBJECT
@@ -43,7 +41,6 @@ private:
     QVector<Tp::TextChannelPtr> m_channels;
     Tp::AccountPtr m_simAccount;
     Database *m_database;
-    KNotification *m_notification;
 
 signals:
     void handlerReady();
