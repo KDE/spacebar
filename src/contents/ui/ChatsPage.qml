@@ -67,20 +67,23 @@ Kirigami.ScrollablePage {
             checkable: false
             highlighted: false
 
-            height: Kirigami.Units.gridUnit * 3
             contentItem: RowLayout {
                 Kirigami.Avatar {
                     id: photo
-                    height: Kirigami.Units.gridUnit * 2.5
-                    width: height
+                    Layout.fillHeight: true
+                    Layout.preferredWidth: Kirigami.Units.gridUnit * 2.5
+                    Layout.preferredHeight: Kirigami.Units.gridUnit * 2.5
+
                     source: "image://avatar/" + delegateRoot.phoneNumber
                     name: delegateRoot.displayName || delegateRoot.phoneNumber
                     imageMode: Kirigami.Avatar.AdaptiveImageOrInitals
                 }
 
                 ColumnLayout {
+                    Layout.fillHeight: true
+                    Layout.fillWidth: true
+
                     spacing: 0
-                    Layout.alignment: Qt.AlignLeft
                     Kirigami.Heading {
                         level: 4
                         id: nameLabel
