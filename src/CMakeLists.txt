@@ -6,6 +6,8 @@ set(spacebar_SRCS
     channelhandler.cpp
     utils.cpp
     avatarimageprovider.cpp
+    databasethread.cpp
+    asyncdatabase.cpp
     resources.qrc
 )
 

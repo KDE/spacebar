@@ -75,21 +75,17 @@ void ChannelLogger::handleIncomingMessage(const Tp::TextChannelPtr& /* channel *
         return;
     }
 
-    connect(m_database, &Database::lastIdFetched, this, [=](const int lastId) {
-        qDebug() << "Adding message to db";
-        Message message;
-        message.text = receivedMessage.text();
-        message.sentByMe = false; // SMS doesn't have any kind of synchronization, so received messages are always from the chat partner.
-        message.datetime = receivedMessage.received();
-        message.delivered = true; // It arrived, soo
-        message.phoneNumber = receivedMessage.sender()->id();
-        message.id = lastId + 1;
-        message.read = false;
+    qDebug() << "Adding message to db";
+    Message message;
+    message.text = receivedMessage.text();
+    message.sentByMe = false; // SMS doesn't have any kind of synchronization, so received messages are always from the chat partner.
+    message.datetime = receivedMessage.received();
+    message.delivered = true; // It arrived, soo
+    message.phoneNumber = receivedMessage.sender()->id();
+    message.id = m_database->lastId() + 1;
+    message.read = false;
 
-        Q_EMIT m_database->requestAddMessage(message);
-        disconnect(m_database, &Database::lastIdFetched, this, nullptr);
-    });
-    Q_EMIT m_database->requestLastId();
+    m_database->addMessage(message);
 
     auto *notification = new KNotification(QStringLiteral("incomingMessage"), KNotification::Persistent);
     notification->setComponentName(SL("spacebar"));
@@ -108,17 +104,13 @@ void ChannelLogger::handleIncomingMessage(const Tp::TextChannelPtr& /* channel *
 
 void ChannelLogger::handleOutgoingMessage(Tp::TextChannelPtr channel, const Tp::Message &sentMessage)
 {
-    connect(m_database, &Database::lastIdFetched, this, [=](const int lastId) {
-        Message message;
-        message.text = sentMessage.text();
-        message.sentByMe = true; // it is outgoing
-        message.datetime = sentMessage.sent();
-        message.phoneNumber = channel->targetId();
-        message.id = lastId + 1;
-        message.read = true; // sent by us, so already read by us
+    Message message;
+    message.text = sentMessage.text();
+    message.sentByMe = true; // it is outgoing
+    message.datetime = sentMessage.sent();
+    message.phoneNumber = channel->targetId();
+    message.id = m_database->lastId() + 1;
+    message.read = true; // sent by us, so already read by us
 
-        m_database->requestAddMessage(message);
-        disconnect(m_database, &Database::lastIdFetched, this, nullptr);
-    });
-    Q_EMIT m_database->requestLastId();
+    m_database->addMessage(message);
 }

@@ -19,6 +19,7 @@
 
 class MessageModel;
 class ChannelHandler;
+class AsyncDatabase;
 
 using ChannelHandlerPtr = Tp::SharedPtr<ChannelHandler>;
 
@@ -69,7 +70,7 @@ signals:
 
 private:
     ChannelHandlerPtr m_handler;
-    Database *m_database;
+    AsyncDatabase *m_database;
     QVector<Chat> m_chats;
     ContactMapper &m_mapper;
     Tp::AccountPtr m_simAccount;

@@ -10,7 +10,8 @@
 #include <TelepathyQt/TextChannel>
 #include <TelepathyQt/Account>
 
-#include "database.h"
+class DatabaseThread;
+class AsyncDatabase;
 
 namespace Tp {
 class PendingChannel;
@@ -23,7 +24,6 @@ class ChannelHandler : public QObject, public Tp::AbstractClientHandler
 
 public:
     explicit ChannelHandler(QObject *parent = nullptr);
-    ~ChannelHandler();
 
     bool bypassApproval() const override { return true; };
     void handleChannels(const Tp::MethodInvocationContextPtr<> &context, const Tp::AccountPtr &, const Tp::ConnectionPtr &,
@@ -36,14 +36,14 @@ public:
      */
     void openChannel(const QString &phoneNumber);
 
-    Database *database() const;
+    AsyncDatabase *database() const;
 
 private:
 
     QVector<Tp::TextChannelPtr> m_channels;
     Tp::AccountPtr m_simAccount;
-    Database *m_database;
-    QThread *m_databaseThread;
+    DatabaseThread *m_databaseThread;
+    AsyncDatabase *m_database;
 
 signals:
     void handlerReady();

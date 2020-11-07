@@ -5,15 +5,15 @@
 #include "messagemodel.h"
 
 #include <QDebug>
-#include <QtQml>
 
 #include <TelepathyQt/PendingReady>
 #include <TelepathyQt/TextChannel>
 #include <TelepathyQt/Message>
 
-#include "global.h"
+#include <global.h>
+#include "asyncdatabase.h"
 
-MessageModel::MessageModel(Database *database, const QString &phoneNumber, const Tp::TextChannelPtr &channel, const QString &personUri, QObject *parent)
+MessageModel::MessageModel(AsyncDatabase *database, const QString &phoneNumber, const Tp::TextChannelPtr &channel, const QString &personUri, QObject *parent)
     : QAbstractListModel(parent)
     , m_database(database)
     , m_channel(channel)
@@ -49,9 +49,10 @@ MessageModel::MessageModel(Database *database, const QString &phoneNumber, const
         emit isReadyChanged();
     });
 
-    connect(m_database, &Database::messagesFetchedForNumber, this, [this](const QString &phoneNumber, const QVector<Message> &messages) {
-        qDebug() << "Hello messages";
+    connect(m_database, &AsyncDatabase::messagesFetchedForNumber,
+            this, [this](const QString &phoneNumber, const QVector<Message> &messages) {
         if (phoneNumber == m_phoneNumber) {
+            qDebug() << "Hello messages";
             beginResetModel();
             m_messages = messages;
             endResetModel();
@@ -126,7 +127,7 @@ void MessageModel::sendMessage(const QString &text)
 {
     auto *op = m_channel->send(text, Tp::ChannelTextMessageTypeNormal, {});
 
-    connect(m_database, &Database::lastIdFetched, this, [=](const int lastId) {
+    connect(m_database, &AsyncDatabase::lastIdFetched, this, [=](const int lastId) {
         Message message;
         message.id = lastId;
         message.phoneNumber = m_phoneNumber;
@@ -162,7 +163,7 @@ void MessageModel::sendMessage(const QString &text)
             disconnect(op, &Tp::PendingOperation::finished, this, nullptr);
             emit dataChanged(modelIndex, modelIndex, {Role::DeliveredRole});
         });
-        disconnect(m_database, &Database::lastIdFetched, this, nullptr);
+        disconnect(m_database, &AsyncDatabase::lastIdFetched, this, nullptr);
     });
 
     Q_EMIT m_database->requestLastId();
@@ -170,7 +171,7 @@ void MessageModel::sendMessage(const QString &text)
 
 void MessageModel::markMessageRead(const int id)
 {
-    m_database->requestMarkMessageRead(id);  // TODO DAEMON
+    Q_EMIT m_database->requestMarkMessageRead(id);  // TODO DAEMON
 }
 
 bool MessageModel::isReady() const

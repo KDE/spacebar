@@ -23,10 +23,11 @@
 
 #include <KContacts/PhoneNumber>
 
-#include "global.h"
+#include <global.h>
 #include "channelhandler.h"
 #include "messagemodel.h"
 #include "utils.h"
+#include "databasethread.h"
 
 ChatListModel::ChatListModel(const ChannelHandlerPtr &handler, QObject *parent)
     : QAbstractListModel(parent)
@@ -35,7 +36,7 @@ ChatListModel::ChatListModel(const ChannelHandlerPtr &handler, QObject *parent)
     , m_mapper(ContactMapper::instance())
 {
     m_mapper.performInitialScan();
-    connect(m_database, &Database::messagesChanged, this, &ChatListModel::fetchChats);
+    connect(m_database, &AsyncDatabase::messagesChanged, this, &ChatListModel::fetchChats);
     connect(&m_mapper, &ContactMapper::contactsChanged, this, [this](const QVector<QString> &affectedNumbers) {
         qDebug() << "New data for" << affectedNumbers;
         for (const auto &number : affectedNumbers) {
@@ -62,7 +63,7 @@ ChatListModel::ChatListModel(const ChannelHandlerPtr &handler, QObject *parent)
         emit chatStarted(model);
     });
 
-    connect(m_database, &Database::chatsFetched, this, [this](const QVector<Chat> &chats) {
+    connect(m_database, &AsyncDatabase::chatsFetched, this, [this](const QVector<Chat> &chats) {
         qDebug() << "Hello chats";
         beginResetModel();
         m_chats = chats;
@@ -122,12 +123,12 @@ void ChatListModel::startChat(const QString &phoneNumber)
 
 void ChatListModel::markChatAsRead(const QString &phoneNumber)
 {
-    m_database->requestMarkAsRead(phoneNumber);
+    Q_EMIT m_database->requestMarkChatAsRead(phoneNumber);
 }
 
 void ChatListModel::fetchChats()
 {
-    m_database->requestChats();
+    Q_EMIT m_database->requestChats();
 }
 
 bool ChatListModel::ready() const

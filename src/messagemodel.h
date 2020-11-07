@@ -12,6 +12,7 @@
 #include <TelepathyQt/Channel>
 
 #include "database.h"
+class AsyncDatabase;
 
 class MessageModel : public QAbstractListModel
 {
@@ -32,7 +33,11 @@ public:
     };
     Q_ENUM(Role)
 
-    explicit MessageModel(Database *database, const QString &phoneNumber, const Tp::TextChannelPtr& channel, const QString &personUri = {}, QObject *parent = nullptr);
+    explicit MessageModel(AsyncDatabase *database,
+                          const QString &phoneNumber,
+                          const Tp::TextChannelPtr& channel,
+                          const QString &personUri = {},
+                          QObject *parent = nullptr);
 
     QHash<int, QByteArray> roleNames() const override;
     QVariant data(const QModelIndex &index, int role) const override;
@@ -64,7 +69,7 @@ public:
     bool isReady() const;
 
 private:
-    Database *m_database;
+    AsyncDatabase *m_database;
     QVector<Message> m_messages;
     Tp::TextChannelPtr m_channel;
 

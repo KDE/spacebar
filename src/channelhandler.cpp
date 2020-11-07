@@ -17,6 +17,7 @@
 #include <KLocalizedString>
 
 #include "utils.h"
+#include "databasethread.h"
 #include <global.h>
 #include <database.h>
 #include <accountutils.h>
@@ -26,13 +27,9 @@ ChannelHandler::ChannelHandler(QObject *parent)
     , Tp::AbstractClientHandler(Tp::ChannelClassSpecList({
           Tp::ChannelClassSpec::textChat(), Tp::ChannelClassSpec::unnamedTextChat()
       }))
-    , m_database(new Database()) // no parent, because handled by thread
-    , m_databaseThread(new QThread(this))
+    , m_databaseThread(new DatabaseThread(this))
+    , m_database(m_databaseThread->database())
 {
-    m_databaseThread->setObjectName(SL("DatabaseThread"));
-    m_database->moveToThread(m_databaseThread);
-    m_databaseThread->start();
-
     // Set up sms account
     Tp::AccountManagerPtr manager = Tp::AccountManager::create();
     Tp::PendingReady *ready = manager->becomeReady();
@@ -40,12 +37,6 @@ ChannelHandler::ChannelHandler(QObject *parent)
         m_simAccount = *AccountUtils::findTelephonyAccount(manager);
         emit handlerReady();
     });
-}
-
-ChannelHandler::~ChannelHandler()
-{
-    m_databaseThread->quit();
-    m_databaseThread->wait();
 }
 
 void ChannelHandler::handleChannels(const Tp::MethodInvocationContextPtr<> &context,
@@ -68,7 +59,7 @@ void ChannelHandler::handleChannels(const Tp::MethodInvocationContextPtr<> &cont
 
         // Refresh chat list
         connect(textChannel.data(), &Tp::TextChannel::messageReceived, this, [this, textChannel] {
-            emit m_database->messagesChanged(textChannel->targetId());
+            Q_EMIT m_database->messagesChanged(textChannel->targetId());
         });
 
         if (!m_channels.contains(textChannel)) {
@@ -123,7 +114,7 @@ void ChannelHandler::openChannel(const QString &phoneNumber)
     });
 }
 
-Database *ChannelHandler::database() const
+AsyncDatabase *ChannelHandler::database() const
 {
     return m_database;
 }
