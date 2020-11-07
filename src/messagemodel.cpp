@@ -48,7 +48,17 @@ MessageModel::MessageModel(Database *database, const QString &phoneNumber, const
         qDebug() << "channel is now officially ready";
         emit isReadyChanged();
     });
-    m_messages = m_database->messagesForNumber(m_phoneNumber);
+
+    connect(m_database, &Database::messagesFetchedForNumber, this, [this](const QString &phoneNumber, const QVector<Message> &messages) {
+        qDebug() << "Hello messages";
+        if (phoneNumber == m_phoneNumber) {
+            beginResetModel();
+            m_messages = messages;
+            endResetModel();
+        }
+    });
+
+    Q_EMIT m_database->requestMessagesForNumber(m_phoneNumber);
 }
 
 QHash<int, QByteArray> MessageModel::roleNames() const
@@ -115,44 +125,52 @@ void MessageModel::addMessage(const Message &message)
 void MessageModel::sendMessage(const QString &text)
 {
     auto *op = m_channel->send(text, Tp::ChannelTextMessageTypeNormal, {});
-    Message message;
-    message.id = m_database->lastId() + 1;
-    message.phoneNumber = m_phoneNumber;
-    message.text = text;
-    message.datetime = QDateTime::currentDateTime(); // NOTE: there is also tpMessage.sent(), doesn't seem to return a proper time, but maybe a backend bug?
-    message.read = true; // Messages sent by us are automatically read.
-    message.sentByMe = true; // only called if message sent by us.
-    message.delivered = false; // if this signal is called, the message was delivered.
 
-    // Add message to model
-    addMessage(message);
+    connect(m_database, &Database::lastIdFetched, this, [=](const int lastId) {
+        Message message;
+        message.id = lastId;
+        message.phoneNumber = m_phoneNumber;
+        message.text = text;
+        message.datetime = QDateTime::currentDateTime(); // NOTE: there is also tpMessage.sent(), doesn't seem to return a proper time, but maybe a backend bug?
+        message.read = true; // Messages sent by us are automatically read.
+        message.sentByMe = true; // only called if message sent by us.
+        message.delivered = false; // if this signal is called, the message was delivered.
 
-    connect(op, &Tp::PendingOperation::finished, this, [=]() {
-        qDebug() << "Message sent";
-        //auto tpMessage = op->message(); // NOTE: This exists. We don't need it right now though.
-        m_database->markMessageDelivered(message.id); // TODO DAEMON
+        // Add message to model
+        qDebug() << "Adding message to model";
+        addMessage(message);
 
-        const auto sentMessageIt = std::find_if(m_messages.begin(), m_messages.end(), [&message](const Message &chatMessage) {
-            return chatMessage.id == message.id;
+        connect(op, &Tp::PendingOperation::finished, this, [=]() {
+            qDebug() << "Message sent";
+            //auto tpMessage = op->message(); // NOTE: This exists. We don't need it right now though.
+            Q_EMIT m_database->requestMarkMessageDelivered(message.id); // TODO DAEMON
+
+            const auto sentMessageIt = std::find_if(m_messages.begin(), m_messages.end(), [&message](const Message &chatMessage) {
+                return chatMessage.id == message.id;
+            });
+
+            // every sent message should be in the history
+            Q_ASSERT(sentMessageIt != m_messages.end());
+
+            sentMessageIt->delivered = true;
+
+            auto modelIndex = index(std::distance(m_messages.begin(), sentMessageIt));
+
+            // to check the distance
+            Q_ASSERT(modelIndex.data(MessageModel::TextRole).toString() == sentMessageIt->text);
+
+            disconnect(op, &Tp::PendingOperation::finished, this, nullptr);
+            emit dataChanged(modelIndex, modelIndex, {Role::DeliveredRole});
         });
-
-        // every sent message should be in the history
-        Q_ASSERT(sentMessageIt != m_messages.end());
-
-        sentMessageIt->delivered = true;
-
-        auto modelIndex = index(std::distance(m_messages.begin(), sentMessageIt));
-
-        // to check the distance
-        Q_ASSERT(modelIndex.data(MessageModel::TextRole).toString() == sentMessageIt->text);
-
-        emit dataChanged(modelIndex, modelIndex, {Role::DeliveredRole});
+        disconnect(m_database, &Database::lastIdFetched, this, nullptr);
     });
+
+    Q_EMIT m_database->requestLastId();
 }
 
 void MessageModel::markMessageRead(const int id)
 {
-    m_database->markMessageRead(id);  // TODO DAEMON
+    m_database->requestMarkMessageRead(id);  // TODO DAEMON
 }
 
 bool MessageModel::isReady() const

@@ -23,6 +23,7 @@ class ChannelHandler : public QObject, public Tp::AbstractClientHandler
 
 public:
     explicit ChannelHandler(QObject *parent = nullptr);
+    ~ChannelHandler();
 
     bool bypassApproval() const override { return true; };
     void handleChannels(const Tp::MethodInvocationContextPtr<> &context, const Tp::AccountPtr &, const Tp::ConnectionPtr &,
@@ -42,6 +43,7 @@ private:
     QVector<Tp::TextChannelPtr> m_channels;
     Tp::AccountPtr m_simAccount;
     Database *m_database;
+    QThread *m_databaseThread;
 
 signals:
     void handlerReady();

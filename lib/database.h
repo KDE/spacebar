@@ -17,6 +17,7 @@ struct Message {
     bool sentByMe;
     bool delivered;
 };
+Q_DECLARE_METATYPE(Message);
 
 struct Chat {
     QString phoneNumber;
@@ -24,6 +25,7 @@ struct Chat {
     QString lastMessage;
     int unreadMessages;
 };
+Q_DECLARE_METATYPE(Chat);
 
 class Database : public QObject
 {
@@ -32,24 +34,43 @@ class Database : public QObject
 public:
     explicit Database(QObject *parent = nullptr);
 
+private:
     // Messages
-    void addMessage(const Message &message);
-    void setMessageDelivered();
-    QVector<Message> messagesForNumber(const QString &phoneNumber) const;
-    int lastId() const;
-    void markMessageDelivered(const int id);
-    void markMessageRead(const int id);
+    Q_SLOT void addMessage(const Message &message);
+    Q_SLOT void messagesForNumber(const QString &phoneNumber);
+    Q_SLOT void lastId();
+    Q_SLOT void markMessageDelivered(const int id);
+    Q_SLOT void markMessageRead(const int id);
 
     // Chats
-    QVector<Chat> chats() const;
-    int unreadMessagesForNumber(const QString &phoneNumber) const;
-    QString lastMessageForNumber(const QString &phoneNumber) const;
-    QDateTime lastContactedForNumber(const QString &phoneNumber) const;
-    void markChatAsRead(const QString &phoneNumber);
+    Q_SLOT void chats();
+    Q_SLOT int unreadMessagesForNumber(const QString &phoneNumber);
+    Q_SLOT QString lastMessageForNumber(const QString &phoneNumber);
+    Q_SLOT QDateTime lastContactedForNumber(const QString &phoneNumber) const;
+    Q_SLOT void markChatAsRead(const QString &phoneNumber);
 
-private:
     QSqlDatabase m_database;
 
 signals:
     void messagesChanged(const QString &phoneNumber);
+
+    // Fetch requessts
+    Q_SIGNAL void requestAddMessage(const Message &message);
+    Q_SIGNAL void requestMessagesForNumber(const QString &phoneNumber);
+    Q_SIGNAL void requestLastId();
+    Q_SIGNAL void requestMarkMessageDelivered(const int id);
+    Q_SIGNAL void requestMarkMessageRead(const int id);
+    Q_SIGNAL void requestChats();
+    Q_SIGNAL void requestUnreadMessagesForNumber(const QString &phoneNumber);
+    Q_SIGNAL void requestLastMessageForNumber(const QString &phoneNumber);
+    Q_SIGNAL void requestLastContactedForNumber(const QString &phoneNumber);
+    Q_SIGNAL void requestMarkAsRead(const QString &phoneNumber);
+
+    // Responses
+    void messagesFetchedForNumber(const QString &phoneNumber, const QVector<Message> messages);
+    void lastIdFetched(const int id);
+    void chatsFetched(QVector<Chat> chats);
+    void unreadMessagesFetchedForNumber(const QString &phoneNumber, const int unreadMessages);
+    void lastMessageFetchedForNumber(const QString &phoneNumber, const QString &message);
+    void lastContactedFetchedForNumber(const QString &phoneNumber, const QDateTime &lastContacted);
 };

@@ -9,6 +9,7 @@
 #include <QSqlDatabase>
 #include <QSqlError>
 #include <QSqlQuery>
+#include <QSqlRecord>
 #include <QStandardPaths>
 
 #include "global.h"
@@ -41,9 +42,33 @@ Database::Database(QObject *parent)
 
     QSqlQuery createTable(m_database);
     createTable.exec(SL("CREATE TABLE IF NOT EXISTS Messages (id INTEGER, phoneNumber TEXT, text TEXT, time DATETIME, read BOOLEAN, delivered BOOLEAN, sentByMe BOOLEAN)"));
+
+    qRegisterMetaType<Message>();
+    qRegisterMetaType<Chat>();
+    qRegisterMetaType<QVector<Chat>>();
+    qRegisterMetaType<QVector<Message>>();
+
+    connect(this, &Database::requestAddMessage, this, &Database::addMessage);
+    connect(this, &Database::requestAddMessage, this, [] {
+        qDebug() << "### Request to add a message";
+    });
+
+    connect(this, &Database::requestLastId, this, &Database::lastId);
+    connect(this, &Database::requestMarkMessageDelivered, this, &Database::markMessageDelivered);
+    connect(this, &Database::requestMarkMessageRead, this, &Database::markMessageRead);
+    connect(this, &Database::requestMessagesForNumber, this, &Database::messagesForNumber);
+    connect(this, &Database::requestChats, this, &Database::chats);
+    connect(this, &Database::requestUnreadMessagesForNumber, this, &Database::unreadMessagesForNumber);
+    connect(this, &Database::requestChats, this, [] {
+        qDebug() << "Hello signal arrived";
+    });
+
+    connect(this, &Database::requestLastMessageForNumber, this, &Database::lastMessageForNumber);
+    connect(this, &Database::requestLastContactedForNumber, this, &Database::lastContactedForNumber);
+    connect(this, &Database::requestMarkAsRead, this, &Database::markChatAsRead);
 }
 
-QVector<Message> Database::messagesForNumber(const QString &phoneNumber) const
+void Database::messagesForNumber(const QString &phoneNumber)
 {
     QVector<Message> messages;
 
@@ -65,17 +90,17 @@ QVector<Message> Database::messagesForNumber(const QString &phoneNumber) const
         messages.append(message);
     }
 
-    return messages;
+    Q_EMIT messagesFetchedForNumber(phoneNumber, messages);
 }
 
-int Database::lastId() const
+void Database::lastId()
 {
     QSqlQuery fetch(m_database);
     fetch.prepare(SL("SELECT id FROM Messages ORDER BY id DESC LIMIT 1"));
     fetch.exec();
     fetch.first();
 
-    return fetch.value(0).toInt();
+    Q_EMIT lastIdFetched(fetch.value(0).toInt());
 }
 
 void Database::markMessageDelivered(const int id)
@@ -94,7 +119,7 @@ void Database::markMessageRead(const int id)
     put.exec();
 }
 
-QVector<Chat> Database::chats() const
+void Database::chats()
 {
     QVector<Chat> chats;
 
@@ -116,10 +141,10 @@ QVector<Chat> Database::chats() const
     auto after = QTime::currentTime().msecsSinceStartOfDay();
     qDebug() << "TOOK TIME" << after - before;
 
-    return chats;
+    Q_EMIT chatsFetched(chats);
 }
 
-int Database::unreadMessagesForNumber(const QString &phoneNumber) const
+int Database::unreadMessagesForNumber(const QString &phoneNumber)
 {
     QSqlQuery fetch(m_database);
     fetch.prepare(SL("SELECT Count(*) FROM Messages WHERE phoneNumber == :phoneNumber AND read == False"));
@@ -127,10 +152,14 @@ int Database::unreadMessagesForNumber(const QString &phoneNumber) const
     fetch.exec();
 
     fetch.first();
-    return fetch.value(0).toInt();
+
+    const auto unread = fetch.value(0).toInt();
+
+    Q_EMIT unreadMessagesFetchedForNumber(phoneNumber, unread);
+    return unread;
 }
 
-QString Database::lastMessageForNumber(const QString &phoneNumber) const
+QString Database::lastMessageForNumber(const QString &phoneNumber)
 {
     QSqlQuery fetch(m_database);
     fetch.prepare(SL("SELECT text FROM Messages WHERE phoneNumber == :phoneNumber ORDER BY time DESC LIMIT 1"));
@@ -138,7 +167,11 @@ QString Database::lastMessageForNumber(const QString &phoneNumber) const
     fetch.exec();
 
     fetch.first();
-    return fetch.value(0).toString();
+
+    const auto lastMessage = fetch.value(0).toString();
+
+    Q_EMIT lastMessageFetchedForNumber(phoneNumber, lastMessage);
+    return lastMessage;
 }
 
 QDateTime Database::lastContactedForNumber(const QString &phoneNumber) const

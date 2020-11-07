@@ -26,8 +26,13 @@ ChannelHandler::ChannelHandler(QObject *parent)
     , Tp::AbstractClientHandler(Tp::ChannelClassSpecList({
           Tp::ChannelClassSpec::textChat(), Tp::ChannelClassSpec::unnamedTextChat()
       }))
-    , m_database(new Database(this))
+    , m_database(new Database()) // no parent, because handled by thread
+    , m_databaseThread(new QThread(this))
 {
+    m_databaseThread->setObjectName(SL("DatabaseThread"));
+    m_database->moveToThread(m_databaseThread);
+    m_databaseThread->start();
+
     // Set up sms account
     Tp::AccountManagerPtr manager = Tp::AccountManager::create();
     Tp::PendingReady *ready = manager->becomeReady();
@@ -35,6 +40,12 @@ ChannelHandler::ChannelHandler(QObject *parent)
         m_simAccount = *AccountUtils::findTelephonyAccount(manager);
         emit handlerReady();
     });
+}
+
+ChannelHandler::~ChannelHandler()
+{
+    m_databaseThread->quit();
+    m_databaseThread->wait();
 }
 
 void ChannelHandler::handleChannels(const Tp::MethodInvocationContextPtr<> &context,

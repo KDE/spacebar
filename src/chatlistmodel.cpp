@@ -32,7 +32,6 @@ ChatListModel::ChatListModel(const ChannelHandlerPtr &handler, QObject *parent)
     : QAbstractListModel(parent)
     , m_handler(handler)
     , m_database(m_handler->database())
-    , m_chats(m_database->chats())
     , m_mapper(ContactMapper::instance())
 {
     m_mapper.performInitialScan();
@@ -62,6 +61,16 @@ ChatListModel::ChatListModel(const ChannelHandlerPtr &handler, QObject *parent)
         Utils::instance()->qmlEngine()->setObjectOwnership(model, QQmlApplicationEngine::JavaScriptOwnership);
         emit chatStarted(model);
     });
+
+    connect(m_database, &Database::chatsFetched, this, [this](const QVector<Chat> &chats) {
+        qDebug() << "Hello chats";
+        beginResetModel();
+        m_chats = chats;
+        endResetModel();
+        emit chatsFetched();
+    });
+
+    Q_EMIT m_database->requestChats();
 }
 
 QHash<int, QByteArray> ChatListModel::roleNames() const
@@ -113,15 +122,12 @@ void ChatListModel::startChat(const QString &phoneNumber)
 
 void ChatListModel::markChatAsRead(const QString &phoneNumber)
 {
-    m_database->markChatAsRead(phoneNumber);
+    m_database->requestMarkAsRead(phoneNumber);
 }
 
 void ChatListModel::fetchChats()
 {
-    beginResetModel();
-    m_chats = m_database->chats();
-    endResetModel();
-    emit chatsFetched();
+    m_database->requestChats();
 }
 
 bool ChatListModel::ready() const
