@@ -75,7 +75,6 @@ void ChannelLogger::handleIncomingMessage(const Tp::TextChannelPtr& /* channel *
         return;
     }
 
-    qDebug() << "Adding message to db";
     Message message;
     message.text = receivedMessage.text();
     message.sentByMe = false; // SMS doesn't have any kind of synchronization, so received messages are always from the chat partner.

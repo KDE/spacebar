@@ -64,7 +64,6 @@ ChatListModel::ChatListModel(const ChannelHandlerPtr &handler, QObject *parent)
     });
 
     connect(m_database, &AsyncDatabase::chatsFetched, this, [this](const QVector<Chat> &chats) {
-        qDebug() << "Hello chats";
         beginResetModel();
         m_chats = chats;
         endResetModel();

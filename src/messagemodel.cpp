@@ -52,7 +52,6 @@ MessageModel::MessageModel(AsyncDatabase *database, const QString &phoneNumber, 
     connect(m_database, &AsyncDatabase::messagesFetchedForNumber,
             this, [this](const QString &phoneNumber, const QVector<Message> &messages) {
         if (phoneNumber == m_phoneNumber) {
-            qDebug() << "Hello messages";
             beginResetModel();
             m_messages = messages;
             endResetModel();
@@ -138,7 +137,6 @@ void MessageModel::sendMessage(const QString &text)
         message.delivered = false; // if this signal is called, the message was delivered.
 
         // Add message to model
-        qDebug() << "Adding message to model";
         addMessage(message);
 
         connect(op, &Tp::PendingOperation::finished, this, [=]() {
