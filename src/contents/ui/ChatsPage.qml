@@ -71,8 +71,8 @@ Kirigami.ScrollablePage {
                 Kirigami.Avatar {
                     id: photo
                     Layout.fillHeight: true
-                    Layout.preferredWidth: Kirigami.Units.gridUnit * 2.5
-                    Layout.preferredHeight: Kirigami.Units.gridUnit * 2.5
+                    Layout.preferredWidth: Kirigami.Units.iconSizes.medium
+                    Layout.preferredHeight: Kirigami.Units.iconSizes.medium
 
                     source: "image://avatar/" + delegateRoot.phoneNumber
                     name: delegateRoot.displayName || delegateRoot.phoneNumber
@@ -85,7 +85,7 @@ Kirigami.ScrollablePage {
 
                     spacing: 0
                     Kirigami.Heading {
-                        level: 4
+                        level: 3
                         id: nameLabel
                         text: delegateRoot.displayName || delegateRoot.phoneNumber
                     }
