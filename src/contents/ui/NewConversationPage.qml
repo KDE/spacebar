@@ -6,7 +6,7 @@ import QtQuick 2.7
 import QtQuick.Controls 2.2 as Controls
 import QtQuick.Layouts 1.1
 
-import org.kde.kirigami 2.12 as Kirigami
+import org.kde.kirigami 2.14 as Kirigami
 import org.kde.people 1.0 as KPeople
 import org.kde.spacebar 1.0
 
@@ -82,19 +82,37 @@ Kirigami.ScrollablePage {
         Component {
             id: contactListDelegate
 
-            Kirigami.BasicListItem {
-                icon: model && model.decoration
-                label: model && model.display
+            Kirigami.AbstractListItem {
+                id: delegateRoot
+
+                required property string display
+                required property string phoneNumber
+
+                contentItem: RowLayout {
+                    Kirigami.Avatar {
+                        id: photo
+                        Layout.fillHeight: true
+                        Layout.preferredWidth: Kirigami.Units.iconSizes.medium
+                        Layout.preferredHeight: Kirigami.Units.iconSizes.medium
+
+                        source: "image://avatar/" + delegateRoot.phoneNumber
+                        name: delegateRoot.display
+                        imageMode: Kirigami.Avatar.AdaptiveImageOrInitals
+                    }
+
+                    Kirigami.Heading {
+                        level: 3
+                        text: delegateRoot.display
+                        Layout.fillWidth: true
+                    }
+                }
                 onClicked: {
-                    ChatListModel.startChat(model.phoneNumber)
                     pageStack.pop()
+                    ChatListModel.startChat(delegateRoot.phoneNumber)
                 }
             }
         }
 
-        delegate: Kirigami.DelegateRecycler {
-            width: parent ? parent.width : 0
-            sourceComponent: contactListDelegate
-        }
+        delegate: contactListDelegate
     }
 }
