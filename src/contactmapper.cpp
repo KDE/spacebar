@@ -50,11 +50,6 @@ void ContactMapper::performInitialScan()
     processRows(0, m_model->rowCount() - 1);
 }
 
-QString ContactMapper::uriForNumber(const QString &phoneNumber) const
-{
-    return m_numberToUri.value(KContacts::PhoneNumber(phoneNumber).normalizedNumber());
-}
-
 ContactMapper &ContactMapper::instance()
 {
     static ContactMapper instance;

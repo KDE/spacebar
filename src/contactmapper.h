@@ -5,6 +5,7 @@
 #pragma once
 
 #include <KPeople/PersonsModel>
+#include <KContacts/PhoneNumber>
 #include <QObject>
 
 class ContactMapper : public QObject
@@ -21,7 +22,9 @@ public:
      * @param phone number
      * @return the uri belonging to the phone number
      */
-    QString uriForNumber(const QString &phoneNumber) const;
+    inline QString uriForNumber(const QString &phoneNumber) const {
+        return m_numberToUri.value(KContacts::PhoneNumber(phoneNumber).normalizedNumber());
+    }
 
     static ContactMapper &instance();
 
