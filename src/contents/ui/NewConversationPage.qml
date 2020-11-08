@@ -83,11 +83,7 @@ Kirigami.ScrollablePage {
             id: contactListDelegate
 
             Kirigami.AbstractListItem {
-                id: delegateRoot
-
-                required property string display
-                required property string phoneNumber
-
+                width: contactsList.width
                 contentItem: RowLayout {
                     Kirigami.Avatar {
                         id: photo
@@ -95,24 +91,26 @@ Kirigami.ScrollablePage {
                         Layout.preferredWidth: Kirigami.Units.iconSizes.medium
                         Layout.preferredHeight: Kirigami.Units.iconSizes.medium
 
-                        source: "image://avatar/" + delegateRoot.phoneNumber
-                        name: delegateRoot.display
+                        source: "image://avatar/" + (model && model.phoneNumber)
+                        name: model && model.display
                         imageMode: Kirigami.Avatar.AdaptiveImageOrInitals
                     }
 
                     Kirigami.Heading {
                         level: 3
-                        text: delegateRoot.display
+                        text: model && model.display
                         Layout.fillWidth: true
                     }
                 }
                 onClicked: {
                     pageStack.pop()
-                    ChatListModel.startChat(delegateRoot.phoneNumber)
+                    ChatListModel.startChat(model.phoneNumber)
                 }
             }
         }
 
-        delegate: contactListDelegate
+        delegate: Kirigami.DelegateRecycler {
+            sourceComponent: contactListDelegate
+        }
     }
 }
