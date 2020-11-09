@@ -70,7 +70,6 @@ Kirigami.ScrollablePage {
             contentItem: RowLayout {
                 Kirigami.Avatar {
                     id: photo
-                    Layout.fillHeight: true
                     Layout.preferredWidth: Kirigami.Units.iconSizes.medium
                     Layout.preferredHeight: Kirigami.Units.iconSizes.medium
 
@@ -86,11 +85,13 @@ Kirigami.ScrollablePage {
                     spacing: 0
                     Kirigami.Heading {
                         level: 3
+                        Layout.fillWidth: true
                         id: nameLabel
                         text: delegateRoot.displayName || delegateRoot.phoneNumber
                     }
                     Text {
                         id: lastMessage
+                        Layout.fillWidth: true
                         text: delegateRoot.lastMessage
                         maximumLineCount: 1
                         elide: Qt.ElideRight
