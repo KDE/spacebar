@@ -2,6 +2,7 @@
 IconName=org.kde.spacebar
 Comment=Spacebar
 Comment[ca]=Spacebar
+Comment[ca@valencia]=Spacebar
 Comment[en_GB]=Spacebar
 Comment[es]=Spacebar
 Comment[fr]=Barre d'espace
@@ -18,6 +19,7 @@ Comment[x-test]=xxSpacebarxx
 [Event/incomingMessage]
 Name=Incoming message
 Name[ca]=Missatge entrant
+Name[ca@valencia]=Missatge entrant
 Name[en_GB]=Incoming message
 Name[es]=Mensaje entrante
 Name[fr]=Message entrant
@@ -32,6 +34,7 @@ Name[uk]=Вхідне повідомлення
 Name[x-test]=xxIncoming messagexx
 Comment=Incoming message from someone
 Comment[ca]=Missatge entrant d'algú
+Comment[ca@valencia]=Missatge entrant d'algú
 Comment[en_GB]=Incoming message from someone
 Comment[es]=Mensaje entrante de alguien
 Comment[fr]=Message entrant venant de quelqu'un
