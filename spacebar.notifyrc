@@ -20,6 +20,7 @@ Comment[x-test]=xxSpacebarxx
 Name=Incoming message
 Name[ca]=Missatge entrant
 Name[ca@valencia]=Missatge entrant
+Name[cs]=Příchozí zpráva
 Name[en_GB]=Incoming message
 Name[es]=Mensaje entrante
 Name[fr]=Message entrant
