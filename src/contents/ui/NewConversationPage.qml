@@ -19,7 +19,7 @@ Kirigami.ScrollablePage {
         placeholderText: i18n("Search or enter number…")
         focusSequence: "Ctrl+F"
         rightActions: [
-            // Code copy from kirigami, existing actions are being overriden when setting the property
+            // Code copy from kirigami, existing actions are being overridden when setting the property
             Kirigami.Action {
                 icon.name: searchField.LayoutMirroring.enabled ? "edit-clear-locationbar-ltr" : "edit-clear-locationbar-rtl"
                 visible: searchField.text.length > 0 && !Utils.isPhoneNumber(searchField.text)

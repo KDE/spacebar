@@ -41,7 +41,7 @@ Kirigami.ScrollablePage {
             height: rect.height
 
             Component.onCompleted: {
-                // Avoid unneccessary invocations
+                // Avoid unnecessary invocations
 
                 // This code is only for marking messages as read that arrived after opening the chat.
                 // However we currently don't know the id of those messages.
