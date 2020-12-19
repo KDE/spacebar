@@ -14,7 +14,7 @@ ContactMapper::ContactMapper()
     , m_model(new KPeople::PersonsModel(this))
 {
     // data updates
-    // we only care about additional data, not remove one
+    // we only care about additional rows, not removed ones
     connect(m_model, &QAbstractItemModel::rowsInserted, this, [this](const QModelIndex &, int first, int last) {
         processRows(first, last);
     });
@@ -26,9 +26,6 @@ void ContactMapper::processRows(const int first, const int last)
     for (int i = first; i <= last; i++) {
         const auto index = m_model->index(i);
 
-        // Yes, this code has to be illogical. PersonsModel::PersonVCardRole is actually supposed
-        // to return an AbstractContact::Ptr, although the name suggests differneltly. Luckily we can get
-        // the actual VCard from it.
         const auto phoneNumbers = m_model->data(index, KPeople::PersonsModel::PersonVCardRole)
                         .value<KPeople::AbstractContact::Ptr>()
                         ->customProperty(KPeople::AbstractContact::AllPhoneNumbersProperty).toStringList();
