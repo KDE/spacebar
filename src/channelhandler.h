@@ -41,7 +41,7 @@ public:
 private:
 
     QVector<Tp::TextChannelPtr> m_channels;
-    Tp::AccountPtr m_simAccount;
+    std::optional<Tp::AccountPtr> m_simAccount;
     DatabaseThread *m_databaseThread;
     AsyncDatabase *m_database;
 

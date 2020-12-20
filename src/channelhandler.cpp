@@ -34,7 +34,7 @@ ChannelHandler::ChannelHandler(QObject *parent)
     Tp::AccountManagerPtr manager = Tp::AccountManager::create();
     Tp::PendingReady *ready = manager->becomeReady();
     QObject::connect(ready, &Tp::PendingReady::finished, this, [=] {
-        m_simAccount = *AccountUtils::findTelephonyAccount(manager);
+        m_simAccount = AccountUtils::findTelephonyAccount(manager);
         emit handlerReady();
     });
 }
@@ -89,7 +89,7 @@ void ChannelHandler::openChannel(const QString &phoneNumber)
     }
 
     // If there is none just ask for a new one
-    Tp::PendingChannelRequest *pendingChannel = m_simAccount->ensureTextChat(phoneNumber, QDateTime::currentDateTime(), SL("org.freedesktop.Telepathy.Client.SpaceBar"));
+    Tp::PendingChannelRequest *pendingChannel = m_simAccount.value()->ensureTextChat(phoneNumber, QDateTime::currentDateTime(), SL("org.freedesktop.Telepathy.Client.SpaceBar"));
     connect(pendingChannel, &Tp::PendingChannelRequest::finished, this, [=](Tp::PendingOperation *op) {
         if (op->isError()) {
             qWarning() << "Requesting text channel failed:" << op->errorName() << op->errorMessage();
