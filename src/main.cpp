@@ -3,6 +3,7 @@
 // SPDX-License-Identifier: LicenseRef-KDE-Accepted-GPL
 
 #include <KLocalizedContext>
+#include <KLocalizedString>
 #include <QApplication>
 #include <QQmlApplicationEngine>
 #include <QUrl>
@@ -33,6 +34,8 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
     QCoreApplication::setOrganizationName(SL("KDE"));
     QCoreApplication::setOrganizationDomain(SL("kde.org"));
     QCoreApplication::setApplicationName(SL("spacebar"));
+
+    KLocalizedString::setApplicationDomain("spacebar");
 
     QQmlApplicationEngine engine;
 
