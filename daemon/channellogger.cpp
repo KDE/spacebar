@@ -91,7 +91,7 @@ void ChannelLogger::handleIncomingMessage(const Tp::TextChannelPtr& /* channel *
     notification->setIconName(SL("org.kde.spacebar"));
     notification->setTitle(i18n("Message from %1", receivedMessage.sender()->id()));
     notification->setText(receivedMessage.text());
-    notification->setDefaultAction(i18nc("Open", "@action open message in application"));
+    notification->setDefaultAction(i18nc("@action open message in application", "Open"));
     notification->sendEvent();
 
     // copy current pointer to notification, otherwise this would just close the most recent one.
