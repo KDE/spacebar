@@ -2,7 +2,7 @@
 //
 // SPDX-License-Identifier: LicenseRef-KDE-Accepted-GPL
 
-#include "contactmapper.h"
+#include "contactphonenumbermapper.h"
 
 #include <KContacts/VCardConverter>
 #include <KPeopleBackend/AbstractContact>
@@ -10,7 +10,7 @@
 
 #include <phonenumberutils.h>
 
-ContactMapper::ContactMapper()
+ContactPhoneNumberMapper::ContactPhoneNumberMapper()
     : QObject()
     , m_model(new KPeople::PersonsModel(this))
 {
@@ -21,7 +21,7 @@ ContactMapper::ContactMapper()
     });
 }
 
-void ContactMapper::processRows(const int first, const int last)
+void ContactPhoneNumberMapper::processRows(const int first, const int last)
 {
     QVector<QString> affectedNumbers;
     for (int i = first; i <= last; i++) {
@@ -34,23 +34,23 @@ void ContactMapper::processRows(const int first, const int last)
         const auto personUri = m_model->data(index, KPeople::PersonsModel::PersonUriRole).toString();
 
         for (const auto &number : phoneNumbers) {
-            const auto normalizedNumber = normalizePhoneNumber(number);
+            const auto normalizedNumber = PhoneNumberUtils::normalize(number);
             m_numberToUri[normalizedNumber] = personUri;
-            affectedNumbers.append(normalizedNumber);
+            affectedNumbers.append(std::move(normalizedNumber));
         }
     }
 
     emit contactsChanged(affectedNumbers);
 }
 
-void ContactMapper::performInitialScan()
+void ContactPhoneNumberMapper::performInitialScan()
 {
     processRows(0, m_model->rowCount() - 1);
 }
 
-ContactMapper &ContactMapper::instance()
+ContactPhoneNumberMapper &ContactPhoneNumberMapper::instance()
 {
-    static ContactMapper instance;
+    static ContactPhoneNumberMapper instance;
 
     return instance;
 }

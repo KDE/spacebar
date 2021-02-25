@@ -8,13 +8,13 @@
 #include <KContacts/PhoneNumber>
 #include <QObject>
 
-#include <phonenumberutils.h>
+#include "phonenumberutils.h"
 
-class ContactMapper : public QObject
+class ContactPhoneNumberMapper : public QObject
 {
     Q_OBJECT
 
-    explicit ContactMapper();
+    explicit ContactPhoneNumberMapper();
 
 public:
     /**
@@ -25,10 +25,10 @@ public:
      * @return the uri belonging to the phone number
      */
     inline QString uriForNumber(const QString &phoneNumber) const {
-        return m_numberToUri.value(normalizePhoneNumber(phoneNumber));
+        return m_numberToUri.value(PhoneNumberUtils::normalize(phoneNumber));
     }
 
-    static ContactMapper &instance();
+    static ContactPhoneNumberMapper &instance();
 
 signals:
     /**

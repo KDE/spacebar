@@ -8,9 +8,9 @@
 #include <KPeopleBackend/AbstractContact>
 #include <KContacts/PhoneNumber>
 
-#include <phonenumberutils.h>
+#include "phonenumberutils.h"
 
-#include "contactmapper.h"
+#include "contactphonenumbermapper.h"
 
 AvatarImageProvider::AvatarImageProvider()
     : QQuickImageProvider(QQuickImageProvider::ImageType::Pixmap)
@@ -22,8 +22,8 @@ QPixmap AvatarImageProvider::requestPixmap(const QString &number, QSize *size, c
 {
     Q_UNUSED(requestedSize)
 
-    const QString normalizedNumber = normalizePhoneNumber(number);
-    const auto personData = KPeople::PersonData(ContactMapper::instance().uriForNumber(normalizedNumber));
+    const QString normalizedNumber = PhoneNumberUtils::normalize(number);
+    const auto personData = KPeople::PersonData(ContactPhoneNumberMapper::instance().uriForNumber(normalizedNumber));
 
     QPixmap avatar;
     QVariant pic = personData.contactCustomProperty(KPeople::AbstractContact::PictureProperty);

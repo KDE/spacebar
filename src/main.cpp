@@ -18,7 +18,7 @@
 #include "chatlistmodel.h"
 #include "messagemodel.h"
 
-#include "contactmapper.h"
+#include <contactphonenumbermapper.h>
 #include "global.h"
 #include "channelhandler.h"
 #include "utils.h"

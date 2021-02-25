@@ -35,16 +35,16 @@ ChatListModel::ChatListModel(const ChannelHandlerPtr &handler, QObject *parent)
     : QAbstractListModel(parent)
     , m_handler(handler)
     , m_database(m_handler->database())
-    , m_mapper(ContactMapper::instance())
+    , m_mapper(ContactPhoneNumberMapper::instance())
 {
     m_mapper.performInitialScan();
     connect(m_database, &AsyncDatabase::messagesChanged, this, &ChatListModel::fetchChats);
-    connect(&m_mapper, &ContactMapper::contactsChanged, this, [this](const QVector<QString> &affectedNumbers) {
+    connect(&m_mapper, &ContactPhoneNumberMapper::contactsChanged, this, [this](const QVector<QString> &affectedNumbers) {
         qDebug() << "New data for" << affectedNumbers;
         for (const auto &number : affectedNumbers) {
             // Find the Chat object for the phone number
             const auto chatIt = std::find_if(m_chats.begin(), m_chats.end(), [&number](const Chat &chat) {
-                return normalizePhoneNumber(chat.phoneNumber) == number;
+                return PhoneNumberUtils::normalize(chat.phoneNumber) == number;
             });
 
             int i = std::distance(m_chats.begin(), chatIt);
@@ -100,7 +100,7 @@ QVariant ChatListModel::data(const QModelIndex &index, int role) const
     case PhotoRole:
         return KPeople::PersonData(m_mapper.uriForNumber(m_chats.at(index.row()).phoneNumber)).photo();
     case PhoneNumberRole:
-        return normalizePhoneNumber(m_chats.at(index.row()).phoneNumber);
+        return PhoneNumberUtils::normalize(m_chats.at(index.row()).phoneNumber);
     case LastContactedRole:
         return m_chats.at(index.row()).lastContacted;
     case UnreadMessagesRole:

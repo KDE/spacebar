@@ -6,4 +6,7 @@
 
 class QString;
 
-QString normalizePhoneNumber(const QString &phoneNumber);
+class PhoneNumberUtils {
+public:
+    static QString normalize(const QString &phoneNumber);
+};

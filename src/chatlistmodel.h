@@ -13,7 +13,7 @@
 #include <TelepathyQt/TextChannel>
 #include <TelepathyQt/SharedPtr>
 
-#include "contactmapper.h"
+#include <contactphonenumbermapper.h>
 #include "database.h"
 #include "global.h"
 
@@ -73,7 +73,7 @@ private:
     ChannelHandlerPtr m_handler;
     AsyncDatabase *m_database;
     QVector<Chat> m_chats;
-    ContactMapper &m_mapper;
+    ContactPhoneNumberMapper &m_mapper;
     Tp::AccountPtr m_simAccount;
     bool m_ready;
 };

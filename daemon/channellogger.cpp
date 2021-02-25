@@ -81,7 +81,7 @@ void ChannelLogger::handleIncomingMessage(const Tp::TextChannelPtr& /* channel *
     message.sentByMe = false; // SMS doesn't have any kind of synchronization, so received messages are always from the chat partner.
     message.datetime = receivedMessage.received();
     message.delivered = true; // It arrived, soo
-    message.phoneNumber = normalizePhoneNumber(receivedMessage.sender()->id());
+    message.phoneNumber = PhoneNumberUtils::normalize(receivedMessage.sender()->id());
     message.id = m_database->lastId() + 1;
     message.read = false;
 
