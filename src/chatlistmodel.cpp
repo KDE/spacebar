@@ -23,6 +23,8 @@
 
 #include <KContacts/PhoneNumber>
 
+#include <phonenumberutils.h>
+
 #include <global.h>
 #include "channelhandler.h"
 #include "messagemodel.h"
@@ -42,7 +44,7 @@ ChatListModel::ChatListModel(const ChannelHandlerPtr &handler, QObject *parent)
         for (const auto &number : affectedNumbers) {
             // Find the Chat object for the phone number
             const auto chatIt = std::find_if(m_chats.begin(), m_chats.end(), [&number](const Chat &chat) {
-                return KContacts::PhoneNumber(chat.phoneNumber).normalizedNumber() == number;
+                return normalizePhoneNumber(chat.phoneNumber) == number;
             });
 
             int i = std::distance(m_chats.begin(), chatIt);
@@ -98,7 +100,7 @@ QVariant ChatListModel::data(const QModelIndex &index, int role) const
     case PhotoRole:
         return KPeople::PersonData(m_mapper.uriForNumber(m_chats.at(index.row()).phoneNumber)).photo();
     case PhoneNumberRole:
-        return KContacts::PhoneNumber(m_chats.at(index.row()).phoneNumber).normalizedNumber();
+        return normalizePhoneNumber(m_chats.at(index.row()).phoneNumber);
     case LastContactedRole:
         return m_chats.at(index.row()).lastContacted;
     case UnreadMessagesRole:

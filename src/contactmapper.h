@@ -8,6 +8,8 @@
 #include <KContacts/PhoneNumber>
 #include <QObject>
 
+#include <phonenumberutils.h>
+
 class ContactMapper : public QObject
 {
     Q_OBJECT
@@ -23,7 +25,7 @@ public:
      * @return the uri belonging to the phone number
      */
     inline QString uriForNumber(const QString &phoneNumber) const {
-        return m_numberToUri.value(KContacts::PhoneNumber(phoneNumber).normalizedNumber());
+        return m_numberToUri.value(normalizePhoneNumber(phoneNumber));
     }
 
     static ContactMapper &instance();

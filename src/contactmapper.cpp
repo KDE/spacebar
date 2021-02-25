@@ -7,7 +7,8 @@
 #include <KContacts/VCardConverter>
 #include <KPeopleBackend/AbstractContact>
 #include <QDebug>
-#include <QThread>
+
+#include <phonenumberutils.h>
 
 ContactMapper::ContactMapper()
     : QObject()
@@ -33,7 +34,7 @@ void ContactMapper::processRows(const int first, const int last)
         const auto personUri = m_model->data(index, KPeople::PersonsModel::PersonUriRole).toString();
 
         for (const auto &number : phoneNumbers) {
-            const auto normalizedNumber = KContacts::PhoneNumber(number).normalizedNumber();
+            const auto normalizedNumber = normalizePhoneNumber(number);
             m_numberToUri[normalizedNumber] = personUri;
             affectedNumbers.append(normalizedNumber);
         }
