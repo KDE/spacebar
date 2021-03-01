@@ -13,34 +13,38 @@ import org.kde.spacebar 1.0
 Kirigami.ScrollablePage {
     title: i18n("Contacts")
 
-    header: Kirigami.ActionTextField {
-        id: searchField
-        onTextChanged: contactsProxyModel.setFilterFixedString(text)
-        placeholderText: i18n("Search or enter number…")
-        focusSequence: "Ctrl+F"
-        rightActions: [
-            // Code copy from kirigami, existing actions are being overridden when setting the property
-            Kirigami.Action {
-                icon.name: searchField.LayoutMirroring.enabled ? "edit-clear-locationbar-ltr" : "edit-clear-locationbar-rtl"
-                visible: searchField.text.length > 0 && !Utils.isPhoneNumber(searchField.text)
-                onTriggered: {
-                    searchField.text = ""
-                    searchField.accepted()
-                }
-            },
-            Kirigami.Action {
-                icon.name: "document-send"
-                visible: searchField.text.length > 0 && Utils.isPhoneNumber(searchField.text)
-                onTriggered: {
-                    // close new conversation page
-                    pageStack.pop()
+    header: Controls.Control {
+        padding: Kirigami.Units.largeSpacing
 
-                    ChatListModel.startChat(searchField.text)
+        contentItem: Kirigami.ActionTextField {
+           id: searchField
+            onTextChanged: contactsProxyModel.setFilterFixedString(text)
+            placeholderText: i18n("Search or enter number…")
+            focusSequence: "Ctrl+F"
+            rightActions: [
+                // Code copy from kirigami, existing actions are being overridden when setting the property
+                Kirigami.Action {
+                    icon.name: searchField.LayoutMirroring.enabled ? "edit-clear-locationbar-ltr" : "edit-clear-locationbar-rtl"
+                    visible: searchField.text.length > 0 && !Utils.isPhoneNumber(searchField.text)
+                    onTriggered: {
+                        searchField.text = ""
+                        searchField.accepted()
+                    }
+                },
+                Kirigami.Action {
+                    icon.name: "document-send"
+                    visible: searchField.text.length > 0 && Utils.isPhoneNumber(searchField.text)
+                    onTriggered: {
+                        // close new conversation page
+                        pageStack.pop()
 
-                    searchField.text = ""
+                        ChatListModel.startChat(searchField.text)
+
+                        searchField.text = ""
+                    }
                 }
-            }
-        ]
+            ]
+        }
     }
 
     Kirigami.PlaceholderMessage {
