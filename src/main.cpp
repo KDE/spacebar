@@ -34,6 +34,7 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
     QCoreApplication::setOrganizationName(SL("KDE"));
     QCoreApplication::setOrganizationDomain(SL("kde.org"));
     QCoreApplication::setApplicationName(SL("spacebar"));
+    QGuiApplication::setApplicationDisplayName(SL("Spacebar"));
 
     KLocalizedString::setApplicationDomain("spacebar");
 

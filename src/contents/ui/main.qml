@@ -11,8 +11,6 @@ import org.kde.spacebar 1.0 as Spacebar
 Kirigami.ApplicationWindow {
     id: root
 
-    title: i18n("spacebar")
-
     contextDrawer: Kirigami.ContextDrawer {
         id: contextDrawer
     }
