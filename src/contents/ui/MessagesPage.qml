@@ -1,12 +1,13 @@
 // SPDX-FileCopyrightText: 2020 Jonah Brüchert <jbb@kaidan.im>
+// SPDX-FileCopyrightText: 2021 Devin Lin <espidev@gmail.com>
 //
 // SPDX-License-Identifier: LicenseRef-KDE-Accepted-GPL
 
-import QtQuick 2.0
+import QtQuick 2.15
 import QtQuick.Layouts 1.0
 import QtQuick.Controls 2.4 as Controls
 
-import org.kde.kirigami 2.12 as Kirigami
+import org.kde.kirigami 2.15 as Kirigami
 
 import org.kde.spacebar 1.0
 
@@ -25,7 +26,7 @@ Kirigami.ScrollablePage {
     ListView {
         id: listView
         model: messageModel
-        spacing: 10
+        spacing: Kirigami.Units.largeSpacing
 
         verticalLayoutDirection: ListView.BottomToTop
 
@@ -37,6 +38,7 @@ Kirigami.ScrollablePage {
         }
 
         delegate: Item {
+            id: delegateParent
             width: listView.width
             height: rect.height
 
@@ -55,44 +57,58 @@ Kirigami.ScrollablePage {
 
             Kirigami.ShadowedRectangle {
                 id: rect
-                anchors.margins: 20
+                
+                Kirigami.Theme.colorSet: Kirigami.Theme.Button
+                
+                anchors.margins: Kirigami.Units.largeSpacing
                 anchors.left: model.sentByMe ? undefined : parent.left
                 anchors.right: model.sentByMe ? parent.right : undefined
-                radius: 10
-                shadow.size: 3
-                color: {
-                    const isDarkTheme = Kirigami.ColorUtils.brightnessForColor(Kirigami.Theme.backgroundColor) === Kirigami.ColorUtils.Dark
-                    const myColor = isDarkTheme ? "#395066" : "#3daee9"
-                    const chatParterColor = isDarkTheme ? "#2c3e50" : "#e6e8e9"
-                    model.sentByMe ? myColor : chatParterColor
-                }
-                height: content.height + 10
-                width: content.width + 10
+                
+                radius: Kirigami.Units.smallSpacing
+                shadow.size: Kirigami.Units.smallSpacing
+                shadow.color: !model.isHighlighted ? Qt.rgba(0.0, 0.0, 0.0, 0.10) : Qt.rgba(Kirigami.Theme.textColor.r, Kirigami.Theme.textColor.g, Kirigami.Theme.textColor.b, 0.10)
+                border.color: Kirigami.ColorUtils.tintWithAlpha(color, Kirigami.Theme.textColor, 0.15)
+                border.width: Kirigami.Units.devicePixelRatio
+                
+                color: model.sentByMe ? Kirigami.Theme.highlightColor : Kirigami.Theme.backgroundColor
+                
+                height: content.height + Kirigami.Units.largeSpacing * 2
+                width: content.width + Kirigami.Units.largeSpacing * 2
+
                 ColumnLayout {
                     spacing: 0
                     id: content
                     anchors.centerIn: parent
+                    
+                    // adjust for highlight color
+                    property color textColor: model.sentByMe ? Qt.rgba(255, 255, 255, 0.9) : Kirigami.Theme.textColor
+                    
+                    // message contents
                     Controls.Label {
                         Layout.alignment: Qt.AlignTop
-                        text: model.text
-                        wrapMode: Text.WordWrap
-                        Layout.minimumWidth: 100
-                        Layout.minimumHeight: 30
-                        Layout.maximumWidth: msgPage.width * 0.7
+                        Layout.minimumWidth: Kirigami.Units.gridUnit * 5
+                        Layout.maximumWidth: delegateParent.width * 0.7
+                        text: model.text ? model.text : " " // guarantee there is text so that height is maintained
+                        wrapMode: Text.Wrap
+                        color: content.textColor
                     }
+
                     RowLayout {
-                        Layout.alignment: Qt.AlignBottom | Qt.AlignRight
+                        spacing: Kirigami.Units.smallSpacing
+                        Item { Layout.fillWidth: true }
+                        Kirigami.Icon {
+                            Layout.alignment: Qt.AlignRight
+                            implicitHeight: Math.round(Kirigami.Units.gridUnit * 0.7)
+                            implicitWidth: implicitHeight
+                            source: visible ? "answer-correct" : undefined
+                            visible: model.delivered && model.sentByMe
+                            color: content.textColor
+                        }
                         Controls.Label {
                             Layout.alignment: Qt.AlignRight
                             text: Qt.formatTime(model.time, Qt.DefaultLocaleShortDate)
-                        }
-                        Kirigami.Icon {
-                            Layout.alignment: Qt.AlignRight
-                            height: 15
-                            implicitHeight: height
-                            width: height
-                            source: visible ? "answer-correct" : undefined
-                            visible: model.delivered && model.sentByMe
+                            font: Kirigami.Theme.smallFont
+                            color: content.textColor
                         }
                     }
                 }
@@ -102,7 +118,7 @@ Kirigami.ScrollablePage {
 
     footer: Kirigami.ActionTextField {
         id: field
-        height: 40
+        height: Kirigami.Units.gridUnit * 2
         placeholderText: i18n("Write Message...")
         onAccepted: text !== "" && sendAction.triggered()
         rightActions: [

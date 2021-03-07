@@ -2,7 +2,7 @@
 //
 // SPDX-License-Identifier: LicenseRef-KDE-Accepted-GPL
 
-import QtQuick 2.0
+import QtQuick 2.15
 import QtQuick.Layouts 1.0
 import org.kde.kirigami 2.14 as Kirigami
 import QtQuick.Controls 2.4 as Controls
@@ -54,6 +54,8 @@ Kirigami.ScrollablePage {
         id: listView
         model: ChatListModel
 
+        reuseItems: true
+
         delegate: Kirigami.AbstractListItem {
             id: delegateRoot
 
@@ -72,6 +74,7 @@ Kirigami.ScrollablePage {
                     id: photo
                     Layout.preferredWidth: Kirigami.Units.iconSizes.medium
                     Layout.preferredHeight: Kirigami.Units.iconSizes.medium
+                    Layout.rightMargin: Kirigami.Units.largeSpacing
 
                     source: "image://avatar/" + delegateRoot.phoneNumber
                     name: delegateRoot.displayName || delegateRoot.phoneNumber
