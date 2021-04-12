@@ -132,6 +132,11 @@ void ChatListModel::fetchChats()
     Q_EMIT m_database->requestChats();
 }
 
+void ChatListModel::deleteChat(const QString &phoneNumber)
+{
+    Q_EMIT m_database->requestDeleteChat(phoneNumber);
+}
+
 bool ChatListModel::ready() const
 {
     return m_ready;

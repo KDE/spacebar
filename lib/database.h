@@ -47,6 +47,7 @@ public:
     QString lastMessageForNumber(const QString &phoneNumber) const;
     QDateTime lastContactedForNumber(const QString &phoneNumber) const;
     void markChatAsRead(const QString &phoneNumber);
+    void deleteChat(const QString &phoneNumber);
 
 private:
     QSqlDatabase m_database;

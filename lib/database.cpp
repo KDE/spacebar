@@ -162,6 +162,16 @@ void Database::markChatAsRead(const QString &phoneNumber)
     Q_EMIT messagesChanged(phoneNumber);
 }
 
+void Database::deleteChat(const QString &phoneNumber)
+{
+    QSqlQuery update(m_database);
+    update.prepare(SL("DELETE FROM Messages WHERE phoneNumber = :phoneNumber"));
+    update.bindValue(SL(":phoneNumber"), phoneNumber);
+    update.exec();
+
+    Q_EMIT messagesChanged(phoneNumber);
+}
+
 void Database::addMessage(const Message &message)
 {
     auto before = QTime::currentTime().msecsSinceStartOfDay();

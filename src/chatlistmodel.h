@@ -60,6 +60,7 @@ public:
 
 public slots:
     void fetchChats();
+    void deleteChat(const QString &phoneNumber);
 
 signals:
     void chatStarted(MessageModel* messageModel);

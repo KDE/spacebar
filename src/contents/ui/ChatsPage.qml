@@ -56,7 +56,7 @@ Kirigami.ScrollablePage {
 
         reuseItems: true
 
-        delegate: Kirigami.AbstractListItem {
+        delegate: Kirigami.SwipeListItem {
             id: delegateRoot
 
             required property string displayName
@@ -123,6 +123,16 @@ Kirigami.ScrollablePage {
                     }
                 }
             }
+
+            actions: [
+                Kirigami.Action {
+                    text: i18n("Delete chat")
+                    icon.name: "delete"
+                    onTriggered: {
+                        ChatListModel.deleteChat(delegateRoot.phoneNumber)
+                    }
+                }
+            ]
 
             onClicked: {
                 // mark as read first, so data is correct when the model is initialized. This saves us a model reset

@@ -35,6 +35,7 @@ public:
     Q_SIGNAL void requestLastMessageForNumber(const QString &phoneNumber);
     Q_SIGNAL void requestLastContactedForNumber(const QString &phoneNumber);
     Q_SIGNAL void requestMarkChatAsRead(const QString &phoneNumber);
+    Q_SIGNAL void requestDeleteChat(const QString &phoneNumber);
 
     // Responses
     Q_SIGNAL void messagesFetchedForNumber(const QString &phoneNumber, const QVector<Message> messages);
@@ -55,6 +56,7 @@ private:
     Q_SLOT void lastMessageForNumber(const QString &phoneNumber);
     Q_SLOT void lastContactedForNumber(const QString &phoneNumber);
     Q_SLOT void markChatAsRead(const QString &phoneNumber);
+    Q_SLOT void deleteChat(const QString &phoneNumber);
 
     Database m_database;
 };

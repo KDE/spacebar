@@ -26,6 +26,7 @@ AsyncDatabase::AsyncDatabase()
     connect(this, &AsyncDatabase::requestLastMessageForNumber, this, &AsyncDatabase::lastMessageForNumber);
     connect(this, &AsyncDatabase::requestLastContactedForNumber, this, &AsyncDatabase::lastContactedForNumber);
     connect(this, &AsyncDatabase::requestMarkChatAsRead, this, &AsyncDatabase::markChatAsRead);
+    connect(this, &AsyncDatabase::requestDeleteChat, this, &AsyncDatabase::deleteChat);
 }
 
 void AsyncDatabase::addMessage(const Message &message)
@@ -76,4 +77,9 @@ void AsyncDatabase::lastContactedForNumber(const QString &phoneNumber)
 void AsyncDatabase::markChatAsRead(const QString &phoneNumber)
 {
     m_database.markChatAsRead(phoneNumber);
+}
+
+void AsyncDatabase::deleteChat(const QString &phoneNumber)
+{
+    m_database.deleteChat(phoneNumber);
 }
