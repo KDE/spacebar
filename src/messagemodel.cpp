@@ -5,6 +5,7 @@
 #include "messagemodel.h"
 
 #include <QDebug>
+#include <QFutureWatcher>
 
 #include <qofonomessagemanager.h>
 #include <qofonomanager.h>
@@ -130,8 +131,14 @@ void MessageModel::sendMessage(const QString &text)
     // Add message to model
     addMessage(message);
 
-    connect(&m_handler.msgManager(), &QOfonoMessageManager::sendMessageComplete, this, [=](bool success, const QString& path) {
+    auto *watcher = new QFutureWatcher<std::tuple<bool, QString>>();
+    connect(watcher, &QFutureWatcherBase::finished, this, [=] {
+        const auto result = watcher->result();
+        bool success = std::get<0>(result);
+
         if (success) {
+            const QString& path = std::get<1>(result);
+
             const auto modelIt = std::find_if(m_messages.begin(), m_messages.end(), [&](const Message &message) {
                 return message.id == intermediateId;
             });
@@ -148,10 +155,11 @@ void MessageModel::sendMessage(const QString &text)
             } else {
                 qWarning() << "Failed to find message that was just sent. This is a bug";
             }
-            disconnect(&m_handler.msgManager(), &QOfonoMessageManager::sendMessageComplete, nullptr, nullptr);
         }
+        watcher->deleteLater();
     });
-    m_handler.msgManager().sendMessage(m_phoneNumber, text);
+
+    watcher->setFuture(m_handler.msgManager().sendMessage(m_phoneNumber, text));
 }
 
 void MessageModel::markMessageRead(const int id)

@@ -8,7 +8,8 @@
 #include <databasethread.h>
 
 #include <qofonomanager.h>
-#include <qofonomessagemanager.h>
+
+#include "sofonomessagemanager.h"
 
 class AsyncDatabase;
 
@@ -19,19 +20,12 @@ class ChannelHandler : public QObject
 public:
     explicit ChannelHandler(QObject *parent = nullptr);
 
-    /*
-     * Finds a way to get a channel for the phone number. Either it finds one in the channels that are already open
-     * or creates an new one
-     * emits channelOpen when it finished
-     */
-    void openChannel(const QString &phoneNumber);
-
     AsyncDatabase &database();
-    QOfonoMessageManager &msgManager();
+    SOfonoMessageManager &msgManager();
 
 private:
     DatabaseThread m_databaseThread;
-    QOfonoMessageManager m_msgManager;
+    SOfonoMessageManager m_msgManager;
     QOfonoManager m_manager;
 
 signals:
