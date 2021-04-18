@@ -8,8 +8,10 @@
 #include <QObject>
 #include <QSqlDatabase>
 
+#include <global.h>
+
 struct Message {
-    int id;
+    QString id;
     QString phoneNumber;
     QString text;
     QDateTime datetime;
@@ -37,7 +39,6 @@ public:
     // Messages
     void addMessage(const Message &message);
     QVector<Message> messagesForNumber(const QString &phoneNumber) const;
-    int lastId() const;
     void markMessageDelivered(const int id);
     void markMessageRead(const int id);
 
@@ -48,6 +49,8 @@ public:
     QDateTime lastContactedForNumber(const QString &phoneNumber) const;
     void markChatAsRead(const QString &phoneNumber);
     void deleteChat(const QString &phoneNumber);
+
+    static QString generateRandomId();
 
 private:
     QSqlDatabase m_database;

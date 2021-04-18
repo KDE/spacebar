@@ -1,33 +1,23 @@
-// SPDX-FileCopyrightText: 2020 Jonah Brüchert <jbb@kaidan.im>
+// SPDX-FileCopyrightText: 2021 Jonah Brüchert <jbb@kaidan.im>
 //
 // SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
 
 #pragma once
 
 #include <QObject>
-#include <TelepathyQt/AbstractClientHandler>
-#include <TelepathyQt/Channel>
-#include <TelepathyQt/TextChannel>
-#include <TelepathyQt/Account>
+#include <databasethread.h>
 
-class DatabaseThread;
+#include <qofonomanager.h>
+#include <qofonomessagemanager.h>
+
 class AsyncDatabase;
 
-namespace Tp {
-class PendingChannel;
-class ReceivedMessage;
-}
-
-class ChannelHandler : public QObject, public Tp::AbstractClientHandler
+class ChannelHandler : public QObject
 {
     Q_OBJECT
 
 public:
     explicit ChannelHandler(QObject *parent = nullptr);
-
-    bool bypassApproval() const override { return true; };
-    void handleChannels(const Tp::MethodInvocationContextPtr<> &context, const Tp::AccountPtr &, const Tp::ConnectionPtr &,
-        const QList<Tp::ChannelPtr> &channels, const QList<Tp::ChannelRequestPtr> &, const QDateTime &, const Tp::AbstractClientHandler::HandlerInfo &) override;
 
     /*
      * Finds a way to get a channel for the phone number. Either it finds one in the channels that are already open
@@ -36,16 +26,15 @@ public:
      */
     void openChannel(const QString &phoneNumber);
 
-    AsyncDatabase *database() const;
+    AsyncDatabase &database();
+    QOfonoMessageManager &msgManager();
 
 private:
-
-    QVector<Tp::TextChannelPtr> m_channels;
-    std::optional<Tp::AccountPtr> m_simAccount;
-    DatabaseThread *m_databaseThread;
-    AsyncDatabase *m_database;
+    DatabaseThread m_databaseThread;
+    QOfonoMessageManager m_msgManager;
+    QOfonoManager m_manager;
 
 signals:
     void handlerReady();
-    void channelOpen(Tp::TextChannelPtr pc, const QString &phoneNumber);
+    void channelOpen(const QString &phoneNumber);
 };

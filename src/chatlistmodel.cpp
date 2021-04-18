@@ -1,5 +1,5 @@
 // SPDX-FileCopyrightText: 2020 Anthony Fieroni <bvbfan@abv.bg>
-// SPDX-FileCopyrightText: 2020 Jonah Brüchert <jbb@kaidan.im>
+// SPDX-FileCopyrightText: 2021 Jonah Brüchert <jbb@kaidan.im>
 //
 // SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
 
@@ -10,15 +10,6 @@
 #include <QSqlQuery>
 #include <QStandardPaths>
 #include <QQmlApplicationEngine>
-
-#include <TelepathyQt/Account>
-#include <TelepathyQt/AccountManager>
-#include <TelepathyQt/AccountSet>
-#include <TelepathyQt/PendingChannelRequest>
-#include <TelepathyQt/PendingReady>
-#include <TelepathyQt/PendingChannel>
-#include <TelepathyQt/TextChannel>
-
 #include <KPeople/PersonData>
 
 #include <KContacts/PhoneNumber>
@@ -26,19 +17,18 @@
 #include <phonenumberutils.h>
 
 #include <global.h>
-#include "channelhandler.h"
 #include "messagemodel.h"
 #include "utils.h"
 #include "databasethread.h"
+#include "channelhandler.h"
 
-ChatListModel::ChatListModel(const ChannelHandlerPtr &handler, QObject *parent)
+ChatListModel::ChatListModel(ChannelHandler &handler, QObject *parent)
     : QAbstractListModel(parent)
     , m_handler(handler)
-    , m_database(m_handler->database())
     , m_mapper(ContactPhoneNumberMapper::instance())
 {
     m_mapper.performInitialScan();
-    connect(m_database, &AsyncDatabase::messagesChanged, this, &ChatListModel::fetchChats);
+    connect(&m_handler.database(), &AsyncDatabase::messagesChanged, this, &ChatListModel::fetchChats);
     connect(&m_mapper, &ContactPhoneNumberMapper::contactsChanged, this, [this](const QVector<QString> &affectedNumbers) {
         qDebug() << "New data for" << affectedNumbers;
         for (const auto &number : affectedNumbers) {
@@ -53,26 +43,14 @@ ChatListModel::ChatListModel(const ChannelHandlerPtr &handler, QObject *parent)
         }
     });
 
-    connect(m_handler.data(), &ChannelHandler::handlerReady, this, [this] {
-        m_ready = true;
-        emit readyChanged();
-    });
-
-    connect(m_handler.data(), &ChannelHandler::channelOpen, this, [=](const Tp::TextChannelPtr &channel, const QString &number) {
-        const auto personUri = m_mapper.uriForNumber(number);
-        auto *model = new MessageModel(m_database, number, channel, personUri);
-        Utils::instance()->qmlEngine()->setObjectOwnership(model, QQmlApplicationEngine::JavaScriptOwnership);
-        emit chatStarted(model);
-    });
-
-    connect(m_database, &AsyncDatabase::chatsFetched, this, [this](const QVector<Chat> &chats) {
+    connect(&m_handler.database(), &AsyncDatabase::chatsFetched, this, [this](const QVector<Chat> &chats) {
         beginResetModel();
         m_chats = chats;
         endResetModel();
         emit chatsFetched();
     });
 
-    Q_EMIT m_database->requestChats();
+    Q_EMIT m_handler.database().requestChats();
 }
 
 QHash<int, QByteArray> ChatListModel::roleNames() const
@@ -119,25 +97,20 @@ int ChatListModel::rowCount(const QModelIndex &parent) const
 
 void ChatListModel::startChat(const QString &phoneNumber)
 {
-    m_handler->openChannel(phoneNumber);
+    chatStarted(new MessageModel(m_handler, phoneNumber));
 }
 
 void ChatListModel::markChatAsRead(const QString &phoneNumber)
 {
-    Q_EMIT m_database->requestMarkChatAsRead(phoneNumber);
+    Q_EMIT m_handler.database().requestMarkChatAsRead(phoneNumber);
 }
 
 void ChatListModel::fetchChats()
 {
-    Q_EMIT m_database->requestChats();
+    Q_EMIT m_handler.database().requestChats();
 }
 
 void ChatListModel::deleteChat(const QString &phoneNumber)
 {
-    Q_EMIT m_database->requestDeleteChat(phoneNumber);
-}
-
-bool ChatListModel::ready() const
-{
-    return m_ready;
+    Q_EMIT m_handler.database().requestDeleteChat(phoneNumber);
 }

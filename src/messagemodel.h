@@ -9,17 +9,18 @@
 
 #include <KPeople/PersonData>
 
-#include <TelepathyQt/Channel>
+#include <qofonomessagemanager.h>
 
 #include "database.h"
+
 class AsyncDatabase;
+class ChannelHandler;
 
 class MessageModel : public QAbstractListModel
 {
     Q_OBJECT
     Q_PROPERTY(QString phoneNumber READ phoneNumber NOTIFY phoneNumberChanged)
     Q_PROPERTY(KPeople::PersonData *person READ person NOTIFY personChanged)
-    Q_PROPERTY(bool isReady READ isReady NOTIFY isReady NOTIFY isReadyChanged)
 
 public:
     enum Role {
@@ -33,10 +34,8 @@ public:
     };
     Q_ENUM(Role)
 
-    explicit MessageModel(AsyncDatabase *database,
+    explicit MessageModel(ChannelHandler &handler,
                           const QString &phoneNumber,
-                          const Tp::TextChannelPtr& channel,
-                          const QString &personUri = {},
                           QObject *parent = nullptr);
 
     QHash<int, QByteArray> roleNames() const override;
@@ -66,20 +65,15 @@ public:
      */
     Q_INVOKABLE void markMessageRead(const int id);
 
-    bool isReady() const;
-
 private:
-    AsyncDatabase *m_database;
+    ChannelHandler &m_handler;
     QVector<Message> m_messages;
-    Tp::TextChannelPtr m_channel;
 
     // properties
     QString m_phoneNumber;
     KPeople::PersonData *m_personData;
-    bool m_isReady = false;
 
 signals:
     void phoneNumberChanged();
     void personChanged();
-    void isReadyChanged();
 };

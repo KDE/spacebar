@@ -2,10 +2,10 @@ set(spacebar_SRCS
     chatlistmodel.cpp
     main.cpp
     messagemodel.cpp
-    channelhandler.cpp
     utils.cpp
     databasethread.cpp
     asyncdatabase.cpp
+    channelhandler.cpp
     resources.qrc
 )
 
@@ -18,11 +18,12 @@ target_link_libraries(spacebar
     Qt5::Quick
     Qt5::Sql
     Qt5::Widgets
+    Qt5::DBus
     KF5::I18n
     KF5::People
     KF5::PeopleBackend
     KF5::Contacts
-    TelepathyQt5::Core
+    PkgConfig::QOfono
     database
     kTelephonySupport
     macros

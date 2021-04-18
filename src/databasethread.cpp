@@ -22,7 +22,7 @@ DatabaseThread::~DatabaseThread()
     wait();
 }
 
-AsyncDatabase *DatabaseThread::database()
+AsyncDatabase &DatabaseThread::database()
 {
-    return &m_database;
+    return m_database;
 }

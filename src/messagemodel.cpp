@@ -6,50 +6,42 @@
 
 #include <QDebug>
 
-#include <TelepathyQt/PendingReady>
-#include <TelepathyQt/TextChannel>
-#include <TelepathyQt/Message>
+#include <qofonomessagemanager.h>
+#include <qofonomanager.h>
+#include <qofonomessage.h>
+
+#include <phonenumberutils.h>
 
 #include <global.h>
-#include "asyncdatabase.h"
+#include <contactphonenumbermapper.h>
 
-MessageModel::MessageModel(AsyncDatabase *database, const QString &phoneNumber, const Tp::TextChannelPtr &channel, const QString &personUri, QObject *parent)
+#include "asyncdatabase.h"
+#include "channelhandler.h"
+
+MessageModel::MessageModel(ChannelHandler &handler, const QString &phoneNumber, QObject *parent)
     : QAbstractListModel(parent)
-    , m_database(database)
-    , m_channel(channel)
+    , m_handler(handler)
     , m_phoneNumber(phoneNumber)
-    , m_personData(new KPeople::PersonData(personUri, this))
+    , m_personData(new KPeople::PersonData(ContactPhoneNumberMapper::instance().uriForNumber(phoneNumber), this))
 {
-    connect(channel.data(), &Tp::TextChannel::messageReceived, this, [=](const Tp::ReceivedMessage &receivedMessage){
-        if (receivedMessage.isDeliveryReport()) {
-            qDebug() << "received delivery report";
-            // TODO: figure out correct ID and mark it as delivered.
-            return;
+    connect(&m_handler.msgManager(), &QOfonoMessageManager::incomingMessage, this, [=](const QString &text, const QVariantMap &info) {
+        if (PhoneNumberUtils::normalize(info[SL("Sender")].toString()) != m_phoneNumber) {
+            return; // Message is not for this model
         }
         Message message;
         // message.id = m_database->lastId() + 1; FIXME, we don't know the id so this message will not be marked as read.
         message.read = false;
-        message.text = receivedMessage.text();
-        message.datetime = receivedMessage.received();
+        message.text = text;
+        message.datetime = info[SL("SentTime")].toDateTime();
         message.sentByMe = false;
         message.delivered = true; // If it arrived here, it was
-        message.phoneNumber = receivedMessage.sender()->id();
-        qDebug() << "Received from id" << receivedMessage.sender()->id();
+        message.phoneNumber = info[SL("Sender")].toString();
+
+        qDebug() << "Received from id" << message.phoneNumber;
         addMessage(message);
     });
 
-    connect(m_channel->becomeReady(), &Tp::PendingReady::finished, this, [=](Tp::PendingOperation *op) {
-        if (op->isError()) {
-            qDebug() << "channel not ready" << op->errorMessage();
-            return;
-        }
-
-        m_isReady = true;
-        qDebug() << "channel is now officially ready";
-        emit isReadyChanged();
-    });
-
-    connect(m_database, &AsyncDatabase::messagesFetchedForNumber,
+    connect(&m_handler.database(), &AsyncDatabase::messagesFetchedForNumber,
             this, [this](const QString &phoneNumber, const QVector<Message> &messages) {
         if (phoneNumber == m_phoneNumber) {
             beginResetModel();
@@ -58,7 +50,7 @@ MessageModel::MessageModel(AsyncDatabase *database, const QString &phoneNumber, 
         }
     });
 
-    Q_EMIT m_database->requestMessagesForNumber(m_phoneNumber);
+    Q_EMIT m_handler.database().requestMessagesForNumber(m_phoneNumber);
 }
 
 QHash<int, QByteArray> MessageModel::roleNames() const
@@ -124,55 +116,45 @@ void MessageModel::addMessage(const Message &message)
 
 void MessageModel::sendMessage(const QString &text)
 {
-    auto *op = m_channel->send(text, Tp::ChannelTextMessageTypeNormal, {});
+    QString intermediateId = Database::generateRandomId();
 
-    connect(m_database, &AsyncDatabase::lastIdFetched, this, [=](const int lastId) {
-        Message message;
-        message.id = lastId;
-        message.phoneNumber = m_phoneNumber;
-        message.text = text;
-        message.datetime = QDateTime::currentDateTime(); // NOTE: there is also tpMessage.sent(), doesn't seem to return a proper time, but maybe a backend bug?
-        message.read = true; // Messages sent by us are automatically read.
-        message.sentByMe = true; // only called if message sent by us.
-        message.delivered = false; // if this signal is called, the message was delivered.
+    Message message;
+    message.id = intermediateId;
+    message.phoneNumber = m_phoneNumber;
+    message.text = text;
+    message.datetime = QDateTime::currentDateTime(); // NOTE: there is also tpMessage.sent(), doesn't seem to return a proper time, but maybe a backend bug?
+    message.read = true; // Messages sent by us are automatically read.
+    message.sentByMe = true; // only called if message sent by us.
+    message.delivered = false; // if this signal is called, the message was delivered.
 
-        // Add message to model
-        addMessage(message);
+    // Add message to model
+    addMessage(message);
 
-        connect(op, &Tp::PendingOperation::finished, this, [=]() {
-            qDebug() << "Message sent";
-            //auto tpMessage = op->message(); // NOTE: This exists. We don't need it right now though.
-            Q_EMIT m_database->requestMarkMessageDelivered(message.id); // TODO DAEMON
-
-            const auto sentMessageIt = std::find_if(m_messages.begin(), m_messages.end(), [&message](const Message &chatMessage) {
-                return chatMessage.id == message.id;
+    connect(&m_handler.msgManager(), &QOfonoMessageManager::sendMessageComplete, this, [=](bool success, const QString& path) {
+        if (success) {
+            const auto modelIt = std::find_if(m_messages.begin(), m_messages.end(), [&](const Message &message) {
+                return message.id == intermediateId;
             });
 
-            // every sent message should be in the history
-            Q_ASSERT(sentMessageIt != m_messages.end());
+            if (modelIt != m_messages.cend()) {
+                modelIt->id = path;
+                modelIt->delivered = true;
 
-            sentMessageIt->delivered = true;
+                const int i = std::distance(m_messages.begin(), modelIt);
 
-            auto modelIndex = index(std::distance(m_messages.begin(), sentMessageIt));
+                dataChanged(index(i), index(i), {Role::DeliveredRole});
 
-            // to check the distance
-            Q_ASSERT(modelIndex.data(MessageModel::TextRole).toString() == sentMessageIt->text);
-
-            disconnect(op, &Tp::PendingOperation::finished, this, nullptr);
-            emit dataChanged(modelIndex, modelIndex, {Role::DeliveredRole});
-        });
-        disconnect(m_database, &AsyncDatabase::lastIdFetched, this, nullptr);
+                m_handler.database().requestAddMessage(*modelIt);
+            } else {
+                qWarning() << "Failed to find message that was just sent. This is a bug";
+            }
+            disconnect(&m_handler.msgManager(), &QOfonoMessageManager::sendMessageComplete, nullptr, nullptr);
+        }
     });
-
-    Q_EMIT m_database->requestLastId();
+    m_handler.msgManager().sendMessage(m_phoneNumber, text);
 }
 
 void MessageModel::markMessageRead(const int id)
 {
-    Q_EMIT m_database->requestMarkMessageRead(id);  // TODO DAEMON
-}
-
-bool MessageModel::isReady() const
-{
-    return m_isReady;
+    Q_EMIT m_handler.database().requestMarkMessageRead(id);
 }

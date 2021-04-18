@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2020 Jonah Brüchert <jbb@kaidan.im>
+// SPDX-FileCopyrightText: 2021 Jonah Brüchert <jbb@kaidan.im>
 //
 // SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
 
@@ -9,19 +9,14 @@
 #include <QObject>
 #include <QSqlDatabase>
 
-#include <TelepathyQt/Account>
-#include <TelepathyQt/TextChannel>
-#include <TelepathyQt/SharedPtr>
-
 #include <contactphonenumbermapper.h>
 #include "database.h"
 #include "global.h"
+#include "databasethread.h"
 
 class MessageModel;
 class ChannelHandler;
 class AsyncDatabase;
-
-using ChannelHandlerPtr = Tp::SharedPtr<ChannelHandler>;
 
 struct ChatData {
     QString displayName;
@@ -34,8 +29,6 @@ class ChatListModel : public QAbstractListModel
 {
     Q_OBJECT
 
-    Q_PROPERTY(bool ready READ ready NOTIFY readyChanged)
-
 public:
     enum Role {
         DisplayNameRole = Qt::UserRole + 1,
@@ -47,7 +40,7 @@ public:
     };
     Q_ENUM(Role)
 
-    explicit ChatListModel(const ChannelHandlerPtr &handler, QObject *parent = nullptr);
+    explicit ChatListModel(ChannelHandler &handler, QObject *parent = nullptr);
 
     QHash<int, QByteArray> roleNames() const override;
     QVariant data(const QModelIndex &index, int role) const override;
@@ -64,16 +57,13 @@ public slots:
 
 signals:
     void chatStarted(MessageModel* messageModel);
-    void startingChatFailed(const QString &errorMessage);
+    void startingChatFaild(const QString &errorMessage);
 
     void readyChanged();
     void chatsFetched();
 
 private:
-    ChannelHandlerPtr m_handler;
-    AsyncDatabase *m_database;
+    ChannelHandler &m_handler;
     QVector<Chat> m_chats;
     ContactPhoneNumberMapper &m_mapper;
-    Tp::AccountPtr m_simAccount;
-    bool m_ready;
 };

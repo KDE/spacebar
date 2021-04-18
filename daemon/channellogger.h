@@ -5,42 +5,26 @@
 #pragma once
 
 #include <QObject>
-#include <TelepathyQt/AbstractClientHandler>
-#include <TelepathyQt/Channel>
-#include <TelepathyQt/TextChannel>
-#include <TelepathyQt/Account>
-#include <TelepathyQt/Types>
 
-#include "database.h"
+#include <qofonomanager.h>
+#include <qofonomessagemanager.h>
 
-namespace Tp {
-class PendingChannel;
-class ReceivedMessage;
-}
+#include <database.h>
 
-class ChannelLogger : public QObject, public Tp::AbstractClientObserver
+class ChannelLogger : public QObject
 {
     Q_OBJECT
 
 public:
     explicit ChannelLogger(QObject *parent = nullptr);
 
-
-    void observeChannels(const Tp::MethodInvocationContextPtr<> &context,
-            const Tp::AccountPtr &account,
-            const Tp::ConnectionPtr &connection,
-            const QList<Tp::ChannelPtr> &channels,
-            const Tp::ChannelDispatchOperationPtr &dispatchOperation,
-            const QList<Tp::ChannelRequestPtr> &requestsSatisfied,
-            const ObserverInfo &observerInfo) override;
-
 private:
-    void handleIncomingMessage(const Tp::TextChannelPtr&, const Tp::ReceivedMessage &receivedMessage);
-    void handleOutgoingMessage(Tp::TextChannelPtr channel, const Tp::Message &sentMessage);
+    void handleIncomingMessage(const QString &text, const QVariantMap &info);
 
-    QVector<Tp::TextChannelPtr> m_channels;
-    Tp::AccountPtr m_simAccount;
-    Database *m_database;
+    Database m_database;
+
+    QOfonoManager m_manager;
+    QOfonoMessageManager m_msgManager;
 
 signals:
     void handlerReady();

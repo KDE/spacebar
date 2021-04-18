@@ -8,7 +8,7 @@
 
 QString PhoneNumberUtils::normalize(const QString &phoneNumber)
 {
-    const QString normalized = KContacts::PhoneNumber(phoneNumber).normalizedNumber();
+    QString normalized = KContacts::PhoneNumber(phoneNumber).normalizedNumber();
     // "Number" is probably a string, which should be kept intact
     if (normalized.isEmpty()) {
         return phoneNumber;

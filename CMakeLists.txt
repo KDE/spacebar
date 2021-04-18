@@ -12,7 +12,7 @@ include(FeatureSummary)
 
 ################# set KDE specific information #################
 find_package(ECM 0.0.8 REQUIRED NO_MODULE)
-find_package(TelepathyQt5 REQUIRED)
+find_package(PkgConfig)
 
 # where to look first for cmake modules, before ${CMAKE_ROOT}/Modules/ is checked
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${ECM_MODULE_PATH})
@@ -27,6 +27,7 @@ include(ECMPoQmTools)
 ################# Find dependencies #################
 find_package(Qt5 ${QT_MIN_VERSION} REQUIRED COMPONENTS Core Gui Qml Quick Widgets Sql)
 find_package(KF5 ${KF5_MIN_VERSION} REQUIRED COMPONENTS Kirigami2 I18n People Contacts Notifications)
+pkg_search_module(QOfono REQUIRED IMPORTED_TARGET qofono-qt5)
 
 ################# build and install #################
 add_subdirectory(lib)

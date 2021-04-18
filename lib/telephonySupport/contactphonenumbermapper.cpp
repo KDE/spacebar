@@ -34,7 +34,7 @@ void ContactPhoneNumberMapper::processRows(const int first, const int last)
         const auto personUri = m_model->data(index, KPeople::PersonsModel::PersonUriRole).toString();
 
         for (const auto &number : phoneNumbers) {
-            const auto normalizedNumber = PhoneNumberUtils::normalize(number);
+            auto normalizedNumber = PhoneNumberUtils::normalize(number);
             m_numberToUri[normalizedNumber] = personUri;
             affectedNumbers.append(std::move(normalizedNumber));
         }

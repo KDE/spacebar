@@ -11,7 +11,7 @@ import org.kde.spacebar 1.0
 
 Kirigami.ScrollablePage {
     id: chatPage
-    title: ChatListModel.ready ? i18n("Chats") : i18n("Loading...")
+    title: i18n("Chats")
     supportsRefreshing: true
     actions {
         main: Kirigami.Action {

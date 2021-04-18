@@ -17,12 +17,6 @@ Kirigami.ScrollablePage {
     title: messageModel.person.name || messageModel.person.phoneNumber || messageModel.phoneNumber
     property MessageModel messageModel;
 
-    Controls.BusyIndicator {
-        anchors.centerIn: parent
-        running: !messageModel.isReady
-        visible: !messageModel.isReady
-    }
-
     ListView {
         id: listView
         model: messageModel

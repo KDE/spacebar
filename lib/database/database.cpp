@@ -11,6 +11,8 @@
 #include <QSqlQuery>
 #include <QStandardPaths>
 
+#include <random>
+
 #include "global.h"
 
 enum Column {
@@ -41,6 +43,13 @@ Database::Database(QObject *parent)
 
     QSqlQuery createTable(m_database);
     createTable.exec(SL("CREATE TABLE IF NOT EXISTS Messages (id INTEGER, phoneNumber TEXT, text TEXT, time DATETIME, read BOOLEAN, delivered BOOLEAN, sentByMe BOOLEAN)"));
+
+    QSqlQuery migrateV1(m_database);
+    migrateV1.exec(SL("CREATE TABLE temp_table AS SELECT * FROM Messages"));
+    migrateV1.exec(SL("DROP TABLE Messages"));
+    migrateV1.exec(SL("CREATE TABLE IF NOT EXISTS Messages (id TEXT, phoneNumber TEXT, text TEXT, time DATETIME, read BOOLEAN, delivered BOOLEAN, sentByMe BOOLEAN)"));
+    migrateV1.exec(SL("INSERT INTO Messages SELECT * FROM temp_table"));
+    migrateV1.exec(SL("DROP TABLE temp_table"));
 }
 
 QVector<Message> Database::messagesForNumber(const QString &phoneNumber) const
@@ -66,16 +75,6 @@ QVector<Message> Database::messagesForNumber(const QString &phoneNumber) const
     }
 
     return messages;
-}
-
-int Database::lastId() const
-{
-    QSqlQuery fetch(m_database);
-    fetch.prepare(SL("SELECT id FROM Messages ORDER BY id DESC LIMIT 1"));
-    fetch.exec();
-    fetch.first();
-
-    return fetch.value(0).toInt();
 }
 
 void Database::markMessageDelivered(const int id)
@@ -187,4 +186,13 @@ void Database::addMessage(const Message &message)
     putCall.exec();
 
     qDebug() << "WRITING TOOK TIME" << QTime::currentTime().msecsSinceStartOfDay() - before;
+}
+
+QString Database::generateRandomId()
+{
+    QString intermediateId = SL("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890");
+    std::shuffle(intermediateId.begin(), intermediateId.end(), std::mt19937(std::random_device()()));
+    intermediateId.truncate(10);
+
+    return intermediateId;
 }

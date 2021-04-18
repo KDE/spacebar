@@ -19,7 +19,7 @@ public:
     explicit DatabaseThread(QObject *parent = nullptr);
     ~DatabaseThread();
 
-    AsyncDatabase *database();
+    AsyncDatabase &database();
 
 private:
     AsyncDatabase m_database;

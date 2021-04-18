@@ -8,9 +8,10 @@ target_compile_definitions(spacebar-daemon PRIVATE -DQT_NO_CAST_FROM_ASCII)
 target_link_libraries(spacebar-daemon
     Qt5::Core
     Qt5::Sql
+    Qt5::DBus
     KF5::I18n
     KF5::Notifications
-    TelepathyQt5::Core
+    PkgConfig::QOfono
     database
     kTelephonySupport
     macros
