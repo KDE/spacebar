@@ -133,9 +133,11 @@ void MessageModel::sendMessage(const QString &text)
     // Add message to model
     addMessage(message);
 
-    QSharedPointer<QFutureWatcher<std::pair<bool, QString>>> watcher(
+    std::shared_ptr<QFutureWatcher<std::pair<bool, QString>>> watcher(
                 new QFutureWatcher<std::pair<bool, QString>>(),
-                &QObject::deleteLater);
+                [](auto *watcher) {
+        watcher->deleteLater();
+    });
     connect(watcher.get(), &QFutureWatcherBase::finished, this, [=] {
         const auto result = watcher->result();
         bool success = result.first;
