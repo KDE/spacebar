@@ -6,6 +6,7 @@
 
 #include <QDebug>
 #include <QFutureWatcher>
+#include <QSharedPointer>
 
 #include <qofonomessagemanager.h>
 #include <qofonomanager.h>
@@ -132,8 +133,10 @@ void MessageModel::sendMessage(const QString &text)
     // Add message to model
     addMessage(message);
 
-    auto *watcher = new QFutureWatcher<std::pair<bool, QString>>();
-    connect(watcher, &QFutureWatcherBase::finished, this, [=] {
+    QSharedPointer<QFutureWatcher<std::pair<bool, QString>>> watcher(
+                new QFutureWatcher<std::pair<bool, QString>>(),
+                &QObject::deleteLater);
+    connect(watcher.get(), &QFutureWatcherBase::finished, this, [=] {
         const auto result = watcher->result();
         bool success = result.first;
 
@@ -173,7 +176,6 @@ void MessageModel::sendMessage(const QString &text)
                 qWarning() << "Failed to find message that was just sent. This is a bug";
             }
         }
-        watcher->deleteLater();
     });
 
     watcher->setFuture(m_handler.msgManager().sendMessage(m_phoneNumber, text));
