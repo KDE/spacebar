@@ -50,7 +50,7 @@ Kirigami.ScrollablePage {
     Kirigami.PlaceholderMessage {
         anchors.centerIn: parent
         text: i18n("No contacts with phone numbers yet")
-        visible: contactsList.count === 0
+        visible: contactsProxyModel.rowCount() === 0
         helpfulAction: Kirigami.Action {
             text: i18n("Open contacts app")
             onTriggered: Utils.launchPhonebook()
