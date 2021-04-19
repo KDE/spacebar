@@ -7,6 +7,7 @@
 #include <QDateTime>
 #include <QObject>
 #include <QSqlDatabase>
+#include <QSqlQuery>
 
 #include <global.h>
 
@@ -74,7 +75,13 @@ public:
 
     static QString generateRandomId();
 
+    static void exec(QSqlQuery &query);
+
 private:
+    void migrationV1(uint current);
+    void migrationV2(uint current);
+    void migrate();
+
     QSqlDatabase m_database;
 
 signals:
