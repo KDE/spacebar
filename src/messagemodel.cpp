@@ -19,6 +19,7 @@
 #include "asyncdatabase.h"
 #include "channelhandler.h"
 
+
 MessageModel::MessageModel(ChannelHandler &handler, const QString &phoneNumber, QObject *parent)
     : QAbstractListModel(parent)
     , m_handler(handler)
@@ -33,9 +34,9 @@ MessageModel::MessageModel(ChannelHandler &handler, const QString &phoneNumber, 
         // message.id = m_database->lastId() + 1; FIXME, we don't know the id so this message will not be marked as read.
         message.read = false;
         message.text = text;
-        message.datetime = info[SL("SentTime")].toDateTime();
+        message.datetime = QDateTime::fromString(info[SL("SentTime")].toString(), Qt::ISODate);
         message.sentByMe = false;
-        message.delivered = true; // If it arrived here, it was
+        message.deliveryStatus = MessageState::Received; // If it arrived here, it was
         message.phoneNumber = info[SL("Sender")].toString();
 
         qDebug() << "Received from id" << message.phoneNumber;
@@ -62,7 +63,7 @@ QHash<int, QByteArray> MessageModel::roleNames() const
         {Role::DateRole, BL("date")},
         {Role::SentByMeRole, BL("sentByMe")},
         {Role::ReadRole, BL("read")},
-        {Role::DeliveredRole, BL("delivered")},
+        {Role::DeliveryStateRole, BL("deliveryState")},
         {Role::IdRole, BL("id")}
     };
 }
@@ -84,8 +85,8 @@ QVariant MessageModel::data(const QModelIndex &index, int role) const
         return m_messages.at(index.row()).sentByMe;
     case Role::ReadRole:
         return m_messages.at(index.row()).read;
-    case Role::DeliveredRole:
-        return m_messages.at(index.row()).delivered;
+    case Role::DeliveryStateRole:
+        return DeliveryState(m_messages.at(index.row()).deliveryStatus);
     case Role::IdRole:
         return m_messages.at(index.row()).id;
     }
@@ -126,7 +127,7 @@ void MessageModel::sendMessage(const QString &text)
     message.datetime = QDateTime::currentDateTime(); // NOTE: there is also tpMessage.sent(), doesn't seem to return a proper time, but maybe a backend bug?
     message.read = true; // Messages sent by us are automatically read.
     message.sentByMe = true; // only called if message sent by us.
-    message.delivered = false; // if this signal is called, the message was delivered.
+    message.deliveryStatus = MessageState::Unknown; // if this signal is called, the message was delivered.
 
     // Add message to model
     addMessage(message);
@@ -137,7 +138,7 @@ void MessageModel::sendMessage(const QString &text)
         bool success = std::get<0>(result);
 
         if (success) {
-            const QString& path = std::get<1>(result);
+            const QString &path = std::get<1>(result);
 
             const auto modelIt = std::find_if(m_messages.begin(), m_messages.end(), [&](const Message &message) {
                 return message.id == intermediateId;
@@ -145,13 +146,28 @@ void MessageModel::sendMessage(const QString &text)
 
             if (modelIt != m_messages.cend()) {
                 modelIt->id = path;
-                modelIt->delivered = true;
 
                 const int i = std::distance(m_messages.begin(), modelIt);
 
-                dataChanged(index(i), index(i), {Role::DeliveredRole});
-
                 m_handler.database().requestAddMessage(*modelIt);
+
+                const auto ofonoMessage = std::make_shared<QOfonoMessage>();
+                ofonoMessage->setMessagePath(path);
+
+                // Message can already be sent and deleted here, happpens with phonesim
+                if (!ofonoMessage->isValid()) {
+                    modelIt->deliveryStatus = MessageState::Sent;
+                    Q_EMIT m_handler.database().requestUpdateMessageDeliveryState(path, MessageState::Sent);
+                    Q_EMIT dataChanged(index(i), index(i), {Role::DeliveryStateRole});
+                }
+
+                connect(ofonoMessage.get(), &QOfonoMessage::stateChanged, this, [=] {
+                    MessageState state = parseMessageState(ofonoMessage->state());
+                    qDebug() << "state" << state;
+                    modelIt->deliveryStatus = state;
+                    Q_EMIT m_handler.database().requestUpdateMessageDeliveryState(path, state);
+                    Q_EMIT dataChanged(index(i), index(i), {Role::DeliveryStateRole});
+                });
             } else {
                 qWarning() << "Failed to find message that was just sent. This is a bug";
             }

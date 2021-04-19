@@ -10,6 +10,11 @@
 
 class QDBusPendingCallWatcher;
 
+///
+/// Slightly improved API for QOfonoMessageManager
+///
+/// Allows to react to successful sending of a specific message
+///
 class SOfonoMessageManager : public QOfonoMessageManager
 {
     Q_OBJECT

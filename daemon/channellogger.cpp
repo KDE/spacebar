@@ -32,8 +32,9 @@ void ChannelLogger::handleIncomingMessage(const QString &text, const QVariantMap
     Message message;
     message.text = text;
     message.sentByMe = false; // SMS doesn't have any kind of synchronization, so received messages are always from the chat partner.
-    message.datetime = info[SL("SentTime")].toDateTime();
-    message.delivered = true; // It arrived, soo
+    message.datetime = QDateTime::fromString(info[SL("SentTime")].toString(), Qt::ISODate);
+    qDebug() << info[SL("SentTime")].toString() << message.datetime;
+    message.deliveryStatus =  MessageState::Received; // It arrived, soo
     message.phoneNumber = PhoneNumberUtils::normalize(info[SL("Sender")].toString());
     message.id = Database::generateRandomId();
     message.read = false;

@@ -94,8 +94,25 @@ Kirigami.ScrollablePage {
                             Layout.alignment: Qt.AlignRight
                             implicitHeight: Math.round(Kirigami.Units.gridUnit * 0.7)
                             implicitWidth: implicitHeight
-                            source: visible ? "answer-correct" : undefined
-                            visible: model.delivered && model.sentByMe
+                            source: {
+                                if (visible) {
+                                    print(model.deliveryState)
+                                    switch (model.deliveryState) {
+                                    case MessageModel.Unknown:
+                                        return undefined;
+                                    case MessageModel.Pending:
+                                        return "content-loading-symbolic";
+                                    case MessageModel.Sent:
+                                        return "answer-correct";
+                                    case MessageModel.Failed:
+                                        return "error"
+                                    }
+                                }
+
+                                return undefined
+                            }
+
+                            visible: model.sentByMe
                             color: content.textColor
                         }
                         Controls.Label {

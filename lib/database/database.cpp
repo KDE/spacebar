@@ -21,7 +21,7 @@ enum Column {
     Text,
     DateTime,
     Read,
-    Delivered,
+    DeliveryState,
     SentByMe
 };
 
@@ -47,7 +47,7 @@ Database::Database(QObject *parent)
     QSqlQuery migrateV1(m_database);
     migrateV1.exec(SL("CREATE TABLE temp_table AS SELECT * FROM Messages"));
     migrateV1.exec(SL("DROP TABLE Messages"));
-    migrateV1.exec(SL("CREATE TABLE IF NOT EXISTS Messages (id TEXT, phoneNumber TEXT, text TEXT, time DATETIME, read BOOLEAN, delivered BOOLEAN, sentByMe BOOLEAN)"));
+    migrateV1.exec(SL("CREATE TABLE IF NOT EXISTS Messages (id TEXT, phoneNumber TEXT, text TEXT, time DATETIME, read BOOLEAN, delivered INTEGER, sentByMe BOOLEAN)"));
     migrateV1.exec(SL("INSERT INTO Messages SELECT * FROM temp_table"));
     migrateV1.exec(SL("DROP TABLE temp_table"));
 }
@@ -57,7 +57,7 @@ QVector<Message> Database::messagesForNumber(const QString &phoneNumber) const
     QVector<Message> messages;
 
     QSqlQuery fetch(m_database);
-    fetch.prepare(SL("SELECT id, phoneNumber, text, time, read, delivered, sentByMe FROM Messages WHERE phoneNumber == :phoneNumber ORDER BY id DESC"));
+    fetch.prepare(SL("SELECT id, phoneNumber, text, time, read, delivered, sentByMe FROM Messages WHERE phoneNumber == :phoneNumber ORDER BY time DESC"));
     fetch.bindValue(SL(":phoneNumber"), phoneNumber);
     fetch.exec();
 
@@ -68,20 +68,23 @@ QVector<Message> Database::messagesForNumber(const QString &phoneNumber) const
         message.text = fetch.value(Column::Text).toString();
         message.datetime = QDateTime::fromMSecsSinceEpoch(fetch.value(Column::DateTime).value<quint64>());
         message.read = fetch.value(Column::Read).toBool();
-        message.delivered = fetch.value(Column::Delivered).toBool();
+        qDebug() << "delivery" << fetch.value(Column::DeliveryState);
+        message.deliveryStatus = fetch.value(Column::DeliveryState).value<MessageState>();
         message.sentByMe = fetch.value(Column::SentByMe).toBool();
 
-        messages.append(message);
+        messages.append(std::move(message));
     }
 
     return messages;
 }
 
-void Database::markMessageDelivered(const int id)
+void Database::updateMessageDeliveryState(const QString &id, const MessageState state)
 {
+    qDebug() << "Mark as delivered" << id << state;
     QSqlQuery put(m_database);
-    put.prepare(SL("UPDATE Messages SET delivered = True WHERE id == :id AND NOT delivered = True"));
+    put.prepare(SL("UPDATE Messages SET delivered = :state WHERE id == :id"));
     put.bindValue(SL(":id"), id);
+    put.bindValue(SL(":state"), state);
     put.exec();
 }
 
@@ -182,7 +185,7 @@ void Database::addMessage(const Message &message)
     putCall.bindValue(SL(":time"), message.datetime.toMSecsSinceEpoch());
     putCall.bindValue(SL(":read"), message.read);
     putCall.bindValue(SL(":sentByMe"), message.sentByMe);
-    putCall.bindValue(SL(":delivered"), message.delivered);
+    putCall.bindValue(SL(":delivered"), message.deliveryStatus);
     putCall.exec();
 
     qDebug() << "WRITING TOOK TIME" << QTime::currentTime().msecsSinceStartOfDay() - before;

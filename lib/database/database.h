@@ -10,6 +10,28 @@
 
 #include <global.h>
 
+
+enum MessageState {
+    Unknown = false,
+    Sent = true,
+    Pending,
+    Failed,
+    Received
+};
+Q_DECLARE_METATYPE(MessageState);
+
+inline MessageState parseMessageState(const QString &state) {
+    if (state == SL("pending")) {
+        return MessageState::Pending;
+    } else if (state == SL("sent")) {
+        return MessageState::Sent;
+    } else if (state == SL("failed")) {
+        return MessageState::Failed;
+    }
+
+    Q_UNREACHABLE();
+};
+
 struct Message {
     QString id;
     QString phoneNumber;
@@ -17,7 +39,7 @@ struct Message {
     QDateTime datetime;
     bool read;
     bool sentByMe;
-    bool delivered;
+    MessageState deliveryStatus;
 };
 Q_DECLARE_METATYPE(Message);
 
@@ -39,7 +61,7 @@ public:
     // Messages
     void addMessage(const Message &message);
     QVector<Message> messagesForNumber(const QString &phoneNumber) const;
-    void markMessageDelivered(const int id);
+    void updateMessageDeliveryState(const QString &id, const MessageState state);
     void markMessageRead(const int id);
 
     // Chats

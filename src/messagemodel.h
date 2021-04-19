@@ -29,10 +29,19 @@ public:
         TimeRole,
         SentByMeRole,
         ReadRole,
-        DeliveredRole,
+        DeliveryStateRole,
         IdRole
     };
     Q_ENUM(Role)
+
+    enum DeliveryState {
+        Unknown = MessageState::Unknown,
+        Pending = MessageState::Pending,
+        Sent = MessageState::Sent,
+        Failed = MessageState::Failed,
+        Received = MessageState::Received
+    };
+    Q_ENUM(DeliveryState)
 
     explicit MessageModel(ChannelHandler &handler,
                           const QString &phoneNumber,

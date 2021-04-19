@@ -11,13 +11,14 @@ AsyncDatabase::AsyncDatabase()
     qRegisterMetaType<Chat>();
     qRegisterMetaType<QVector<Chat>>();
     qRegisterMetaType<QVector<Message>>();
+    qRegisterMetaType<MessageState>();
 
     // Forward messagesChanged signal
     connect(&m_database, &Database::messagesChanged, this, &AsyncDatabase::messagesChanged);
 
     // Connect requests to slots
     connect(this, &AsyncDatabase::requestAddMessage, this, &AsyncDatabase::addMessage);
-    connect(this, &AsyncDatabase::requestMarkMessageDelivered, this, &AsyncDatabase::markMessageDelivered);
+    connect(this, &AsyncDatabase::requestUpdateMessageDeliveryState, this, &AsyncDatabase::updateMessageDeliveryState);
     connect(this, &AsyncDatabase::requestMarkMessageRead, this, &AsyncDatabase::markMessageRead);
     connect(this, &AsyncDatabase::requestMessagesForNumber, this, &AsyncDatabase::messagesForNumber);
     connect(this, &AsyncDatabase::requestChats, this, &AsyncDatabase::chats);
@@ -38,9 +39,9 @@ void AsyncDatabase::messagesForNumber(const QString &phoneNumber)
     Q_EMIT messagesFetchedForNumber(phoneNumber, m_database.messagesForNumber(phoneNumber));
 }
 
-void AsyncDatabase::markMessageDelivered(const int id)
+void AsyncDatabase::updateMessageDeliveryState(const QString &id, const MessageState state)
 {
-    m_database.markMessageDelivered(id);
+    m_database.updateMessageDeliveryState(id, state);
 }
 
 void AsyncDatabase::markMessageRead(const int id)
