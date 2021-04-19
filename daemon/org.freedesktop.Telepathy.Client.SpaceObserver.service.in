@@ -1,3 +1,0 @@
-[D-BUS Service]
-Name=org.freedesktop.Telepathy.Client.SpaceObserver
-Exec=@CMAKE_INSTALL_FULL_LIBEXECDIR@/spacebar-daemon
