@@ -22,5 +22,5 @@ class SOfonoMessageManager : public QOfonoMessageManager
 public:
     SOfonoMessageManager(QObject *parent = nullptr);
 
-    QFuture<std::tuple<bool, QString>> sendMessage(const QString &to, const QString &text);
+    QFuture<std::pair<bool, QString>> sendMessage(const QString &to, const QString &text);
 };

@@ -13,9 +13,9 @@ SOfonoMessageManager::SOfonoMessageManager(QObject *parent)
 {
 }
 
-QFuture<std::tuple<bool, QString>> SOfonoMessageManager::sendMessage(const QString &to, const QString &text)
+QFuture<std::pair<bool, QString>> SOfonoMessageManager::sendMessage(const QString &to, const QString &text)
 {
-    const auto futureInterface = std::make_shared<QFutureInterface<std::tuple<bool, QString>>>();
+    const auto futureInterface = std::make_shared<QFutureInterface<std::pair<bool, QString>>>();
 
     auto *iface = dbusInterface();
     if (iface) {
@@ -26,15 +26,15 @@ QFuture<std::tuple<bool, QString>> SOfonoMessageManager::sendMessage(const QStri
                 QDBusPendingReply<QDBusObjectPath> reply = *watcher;
                 if (reply.isError()) {
                     qWarning() << reply.error();
-                    futureInterface->reportResult(std::make_tuple(false, QString()));
+                    futureInterface->reportResult(std::make_pair(false, QString()));
                     futureInterface->reportFinished();
                 } else {
-                    futureInterface->reportResult(std::make_tuple(true, reply.value().path()));
+                    futureInterface->reportResult(std::make_pair(true, reply.value().path()));
                     futureInterface->reportFinished();
                 }
         });
     } else {
-        futureInterface->reportResult(std::make_tuple(false, QString()));
+        futureInterface->reportResult(std::make_pair(false, QString()));
         futureInterface->reportFinished();
     }
 

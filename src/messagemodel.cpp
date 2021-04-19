@@ -132,13 +132,13 @@ void MessageModel::sendMessage(const QString &text)
     // Add message to model
     addMessage(message);
 
-    auto *watcher = new QFutureWatcher<std::tuple<bool, QString>>();
+    auto *watcher = new QFutureWatcher<std::pair<bool, QString>>();
     connect(watcher, &QFutureWatcherBase::finished, this, [=] {
         const auto result = watcher->result();
-        bool success = std::get<0>(result);
+        bool success = result.first;
 
         if (success) {
-            const QString &path = std::get<1>(result);
+            const QString &path = result.second;
 
             const auto modelIt = std::find_if(m_messages.begin(), m_messages.end(), [&](const Message &message) {
                 return message.id == intermediateId;
@@ -154,8 +154,10 @@ void MessageModel::sendMessage(const QString &text)
                 const auto ofonoMessage = std::make_shared<QOfonoMessage>();
                 ofonoMessage->setMessagePath(path);
 
-                // Message can already be sent and deleted here, happpens with phonesim
+                // Message can already be sent and deleted here, should only happpen with phonesim
+                // Assume message was sent
                 if (!ofonoMessage->isValid()) {
+                    qWarning() << "Failed to track message state, as it was already deleted";
                     modelIt->deliveryStatus = MessageState::Sent;
                     Q_EMIT m_handler.database().requestUpdateMessageDeliveryState(path, MessageState::Sent);
                     Q_EMIT dataChanged(index(i), index(i), {Role::DeliveryStateRole});
@@ -163,7 +165,6 @@ void MessageModel::sendMessage(const QString &text)
 
                 connect(ofonoMessage.get(), &QOfonoMessage::stateChanged, this, [=] {
                     MessageState state = parseMessageState(ofonoMessage->state());
-                    qDebug() << "state" << state;
                     modelIt->deliveryStatus = state;
                     Q_EMIT m_handler.database().requestUpdateMessageDeliveryState(path, state);
                     Q_EMIT dataChanged(index(i), index(i), {Role::DeliveryStateRole});
