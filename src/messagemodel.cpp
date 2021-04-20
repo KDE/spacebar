@@ -154,7 +154,7 @@ void MessageModel::sendMessage(const QString &text)
 
                 const int i = std::distance(m_messages.begin(), modelIt);
 
-                m_handler.database().requestAddMessage(*modelIt);
+                Q_EMIT m_handler.database().requestAddMessage(*modelIt);
 
                 const auto ofonoMessage = std::make_shared<QOfonoMessage>();
                 ofonoMessage->setMessagePath(path);
