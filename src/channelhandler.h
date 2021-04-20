@@ -9,7 +9,7 @@
 
 #include <qofonomanager.h>
 
-#include "sofonomessagemanager.h"
+#include "messagemanager.h"
 
 class AsyncDatabase;
 
@@ -21,11 +21,11 @@ public:
     explicit ChannelHandler(QObject *parent = nullptr);
 
     AsyncDatabase &database();
-    SOfonoMessageManager &msgManager();
+    MessageManager &msgManager();
 
 private:
     DatabaseThread m_databaseThread;
-    SOfonoMessageManager m_msgManager;
+    MessageManager m_msgManager;
     QOfonoManager m_manager;
 
 signals:

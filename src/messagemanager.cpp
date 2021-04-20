@@ -2,18 +2,18 @@
 //
 // SPDX-License-Identifier: LicenseRef-KDE-Accepted-GPL
 
-#include "sofonomessagemanager.h"
+#include "messagemanager.h"
 
 #include <QFutureInterface>
 
 #include <global.h>
 
-SOfonoMessageManager::SOfonoMessageManager(QObject *parent)
+MessageManager::MessageManager(QObject *parent)
     : QOfonoMessageManager(parent)
 {
 }
 
-QFuture<std::pair<bool, QString>> SOfonoMessageManager::sendMessage(const QString &to, const QString &text)
+QFuture<std::pair<bool, QString>> MessageManager::sendMessage(const QString &to, const QString &text)
 {
     const auto futureInterface = std::make_shared<QFutureInterface<std::pair<bool, QString>>>();
 

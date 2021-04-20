@@ -15,12 +15,12 @@ class QDBusPendingCallWatcher;
 ///
 /// Allows to react to successful sending of a specific message
 ///
-class SOfonoMessageManager : public QOfonoMessageManager
+class MessageManager : public QOfonoMessageManager
 {
     Q_OBJECT
 
 public:
-    SOfonoMessageManager(QObject *parent = nullptr);
+    MessageManager(QObject *parent = nullptr);
 
     QFuture<std::pair<bool, QString>> sendMessage(const QString &to, const QString &text);
 };

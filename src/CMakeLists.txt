@@ -6,7 +6,7 @@ set(spacebar_SRCS
     databasethread.cpp
     asyncdatabase.cpp
     channelhandler.cpp
-    sofonomessagemanager.cpp
+    messagemanager.cpp
     resources.qrc
 )
 

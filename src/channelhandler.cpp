@@ -33,7 +33,7 @@ AsyncDatabase &ChannelHandler::database()
     return m_databaseThread.database();
 }
 
-SOfonoMessageManager &ChannelHandler::msgManager()
+MessageManager &ChannelHandler::msgManager()
 {
     return m_msgManager;
 }
