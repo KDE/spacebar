@@ -97,7 +97,7 @@ int ChatListModel::rowCount(const QModelIndex &parent) const
 
 void ChatListModel::startChat(const QString &phoneNumber)
 {
-    chatStarted(new MessageModel(m_handler, phoneNumber));
+    chatStarted(new MessageModel(m_handler, phoneNumber, this));
 }
 
 void ChatListModel::markChatAsRead(const QString &phoneNumber)

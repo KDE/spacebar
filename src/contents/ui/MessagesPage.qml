@@ -14,7 +14,7 @@ import org.kde.spacebar 1.0
 Kirigami.ScrollablePage {
     id: msgPage
 
-    title: messageModel.person.name || messageModel.person.phoneNumber || messageModel.phoneNumber
+    title: messageModel && (messageModel.person.name || messageModel.person.phoneNumber || messageModel.phoneNumber)
     property MessageModel messageModel;
 
     ListView {
