@@ -121,4 +121,5 @@
     <p xml:lang="x-test">xxSpacebar is a telepathy client for Plasma Mobile, that is primarily written for sending and receiving SMS.xx</p>
     <p xml:lang="zh-TW">《空間列》為 Plasma 手機版的 Telepathy（主要寫來傳送及接收簡訊）的用戶端。</p>
   </description>
+  <url type="bugtracker">https://invent.kde.org/plasma-mobile/spacebar/-/issues</url>
 </component>
