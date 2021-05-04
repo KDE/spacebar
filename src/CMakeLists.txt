@@ -21,6 +21,7 @@ target_link_libraries(spacebar
     Qt5::Sql
     Qt5::Widgets
     Qt5::DBus
+    KF5::CoreAddons
     KF5::I18n
     KF5::People
     KF5::PeopleBackend

@@ -6,7 +6,8 @@
 
 #include <QDebug>
 #include <QFutureWatcher>
-#include <QSharedPointer>
+
+#include <KTextToHTML>
 
 #include <qofonomessagemanager.h>
 #include <qofonomanager.h>
@@ -19,6 +20,7 @@
 
 #include "asyncdatabase.h"
 #include "channelhandler.h"
+#include "utils.h"
 
 
 MessageModel::MessageModel(ChannelHandler &handler, const QString &phoneNumber, QObject *parent)
@@ -34,7 +36,7 @@ MessageModel::MessageModel(ChannelHandler &handler, const QString &phoneNumber, 
         Message message;
         message.id = Database::generateRandomId();
         message.read = false;
-        message.text = text;
+        message.text = Utils::textToHtml(text);
         message.datetime = QDateTime::fromString(info[SL("SentTime")].toString().split(QChar(u'+'))[0], Qt::ISODate);
         message.sentByMe = false;
         message.deliveryStatus = MessageState::Received; // If it arrived here, it was
@@ -123,7 +125,7 @@ void MessageModel::sendMessage(const QString &text)
     Message message;
     message.id = intermediateId;
     message.phoneNumber = m_phoneNumber;
-    message.text = text;
+    message.text = Utils::textToHtml(text);
     message.datetime = QDateTime::currentDateTime(); // NOTE: there is also tpMessage.sent(), doesn't seem to return a proper time, but maybe a backend bug?
     message.read = true; // Messages sent by us are automatically read.
     message.sentByMe = true; // only called if message sent by us.

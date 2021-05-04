@@ -8,6 +8,8 @@
 #include <KLocalizedString>
 #include <KNotification>
 
+#include <KTextToHTML>
+
 #include <qofonomessage.h>
 
 #include <global.h>
@@ -30,7 +32,7 @@ ChannelLogger::ChannelLogger(QObject *parent)
 void ChannelLogger::handleIncomingMessage(const QString &text, const QVariantMap &info)
 {
     Message message;
-    message.text = text;
+    message.text = KTextToHTML::convertToHtml(text, KTextToHTML::Options(KTextToHTML::PreserveSpaces | KTextToHTML::ConvertPhoneNumbers));
     message.sentByMe = false; // SMS doesn't have any kind of synchronization, so received messages are always from the chat partner.
     message.datetime = QDateTime::fromString(info[SL("SentTime")].toString().split(QChar(u'+'))[0], Qt::ISODate);
     message.deliveryStatus =  MessageState::Received; // It arrived, soo

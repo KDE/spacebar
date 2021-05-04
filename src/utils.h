@@ -28,6 +28,8 @@ public:
     Q_INVOKABLE bool isPremiumNumber(const QString &text) const;
     Q_INVOKABLE static void launchPhonebook();
 
+    static QString textToHtml(const QString &text);
+
     static Utils *instance();
 
     static Utils *s_instance;

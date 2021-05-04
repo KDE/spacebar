@@ -97,6 +97,8 @@ Kirigami.ScrollablePage {
                         Layout.maximumWidth: delegateParent.width * 0.7
                         text: model.text ? model.text : " " // guarantee there is text so that height is maintained
                         wrapMode: Text.Wrap
+                        textFormat: Text.StyledText
+                        linkColor: model.sentByMe ? Kirigami.Theme.highlightedTextColor : Kirigami.Theme.linkColor
                         color: content.textColor
                     }
 

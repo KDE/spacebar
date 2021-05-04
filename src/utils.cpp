@@ -9,6 +9,8 @@
 #include <QRegularExpression>
 #include <QProcess>
 
+#include <KTextToHTML>
+
 #include "global.h"
 #include "phonenumberutils.h"
 
@@ -68,6 +70,11 @@ bool Utils::isPremiumNumber(const QString &text) const
 void Utils::launchPhonebook()
 {
     QProcess::startDetached(SL("plasma-phonebook"), {});
+}
+
+QString Utils::textToHtml(const QString &text)
+{
+    return KTextToHTML::convertToHtml(text, KTextToHTML::Options(KTextToHTML::PreserveSpaces | KTextToHTML::ConvertPhoneNumbers));
 }
 
 Utils *Utils::instance()

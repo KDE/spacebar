@@ -10,6 +10,7 @@ target_link_libraries(spacebar-daemon
     Qt5::Sql
     Qt5::DBus
     KF5::I18n
+    KF5::CoreAddons
     KF5::Notifications
     PkgConfig::QOfono
     database
