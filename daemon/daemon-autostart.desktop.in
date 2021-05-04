@@ -1,0 +1,4 @@
+[Desktop Entry]
+Name=Spacebar background service
+Exec=@CMAKE_INSTALL_FULL_LIBEXECDIR@/spacebar-daemon
+Type=Application
