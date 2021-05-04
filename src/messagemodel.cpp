@@ -32,7 +32,7 @@ MessageModel::MessageModel(ChannelHandler &handler, const QString &phoneNumber, 
             return; // Message is not for this model
         }
         Message message;
-        // message.id = m_database->lastId() + 1; FIXME, we don't know the id so this message will not be marked as read.
+        message.id = Database::generateRandomId();
         message.read = false;
         message.text = text;
         message.datetime = QDateTime::fromString(info[SL("SentTime")].toString().split(QChar(u'+'))[0], Qt::ISODate);
