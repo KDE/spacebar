@@ -40,7 +40,6 @@ MessageModel::MessageModel(ChannelHandler &handler, const QString &phoneNumber, 
         message.deliveryStatus = MessageState::Received; // If it arrived here, it was
         message.phoneNumber = info[SL("Sender")].toString();
 
-        qDebug() << "Received from id" << message.phoneNumber;
         addMessage(message);
     });
 

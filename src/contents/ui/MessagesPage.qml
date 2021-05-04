@@ -96,7 +96,6 @@ Kirigami.ScrollablePage {
                             implicitWidth: implicitHeight
                             source: {
                                 if (visible) {
-                                    print(model.deliveryState)
                                     switch (model.deliveryState) {
                                     case MessageModel.Unknown:
                                         return undefined;

@@ -68,7 +68,6 @@ QVector<Message> Database::messagesForNumber(const QString &phoneNumber) const
         message.text = fetch.value(Column::Text).toString();
         message.datetime = QDateTime::fromMSecsSinceEpoch(fetch.value(Column::DateTime).value<quint64>());
         message.read = fetch.value(Column::Read).toBool();
-        qDebug() << "delivery" << fetch.value(Column::DeliveryState);
         message.deliveryStatus = fetch.value(Column::DeliveryState).value<MessageState>();
         message.sentByMe = fetch.value(Column::SentByMe).toBool();
 
@@ -80,7 +79,6 @@ QVector<Message> Database::messagesForNumber(const QString &phoneNumber) const
 
 void Database::updateMessageDeliveryState(const QString &id, const MessageState state)
 {
-    qDebug() << "Mark as delivered" << id << state;
     QSqlQuery put(m_database);
     put.prepare(SL("UPDATE Messages SET delivered = :state WHERE id == :id"));
     put.bindValue(SL(":id"), id);
