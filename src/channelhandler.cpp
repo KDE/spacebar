@@ -24,7 +24,7 @@ ChannelHandler::ChannelHandler(QObject *parent)
     // Refresh chat list when message arrives
     // The message will be saved by the background daemon
     connect(&m_msgManager, &QOfonoMessageManager::incomingMessage, this, [&](const QString &, const QVariantMap &info) {
-        m_databaseThread.database().messagesChanged(info[SL("Sender")].toString());
+        Q_EMIT m_databaseThread.database().messagesChanged(info[SL("Sender")].toString());
     });
 }
 

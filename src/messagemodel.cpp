@@ -35,7 +35,7 @@ MessageModel::MessageModel(ChannelHandler &handler, const QString &phoneNumber, 
         // message.id = m_database->lastId() + 1; FIXME, we don't know the id so this message will not be marked as read.
         message.read = false;
         message.text = text;
-        message.datetime = QDateTime::fromString(info[SL("SentTime")].toString(), Qt::ISODate);
+        message.datetime = QDateTime::fromString(info[SL("SentTime")].toString().split(QChar(u'+'))[0], Qt::ISODate);
         message.sentByMe = false;
         message.deliveryStatus = MessageState::Received; // If it arrived here, it was
         message.phoneNumber = info[SL("Sender")].toString();
