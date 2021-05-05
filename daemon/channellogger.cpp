@@ -87,7 +87,7 @@ void ChannelLogger::handleIncomingMessage(const Tp::TextChannelPtr& /* channel *
 
     m_database->addMessage(message);
 
-    auto *notification = new KNotification(QStringLiteral("incomingMessage"), KNotification::Persistent);
+    auto *notification = new KNotification(QStringLiteral("incomingMessage"));
     notification->setComponentName(SL("spacebar"));
     notification->setIconName(SL("org.kde.spacebar"));
     notification->setTitle(i18n("Message from %1", receivedMessage.sender()->id()));
