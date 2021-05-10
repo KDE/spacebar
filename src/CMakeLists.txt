@@ -11,6 +11,7 @@ set(spacebar_SRCS
 )
 
 add_executable(spacebar ${spacebar_SRCS})
+target_include_directories(spacebar PRIVATE ${CMAKE_BINARY_DIR})
 target_compile_definitions(spacebar PRIVATE -DQT_NO_CAST_FROM_ASCII)
 target_link_libraries(spacebar
     Qt5::Core

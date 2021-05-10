@@ -1,17 +1,18 @@
-cmake_minimum_required(VERSION 3.0)
+cmake_minimum_required(VERSION 3.14)
 
 set(KF5_MIN_VERSION "5.70.0")
 set(QT_MIN_VERSION "5.15.0")
 
+project(spacebar)
+set(PROJECT_VERSION "21.05")
+
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
-
-project(spacebar)
 
 include(FeatureSummary)
 
 ################# set KDE specific information #################
-find_package(ECM 0.0.8 REQUIRED NO_MODULE)
+find_package(ECM ${KF5_MIN_VERSION} REQUIRED NO_MODULE)
 find_package(PkgConfig)
 
 # where to look first for cmake modules, before ${CMAKE_ROOT}/Modules/ is checked
@@ -23,6 +24,11 @@ include(KDECompilerSettings NO_POLICY_SCOPE)
 include(ECMSetupVersion)
 include(ECMGenerateHeaders)
 include(ECMPoQmTools)
+
+ecm_setup_version(${PROJECT_VERSION}
+    VARIABLE_PREFIX SPACEBAR
+    VERSION_HEADER ${CMAKE_CURRENT_BINARY_DIR}/version.h
+)
 
 ################# Find dependencies #################
 find_package(Qt5 ${QT_MIN_VERSION} REQUIRED COMPONENTS Core Gui Qml Quick Widgets Sql)

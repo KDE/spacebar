@@ -9,12 +9,14 @@
 #include <QUrl>
 #include <QtQml>
 #include <QQuickWindow>
+#include <QCommandLineParser>
 
 // Models
 #include "chatlistmodel.h"
 #include "messagemodel.h"
 
 #include <contactphonenumbermapper.h>
+#include "version.h"
 #include "global.h"
 #include "utils.h"
 #include "avatarimageprovider.h"
@@ -25,12 +27,18 @@ constexpr auto APPLICATION_ID = "org.kde.spacebar";
 
 Q_DECL_EXPORT int main(int argc, char *argv[])
 {
+    QCommandLineParser parser;
     QGuiApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
     QApplication app(argc, argv);
     QCoreApplication::setOrganizationName(SL("KDE"));
     QCoreApplication::setOrganizationDomain(SL("kde.org"));
     QCoreApplication::setApplicationName(SL("spacebar"));
+    QCoreApplication::setApplicationVersion(QStringLiteral(SPACEBAR_VERSION_STRING));
     QGuiApplication::setApplicationDisplayName(SL("Spacebar"));
+
+    parser.addVersionOption();
+    parser.addHelpOption();
+    parser.process(app);
 
     KLocalizedString::setApplicationDomain("spacebar");
 
