@@ -1,4 +1,11 @@
 [Desktop Entry]
 Name=Spacebar background service
+Name[ca]=Servei en segon pla de l'Spacebar
+Name[de]=Spacebar-Hintergrunddienst
+Name[nl]=Spacebar achtergrondservice
+Name[pt]=Serviço de segundo-plano do Spacebar
+Name[sv]=Spacebar bakgrundstjänst
+Name[uk]=Фонова служба Spacebar
+Name[x-test]=xxSpacebar background servicexx
 Exec=@CMAKE_INSTALL_FULL_LIBEXECDIR@/spacebar-daemon
 Type=Application
