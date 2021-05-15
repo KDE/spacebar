@@ -46,6 +46,11 @@ ChatListModel::ChatListModel(ChannelHandler &handler, QObject *parent)
     connect(&m_handler.database(), &AsyncDatabase::chatsFetched, this, [this](const QVector<Chat> &chats) {
         beginResetModel();
         m_chats = chats;
+        // Sort chat list by most recent chat 
+        std::sort(m_chats.begin(), m_chats.end(), [](const Chat & a, const Chat & b) -> bool
+        { 
+            return a.lastContacted > b.lastContacted; 
+        });
         endResetModel();
         emit chatsFetched();
     });
