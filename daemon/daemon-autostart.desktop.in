@@ -1,9 +1,12 @@
 [Desktop Entry]
 Name=Spacebar background service
+Name[az]=Boşluq arxa plan xidməti
 Name[ca]=Servei en segon pla de l'Spacebar
 Name[de]=Spacebar-Hintergrunddienst
 Name[es]=Servicio en segundo plano Spacebar
+Name[fr]=Service d'arrière plan « Spacebar »
 Name[nl]=Spacebar achtergrondservice
+Name[pl]=Usługa w tle Spacebar
 Name[pt]=Serviço de segundo-plano do Spacebar
 Name[sv]=Spacebar bakgrundstjänst
 Name[uk]=Фонова служба Spacebar
