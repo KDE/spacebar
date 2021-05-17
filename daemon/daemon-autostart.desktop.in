@@ -2,13 +2,17 @@
 Name=Spacebar background service
 Name[az]=Boşluq arxa plan xidməti
 Name[ca]=Servei en segon pla de l'Spacebar
+Name[ca@valencia]=Servei en segon pla de l'Spacebar
 Name[de]=Spacebar-Hintergrunddienst
 Name[es]=Servicio en segundo plano Spacebar
 Name[fr]=Service d'arrière plan « Spacebar »
+Name[it]=Servizio in background di Spacebar
+Name[ko]=Spacebar 백그라운드 서비스
 Name[nl]=Spacebar achtergrondservice
 Name[pl]=Usługa w tle Spacebar
 Name[pt]=Serviço de segundo-plano do Spacebar
 Name[pt_BR]=Serviço de plano de fundo do Spacebar
+Name[sl]=Spacebar storitev v ozadju
 Name[sv]=Spacebar bakgrundstjänst
 Name[uk]=Фонова служба Spacebar
 Name[x-test]=xxSpacebar background servicexx
