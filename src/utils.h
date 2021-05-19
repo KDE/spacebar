@@ -25,6 +25,7 @@ public:
     void showPassiveNotification(const QString &message, PassiveNotificationDuation timeout);
 
     Q_INVOKABLE bool isPhoneNumber(const QString &text);
+    Q_INVOKABLE bool isPremiumNumber(const QString &text);
     Q_INVOKABLE static void launchPhonebook();
 
     static Utils *instance();
@@ -37,4 +38,5 @@ private:
     QQmlApplicationEngine *m_engine;
     QQuickWindow *m_window = nullptr;
     QRegularExpression m_phoneNumberRegex;
+    QRegularExpression m_premiumRegex;
 };

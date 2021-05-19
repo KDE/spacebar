@@ -17,6 +17,19 @@ Kirigami.ScrollablePage {
     title: messageModel && (messageModel.person.name || messageModel.person.phoneNumber || messageModel.phoneNumber)
     property MessageModel messageModel;
 
+    header: ColumnLayout {
+        Kirigami.InlineMessage {
+            id: premiumWarning
+            Layout.fillWidth: true
+            Layout.leftMargin: Kirigami.Units.smallSpacing
+            Layout.rightMargin: Kirigami.Units.smallSpacing
+            Layout.topMargin: Kirigami.Units.smallSpacing
+            type: Kirigami.MessageType.Warning
+            text: i18n("Texting this premium SMS number might cause you to be charged money")
+            visible: messageModel && Utils.isPremiumNumber(messageModel.phoneNumber)
+        }
+    }
+
     ListView {
         id: listView
         model: messageModel
