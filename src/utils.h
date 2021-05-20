@@ -37,6 +37,4 @@ public:
 private:
     QQmlApplicationEngine *m_engine;
     QQuickWindow *m_window = nullptr;
-    QRegularExpression m_phoneNumberRegex;
-    QRegularExpression m_premiumRegex;
 };
