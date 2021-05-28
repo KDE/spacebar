@@ -38,6 +38,8 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
 
     parser.addVersionOption();
     parser.addHelpOption();
+    parser.setApplicationDescription(i18n("Spacebar SMS client"));
+    parser.addPositionalArgument(QStringLiteral("number"), i18n("Open a chat with the given phone number"));
     parser.process(app);
 
     KLocalizedString::setApplicationDomain("spacebar");
@@ -62,6 +64,18 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
 
     if (engine.rootObjects().isEmpty()) {
         return -1;
+    }
+
+    if (!parser.positionalArguments().isEmpty()) {
+        QString numberArg = parser.positionalArguments().constFirst();
+        if (numberArg.startsWith(QStringLiteral("sms:"))) {
+            numberArg = numberArg.mid(4);
+        }
+        if (Utils::instance()->isPhoneNumber(numberArg)) {
+            chatListModel.startChat(numberArg);
+        } else {
+            qWarning() << "invalid phone number on command line, ignoring";
+        }
     }
 
     return app.exec();
