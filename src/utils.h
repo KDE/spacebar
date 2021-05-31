@@ -27,6 +27,7 @@ public:
     Q_INVOKABLE bool isPhoneNumber(const QString &text) const;
     Q_INVOKABLE bool isPremiumNumber(const QString &text) const;
     Q_INVOKABLE static void launchPhonebook();
+    Q_INVOKABLE void copyTextToClipboard(const QString &text) const;
 
     static QString textToHtml(const QString &text);
 

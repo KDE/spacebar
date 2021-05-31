@@ -8,6 +8,8 @@
 #include <QQuickWindow>
 #include <QRegularExpression>
 #include <QProcess>
+#include <QGuiApplication>
+#include <QClipboard>
 
 #include <KTextToHTML>
 
@@ -70,6 +72,11 @@ bool Utils::isPremiumNumber(const QString &text) const
 void Utils::launchPhonebook()
 {
     QProcess::startDetached(SL("plasma-phonebook"), {});
+}
+
+void Utils::copyTextToClipboard(const QString &text) const
+{
+    qGuiApp->clipboard()->setText(text);
 }
 
 QString Utils::textToHtml(const QString &text)

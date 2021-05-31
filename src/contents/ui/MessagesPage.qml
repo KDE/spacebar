@@ -64,7 +64,7 @@ Kirigami.ScrollablePage {
 
             Kirigami.ShadowedRectangle {
                 id: rect
-                
+
                 Kirigami.Theme.colorSet: Kirigami.Theme.Button
                 
                 anchors.margins: Kirigami.Units.largeSpacing
@@ -136,6 +136,33 @@ Kirigami.ScrollablePage {
                             color: content.textColor
                         }
                     }
+                }
+            }
+
+            MouseArea {
+                anchors.fill: rect
+                onPressAndHold: {
+                    menu.message = model.text
+                    menu.open()
+                }
+            }
+        }
+    }
+
+    Kirigami.OverlayDrawer {
+        id: menu
+
+        property string message
+
+        edge: Qt.BottomEdge
+
+        contentItem: ColumnLayout {
+            Kirigami.BasicListItem {
+                text: i18n("Copy message")
+                icon: "edit-copy"
+                onClicked: {
+                    Utils.copyTextToClipboard(menu.message)
+                    menu.close()
                 }
             }
         }
