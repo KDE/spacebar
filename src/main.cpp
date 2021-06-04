@@ -14,6 +14,7 @@
 // Models
 #include "chatlistmodel.h"
 #include "messagemodel.h"
+#include "contactmodel.h"
 
 #include <contactphonenumbermapper.h>
 #include "version.h"
@@ -58,6 +59,7 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
     qRegisterMetaType<KPeople::PersonData *>("PersonData*");
     qmlRegisterAnonymousType<QAbstractItemModel>(APPLICATION_ID, 1);
     qmlRegisterSingletonInstance<Utils>(APPLICATION_ID, 1, 0, "Utils", Utils::instance());
+    qmlRegisterType<ContactModel>(APPLICATION_ID, 1, 0, "ContactModel");
     engine.rootContext()->setContextObject(new KLocalizedContext(&engine));
     engine.addImageProvider(SL("avatar"), new AvatarImageProvider());
     engine.load(QUrl(SL("qrc:///main.qml")));

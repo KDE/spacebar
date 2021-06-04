@@ -2,12 +2,11 @@
 //
 // SPDX-License-Identifier: GPL-2.0-or-later
 
-import QtQuick 2.7
+import QtQuick 2.15
 import QtQuick.Controls 2.2 as Controls
 import QtQuick.Layouts 1.1
 
 import org.kde.kirigami 2.14 as Kirigami
-import org.kde.people 1.0 as KPeople
 import org.kde.spacebar 1.0
 
 Kirigami.ScrollablePage {
@@ -60,8 +59,6 @@ Kirigami.ScrollablePage {
     ListView {
         id: contactsList
 
-        anchors.fill: parent
-
         section.property: "display"
         section.criteria: ViewSection.FirstCharacter
         section.delegate: Kirigami.ListSectionHeader {
@@ -69,52 +66,36 @@ Kirigami.ScrollablePage {
         }
         clip: true
 
-        model: KPeople.PersonsSortFilterProxyModel {
+        model: ContactModel {
             id: contactsProxyModel
-            sourceModel: KPeople.PersonsModel {
-                id: contactsModel
-            }
-            requiredProperties: "phoneNumber"
-            filterRole: Qt.DisplayRole
-            sortRole: Qt.DisplayRole
-            filterCaseSensitivity: Qt.CaseInsensitive
-            Component.onCompleted: sort(0)
         }
 
-        boundsBehavior: Flickable.StopAtBounds
+        reuseItems: true
 
-        Component {
-            id: contactListDelegate
+        delegate: Kirigami.AbstractListItem {
+            width: contactsList.width
+            contentItem: RowLayout {
+                Kirigami.Avatar {
+                    id: photo
+                    Layout.fillHeight: true
+                    Layout.preferredWidth: Kirigami.Units.iconSizes.medium
+                    Layout.preferredHeight: Kirigami.Units.iconSizes.medium
 
-            Kirigami.AbstractListItem {
-                width: contactsList.width
-                contentItem: RowLayout {
-                    Kirigami.Avatar {
-                        id: photo
-                        Layout.fillHeight: true
-                        Layout.preferredWidth: Kirigami.Units.iconSizes.medium
-                        Layout.preferredHeight: Kirigami.Units.iconSizes.medium
-
-                        source: "image://avatar/" + (model && model.phoneNumber)
-                        name: model && model.display
-                        imageMode: Kirigami.Avatar.AdaptiveImageOrInitals
-                    }
-
-                    Kirigami.Heading {
-                        level: 3
-                        text: model && model.display
-                        Layout.fillWidth: true
-                    }
+                    source: "image://avatar/" + (model && model.phoneNumber)
+                    name: model && model.display
+                    imageMode: Kirigami.Avatar.AdaptiveImageOrInitals
                 }
-                onClicked: {
-                    pageStack.pop()
-                    ChatListModel.startChat(model.phoneNumber)
+
+                Kirigami.Heading {
+                    level: 3
+                    text: model && model.display
+                    Layout.fillWidth: true
                 }
             }
-        }
-
-        delegate: Kirigami.DelegateRecycler {
-            sourceComponent: contactListDelegate
+            onClicked: {
+                pageStack.pop()
+                ChatListModel.startChat(model.phoneNumber)
+            }
         }
     }
 }

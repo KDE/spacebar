@@ -7,6 +7,7 @@ set(spacebar_SRCS
     asyncdatabase.cpp
     channelhandler.cpp
     messagemanager.cpp
+    contactmodel.cpp
     resources.qrc
 )
 
