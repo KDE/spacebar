@@ -8,6 +8,7 @@
 #include <QFutureWatcher>
 
 #include <KTextToHTML>
+#include <KLocalizedString>
 
 #include <qofonomessagemanager.h>
 #include <qofonomanager.h>
@@ -134,51 +135,57 @@ void MessageModel::sendMessage(const QString &text)
     // Add message to model
     addMessage(message);
 
-    std::shared_ptr<QFutureWatcher<std::pair<bool, QString>>> watcher(
-                new QFutureWatcher<std::pair<bool, QString>>(),
+    std::shared_ptr<QFutureWatcher<SendMessageResult>> watcher(
+                new QFutureWatcher<SendMessageResult>(),
                 [](auto *watcher) {
         watcher->deleteLater();
     });
     connect(watcher.get(), &QFutureWatcherBase::finished, this, [=, this] {
         const auto result = watcher->result();
-        bool success = result.first;
 
-        if (success) {
-            const QString &path = result.second;
+        std::visit([=, this](auto &&result) {
+            using T =  std::decay_t<decltype(result)>;
 
-            const auto modelIt = std::find_if(m_messages.begin(), m_messages.end(), [&](const Message &message) {
-                return message.id == intermediateId;
-            });
-
-            if (modelIt != m_messages.cend()) {
-                modelIt->id = path;
-
-                const int i = std::distance(m_messages.begin(), modelIt);
-
-                Q_EMIT m_handler.database().requestAddMessage(*modelIt);
-
-                const auto ofonoMessage = std::make_shared<QOfonoMessage>();
-                ofonoMessage->setMessagePath(path);
-
-                // Message can already be sent and deleted here, should only happpen with phonesim
-                // Assume message was sent
-                if (!ofonoMessage->isValid()) {
-                    qWarning() << "Failed to track message state, as it was already deleted";
-                    modelIt->deliveryStatus = MessageState::Sent;
-                    Q_EMIT m_handler.database().requestUpdateMessageDeliveryState(path, MessageState::Sent);
-                    Q_EMIT dataChanged(index(i), index(i), {Role::DeliveryStateRole});
-                }
-
-                connect(ofonoMessage.get(), &QOfonoMessage::stateChanged, this, [=, this] {
-                    MessageState state = parseMessageState(ofonoMessage->state());
-                    modelIt->deliveryStatus = state;
-                    Q_EMIT m_handler.database().requestUpdateMessageDeliveryState(path, state);
-                    Q_EMIT dataChanged(index(i), index(i), {Role::DeliveryStateRole});
+            if constexpr (std::is_same_v<T, QDBusObjectPath>) {
+                const auto modelIt = std::find_if(m_messages.begin(), m_messages.end(), [&](const Message &message) {
+                    return message.id == intermediateId;
                 });
-            } else {
-                qWarning() << "Failed to find message that was just sent. This is a bug";
+
+                if (modelIt != m_messages.cend()) {
+                    const QString path = result.path();
+                    modelIt->id = path;
+
+                    const int i = std::distance(m_messages.begin(), modelIt);
+
+                    Q_EMIT m_handler.database().requestAddMessage(*modelIt);
+
+                    const auto ofonoMessage = std::make_shared<QOfonoMessage>();
+                    ofonoMessage->setMessagePath(path);
+
+                    // Message can already be sent and deleted here, should only happpen with phonesim
+                    // Assume message was sent
+                    if (!ofonoMessage->isValid()) {
+                        qWarning() << "Failed to track message state, as it was already deleted";
+                        modelIt->deliveryStatus = MessageState::Sent;
+                        Q_EMIT m_handler.database().requestUpdateMessageDeliveryState(path, MessageState::Sent);
+                        Q_EMIT dataChanged(index(i), index(i), {Role::DeliveryStateRole});
+                    }
+
+                    connect(ofonoMessage.get(), &QOfonoMessage::stateChanged, this, [=, this] {
+                        MessageState state = parseMessageState(ofonoMessage->state());
+                        modelIt->deliveryStatus = state;
+                        Q_EMIT m_handler.database().requestUpdateMessageDeliveryState(path, state);
+                        Q_EMIT dataChanged(index(i), index(i), {Role::DeliveryStateRole});
+                    });
+                } else {
+                    qWarning() << "Failed to find message that was just sent. This is a bug";
+                }
+            } else if constexpr (std::is_same_v<T, QDBusError>) {
+                Utils::instance()->showPassiveNotification(result.message());
+            } else if constexpr (std::is_same_v<T, ModemNotFoundError>) {
+                Utils::instance()->showPassiveNotification(i18n("The modem interface is not available"));
             }
-        }
+        }, result);
     });
 
     watcher->setFuture(m_handler.msgManager().sendMessage(m_phoneNumber, text));

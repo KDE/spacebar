@@ -13,30 +13,32 @@ MessageManager::MessageManager(QObject *parent)
 {
 }
 
-QFuture<std::pair<bool, QString>> MessageManager::sendMessage(const QString &to, const QString &text)
+QFuture<SendMessageResult> MessageManager::sendMessage(const QString &to, const QString &text)
 {
-    const auto futureInterface = std::make_shared<QFutureInterface<std::pair<bool, QString>>>();
+    const auto futureInterface = std::make_shared<QFutureInterface<SendMessageResult>>();
 
     auto *iface = dbusInterface();
-    if (iface) {
-        connect(new QDBusPendingCallWatcher(iface->asyncCall(SL("SendMessage"), to, text), iface),
-            &QDBusPendingCallWatcher::finished,
-            [=](QDBusPendingCallWatcher *watcher) {
-                watcher->deleteLater();
-                QDBusPendingReply<QDBusObjectPath> reply = *watcher;
-                if (reply.isError()) {
-                    qWarning() << reply.error();
-                    futureInterface->reportResult(std::make_pair(false, QString()));
-                    futureInterface->reportFinished();
-                } else {
-                    futureInterface->reportResult(std::make_pair(true, reply.value().path()));
-                    futureInterface->reportFinished();
-                }
-        });
-    } else {
-        futureInterface->reportResult(std::make_pair(false, QString()));
+    if (!iface) {
+        futureInterface->reportResult(ModemNotFoundError());
         futureInterface->reportFinished();
+
+        return futureInterface->future();
     }
+
+    connect(new QDBusPendingCallWatcher(iface->asyncCall(SL("SendMessage"), to, text), iface),
+        &QDBusPendingCallWatcher::finished,
+        [=](QDBusPendingCallWatcher *watcher) {
+            watcher->deleteLater();
+
+            QDBusPendingReply<QDBusObjectPath> reply = *watcher;
+            if (reply.isError()) {
+                futureInterface->reportResult(reply.error());
+                futureInterface->reportFinished();
+            } else {
+                futureInterface->reportResult(reply.value());
+                futureInterface->reportFinished();
+            }
+    });
 
     return futureInterface->future();
 }

@@ -8,7 +8,14 @@
 
 #include <QFuture>
 
+#include <optional>
+
 class QDBusPendingCallWatcher;
+
+/// Type that indicates that the call to the modem could not be made
+struct ModemNotFoundError {};
+
+using SendMessageResult = std::variant<QDBusObjectPath, QDBusError, ModemNotFoundError>;
 
 ///
 /// Slightly improved API for QOfonoMessageManager
@@ -22,5 +29,8 @@ class MessageManager : public QOfonoMessageManager
 public:
     MessageManager(QObject *parent = nullptr);
 
-    QFuture<std::pair<bool, QString>> sendMessage(const QString &to, const QString &text);
+    /// Sends the message, and on success returns the path to the new dbus object.
+    /// On error, it returns the QDBusError if it was able to call the interface, or
+    /// ModemNotFoundError if not even that was possible.
+    QFuture<SendMessageResult> sendMessage(const QString &to, const QString &text);
 };
