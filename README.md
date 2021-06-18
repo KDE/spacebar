@@ -3,7 +3,12 @@
 Spacebar is an ofono based SMS application that primarily targets Plasma Mobile.
 It depends on Qt, a few KDE Frameworks (Kirigami2, KI18n, KPeople and KContacts) and libqofono.
 
+# Development
+
 For development, you need `libqofono` and [a running ofono-phonesim](https://docs.plasma-mobile.org/Ofono.html).
+
+Since for development you may want to explicitly force spacebar to use phonesim, the `--modem` argument
+is supported by both spacebar and spacebar-daemon. You need to pass it the complete modem path, for example `--modem /phonesim`.
 
 # Architecture
 
