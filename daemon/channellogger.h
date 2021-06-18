@@ -6,6 +6,8 @@
 
 #include <QObject>
 
+#include <optional>
+
 #include <qofonomanager.h>
 #include <qofonomessagemanager.h>
 
@@ -16,7 +18,7 @@ class ChannelLogger : public QObject
     Q_OBJECT
 
 public:
-    explicit ChannelLogger(QObject *parent = nullptr);
+    explicit ChannelLogger(std::optional<QString> &modemPath, QObject *parent = nullptr);
 
 private:
     void handleIncomingMessage(const QString &text, const QVariantMap &info);

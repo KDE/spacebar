@@ -16,15 +16,18 @@
 #include <database.h>
 #include <phonenumberutils.h>
 
-ChannelLogger::ChannelLogger(QObject *parent)
+ChannelLogger::ChannelLogger(std::optional<QString> &modemPath, QObject *parent)
     : QObject(parent)
 {
-    // Set up sms account
-    m_msgManager.setModemPath(m_manager.defaultModem());
+    if (modemPath.has_value()) {
+        m_msgManager.setModemPath(*modemPath);
+    } else {
+        connect(&m_manager, &QOfonoManager::defaultModemChanged, this, [&] {
+            m_msgManager.setModemPath(m_manager.defaultModem());
+        });
 
-    connect(&m_manager, &QOfonoManager::defaultModemChanged, this, [&] {
         m_msgManager.setModemPath(m_manager.defaultModem());
-    });
+    }
 
     connect(&m_msgManager, &QOfonoMessageManager::incomingMessage, this, &ChannelLogger::handleIncomingMessage);
 }

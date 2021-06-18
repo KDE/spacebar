@@ -18,7 +18,7 @@ class ChannelHandler : public QObject
     Q_OBJECT
 
 public:
-    explicit ChannelHandler(QObject *parent = nullptr);
+    explicit ChannelHandler(std::optional<QString> &modemPath, QObject *parent = nullptr);
 
     AsyncDatabase &database();
     MessageManager &msgManager();

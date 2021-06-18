@@ -12,14 +12,18 @@
 #include <global.h>
 #include <database.h>
 
-ChannelHandler::ChannelHandler(QObject *parent)
+ChannelHandler::ChannelHandler(std::optional<QString> &modemPath, QObject *parent)
     : QObject(parent)
 {
-    connect(&m_manager, &QOfonoManager::defaultModemChanged, this, [&] {
-        m_msgManager.setModemPath(m_manager.defaultModem());
-    });
+    if (modemPath.has_value()) {
+        m_msgManager.setModemPath(*modemPath);
+    } else {
+        connect(&m_manager, &QOfonoManager::defaultModemChanged, this, [&] {
+            m_msgManager.setModemPath(m_manager.defaultModem());
+        });
 
-    m_msgManager.setModemPath(m_manager.defaultModem());
+        m_msgManager.setModemPath(m_manager.defaultModem());
+    }
 
     // Refresh chat list when message arrives
     // The message will be saved by the background daemon

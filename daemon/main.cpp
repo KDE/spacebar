@@ -4,19 +4,32 @@
 
 #include <QCoreApplication>
 
+#include <KLocalizedString>
+
 #include "global.h"
 #include "channellogger.h"
 
-
 int main(int argc, char *argv[])
 {
+    QCommandLineParser parser;
+
     QCoreApplication app(argc, argv);
     QCoreApplication::setOrganizationName(SL("KDE"));
     QCoreApplication::setOrganizationDomain(SL("kde.org"));
     QCoreApplication::setApplicationName(SL("Spacebar"));
 
+    parser.addVersionOption();
+    parser.addHelpOption();
+    parser.setApplicationDescription(i18n("Spacebar background service"));
+    const auto modemOpt = QCommandLineOption(SL("modem"), SL("Modem path to use, for development purpose"), SL("modem"));
+    parser.addOption(modemOpt);
+    parser.process(app);
+
     // Create observer
-    ChannelLogger logger;
+    auto modemPath = parser.isSet(modemOpt) && !parser.value(modemOpt).isEmpty()
+            ? parser.value(modemOpt)
+            : std::optional<QString>();
+    ChannelLogger logger(modemPath);
 
     QCoreApplication::exec();
 }
