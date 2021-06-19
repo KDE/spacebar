@@ -27,7 +27,6 @@ ChatListModel::ChatListModel(ChannelHandler &handler, QObject *parent)
     , m_handler(handler)
     , m_mapper(ContactPhoneNumberMapper::instance())
 {
-    m_mapper.performInitialScan();
     connect(&m_handler.database(), &AsyncDatabase::messagesChanged, this, &ChatListModel::fetchChats);
     connect(&m_mapper, &ContactPhoneNumberMapper::contactsChanged, this, [this](const QVector<QString> &affectedNumbers) {
         qDebug() << "New data for" << affectedNumbers;

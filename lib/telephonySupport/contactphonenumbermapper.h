@@ -1,22 +1,18 @@
 // SPDX-FileCopyrightText: 2020 Jonah Brüchert <jbb@kaidan.im>
 //
-// SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
+// SPDX-License-Identifier: LicenseRef-KDE-Accepted-GPL
 
 #pragma once
 
 #include <KPeople/PersonsModel>
-#include <KContacts/PhoneNumber>
 #include <QObject>
-
-#include "phonenumberutils.h"
 
 class ContactPhoneNumberMapper : public QObject
 {
     Q_OBJECT
 
-    explicit ContactPhoneNumberMapper();
-
 public:
+
     /**
      * @brief Returns the KPeople URI belonging to phone number,
      * provided a contact exists containing the phone number.
@@ -24,9 +20,7 @@ public:
      * @param phone number
      * @return the uri belonging to the phone number
      */
-    inline QString uriForNumber(const QString &phoneNumber) const {
-        return m_numberToUri.value(PhoneNumberUtils::normalize(phoneNumber));
-    }
+    QString uriForNumber(const QString &phoneNumber) const;
 
     static ContactPhoneNumberMapper &instance();
 
@@ -41,14 +35,11 @@ signals:
 private slots:
     void processRows(const int first, const int last);
 
-public slots:
-    /**
-     * @brief Scans all persons known to kpeople for phone numbers
-     * This must be run before anything useful can be done with the ContactMapper
-     */
-    void performInitialScan();
-
 private:
+    explicit ContactPhoneNumberMapper();
+    [[nodiscard]] std::string normalizeNumber(const std::string &numberString) const;
+
     KPeople::PersonsModel *m_model;
-    QHash<QString, QString> m_numberToUri;
+    std::unordered_map<std::string, QString> m_numberToUri;
+    std::string m_country;
 };

@@ -5,5 +5,6 @@ target_link_libraries(kTelephonySupport PUBLIC
     Qt5::Quick
     KF5::Contacts
     KF5::People
+    PhoneNumber::PhoneNumber
     macros)
 target_include_directories(kTelephonySupport PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
