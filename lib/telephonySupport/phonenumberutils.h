@@ -4,9 +4,24 @@
 
 #pragma once
 
+#include <string>
+#include <optional>
+#include <variant>
+
 class QString;
 
-class PhoneNumberUtils {
-public:
-    static QString normalize(const QString &phoneNumber);
+namespace phoneNumberUtils {
+enum ErrorType {
+  NoParsingError,
+  InvalidCountryCodeError,
+  NotANumber,
+  TooShortAfterIID,
+  TooShortNSN,
+  TooLongNsn,
+};
+
+using NormalizeResult = std::variant<std::string, ErrorType>;
+
+NormalizeResult normalizeNumber(const std::string &numberString);
+QString normalizeNumber(const QString &numberString);
 };

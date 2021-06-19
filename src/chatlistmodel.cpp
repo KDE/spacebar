@@ -33,7 +33,7 @@ ChatListModel::ChatListModel(ChannelHandler &handler, QObject *parent)
         for (const auto &number : affectedNumbers) {
             // Find the Chat object for the phone number
             const auto chatIt = std::find_if(m_chats.begin(), m_chats.end(), [&number](const Chat &chat) {
-                return PhoneNumberUtils::normalize(chat.phoneNumber) == number;
+                return phoneNumberUtils::normalizeNumber(chat.phoneNumber) == number;
             });
 
             int i = std::distance(m_chats.begin(), chatIt);
@@ -82,7 +82,7 @@ QVariant ChatListModel::data(const QModelIndex &index, int role) const
     case PhotoRole:
         return KPeople::PersonData(m_mapper.uriForNumber(m_chats.at(index.row()).phoneNumber)).photo();
     case PhoneNumberRole:
-        return PhoneNumberUtils::normalize(m_chats.at(index.row()).phoneNumber);
+        return phoneNumberUtils::normalizeNumber(m_chats.at(index.row()).phoneNumber);
     case LastContactedRole:
         return m_chats.at(index.row()).lastContacted;
     case UnreadMessagesRole:

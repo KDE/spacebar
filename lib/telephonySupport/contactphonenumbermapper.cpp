@@ -9,9 +9,8 @@
 #include <QDebug>
 #include <QThread>
 
-#include "phonenumbers/phonenumberutil.h"
 
-using namespace ::i18n::phonenumbers;
+#include "phonenumberutils.h"
 
 ContactPhoneNumberMapper &ContactPhoneNumberMapper::instance()
 {
@@ -23,11 +22,6 @@ ContactPhoneNumberMapper::ContactPhoneNumberMapper()
     : QObject()
     , m_model(new KPeople::PersonsModel(this))
 {
-    const QLocale locale;
-    const QStringList qcountry = locale.name().split(u'_');
-    const QString &countrycode(qcountry.constLast());
-    m_country = countrycode.toStdString();
-
     // data updates
     // we only care about additional data, not remove one
     connect(m_model, &QAbstractItemModel::rowsInserted, this, [this](const QModelIndex &, int first, int last) {
@@ -35,21 +29,6 @@ ContactPhoneNumberMapper::ContactPhoneNumberMapper()
     });
 
     processRows(0, m_model->rowCount() - 1);
-}
-
-std::string ContactPhoneNumberMapper::normalizeNumber(const std::string &numberString) const
-{
-    PhoneNumber phoneNumber;
-    auto error = PhoneNumberUtil::GetInstance()->Parse(numberString, m_country, &phoneNumber);
-
-    if (error != PhoneNumberUtil::NO_PARSING_ERROR) {
-        qDebug() << "Error parsing number" << QString::fromStdString(numberString) << error;
-        return {};
-    }
-
-    std::string formattedNumber;
-    PhoneNumberUtil::GetInstance()->Format(phoneNumber, PhoneNumberUtil::INTERNATIONAL, &formattedNumber);
-    return formattedNumber;
 }
 
 void ContactPhoneNumberMapper::processRows(const int first, const int last)
@@ -69,9 +48,12 @@ void ContactPhoneNumberMapper::processRows(const int first, const int last)
         const auto personUri = m_model->data(index, KPeople::PersonsModel::PersonUriRole).toString();
 
         for (const QString &numberString : phoneNumbers) {
-            const std::string normalizedNumber = normalizeNumber(numberString.toStdString());
-            m_numberToUri[normalizedNumber] = personUri;
-            affectedNumbers.append(QString::fromStdString(normalizedNumber));
+            const auto result = phoneNumberUtils::normalizeNumber(numberString.toStdString());
+            if (std::holds_alternative<std::string>(result)) {
+                const auto &normalizedNumber = std::get<std::string>(result);
+                m_numberToUri[normalizedNumber] = personUri;
+                affectedNumbers.append(QString::fromStdString(normalizedNumber));
+            }
         }
     }
 
@@ -80,9 +62,14 @@ void ContactPhoneNumberMapper::processRows(const int first, const int last)
 
 QString ContactPhoneNumberMapper::uriForNumber(const QString &phoneNumber) const
 {
-    const std::string normalizedNumber = normalizeNumber(phoneNumber.toStdString());
-    if (m_numberToUri.contains(normalizedNumber)) {
-        return m_numberToUri.at(normalizedNumber);
+    auto result = phoneNumberUtils::normalizeNumber(phoneNumber.toStdString());
+
+    if (std::holds_alternative<std::string>(result)) {
+        const auto &normalizedNumber = std::get<std::string>(result);
+        if (m_numberToUri.contains(normalizedNumber)) {
+            return m_numberToUri.at(normalizedNumber);
+        }
     }
+
     return QString();
 }

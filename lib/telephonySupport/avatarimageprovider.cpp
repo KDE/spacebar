@@ -20,7 +20,7 @@ AvatarImageProvider::AvatarImageProvider()
 
 QImage AvatarImageProvider::requestImage(const QString &number, QSize *size, const QSize &requestedSize)
 {
-    const QString normalizedNumber = PhoneNumberUtils::normalize(number);
+    const QString normalizedNumber = phoneNumberUtils::normalizeNumber(number);
     const auto personData = KPeople::PersonData(ContactPhoneNumberMapper::instance().uriForNumber(normalizedNumber));
 
     auto avatar = [&] () -> QImage {
