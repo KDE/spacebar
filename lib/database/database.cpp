@@ -13,15 +13,17 @@
 
 #include <random>
 
-#include "global.h"
+#include <phonenumberutils.h>
+#include <global.h>
 
 constexpr auto ID_LEN = 10;
-constexpr auto DATABASE_REVISION = 2; // Keep MIGRATE_TO_LATEST_FROM in sync
+constexpr auto DATABASE_REVISION = 3; // Keep MIGRATE_TO_LATEST_FROM in sync
 #define MIGRATE_TO(n, current) \
     if (current < n) { \
+        qDebug() << "Running migration" << #n; \
         migrationV##n(current); \
     }
-#define MIGRATE_TO_LATEST_FROM(current) MIGRATE_TO(2, current)
+#define MIGRATE_TO_LATEST_FROM(current) MIGRATE_TO(3, current)
 
 enum Column {
     Id = 0,
@@ -207,7 +209,7 @@ void Database::migrate()
 
     // Find out current revision
     QSqlQuery currentRevision(m_database);
-    currentRevision.prepare(SL("SELECT migrationId FROM Metadata DESC LIMIT 1"));
+    currentRevision.prepare(SL("SELECT migrationId FROM Metadata ORDER BY migrationId DESC LIMIT 1"));
     exec(currentRevision);
     currentRevision.first();
 
@@ -215,6 +217,8 @@ void Database::migrate()
     if (currentRevision.isValid()) {
          revision = currentRevision.value(0).toUInt();
     }
+
+    qDebug() << "current database revision" << revision;
 
     // Run migration if necessary
     if (revision >= DATABASE_REVISION) {
@@ -271,4 +275,26 @@ void Database::migrationV2(uint current)
     QSqlQuery dropTemp(m_database);
     dropTemp.prepare(SL("DROP TABLE temp_table"));
     Database::exec(dropTemp);
+}
+
+void Database::migrationV3(uint current)
+{
+    MIGRATE_TO(2, current);
+
+    QSqlQuery getPhoneNumbers(m_database);
+    getPhoneNumbers.prepare(SL("SELECT DISTINCT phoneNumber FROM Messages"));
+    Database::exec(getPhoneNumbers);
+
+    while (getPhoneNumbers.next()) {
+        const auto phoneNumber = getPhoneNumbers.value(0).toString();
+        qDebug() << "updating phone number" << phoneNumber;
+        auto normalized = phoneNumberUtils::normalizeNumber(phoneNumber);
+        qDebug() << "to" << normalized;
+
+        QSqlQuery normalizePhoneNumbers(m_database);
+        normalizePhoneNumbers.prepare(SL("UPDATE Messages SET phoneNumber = :normalized WHERE phoneNumber == :phoneNumber"));
+        normalizePhoneNumbers.bindValue(SL(":normalized"), normalized);
+        normalizePhoneNumbers.bindValue(SL(":phoneNumber"), phoneNumber);
+        Database::exec(normalizePhoneNumbers);
+    }
 }

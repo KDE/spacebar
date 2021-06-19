@@ -80,6 +80,7 @@ public:
 private:
     void migrationV1(uint current);
     void migrationV2(uint current);
+    void migrationV3(uint current);
     void migrate();
 
     QSqlDatabase m_database;
