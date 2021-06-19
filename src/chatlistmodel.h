@@ -32,6 +32,7 @@ class ChatListModel : public QAbstractListModel
 public:
     enum Role {
         DisplayNameRole = Qt::UserRole + 1,
+        DisplayPhoneNumberRole,
         PhoneNumberRole,
         UnreadMessagesRole,
         LastContactedRole,

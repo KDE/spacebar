@@ -20,7 +20,7 @@ auto countryCode() {
     return countrycode.toStdString();
 }
 
-NormalizeResult normalizeNumber(const std::string &numberString)
+NormalizeResult normalizeNumber(const std::string &numberString, PhoneNumberFormat format)
 {
     static auto country = countryCode();
 
@@ -32,13 +32,13 @@ NormalizeResult normalizeNumber(const std::string &numberString)
     }
 
     std::string formattedNumber;
-    PhoneNumberUtil::GetInstance()->Format(phoneNumber, PhoneNumberUtil::INTERNATIONAL, &formattedNumber);
+    PhoneNumberUtil::GetInstance()->Format(phoneNumber, PhoneNumberUtil::PhoneNumberFormat(format), &formattedNumber);
     return formattedNumber;
 }
 
-QString normalizeNumber(const QString &numberString)
+QString normalizeNumber(const QString &numberString, PhoneNumberFormat format)
 {
-    auto res = normalizeNumber(numberString.toStdString());
+    auto res = normalizeNumber(numberString.toStdString(), format);
     if (std::holds_alternative<std::string>(res)) {
         return QString::fromStdString(std::get<std::string>(res));
     }

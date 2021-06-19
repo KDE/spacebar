@@ -62,6 +62,7 @@ QHash<int, QByteArray> ChatListModel::roleNames() const
     return {
         {Role::DisplayNameRole, BL("displayName")},
         {Role::PhoneNumberRole, BL("phoneNumber")},
+        {Role::DisplayPhoneNumberRole, BL("displayPhoneNumber")},
         {Role::LastContactedRole, BL("lastContacted")},
         {Role::UnreadMessagesRole, BL("unreadMessages")},
         {Role::PhotoRole, BL("photo")},
@@ -81,6 +82,8 @@ QVariant ChatListModel::data(const QModelIndex &index, int role) const
         return KPeople::PersonData(m_mapper.uriForNumber(m_chats.at(index.row()).phoneNumber)).name();
     case PhotoRole:
         return KPeople::PersonData(m_mapper.uriForNumber(m_chats.at(index.row()).phoneNumber)).photo();
+    case DisplayPhoneNumberRole:
+        return phoneNumberUtils::normalizeNumber(m_chats.at(index.row()).phoneNumber, phoneNumberUtils::National);
     case PhoneNumberRole:
         return phoneNumberUtils::normalizeNumber(m_chats.at(index.row()).phoneNumber);
     case LastContactedRole:

@@ -12,16 +12,23 @@ class QString;
 
 namespace phoneNumberUtils {
 enum ErrorType {
-  NoParsingError,
-  InvalidCountryCodeError,
-  NotANumber,
-  TooShortAfterIID,
-  TooShortNSN,
-  TooLongNsn,
+      NoParsingError,
+      InvalidCountryCodeError,
+      NotANumber,
+      TooShortAfterIID,
+      TooShortNSN,
+      TooLongNsn,
+};
+
+enum PhoneNumberFormat {
+      E164,
+      International,
+      National,
+      RFC3966
 };
 
 using NormalizeResult = std::variant<std::string, ErrorType>;
 
-NormalizeResult normalizeNumber(const std::string &numberString);
-QString normalizeNumber(const QString &numberString);
+NormalizeResult normalizeNumber(const std::string &numberString, PhoneNumberFormat format = International);
+QString normalizeNumber(const QString &numberString, PhoneNumberFormat format = International);
 };

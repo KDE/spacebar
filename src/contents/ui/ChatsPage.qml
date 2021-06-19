@@ -61,6 +61,7 @@ Kirigami.ScrollablePage {
 
             required property string displayName
             required property string phoneNumber
+            required property string displayPhoneNumber
             required property string lastContacted
             required property int unreadMessages
             required property var photo
@@ -77,7 +78,7 @@ Kirigami.ScrollablePage {
                     Layout.rightMargin: Kirigami.Units.largeSpacing
 
                     source: "image://avatar/" + delegateRoot.phoneNumber
-                    name: delegateRoot.displayName || delegateRoot.phoneNumber
+                    name: delegateRoot.displayName || delegateRoot.displayPhoneNumber
                     imageMode: Kirigami.Avatar.AdaptiveImageOrInitals
                 }
 
@@ -90,7 +91,7 @@ Kirigami.ScrollablePage {
                         level: 3
                         Layout.fillWidth: true
                         id: nameLabel
-                        text: delegateRoot.displayName || delegateRoot.phoneNumber
+                        text: delegateRoot.displayName || delegateRoot.displayPhoneNumber
                     }
                     Text {
                         id: lastMessage
