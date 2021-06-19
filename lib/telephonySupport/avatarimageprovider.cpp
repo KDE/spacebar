@@ -13,32 +13,43 @@
 #include "contactphonenumbermapper.h"
 
 AvatarImageProvider::AvatarImageProvider()
-    : QQuickImageProvider(QQuickImageProvider::ImageType::Pixmap)
+    : QQuickImageProvider(QQuickImageProvider::ImageType::Image)
 {
 
 }
 
-QPixmap AvatarImageProvider::requestPixmap(const QString &number, QSize *size, const QSize &requestedSize)
+QImage AvatarImageProvider::requestImage(const QString &number, QSize *size, const QSize &requestedSize)
 {
-    Q_UNUSED(requestedSize)
-
     const QString normalizedNumber = PhoneNumberUtils::normalize(number);
     const auto personData = KPeople::PersonData(ContactPhoneNumberMapper::instance().uriForNumber(normalizedNumber));
 
-    QPixmap avatar;
-    QVariant pic = personData.contactCustomProperty(KPeople::AbstractContact::PictureProperty);
-    if (pic.canConvert<QImage>()) {
-        avatar = QPixmap::fromImage(pic.value<QImage>());
-    } else if (pic.canConvert<QUrl>()) {
-        avatar = QPixmap(pic.toUrl().toLocalFile());
+    auto avatar = [&] () -> QImage {
+        QVariant pic = personData.contactCustomProperty(KPeople::AbstractContact::PictureProperty);
+
+        if (pic.canConvert<QImage>()) {
+            return pic.value<QImage>();
+        } else if (pic.canConvert<QUrl>()) {
+            QImage image;
+            image.load(pic.toUrl().toLocalFile());
+            return image;
+        } else {
+            return {};
+        }
+    }();
+    if (avatar.isNull()) {
+        return {};
+    }
+
+    if (avatar.size().height() > requestedSize.height()) {
+        avatar = avatar.scaledToHeight(requestedSize.height());
+    } else if  (avatar.size().width() > requestedSize.width()) {
+        avatar = avatar.scaledToWidth(requestedSize.width());
     }
 
     if (!avatar.isNull()) {
         size->setHeight(avatar.size().height());
         size->setWidth(avatar.size().width());
-
-        return avatar;
     }
 
-    return {};
+    return avatar;
 }

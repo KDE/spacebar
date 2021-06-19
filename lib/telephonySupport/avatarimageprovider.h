@@ -11,5 +11,5 @@ class AvatarImageProvider : public QQuickImageProvider
 public:
     explicit AvatarImageProvider();
 
-    QPixmap requestPixmap(const QString &number, QSize *size, const QSize &requestedSize) override;
+    QImage requestImage(const QString &number, QSize *size, const QSize &requestedSize) override;
 };
