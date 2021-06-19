@@ -29,7 +29,7 @@ MessageModel::MessageModel(ChannelHandler &handler, const QString &phoneNumber, 
     , m_phoneNumber(phoneNumber)
     , m_personData(new KPeople::PersonData(ContactPhoneNumberMapper::instance().uriForNumber(phoneNumber), this))
 {
-    connect(&m_handler.msgManager(), &QOfonoMessageManager::incomingMessage, this, [=](const QString &text, const QVariantMap &info) {
+    connect(&m_handler.msgManager(), &QOfonoMessageManager::incomingMessage, this, [=, this](const QString &text, const QVariantMap &info) {
         if (PhoneNumberUtils::normalize(info[SL("Sender")].toString()) != m_phoneNumber) {
             return; // Message is not for this model
         }
@@ -139,7 +139,7 @@ void MessageModel::sendMessage(const QString &text)
                 [](auto *watcher) {
         watcher->deleteLater();
     });
-    connect(watcher.get(), &QFutureWatcherBase::finished, this, [=] {
+    connect(watcher.get(), &QFutureWatcherBase::finished, this, [=, this] {
         const auto result = watcher->result();
         bool success = result.first;
 
@@ -169,7 +169,7 @@ void MessageModel::sendMessage(const QString &text)
                     Q_EMIT dataChanged(index(i), index(i), {Role::DeliveryStateRole});
                 }
 
-                connect(ofonoMessage.get(), &QOfonoMessage::stateChanged, this, [=] {
+                connect(ofonoMessage.get(), &QOfonoMessage::stateChanged, this, [=, this] {
                     MessageState state = parseMessageState(ofonoMessage->state());
                     modelIt->deliveryStatus = state;
                     Q_EMIT m_handler.database().requestUpdateMessageDeliveryState(path, state);
