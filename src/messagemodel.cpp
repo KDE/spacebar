@@ -116,7 +116,7 @@ QString MessageModel::phoneNumber() const
 
 void MessageModel::addMessage(const Message &message)
 {
-    beginInsertRows({}, 0, 0);
+    beginInsertRows({}, m_messages.count(), m_messages.count());
     m_messages.prepend(message);
     endInsertRows();
 }
@@ -157,7 +157,7 @@ void MessageModel::sendMessage(const QString &text)
                     const QString path = result.path();
                     modelIt->id = path;
 
-                    const int i = std::distance(m_messages.begin(), modelIt);
+                    const int i = (m_messages.count() - 1) - std::distance(m_messages.begin(), modelIt);
 
                     Q_EMIT m_handler.database().requestAddMessage(*modelIt);
 
