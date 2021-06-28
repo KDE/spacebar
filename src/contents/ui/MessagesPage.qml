@@ -35,13 +35,23 @@ Kirigami.ScrollablePage {
         model: messageModel
         spacing: Kirigami.Units.largeSpacing
 
-        verticalLayoutDirection: ListView.BottomToTop
-
         add: Transition {
             NumberAnimation { properties: "x,y"; duration: Kirigami.Units.shortDuration }
         }
         addDisplaced: Transition {
             NumberAnimation { properties: "x,y"; duration: Kirigami.Units.shortDuration }
+        }
+
+        section.property: "date"
+        section.delegate: Controls.Control {
+            bottomPadding: Kirigami.Units.largeSpacing
+            anchors.horizontalCenter: parent.horizontalCenter
+            contentItem: Kirigami.ListSectionHeader {
+                Text {
+                    text: Qt.formatDate(section, Qt.locale().dateFormat(Locale.LongFormat))
+                    horizontalAlignment: Text.AlignHCenter
+                }
+            }
         }
 
         delegate: Item {

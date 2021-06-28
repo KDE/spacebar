@@ -77,21 +77,23 @@ QVariant MessageModel::data(const QModelIndex &index, int role) const
         return false;
     }
 
+    // message order is reversed from the C++ side instead of in QML since sectioning doesn't work right otherwise
+    Message message = m_messages.at((m_messages.count() - 1) - index.row());
     switch (role) {
     case Role::TextRole:
-        return m_messages.at(index.row()).text;
+        return message.text;
     case Role::TimeRole:
-        return m_messages.at(index.row()).datetime.time();
+        return message.datetime.time();
     case Role::DateRole:
-        return m_messages.at(index.row()).datetime.date();
+        return message.datetime.date();
     case Role::SentByMeRole:
-        return m_messages.at(index.row()).sentByMe;
+        return message.sentByMe;
     case Role::ReadRole:
-        return m_messages.at(index.row()).read;
+        return message.read;
     case Role::DeliveryStateRole:
-        return DeliveryState(m_messages.at(index.row()).deliveryStatus);
+        return DeliveryState(message.deliveryStatus);
     case Role::IdRole:
-        return m_messages.at(index.row()).id;
+        return message.id;
     }
 
     return {};
