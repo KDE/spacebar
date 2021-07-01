@@ -35,6 +35,9 @@ Kirigami.ScrollablePage {
         model: messageModel
         spacing: Kirigami.Units.largeSpacing
 
+        // when there is a new message or the the chat is first viewed, go to the bottom
+        onCountChanged: contentY = contentHeight
+
         add: Transition {
             NumberAnimation { properties: "x,y"; duration: Kirigami.Units.shortDuration }
         }
