@@ -107,7 +107,7 @@ QQmlApplicationEngine *Utils::qmlEngine() const
 QString Utils::sendingNumber()
 {
     QStringList numbers = m_simManager->subscriberNumbers();
-    if (numbers.count() == 0) {
+    if (numbers.empty()) {
         return QString();
     }
     return phoneNumberUtils::normalizeNumber(numbers[0],
