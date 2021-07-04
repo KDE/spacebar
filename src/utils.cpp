@@ -11,6 +11,9 @@
 #include <QGuiApplication>
 #include <QClipboard>
 
+#include <qofono-qt5/qofonomanager.h>
+#include <qofono-qt5/qofonosimmanager.h>
+
 #include <KTextToHTML>
 
 #include "global.h"
@@ -20,10 +23,17 @@ Utils *Utils::s_instance = nullptr;
 
 
 Utils::Utils(QQmlApplicationEngine *engine)
-    : m_engine(engine)
+    : m_simManager(new QOfonoSimManager(this))
+    , m_engine(engine)
 
 {
     s_instance = this;
+    QOfonoManager manager;
+    manager.getModems();
+    QString modemPath = manager.defaultModem();
+    if (!modemPath.isEmpty()) {
+        m_simManager->setModemPath(modemPath);
+    }
 }
 
 void Utils::showPassiveNotification(const QString &message, int timeout)
@@ -92,4 +102,14 @@ Utils *Utils::instance()
 QQmlApplicationEngine *Utils::qmlEngine() const
 {
     return m_engine;
+}
+
+QString Utils::sendingNumber()
+{
+    QStringList numbers = m_simManager->subscriberNumbers();
+    if (numbers.count() == 0) {
+        return QString();
+    }
+    return phoneNumberUtils::normalizeNumber(numbers[0],
+                                             phoneNumberUtils::National);
 }

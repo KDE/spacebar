@@ -184,7 +184,14 @@ Kirigami.ScrollablePage {
     footer: Kirigami.ActionTextField {
         id: field
         height: Kirigami.Units.gridUnit * 2
-        placeholderText: i18n("Write Message...")
+        placeholderText: {
+            var number = Utils.sendingNumber()
+            if (number === "") {
+                return i18n("Write Message...")
+            } else {
+                return i18nc("%1 is a phone number", "Send Message from %1...", number)
+            }
+        }
         onAccepted: text !== "" && sendAction.triggered()
         rightActions: [
             Kirigami.Action {

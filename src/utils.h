@@ -6,6 +6,9 @@
 
 #include <QObject>
 #include <QRegularExpression>
+
+#include <qofono-qt5/qofonosimmanager.h>
+
 class QQmlApplicationEngine;
 class QQuickWindow;
 
@@ -28,6 +31,7 @@ public:
     Q_INVOKABLE bool isPremiumNumber(const QString &text) const;
     Q_INVOKABLE static void launchPhonebook();
     Q_INVOKABLE void copyTextToClipboard(const QString &text) const;
+    Q_INVOKABLE QString sendingNumber();
 
     static QString textToHtml(const QString &text);
 
@@ -38,6 +42,7 @@ public:
     QQmlApplicationEngine *qmlEngine() const;
 
 private:
+    QOfonoSimManager *m_simManager;
     QQmlApplicationEngine *m_engine;
     QQuickWindow *m_window = nullptr;
 };
