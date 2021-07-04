@@ -9,8 +9,6 @@
 
 #include <KPeople/PersonData>
 
-#include <qofonomessagemanager.h>
-
 #include "database.h"
 
 class AsyncDatabase;

@@ -5,12 +5,12 @@
 
 #include "channellogger.h"
 
+#include <QProcess>
+
 #include <KLocalizedString>
 #include <KNotification>
 
 #include <KTextToHTML>
-
-#include <qofonomessage.h>
 
 #include <global.h>
 #include <database.h>

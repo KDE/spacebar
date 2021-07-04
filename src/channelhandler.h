@@ -9,6 +9,8 @@
 
 #include <qofonomanager.h>
 
+#include <optional>
+
 #include "messagemanager.h"
 
 class AsyncDatabase;
