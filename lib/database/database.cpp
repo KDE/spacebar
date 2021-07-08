@@ -48,7 +48,7 @@ Database::Database(QObject *parent)
     const bool open = m_database.open();
 
     if (!open) {
-        qWarning() << "Could not open call database" << m_database.lastError();
+        qWarning() << "Could not open messages database" << m_database.lastError();
     }
 
     migrate();
