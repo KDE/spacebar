@@ -152,7 +152,7 @@ QDateTime Database::lastContactedForNumber(const QString &phoneNumber) const
     exec(fetch);
 
     fetch.first();
-    return QDateTime::fromMSecsSinceEpoch(fetch.value(0).toInt());
+    return QDateTime::fromMSecsSinceEpoch(fetch.value(0).toLongLong());
 }
 
 void Database::markChatAsRead(const QString &phoneNumber)
