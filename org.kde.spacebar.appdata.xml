@@ -127,6 +127,19 @@
   </description>
   <url type="bugtracker">https://invent.kde.org/plasma-mobile/spacebar/-/issues</url>
   <releases>
+    <release version="21.07" date="2021-07-20">
+      <description>
+        <ul>
+          <li>Rework the phone number normalization, which should now find more cases of differently formatted numbers belonging to the same contact</li>
+          <li>More possible errors while sending messages are now reported to the user</li>
+          <li>Display dates above messages</li>
+          <li>Phone Numbers are now always displayed in local format</li>
+          <li>It is now visible from which number a message will be sent</li>
+          <li>The chat list is now correctly sorted</li>
+        </ul>
+      </description>
+      <url>https://www.plasma-mobile.org/2021/07/20/plasma-mobile-gear-21-07/</url>
+    </release>
     <release version="21.06" date="2021-06-10">
       <description>
         <ul>
