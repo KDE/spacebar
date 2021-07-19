@@ -127,6 +127,7 @@
   </description>
   <url type="bugtracker">https://invent.kde.org/plasma-mobile/spacebar/-/issues</url>
   <releases>
+    <release version="21.07" date="2021-07-20"/>
     <release version="21.07" date="2021-07-20">
       <description>
         <ul>
