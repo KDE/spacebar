@@ -7,6 +7,7 @@
 #include <QFutureInterface>
 
 #include <global.h>
+#include <phonenumberutils.h>
 
 MessageManager::MessageManager(QObject *parent)
     : QOfonoMessageManager(parent)
@@ -25,20 +26,24 @@ QFuture<SendMessageResult> MessageManager::sendMessage(const QString &to, const 
         return futureInterface->future();
     }
 
-    connect(new QDBusPendingCallWatcher(iface->asyncCall(SL("SendMessage"), to, text), iface),
-        &QDBusPendingCallWatcher::finished,
-        [=](QDBusPendingCallWatcher *watcher) {
-            watcher->deleteLater();
+    connect(new QDBusPendingCallWatcher(
+                iface->asyncCall(SL("SendMessage"),
+                                 phoneNumberUtils::normalizeForOfono(to),
+                                 text),
+                iface),
+            &QDBusPendingCallWatcher::finished,
+            [=](QDBusPendingCallWatcher *watcher) {
+                watcher->deleteLater();
 
-            QDBusPendingReply<QDBusObjectPath> reply = *watcher;
-            if (reply.isError()) {
-                futureInterface->reportResult(reply.error());
-                futureInterface->reportFinished();
-            } else {
-                futureInterface->reportResult(reply.value());
-                futureInterface->reportFinished();
-            }
-    });
+                QDBusPendingReply<QDBusObjectPath> reply = *watcher;
+                if (reply.isError()) {
+                    futureInterface->reportResult(reply.error());
+                    futureInterface->reportFinished();
+                } else {
+                    futureInterface->reportResult(reply.value());
+                    futureInterface->reportFinished();
+                }
+            });
 
     return futureInterface->future();
 }
