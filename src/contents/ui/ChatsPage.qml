@@ -80,6 +80,7 @@ Kirigami.ScrollablePage {
                     source: "image://avatar/" + delegateRoot.phoneNumber
                     name: delegateRoot.displayName || delegateRoot.displayPhoneNumber
                     imageMode: Kirigami.Avatar.AdaptiveImageOrInitals
+                    initialsMode: delegateRoot.displayName ? Kirigami.Avatar.UseInitials : Kirigami.Avatar.UseIcon
                 }
 
                 ColumnLayout {
@@ -97,6 +98,7 @@ Kirigami.ScrollablePage {
                         id: lastMessage
                         Layout.fillWidth: true
                         text: delegateRoot.lastMessage
+                        textFormat: Text.StyledText
                         maximumLineCount: 1
                         elide: Qt.ElideRight
                         color: Qt.tint(Kirigami.Theme.disabledTextColor, Kirigami.Theme.textColor)
