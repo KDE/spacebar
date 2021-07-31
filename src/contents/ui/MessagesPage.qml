@@ -1,5 +1,6 @@
 // SPDX-FileCopyrightText: 2020 Jonah Brüchert <jbb@kaidan.im>
 // SPDX-FileCopyrightText: 2021 Devin Lin <espidev@gmail.com>
+// SPDX-FileCopyrightText: 2021 Michael Lang <criticaltemp@protonmail.com>
 //
 // SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
 
@@ -36,7 +37,7 @@ Kirigami.ScrollablePage {
         spacing: Kirigami.Units.largeSpacing
 
         // when there is a new message or the the chat is first viewed, go to the bottom
-        onCountChanged: contentY = contentHeight
+        onCountChanged: Qt.callLater( listView.positionViewAtEnd )
 
         add: Transition {
             NumberAnimation { properties: "x,y"; duration: Kirigami.Units.shortDuration }
@@ -47,14 +48,38 @@ Kirigami.ScrollablePage {
 
         section.property: "date"
         section.delegate: Controls.Control {
-            bottomPadding: Kirigami.Units.largeSpacing
-            anchors.horizontalCenter: parent.horizontalCenter
-            contentItem: Kirigami.ListSectionHeader {
+            padding: Kirigami.Units.largeSpacing
+            width: parent.width
+            contentItem:
+            RowLayout {
+                spacing: Kirigami.Units.largeSpacing
+
+                Rectangle {
+                    color: Kirigami.Theme.alternateBackgroundColor
+                    height: 1
+                    Layout.fillWidth: true
+                }
+
                 Text {
                     text: Qt.formatDate(section, Qt.locale().dateFormat(Locale.LongFormat))
                     horizontalAlignment: Text.AlignHCenter
+                    font: Kirigami.Theme.smallFont
+                    color: Kirigami.Theme.disabledTextColor
+                }
+
+                Rectangle {
+                    color: Kirigami.Theme.alternateBackgroundColor
+                    height: 1
+                    Layout.fillWidth: true
                 }
             }
+        }
+
+        // remove focus from message entry field
+        MouseArea {
+            anchors.fill: parent
+            z: -1
+            onClicked: forceActiveFocus()
         }
 
         delegate: Item {
@@ -84,7 +109,9 @@ Kirigami.ScrollablePage {
                 anchors.left: model.sentByMe ? undefined : parent.left
                 anchors.right: model.sentByMe ? parent.right : undefined
                 
-                radius: Kirigami.Units.smallSpacing
+                radius: Kirigami.Units.gridUnit
+                corners.bottomRightRadius: model.sentByMe ? 0 : -1
+                corners.topLeftRadius: model.sentByMe ? -1 : 0
                 shadow.size: Kirigami.Units.smallSpacing
                 shadow.color: !model.isHighlighted ? Qt.rgba(0.0, 0.0, 0.0, 0.10) : Qt.rgba(Kirigami.Theme.textColor.r, Kirigami.Theme.textColor.g, Kirigami.Theme.textColor.b, 0.10)
                 border.color: Kirigami.ColorUtils.tintWithAlpha(color, Kirigami.Theme.textColor, 0.15)
@@ -92,7 +119,7 @@ Kirigami.ScrollablePage {
                 
                 color: model.sentByMe ? Kirigami.Theme.highlightColor : Kirigami.Theme.backgroundColor
                 
-                height: content.height + Kirigami.Units.largeSpacing * 2
+                height: content.height + Kirigami.Units.largeSpacing
                 width: content.width + Kirigami.Units.largeSpacing * 2
 
                 ColumnLayout {
@@ -105,8 +132,8 @@ Kirigami.ScrollablePage {
                     
                     // message contents
                     Controls.Label {
-                        Layout.alignment: Qt.AlignTop
-                        Layout.minimumWidth: Kirigami.Units.gridUnit * 5
+                        Layout.alignment: model.text && model.text.length > 1 ? Qt.AlignTop : Qt.AlignHCenter
+                        Layout.minimumWidth: Kirigami.Units.gridUnit / 5
                         Layout.maximumWidth: delegateParent.width * 0.7
                         text: model.text ? model.text : " " // guarantee there is text so that height is maintained
                         wrapMode: Text.Wrap
@@ -115,40 +142,41 @@ Kirigami.ScrollablePage {
                         color: content.textColor
                     }
 
-                    RowLayout {
-                        spacing: Kirigami.Units.smallSpacing
-                        Item { Layout.fillWidth: true }
-                        Kirigami.Icon {
-                            Layout.alignment: Qt.AlignRight
-                            implicitHeight: Math.round(Kirigami.Units.gridUnit * 0.7)
-                            implicitWidth: implicitHeight
-                            source: {
-                                if (visible) {
-                                    switch (model.deliveryState) {
-                                    case MessageModel.Unknown:
-                                        return undefined;
-                                    case MessageModel.Pending:
-                                        return "content-loading-symbolic";
-                                    case MessageModel.Sent:
-                                        return "answer-correct";
-                                    case MessageModel.Failed:
-                                        return "error"
-                                    }
+                    Kirigami.Icon {
+                        Layout.alignment: Qt.AlignRight
+                        implicitHeight: model.deliveryState == MessageModel.Sent ? 0 : Math.round(Kirigami.Units.gridUnit * 0.7)
+                        implicitWidth: implicitHeight
+                        source: {
+                            if (visible) {
+                                switch (model.deliveryState) {
+                                case MessageModel.Unknown:
+                                    return undefined;
+                                case MessageModel.Pending:
+                                    return "content-loading-symbolic";
+                                case MessageModel.Sent:
+                                    return "answer-correct";
+                                case MessageModel.Failed:
+                                    return "error"
                                 }
-
-                                return undefined
                             }
 
-                            visible: model.sentByMe
-                            color: content.textColor
+                            return undefined
                         }
-                        Controls.Label {
-                            Layout.alignment: Qt.AlignRight
-                            text: Qt.formatTime(model.time, Qt.DefaultLocaleShortDate)
-                            font: Kirigami.Theme.smallFont
-                            color: content.textColor
-                        }
+
+                        visible: model.sentByMe
+                        color: content.textColor
                     }
+                }
+
+                Controls.Label {
+                    anchors.left: model.sentByMe ? undefined : parent.right
+                    anchors.right: model.sentByMe ? parent.left : undefined
+                    anchors.bottom: parent.bottom
+                    padding: Kirigami.Units.smallSpacing
+                    bottomPadding: 0
+                    text: Qt.formatTime(model.time, Qt.DefaultLocaleShortDate)
+                    font: Kirigami.Theme.smallFont
+                    color: Kirigami.Theme.disabledTextColor
                 }
             }
 
@@ -158,6 +186,7 @@ Kirigami.ScrollablePage {
                     menu.message = model.text
                     menu.open()
                 }
+                onPressed: parent.forceActiveFocus()
             }
         }
     }
