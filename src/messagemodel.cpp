@@ -27,7 +27,7 @@
 MessageModel::MessageModel(ChannelHandler &handler, const QString &phoneNumber, QObject *parent)
     : QAbstractListModel(parent)
     , m_handler(handler)
-    , m_phoneNumber(phoneNumber)
+    , m_phoneNumber(phoneNumberUtils::normalizeNumber(phoneNumber))
     , m_personData(new KPeople::PersonData(ContactPhoneNumberMapper::instance().uriForNumber(phoneNumber), this))
 {
     connect(&m_handler.msgManager(), &QOfonoMessageManager::incomingMessage, this, [=, this](const QString &text, const QVariantMap &info) {

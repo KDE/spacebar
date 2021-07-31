@@ -18,6 +18,7 @@ Kirigami.ScrollablePage {
         contentItem: Kirigami.ActionTextField {
            id: searchField
             onTextChanged: contactsProxyModel.setFilterFixedString(text)
+            inputMethodHints: Qt.ImhNoPredictiveText
             placeholderText: i18n("Search or enter number…")
             focusSequence: "Ctrl+F"
             rightActions: [
@@ -71,6 +72,8 @@ Kirigami.ScrollablePage {
         }
 
         reuseItems: true
+
+        currentIndex: -1
 
         delegate: Kirigami.AbstractListItem {
             width: contactsList.width
