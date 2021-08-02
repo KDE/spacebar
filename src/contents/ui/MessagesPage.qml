@@ -119,8 +119,8 @@ Kirigami.ScrollablePage {
                 
                 color: model.sentByMe ? Kirigami.Theme.highlightColor : Kirigami.Theme.backgroundColor
                 
-                height: content.height + Kirigami.Units.largeSpacing
-                width: content.width + Kirigami.Units.largeSpacing * 2
+                height: content.height + Kirigami.Units.largeSpacing * 2
+                width: content.width + Kirigami.Units.largeSpacing * 3
 
                 ColumnLayout {
                     spacing: 0
