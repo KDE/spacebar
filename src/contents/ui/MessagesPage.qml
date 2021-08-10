@@ -141,31 +141,6 @@ Kirigami.ScrollablePage {
                         linkColor: model.sentByMe ? Kirigami.Theme.highlightedTextColor : Kirigami.Theme.linkColor
                         color: content.textColor
                     }
-
-                    Kirigami.Icon {
-                        Layout.alignment: Qt.AlignRight
-                        implicitHeight: model.deliveryState == MessageModel.Sent ? 0 : Math.round(Kirigami.Units.gridUnit * 0.7)
-                        implicitWidth: implicitHeight
-                        source: {
-                            if (visible) {
-                                switch (model.deliveryState) {
-                                case MessageModel.Unknown:
-                                    return undefined;
-                                case MessageModel.Pending:
-                                    return "content-loading-symbolic";
-                                case MessageModel.Sent:
-                                    return "answer-correct";
-                                case MessageModel.Failed:
-                                    return "error"
-                                }
-                            }
-
-                            return undefined
-                        }
-
-                        visible: model.sentByMe
-                        color: content.textColor
-                    }
                 }
 
                 Controls.Label {
@@ -177,6 +152,32 @@ Kirigami.ScrollablePage {
                     text: Qt.formatTime(model.time, Qt.DefaultLocaleShortDate)
                     font: Kirigami.Theme.smallFont
                     color: Kirigami.Theme.disabledTextColor
+
+                    Kirigami.Icon {
+                        anchors.right: parent.left
+                        anchors.bottom: parent.bottom
+                        implicitHeight: Math.round(Kirigami.Units.gridUnit * 0.7)
+                        implicitWidth: implicitHeight
+                        source: {
+                            if (visible) {
+                                switch (model.deliveryState) {
+                                    case MessageModel.Unknown:
+                                        return "dontknow";
+                                    case MessageModel.Pending:
+                                        return "content-loading-symbolic";
+                                    case MessageModel.Sent:
+                                        return "answer-correct";
+                                    case MessageModel.Failed:
+                                        return "error"
+                                }
+                            }
+                            
+                            return undefined
+                        }
+                        
+                        visible: model.sentByMe && model.deliveryState != MessageModel.Sent
+                        color: model.deliveryState == MessageModel.Failed ? Kirigami.Theme.negativeTextColor : Kirigami.Theme.disabledTextColor
+                    }
                 }
             }
 
