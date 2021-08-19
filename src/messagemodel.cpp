@@ -147,17 +147,20 @@ void MessageModel::sendMessage(const QString &text)
 
         std::visit([=, this](auto &&result) {
             using T =  std::decay_t<decltype(result)>;
-
+            const auto modelIt =
+                std::find_if(m_messages.begin(),
+                             m_messages.end(),
+                             [&](const Message &message) {
+                                 return message.id == intermediateId;
+                             });
+            const int i = (m_messages.count() - 1) -
+                std::distance(m_messages.begin(), modelIt);
             if constexpr (std::is_same_v<T, QDBusObjectPath>) {
-                const auto modelIt = std::find_if(m_messages.begin(), m_messages.end(), [&](const Message &message) {
-                    return message.id == intermediateId;
-                });
 
                 if (modelIt != m_messages.cend()) {
                     const QString path = result.path();
                     modelIt->id = path;
 
-                    const int i = (m_messages.count() - 1) - std::distance(m_messages.begin(), modelIt);
 
                     Q_EMIT m_handler.database().requestAddMessage(*modelIt);
 
@@ -183,8 +186,18 @@ void MessageModel::sendMessage(const QString &text)
                     qWarning() << "Failed to find message that was just sent. This is a bug";
                 }
             } else if constexpr (std::is_same_v<T, QDBusError>) {
+                modelIt->deliveryStatus = MessageState::Failed;
+                Q_EMIT m_handler.database().requestUpdateMessageDeliveryState(
+                    intermediateId, MessageState::Failed);
+                Q_EMIT dataChanged(
+                    index(i), index(i), {Role::DeliveryStateRole});
                 Utils::instance()->showPassiveNotification(result.message());
             } else if constexpr (std::is_same_v<T, ModemNotFoundError>) {
+                modelIt->deliveryStatus = MessageState::Failed;
+                Q_EMIT m_handler.database().requestUpdateMessageDeliveryState(
+                    intermediateId, MessageState::Failed);
+                Q_EMIT dataChanged(
+                    index(i), index(i), {Role::DeliveryStateRole});
                 Utils::instance()->showPassiveNotification(i18n("The modem interface is not available"));
             }
         }, result);
