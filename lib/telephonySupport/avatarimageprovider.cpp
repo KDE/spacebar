@@ -6,7 +6,6 @@
 
 #include <KPeople/PersonData>
 #include <KPeopleBackend/AbstractContact>
-#include <KContacts/PhoneNumber>
 
 #include "phonenumberutils.h"
 

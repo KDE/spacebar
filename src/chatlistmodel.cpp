@@ -12,8 +12,6 @@
 #include <QQmlApplicationEngine>
 #include <KPeople/PersonData>
 
-#include <KContacts/PhoneNumber>
-
 #include <phonenumberutils.h>
 
 #include <global.h>

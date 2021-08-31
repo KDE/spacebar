@@ -32,7 +32,7 @@ ecm_setup_version(${PROJECT_VERSION}
 
 ################# Find dependencies #################
 find_package(Qt5 ${QT_MIN_VERSION} REQUIRED COMPONENTS Core Gui Qml Quick Widgets Sql)
-find_package(KF5 ${KF5_MIN_VERSION} REQUIRED COMPONENTS Kirigami2 I18n People Contacts Notifications CoreAddons)
+find_package(KF5 ${KF5_MIN_VERSION} REQUIRED COMPONENTS Kirigami2 I18n People Notifications CoreAddons)
 find_package(PhoneNumber COMPONENTS PhoneNumber REQUIRED)
 pkg_search_module(QOfono REQUIRED IMPORTED_TARGET qofono-qt5)
 

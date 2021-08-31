@@ -26,7 +26,6 @@ target_link_libraries(spacebar
     KF5::I18n
     KF5::People
     KF5::PeopleBackend
-    KF5::Contacts
     PkgConfig::QOfono
     database
     kTelephonySupport

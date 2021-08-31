@@ -4,7 +4,6 @@
 
 #include "contactphonenumbermapper.h"
 
-#include <KContacts/VCardConverter>
 #include <KPeopleBackend/AbstractContact>
 #include <QDebug>
 #include <QThread>
