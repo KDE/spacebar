@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.14)
+cmake_minimum_required(VERSION 3.16.0)
 
 set(KF5_MIN_VERSION "5.83.0")
 set(QT_MIN_VERSION "5.15.0")
