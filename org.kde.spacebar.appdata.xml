@@ -18,6 +18,7 @@
   <name xml:lang="id">Spacebar</name>
   <name xml:lang="it">Spacebar</name>
   <name xml:lang="ko">Spacebar</name>
+  <name xml:lang="lt">Spacebar</name>
   <name xml:lang="nl">Spatiebalk</name>
   <name xml:lang="nn">Spacebar</name>
   <name xml:lang="pa">ਸਪੇਸਬਾਰ</name>
@@ -48,6 +49,7 @@
   <summary xml:lang="id">Klien telepathy dan SMS</summary>
   <summary xml:lang="it">Client SMS e di telepathy</summary>
   <summary xml:lang="ko">SMS와 Telepathy 클라이언트</summary>
+  <summary xml:lang="lt">SMS žinučių ir telepathy kliento programa</summary>
   <summary xml:lang="nl">Client voor SMS en telepathy</summary>
   <summary xml:lang="nn">SMS- og Telepathy-klient</summary>
   <summary xml:lang="pa">SMS ਅਤੇ ਟੈਲੀਪੈਥੀ ਕਲਾਂਇਟ</summary>
@@ -81,6 +83,7 @@
   <developer_name xml:lang="id">Komunitas KDE</developer_name>
   <developer_name xml:lang="it">Comunità KDE</developer_name>
   <developer_name xml:lang="ko">KDE 커뮤니티</developer_name>
+  <developer_name xml:lang="lt">KDE bendruomenė</developer_name>
   <developer_name xml:lang="nl">KDE-gemeenschap</developer_name>
   <developer_name xml:lang="nn">KDE-fellesskapet</developer_name>
   <developer_name xml:lang="pa">ਕੇਡੀਈ ਕਮਿਊਨਟੀ</developer_name>
@@ -112,6 +115,7 @@
     <p xml:lang="id">Spacebar adalah sebuah klien telepathy untuk Plasma Mobile, yang terutama ditulis untuk mengirim dan menerima SMS.</p>
     <p xml:lang="it">Spacebar è un client SMS e di telepathy per Plasma Mobile, che è stato scritto principalmente per inviare e per ricevere SMS.</p>
     <p xml:lang="ko">Spacebar는 Plasma 모바일용 Telepathy 클라이언트입니다. 주 사용 목적은 SMS 주고받기입니다.</p>
+    <p xml:lang="lt">Spacebar yra telepathy kliento programa, skirta Plasma Mobile ir sukurta SMS žinučių siuntimui ir gavimui.</p>
     <p xml:lang="nl">Spacebar is een client voor telepathy voor Plasma Mobile, die primair is geschreven voor het verzenden en ontvangen van SMS.</p>
     <p xml:lang="nn">Spacebar er ein Telepathy-klient for Plasma Mobile, som hovudsakleg er laga for sending og mottak av SMS-tekstmeldingar.</p>
     <p xml:lang="pa">ਸਪੇਸਬਾਰ ਪਲਾਜ਼ਮਾ ਮੋਬਾਇਲ ਲਈ ਟੈਲੀਪੈਥੀ ਕਲਾਂਇਟ ਹੈ, ਜੋ ਕਿ ਮੂਲ ਰੂਪ ਵਿੱਚ SMS ਸੁਨੇਹੇ ਭੇਜਣ ਤੇ ਲੈਣ ਲਈ ਲਿਖਿਆ ਗਿਆ ਹੈ।</p>
