@@ -13,7 +13,7 @@ include(FeatureSummary)
 
 ################# set KDE specific information #################
 find_package(ECM ${KF5_MIN_VERSION} REQUIRED NO_MODULE)
-find_package(PkgConfig)
+find_package(PkgConfig REQUIRED)
 
 # where to look first for cmake modules, before ${CMAKE_ROOT}/Modules/ is checked
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${ECM_MODULE_PATH})
