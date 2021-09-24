@@ -7,7 +7,9 @@
 #include <QObject>
 #include <QRegularExpression>
 
-#include <qofono-qt5/qofonosimmanager.h>
+#include <ModemManagerQt/Manager>
+#include <ModemManagerQt/Modem>
+#include <ModemManagerQt/ModemDevice>
 
 class QQmlApplicationEngine;
 class QQuickWindow;
@@ -42,7 +44,7 @@ public:
     QQmlApplicationEngine *qmlEngine() const;
 
 private:
-    QOfonoSimManager *m_simManager;
     QQmlApplicationEngine *m_engine;
     QQuickWindow *m_window = nullptr;
+    QString m_sendingNumber;
 };

@@ -11,7 +11,8 @@
 
 #include "database.h"
 
-class AsyncDatabase;
+#include "qcoro/task.h"
+
 class ChannelHandler;
 
 class MessageModel : public QAbstractListModel
@@ -73,6 +74,10 @@ public:
     Q_INVOKABLE void markMessageRead(const int id);
 
 private:
+    QCoro::Task<QString> sendMessageInternal(const QString &text);
+    QPair<Message *, int> getMessageIndex(const QString &path);
+    void updateMessageState(const QString &path, MessageState state);
+
     ChannelHandler &m_handler;
     QVector<Message> m_messages;
 

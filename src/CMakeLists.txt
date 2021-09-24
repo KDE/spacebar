@@ -6,7 +6,6 @@ set(spacebar_SRCS
     databasethread.cpp
     asyncdatabase.cpp
     channelhandler.cpp
-    messagemanager.cpp
     contactmodel.cpp
     resources.qrc
 )
@@ -26,9 +25,11 @@ target_link_libraries(spacebar
     KF5::I18n
     KF5::People
     KF5::PeopleBackend
-    PkgConfig::QOfono
+    KF5::ModemManagerQt
     database
     kTelephonySupport
     macros
+    QCoro::QCoroCore
+    QCoro::QCoroDBus
 )
 install(TARGETS spacebar ${KF5_INSTALL_TARGETS_DEFAULT_ARGS})

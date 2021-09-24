@@ -7,11 +7,7 @@
 #include <QObject>
 #include <databasethread.h>
 
-#include <qofonomanager.h>
-
 #include <optional>
-
-#include "messagemanager.h"
 
 class AsyncDatabase;
 
@@ -23,12 +19,9 @@ public:
     explicit ChannelHandler(std::optional<QString> &modemPath, QObject *parent = nullptr);
 
     AsyncDatabase &database();
-    MessageManager &msgManager();
 
 private:
     DatabaseThread m_databaseThread;
-    MessageManager m_msgManager;
-    QOfonoManager m_manager;
 
 signals:
     void handlerReady();

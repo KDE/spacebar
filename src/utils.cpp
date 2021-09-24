@@ -11,9 +11,6 @@
 #include <QGuiApplication>
 #include <QClipboard>
 
-#include <qofono-qt5/qofonomanager.h>
-#include <qofono-qt5/qofonosimmanager.h>
-
 #include <KTextToHTML>
 
 #include "global.h"
@@ -23,16 +20,20 @@ Utils *Utils::s_instance = nullptr;
 
 
 Utils::Utils(QQmlApplicationEngine *engine)
-    : m_simManager(new QOfonoSimManager(this))
-    , m_engine(engine)
-
+    : m_engine(engine)
 {
     s_instance = this;
-    QOfonoManager manager;
-    manager.getModems();
-    QString modemPath = manager.defaultModem();
-    if (!modemPath.isEmpty()) {
-        m_simManager->setModemPath(modemPath);
+
+    ModemManager::ModemDevice::List devices = ModemManager::modemDevices();
+
+    if (!devices.isEmpty()) {
+        ModemManager::ModemDevice::Ptr modem = devices.first();
+
+        const QStringList numbers = modem->modemInterface()->ownNumbers();
+
+        if (!numbers.isEmpty()) {
+            m_sendingNumber = phoneNumberUtils::normalizeNumber(numbers.first(), phoneNumberUtils::National);
+        }
     }
 }
 
@@ -106,10 +107,5 @@ QQmlApplicationEngine *Utils::qmlEngine() const
 
 QString Utils::sendingNumber()
 {
-    QStringList numbers = m_simManager->subscriberNumbers();
-    if (numbers.empty()) {
-        return QString();
-    }
-    return phoneNumberUtils::normalizeNumber(numbers[0],
-                                             phoneNumberUtils::National);
+    return m_sendingNumber;
 }

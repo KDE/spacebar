@@ -5,39 +5,29 @@
 
 #include "channelhandler.h"
 
-#include <KLocalizedString>
-
 #include "utils.h"
 #include "databasethread.h"
+#include "modemcontroller.h"
+
 #include <global.h>
 #include <database.h>
+
+#include <ModemManagerQt/Sms>
 
 ChannelHandler::ChannelHandler(std::optional<QString> &modemPath, QObject *parent)
     : QObject(parent)
 {
-    if (modemPath.has_value()) {
-        m_msgManager.setModemPath(*modemPath);
-    } else {
-        connect(&m_manager, &QOfonoManager::defaultModemChanged, this, [&] {
-            m_msgManager.setModemPath(m_manager.defaultModem());
-        });
-
-        m_msgManager.setModemPath(m_manager.defaultModem());
-    }
+    ModemController::instance().init(modemPath);
 
     // Refresh chat list when message arrives
     // The message will be saved by the background daemon
-    connect(&m_msgManager, &QOfonoMessageManager::incomingMessage, this, [&](const QString &, const QVariantMap &info) {
-        Q_EMIT m_databaseThread.database().messagesChanged(info[SL("Sender")].toString());
+    connect(&ModemController::instance(), &ModemController::messageAdded, this, [=, this](ModemManager::Sms::Ptr msg, bool received) {
+        Q_UNUSED(received);
+        Q_EMIT m_databaseThread.database().messagesChanged(msg->number());
     });
 }
 
 AsyncDatabase &ChannelHandler::database()
 {
     return m_databaseThread.database();
-}
-
-MessageManager &ChannelHandler::msgManager()
-{
-    return m_msgManager;
 }

@@ -7,6 +7,8 @@
 #include <KPeople/PersonsModel>
 #include <QObject>
 
+#include <unordered_map>
+
 class ContactPhoneNumberMapper : public QObject
 {
     Q_OBJECT

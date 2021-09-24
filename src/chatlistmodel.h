@@ -16,7 +16,6 @@
 
 class MessageModel;
 class ChannelHandler;
-class AsyncDatabase;
 
 struct ChatData {
     QString displayName;

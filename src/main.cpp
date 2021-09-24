@@ -23,6 +23,8 @@
 #include "avatarimageprovider.h"
 #include "channelhandler.h"
 
+#include <coroutine>
+
 constexpr auto APPLICATION_ID = "org.kde.spacebar";
 
 

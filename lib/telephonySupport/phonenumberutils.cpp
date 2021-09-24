@@ -46,26 +46,4 @@ QString normalizeNumber(const QString &numberString, PhoneNumberFormat format)
 
     return numberString;
 }
-
-// normalize a number so that Ofono can understand it
-QString normalizeForOfono(const QString &numberString)
-{
-    // ofono number parsing:
-    // https://github.com/rilmodem/ofono/blob/efc9c0a85d32706bc088e449e847be41dcc73b3d/src/common.c#L238
-
-    QString normalized;
-    for (int i = 0; i < numberString.size(); ++i) {
-        QChar c = numberString.at(i);
-        if (c == QChar(u'+') && normalized.isEmpty()) {
-            // plus is allowed but only as first character
-            normalized.append(u'+');
-        } else if ((c >= QChar(u'0') && c <= QChar(u'9')) || c == QChar(u'*') ||
-                   c == QChar(u'#')) {
-            normalized.append(c);
-        }
-        // ignore all other characters
-    }
-
-    return normalized;
-}
 }

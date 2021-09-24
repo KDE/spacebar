@@ -10,9 +10,7 @@
 #include <KTextToHTML>
 #include <KLocalizedString>
 
-#include <qofonomessagemanager.h>
-#include <qofonomanager.h>
-#include <qofonomessage.h>
+#include <ModemManagerQt/Sms>
 
 #include <phonenumberutils.h>
 
@@ -22,7 +20,9 @@
 #include "asyncdatabase.h"
 #include "channelhandler.h"
 #include "utils.h"
+#include "modemcontroller.h"
 
+#include <QCoroDBusPendingReply>
 
 MessageModel::MessageModel(ChannelHandler &handler, const QString &phoneNumber, QObject *parent)
     : QAbstractListModel(parent)
@@ -30,18 +30,22 @@ MessageModel::MessageModel(ChannelHandler &handler, const QString &phoneNumber, 
     , m_phoneNumber(phoneNumberUtils::normalizeNumber(phoneNumber))
     , m_personData(new KPeople::PersonData(ContactPhoneNumberMapper::instance().uriForNumber(phoneNumber), this))
 {
-    connect(&m_handler.msgManager(), &QOfonoMessageManager::incomingMessage, this, [=, this](const QString &text, const QVariantMap &info) {
-        if (phoneNumberUtils::normalizeNumber(info[SL("Sender")].toString()) != m_phoneNumber) {
+    connect(&ModemController::instance(), &ModemController::messageAdded, this, [this](ModemManager::Sms::Ptr msg, bool received) {
+        if (!received) {
+            return;
+        }
+
+        if (phoneNumberUtils::normalizeNumber(msg->number()) != m_phoneNumber) {
             return; // Message is not for this model
         }
         Message message;
         message.id = Database::generateRandomId();
         message.read = false;
-        message.text = Utils::textToHtml(text);
-        message.datetime = QDateTime::fromString(info[SL("SentTime")].toString().split(QChar(u'+'))[0], Qt::ISODate);
+        message.text = Utils::textToHtml(msg->text());
+        message.datetime = msg->timestamp();
         message.sentByMe = false;
         message.deliveryStatus = MessageState::Received; // If it arrived here, it was
-        message.phoneNumber = info[SL("Sender")].toString();
+        message.phoneNumber = msg->number();
 
         addMessage(message);
     });
@@ -123,87 +127,115 @@ void MessageModel::addMessage(const Message &message)
 
 void MessageModel::sendMessage(const QString &text)
 {
-    QString intermediateId = Database::generateRandomId();
+    [this, text] () -> QCoro::Task<void> {
+        const QString result = co_await sendMessageInternal(text);
+
+        if (result.isEmpty()) {
+            qDebug() << "Message sent successfully";
+        } else {
+            qDebug() << "Failed successfully" << result;
+        }
+    }();
+}
+
+QPair<Message *, int> MessageModel::getMessageIndex(const QString &path)
+{
+    Message *modelIt = std::find_if(m_messages.begin(), m_messages.end(), [&](const Message &message) {
+        return message.id == path;
+    });
+
+    Q_ASSERT(modelIt != m_messages.cend());
+
+    const int i = (m_messages.count() - 1) - std::distance(m_messages.begin(), modelIt);
+    return qMakePair(modelIt, i);
+}
+
+void MessageModel::updateMessageState(const QString &msgPath, MessageState state)
+{
+    const auto idx = getMessageIndex(msgPath);
+
+    idx.first->deliveryStatus = state;
+    Q_EMIT m_handler.database().requestUpdateMessageDeliveryState(msgPath, state);
+    Q_EMIT dataChanged(index(idx.second), index(idx.second), {Role::DeliveryStateRole});
+}
+
+QCoro::Task<QString> MessageModel::sendMessageInternal(const QString &text)
+{
+    ModemManager::ModemMessaging::Message m;
+    m.number = phoneNumberUtils::normalizeNumber(m_phoneNumber, phoneNumberUtils::PhoneNumberFormat::E164);
+    m.text = text;//Utils::textToHtml(text);
 
     Message message;
-    message.id = intermediateId;
     message.phoneNumber = m_phoneNumber;
-    message.text = Utils::textToHtml(text);
-    message.datetime = QDateTime::currentDateTime(); // NOTE: there is also tpMessage.sent(), doesn't seem to return a proper time, but maybe a backend bug?
+    message.text = text;//Utils::textToHtml(text);
+    message.datetime = QDateTime::currentDateTime();
     message.read = true; // Messages sent by us are automatically read.
     message.sentByMe = true; // only called if message sent by us.
     message.deliveryStatus = MessageState::Unknown; // if this signal is called, the message was delivered.
 
+
+    auto maybeReply = ModemController::instance().createMessage(m);
+
+    if (!maybeReply) {
+        co_return QStringLiteral("No modem");
+    }
+
+    const QDBusReply<QDBusObjectPath> msgPathResult = co_await *maybeReply;
+
+    if (!msgPathResult.isValid()) {
+        co_return msgPathResult.error().message();
+    }
+
+    const QString msgPath = msgPathResult.value().path();
+
+    message.id = msgPath;
     // Add message to model
     addMessage(message);
 
-    std::shared_ptr<QFutureWatcher<SendMessageResult>> watcher(
-                new QFutureWatcher<SendMessageResult>(),
-                [](auto *watcher) {
-        watcher->deleteLater();
-    });
-    connect(watcher.get(), &QFutureWatcherBase::finished, this, [=, this] {
-        const auto result = watcher->result();
+    ModemManager::Sms::Ptr mmMessage = QSharedPointer<ModemManager::Sms>::create(msgPath);
 
-        std::visit([=, this](auto &&result) {
-            using T =  std::decay_t<decltype(result)>;
-            const auto modelIt =
-                std::find_if(m_messages.begin(),
-                             m_messages.end(),
-                             [&](const Message &message) {
-                                 return message.id == intermediateId;
-                             });
-            const int i = (m_messages.count() - 1) -
-                std::distance(m_messages.begin(), modelIt);
-            if constexpr (std::is_same_v<T, QDBusObjectPath>) {
+    connect(mmMessage.get(), &ModemManager::Sms::stateChanged, this, [mmMessage, msgPath, this] {
+        qDebug() << "state changed" << mmMessage->state();
 
-                if (modelIt != m_messages.cend()) {
-                    const QString path = result.path();
-                    modelIt->id = path;
-
-
-                    Q_EMIT m_handler.database().requestAddMessage(*modelIt);
-
-                    const auto ofonoMessage = std::make_shared<QOfonoMessage>();
-                    ofonoMessage->setMessagePath(path);
-
-                    // Message can already be sent and deleted here, should only happpen with phonesim
-                    // Assume message was sent
-                    if (!ofonoMessage->isValid()) {
-                        qWarning() << "Failed to track message state, as it was already deleted";
-                        modelIt->deliveryStatus = MessageState::Sent;
-                        Q_EMIT m_handler.database().requestUpdateMessageDeliveryState(path, MessageState::Sent);
-                        Q_EMIT dataChanged(index(i), index(i), {Role::DeliveryStateRole});
-                    }
-
-                    connect(ofonoMessage.get(), &QOfonoMessage::stateChanged, this, [=, this] {
-                        MessageState state = parseMessageState(ofonoMessage->state());
-                        modelIt->deliveryStatus = state;
-                        Q_EMIT m_handler.database().requestUpdateMessageDeliveryState(path, state);
-                        Q_EMIT dataChanged(index(i), index(i), {Role::DeliveryStateRole});
-                    });
-                } else {
-                    qWarning() << "Failed to find message that was just sent. This is a bug";
-                }
-            } else if constexpr (std::is_same_v<T, QDBusError>) {
-                modelIt->deliveryStatus = MessageState::Failed;
-                Q_EMIT m_handler.database().requestUpdateMessageDeliveryState(
-                    intermediateId, MessageState::Failed);
-                Q_EMIT dataChanged(
-                    index(i), index(i), {Role::DeliveryStateRole});
-                Utils::instance()->showPassiveNotification(result.message());
-            } else if constexpr (std::is_same_v<T, ModemNotFoundError>) {
-                modelIt->deliveryStatus = MessageState::Failed;
-                Q_EMIT m_handler.database().requestUpdateMessageDeliveryState(
-                    intermediateId, MessageState::Failed);
-                Q_EMIT dataChanged(
-                    index(i), index(i), {Role::DeliveryStateRole});
-                Utils::instance()->showPassiveNotification(i18n("The modem interface is not available"));
-            }
-        }, result);
+        switch (mmMessage->state()) {
+            case MM_SMS_STATE_SENT:
+                updateMessageState(msgPath, MessageState::Sent);
+                break;
+            case MM_SMS_STATE_RECEIVED:
+                // Should not happen
+                qWarning() << "Received a message we sent";
+                break;
+            case MM_SMS_STATE_RECEIVING:
+                // Should not happen
+                qWarning() << "Receiving a message we sent";
+                break;
+            case MM_SMS_STATE_SENDING:
+                updateMessageState(msgPath, MessageState::Pending);
+                break;
+            case MM_SMS_STATE_STORED:
+                updateMessageState(msgPath, MessageState::Pending);
+                break;
+            case MM_SMS_STATE_UNKNOWN:
+                updateMessageState(msgPath, MessageState::Unknown);
+                break;
+        }
     });
 
-    watcher->setFuture(m_handler.msgManager().sendMessage(m_phoneNumber, text));
+    connect(mmMessage.get(), &ModemManager::Sms::deliveryStateChanged, this, [=, this] {
+        MMSmsDeliveryState state = mmMessage->deliveryState();
+        // TODO does this even change?
+        // TODO do something with the state
+        qDebug() << "deliverystate changed" << state;
+    });
+
+    QDBusReply<void> sendResult = co_await mmMessage->send();
+
+    if (!sendResult.isValid()) {
+        updateMessageState(msgPath, MessageState::Failed);
+        co_return sendResult.error().message();
+    }
+
+    co_return QString();
 }
 
 void MessageModel::markMessageRead(const int id)

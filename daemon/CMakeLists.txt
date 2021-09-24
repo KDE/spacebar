@@ -1,6 +1,5 @@
 set(spacebar_daemon_SRCS
     main.cpp
-    channellogger.cpp
 )
 
 add_executable(spacebar-daemon ${spacebar_daemon_SRCS})
@@ -12,7 +11,7 @@ target_link_libraries(spacebar-daemon
     KF5::I18n
     KF5::CoreAddons
     KF5::Notifications
-    PkgConfig::QOfono
+    KF5::ModemManagerQt
     database
     kTelephonySupport
     macros

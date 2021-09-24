@@ -31,5 +31,4 @@ using NormalizeResult = std::variant<std::string, ErrorType>;
 
 NormalizeResult normalizeNumber(const std::string &numberString, PhoneNumberFormat format = International);
 QString normalizeNumber(const QString &numberString, PhoneNumberFormat format = International);
-QString normalizeForOfono(const QString &numberString);
 };
