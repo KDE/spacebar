@@ -98,6 +98,7 @@ Kirigami.ScrollablePage {
                         id: lastMessage
                         Layout.fillWidth: true
                         text: delegateRoot.lastMessage
+                        wrapMode: Text.WrapAnywhere
                         textFormat: Text.StyledText
                         maximumLineCount: 1
                         elide: Qt.ElideRight
