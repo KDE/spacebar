@@ -77,7 +77,7 @@ Kirigami.ScrollablePage {
                     Layout.preferredHeight: Kirigami.Units.iconSizes.medium
                     Layout.rightMargin: Kirigami.Units.largeSpacing
 
-                    source: "image://avatar/" + delegateRoot.phoneNumber
+                    source: delegateRoot.displayName ? "image://avatar/" + delegateRoot.phoneNumber : ""
                     name: delegateRoot.displayName || delegateRoot.displayPhoneNumber
                     imageMode: Kirigami.Avatar.AdaptiveImageOrInitals
                     initialsMode: delegateRoot.displayName ? Kirigami.Avatar.UseInitials : Kirigami.Avatar.UseIcon
