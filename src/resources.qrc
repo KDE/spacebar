@@ -4,6 +4,5 @@
         <file alias="ChatsPage.qml">contents/ui/ChatsPage.qml</file>
         <file alias="NewConversationPage.qml">contents/ui/NewConversationPage.qml</file>
         <file alias="MessagesPage.qml">contents/ui/MessagesPage.qml</file>
-        <file alias="RoundImage.qml">contents/ui/RoundImage.qml</file>
     </qresource>
 </RCC>
