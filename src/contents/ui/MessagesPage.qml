@@ -175,7 +175,7 @@ Kirigami.ScrollablePage {
                             return undefined
                         }
                         
-                        visible: model.sentByMe && model.deliveryState != MessageModel.Sent
+                        visible: !!(model.sentByMe && (model.deliveryState != MessageModel.Sent || model.index == (listView.count - 1)))
                         color: model.deliveryState == MessageModel.Failed ? Kirigami.Theme.negativeTextColor : Kirigami.Theme.disabledTextColor
                     }
                 }
