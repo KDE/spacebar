@@ -10,6 +10,9 @@ set(spacebar_SRCS
     resources.qrc
 )
 
+set(DaemonXML ${CMAKE_CURRENT_BINARY_DIR}/../daemon/org.kde.spacebar.Daemon.xml)
+qt5_add_dbus_interface(spacebar_SRCS ${DaemonXML} daemoninterface)
+
 add_executable(spacebar ${spacebar_SRCS})
 target_include_directories(spacebar PRIVATE ${CMAKE_BINARY_DIR})
 target_compile_definitions(spacebar PRIVATE -DQT_NO_CAST_FROM_ASCII)

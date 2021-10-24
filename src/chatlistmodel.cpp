@@ -53,6 +53,12 @@ ChatListModel::ChatListModel(ChannelHandler &handler, QObject *parent)
     });
 
     Q_EMIT m_handler.database().requestChats();
+    Q_EMIT m_handler.interface()->disableNotificationsForNumber(QStringLiteral(""));
+}
+
+ChatListModel::~ChatListModel()
+{
+    Q_EMIT m_handler.interface()->disableNotificationsForNumber(QStringLiteral(""));
 }
 
 QHash<int, QByteArray> ChatListModel::roleNames() const
@@ -102,7 +108,11 @@ int ChatListModel::rowCount(const QModelIndex &parent) const
 
 void ChatListModel::startChat(const QString &phoneNumber)
 {
-    chatStarted(new MessageModel(m_handler, phoneNumber, this));
+    if (m_messageModel != nullptr)
+        m_messageModel->deleteLater();
+
+    m_messageModel = new MessageModel(m_handler, phoneNumber, this);
+    chatStarted(m_messageModel);
 }
 
 void ChatListModel::markChatAsRead(const QString &phoneNumber)

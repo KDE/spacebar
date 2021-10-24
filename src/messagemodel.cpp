@@ -30,6 +30,8 @@ MessageModel::MessageModel(ChannelHandler &handler, const QString &phoneNumber, 
     , m_phoneNumber(phoneNumberUtils::normalizeNumber(phoneNumber))
     , m_personData(new KPeople::PersonData(ContactPhoneNumberMapper::instance().uriForNumber(phoneNumber), this))
 {
+    disableNotifications(m_phoneNumber);
+
     connect(&ModemController::instance(), &ModemController::messageAdded, this, [this](ModemManager::Sms::Ptr msg, bool received) {
         if (!received) {
             return;
@@ -241,4 +243,9 @@ QCoro::Task<QString> MessageModel::sendMessageInternal(const QString &text)
 void MessageModel::markMessageRead(const int id)
 {
     Q_EMIT m_handler.database().requestMarkMessageRead(id);
+}
+
+void MessageModel::disableNotifications(const QString &phoneNumber)
+{
+    m_handler.interface()->disableNotificationsForNumber(phoneNumber);
 }

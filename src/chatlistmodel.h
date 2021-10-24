@@ -29,6 +29,8 @@ class ChatListModel : public QAbstractListModel
     Q_OBJECT
 
 public:
+    ~ChatListModel();
+
     enum Role {
         DisplayNameRole = Qt::UserRole + 1,
         DisplayPhoneNumberRole,
@@ -66,4 +68,5 @@ private:
     ChannelHandler &m_handler;
     QVector<Chat> m_chats;
     ContactPhoneNumberMapper &m_mapper;
+    MessageModel *m_messageModel = nullptr;
 };

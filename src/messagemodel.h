@@ -73,6 +73,12 @@ public:
      */
     Q_INVOKABLE void markMessageRead(const int id);
 
+    /**
+     * @brief excludes set phone number from message notifications
+     * @param list
+     */
+    Q_INVOKABLE void disableNotifications(const QString &phoneNumber);
+
 private:
     QCoro::Task<QString> sendMessageInternal(const QString &text);
     QPair<Message *, int> getMessageIndex(const QString &path);

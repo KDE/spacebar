@@ -19,6 +19,9 @@ ChannelHandler::ChannelHandler(std::optional<QString> &modemPath, QObject *paren
 {
     ModemController::instance().init(modemPath);
 
+    // daemon dbus interface
+    m_interface = new org::kde::spacebar::Daemon(QStringLiteral("org.kde.Spacebar"), QStringLiteral("/Daemon"), QDBusConnection::sessionBus(), this);
+
     // Refresh chat list when message arrives
     // The message will be saved by the background daemon
     connect(&ModemController::instance(), &ModemController::messageAdded, this, [=, this](ModemManager::Sms::Ptr msg, bool received) {
@@ -30,4 +33,9 @@ ChannelHandler::ChannelHandler(std::optional<QString> &modemPath, QObject *paren
 AsyncDatabase &ChannelHandler::database()
 {
     return m_databaseThread.database();
+}
+
+org::kde::spacebar::Daemon *ChannelHandler::interface()
+{
+    return m_interface;
 }

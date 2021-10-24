@@ -18,6 +18,16 @@ Kirigami.ScrollablePage {
     title: messageModel && (messageModel.person.name || messageModel.person.phoneNumber || messageModel.phoneNumber)
     property MessageModel messageModel;
 
+    Connections {
+        target: pageStack
+        function onCurrentItemChanged () {
+            if (!pageStack.currentItem.hasOwnProperty("messageModel")) {
+                messageModel.disableNotifications("")
+                pageStack.pop()
+            }
+        }
+    }
+
     header: ColumnLayout {
         Kirigami.InlineMessage {
             id: premiumWarning

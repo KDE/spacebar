@@ -7,6 +7,8 @@
 #include <QObject>
 #include <databasethread.h>
 
+#include "daemoninterface.h"
+
 #include <optional>
 
 class AsyncDatabase;
@@ -19,9 +21,11 @@ public:
     explicit ChannelHandler(std::optional<QString> &modemPath, QObject *parent = nullptr);
 
     AsyncDatabase &database();
+    org::kde::spacebar::Daemon *interface();
 
 private:
     DatabaseThread m_databaseThread;
+    org::kde::spacebar::Daemon *m_interface;
 
 signals:
     void handlerReady();

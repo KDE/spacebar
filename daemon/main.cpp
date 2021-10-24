@@ -5,18 +5,11 @@
 #include <QCommandLineParser>
 #include <QCoreApplication>
 
+#include <KDBusService>
 #include <KLocalizedString>
-#include <KNotification>
-#include <KTextToHTML>
-
-#include <ModemManagerQt/Sms>
 
 #include "global.h"
-#include "modemcontroller.h"
-
-#include <database.h>
-#include <global.h>
-#include <phonenumberutils.h>
+#include "channellogger.h"
 
 int main(int argc, char *argv[])
 {
@@ -34,45 +27,14 @@ int main(int argc, char *argv[])
     parser.addOption(modemOpt);
     parser.process(app);
 
+    KDBusService service(KDBusService::Unique);
+
     // Create observer
     auto modemPath = parser.isSet(modemOpt) && !parser.value(modemOpt).isEmpty()
             ? parser.value(modemOpt)
             : std::optional<QString>();
 
-    ModemController::instance().init(modemPath);
-
-    Database database;
-
-    QObject::connect(&ModemController::instance(), &ModemController::messageAdded, &app, [&database, &app](ModemManager::Sms::Ptr msg, bool received) {
-        if (!received) {
-            return;
-        }
-
-        Message message;
-        message.text = KTextToHTML::convertToHtml(msg->text(), KTextToHTML::Options(KTextToHTML::PreserveSpaces | KTextToHTML::ConvertPhoneNumbers));
-        message.sentByMe = false; // SMS doesn't have any kind of synchronization, so received messages are always from the chat partner.
-        message.datetime = msg->timestamp();
-        message.deliveryStatus =  MessageState::Received; // It arrived, soo
-        message.phoneNumber = phoneNumberUtils::normalizeNumber(msg->number());
-        message.id = Database::generateRandomId();
-        message.read = false;
-
-        database.addMessage(message);
-
-        auto *notification = new KNotification(QStringLiteral("incomingMessage"));
-        notification->setComponentName(SL("spacebar"));
-        notification->setIconName(SL("org.kde.spacebar"));
-        notification->setTitle(i18n("Message from %1", msg->number()));
-        notification->setText(msg->text());
-        notification->setDefaultAction(i18nc("@action open message in application", "Open"));
-        notification->sendEvent();
-
-        // copy current pointer to notification, otherwise this would just close the most recent one.
-        QObject::connect(notification, &KNotification::defaultActivated, &app, [notification]() {
-            notification->close();
-            QProcess::startDetached(SL("spacebar"), QStringList{});
-        });
-    });
+    ChannelLogger logger(modemPath);
 
     QCoreApplication::exec();
 }
