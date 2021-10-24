@@ -32,11 +32,7 @@ MessageModel::MessageModel(ChannelHandler &handler, const QString &phoneNumber, 
 {
     disableNotifications(m_phoneNumber);
 
-    connect(&ModemController::instance(), &ModemController::messageAdded, this, [this](ModemManager::Sms::Ptr msg, bool received) {
-        if (!received) {
-            return;
-        }
-
+    connect(&ModemController::instance(), &ModemController::messageAdded, this, [this](ModemManager::Sms::Ptr msg) {
         if (phoneNumberUtils::normalizeNumber(msg->number()) != m_phoneNumber) {
             return; // Message is not for this model
         }

@@ -22,7 +22,7 @@ public:
     std::optional<QDBusPendingReply<QDBusObjectPath>> createMessage(ModemManager::ModemMessaging::Message m);
 
 Q_SIGNALS:
-    void messageAdded(ModemManager::Sms::Ptr message, bool received);
+    void messageAdded(ModemManager::Sms::Ptr message);
 
 private:
     ModemController();

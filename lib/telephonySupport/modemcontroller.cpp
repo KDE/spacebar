@@ -47,9 +47,31 @@ void ModemController::init(std::optional<QString> modemPath)
     m_msgManager = modem->messagingInterface();
 
     connect(m_msgManager.get(), &ModemManager::ModemMessaging::messageAdded, this, [this](const QString &uni, bool received) {
+        // true if the message was received from the network, as opposed to being added locally
+        if (!received) {
+            return;
+        }
+
         ModemManager::Sms::Ptr msg = m_msgManager->findMessage(uni);
         Q_ASSERT(msg);
 
-        Q_EMIT messageAdded(msg, received);
+        if (msg->state() == MMSmsState::MM_SMS_STATE_RECEIVING) {
+            connect(msg.get(), &ModemManager::Sms::dataChanged, this, [this, msg]() {
+                if (msg->state() == MMSmsState::MM_SMS_STATE_RECEIVED) {
+                    if (!msg->data().isEmpty()) {
+                        Q_EMIT messageAdded(msg);
+                    }
+                }
+            });
+            connect(msg.get(), &ModemManager::Sms::textChanged, this, [this, msg]() {
+                if (msg->state() == MMSmsState::MM_SMS_STATE_RECEIVED) {
+                    if (!msg->text().isEmpty()) {
+                        Q_EMIT messageAdded(msg);
+                    }
+                }
+            });
+        } else {
+            Q_EMIT messageAdded(msg);
+        }
     });
 }
