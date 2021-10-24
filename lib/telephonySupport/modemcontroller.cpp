@@ -15,6 +15,9 @@ ModemController &ModemController::instance()
 ModemController::ModemController()
     : QObject()
 {
+    connect(ModemManager::notifier(), &ModemManager::Notifier::modemAdded, this, [this](const QString &udi) {
+        init(udi);
+    });
 }
 
 std::optional<QDBusPendingReply<QDBusObjectPath>> ModemController::createMessage(ModemManager::ModemMessaging::Message m)
@@ -28,52 +31,69 @@ std::optional<QDBusPendingReply<QDBusObjectPath>> ModemController::createMessage
 
 void ModemController::init(std::optional<QString> modemPath)
 {
-    ModemManager::ModemDevice::Ptr modem = nullptr;
-
     if (modemPath) {
-        modem = ModemManager::findModemDevice(*modemPath);
+        m_modem = ModemManager::findModemDevice(*modemPath);
     } else {
         ModemManager::ModemDevice::List devices = ModemManager::modemDevices();
         if (!devices.isEmpty()) {
-            modem = devices.first();
+            m_modem = devices.first();
         }
     }
 
-    if (!modem) {
+    if (!m_modem) {
         qWarning() << "Could not find modem" << modemPath.value_or(QString());
         return;
     }
 
-    m_msgManager = modem->messagingInterface();
-
-    connect(m_msgManager.get(), &ModemManager::ModemMessaging::messageAdded, this, [this](const QString &uni, bool received) {
-        // true if the message was received from the network, as opposed to being added locally
-        if (!received) {
-            return;
-        }
-
-        ModemManager::Sms::Ptr msg = m_msgManager->findMessage(uni);
-        Q_ASSERT(msg);
-
-        if (msg->state() == MMSmsState::MM_SMS_STATE_RECEIVING) {
-            connect(msg.get(), &ModemManager::Sms::dataChanged, this, [this, msg]() {
-                if (msg->state() == MMSmsState::MM_SMS_STATE_RECEIVED) {
-                    if (!msg->data().isEmpty()) {
-                        Q_EMIT messageAdded(msg);
-                    }
-                }
-            });
-            connect(msg.get(), &ModemManager::Sms::textChanged, this, [this, msg]() {
-                if (msg->state() == MMSmsState::MM_SMS_STATE_RECEIVED) {
-                    if (!msg->text().isEmpty()) {
-                        Q_EMIT messageAdded(msg);
-                    }
-                }
-            });
-        } else {
-            Q_EMIT messageAdded(msg);
+    connect(m_modem.get(), &ModemManager::ModemDevice::interfaceAdded, this, [this](ModemManager::ModemDevice::InterfaceType type) {
+        if (type == ModemManager::ModemDevice::MessagingInterface) {
+            initMessaging();
         }
     });
+
+    if (m_modem->hasInterface(ModemManager::ModemDevice::MessagingInterface)) {
+        initMessaging();
+    }
+}
+
+void ModemController::initMessaging()
+{
+    Q_ASSERT(m_modem);
+    Q_ASSERT(m_modem->hasInterface(ModemManager::ModemDevice::MessagingInterface));
+
+    m_msgManager = m_modem->messagingInterface();
+
+    connect(m_msgManager.get(), &ModemManager::ModemMessaging::messageAdded, this, &ModemController::slotMessageAdded, Qt::UniqueConnection);
+}
+
+void ModemController::slotMessageAdded(const QString &uni, bool received)
+{
+    // true if the message was received from the network, as opposed to being added locally
+    if (!received) {
+        return;
+    }
+
+    ModemManager::Sms::Ptr msg = m_msgManager->findMessage(uni);
+    Q_ASSERT(msg);
+
+    if (msg->state() == MMSmsState::MM_SMS_STATE_RECEIVING) {
+        connect(msg.get(), &ModemManager::Sms::dataChanged, this, [this, msg]() {
+            if (msg->state() == MMSmsState::MM_SMS_STATE_RECEIVED) {
+                if (!msg->data().isEmpty()) {
+                    Q_EMIT messageAdded(msg);
+                }
+            }
+        });
+        connect(msg.get(), &ModemManager::Sms::textChanged, this, [this, msg]() {
+            if (msg->state() == MMSmsState::MM_SMS_STATE_RECEIVED) {
+                if (!msg->text().isEmpty()) {
+                    Q_EMIT messageAdded(msg);
+                }
+            }
+        });
+    } else {
+        Q_EMIT messageAdded(msg);
+    }
 }
 
 void ModemController::deleteMessage(const QString &uni)

@@ -8,6 +8,7 @@
 
 #include <optional>
 
+#include <ModemManagerQt/ModemDevice>
 #include <ModemManagerQt/ModemMessaging>
 #include <ModemManagerQt/Sms>
 
@@ -25,8 +26,13 @@ public:
 Q_SIGNALS:
     void messageAdded(ModemManager::Sms::Ptr message);
 
+private Q_SLOTS:
+    void slotMessageAdded(const QString &uni, bool received);
+
 private:
+    void initMessaging();
     ModemController();
 
+    ModemManager::ModemDevice::Ptr m_modem;
     ModemManager::ModemMessaging::Ptr m_msgManager;
 };
