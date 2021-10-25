@@ -117,3 +117,8 @@ QString Utils::sendingNumber()
 {
     return m_sendingNumber;
 }
+
+bool Utils::isLocale24HourTime()
+{
+    return QLocale::system().timeFormat(QLocale::ShortFormat).toLower().indexOf(SL("ap")) == -1;
+}

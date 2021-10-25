@@ -35,6 +35,8 @@ public:
     Q_INVOKABLE void copyTextToClipboard(const QString &text) const;
     Q_INVOKABLE QString sendingNumber();
 
+    bool isLocale24HourTime();
+
     static QString textToHtml(const QString &text);
 
     static Utils *instance();

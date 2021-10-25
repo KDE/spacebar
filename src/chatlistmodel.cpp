@@ -91,7 +91,7 @@ QVariant ChatListModel::data(const QModelIndex &index, int role) const
     case PhoneNumberRole:
         return phoneNumberUtils::normalizeNumber(m_chats.at(index.row()).phoneNumber);
     case LastContactedRole:
-        return m_chats.at(index.row()).lastContacted;
+        return m_chats.at(index.row()).lastContacted.toString(Utils::instance()->isLocale24HourTime() ? SL("hh:mm") : SL("h:mm ap"));
     case UnreadMessagesRole:
         return m_chats.at(index.row()).unreadMessages;
     case LastMessageRole:

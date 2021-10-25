@@ -89,10 +89,13 @@ Kirigami.ScrollablePage {
 
                     spacing: 0
                     Kirigami.Heading {
-                        level: 3
-                        Layout.fillWidth: true
                         id: nameLabel
+                        level: 4
+                        type: Kirigami.Heading.Type.Normal
+                        Layout.fillWidth: true
                         text: delegateRoot.displayName || delegateRoot.displayPhoneNumber
+                        wrapMode: Text.WrapAnywhere
+                        maximumLineCount: 1
                     }
                     Text {
                         id: lastMessage
@@ -102,7 +105,8 @@ Kirigami.ScrollablePage {
                         textFormat: Text.StyledText
                         maximumLineCount: 1
                         elide: Qt.ElideRight
-                        color: Qt.tint(Kirigami.Theme.disabledTextColor, Kirigami.Theme.textColor)
+                        font.pointSize: Kirigami.Theme.defaultFont.pointSize - 2
+                        color: Kirigami.Theme.disabledTextColor
                     }
                 }
 
@@ -125,6 +129,13 @@ Kirigami.ScrollablePage {
                         text: delegateRoot.unreadMessages
                         color: Qt.rgba(1, 1, 1, 1)
                     }
+                }
+
+                Text {
+                    topPadding: Kirigami.Units.largeSpacing * 2
+                    text: delegateRoot.lastContacted
+                    font.pointSize: Kirigami.Theme.defaultFont.pointSize - 2
+                    color: Kirigami.Theme.disabledTextColor
                 }
             }
 
