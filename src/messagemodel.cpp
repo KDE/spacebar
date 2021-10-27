@@ -121,6 +121,9 @@ void MessageModel::addMessage(const Message &message)
     beginInsertRows({}, m_messages.count(), m_messages.count());
     m_messages.prepend(message);
     endInsertRows();
+
+    // save to database
+    Q_EMIT m_handler.database().requestAddMessage(message);
 }
 
 void MessageModel::sendMessage(const QString &text)
