@@ -75,3 +75,8 @@ void ModemController::init(std::optional<QString> modemPath)
         }
     });
 }
+
+void ModemController::deleteMessage(const QString &uni)
+{
+    m_msgManager->deleteMessage(uni);
+}

@@ -20,6 +20,7 @@ public:
     void init(std::optional<QString> modemPath);
 
     std::optional<QDBusPendingReply<QDBusObjectPath>> createMessage(ModemManager::ModemMessaging::Message m);
+    void deleteMessage(const QString &uni);
 
 Q_SIGNALS:
     void messageAdded(ModemManager::Sms::Ptr message);

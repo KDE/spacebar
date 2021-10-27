@@ -37,6 +37,8 @@ void ChannelLogger::handleIncomingMessage(ModemManager::Sms::Ptr msg)
 
     m_database.addMessage(message);
 
+    ModemController::instance().deleteMessage(msg->uni());
+
     //TODO add setting to turn off notifications for multiple chats in addition to current chat
     if (message.phoneNumber == m_disabledNotificationNumber) {
         return;
