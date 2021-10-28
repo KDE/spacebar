@@ -26,6 +26,7 @@ public:
 
     // Fetch requessts
     Q_SIGNAL void requestAddMessage(const Message &message);
+    Q_SIGNAL void requestDeleteMessage(const QString &id);
     Q_SIGNAL void requestMessagesForNumber(const QString &phoneNumber);
     Q_SIGNAL void requestUpdateMessageDeliveryState(const QString &id, const MessageState state);
     Q_SIGNAL void requestMarkMessageRead(const int id);
@@ -45,6 +46,7 @@ public:
 
 private:
     Q_SLOT void addMessage(const Message &message);
+    Q_SLOT void deleteMessage(const QString &id);
     Q_SLOT void messagesForNumber(const QString &phoneNumber);
     Q_SLOT void updateMessageDeliveryState(const QString &id, const MessageState state);
     Q_SLOT void markMessageRead(const int id);

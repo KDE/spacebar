@@ -18,6 +18,7 @@ AsyncDatabase::AsyncDatabase()
 
     // Connect requests to slots
     connect(this, &AsyncDatabase::requestAddMessage, this, &AsyncDatabase::addMessage);
+    connect(this, &AsyncDatabase::requestDeleteMessage, this, &AsyncDatabase::deleteMessage);
     connect(this, &AsyncDatabase::requestUpdateMessageDeliveryState, this, &AsyncDatabase::updateMessageDeliveryState);
     connect(this, &AsyncDatabase::requestMarkMessageRead, this, &AsyncDatabase::markMessageRead);
     connect(this, &AsyncDatabase::requestMessagesForNumber, this, &AsyncDatabase::messagesForNumber);
@@ -32,6 +33,11 @@ AsyncDatabase::AsyncDatabase()
 void AsyncDatabase::addMessage(const Message &message)
 {
     m_database.addMessage(message);
+}
+
+void AsyncDatabase::deleteMessage(const QString &id)
+{
+    m_database.deleteMessage(id);
 }
 
 void AsyncDatabase::messagesForNumber(const QString &phoneNumber)

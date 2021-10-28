@@ -61,6 +61,7 @@ public:
 
     // Messages
     void addMessage(const Message &message);
+    void deleteMessage(const QString &id);
     QVector<Message> messagesForNumber(const QString &phoneNumber) const;
     void updateMessageDeliveryState(const QString &id, const MessageState state);
     void markMessageRead(const int id);

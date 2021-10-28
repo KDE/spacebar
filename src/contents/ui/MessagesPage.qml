@@ -45,9 +45,27 @@ Kirigami.ScrollablePage {
         id: listView
         model: messageModel
         spacing: Kirigami.Units.largeSpacing
+        currentIndex: -1
 
         // when there is a new message or the the chat is first viewed, go to the bottom
-        onCountChanged: Qt.callLater( listView.positionViewAtEnd )
+        onCountChanged: delayCountChanged.restart()
+
+        // delay timer to make sure listview gets positioned at the end
+        Timer {
+            id: delayCountChanged
+            interval: 1
+            repeat: false
+            onTriggered: {
+                if (listView.currentIndex > -1 && listView.currentIndex < listView.count) {
+                    listView.positionViewAtIndex(listView.currentIndex, ListView.Visible)
+                    listView.currentIndex = -1
+                } else {
+                    Qt.callLater( listView.positionViewAtEnd )
+                }
+            }
+        }
+
+        Component.onCompleted: Qt.callLater( listView.positionViewAtEnd )
 
         add: Transition {
             NumberAnimation { properties: "x,y"; duration: Kirigami.Units.shortDuration }
@@ -194,7 +212,9 @@ Kirigami.ScrollablePage {
             MouseArea {
                 anchors.fill: rect
                 onPressAndHold: {
-                    menu.message = model.text
+                    menu.index = index
+                    menu.id = model.id
+                    menu.text = model.text
                     menu.open()
                 }
                 onPressed: parent.forceActiveFocus()
@@ -205,16 +225,27 @@ Kirigami.ScrollablePage {
     Kirigami.OverlayDrawer {
         id: menu
 
-        property string message
+        property int index
+        property string id
+        property string text
 
         edge: Qt.BottomEdge
 
         contentItem: ColumnLayout {
             Kirigami.BasicListItem {
-                text: i18n("Copy message")
+                text: i18n("Copy text")
                 icon: "edit-copy"
                 onClicked: {
-                    Utils.copyTextToClipboard(menu.message)
+                    Utils.copyTextToClipboard(menu.text)
+                    menu.close()
+                }
+            }
+            Kirigami.BasicListItem {
+                text: i18n("Delete message")
+                icon: "edit-delete"
+                onClicked: {
+                    listView.currentIndex = menu.index
+                    messageModel.deleteMessage(menu.id, menu.index)
                     menu.close()
                 }
             }

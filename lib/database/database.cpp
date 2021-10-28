@@ -65,7 +65,7 @@ QVector<Message> Database::messagesForNumber(const QString &phoneNumber) const
 
     while (fetch.next()) {
         Message message;
-        message.id = fetch.value(Column::Id).toInt();
+        message.id = fetch.value(Column::Id).toString();
         message.phoneNumber = fetch.value(Column::PhoneNumber).toString();
         message.text = fetch.value(Column::Text).toString();
         message.datetime = QDateTime::fromMSecsSinceEpoch(fetch.value(Column::DateTime).value<quint64>());
@@ -189,6 +189,14 @@ void Database::addMessage(const Message &message)
     exec(putCall);
 
     Q_EMIT messagesChanged(message.phoneNumber);
+}
+
+void Database::deleteMessage(const QString &id)
+{
+    QSqlQuery del(m_database);
+    del.prepare(SL("DELETE FROM Messages WHERE id == :id"));
+    del.bindValue(SL(":id"), id);
+    exec(del);
 }
 
 QString Database::generateRandomId()

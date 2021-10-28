@@ -74,6 +74,11 @@ public:
     Q_INVOKABLE void markMessageRead(const int id);
 
     /**
+     * @brief permanently deletes a message
+     */
+    Q_INVOKABLE void deleteMessage(const QString &id, const int index);
+
+    /**
      * @brief excludes set phone number from message notifications
      * @param list
      */

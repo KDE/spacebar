@@ -244,6 +244,15 @@ void MessageModel::markMessageRead(const int id)
     Q_EMIT m_handler.database().requestMarkMessageRead(id);
 }
 
+void MessageModel::deleteMessage(const QString &id, const int index)
+{
+    Q_EMIT m_handler.database().requestDeleteMessage(id);
+
+    beginRemoveRows(QModelIndex(), index, index);
+    m_messages.remove(m_messages.count() - index - 1);
+    endRemoveRows();
+}
+
 void MessageModel::disableNotifications(const QString &phoneNumber)
 {
     m_handler.interface()->disableNotificationsForNumber(phoneNumber);
