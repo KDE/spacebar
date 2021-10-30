@@ -21,6 +21,7 @@ target_link_libraries(spacebar
     Qt5::Gui
     Qt5::Qml
     Qt5::Quick
+    Qt5::QuickControls2
     Qt5::Sql
     Qt5::Widgets
     Qt5::DBus
