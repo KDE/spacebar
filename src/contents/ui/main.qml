@@ -15,5 +15,6 @@ Kirigami.ApplicationWindow {
         id: contextDrawer
     }
 
+    pageStack.globalToolBar.canContainHandles: true
     pageStack.initialPage: "qrc:/ChatsPage.qml"
 }

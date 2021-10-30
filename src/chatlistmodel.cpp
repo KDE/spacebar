@@ -19,6 +19,7 @@
 #include "utils.h"
 #include "databasethread.h"
 #include "channelhandler.h"
+#include "settingsmanager.h"
 
 ChatListModel::ChatListModel(ChannelHandler &handler, QObject *parent)
     : QAbstractListModel(parent)
@@ -128,4 +129,14 @@ void ChatListModel::fetchChats()
 void ChatListModel::deleteChat(const QString &phoneNumber)
 {
     Q_EMIT m_handler.database().requestDeleteChat(phoneNumber);
+}
+
+void ChatListModel::restoreDefaults()
+{
+    SettingsManager::self()->setDefaults();
+}
+
+void ChatListModel::saveSettings()
+{
+    SettingsManager::self()->save();
 }

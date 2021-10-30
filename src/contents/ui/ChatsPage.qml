@@ -21,6 +21,17 @@ Kirigami.ScrollablePage {
         }
     }
 
+    actions.contextualActions: [
+        Kirigami.Action {
+            displayHint: Kirigami.Action.AlwaysHide
+            iconName: "settings-configure"
+            text: i18n("Settings")
+            onTriggered: {
+                pageStack.layers.push("qrc:/SettingsPage.qml", {"chatListModel": ChatListModel})
+            }
+        }
+    ]
+
     onRefreshingChanged: {
         if (refreshing) {
             ChatListModel.fetchChats()

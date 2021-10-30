@@ -2,7 +2,8 @@
     <qresource prefix="/">
         <file alias="main.qml">contents/ui/main.qml</file>
         <file alias="ChatsPage.qml">contents/ui/ChatsPage.qml</file>
-        <file alias="NewConversationPage.qml">contents/ui/NewConversationPage.qml</file>
         <file alias="MessagesPage.qml">contents/ui/MessagesPage.qml</file>
+        <file alias="NewConversationPage.qml">contents/ui/NewConversationPage.qml</file>
+        <file alias="SettingsPage.qml">contents/ui/SettingsPage.qml</file>
     </qresource>
 </RCC>

@@ -14,6 +14,9 @@ set(DaemonXML ${CMAKE_CURRENT_BINARY_DIR}/../daemon/org.kde.spacebar.Daemon.xml)
 qt5_add_dbus_interface(spacebar_SRCS ${DaemonXML} daemoninterface)
 
 add_executable(spacebar ${spacebar_SRCS})
+
+kconfig_add_kcfg_files(spacebar settingsmanager.kcfgc GENERATE_MOC)
+
 target_include_directories(spacebar PRIVATE ${CMAKE_BINARY_DIR})
 target_compile_definitions(spacebar PRIVATE -DQT_NO_CAST_FROM_ASCII)
 target_link_libraries(spacebar
@@ -25,6 +28,7 @@ target_link_libraries(spacebar
     Qt5::Sql
     Qt5::Widgets
     Qt5::DBus
+    KF5::ConfigGui
     KF5::CoreAddons
     KF5::I18n
     KF5::People

@@ -16,7 +16,9 @@ Kirigami.ScrollablePage {
     id: msgPage
 
     title: messageModel && (messageModel.person.name || messageModel.person.phoneNumber || messageModel.phoneNumber)
+
     property MessageModel messageModel;
+    property real pointSize: Kirigami.Theme.defaultFont.pointSize + SettingsManager.messageFontSize
 
     Connections {
         target: pageStack
@@ -26,6 +28,16 @@ Kirigami.ScrollablePage {
                 pageStack.pop()
             }
         }
+    }
+
+    function getContrastYIQColor(hexcolor){
+        hexcolor = hexcolor.replace("#", "");
+        const r = parseInt(hexcolor.substr(0, 2), 16);
+        const g = parseInt(hexcolor.substr(2, 2), 16);
+        const b = parseInt(hexcolor.substr(4, 2), 16);
+        const yiq = ((r * 299) + (g * 587) + (b * 114)) / 1000;
+
+        return (yiq >= 128) ? Qt.rgba(0, 0, 0, 0.9) : Qt.rgba(255, 255, 255, 0.9);
     }
 
     header: ColumnLayout {
@@ -46,6 +58,16 @@ Kirigami.ScrollablePage {
         model: messageModel
         spacing: Kirigami.Units.largeSpacing
         currentIndex: -1
+
+        // configure chat bubble colors
+        Kirigami.Theme.inherit: false
+        Kirigami.Theme.colorSet: Kirigami.Theme.Button
+        property string incomingColor: SettingsManager.customMessageColors ? SettingsManager.incomingMessageColor : Kirigami.Theme.backgroundColor
+        property string outgoingColor: SettingsManager.customMessageColors ? SettingsManager.outgoingMessageColor : Kirigami.Theme.highlightColor
+
+        // adjust text for highlight color
+        property string incomingTextColor: getContrastYIQColor(incomingColor)
+        property string outgoingTextColor: getContrastYIQColor(outgoingColor)
 
         // when there is a new message or the the chat is first viewed, go to the bottom
         onCountChanged: delayCountChanged.restart()
@@ -83,7 +105,7 @@ Kirigami.ScrollablePage {
                 spacing: Kirigami.Units.largeSpacing
 
                 Rectangle {
-                    color: Kirigami.Theme.alternateBackgroundColor
+                    color: Kirigami.Theme.backgroundColor
                     height: 1
                     Layout.fillWidth: true
                 }
@@ -96,7 +118,7 @@ Kirigami.ScrollablePage {
                 }
 
                 Rectangle {
-                    color: Kirigami.Theme.alternateBackgroundColor
+                    color: Kirigami.Theme.backgroundColor
                     height: 1
                     Layout.fillWidth: true
                 }
@@ -144,9 +166,7 @@ Kirigami.ScrollablePage {
                 shadow.color: !model.isHighlighted ? Qt.rgba(0.0, 0.0, 0.0, 0.10) : Qt.rgba(Kirigami.Theme.textColor.r, Kirigami.Theme.textColor.g, Kirigami.Theme.textColor.b, 0.10)
                 border.color: Kirigami.ColorUtils.tintWithAlpha(color, Kirigami.Theme.textColor, 0.15)
                 border.width: Kirigami.Units.devicePixelRatio
-                
-                color: model.sentByMe ? Kirigami.Theme.highlightColor : Kirigami.Theme.backgroundColor
-                
+                color: model.sentByMe ? listView.outgoingColor : listView.incomingColor
                 height: content.height + Kirigami.Units.largeSpacing * 2
                 width: content.width + Kirigami.Units.largeSpacing * 3
 
@@ -154,10 +174,9 @@ Kirigami.ScrollablePage {
                     spacing: 0
                     id: content
                     anchors.centerIn: parent
-                    
-                    // adjust for highlight color
-                    property color textColor: model.sentByMe ? Qt.rgba(255, 255, 255, 0.9) : Kirigami.Theme.textColor
-                    
+
+                    property color textColor: model.sentByMe ? listView.outgoingTextColor : listView.incomingTextColor
+
                     // message contents
                     Controls.Label {
                         Layout.alignment: model.text && model.text.length > 1 ? Qt.AlignTop : Qt.AlignHCenter
@@ -168,6 +187,7 @@ Kirigami.ScrollablePage {
                         textFormat: Text.StyledText
                         linkColor: model.sentByMe ? Kirigami.Theme.highlightedTextColor : Kirigami.Theme.linkColor
                         color: content.textColor
+                        font.pointSize: pointSize
                     }
                 }
 
@@ -276,5 +296,6 @@ Kirigami.ScrollablePage {
                 }
             }
         ]
+        font.pointSize: pointSize
     }
 }

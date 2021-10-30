@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kcfg xmlns="http://www.kde.org/standards/kcfg/1.0"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.kde.org/standards/kcfg/1.0
+      http://www.kde.org/standards/kcfg/1.0/kcfg.xsd" >
+    <kcfgfile name="spacebarrc" />
+    <group name="Appearance">
+        <entry name="customMessageColors" type="Bool">
+            <label>Use custom colors for messages</label>
+            <default>false</default>
+        </entry>
+        <entry name="incomingMessageColor" type="Color">
+            <label>Incoming message color</label>
+            <default>#f6f5f4</default>
+        </entry>
+        <entry name="outgoingMessageColor" type="Color">
+            <label>Outgoing message color</label>
+            <default>#fff4a2</default>
+        </entry>
+        <entry name="messageFontSize" type="Int">
+            <label>Adjusts the font size for messages</label>
+            <default>0</default>
+        </entry>
+    </group>
+</kcfg>

@@ -50,6 +50,8 @@ public:
 
     Q_INVOKABLE void startChat(const QString &phoneNumber);
     Q_INVOKABLE void markChatAsRead(const QString &phoneNumber);
+    Q_INVOKABLE void restoreDefaults();
+    Q_INVOKABLE void saveSettings();
 
     bool ready() const;
 

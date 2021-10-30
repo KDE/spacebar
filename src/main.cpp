@@ -23,6 +23,7 @@
 #include "utils.h"
 #include "avatarimageprovider.h"
 #include "channelhandler.h"
+#include "settingsmanager.h"
 
 #include <coroutine>
 
@@ -72,6 +73,7 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
     qRegisterMetaType<KPeople::PersonData *>("PersonData*");
     qmlRegisterAnonymousType<QAbstractItemModel>(APPLICATION_ID, 1);
     qmlRegisterSingletonInstance<Utils>(APPLICATION_ID, 1, 0, "Utils", Utils::instance());
+    qmlRegisterSingletonInstance("org.kde.spacebar", 1, 0, "SettingsManager", SettingsManager::self());
     qmlRegisterType<ContactModel>(APPLICATION_ID, 1, 0, "ContactModel");
     engine.rootContext()->setContextObject(new KLocalizedContext(&engine));
     engine.addImageProvider(SL("avatar"), new AvatarImageProvider());
