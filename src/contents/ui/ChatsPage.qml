@@ -29,6 +29,12 @@ Kirigami.ScrollablePage {
             onTriggered: {
                 pageStack.layers.push("qrc:/SettingsPage.qml", {"chatListModel": ChatListModel})
             }
+        },
+        Kirigami.Action {
+            displayHint: Kirigami.Action.AlwaysHide
+            iconName: "help-about-symbolic"
+            text: i18n("About")
+            onTriggered: pageStack.layers.push("qrc:/AboutPage.qml")
         }
     ]
 

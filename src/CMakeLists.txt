@@ -1,6 +1,7 @@
 set(spacebar_SRCS
-    chatlistmodel.cpp
     main.cpp
+    about.cpp
+    chatlistmodel.cpp
     messagemodel.cpp
     utils.cpp
     databasethread.cpp

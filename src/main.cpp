@@ -2,8 +2,10 @@
 //
 // SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
 
+#include <KAboutData>
 #include <KLocalizedContext>
 #include <KLocalizedString>
+
 #include <QApplication>
 #include <QQmlApplicationEngine>
 #include <QUrl>
@@ -21,6 +23,7 @@
 #include "version.h"
 #include "global.h"
 #include "utils.h"
+#include "about.h"
 #include "avatarimageprovider.h"
 #include "channelhandler.h"
 #include "settingsmanager.h"
@@ -46,6 +49,21 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
     QCoreApplication::setApplicationVersion(QStringLiteral(SPACEBAR_VERSION_STRING));
     QGuiApplication::setApplicationDisplayName(SL("Spacebar"));
 
+    KAboutData about(SL("spacebar"),
+                     SL("Spacebar"),
+                     QStringLiteral(SPACEBAR_VERSION_STRING),
+                     i18n("SMS messaging client"),
+                     KAboutLicense::GPL,
+                     i18n("© 2020-2021 KDE Community"));
+    about.addAuthor(i18n("Bhushan Shah"), QString(), QStringLiteral("bhush94@gmail.com"));
+    about.addAuthor(i18n("Jonah Brüchert"), QString(), QStringLiteral("jbb@kaidan.im"));
+    about.addAuthor(i18n("Martin Klapetek"), QString(), QStringLiteral("mklapetek@kde.org"));
+    about.addAuthor(i18n("Michael Lang"), QString(), QStringLiteral("criticaltemp@protonmail.com"));
+    about.addAuthor(i18n("Nicolas Fella"), QString(), QStringLiteral("nicolas.fella@gmx.de"));
+    about.addAuthor(i18n("Smitty van Bodegom"), QString(), QStringLiteral("me@smitop.com"));
+    KAboutData::setApplicationData(about);
+    QApplication::setWindowIcon(QIcon::fromTheme(QStringLiteral("org.kde.spacebar")));
+
     parser.addVersionOption();
     parser.addHelpOption();
     parser.setApplicationDescription(i18n("Spacebar SMS client"));
@@ -68,6 +86,7 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
     ChatListModel chatListModel(handler);
 
     // Register types
+    qmlRegisterSingletonInstance("org.kde.spacebar", 1, 0, "AboutType", &AboutType::instance());
     qmlRegisterSingletonInstance<ChatListModel>(APPLICATION_ID, 1, 0, "ChatListModel", &chatListModel);
     qmlRegisterUncreatableType<MessageModel>(APPLICATION_ID, 1, 0, "MessageModel", SL("Created by ChatListModel whenever a new chat was opened"));
     qRegisterMetaType<KPeople::PersonData *>("PersonData*");
