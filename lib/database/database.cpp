@@ -63,6 +63,7 @@ QVector<Message> Database::messagesForNumber(const QString &phoneNumber) const
     fetch.bindValue(SL(":phoneNumber"), phoneNumber);
     exec(fetch);
 
+    messages.reserve(fetch.size());
     while (fetch.next()) {
         Message message;
         message.id = fetch.value(Column::Id).toString();
@@ -106,6 +107,7 @@ QVector<Chat> Database::chats() const
     fetch.prepare(SL("SELECT DISTINCT phoneNumber FROM Messages"));
     exec(fetch);
 
+    chats.reserve(fetch.size());
     while (fetch.next()) {
         Chat chat;
         chat.phoneNumber = fetch.value(0).toString();
