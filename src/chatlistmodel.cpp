@@ -12,8 +12,6 @@
 #include <QQmlApplicationEngine>
 #include <KPeople/PersonData>
 
-#include <phonenumberutils.h>
-
 #include <global.h>
 #include "messagemodel.h"
 #include "utils.h"
@@ -27,12 +25,12 @@ ChatListModel::ChatListModel(ChannelHandler &handler, QObject *parent)
     , m_mapper(ContactPhoneNumberMapper::instance())
 {
     connect(&m_handler.database(), &AsyncDatabase::messagesChanged, this, &ChatListModel::fetchChats);
-    connect(&m_mapper, &ContactPhoneNumberMapper::contactsChanged, this, [this](const QVector<QString> &affectedNumbers) {
+    connect(&m_mapper, &ContactPhoneNumberMapper::contactsChanged, this, [this](const QVector<PhoneNumber> &affectedNumbers) {
         qDebug() << "New data for" << affectedNumbers;
         for (const auto &number : affectedNumbers) {
             // Find the Chat object for the phone number
             const auto chatIt = std::find_if(m_chats.begin(), m_chats.end(), [&number](const Chat &chat) {
-                return phoneNumberUtils::normalizeNumber(chat.phoneNumber) == number;
+                return chat.phoneNumber == number;
             });
 
             int i = std::distance(m_chats.begin(), chatIt);
@@ -54,12 +52,12 @@ ChatListModel::ChatListModel(ChannelHandler &handler, QObject *parent)
     });
 
     Q_EMIT m_handler.database().requestChats();
-    Q_EMIT m_handler.interface()->disableNotificationsForNumber(QStringLiteral(""));
+    Q_EMIT m_handler.interface()->disableNotificationsForNumber(QString());
 }
 
 ChatListModel::~ChatListModel()
 {
-    Q_EMIT m_handler.interface()->disableNotificationsForNumber(QStringLiteral(""));
+    Q_EMIT m_handler.interface()->disableNotificationsForNumber(QString());
 }
 
 QHash<int, QByteArray> ChatListModel::roleNames() const
@@ -88,9 +86,9 @@ QVariant ChatListModel::data(const QModelIndex &index, int role) const
     case PhotoRole:
         return KPeople::PersonData(m_mapper.uriForNumber(m_chats.at(index.row()).phoneNumber)).photo();
     case DisplayPhoneNumberRole:
-        return phoneNumberUtils::normalizeNumber(m_chats.at(index.row()).phoneNumber, phoneNumberUtils::National);
+        return m_chats.at(index.row()).phoneNumber.toNational();
     case PhoneNumberRole:
-        return phoneNumberUtils::normalizeNumber(m_chats.at(index.row()).phoneNumber);
+        return QVariant::fromValue(m_chats.at(index.row()).phoneNumber);
     case LastContactedRole:
         return m_chats.at(index.row()).lastContacted.toString(Utils::instance()->isLocale24HourTime() ? SL("hh:mm") : SL("h:mm ap"));
     case UnreadMessagesRole:
@@ -107,7 +105,7 @@ int ChatListModel::rowCount(const QModelIndex &parent) const
     return parent.isValid() ? 0 : m_chats.count();
 }
 
-void ChatListModel::startChat(const QString &phoneNumber)
+void ChatListModel::startChat(const PhoneNumber &phoneNumber)
 {
     if (m_messageModel != nullptr)
         m_messageModel->deleteLater();
@@ -116,7 +114,7 @@ void ChatListModel::startChat(const QString &phoneNumber)
     chatStarted(m_messageModel);
 }
 
-void ChatListModel::markChatAsRead(const QString &phoneNumber)
+void ChatListModel::markChatAsRead(const PhoneNumber &phoneNumber)
 {
     Q_EMIT m_handler.database().requestMarkChatAsRead(phoneNumber);
 }
@@ -126,7 +124,7 @@ void ChatListModel::fetchChats()
     Q_EMIT m_handler.database().requestChats();
 }
 
-void ChatListModel::deleteChat(const QString &phoneNumber)
+void ChatListModel::deleteChat(const PhoneNumber &phoneNumber)
 {
     Q_EMIT m_handler.database().requestDeleteChat(phoneNumber);
 }

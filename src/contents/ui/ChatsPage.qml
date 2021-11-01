@@ -77,7 +77,7 @@ Kirigami.ScrollablePage {
             id: delegateRoot
 
             required property string displayName
-            required property string phoneNumber
+            required property var phoneNumber
             required property string displayPhoneNumber
             required property string lastContacted
             required property int unreadMessages
@@ -94,7 +94,7 @@ Kirigami.ScrollablePage {
                     Layout.preferredHeight: Kirigami.Units.iconSizes.medium
                     Layout.rightMargin: Kirigami.Units.largeSpacing
 
-                    source: delegateRoot.displayName ? "image://avatar/" + delegateRoot.phoneNumber : ""
+                    source: delegateRoot.displayName ? "image://avatar/" + Utils.phoneNumberToInternationalString(delegateRoot.phoneNumber) : ""
                     name: delegateRoot.displayName || delegateRoot.displayPhoneNumber
                     imageMode: Kirigami.Avatar.AdaptiveImageOrInitals
                     initialsMode: delegateRoot.displayName ? Kirigami.Avatar.UseInitials : Kirigami.Avatar.UseIcon

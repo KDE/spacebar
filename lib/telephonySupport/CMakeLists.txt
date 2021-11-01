@@ -1,4 +1,9 @@
-add_library(kTelephonySupport STATIC phonenumberutils.cpp avatarimageprovider.cpp contactphonenumbermapper.cpp modemcontroller.cpp)
+add_library(kTelephonySupport STATIC
+    avatarimageprovider.cpp
+    contactphonenumbermapper.cpp
+    modemcontroller.cpp
+    phonenumber.cpp
+    phonenumberlist.cpp)
 target_compile_definitions(kTelephonySupport PRIVATE -DQT_NO_CAST_FROM_ASCII)
 target_link_libraries(kTelephonySupport PUBLIC
     Qt5::Core

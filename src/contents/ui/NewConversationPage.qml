@@ -97,7 +97,7 @@ Kirigami.ScrollablePage {
             }
             onClicked: {
                 pageStack.pop()
-                ChatListModel.startChat(model.phoneNumber)
+                ChatListModel.startChat(Utils.phoneNumber(model.phoneNumber))
             }
         }
     }

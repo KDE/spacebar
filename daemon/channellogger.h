@@ -19,6 +19,7 @@ class ChannelLogger : public QObject
 public:
     explicit ChannelLogger(std::optional<QString> &modemPath, QObject *parent = nullptr);
 
+    // QString argument since this needs to be called form DBus
     Q_SCRIPTABLE void disableNotificationsForNumber(const QString &phoneNumber);
 
 private:
@@ -26,5 +27,5 @@ private:
 
     Database m_database;
 
-    QString m_disabledNotificationNumber;
+    PhoneNumber m_disabledNotificationNumber;
 };

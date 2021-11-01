@@ -11,6 +11,8 @@
 #include <ModemManagerQt/Modem>
 #include <ModemManagerQt/ModemDevice>
 
+#include <phonenumber.h>
+
 class QQmlApplicationEngine;
 class QQuickWindow;
 
@@ -30,10 +32,15 @@ public:
     void showPassiveNotification(const QString &message, PassiveNotificationDuation timeout);
 
     Q_INVOKABLE bool isPhoneNumber(const QString &text) const;
-    Q_INVOKABLE bool isPremiumNumber(const QString &text) const;
+    Q_INVOKABLE bool isPremiumNumber(const PhoneNumber &number) const;
     Q_INVOKABLE static void launchPhonebook();
     Q_INVOKABLE void copyTextToClipboard(const QString &text) const;
     Q_INVOKABLE QString sendingNumber();
+    Q_INVOKABLE PhoneNumber phoneNumber(const QString &number) const;
+
+    /// Currently only used to add a phone number to an image provider uri.
+    /// Please try not to use this.
+    Q_INVOKABLE QString phoneNumberToInternationalString(const PhoneNumber &number) const;
 
     bool isLocale24HourTime();
 
@@ -48,5 +55,5 @@ public:
 private:
     QQmlApplicationEngine *m_engine;
     QQuickWindow *m_window = nullptr;
-    QString m_sendingNumber;
+    PhoneNumber m_sendingNumber;
 };

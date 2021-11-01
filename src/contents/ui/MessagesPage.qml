@@ -15,7 +15,7 @@ import org.kde.spacebar 1.0
 Kirigami.ScrollablePage {
     id: msgPage
 
-    title: messageModel && (messageModel.person.name || messageModel.person.phoneNumber || messageModel.phoneNumber)
+    title: messageModel && (messageModel.person.name || messageModel.person.phoneNumber || messageModel.displayPhoneNumber)
 
     property MessageModel messageModel;
     property real pointSize: Kirigami.Theme.defaultFont.pointSize + SettingsManager.messageFontSize
@@ -24,7 +24,7 @@ Kirigami.ScrollablePage {
         target: pageStack
         function onCurrentItemChanged () {
             if (!pageStack.currentItem.hasOwnProperty("messageModel")) {
-                messageModel.disableNotifications("")
+                messageModel.disableNotifications(Utils.phoneNumber(""))
                 pageStack.pop()
             }
         }

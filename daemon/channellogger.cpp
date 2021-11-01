@@ -10,7 +10,6 @@
 #include <KTextToHTML>
 
 #include <global.h>
-#include <phonenumberutils.h>
 
 ChannelLogger::ChannelLogger(std::optional<QString> &modemPath, QObject *parent)
 : QObject(parent)
@@ -31,7 +30,7 @@ void ChannelLogger::handleIncomingMessage(ModemManager::Sms::Ptr msg)
     message.sentByMe = false; // SMS doesn't have any kind of synchronization, so received messages are always from the chat partner.
     message.datetime = msg->timestamp();
     message.deliveryStatus =  MessageState::Received; // It arrived, soo
-    message.phoneNumber = phoneNumberUtils::normalizeNumber(msg->number());
+    message.phoneNumber = PhoneNumber(msg->number());
     message.id = Database::generateRandomId();
     message.read = false;
 
@@ -61,5 +60,5 @@ void ChannelLogger::handleIncomingMessage(ModemManager::Sms::Ptr msg)
 
 void ChannelLogger::disableNotificationsForNumber(const QString &phoneNumber)
 {
-    m_disabledNotificationNumber = phoneNumber;
+    m_disabledNotificationNumber = PhoneNumber(phoneNumber);
 }

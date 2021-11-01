@@ -48,8 +48,8 @@ public:
     QVariant data(const QModelIndex &index, int role) const override;
     int rowCount(const QModelIndex &parent = {}) const override;
 
-    Q_INVOKABLE void startChat(const QString &phoneNumber);
-    Q_INVOKABLE void markChatAsRead(const QString &phoneNumber);
+    Q_INVOKABLE void startChat(const PhoneNumber &phoneNumber);
+    Q_INVOKABLE void markChatAsRead(const PhoneNumber &phoneNumber);
     Q_INVOKABLE void restoreDefaults();
     Q_INVOKABLE void saveSettings();
 
@@ -57,7 +57,7 @@ public:
 
 public slots:
     void fetchChats();
-    void deleteChat(const QString &phoneNumber);
+    void deleteChat(const PhoneNumber &phoneNumber);
 
 signals:
     void chatStarted(MessageModel* messageModel);

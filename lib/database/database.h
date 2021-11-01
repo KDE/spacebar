@@ -10,6 +10,7 @@
 #include <QSqlQuery>
 
 #include <global.h>
+#include <phonenumber.h>
 
 
 enum MessageState {
@@ -35,7 +36,7 @@ inline MessageState parseMessageState(const QString &state) {
 
 struct Message {
     QString id;
-    QString phoneNumber;
+    PhoneNumber phoneNumber;
     QString text;
     QDateTime datetime;
     bool read;
@@ -45,7 +46,7 @@ struct Message {
 Q_DECLARE_METATYPE(Message);
 
 struct Chat {
-    QString phoneNumber;
+    PhoneNumber phoneNumber;
     QDateTime lastContacted;
     QString lastMessage;
     int unreadMessages;
@@ -62,17 +63,17 @@ public:
     // Messages
     void addMessage(const Message &message);
     void deleteMessage(const QString &id);
-    QVector<Message> messagesForNumber(const QString &phoneNumber) const;
+    QVector<Message> messagesForNumber(const PhoneNumber &phoneNumber) const;
     void updateMessageDeliveryState(const QString &id, const MessageState state);
     void markMessageRead(const int id);
 
     // Chats
     QVector<Chat> chats() const;
-    int unreadMessagesForNumber(const QString &phoneNumber) const;
-    QString lastMessageForNumber(const QString &phoneNumber) const;
-    QDateTime lastContactedForNumber(const QString &phoneNumber) const;
-    void markChatAsRead(const QString &phoneNumber);
-    void deleteChat(const QString &phoneNumber);
+    int unreadMessagesForNumber(const PhoneNumber &phoneNumber) const;
+    QString lastMessageForNumber(const PhoneNumber &phoneNumber) const;
+    QDateTime lastContactedForNumber(const PhoneNumber &phoneNumber) const;
+    void markChatAsRead(const PhoneNumber &phoneNumber);
+    void deleteChat(const PhoneNumber &phoneNumber);
 
     static QString generateRandomId();
 
@@ -87,5 +88,5 @@ private:
     QSqlDatabase m_database;
 
 signals:
-    void messagesChanged(const QString &phoneNumber);
+    void messagesChanged(const PhoneNumber &phoneNumber);
 };

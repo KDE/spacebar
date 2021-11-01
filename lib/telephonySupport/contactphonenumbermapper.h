@@ -9,6 +9,8 @@
 
 #include <unordered_map>
 
+#include "phonenumber.h"
+
 class ContactPhoneNumberMapper : public QObject
 {
     Q_OBJECT
@@ -22,7 +24,7 @@ public:
      * @param phone number
      * @return the uri belonging to the phone number
      */
-    QString uriForNumber(const QString &phoneNumber) const;
+    QString uriForNumber(const PhoneNumber &phoneNumber) const;
 
     static ContactPhoneNumberMapper &instance();
 
@@ -32,7 +34,7 @@ signals:
      * because a contact was added to KPeople
      * @param list of affected numbers
      */
-    void contactsChanged(const QVector<QString> phoneNumbers);
+    void contactsChanged(const QVector<PhoneNumber> phoneNumbers);
 
 private slots:
     void processRows(const int first, const int last);
@@ -42,6 +44,6 @@ private:
     [[nodiscard]] std::string normalizeNumber(const std::string &numberString) const;
 
     KPeople::PersonsModel *m_model;
-    std::unordered_map<std::string, QString> m_numberToUri;
+    QHash<PhoneNumber, QString> m_numberToUri;
     std::string m_country;
 };

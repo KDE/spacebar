@@ -9,7 +9,7 @@
 #include <QThread>
 
 
-#include "phonenumberutils.h"
+#include <phonenumber.h>
 
 ContactPhoneNumberMapper &ContactPhoneNumberMapper::instance()
 {
@@ -32,7 +32,7 @@ ContactPhoneNumberMapper::ContactPhoneNumberMapper()
 
 void ContactPhoneNumberMapper::processRows(const int first, const int last)
 {
-    QVector<QString> affectedNumbers;
+    QVector<PhoneNumber> affectedNumbers;
     for (int i = first; i <= last; i++) {
         const auto index = m_model->index(i);
 
@@ -47,11 +47,10 @@ void ContactPhoneNumberMapper::processRows(const int first, const int last)
         const auto personUri = m_model->data(index, KPeople::PersonsModel::PersonUriRole).toString();
 
         for (const QString &numberString : phoneNumbers) {
-            const auto result = phoneNumberUtils::normalizeNumber(numberString.toStdString());
-            if (std::holds_alternative<std::string>(result)) {
-                const auto &normalizedNumber = std::get<std::string>(result);
-                m_numberToUri[normalizedNumber] = personUri;
-                affectedNumbers.append(QString::fromStdString(normalizedNumber));
+            const auto phoneNum = PhoneNumber(numberString);
+            if (phoneNum.isValid()){
+                m_numberToUri[phoneNum] = personUri;
+                affectedNumbers.append(phoneNum);
             }
         }
     }
@@ -59,14 +58,11 @@ void ContactPhoneNumberMapper::processRows(const int first, const int last)
     emit contactsChanged(affectedNumbers);
 }
 
-QString ContactPhoneNumberMapper::uriForNumber(const QString &phoneNumber) const
+QString ContactPhoneNumberMapper::uriForNumber(const PhoneNumber &phoneNumber) const
 {
-    auto result = phoneNumberUtils::normalizeNumber(phoneNumber.toStdString());
-
-    if (std::holds_alternative<std::string>(result)) {
-        const auto &normalizedNumber = std::get<std::string>(result);
-        if (m_numberToUri.contains(normalizedNumber)) {
-            return m_numberToUri.at(normalizedNumber);
+    if (phoneNumber.isValid()) {
+        if (m_numberToUri.contains(phoneNumber)) {
+            return m_numberToUri.value(phoneNumber);
         }
     }
 

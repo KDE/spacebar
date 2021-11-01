@@ -12,10 +12,9 @@
 
 #include <ModemManagerQt/Sms>
 
-#include <phonenumberutils.h>
-
 #include <global.h>
 #include <contactphonenumbermapper.h>
+#include <phonenumber.h>
 
 #include "asyncdatabase.h"
 #include "channelhandler.h"
@@ -24,16 +23,16 @@
 
 #include <QCoroDBusPendingReply>
 
-MessageModel::MessageModel(ChannelHandler &handler, const QString &phoneNumber, QObject *parent)
+MessageModel::MessageModel(ChannelHandler &handler, const PhoneNumber &phoneNumber, QObject *parent)
     : QAbstractListModel(parent)
     , m_handler(handler)
-    , m_phoneNumber(phoneNumberUtils::normalizeNumber(phoneNumber))
+    , m_phoneNumber(phoneNumber)
     , m_personData(new KPeople::PersonData(ContactPhoneNumberMapper::instance().uriForNumber(phoneNumber), this))
 {
     disableNotifications(m_phoneNumber);
 
     connect(&ModemController::instance(), &ModemController::messageAdded, this, [this](ModemManager::Sms::Ptr msg) {
-        if (phoneNumberUtils::normalizeNumber(msg->number()) != m_phoneNumber) {
+        if (PhoneNumber(msg->number()) != m_phoneNumber) {
             return; // Message is not for this model
         }
         Message message;
@@ -43,13 +42,13 @@ MessageModel::MessageModel(ChannelHandler &handler, const QString &phoneNumber, 
         message.datetime = msg->timestamp();
         message.sentByMe = false;
         message.deliveryStatus = MessageState::Received; // If it arrived here, it was
-        message.phoneNumber = msg->number();
+        message.phoneNumber = PhoneNumber(msg->number());
 
         addMessage(message);
     });
 
     connect(&m_handler.database(), &AsyncDatabase::messagesFetchedForNumber,
-            this, [this](const QString &phoneNumber, const QVector<Message> &messages) {
+            this, [this](const PhoneNumber &phoneNumber, const QVector<Message> &messages) {
         if (phoneNumber == m_phoneNumber) {
             beginResetModel();
             m_messages = messages;
@@ -111,9 +110,14 @@ KPeople::PersonData *MessageModel::person() const
     return m_personData;
 }
 
-QString MessageModel::phoneNumber() const
+PhoneNumber MessageModel::phoneNumber() const
 {
     return m_phoneNumber;
+}
+
+QString MessageModel::displayPhoneNumber() const
+{
+    return m_phoneNumber.toNational();
 }
 
 void MessageModel::addMessage(const Message &message)
@@ -163,7 +167,7 @@ void MessageModel::updateMessageState(const QString &msgPath, MessageState state
 QCoro::Task<QString> MessageModel::sendMessageInternal(const QString &text)
 {
     ModemManager::ModemMessaging::Message m;
-    m.number = phoneNumberUtils::normalizeNumber(m_phoneNumber, phoneNumberUtils::PhoneNumberFormat::E164);
+    m.number = m_phoneNumber.toE164();
     m.text = text;//Utils::textToHtml(text);
 
     Message message;
@@ -253,7 +257,7 @@ void MessageModel::deleteMessage(const QString &id, const int index)
     endRemoveRows();
 }
 
-void MessageModel::disableNotifications(const QString &phoneNumber)
+void MessageModel::disableNotifications(const PhoneNumber &phoneNumber)
 {
-    m_handler.interface()->disableNotificationsForNumber(phoneNumber);
+    m_handler.interface()->disableNotificationsForNumber(phoneNumber.toInternational());
 }
