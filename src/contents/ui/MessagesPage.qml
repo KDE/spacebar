@@ -253,6 +253,27 @@ Kirigami.ScrollablePage {
 
         contentItem: ColumnLayout {
             Kirigami.BasicListItem {
+                visible: menu.text.match(/[0-9]{6}/)
+                text: i18n("Copy code")
+                icon: "edit-copy"
+                onClicked: {
+                    Utils.copyTextToClipboard(menu.text.match(/[0-9]{6}/))
+                    menu.close()
+                }
+            }
+            Kirigami.BasicListItem {
+                visible: menu.text.indexOf('href="') >= 0
+                text: i18n("Copy link")
+                icon: "edit-copy"
+                onClicked: {
+                    const start = menu.text.indexOf('href="')
+                    const finish = menu.text.indexOf('"', start + 6)
+                    let link = menu.text.substring(start + 6, finish)
+                    Utils.copyTextToClipboard(link)
+                    menu.close()
+                }
+            }
+            Kirigami.BasicListItem {
                 text: i18n("Copy text")
                 icon: "edit-copy"
                 onClicked: {
