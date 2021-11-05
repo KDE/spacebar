@@ -30,6 +30,13 @@ ecm_setup_version(${PROJECT_VERSION}
     VERSION_HEADER ${CMAKE_CURRENT_BINARY_DIR}/version.h
 )
 
+find_package(Corrosion)
+set_package_properties(Corrosion PROPERTIES
+    PURPOSE "Required to build the encryption support"
+    DESCRIPTION "CMake scripts to seamlessly build and link to targets using cargo"
+    URL https://github.com/AndrewGaspar/corrosion
+)
+
 ################# Find dependencies #################
 find_package(Qt5 ${QT_MIN_VERSION} REQUIRED COMPONENTS Core Gui Network Qml Quick QuickControls2 Widgets Sql Xml)
 find_package(KF5 ${KF5_MIN_VERSION} REQUIRED COMPONENTS Kirigami2 I18n Contacts People Notifications Config CoreAddons DBusAddons ModemManagerQt)
