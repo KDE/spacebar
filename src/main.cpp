@@ -29,7 +29,7 @@
 #include "settingsmanager.h"
 
 #include <coroutine>
-#include <phonenumber.h>
+#include <phonenumberlist.h>
 
 constexpr auto APPLICATION_ID = "org.kde.spacebar";
 
@@ -96,6 +96,7 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
     qmlRegisterSingletonInstance("org.kde.spacebar", 1, 0, "SettingsManager", SettingsManager::self());
     qmlRegisterType<ContactModel>(APPLICATION_ID, 1, 0, "ContactModel");
     qRegisterMetaType<PhoneNumber>();
+    qRegisterMetaType<PhoneNumberList>();
     engine.rootContext()->setContextObject(new KLocalizedContext(&engine));
     engine.addImageProvider(SL("avatar"), new AvatarImageProvider());
     engine.load(QUrl(SL("qrc:///main.qml")));
@@ -110,7 +111,7 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
             numberArg = numberArg.mid(4);
         }
         if (Utils::instance()->isPhoneNumber(numberArg)) {
-            chatListModel.startChat(PhoneNumber(numberArg));
+            chatListModel.startChat(PhoneNumberList(numberArg));
         } else {
             qWarning() << "invalid phone number on command line, ignoring";
         }

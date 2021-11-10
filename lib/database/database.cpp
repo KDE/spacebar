@@ -13,7 +13,7 @@
 
 #include <random>
 
-#include <phonenumber.h>
+#include <phonenumberlist.h>
 #include <global.h>
 
 constexpr auto ID_LEN = 10;
@@ -54,19 +54,19 @@ Database::Database(QObject *parent)
     migrate();
 }
 
-QVector<Message> Database::messagesForNumber(const PhoneNumber &phoneNumber) const
+QVector<Message> Database::messagesForNumber(const PhoneNumberList &phoneNumberList) const
 {
     QVector<Message> messages;
 
     QSqlQuery fetch(m_database);
     fetch.prepare(SL("SELECT id, phoneNumber, text, time, read, delivered, sentByMe FROM Messages WHERE phoneNumber == :phoneNumber ORDER BY time DESC"));
-    fetch.bindValue(SL(":phoneNumber"), phoneNumber.toInternational());
+    fetch.bindValue(SL(":phoneNumber"), phoneNumberList.toString());
     exec(fetch);
 
     while (fetch.next()) {
         Message message;
         message.id = fetch.value(Column::IdColumn).toString();
-        message.phoneNumber = phoneNumber;
+        message.phoneNumberList = phoneNumberList;
         message.text = fetch.value(Column::TextColumn).toString();
         message.datetime = QDateTime::fromMSecsSinceEpoch(fetch.value(Column::DateTimeColumn).value<quint64>());
         message.read = fetch.value(Column::ReadColumn).toBool();
@@ -108,10 +108,10 @@ QVector<Chat> Database::chats() const
 
     while (fetch.next()) {
         Chat chat;
-        chat.phoneNumber = PhoneNumber(fetch.value(0).toString());
-        chat.unreadMessages = unreadMessagesForNumber(chat.phoneNumber);
-        chat.lastMessage = lastMessageForNumber(chat.phoneNumber);
-        chat.lastContacted = lastContactedForNumber(chat.phoneNumber);
+        chat.phoneNumberList = PhoneNumberList(fetch.value(0).toString());
+        chat.unreadMessages = unreadMessagesForNumber(chat.phoneNumberList);
+        chat.lastMessage = lastMessageForNumber(chat.phoneNumberList);
+        chat.lastContacted = lastContactedForNumber(chat.phoneNumberList);
 
         chats.append(chat);
     }
@@ -122,57 +122,57 @@ QVector<Chat> Database::chats() const
     return chats;
 }
 
-int Database::unreadMessagesForNumber(const PhoneNumber &phoneNumber) const
+int Database::unreadMessagesForNumber(const PhoneNumberList &phoneNumberList) const
 {
     QSqlQuery fetch(m_database);
     fetch.prepare(SL("SELECT Count(*) FROM Messages WHERE phoneNumber == :phoneNumber AND read == False"));
-    fetch.bindValue(SL(":phoneNumber"), phoneNumber.toInternational());
+    fetch.bindValue(SL(":phoneNumber"), phoneNumberList.toString());
     exec(fetch);
 
     fetch.first();
     return fetch.value(0).toInt();
 }
 
-QString Database::lastMessageForNumber(const PhoneNumber &phoneNumber) const
+QString Database::lastMessageForNumber(const PhoneNumberList &phoneNumberList) const
 {
     QSqlQuery fetch(m_database);
     fetch.prepare(SL("SELECT text FROM Messages WHERE phoneNumber == :phoneNumber ORDER BY time DESC LIMIT 1"));
-    fetch.bindValue(SL(":phoneNumber"), phoneNumber.toInternational());
+    fetch.bindValue(SL(":phoneNumber"), phoneNumberList.toString());
     fetch.exec();
 
     fetch.first();
     return fetch.value(0).toString();
 }
 
-QDateTime Database::lastContactedForNumber(const PhoneNumber &phoneNumber) const
+QDateTime Database::lastContactedForNumber(const PhoneNumberList &phoneNumberList) const
 {
     QSqlQuery fetch(m_database);
     fetch.prepare(SL("SELECT time FROM Messages WHERE phoneNumber == :phoneNumber ORDER BY time DESC LIMIT 1"));
-    fetch.bindValue(SL(":phoneNumber"), phoneNumber.toInternational());
+    fetch.bindValue(SL(":phoneNumber"), phoneNumberList.toString());
     exec(fetch);
 
     fetch.first();
     return QDateTime::fromMSecsSinceEpoch(fetch.value(0).toLongLong());
 }
 
-void Database::markChatAsRead(const PhoneNumber &phoneNumber)
+void Database::markChatAsRead(const PhoneNumberList &phoneNumberList)
 {
     QSqlQuery update(m_database);
     update.prepare(SL("UPDATE Messages SET read = True WHERE phoneNumber = :phoneNumber AND NOT read == True"));
-    update.bindValue(SL(":phoneNumber"), phoneNumber.toInternational());
+    update.bindValue(SL(":phoneNumber"), phoneNumberList.toString());
     exec(update);
 
-    Q_EMIT messagesChanged(phoneNumber);
+    Q_EMIT messagesChanged(phoneNumberList);
 }
 
-void Database::deleteChat(const PhoneNumber &phoneNumber)
+void Database::deleteChat(const PhoneNumberList &phoneNumberList)
 {
     QSqlQuery update(m_database);
     update.prepare(SL("DELETE FROM Messages WHERE phoneNumber = :phoneNumber"));
-    update.bindValue(SL(":phoneNumber"), phoneNumber.toInternational());
+    update.bindValue(SL(":phoneNumber"), phoneNumberList.toString());
     exec(update);
 
-    Q_EMIT messagesChanged(phoneNumber);
+    Q_EMIT messagesChanged(phoneNumberList);
 }
 
 void Database::addMessage(const Message &message)
@@ -180,7 +180,7 @@ void Database::addMessage(const Message &message)
     QSqlQuery putCall(m_database);
     putCall.prepare(SL("INSERT INTO Messages (id, phoneNumber, text, time, read, delivered, sentByMe) VALUES (:id, :phoneNumber, :text, :time, :read, :delivered, :sentByMe)"));
     putCall.bindValue(SL(":id"), message.id);
-    putCall.bindValue(SL(":phoneNumber"), message.phoneNumber.toInternational());
+    putCall.bindValue(SL(":phoneNumber"), message.phoneNumberList.toString());
     putCall.bindValue(SL(":text"), message.text);
     putCall.bindValue(SL(":time"), message.datetime.toMSecsSinceEpoch());
     putCall.bindValue(SL(":read"), message.read);
@@ -188,7 +188,7 @@ void Database::addMessage(const Message &message)
     putCall.bindValue(SL(":delivered"), message.deliveryStatus);
     exec(putCall);
 
-    Q_EMIT messagesChanged(message.phoneNumber);
+    Q_EMIT messagesChanged(message.phoneNumberList);
 }
 
 void Database::deleteMessage(const QString &id)
@@ -296,7 +296,7 @@ void Database::migrationV3(uint current)
     while (getPhoneNumbers.next()) {
         const auto phoneNumber = getPhoneNumbers.value(0).toString();
         qDebug() << "updating phone number" << phoneNumber;
-        auto normalized = PhoneNumber(phoneNumber).toInternational();
+        auto normalized = PhoneNumberList(phoneNumber).toString();
         qDebug() << "to" << normalized;
 
         QSqlQuery normalizePhoneNumbers(m_database);

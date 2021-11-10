@@ -33,12 +33,11 @@ public:
 
     enum Role {
         DisplayNameRole = Qt::UserRole + 1,
-        DisplayPhoneNumberRole,
-        PhoneNumberRole,
+        PhoneNumberListRole,
         UnreadMessagesRole,
         LastContactedRole,
-        PhotoRole,
-        LastMessageRole
+        LastMessageRole,
+        IsContactRole
     };
     Q_ENUM(Role)
 
@@ -48,8 +47,8 @@ public:
     QVariant data(const QModelIndex &index, int role) const override;
     int rowCount(const QModelIndex &parent = {}) const override;
 
-    Q_INVOKABLE void startChat(const PhoneNumber &phoneNumber);
-    Q_INVOKABLE void markChatAsRead(const PhoneNumber &phoneNumber);
+    Q_INVOKABLE void startChat(const PhoneNumberList &phoneNumberList);
+    Q_INVOKABLE void markChatAsRead(const PhoneNumberList &phoneNumberList);
     Q_INVOKABLE void restoreDefaults();
     Q_INVOKABLE void saveSettings();
 
@@ -57,7 +56,7 @@ public:
 
 public slots:
     void fetchChats();
-    void deleteChat(const PhoneNumber &phoneNumber);
+    void deleteChat(const PhoneNumberList &phoneNumberList);
 
 signals:
     void chatStarted(MessageModel* messageModel);

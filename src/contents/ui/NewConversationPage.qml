@@ -12,38 +12,79 @@ import org.kde.spacebar 1.0
 Kirigami.ScrollablePage {
     title: i18n("Contacts")
 
-    header: Controls.Control {
-        padding: Kirigami.Units.largeSpacing
+    property var selected: []
 
-        contentItem: Kirigami.ActionTextField {
-           id: searchField
-            onTextChanged: contactsProxyModel.setFilterFixedString(text)
-            inputMethodHints: Qt.ImhNoPredictiveText
-            placeholderText: i18n("Search or enter number…")
-            focusSequence: "Ctrl+F"
-            rightActions: [
-                // Code copy from kirigami, existing actions are being overridden when setting the property
-                Kirigami.Action {
-                    icon.name: searchField.LayoutMirroring.enabled ? "edit-clear-locationbar-ltr" : "edit-clear-locationbar-rtl"
-                    visible: searchField.text.length > 0 && !Utils.isPhoneNumber(searchField.text)
-                    onTriggered: {
-                        searchField.text = ""
-                        searchField.accepted()
-                    }
-                },
-                Kirigami.Action {
-                    icon.name: "document-send"
-                    visible: searchField.text.length > 0 && Utils.isPhoneNumber(searchField.text)
-                    onTriggered: {
-                        // close new conversation page
+    function modifySelection(number, name) {
+        const index = selected.findIndex(o => o.phoneNumber == number)
+        if (index == -1) {
+            selected.push({name: name, phoneNumber: number})
+        } else {
+            selected.splice(index, 1)
+        }
+        selected = selected
+    }
+
+    header: ColumnLayout {
+        RowLayout {
+            Layout.fillWidth: true
+            height: compose.height
+
+            Kirigami.Heading {
+                padding: Kirigami.Units.largeSpacing
+                level: 4
+                type: Kirigami.Heading.Type.Normal
+                text: selected.length + " " + i18n("Selected")
+                color: Kirigami.Theme.disabledTextColor
+            }
+
+            Row {
+                Layout.fillWidth: true
+                layoutDirection: Qt.RightToLeft
+                padding: Kirigami.Units.smallSpacing
+                Controls.Button {
+                    id: compose
+                    text: i18n("Compose")
+                    onClicked: {
                         pageStack.pop()
-
-                        ChatListModel.startChat(searchField.text)
-
-                        searchField.text = ""
+                        ChatListModel.startChat(Utils.phoneNumberList(selected.map(o => o.phoneNumber)))
                     }
                 }
-            ]
+            }
+        }
+
+        Controls.Control {
+            Layout.fillWidth: true
+            padding: Kirigami.Units.largeSpacing
+            topPadding: 0
+
+            contentItem: Kirigami.ActionTextField {
+                id: searchField
+                onTextChanged: contactsProxyModel.setFilterFixedString(text)
+                inputMethodHints: Qt.ImhNoPredictiveText
+                placeholderText: i18n("Search or enter number…")
+                focusSequence: "Ctrl+F"
+                rightActions: [
+                    // Code copy from kirigami, existing actions are being overridden when setting the property
+                    Kirigami.Action {
+                        icon.name: searchField.LayoutMirroring.enabled ? "edit-clear-locationbar-ltr" : "edit-clear-locationbar-rtl"
+                        visible: searchField.text.length > 0 && !Utils.isPhoneNumber(searchField.text)
+                        onTriggered: {
+                            searchField.text = ""
+                            searchField.accepted()
+                        }
+                    },
+                    Kirigami.Action {
+                        icon.name: "list-add-symbolic"
+                        visible: searchField.text.length > 0 && Utils.isPhoneNumber(searchField.text)
+                        onTriggered: {
+                            // close new conversation page
+                            pageStack.pop()
+                            ChatListModel.startChat(Utils.phoneNumberList(searchField.text))
+                            searchField.text = ""
+                        }
+                    }
+                ]
+            }
         }
     }
 
@@ -76,29 +117,36 @@ Kirigami.ScrollablePage {
         currentIndex: -1
 
         delegate: Kirigami.AbstractListItem {
+            id: contact
             width: contactsList.width
+
+            property string number: Utils.phoneNumberToInternationalString(Utils.phoneNumber(model.phoneNumber))
+
             contentItem: RowLayout {
+                Controls.CheckBox {
+                    Layout.preferredWidth: Kirigami.Units.iconSizes.medium
+                    Layout.preferredHeight: Kirigami.Units.iconSizes.medium
+                    checked: selected.findIndex(o => o.phoneNumber == contact.number) != -1
+                    checkable: false
+                    onClicked: modifySelection(contact.number, model.name)
+                }
+
                 Kirigami.Avatar {
-                    id: photo
                     Layout.fillHeight: true
                     Layout.preferredWidth: Kirigami.Units.iconSizes.medium
                     Layout.preferredHeight: Kirigami.Units.iconSizes.medium
-
-                    source: "image://avatar/" + (model && model.phoneNumber)
-                    name: model && model.display
+                    source: model.phoneNumber ? "image://avatar/" + contact.number : ""
+                    name: model.display
                     imageMode: Kirigami.Avatar.AdaptiveImageOrInitals
                 }
 
                 Kirigami.Heading {
                     level: 3
-                    text: model && model.display
+                    text: model.display
                     Layout.fillWidth: true
                 }
             }
-            onClicked: {
-                pageStack.pop()
-                ChatListModel.startChat(Utils.phoneNumber(model.phoneNumber))
-            }
+            onClicked: modifySelection(contact.number, model.name)
         }
     }
 }

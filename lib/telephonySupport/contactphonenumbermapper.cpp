@@ -8,7 +8,6 @@
 #include <QDebug>
 #include <QThread>
 
-
 #include <phonenumber.h>
 
 ContactPhoneNumberMapper &ContactPhoneNumberMapper::instance()

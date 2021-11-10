@@ -40,9 +40,9 @@ void AsyncDatabase::deleteMessage(const QString &id)
     m_database.deleteMessage(id);
 }
 
-void AsyncDatabase::messagesForNumber(const PhoneNumber &phoneNumber)
+void AsyncDatabase::messagesForNumber(const PhoneNumberList &phoneNumberList)
 {
-    Q_EMIT messagesFetchedForNumber(phoneNumber, m_database.messagesForNumber(phoneNumber));
+    Q_EMIT messagesFetchedForNumber(phoneNumberList, m_database.messagesForNumber(phoneNumberList));
 }
 
 void AsyncDatabase::updateMessageDeliveryState(const QString &id, const MessageState state)
@@ -60,27 +60,27 @@ void AsyncDatabase::chats()
     Q_EMIT chatsFetched(m_database.chats());
 }
 
-void AsyncDatabase::unreadMessagesForNumber(const PhoneNumber &phoneNumber)
+void AsyncDatabase::unreadMessagesForNumber(const PhoneNumberList &phoneNumberList)
 {
-    Q_EMIT unreadMessagesFetchedForNumber(phoneNumber, m_database.unreadMessagesForNumber(phoneNumber));
+    Q_EMIT unreadMessagesFetchedForNumber(phoneNumberList, m_database.unreadMessagesForNumber(phoneNumberList));
 }
 
-void AsyncDatabase::lastMessageForNumber(const PhoneNumber &phoneNumber)
+void AsyncDatabase::lastMessageForNumber(const PhoneNumberList &phoneNumberList)
 {
-    Q_EMIT lastMessageFetchedForNumber(phoneNumber, m_database.lastMessageForNumber(phoneNumber));
+    Q_EMIT lastMessageFetchedForNumber(phoneNumberList, m_database.lastMessageForNumber(phoneNumberList));
 }
 
-void AsyncDatabase::lastContactedForNumber(const PhoneNumber &phoneNumber)
+void AsyncDatabase::lastContactedForNumber(const PhoneNumberList &phoneNumberList)
 {
-    Q_EMIT lastContactedFetchedForNumber(phoneNumber, m_database.lastContactedForNumber(phoneNumber));
+    Q_EMIT lastContactedFetchedForNumber(phoneNumberList, m_database.lastContactedForNumber(phoneNumberList));
 }
 
-void AsyncDatabase::markChatAsRead(const PhoneNumber &phoneNumber)
+void AsyncDatabase::markChatAsRead(const PhoneNumberList &phoneNumberList)
 {
-    m_database.markChatAsRead(phoneNumber);
+    m_database.markChatAsRead(phoneNumberList);
 }
 
-void AsyncDatabase::deleteChat(const PhoneNumber &phoneNumber)
+void AsyncDatabase::deleteChat(const PhoneNumberList &phoneNumberList)
 {
-    m_database.deleteChat(phoneNumber);
+    m_database.deleteChat(phoneNumberList);
 }

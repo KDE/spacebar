@@ -30,7 +30,7 @@ void ChannelLogger::handleIncomingMessage(ModemManager::Sms::Ptr msg)
     message.sentByMe = false; // SMS doesn't have any kind of synchronization, so received messages are always from the chat partner.
     message.datetime = msg->timestamp();
     message.deliveryStatus =  MessageState::Received; // It arrived, soo
-    message.phoneNumber = PhoneNumber(msg->number());
+    message.phoneNumberList = PhoneNumberList(msg->number());
     message.id = Database::generateRandomId();
     message.read = false;
 
@@ -39,7 +39,7 @@ void ChannelLogger::handleIncomingMessage(ModemManager::Sms::Ptr msg)
     ModemController::instance().deleteMessage(msg->uni());
 
     //TODO add setting to turn off notifications for multiple chats in addition to current chat
-    if (message.phoneNumber == m_disabledNotificationNumber) {
+    if (message.phoneNumberList == m_disabledNotificationNumber) {
         return;
     }
 
@@ -58,7 +58,7 @@ void ChannelLogger::handleIncomingMessage(ModemManager::Sms::Ptr msg)
     });
 }
 
-void ChannelLogger::disableNotificationsForNumber(const QString &phoneNumber)
+void ChannelLogger::disableNotificationsForNumber(const QString &numbers)
 {
-    m_disabledNotificationNumber = PhoneNumber(phoneNumber);
+    m_disabledNotificationNumber = PhoneNumberList(numbers);
 }

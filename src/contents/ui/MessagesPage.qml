@@ -15,17 +15,18 @@ import org.kde.spacebar 1.0
 Kirigami.ScrollablePage {
     id: msgPage
 
-    title: messageModel && (messageModel.person.name || messageModel.person.phoneNumber || messageModel.displayPhoneNumber)
+    title: people.map(o => o.name || o.phoneNumber).join(",  ")
 
     property MessageModel messageModel;
     property real pointSize: Kirigami.Theme.defaultFont.pointSize + SettingsManager.messageFontSize
+    property bool isNew: true
+    property var people: messageModel ? messageModel.people : []
 
     Connections {
         target: pageStack
         function onCurrentItemChanged () {
             if (!pageStack.currentItem.hasOwnProperty("messageModel")) {
-                messageModel.disableNotifications(Utils.phoneNumber(""))
-                pageStack.pop()
+                messageModel.disableNotifications(Utils.phoneNumberList(""))
             }
         }
     }
@@ -40,16 +41,199 @@ Kirigami.ScrollablePage {
         return (yiq >= 128) ? Qt.rgba(0, 0, 0, 0.9) : Qt.rgba(255, 255, 255, 0.9);
     }
 
+    function tryAddRecipient(number) {
+        number = Utils.phoneNumberToInternationalString(Utils.phoneNumber(number))
+        const index = people.findIndex(o => o.phoneNumber == number)
+
+        if (index == -1) {
+            people.push({ phoneNumber: number })
+            if (pageStack.depth > 2) {
+                pageStack.pop()
+            }
+            ChatListModel.startChat(Utils.phoneNumberList(people.map(o => o.phoneNumber)))
+        } else {
+            duplicateNotify.visible = true
+            setTimeout(function () {
+                duplicateNotify.visible = false
+            }, 3000)
+        }
+    }
+
+    function setTimeout(cb, delayTime) {
+        timer.interval = delayTime
+        timer.repeat = false
+        timer.triggered.connect(cb)
+        timer.start()
+    }
+
+    Timer {
+        id: timer
+    }
+
+    actions {
+        contextualActions: [
+            Kirigami.Action {
+                visible: !isNew
+                iconName: "contact-new-symbolic"
+                text: i18n("Add/remove")
+                onTriggered: {
+                    isNew = true
+                }
+            }
+        ]
+    }
+
     header: ColumnLayout {
+        id: header
+
         Kirigami.InlineMessage {
             id: premiumWarning
             Layout.fillWidth: true
-            Layout.leftMargin: Kirigami.Units.smallSpacing
-            Layout.rightMargin: Kirigami.Units.smallSpacing
-            Layout.topMargin: Kirigami.Units.smallSpacing
+            Layout.margins: Kirigami.Units.largeSpacing
+            Layout.bottomMargin: 0
             type: Kirigami.MessageType.Warning
             text: i18n("Texting this premium SMS number might cause you to be charged money")
-            visible: messageModel && Utils.isPremiumNumber(messageModel.phoneNumber)
+            visible: messageModel && Utils.isPremiumNumber(messageModel.phoneNumberList)
+        }
+
+        Flow {
+            visible: people.length > 0 && isNew
+            Layout.fillWidth: true
+            Layout.margins: Kirigami.Units.largeSpacing
+            Layout.bottomMargin: 0
+            spacing: Kirigami.Units.largeSpacing
+
+            Repeater {
+                model: people
+                Rectangle {
+                    color: "lightgrey"
+                    radius: remove.height / 2
+                    width: contact.width + remove.width
+                    height: remove.height
+
+                    Controls.RoundButton {
+                        id: contact
+                        height: parent.height
+                        text: modelData.name || modelData.phoneNumber
+                        flat: true
+                        onClicked: Utils.launchPhonebook()
+                    }
+
+                    Controls.RoundButton {
+                        id: remove
+                        flat: true
+                        icon.name: "edit-delete-remove"
+                        anchors.right: parent.right
+                        onClicked: {
+                            const number = Utils.phoneNumberToInternationalString(Utils.phoneNumber(modelData.phoneNumber))
+                            const index = people.findIndex(o => o.phoneNumber == number)
+
+                            people.splice(index, 1)
+                            ChatListModel.startChat(Utils.phoneNumberList(people.map(o => o.phoneNumber)))
+                        }
+                    }
+                }
+            }
+        }
+
+        Controls.Control {
+            visible: isNew
+            Layout.fillWidth: true
+            Layout.margins: Kirigami.Units.largeSpacing
+            Layout.topMargin: 0
+
+            contentItem: Kirigami.ActionTextField {
+                id: searchField
+                onTextChanged: {
+                    contactsProxyModel.setFilterFixedString(text)
+                    if (text.length == 1){
+                        contactsList.open()
+                    } else if (text.length == 0) {
+                        contactsList.close()
+                    }
+                }
+                onPressed: if (text.length > 0) contactsList.open()
+                inputMethodHints: Qt.ImhNoPredictiveText
+                placeholderText: i18n("Recipient")
+                focusSequence: "Ctrl+F"
+                rightActions: [
+                    // Code copy from kirigami, existing actions are being overridden when setting the property
+                    Kirigami.Action {
+                        icon.name: "edit-delete-remove"
+                        visible: searchField.text.length > 0 && !Utils.isPhoneNumber(searchField.text)
+                        onTriggered: {
+                            searchField.text = ""
+                            searchField.accepted()
+                            contactsList.close()
+                        }
+                    },
+                    Kirigami.Action {
+                        icon.name: "contact-new-symbolic"
+                        visible: searchField.text.length == 0
+                        onTriggered: {
+                            pageStack.push("qrc:/NewConversationPage.qml", { selected: people })
+                        }
+                    },
+                    Kirigami.Action {
+                        icon.name: "list-add-symbolic"
+                        visible: searchField.text.length > 0 && Utils.isPhoneNumber(searchField.text)
+                        onTriggered: tryAddRecipient(searchField.text)
+                    }
+                ]
+            }
+        }
+    }
+
+    Controls.Popup {
+        id: contactsList
+        anchors.centerIn: parent
+        topMargin: header.height + searchField.height
+        padding: 0
+        width: parent.width - Kirigami.Units.largeSpacing * 2
+        height: parent.height - header.height - footer.height
+        background: null
+
+        contentItem: ListView {
+            anchors.fill: parent
+
+            clip: true
+
+            model: ContactModel {
+                id: contactsProxyModel
+            }
+
+            reuseItems: true
+
+            currentIndex: -1
+
+            delegate: Kirigami.AbstractListItem {
+                width: parent.width || 0
+                backgroundColor: Kirigami.Theme.backgroundColor
+
+                contentItem: RowLayout {
+                    Kirigami.Avatar {
+                        Layout.fillHeight: true
+                        Layout.preferredWidth: Kirigami.Units.iconSizes.medium
+                        Layout.preferredHeight: Kirigami.Units.iconSizes.medium
+                        source: contactsList.visible && model.phoneNumber ? "image://avatar/" + model.phoneNumber : ""
+                        name: model.display
+                        imageMode: Kirigami.Avatar.AdaptiveImageOrInitals
+                    }
+
+                    Kirigami.Heading {
+                        level: 3
+                        text: model.display
+                        Layout.fillWidth: true
+                    }
+                }
+                onClicked: tryAddRecipient(model.phoneNumber)
+            }
+        }
+
+        MouseArea {
+            anchors.fill: parent
+            z: -1
+            onClicked: contactsList.close()
         }
     }
 
@@ -298,7 +482,7 @@ Kirigami.ScrollablePage {
         height: Kirigami.Units.gridUnit * 2
         placeholderText: {
             var number = Utils.sendingNumber()
-            if (number === "") {
+            if (number === "0") {
                 return i18n("Write Message...")
             } else {
                 return i18nc("%1 is a phone number", "Send Message from %1...", number)
@@ -318,5 +502,13 @@ Kirigami.ScrollablePage {
             }
         ]
         font.pointSize: pointSize
+
+        Kirigami.InlineMessage {
+            id: duplicateNotify
+            width: parent.width
+            type: Kirigami.MessageType.Warning
+            text: i18n("Duplicate recipient")
+            visible: false
+        }
     }
 }

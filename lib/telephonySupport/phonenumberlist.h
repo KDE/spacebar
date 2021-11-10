@@ -15,7 +15,9 @@ class PhoneNumberList : public QVector<PhoneNumber>
 public:
     using QVector<PhoneNumber>::QVector;
 
-    PhoneNumberList(const QString &phoneNumbers);
+    explicit PhoneNumberList(const QString &phoneNumbers);
 
     QString toString() const;
 };
+
+Q_DECLARE_METATYPE(PhoneNumberList)

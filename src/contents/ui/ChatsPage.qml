@@ -16,7 +16,7 @@ Kirigami.ScrollablePage {
     actions {
         main: Kirigami.Action {
             text: i18n("New Conversation")
-            onTriggered: pageStack.push("qrc:/NewConversationPage.qml")
+            onTriggered: pageStack.push("qrc:/NewConversationPage.qml", { isNew: true })
             icon.name: "contact-new"
         }
     }
@@ -55,12 +55,15 @@ Kirigami.ScrollablePage {
     Connections {
         target: ChatListModel
         function onChatStarted (messageModel) {
+            let isNew = false
+
             // Don't open two MessagesPages at the same time
             if (pageStack.currentItem.hasOwnProperty("messageModel")) {
                 pageStack.pop()
+                isNew = true
             }
 
-            Qt.callLater(pageStack.push, "qrc:/MessagesPage.qml", {"messageModel": messageModel})
+            Qt.callLater(pageStack.push, "qrc:/MessagesPage.qml", {"messageModel": messageModel, isNew: isNew})
         }
         function onChatsFetched () {
             chatPage.refreshing = false
@@ -77,27 +80,25 @@ Kirigami.ScrollablePage {
             id: delegateRoot
 
             required property string displayName
-            required property var phoneNumber
-            required property string displayPhoneNumber
+            required property var phoneNumberList
             required property string lastContacted
             required property int unreadMessages
-            required property var photo
             required property string lastMessage
+            required property bool isContact
 
             checkable: false
             highlighted: false
 
             contentItem: RowLayout {
                 Kirigami.Avatar {
-                    id: photo
                     Layout.preferredWidth: Kirigami.Units.iconSizes.medium
                     Layout.preferredHeight: Kirigami.Units.iconSizes.medium
                     Layout.rightMargin: Kirigami.Units.largeSpacing
 
-                    source: delegateRoot.displayName ? "image://avatar/" + Utils.phoneNumberToInternationalString(delegateRoot.phoneNumber) : ""
-                    name: delegateRoot.displayName || delegateRoot.displayPhoneNumber
+                    source: isContact ? "image://avatar/" + Utils.phoneNumberListToString(delegateRoot.phoneNumberList) : ""
+                    name: delegateRoot.displayName
                     imageMode: Kirigami.Avatar.AdaptiveImageOrInitals
-                    initialsMode: delegateRoot.displayName ? Kirigami.Avatar.UseInitials : Kirigami.Avatar.UseIcon
+                    initialsMode: isContact ? Kirigami.Avatar.UseInitials : Kirigami.Avatar.UseIcon
                 }
 
                 ColumnLayout {
@@ -110,7 +111,7 @@ Kirigami.ScrollablePage {
                         level: 4
                         type: Kirigami.Heading.Type.Normal
                         Layout.fillWidth: true
-                        text: delegateRoot.displayName || delegateRoot.displayPhoneNumber
+                        text: delegateRoot.displayName
                         wrapMode: Text.WrapAnywhere
                         maximumLineCount: 1
                     }
@@ -161,15 +162,15 @@ Kirigami.ScrollablePage {
                     text: i18n("Delete chat")
                     icon.name: "delete"
                     onTriggered: {
-                        ChatListModel.deleteChat(delegateRoot.phoneNumber)
+                        ChatListModel.deleteChat(delegateRoot.phoneNumberList)
                     }
                 }
             ]
 
             onClicked: {
                 // mark as read first, so data is correct when the model is initialized. This saves us a model reset
-                ChatListModel.markChatAsRead(delegateRoot.phoneNumber);
-                ChatListModel.startChat(delegateRoot.phoneNumber);
+                ChatListModel.markChatAsRead(delegateRoot.phoneNumberList)
+                ChatListModel.startChat(delegateRoot.phoneNumberList)
             }
         }
     }

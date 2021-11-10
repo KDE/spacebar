@@ -9,20 +9,29 @@
 
 #include <KPeople/PersonData>
 
-#include <phonenumber.h>
+#include <phonenumberlist.h>
 
 #include "database.h"
 
 #include "qcoro/task.h"
+
+struct Person {
+    Q_GADGET
+    Q_PROPERTY(QString phoneNumber MEMBER m_phoneNumber)
+    Q_PROPERTY(QString name MEMBER m_name)
+public:
+    QString m_phoneNumber;
+    QString m_name;
+};
+Q_DECLARE_METATYPE(Person);
 
 class ChannelHandler;
 
 class MessageModel : public QAbstractListModel
 {
     Q_OBJECT
-    Q_PROPERTY(PhoneNumber phoneNumber READ phoneNumber NOTIFY phoneNumberChanged)
-    Q_PROPERTY(QString displayPhoneNumber READ displayPhoneNumber NOTIFY phoneNumberChanged)
-    Q_PROPERTY(KPeople::PersonData *person READ person NOTIFY personChanged)
+    Q_PROPERTY(PhoneNumberList phoneNumberList READ phoneNumberList NOTIFY phoneNumberListChanged)
+    Q_PROPERTY(QVector<Person> people READ people NOTIFY peopleChanged)
 
 public:
     enum Role {
@@ -46,18 +55,16 @@ public:
     Q_ENUM(DeliveryState)
 
     explicit MessageModel(ChannelHandler &handler,
-                          const PhoneNumber &phoneNumber,
+                          const PhoneNumberList &phoneNumberList,
                           QObject *parent = nullptr);
 
     QHash<int, QByteArray> roleNames() const override;
     QVariant data(const QModelIndex &index, int role) const override;
     int rowCount(const QModelIndex &index = {}) const override;
 
-    KPeople::PersonData *person() const;
+    QVector<Person> people() const;
 
-    PhoneNumber phoneNumber() const;
-
-    QString displayPhoneNumber() const;
+    PhoneNumberList phoneNumberList() const;
 
     /**
      * @brief Adds a message to the model and the database.
@@ -87,10 +94,10 @@ public:
      * @brief excludes set phone number from message notifications
      * @param list
      */
-    Q_INVOKABLE void disableNotifications(const PhoneNumber &phoneNumber);
+    Q_INVOKABLE void disableNotifications(const PhoneNumberList &phoneNumberList);
 
 private:
-    QCoro::Task<QString> sendMessageInternal(const QString &number);
+    QCoro::Task<QString> sendMessageInternal(const PhoneNumber &phoneNumber, const QString &text);
     QPair<Message *, int> getMessageIndex(const QString &path);
     void updateMessageState(const QString &path, MessageState state);
 
@@ -98,10 +105,10 @@ private:
     QVector<Message> m_messages;
 
     // properties
-    PhoneNumber m_phoneNumber;
-    KPeople::PersonData *m_personData;
+    PhoneNumberList m_phoneNumberList;
+    QVector<Person> m_peopleData;
 
 signals:
-    void phoneNumberChanged();
-    void personChanged();
+    void phoneNumberListChanged();
+    void peopleChanged();
 };

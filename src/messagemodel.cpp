@@ -14,7 +14,7 @@
 
 #include <global.h>
 #include <contactphonenumbermapper.h>
-#include <phonenumber.h>
+#include <phonenumberlist.h>
 
 #include "asyncdatabase.h"
 #include "channelhandler.h"
@@ -23,16 +23,22 @@
 
 #include <QCoroDBusPendingReply>
 
-MessageModel::MessageModel(ChannelHandler &handler, const PhoneNumber &phoneNumber, QObject *parent)
+MessageModel::MessageModel(ChannelHandler &handler, const PhoneNumberList &phoneNumberList, QObject *parent)
     : QAbstractListModel(parent)
     , m_handler(handler)
-    , m_phoneNumber(phoneNumber)
-    , m_personData(new KPeople::PersonData(ContactPhoneNumberMapper::instance().uriForNumber(phoneNumber), this))
+    , m_phoneNumberList(phoneNumberList)
 {
-    disableNotifications(m_phoneNumber);
+    disableNotifications(m_phoneNumberList);
+
+    for (const auto &number : phoneNumberList) {
+        Person person;
+        person.m_name = KPeople::PersonData(ContactPhoneNumberMapper::instance().uriForNumber(number)).name();
+        person.m_phoneNumber = number.toInternational();
+        m_peopleData.append(person);
+    }
 
     connect(&ModemController::instance(), &ModemController::messageAdded, this, [this](ModemManager::Sms::Ptr msg) {
-        if (PhoneNumber(msg->number()) != m_phoneNumber) {
+        if (PhoneNumberList(msg->number()) != m_phoneNumberList) {
             return; // Message is not for this model
         }
         Message message;
@@ -42,21 +48,21 @@ MessageModel::MessageModel(ChannelHandler &handler, const PhoneNumber &phoneNumb
         message.datetime = msg->timestamp();
         message.sentByMe = false;
         message.deliveryStatus = MessageState::Received; // If it arrived here, it was
-        message.phoneNumber = PhoneNumber(msg->number());
+        message.phoneNumberList = PhoneNumberList(msg->number());
 
         addMessage(message);
     });
 
     connect(&m_handler.database(), &AsyncDatabase::messagesFetchedForNumber,
-            this, [this](const PhoneNumber &phoneNumber, const QVector<Message> &messages) {
-        if (phoneNumber == m_phoneNumber) {
+            this, [this](const PhoneNumberList &phoneNumberList, const QVector<Message> &messages) {
+        if (phoneNumberList == m_phoneNumberList) {
             beginResetModel();
             m_messages = messages;
             endResetModel();
         }
     });
 
-    Q_EMIT m_handler.database().requestMessagesForNumber(m_phoneNumber);
+    Q_EMIT m_handler.database().requestMessagesForNumber(m_phoneNumberList);
 }
 
 QHash<int, QByteArray> MessageModel::roleNames() const
@@ -105,19 +111,14 @@ int MessageModel::rowCount(const QModelIndex &index) const
     return index.isValid() ? 0 : m_messages.count();
 }
 
-KPeople::PersonData *MessageModel::person() const
+QVector<Person> MessageModel::people() const
 {
-    return m_personData;
+    return m_peopleData;
 }
 
-PhoneNumber MessageModel::phoneNumber() const
+PhoneNumberList MessageModel::phoneNumberList() const
 {
-    return m_phoneNumber;
-}
-
-QString MessageModel::displayPhoneNumber() const
-{
-    return m_phoneNumber.toNational();
+    return m_phoneNumberList;
 }
 
 void MessageModel::addMessage(const Message &message)
@@ -133,7 +134,15 @@ void MessageModel::addMessage(const Message &message)
 void MessageModel::sendMessage(const QString &text)
 {
     [this, text] () -> QCoro::Task<void> {
-        const QString result = co_await sendMessageInternal(text);
+        QString result;
+        if (m_phoneNumberList.size() > 1) {
+            // send as individual messages
+            for (const auto &phoneNumber : m_phoneNumberList) {
+                result += co_await sendMessageInternal(phoneNumber, text);
+            }
+        } else {
+            result = co_await sendMessageInternal(m_phoneNumberList.first(), text);
+        }
 
         if (result.isEmpty()) {
             qDebug() << "Message sent successfully";
@@ -164,14 +173,14 @@ void MessageModel::updateMessageState(const QString &msgPath, MessageState state
     Q_EMIT dataChanged(index(idx.second), index(idx.second), {Role::DeliveryStateRole});
 }
 
-QCoro::Task<QString> MessageModel::sendMessageInternal(const QString &text)
+QCoro::Task<QString> MessageModel::sendMessageInternal(const PhoneNumber &phoneNumber, const QString &text)
 {
     ModemManager::ModemMessaging::Message m;
-    m.number = m_phoneNumber.toE164();
+    m.number = phoneNumber.toE164();
     m.text = text;//Utils::textToHtml(text);
 
     Message message;
-    message.phoneNumber = m_phoneNumber;
+    message.phoneNumberList = PhoneNumberList(phoneNumber.toInternational());
     message.text = text;//Utils::textToHtml(text);
     message.datetime = QDateTime::currentDateTime();
     message.read = true; // Messages sent by us are automatically read.
@@ -257,7 +266,7 @@ void MessageModel::deleteMessage(const QString &id, const int index)
     endRemoveRows();
 }
 
-void MessageModel::disableNotifications(const PhoneNumber &phoneNumber)
+void MessageModel::disableNotifications(const PhoneNumberList &phoneNumberList)
 {
-    m_handler.interface()->disableNotificationsForNumber(phoneNumber.toInternational());
+    m_handler.interface()->disableNotificationsForNumber(phoneNumberList.toString());
 }

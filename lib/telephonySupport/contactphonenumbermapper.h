@@ -34,7 +34,7 @@ signals:
      * because a contact was added to KPeople
      * @param list of affected numbers
      */
-    void contactsChanged(const QVector<PhoneNumber> phoneNumbers);
+    void contactsChanged(const QVector<PhoneNumber> phoneNumber);
 
 private slots:
     void processRows(const int first, const int last);
