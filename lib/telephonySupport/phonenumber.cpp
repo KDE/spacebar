@@ -45,7 +45,7 @@ bool PhoneNumber::operator==(const PhoneNumber &other) const
     if (!isValid()) {
         return false;
     }
-    return phonenumbers::PhoneNumberUtil::GetInstance()->IsNumberMatch(d->number, other.d->number);
+    return phonenumbers::PhoneNumberUtil::GetInstance()->IsNumberMatch(d->number, other.d->number) == phonenumbers::PhoneNumberUtil::EXACT_MATCH;
 }
 
 QString PhoneNumber::toInternational() const
