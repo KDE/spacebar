@@ -4,6 +4,9 @@
 
 #include "asyncdatabase.h"
 
+#include <QFuture>
+
+#include <memory>
 
 AsyncDatabase::AsyncDatabase()
 {
@@ -15,78 +18,83 @@ AsyncDatabase::AsyncDatabase()
 
     // Forward messagesChanged signal
     connect(&m_database, &Database::messagesChanged, this, &AsyncDatabase::messagesChanged);
-
-    // Connect requests to slots
-    connect(this, &AsyncDatabase::requestAddMessage, this, &AsyncDatabase::addMessage);
-    connect(this, &AsyncDatabase::requestDeleteMessage, this, &AsyncDatabase::deleteMessage);
-    connect(this, &AsyncDatabase::requestUpdateMessageDeliveryState, this, &AsyncDatabase::updateMessageDeliveryState);
-    connect(this, &AsyncDatabase::requestUpdateMessageSent, this, &AsyncDatabase::updateMessageSent);
-    connect(this, &AsyncDatabase::requestMarkMessageRead, this, &AsyncDatabase::markMessageRead);
-    connect(this, &AsyncDatabase::requestMessagesForNumber, this, &AsyncDatabase::messagesForNumber);
-    connect(this, &AsyncDatabase::requestChats, this, &AsyncDatabase::chats);
-    connect(this, &AsyncDatabase::requestUnreadMessagesForNumber, this, &AsyncDatabase::unreadMessagesForNumber);
-    connect(this, &AsyncDatabase::requestLastMessageForNumber, this, &AsyncDatabase::lastMessageForNumber);
-    connect(this, &AsyncDatabase::requestLastContactedForNumber, this, &AsyncDatabase::lastContactedForNumber);
-    connect(this, &AsyncDatabase::requestMarkChatAsRead, this, &AsyncDatabase::markChatAsRead);
-    connect(this, &AsyncDatabase::requestDeleteChat, this, &AsyncDatabase::deleteChat);
 }
 
-void AsyncDatabase::addMessage(const Message &message)
+QFuture<void> AsyncDatabase::addMessage(const Message &message)
 {
-    m_database.addMessage(message);
+    return invokeOnThread<void>([=, this] {
+        return m_database.addMessage(message);
+    });
 }
 
-void AsyncDatabase::deleteMessage(const QString &id)
+QFuture<void> AsyncDatabase::deleteMessage(const QString &id)
 {
-    m_database.deleteMessage(id);
+    return invokeOnThread<void>([=, this] {
+        m_database.deleteMessage(id);
+    });
 }
 
-void AsyncDatabase::messagesForNumber(const PhoneNumberList &phoneNumberList, const QString &id)
+QFuture<QVector<Message>> AsyncDatabase::messagesForNumber(const PhoneNumber &phoneNumber)
 {
-    Q_EMIT messagesFetchedForNumber(phoneNumberList, m_database.messagesForNumber(phoneNumberList, id));
+    return invokeOnThread<QVector<Message>>([=, this] {
+        return m_database.messagesForNumber(phoneNumber);
+    });
 }
 
-void AsyncDatabase::updateMessageDeliveryState(const QString &id, const MessageState state)
+QFuture<void> AsyncDatabase::updateMessageDeliveryState(const QString &id, const MessageState state)
 {
-    m_database.updateMessageDeliveryState(id, state);
+    return invokeOnThread<void>([=, this] {
+        return m_database.updateMessageDeliveryState(id, state);
+    });
 }
 
-void AsyncDatabase::updateMessageSent(const QString &id, const QString &messageId, const QString &contentLocation)
+QFuture<void> AsyncDatabase::markMessageRead(const int id)
 {
-    m_database.updateMessageSent(id, messageId, contentLocation);
+    return invokeOnThread<void>([=, this] {
+        return m_database.markMessageRead(id);
+    });
 }
 
-void AsyncDatabase::markMessageRead(const int id)
+QFuture<QVector<Chat>> AsyncDatabase::chats()
 {
-    m_database.markMessageRead(id);
+    qDebug() << "Fetching chats 1";
+    return invokeOnThread<QVector<Chat>>([=, this] {
+        qDebug() << "Fetching chats 2";
+        return m_database.chats();
+    });
 }
 
-void AsyncDatabase::chats()
+QFuture<int> AsyncDatabase::unreadMessagesForNumber(const PhoneNumber &phoneNumber)
 {
-    Q_EMIT chatsFetched(m_database.chats());
+    return invokeOnThread<int>([=, this] {
+        return m_database.unreadMessagesForNumber(phoneNumber);
+    });
 }
 
-void AsyncDatabase::unreadMessagesForNumber(const PhoneNumberList &phoneNumberList)
+QFuture<QString> AsyncDatabase::lastMessageForNumber(const PhoneNumber &phoneNumber)
 {
-    Q_EMIT unreadMessagesFetchedForNumber(phoneNumberList, m_database.unreadMessagesForNumber(phoneNumberList));
+    return invokeOnThread<QString>([=, this] {
+        return m_database.lastMessageForNumber(phoneNumber);
+    });
 }
 
-void AsyncDatabase::lastMessageForNumber(const PhoneNumberList &phoneNumberList)
+QFuture<QDateTime> AsyncDatabase::lastContactedForNumber(const PhoneNumber &phoneNumber)
 {
-    Q_EMIT lastMessageFetchedForNumber(phoneNumberList, m_database.lastMessageForNumber(phoneNumberList));
+    return invokeOnThread<QDateTime>([=, this] {
+        return m_database.lastContactedForNumber(phoneNumber);
+    });
 }
 
-void AsyncDatabase::lastContactedForNumber(const PhoneNumberList &phoneNumberList)
+QFuture<void> AsyncDatabase::markChatAsRead(const PhoneNumber &phoneNumber)
 {
-    Q_EMIT lastContactedFetchedForNumber(phoneNumberList, m_database.lastContactedForNumber(phoneNumberList));
+    return invokeOnThread<void>([=, this] {
+        return m_database.markChatAsRead(phoneNumber);
+    });
 }
 
-void AsyncDatabase::markChatAsRead(const PhoneNumberList &phoneNumberList)
+QFuture<void> AsyncDatabase::deleteChat(const PhoneNumber &phoneNumber)
 {
-    m_database.markChatAsRead(phoneNumberList);
-}
-
-void AsyncDatabase::deleteChat(const PhoneNumberList &phoneNumberList)
-{
-    m_database.deleteChat(phoneNumberList);
+    return invokeOnThread<void>([=, this] {
+        return m_database.deleteChat(phoneNumber);
+    });
 }

@@ -5,8 +5,10 @@
 #pragma once
 
 #include <QObject>
+#include <QFuture>
 
 #include "database.h"
+
 
 ///
 /// \brief The AsyncDatabase class provides an asynchronous API around the Database class
@@ -20,44 +22,37 @@ class AsyncDatabase : public QObject
 public:
     explicit AsyncDatabase();
 
-    // This class shall never expose anything but signals
+    Q_SIGNAL void messagesChanged(const PhoneNumber &phoneNumber);
 
-    Q_SIGNAL void messagesChanged(const PhoneNumberList &phoneNumberList);
-
-    // Fetch requests
-    Q_SIGNAL void requestAddMessage(const Message &message);
-    Q_SIGNAL void requestDeleteMessage(const QString &id);
-    Q_SIGNAL void requestMessagesForNumber(const PhoneNumberList &phoneNumberList, const QString &id);
-    Q_SIGNAL void requestUpdateMessageDeliveryState(const QString &id, const MessageState state);
-    Q_SIGNAL void requestUpdateMessageSent(const QString &id, const QString &messageId, const QString &contentLocation);
-    Q_SIGNAL void requestMarkMessageRead(const int id);
-    Q_SIGNAL void requestChats();
-    Q_SIGNAL void requestUnreadMessagesForNumber(const PhoneNumberList &phoneNumberList);
-    Q_SIGNAL void requestLastMessageForNumber(const PhoneNumberList &phoneNumberList);
-    Q_SIGNAL void requestLastContactedForNumber(const PhoneNumberList &phoneNumberList);
-    Q_SIGNAL void requestMarkChatAsRead(const PhoneNumberList &phoneNumberList);
-    Q_SIGNAL void requestDeleteChat(const PhoneNumberList &phoneNumberList);
-
-    // Responses
-    Q_SIGNAL void messagesFetchedForNumber(const PhoneNumberList &phoneNumberList, const QVector<Message> messages);
-    Q_SIGNAL void chatsFetched(QVector<Chat> chats);
-    Q_SIGNAL void unreadMessagesFetchedForNumber(const PhoneNumberList &phoneNumberList, const int unreadMessages);
-    Q_SIGNAL void lastMessageFetchedForNumber(const PhoneNumberList &phoneNumberList, const QString &message);
-    Q_SIGNAL void lastContactedFetchedForNumber(const PhoneNumberList &phoneNumberList, const QDateTime &lastContacted);
+    // All of these functions are thread-safe, and are processed in an internal queue.
+    QFuture<void> addMessage(const Message &message);
+    QFuture<void> deleteMessage(const QString &id);
+    QFuture<QVector<Message>> messagesForNumber(const PhoneNumber &phoneNumber);
+    QFuture<void> updateMessageDeliveryState(const QString &id, const MessageState state);
+    QFuture<void> markMessageRead(const int id);
+    QFuture<QVector<Chat>> chats();
+    QFuture<int> unreadMessagesForNumber(const PhoneNumber &phoneNumber);
+    QFuture<QString> lastMessageForNumber(const PhoneNumber &phoneNumber);
+    QFuture<QDateTime> lastContactedForNumber(const PhoneNumber &phoneNumber);
+    QFuture<void> markChatAsRead(const PhoneNumber &phoneNumber);
+    QFuture<void> deleteChat(const PhoneNumber &phoneNumber);
 
 private:
-    Q_SLOT void addMessage(const Message &message);
-    Q_SLOT void deleteMessage(const QString &id);
-    Q_SLOT void messagesForNumber(const PhoneNumberList &phoneNumberList, const QString &id);
-    Q_SLOT void updateMessageDeliveryState(const QString &id, const MessageState state);
-    Q_SLOT void updateMessageSent(const QString &id, const QString &messageId, const QString &contentLocation);
-    Q_SLOT void markMessageRead(const int id);
-    Q_SLOT void chats();
-    Q_SLOT void unreadMessagesForNumber(const PhoneNumberList &phoneNumberList);
-    Q_SLOT void lastMessageForNumber(const PhoneNumberList &phoneNumberList);
-    Q_SLOT void lastContactedForNumber(const PhoneNumberList &phoneNumberList);
-    Q_SLOT void markChatAsRead(const PhoneNumberList &phoneNumberList);
-    Q_SLOT void deleteChat(const PhoneNumberList &phoneNumberList);
+    template <typename T, typename Func>
+    QFuture<T> invokeOnThread(Func fun) {
+        auto interface = std::make_shared<QFutureInterface<T>>();
+        QMetaObject::invokeMethod(this, [fun, interface] {
+            if constexpr (std::is_same_v<T, void>) {
+                fun();
+                interface->reportFinished();
+            } else {
+                interface->reportResult(fun());
+                interface->reportFinished();
+            }
+        }, Qt::QueuedConnection);
+
+        return interface->future();
+    }
 
     Database m_database;
 };

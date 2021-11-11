@@ -66,6 +66,8 @@ Q_SIGNALS:
     void chatsFetched();
 
 private:
+    void setChats(const QVector<Chat> &chats);
+
     ChannelHandler &m_handler;
     QVector<Chat> m_chats;
     ContactPhoneNumberMapper &m_mapper;

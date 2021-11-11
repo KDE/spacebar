@@ -21,6 +21,12 @@
 #include "channelhandler.h"
 #include "settingsmanager.h"
 
+#include <qcoro/coroutine.h>
+#include <qcoro/task.h>
+#include <qcoro/qcorofuture.h>
+
+#include <iostream>
+
 ChatListModel::ChatListModel(ChannelHandler &handler, QObject *parent)
     : QAbstractListModel(parent)
     , m_handler(handler)
@@ -53,13 +59,14 @@ ChatListModel::ChatListModel(ChannelHandler &handler, QObject *parent)
         Q_EMIT chatsFetched();
     });
 
-    Q_EMIT m_handler.database().requestChats();
     Q_EMIT m_handler.interface()->disableNotificationsForNumber(QString());
 }
 
 ChatListModel::~ChatListModel()
 {
     Q_EMIT m_handler.interface()->disableNotificationsForNumber(QString());
+    std::cout << "Destroying ChatListModel";
+    std::flush(std::cout);
 }
 
 QHash<int, QByteArray> ChatListModel::roleNames() const
@@ -145,7 +152,10 @@ void ChatListModel::markChatAsRead(const PhoneNumberList &phoneNumberList)
 
 void ChatListModel::fetchChats()
 {
-    Q_EMIT m_handler.database().requestChats();
+    QTimer::singleShot(0, [=, this]() -> QCoro::Task<> {
+        auto chats = co_await m_handler.database().chats();
+        setChats(chats);
+    });
 }
 
 void ChatListModel::deleteChat(const PhoneNumberList &phoneNumberList)

@@ -25,6 +25,8 @@
 #include "settingsmanager.h"
 
 #include <QCoroDBusPendingReply>
+#include <qcoro/coroutine.h>
+#include <QCoroFuture>
 
 MessageModel::MessageModel(ChannelHandler &handler, const PhoneNumberList &phoneNumberList, QObject *parent)
     : QAbstractListModel(parent)
@@ -202,7 +204,9 @@ void MessageModel::addMessage(const Message &message)
     endInsertRows();
 
     // save to database
-    Q_EMIT m_handler.database().requestAddMessage(message);
+    QTimer::singleShot(0, [this, message]() -> QCoro::Task<> {
+        co_await m_handler.database().addMessage(message);
+    });
 }
 
 void MessageModel::sendMessage(const QString &text, const QStringList &files, const long totalSize)
@@ -232,7 +236,7 @@ void MessageModel::sendMessage(const QString &text, const QStringList &files, co
         } else {
             qDebug() << "Failed successfully" << result;
         }
-    }();
+    });
 }
 
 QPair<Message *, int> MessageModel::getMessageIndex(const QString &path)
@@ -301,12 +305,12 @@ QCoro::Task<QString> MessageModel::sendMessageInternal(const PhoneNumber &phoneN
 
     ModemManager::Sms::Ptr mmMessage = QSharedPointer<ModemManager::Sms>::create(msgPath);
 
-    connect(mmMessage.get(), &ModemManager::Sms::stateChanged, this, [mmMessage, msgPath, this] {
+    connect(mmMessage.get(), &ModemManager::Sms::stateChanged, this, [mmMessage, msgPath, this]() -> QCoro::Task<void> {
         qDebug() << "state changed" << mmMessage->state();
 
         switch (mmMessage->state()) {
             case MM_SMS_STATE_SENT:
-                updateMessageState(msgPath, MessageState::Sent);
+                co_await updateMessageState(msgPath, MessageState::Sent);
                 break;
             case MM_SMS_STATE_RECEIVED:
                 // Should not happen
@@ -317,18 +321,18 @@ QCoro::Task<QString> MessageModel::sendMessageInternal(const PhoneNumber &phoneN
                 qWarning() << "Receiving a message we sent";
                 break;
             case MM_SMS_STATE_SENDING:
-                updateMessageState(msgPath, MessageState::Pending);
+                co_await updateMessageState(msgPath, MessageState::Pending);
                 break;
             case MM_SMS_STATE_STORED:
-                updateMessageState(msgPath, MessageState::Pending);
+                co_await updateMessageState(msgPath, MessageState::Pending);
                 break;
             case MM_SMS_STATE_UNKNOWN:
-                updateMessageState(msgPath, MessageState::Unknown);
+                co_await updateMessageState(msgPath, MessageState::Unknown);
                 break;
         }
     });
 
-    connect(mmMessage.get(), &ModemManager::Sms::deliveryStateChanged, this, [=, this] {
+    connect(mmMessage.get(), &ModemManager::Sms::deliveryStateChanged, this, [=] {
         MMSmsDeliveryState state = mmMessage->deliveryState();
         // TODO does this even change?
         // TODO do something with the state
@@ -409,7 +413,9 @@ QCoro::Task<QString> MessageModel::sendMessageInternalMms(const PhoneNumberList 
 
 void MessageModel::markMessageRead(const int id)
 {
-    Q_EMIT m_handler.database().requestMarkMessageRead(id);
+    QMetaObject::invokeMethod(this, [=, this]() -> QCoro::Task<> {
+        co_await m_handler.database().markMessageRead(id);
+    });
 }
 
 void MessageModel::downloadMessage(const QString &id, const QString &url, const QDateTime &expires)
@@ -420,7 +426,9 @@ void MessageModel::downloadMessage(const QString &id, const QString &url, const 
 
 void MessageModel::deleteMessage(const QString &id, const int index, const QStringList &files)
 {
-    Q_EMIT m_handler.database().requestDeleteMessage(id);
+    QMetaObject::invokeMethod(this, [=, this]() -> QCoro::Task<> {
+        co_await m_handler.database().deleteMessage(id);
+    });
 
     // delete attachments
     const QString sourceFolder = attachmentsFolder();
