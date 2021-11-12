@@ -17,6 +17,7 @@ struct SignalPrivateKey(PrivateKey);
 struct SignalIdentityKey(IdentityKey);
 struct SignalIdentityKeyPair(IdentityKeyPair);
 struct SignalSignalMessage(SignalMessage);
+struct SignalSignalMessageRef<'a>(&'a SignalMessage);
 struct SignalProtocolAddress(ProtocolAddress);
 struct SignalFingerprint(Fingerprint);
 struct SignalPreKeySignalMessage(PreKeySignalMessage);
@@ -81,6 +82,16 @@ fn new_signal_message(
 impl SignalSignalMessage {
     fn body(&self) -> &[u8] {
         self.0.body()
+    }
+}
+
+impl<'a> SignalSignalMessageRef<'a> {
+    fn body(&self) -> &[u8] {
+        self.0.body()
+    }
+
+    fn to_owned(&self) -> Box<SignalSignalMessage> {
+        Box::from(SignalSignalMessage(self.0.clone()))
     }
 }
 
@@ -196,8 +207,8 @@ impl SignalPreKeySignalMessage {
         Box::from(SignalIdentityKey(*self.0.identity_key()))
     }
 
-    fn message(&self) -> Box<SignalSignalMessage> {
-        Box::from(SignalSignalMessage(self.0.message().clone()))
+    fn message(&self) -> Box<SignalSignalMessageRef> {
+        Box::from(SignalSignalMessageRef(self.0.message()))
     }
 
     fn serialized(&self) -> &[u8] {
@@ -217,6 +228,7 @@ mod ffi {
         type SignalProtocolAddress;
         type SignalFingerprint;
         type SignalPreKeySignalMessage;
+        type SignalSignalMessageRef<'a>;
 
         #[cxx_name = "generateKeypair"]
         fn generate_keypair() -> Box<SignalKeyPair>;
@@ -319,8 +331,13 @@ mod ffi {
         #[cxx_name = "identityKey"]
         fn identity_key(self: &SignalPreKeySignalMessage) -> Box<SignalIdentityKey>;
 
-        fn message(self: &SignalPreKeySignalMessage) -> Box<SignalSignalMessage>;
+        fn message(self: &SignalPreKeySignalMessage) -> Box<SignalSignalMessageRef>;
 
         fn serialized(self: &SignalPreKeySignalMessage) -> &[u8];
+
+        unsafe fn body<'a>(self: &'a SignalSignalMessageRef<'a>) -> &'a [u8];
+
+        #[cxx_name = "toOwned"]
+        unsafe fn to_owned<'a>(self: &'a SignalSignalMessageRef) -> Box<SignalSignalMessage>;
     }
 }
