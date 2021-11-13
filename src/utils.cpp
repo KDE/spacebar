@@ -141,7 +141,7 @@ PhoneNumberList Utils::phoneNumberList(const QStringList &phoneNumbers) const
     std::sort(p.begin(), p.end());
 
     PhoneNumberList list;
-    ranges::transform(phoneNumbers, std::back_inserter(list), [](const auto &phoneNumber) {
+    ranges::transform(p, std::back_inserter(list), [](const auto &phoneNumber) {
         return PhoneNumber(phoneNumber);
     });
 
