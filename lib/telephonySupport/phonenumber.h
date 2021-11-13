@@ -48,4 +48,12 @@ inline uint qHash(const PhoneNumber &phoneNum) {
     return qHash(phoneNum.toInternational());
 }
 
+namespace std { // argh!
+    template <> struct hash<PhoneNumber> {
+        inline size_t operator()(const PhoneNumber& x) const {
+            return qHash(x);
+        }
+    };
+}
+
 Q_DECLARE_METATYPE(PhoneNumber)

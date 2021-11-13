@@ -10,7 +10,7 @@
 #include <QSqlQuery>
 
 #include <global.h>
-#include <phonenumberlist.h>
+#include <phonenumberset.h>
 
 
 enum MessageState {
@@ -36,7 +36,7 @@ inline MessageState parseMessageState(const QString &state) {
 
 struct Message {
     QString id;
-    PhoneNumberList phoneNumberList;
+    PhoneNumberSet phoneNumberList;
     QString text;
     QDateTime datetime;
     bool read;
@@ -46,7 +46,7 @@ struct Message {
 Q_DECLARE_METATYPE(Message);
 
 struct Chat {
-    PhoneNumberList phoneNumberList;
+    PhoneNumberSet phoneNumberList;
     QDateTime lastContacted;
     QString lastMessage;
     int unreadMessages;
@@ -63,17 +63,17 @@ public:
     // Messages
     void addMessage(const Message &message);
     void deleteMessage(const QString &id);
-    QVector<Message> messagesForNumber(const PhoneNumberList &phoneNumberList) const;
+    QVector<Message> messagesForNumber(const PhoneNumberSet &phoneNumberList) const;
     void updateMessageDeliveryState(const QString &id, const MessageState state);
     void markMessageRead(const int id);
 
     // Chats
     QVector<Chat> chats() const;
-    int unreadMessagesForNumber(const PhoneNumberList &phoneNumberList) const;
-    QString lastMessageForNumber(const PhoneNumberList &phoneNumberList) const;
-    QDateTime lastContactedForNumber(const PhoneNumberList &phoneNumberList) const;
-    void markChatAsRead(const PhoneNumberList &phoneNumberList);
-    void deleteChat(const PhoneNumberList &phoneNumberList);
+    int unreadMessagesForNumber(const PhoneNumberSet &phoneNumberList) const;
+    QString lastMessageForNumber(const PhoneNumberSet &phoneNumberList) const;
+    QDateTime lastContactedForNumber(const PhoneNumberSet &phoneNumberList) const;
+    void markChatAsRead(const PhoneNumberSet &phoneNumberList);
+    void deleteChat(const PhoneNumberSet &phoneNumberList);
 
     static QString generateRandomId();
 
@@ -88,5 +88,5 @@ private:
     QSqlDatabase m_database;
 
 signals:
-    void messagesChanged(const PhoneNumberList &phoneNumberList);
+    void messagesChanged(const PhoneNumberSet &phoneNumberList);
 };

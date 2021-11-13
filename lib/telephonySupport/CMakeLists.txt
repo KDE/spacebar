@@ -3,7 +3,7 @@ add_library(kTelephonySupport STATIC
     contactphonenumbermapper.cpp
     modemcontroller.cpp
     phonenumber.cpp
-    phonenumberlist.cpp)
+    phonenumberset.cpp)
 target_compile_definitions(kTelephonySupport PRIVATE -DQT_NO_CAST_FROM_ASCII)
 target_link_libraries(kTelephonySupport PUBLIC
     Qt5::Core

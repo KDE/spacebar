@@ -25,7 +25,7 @@ ChannelHandler::ChannelHandler(std::optional<QString> &modemPath, QObject *paren
     // Refresh chat list when message arrives
     // The message will be saved by the background daemon
     connect(&ModemController::instance(), &ModemController::messageAdded, this, [=, this](ModemManager::Sms::Ptr msg) {
-        Q_EMIT m_databaseThread.database().messagesChanged(PhoneNumberList(msg->number()));
+        Q_EMIT m_databaseThread.database().messagesChanged(PhoneNumberSet(msg->number()));
     });
 }
 

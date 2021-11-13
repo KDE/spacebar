@@ -2,22 +2,21 @@
 //
 // SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
 
-#include "phonenumberlist.h"
+#include "phonenumberset.h"
 
 namespace ranges = std::ranges;
 
-PhoneNumberList::PhoneNumberList(const QString &phoneNumbers)
-    : QVector<PhoneNumber>()
+PhoneNumberSet::PhoneNumberSet(const QString &phoneNumbers)
+    : std::unordered_set<PhoneNumber>()
 {
     const auto individualNumbers = phoneNumbers.split(u';', Qt::SkipEmptyParts);
-    reserve(individualNumbers.size());
 
-    ranges::transform(individualNumbers, std::back_inserter(*this), [](const QString &number) {
+    ranges::transform(individualNumbers, std::inserter(*this, this->begin()), [](const QString &number) {
         return PhoneNumber(number);
     });
 }
 
-QString PhoneNumberList::toString() const
+QString PhoneNumberSet::toString() const
 {
     QStringList individualNumbers;
     individualNumbers.reserve(size());

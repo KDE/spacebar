@@ -9,7 +9,7 @@
 
 #include <KPeople/PersonData>
 
-#include <phonenumberlist.h>
+#include <phonenumberset.h>
 
 #include "database.h"
 
@@ -30,7 +30,7 @@ class ChannelHandler;
 class MessageModel : public QAbstractListModel
 {
     Q_OBJECT
-    Q_PROPERTY(PhoneNumberList phoneNumberList READ phoneNumberList NOTIFY phoneNumberListChanged)
+    Q_PROPERTY(PhoneNumberSet phoneNumberList READ phoneNumberList NOTIFY phoneNumberListChanged)
     Q_PROPERTY(QVector<Person> people READ people NOTIFY peopleChanged)
 
 public:
@@ -55,7 +55,7 @@ public:
     Q_ENUM(DeliveryState)
 
     explicit MessageModel(ChannelHandler &handler,
-                          const PhoneNumberList &phoneNumberList,
+                          const PhoneNumberSet &phoneNumberList,
                           QObject *parent = nullptr);
 
     QHash<int, QByteArray> roleNames() const override;
@@ -64,7 +64,7 @@ public:
 
     QVector<Person> people() const;
 
-    PhoneNumberList phoneNumberList() const;
+    PhoneNumberSet phoneNumberList() const;
 
     /**
      * @brief Adds a message to the model and the database.
@@ -94,7 +94,7 @@ public:
      * @brief excludes set phone number from message notifications
      * @param list
      */
-    Q_INVOKABLE void disableNotifications(const PhoneNumberList &phoneNumberList);
+    Q_INVOKABLE void disableNotifications(const PhoneNumberSet &phoneNumberList);
 
 private:
     QCoro::Task<QString> sendMessageInternal(const PhoneNumber &phoneNumber, const QString &text);
@@ -105,7 +105,7 @@ private:
     QVector<Message> m_messages;
 
     // properties
-    PhoneNumberList m_phoneNumberList;
+    PhoneNumberSet m_phoneNumberList;
     QVector<Person> m_peopleData;
 
 signals:

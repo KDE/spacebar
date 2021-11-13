@@ -4,20 +4,20 @@
 
 #pragma once
 
-#include <QVector>
+#include <unordered_set>
 
 #include <global.h>
 
 #include "phonenumber.h"
 
-class PhoneNumberList : public QVector<PhoneNumber>
+class PhoneNumberSet : public std::unordered_set<PhoneNumber>
 {
 public:
-    using QVector<PhoneNumber>::QVector;
+    using std::unordered_set<PhoneNumber>::unordered_set;
 
-    explicit PhoneNumberList(const QString &phoneNumbers);
+    explicit PhoneNumberSet(const QString &phoneNumbers);
 
     QString toString() const;
 };
 
-Q_DECLARE_METATYPE(PhoneNumberList)
+Q_DECLARE_METATYPE(PhoneNumberSet)

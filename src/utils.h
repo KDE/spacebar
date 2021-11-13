@@ -11,7 +11,7 @@
 #include <ModemManagerQt/Modem>
 #include <ModemManagerQt/ModemDevice>
 
-#include <phonenumberlist.h>
+#include <phonenumberset.h>
 
 class QQmlApplicationEngine;
 class QQuickWindow;
@@ -32,19 +32,19 @@ public:
     void showPassiveNotification(const QString &message, PassiveNotificationDuation timeout);
 
     Q_INVOKABLE bool isPhoneNumber(const QString &text) const;
-    Q_INVOKABLE bool isPremiumNumber(const PhoneNumberList &phoneNumberList) const;
+    Q_INVOKABLE bool isPremiumNumber(const PhoneNumberSet &phoneNumberList) const;
     Q_INVOKABLE static void launchPhonebook();
     Q_INVOKABLE void copyTextToClipboard(const QString &text) const;
     Q_INVOKABLE QString sendingNumber();
     Q_INVOKABLE PhoneNumber phoneNumber(const QString &number) const;
-    Q_INVOKABLE PhoneNumberList phoneNumberList(const QStringList &phoneNumbers) const;
+    Q_INVOKABLE PhoneNumberSet phoneNumberList(const QStringList &phoneNumbers) const;
 
     /// Currently only used to normalize contact model. Please try not to use this.
     Q_INVOKABLE QString phoneNumberToInternationalString(const PhoneNumber &phoneNumber) const;
 
     /// Currently only used to add a phone number to an image provider uri.
     /// Please try not to use this.
-    Q_INVOKABLE QString phoneNumberListToString(const PhoneNumberList &phoneNumberList) const;
+    Q_INVOKABLE QString phoneNumberListToString(const PhoneNumberSet &phoneNumberList) const;
 
     bool isLocale24HourTime();
 

@@ -80,7 +80,7 @@ QVariant ChatListModel::data(const QModelIndex &index, int role) const
         return false;
     }
 
-    PhoneNumberList phoneNumberList = m_chats.at(index.row()).phoneNumberList;
+    PhoneNumberSet phoneNumberList = m_chats.at(index.row()).phoneNumberList;
 
     switch (role) {
     // All roles that need the personData object
@@ -111,7 +111,7 @@ QVariant ChatListModel::data(const QModelIndex &index, int role) const
     case LastMessageRole:
         return m_chats.at(index.row()).lastMessage;
     case IsContactRole:
-        return phoneNumberList.size() == 1 && !KPeople::PersonData(m_mapper.uriForNumber(phoneNumberList.first())).name().isEmpty();
+        return phoneNumberList.size() == 1 && !KPeople::PersonData(m_mapper.uriForNumber(*phoneNumberList.begin())).name().isEmpty();
     }
 
     return {};
@@ -122,7 +122,7 @@ int ChatListModel::rowCount(const QModelIndex &parent) const
     return parent.isValid() ? 0 : m_chats.count();
 }
 
-void ChatListModel::startChat(const PhoneNumberList &phoneNumberList)
+void ChatListModel::startChat(const PhoneNumberSet &phoneNumberList)
 {
     if (m_messageModel != nullptr)
         m_messageModel->deleteLater();
@@ -131,7 +131,7 @@ void ChatListModel::startChat(const PhoneNumberList &phoneNumberList)
     chatStarted(m_messageModel);
 }
 
-void ChatListModel::markChatAsRead(const PhoneNumberList &phoneNumberList)
+void ChatListModel::markChatAsRead(const PhoneNumberSet &phoneNumberList)
 {
     Q_EMIT m_handler.database().requestMarkChatAsRead(phoneNumberList);
 }
@@ -141,7 +141,7 @@ void ChatListModel::fetchChats()
     Q_EMIT m_handler.database().requestChats();
 }
 
-void ChatListModel::deleteChat(const PhoneNumberList &phoneNumberList)
+void ChatListModel::deleteChat(const PhoneNumberSet &phoneNumberList)
 {
     Q_EMIT m_handler.database().requestDeleteChat(phoneNumberList);
 }

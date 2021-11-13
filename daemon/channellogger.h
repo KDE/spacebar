@@ -27,5 +27,5 @@ private:
 
     Database m_database;
 
-    PhoneNumberList m_disabledNotificationNumber;
+    PhoneNumberSet m_disabledNotificationNumber;
 };

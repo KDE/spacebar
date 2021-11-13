@@ -40,7 +40,7 @@ void AsyncDatabase::deleteMessage(const QString &id)
     m_database.deleteMessage(id);
 }
 
-void AsyncDatabase::messagesForNumber(const PhoneNumberList &phoneNumberList)
+void AsyncDatabase::messagesForNumber(const PhoneNumberSet &phoneNumberList)
 {
     Q_EMIT messagesFetchedForNumber(phoneNumberList, m_database.messagesForNumber(phoneNumberList));
 }
@@ -60,27 +60,27 @@ void AsyncDatabase::chats()
     Q_EMIT chatsFetched(m_database.chats());
 }
 
-void AsyncDatabase::unreadMessagesForNumber(const PhoneNumberList &phoneNumberList)
+void AsyncDatabase::unreadMessagesForNumber(const PhoneNumberSet &phoneNumberList)
 {
     Q_EMIT unreadMessagesFetchedForNumber(phoneNumberList, m_database.unreadMessagesForNumber(phoneNumberList));
 }
 
-void AsyncDatabase::lastMessageForNumber(const PhoneNumberList &phoneNumberList)
+void AsyncDatabase::lastMessageForNumber(const PhoneNumberSet &phoneNumberList)
 {
     Q_EMIT lastMessageFetchedForNumber(phoneNumberList, m_database.lastMessageForNumber(phoneNumberList));
 }
 
-void AsyncDatabase::lastContactedForNumber(const PhoneNumberList &phoneNumberList)
+void AsyncDatabase::lastContactedForNumber(const PhoneNumberSet &phoneNumberList)
 {
     Q_EMIT lastContactedFetchedForNumber(phoneNumberList, m_database.lastContactedForNumber(phoneNumberList));
 }
 
-void AsyncDatabase::markChatAsRead(const PhoneNumberList &phoneNumberList)
+void AsyncDatabase::markChatAsRead(const PhoneNumberSet &phoneNumberList)
 {
     m_database.markChatAsRead(phoneNumberList);
 }
 
-void AsyncDatabase::deleteChat(const PhoneNumberList &phoneNumberList)
+void AsyncDatabase::deleteChat(const PhoneNumberSet &phoneNumberList)
 {
     m_database.deleteChat(phoneNumberList);
 }
