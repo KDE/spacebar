@@ -17,13 +17,13 @@
 #include <global.h>
 
 constexpr auto ID_LEN = 10;
-constexpr auto DATABASE_REVISION = 3; // Keep MIGRATE_TO_LATEST_FROM in sync
+constexpr auto DATABASE_REVISION = 4; // Keep MIGRATE_TO_LATEST_FROM in sync
 #define MIGRATE_TO(n, current) \
     if (current < n) { \
         qDebug() << "Running migration" << #n; \
         migrationV##n(current); \
     }
-#define MIGRATE_TO_LATEST_FROM(current) MIGRATE_TO(3, current)
+#define MIGRATE_TO_LATEST_FROM(current) MIGRATE_TO(4, current)
 
 enum Column {
     IdColumn = 0,
@@ -32,7 +32,17 @@ enum Column {
     DateTimeColumn,
     ReadColumn,
     DeliveryStateColumn,
-    SentByMeColumn
+    SentByMeColumn,
+    AttachmentsColumn,
+    SmilColumn,
+    FromNumberColumn,
+    MessageIdColumn,
+    DeliveryReportColumn,
+    ReadReportColumn,
+    PendingDownloadColumn,
+    ContentLocationColumn,
+    ExpiresColumn,
+    SizeColumn
 };
 
 Database::Database(QObject *parent)
@@ -54,13 +64,36 @@ Database::Database(QObject *parent)
     migrate();
 }
 
-QVector<Message> Database::messagesForNumber(const PhoneNumberList &phoneNumberList) const
+QVector<Message> Database::messagesForNumber(const PhoneNumberList &phoneNumberList, const QString &id) const
 {
     QVector<Message> messages;
 
     QSqlQuery fetch(m_database);
-    fetch.prepare(SL("SELECT id, phoneNumber, text, time, read, delivered, sentByMe FROM Messages WHERE phoneNumber == :phoneNumber ORDER BY time DESC"));
+    fetch.prepare(SL(R"(
+        SELECT
+            id,
+            phoneNumber,
+            text,
+            time,
+            read,
+            delivered,
+            sentByMe,
+            attachments,
+            smil,
+            fromNumber,
+            messageId,
+            deliveryReport,
+            readReport,
+            pendingDownload,
+            contentLocation,
+            expires,
+            size
+        FROM Messages
+        WHERE (phoneNumber == :phoneNumber AND :id IS NULL) OR id ==:id
+        ORDER BY time DESC
+    )"));
     fetch.bindValue(SL(":phoneNumber"), phoneNumberList.toString());
+    fetch.bindValue(SL(":id"), id);
     exec(fetch);
 
     while (fetch.next()) {
@@ -72,6 +105,16 @@ QVector<Message> Database::messagesForNumber(const PhoneNumberList &phoneNumberL
         message.read = fetch.value(Column::ReadColumn).toBool();
         message.deliveryStatus = fetch.value(Column::DeliveryStateColumn).value<MessageState>();
         message.sentByMe = fetch.value(Column::SentByMeColumn).toBool();
+        message.attachments = fetch.value(Column::AttachmentsColumn).toString();
+        message.smil = fetch.value(Column::SmilColumn).toString();
+        message.fromNumber = fetch.value(Column::FromNumberColumn).toString();
+        message.messageId = fetch.value(Column::MessageIdColumn).toString();
+        message.deliveryReport = fetch.value(Column::DeliveryReportColumn).toInt();
+        message.readReport = fetch.value(Column::ReadReportColumn).toString();
+        message.pendingDownload = fetch.value(Column::PendingDownloadColumn).toBool();
+        message.contentLocation = fetch.value(Column::ContentLocationColumn).toString();
+        message.expires = QDateTime::fromMSecsSinceEpoch(fetch.value(Column::ExpiresColumn).value<quint64>());
+        message.size = fetch.value(Column::SizeColumn).toInt();
 
         messages.append(std::move(message));
     }
@@ -85,6 +128,33 @@ void Database::updateMessageDeliveryState(const QString &id, const MessageState 
     put.prepare(SL("UPDATE Messages SET delivered = :state WHERE id == :id"));
     put.bindValue(SL(":id"), id);
     put.bindValue(SL(":state"), state);
+    exec(put);
+}
+
+void Database::updateMessageSent(const QString &id, const QString &messageId, const QString &contentLocation)
+{
+    QSqlQuery put(m_database);
+    put.prepare(SL("UPDATE Messages SET messageId = :messageId, contentLocation = :contentLocation WHERE id == :id"));
+    put.bindValue(SL(":id"), id);
+    put.bindValue(SL(":messageId"), messageId);
+    put.bindValue(SL(":contentLocation"), contentLocation);
+    exec(put);
+}
+
+void Database::updateMessageDeliveryReport(const QString &messageId)
+{
+    QSqlQuery put(m_database);
+    put.prepare(SL("UPDATE Messages SET deliveryReport = IFNULL(deliveryReport, 0) + 1 WHERE messageId == :messageId"));
+    put.bindValue(SL(":messageId"), messageId);
+    exec(put);
+}
+
+void Database::updateMessageReadReport(const QString &messageId, const PhoneNumber &fromNumber)
+{
+    QSqlQuery put(m_database);
+    put.prepare(SL("UPDATE Messages SET readReport = IFNULL(readReport, '') || :fromNumber WHERE messageId == :messageId"));
+    put.bindValue(SL(":messageId"), messageId);
+    put.bindValue(SL(":fromNumber"), fromNumber.toInternational());
     exec(put);
 }
 
@@ -178,14 +248,63 @@ void Database::deleteChat(const PhoneNumberList &phoneNumberList)
 void Database::addMessage(const Message &message)
 {
     QSqlQuery putCall(m_database);
-    putCall.prepare(SL("INSERT INTO Messages (id, phoneNumber, text, time, read, delivered, sentByMe) VALUES (:id, :phoneNumber, :text, :time, :read, :delivered, :sentByMe)"));
+    putCall.prepare(SL(R"(
+        INSERT INTO Messages (
+            id,
+            phoneNumber,
+            text,
+            time,
+            read,
+            delivered,
+            sentByMe,
+            attachments,
+            smil,
+            fromNumber,
+            messageId,
+            deliveryReport,
+            readReport,
+            pendingDownload,
+            contentLocation,
+            expires,
+            size)
+        VALUES (
+            :id,
+            :phoneNumber,
+            :text,
+            :time,
+            :read,
+            :delivered,
+            :sentByMe,
+            :attachments,
+            :smil,
+            :fromNumber,
+            :messageId,
+            :deliveryReport,
+            :readReport,
+            :pendingDownload,
+            :contentLocation,
+            :expires,
+            :size)
+        )"));
     putCall.bindValue(SL(":id"), message.id);
     putCall.bindValue(SL(":phoneNumber"), message.phoneNumberList.toString());
     putCall.bindValue(SL(":text"), message.text);
     putCall.bindValue(SL(":time"), message.datetime.toMSecsSinceEpoch());
     putCall.bindValue(SL(":read"), message.read);
-    putCall.bindValue(SL(":sentByMe"), message.sentByMe);
     putCall.bindValue(SL(":delivered"), message.deliveryStatus);
+    putCall.bindValue(SL(":sentByMe"), message.sentByMe);
+    putCall.bindValue(SL(":attachments"), message.attachments);
+    putCall.bindValue(SL(":smil"), message.smil);
+    putCall.bindValue(SL(":fromNumber"), message.fromNumber);
+    putCall.bindValue(SL(":messageId"), message.messageId);
+    putCall.bindValue(SL(":deliveryReport"), message.deliveryReport);
+    putCall.bindValue(SL(":readReport"), message.readReport);
+    putCall.bindValue(SL(":pendingDownload"), message.pendingDownload);
+    putCall.bindValue(SL(":contentLocation"), message.contentLocation);
+    if (!message.expires.isNull()) {
+        putCall.bindValue(SL(":expires"), message.expires.toMSecsSinceEpoch());
+    }
+    putCall.bindValue(SL(":size"), message.size);
     exec(putCall);
 
     Q_EMIT messagesChanged(message.phoneNumberList);
@@ -305,4 +424,31 @@ void Database::migrationV3(uint current)
         normalizePhoneNumbers.bindValue(SL(":phoneNumber"), phoneNumber);
         Database::exec(normalizePhoneNumbers);
     }
+}
+
+void Database::migrationV4(uint current)
+{
+    MIGRATE_TO(3, current);
+
+    QSqlQuery addMmsColumns(m_database);
+    addMmsColumns.prepare(SL("ALTER TABLE Messages ADD COLUMN attachments TEXT;"));
+    Database::exec(addMmsColumns);
+    addMmsColumns.prepare(SL("ALTER TABLE Messages ADD COLUMN smil TEXT;"));
+    Database::exec(addMmsColumns);
+    addMmsColumns.prepare(SL("ALTER TABLE Messages ADD COLUMN fromNumber TEXT;"));
+    Database::exec(addMmsColumns);
+    addMmsColumns.prepare(SL("ALTER TABLE Messages ADD COLUMN messageId TEXT;"));
+    Database::exec(addMmsColumns);
+    addMmsColumns.prepare(SL("ALTER TABLE Messages ADD COLUMN deliveryReport INTEGER;"));
+    Database::exec(addMmsColumns);
+    addMmsColumns.prepare(SL("ALTER TABLE Messages ADD COLUMN readReport TEXT;"));
+    Database::exec(addMmsColumns);
+    addMmsColumns.prepare(SL("ALTER TABLE Messages ADD COLUMN pendingDownload BOOLEAN;"));
+    Database::exec(addMmsColumns);
+    addMmsColumns.prepare(SL("ALTER TABLE Messages ADD COLUMN contentLocation TEXT;"));
+    Database::exec(addMmsColumns);
+    addMmsColumns.prepare(SL("ALTER TABLE Messages ADD COLUMN expires DATETIME;"));
+    Database::exec(addMmsColumns);
+    addMmsColumns.prepare(SL("ALTER TABLE Messages ADD COLUMN size INTEGER;"));
+    Database::exec(addMmsColumns);
 }

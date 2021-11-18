@@ -144,6 +144,10 @@ void ChatListModel::fetchChats()
 void ChatListModel::deleteChat(const PhoneNumberList &phoneNumberList)
 {
     Q_EMIT m_handler.database().requestDeleteChat(phoneNumberList);
+
+    const QString folder = QString::number(qHash(phoneNumberList.toString()));
+    QDir dir(QStandardPaths::writableLocation(QStandardPaths::GenericDataLocation) + SL("/spacebar/attachments/") + folder);
+    dir.removeRecursively();
 }
 
 void ChatListModel::restoreDefaults()

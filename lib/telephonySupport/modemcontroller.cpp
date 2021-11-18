@@ -54,6 +54,27 @@ void ModemController::init(std::optional<QString> modemPath)
     if (m_modem->hasInterface(ModemManager::ModemDevice::MessagingInterface)) {
         initMessaging();
     }
+
+    m_interface = m_modem->modemInterface();
+
+    QList<QSharedPointer<ModemManager::Bearer> > bearers = m_interface->listBearers();
+
+    if (bearers.isEmpty()) {
+        return;
+    }
+
+    connect(m_interface.get(), &ModemManager::Modem::stateChanged, this, [this, bearers](MMModemState oldState, MMModemState newState, MMModemStateChangeReason reason) {
+        Q_UNUSED(oldState);
+        Q_UNUSED(reason);
+        if (newState == MMModemState::MM_MODEM_STATE_CONNECTED) {
+            Q_EMIT modemConnected();
+            Q_EMIT modemDataConnectedChanged(bearers.first()->isConnected());
+        }
+    });
+
+    connect(bearers.first().data(), &ModemManager::Bearer::connectedChanged, this, [this](bool isConnected) {
+        Q_EMIT modemDataConnectedChanged(isConnected);
+    });
 }
 
 void ModemController::initMessaging()
@@ -98,5 +119,34 @@ void ModemController::slotMessageAdded(const QString &uni, bool received)
 
 void ModemController::deleteMessage(const QString &uni)
 {
+    if (!m_msgManager) {
+        return;
+    }
+
     m_msgManager->deleteMessage(uni);
+}
+
+ModemManager::Sms::List ModemController::messages()
+{
+    if (!m_msgManager) {
+        ModemManager::Sms::List list;
+        return list;
+    }
+
+    return m_msgManager->messages();
+}
+
+QString ModemController::ownNumber()
+{
+    if (!m_interface) {
+        return QString();
+    }
+
+    const QStringList numbers = m_interface->ownNumbers();
+
+    if (!numbers.isEmpty()) {
+        return numbers.first();
+    }
+
+    return QString();
 }

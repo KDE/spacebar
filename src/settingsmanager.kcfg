@@ -22,4 +22,58 @@
             <default>0</default>
         </entry>
     </group>
+    <group name="Multimedia messages">
+        <entry name="mmsc" type="String">
+            <label>MMSC URL</label>
+            <default></default>
+        </entry>
+        <entry name="mmsProxy" type="String">
+            <label>MMS proxy</label>
+            <default></default>
+        </entry>
+        <entry name="mmsPort" type="int">
+            <label>MMS port</label>
+            <default>8080</default>
+        </entry>
+        <entry name="requestDeliveryReports" type="Bool">
+            <label>Request delivery reports</label>
+            <default>false</default>
+        </entry>
+        <entry name="requestReadReports" type="Bool">
+            <label>Request read reports</label>
+            <default>false</default>
+        </entry>
+        <entry name="shareDeliveryStatus" type="Bool">
+            <label>Share delivery status</label>
+            <default>false</default>
+        </entry>
+        <entry name="shareReadStatus" type="Bool">
+            <label>Share read status</label>
+            <default>false</default>
+        </entry>
+        <entry name="autoDownload" type="Bool">
+            <label>Auto download messages</label>
+            <default>true</default>
+        </entry>
+        <entry name="autoDownloadContactsOnly" type="Bool">
+            <label>Existing contacts only</label>
+            <default>false</default>
+        </entry>
+        <entry name="totalMaxAttachmentSize" type="Int">
+            <label>Max message size</label>
+            <default>500</default>
+        </entry>
+        <entry name="maxAttachments" type="Int">
+            <label>Max attachments</label>
+            <default>15</default>
+        </entry>
+        <entry name="autoCreateSmil" type="Bool">
+            <label>Auto create SMIL for outgoing messages containting multiple attachments</label>
+            <default>true</default>
+        </entry>
+        <entry name="groupConversation" type="Bool">
+            <label>Send messages as group conversations by default</label>
+            <default>true</default>
+        </entry>
+    </group>
 </kcfg>

@@ -38,6 +38,7 @@ target_link_libraries(spacebar
     database
     kTelephonySupport
     macros
+    mms
     QCoro::QCoroCore
     QCoro::QCoroDBus
 )

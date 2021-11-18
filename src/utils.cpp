@@ -87,7 +87,7 @@ bool Utils::isPremiumNumber(const PhoneNumberList &phoneNumberList) const
 
         // remove country code, hyphens, and spaces
         auto numberString = phoneNumberList.at(i).toNational();
-        numberString.replace(SL("-"), SL("")).replace(SL(" "), SL(""));
+        numberString.replace(SL("-"), QString()).replace(SL(" "), QString());
 
         isMatched = premiumRegex.match(numberString).hasMatch();
     }
@@ -118,6 +118,11 @@ Utils *Utils::instance()
 QQmlApplicationEngine *Utils::qmlEngine() const
 {
     return m_engine;
+}
+
+QString Utils::ownNumber()
+{
+    return m_sendingNumber.toInternational();
 }
 
 QString Utils::sendingNumber()

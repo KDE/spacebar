@@ -53,7 +53,7 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
     KAboutData about(SL("spacebar"),
                      SL("Spacebar"),
                      QStringLiteral(SPACEBAR_VERSION_STRING),
-                     i18n("SMS messaging client"),
+                     i18n("SMS/MMS messaging client"),
                      KAboutLicense::GPL,
                      i18n("© 2020-2021 KDE Community"));
     about.addAuthor(i18n("Bhushan Shah"), QString(), QStringLiteral("bhush94@gmail.com"));
@@ -67,7 +67,7 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
 
     parser.addVersionOption();
     parser.addHelpOption();
-    parser.setApplicationDescription(i18n("Spacebar SMS client"));
+    parser.setApplicationDescription(i18n("Spacebar SMS/MMS client"));
     parser.addPositionalArgument(QStringLiteral("number"), i18n("Open a chat with the given phone number"));
     const auto modemOpt = QCommandLineOption(SL("modem"), SL("Modem path to use, for development purpose"), SL("modem"));
     parser.addOption(modemOpt);

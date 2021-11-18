@@ -23,8 +23,14 @@ public:
     std::optional<QDBusPendingReply<QDBusObjectPath>> createMessage(ModemManager::ModemMessaging::Message m);
     void deleteMessage(const QString &uni);
 
+    ModemManager::Sms::List messages();
+
+    QString ownNumber();
+
 Q_SIGNALS:
     void messageAdded(ModemManager::Sms::Ptr message);
+    void modemConnected();
+    void modemDataConnectedChanged(const bool isConnected);
 
 private Q_SLOTS:
     void slotMessageAdded(const QString &uni, bool received);
@@ -35,4 +41,5 @@ private:
 
     ModemManager::ModemDevice::Ptr m_modem;
     ModemManager::ModemMessaging::Ptr m_msgManager;
+    ModemManager::Modem::Ptr m_interface;
 };

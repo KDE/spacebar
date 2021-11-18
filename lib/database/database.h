@@ -42,6 +42,16 @@ struct Message {
     bool read;
     bool sentByMe;
     MessageState deliveryStatus;
+    QString attachments;
+    QString smil;
+    QString fromNumber;
+    QString messageId;
+    int deliveryReport = 0;
+    QString readReport;
+    bool pendingDownload = false;
+    QString contentLocation;
+    QDateTime expires;
+    int size = 0;
 };
 Q_DECLARE_METATYPE(Message);
 
@@ -63,8 +73,11 @@ public:
     // Messages
     void addMessage(const Message &message);
     void deleteMessage(const QString &id);
-    QVector<Message> messagesForNumber(const PhoneNumberList &phoneNumberList) const;
+    QVector<Message> messagesForNumber(const PhoneNumberList &phoneNumberList, const QString &id = QString()) const;
     void updateMessageDeliveryState(const QString &id, const MessageState state);
+    void updateMessageSent(const QString &id, const QString &messageId, const QString &contentLocation);
+    void updateMessageDeliveryReport(const QString &messageId);
+    void updateMessageReadReport(const QString &messageId, const PhoneNumber &fromNumber);
     void markMessageRead(const int id);
 
     // Chats
@@ -83,6 +96,7 @@ private:
     void migrationV1(uint current);
     void migrationV2(uint current);
     void migrationV3(uint current);
+    void migrationV4(uint current);
     void migrate();
 
     QSqlDatabase m_database;

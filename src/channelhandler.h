@@ -5,13 +5,14 @@
 #pragma once
 
 #include <QObject>
+
 #include <databasethread.h>
+
+#include <mms.h>
 
 #include "daemoninterface.h"
 
 #include <optional>
-
-class AsyncDatabase;
 
 class ChannelHandler : public QObject
 {
@@ -22,10 +23,12 @@ public:
 
     AsyncDatabase &database();
     org::kde::spacebar::Daemon *interface();
+    Mms &mms();
 
 private:
     DatabaseThread m_databaseThread;
     org::kde::spacebar::Daemon *m_interface;
+    Mms m_mms;
 
 signals:
     void handlerReady();

@@ -20,6 +20,7 @@ AsyncDatabase::AsyncDatabase()
     connect(this, &AsyncDatabase::requestAddMessage, this, &AsyncDatabase::addMessage);
     connect(this, &AsyncDatabase::requestDeleteMessage, this, &AsyncDatabase::deleteMessage);
     connect(this, &AsyncDatabase::requestUpdateMessageDeliveryState, this, &AsyncDatabase::updateMessageDeliveryState);
+    connect(this, &AsyncDatabase::requestUpdateMessageSent, this, &AsyncDatabase::updateMessageSent);
     connect(this, &AsyncDatabase::requestMarkMessageRead, this, &AsyncDatabase::markMessageRead);
     connect(this, &AsyncDatabase::requestMessagesForNumber, this, &AsyncDatabase::messagesForNumber);
     connect(this, &AsyncDatabase::requestChats, this, &AsyncDatabase::chats);
@@ -40,14 +41,19 @@ void AsyncDatabase::deleteMessage(const QString &id)
     m_database.deleteMessage(id);
 }
 
-void AsyncDatabase::messagesForNumber(const PhoneNumberList &phoneNumberList)
+void AsyncDatabase::messagesForNumber(const PhoneNumberList &phoneNumberList, const QString &id)
 {
-    Q_EMIT messagesFetchedForNumber(phoneNumberList, m_database.messagesForNumber(phoneNumberList));
+    Q_EMIT messagesFetchedForNumber(phoneNumberList, m_database.messagesForNumber(phoneNumberList, id));
 }
 
 void AsyncDatabase::updateMessageDeliveryState(const QString &id, const MessageState state)
 {
     m_database.updateMessageDeliveryState(id, state);
+}
+
+void AsyncDatabase::updateMessageSent(const QString &id, const QString &messageId, const QString &contentLocation)
+{
+    m_database.updateMessageSent(id, messageId, contentLocation);
 }
 
 void AsyncDatabase::markMessageRead(const int id)

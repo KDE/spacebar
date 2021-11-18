@@ -12,8 +12,6 @@
 #include <global.h>
 #include <database.h>
 
-#include <ModemManagerQt/Sms>
-
 ChannelHandler::ChannelHandler(std::optional<QString> &modemPath, QObject *parent)
     : QObject(parent)
 {
@@ -24,8 +22,9 @@ ChannelHandler::ChannelHandler(std::optional<QString> &modemPath, QObject *paren
 
     // Refresh chat list when message arrives
     // The message will be saved by the background daemon
-    connect(&ModemController::instance(), &ModemController::messageAdded, this, [=, this](ModemManager::Sms::Ptr msg) {
-        Q_EMIT m_databaseThread.database().messagesChanged(PhoneNumberList(msg->number()));
+    connect(m_interface, &OrgKdeSpacebarDaemonInterface::messageAdded, [this](const QString &phoneNumber, const QString &id) {
+        Q_UNUSED(id);
+        Q_EMIT m_databaseThread.database().messagesChanged(PhoneNumberList(phoneNumber));
     });
 }
 
@@ -37,4 +36,9 @@ AsyncDatabase &ChannelHandler::database()
 org::kde::spacebar::Daemon *ChannelHandler::interface()
 {
     return m_interface;
+}
+
+Mms &ChannelHandler::mms()
+{
+    return m_mms;
 }

@@ -5,8 +5,10 @@
 // SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
 
 import QtQuick 2.15
-import QtQuick.Layouts 1.0
-import QtQuick.Controls 2.4 as Controls
+import QtQuick.Layouts 1.15
+import QtQuick.Controls 2.15 as Controls
+import QtGraphicalEffects 1.15
+import QtQuick.Dialogs 1.3
 
 import org.kde.kirigami 2.15 as Kirigami
 
@@ -14,13 +16,14 @@ import org.kde.spacebar 1.0
 
 Kirigami.ScrollablePage {
     id: msgPage
-
-    title: people.map(o => o.name || o.phoneNumber).join(",  ")
+    title: people.length === 0 ? i18n("New message") : people.map(o => o.name || o.phoneNumber).join(",  ")
 
     property MessageModel messageModel;
     property real pointSize: Kirigami.Theme.defaultFont.pointSize + SettingsManager.messageFontSize
     property bool isNew: true
     property var people: messageModel ? messageModel.people : []
+    property string attachmentsFolder: messageModel ? messageModel.attachmentsFolder : "";
+    property ListModel files: ListModel {}
 
     Connections {
         target: pageStack
@@ -41,6 +44,34 @@ Kirigami.ScrollablePage {
         return (yiq >= 128) ? Qt.rgba(0, 0, 0, 0.9) : Qt.rgba(255, 255, 255, 0.9);
     }
 
+    function filesTotalSize() {
+        let size = 0
+        for (let i = 0; i < files.count; i++) {
+            size += (files.get(i).size || 0)
+        }
+
+        return size
+    }
+
+    function formatBytes(bytes, decimals = 1) {
+        if (bytes === 0) return '';
+
+        const k = 1024;
+        const sizes = ['B', 'KiB', 'MiB', 'GiB'];
+        const i = Math.floor(Math.log(bytes) / Math.log(k));
+
+        return parseFloat((bytes / Math.pow(k, i)).toFixed(decimals)) + ' ' + sizes[i];
+    }
+
+    function filesToList() {
+        const list = [];
+        for (let i = 0; i < files.count; i++) {
+            list.push(files.get(i).filePath || files.get(i).text);
+        }
+
+        return list;
+    }
+
     function tryAddRecipient(number) {
         number = Utils.phoneNumberToInternationalString(Utils.phoneNumber(number))
         const index = people.findIndex(o => o.phoneNumber == number)
@@ -57,6 +88,14 @@ Kirigami.ScrollablePage {
                 duplicateNotify.visible = false
             }, 3000)
         }
+    }
+
+    function lookupSenderName(number) {
+        if (people.length < 2) {
+            return ""
+        }
+        const person = people.find(o => o.phoneNumber === number)
+        return person.name || person.phoneNumber
     }
 
     function setTimeout(cb, delayTime) {
@@ -76,9 +115,7 @@ Kirigami.ScrollablePage {
                 visible: !isNew
                 iconName: "contact-new-symbolic"
                 text: i18n("Add/remove")
-                onTriggered: {
-                    isNew = true
-                }
+                onTriggered: isNew = true
             }
         ]
     }
@@ -94,6 +131,50 @@ Kirigami.ScrollablePage {
             type: Kirigami.MessageType.Warning
             text: i18n("Texting this premium SMS number might cause you to be charged money")
             visible: messageModel && Utils.isPremiumNumber(messageModel.phoneNumberList)
+        }
+
+        Kirigami.InlineMessage {
+            id: maxAttachmentsError
+            Layout.fillWidth: true
+            Layout.leftMargin: Kirigami.Units.smallSpacing
+            Layout.rightMargin: Kirigami.Units.smallSpacing
+            Layout.topMargin: Kirigami.Units.smallSpacing
+            type: Kirigami.MessageType.Error
+            text: i18n("Max attachment limit exceeded")
+            visible: files.count > SettingsManager.maxAttachments
+        }
+
+        Kirigami.InlineMessage {
+            id: mmscUrlMissingError
+            Layout.fillWidth: true
+            Layout.leftMargin: Kirigami.Units.smallSpacing
+            Layout.rightMargin: Kirigami.Units.smallSpacing
+            Layout.topMargin: Kirigami.Units.smallSpacing
+            type: Kirigami.MessageType.Error
+            text: i18n("No MMSC configured")
+            visible: SettingsManager.mmsc.length === 0 && (files.count > 0 || people.length > 1)
+        }
+
+        Kirigami.InlineMessage {
+            id: messageExpiredError
+            Layout.fillWidth: true
+            Layout.leftMargin: Kirigami.Units.smallSpacing
+            Layout.rightMargin: Kirigami.Units.smallSpacing
+            Layout.topMargin: Kirigami.Units.smallSpacing
+            type: Kirigami.MessageType.Information
+            text: i18n("Message has expired and will be deleted")
+            visible: false
+        }
+
+        Kirigami.InlineMessage {
+            id: messageGroupAsIndividual
+            Layout.fillWidth: true
+            Layout.leftMargin: Kirigami.Units.smallSpacing
+            Layout.rightMargin: Kirigami.Units.smallSpacing
+            Layout.topMargin: Kirigami.Units.smallSpacing
+            type: Kirigami.MessageType.Information
+            text: i18n("Message will be sent as individual messages")
+            visible: people.length > 1 && !SettingsManager.groupConversation
         }
 
         Flow {
@@ -319,7 +400,7 @@ Kirigami.ScrollablePage {
         delegate: Item {
             id: delegateParent
             width: listView.width
-            height: rect.height
+            height: rect.height + senderDisplay.implicitHeight
 
             Component.onCompleted: {
                 // Avoid unnecessary invocations
@@ -336,13 +417,12 @@ Kirigami.ScrollablePage {
 
             Kirigami.ShadowedRectangle {
                 id: rect
-
-                Kirigami.Theme.colorSet: Kirigami.Theme.Button
-                
                 anchors.margins: Kirigami.Units.largeSpacing
                 anchors.left: model.sentByMe ? undefined : parent.left
                 anchors.right: model.sentByMe ? parent.right : undefined
-                
+
+                property int padding: Kirigami.Units.largeSpacing * 2
+
                 radius: Kirigami.Units.gridUnit
                 corners.bottomRightRadius: model.sentByMe ? 0 : -1
                 corners.topLeftRadius: model.sentByMe ? -1 : 0
@@ -351,27 +431,255 @@ Kirigami.ScrollablePage {
                 border.color: Kirigami.ColorUtils.tintWithAlpha(color, Kirigami.Theme.textColor, 0.15)
                 border.width: Kirigami.Units.devicePixelRatio
                 color: model.sentByMe ? listView.outgoingColor : listView.incomingColor
-                height: content.height + Kirigami.Units.largeSpacing * 2
-                width: content.width + Kirigami.Units.largeSpacing * 3
+                height: content.height + padding
+                width: content.width + padding * 1.5
+
+                MouseArea {
+                    anchors.fill: parent
+                    onClicked: if (!listView.moving && (content.attachments.length > 1 || modelText.truncated)) {
+                        pageStack.layers.push("qrc:/FullscreenPage.qml", {
+                            recipients: msgPage.title,
+                            text: model.text,
+                            attachments: content.attachments,
+                            folder: attachmentsFolder
+                        } )
+                    }
+                }
+
+                property string sender: {
+                    if (!model.sentByMe && model.fromNumber) {
+                        return lookupSenderName(model.fromNumber)
+                    }
+                    return ""
+                }
+
+                Text {
+                    id: senderDisplay
+                    visible: rect.sender
+                    anchors.left: parent.left
+                    anchors.bottom: parent.top
+                    leftPadding: Kirigami.Units.smallSpacing
+                    text: rect.sender
+                    font: Kirigami.Theme.smallFont
+                    color: Kirigami.Theme.disabledTextColor
+                }
 
                 ColumnLayout {
-                    spacing: 0
                     id: content
+                    spacing: Kirigami.Units.largeSpacing
                     anchors.centerIn: parent
 
                     property color textColor: model.sentByMe ? listView.outgoingTextColor : listView.incomingTextColor
+                    property var attachments: model.attachments ? JSON.parse(model.attachments) : []
+                    property bool clipped: false
 
                     // message contents
                     Controls.Label {
+                        id: modelText
+                        visible: !!model.text
                         Layout.alignment: model.text && model.text.length > 1 ? Qt.AlignTop : Qt.AlignHCenter
                         Layout.minimumWidth: Kirigami.Units.gridUnit / 5
-                        Layout.maximumWidth: delegateParent.width * 0.7
-                        text: model.text ? model.text : " " // guarantee there is text so that height is maintained
+                        Layout.maximumWidth: Math.round(delegateParent.width * 0.7)
+                        maximumLineCount: 12
+                        text: model.text
                         wrapMode: Text.Wrap
                         textFormat: Text.StyledText
                         linkColor: model.sentByMe ? Kirigami.Theme.highlightedTextColor : Kirigami.Theme.linkColor
                         color: content.textColor
                         font.pointSize: pointSize
+                    }
+
+                    // download message contents
+                    RowLayout {
+                        visible: model.pendingDownload
+                        Layout.maximumWidth: Math.round(delegateParent.width * 0.7)
+
+                        MouseArea {
+                            enabled: parent.visible && model.deliveryState != MessageModel.Pending
+                            width: parent.width
+                            height: parent.height
+                            onClicked: {
+                                model.deliveryState = MessageModel.Pending
+
+                                // check if expired
+                                if (new Date(model.expires) < new Date()) {
+                                    messageExpiredError.visible = true
+                                    setTimeout(function () {
+                                        listView.currentIndex = index
+                                        messageModel.deleteMessage(model.id, index,[])
+                                        messageExpiredError.visible = false
+                                    }, 5000)
+                                } else {
+                                    messageModel.downloadMessage(model.id, model.contentLocation, model.expires)
+                                }
+                            }
+                        }
+
+                        Controls.BusyIndicator {
+                            scale: pointSize / Kirigami.Theme.defaultFont.pointSize
+                            running: model.deliveryState == MessageModel.Pending
+
+                            Kirigami.Icon {
+                                visible: !parent.running
+                                anchors.fill: parent
+                                source: model.deliveryState === MessageModel.Failed ? "state-error" : "folder-download-symbolic"
+                                color: content.textColor
+                            }
+                        }
+
+                        Column {
+                            Kirigami.Heading {
+                                text: model.subject || i18n("MMS message")
+                                wrapMode: Text.Wrap
+                                color: content.textColor
+                                font.pointSize: pointSize
+                                level: 3
+                                type: Kirigami.Heading.Type.Primary
+                            }
+                            Controls.Label {
+                                text: model.size ? i18n("Message size: %1", formatBytes(model.size)) : ""
+                                wrapMode: Text.Wrap
+                                color: content.textColor
+                                font.pointSize: pointSize
+                            }
+                            Controls.Label {
+                                text: i18n("Expires: %1", model.expiresDateTime)
+                                wrapMode: Text.Wrap
+                                color: content.textColor
+                                font.pointSize: pointSize
+                            }
+                        }
+                    }
+
+                    // message attachments
+                    Repeater {
+                        model: content.attachments
+
+                        Column {
+                            Layout.alignment: Qt.AlignHCenter
+                            spacing: Kirigami.Units.smallSpacing
+                            Layout.minimumWidth: Kirigami.Units.largeSpacing * 2
+                            Layout.minimumHeight: Kirigami.Units.largeSpacing * 2
+
+                            readonly property bool isImage: modelData.mimeType.indexOf("image/") >= 0
+                            readonly property string filePath: "file://" + attachmentsFolder + "/" + modelData.fileName
+
+                            RowLayout {
+                                visible: !isImage && !modelData.text
+                                Kirigami.Icon {
+                                    scale: pointSize / Kirigami.Theme.defaultFont.pointSize
+                                    source: modelData.iconName
+                                }
+                                Text {
+                                    text: modelData.name
+                                    color: content.textColor
+                                    font.pointSize: pointSize
+                                }
+                                MouseArea {
+                                    width: parent.width
+                                    height: parent.height
+                                    onDoubleClicked: Qt.openUrlExternally(filePath)
+                                }
+                            }
+
+                            Image {
+                                id: image
+                                source: isImage ? filePath : ""
+                                fillMode: Image.PreserveAspectFit
+                                sourceSize.width: Math.round(delegateParent.width * 0.7)
+                                height: Math.min(msgPage.height * 0.5, image.implicitHeight)
+                                asynchronous: false
+                                cache: false
+                                MouseArea {
+                                    anchors.fill: parent
+                                    onClicked: if (!listView.moving) {
+                                            pageStack.layers.push("qrc:/PreviewPage.qml", {
+                                            filePath: filePath,
+                                            type: modelData.mimeType
+                                        } )
+                                    }
+                                }
+
+                                Component.onCompleted: {
+                                    if (content.attachments.length === 1 && isImage) {
+                                        rect.color = "transparent"
+                                        rect.border.color = "transparent"
+                                        rect.padding = 0
+                                    }
+                                }
+
+                                // rounded corners on image
+                                layer.enabled: true
+                                layer.effect: OpacityMask {
+                                    maskSource: Item {
+                                        width: image.width
+                                        height: image.height
+                                        Rectangle {
+                                            anchors.fill: parent
+                                            radius: Kirigami.Units.gridUnit / 2
+                                        }
+                                    }
+                                }
+
+                                AnimatedImage {
+                                    source: parent.source && modelData.mimeType === "image/gif" ? parent.source : ""
+                                    anchors.fill: parent
+                                    cache: false
+                                }
+                            }
+
+                            // text contents
+                            Controls.Label {
+                                visible: !!modelData.text
+                                width: Math.min(delegateParent.width * 0.7, implicitWidth)
+                                text: modelData.text
+                                maximumLineCount: 12
+                                wrapMode: Text.Wrap
+                                textFormat: Text.StyledText
+                                linkColor: modelData.sentByMe ? Kirigami.Theme.highlightedTextColor : Kirigami.Theme.linkColor
+                                color: content.textColor
+                                font.pointSize: pointSize
+                                Component.onCompleted: content.clipped = truncated
+                            }
+                        }
+                    }
+
+                    ColumnLayout {
+                        visible: modelText.truncated || content.clipped
+                        Rectangle {
+                            width: content.implicitWidth
+                            height: Kirigami.Units.devicePixelRatio
+                            color: Kirigami.Theme.disabledTextColor
+                        }
+
+                        RowLayout {
+                            width: content.width
+
+                            Kirigami.Icon {
+                                Layout.maximumWidth: pointSize * 2
+                                Layout.maximumHeight: pointSize * 2
+                                source: "view-fullscreen"
+                                color: content.textColor
+                            }
+
+                            Text {
+                                text: i18n("View all")
+                                color: content.textColor
+                                font.pointSize: pointSize
+                                font.capitalization: Font.AllUppercase
+                            }
+
+                            Item {
+                                Layout.fillWidth: true
+                            }
+
+                            Kirigami.Icon {
+                                Layout.maximumWidth: pointSize * 2
+                                Layout.maximumHeight: pointSize * 2
+                                source: "arrow-right"
+                                color: content.textColor
+                            }
+                        }
                     }
                 }
 
@@ -415,10 +723,14 @@ Kirigami.ScrollablePage {
 
             MouseArea {
                 anchors.fill: rect
+                propagateComposedEvents: true
                 onPressAndHold: {
                     menu.index = index
                     menu.id = model.id
                     menu.text = model.text
+                    menu.attachments = content.attachments
+                    menu.smil = model.smil
+                    menu.resend = model.sentByMe && model.deliveryState == MessageModel.Failed
                     menu.open()
                 }
                 onPressed: parent.forceActiveFocus()
@@ -432,6 +744,9 @@ Kirigami.ScrollablePage {
         property int index
         property string id
         property string text
+        property var attachments: []
+        property string smil
+        property bool resend: false
 
         edge: Qt.BottomEdge
 
@@ -458,10 +773,36 @@ Kirigami.ScrollablePage {
                 }
             }
             Kirigami.BasicListItem {
+                visible: menu.text || menu.attachments.reduce((a,c) => a += (c.text || ""), "")
                 text: i18n("Copy text")
                 icon: "edit-copy"
                 onClicked: {
-                    Utils.copyTextToClipboard(menu.text)
+                    Utils.copyTextToClipboard(menu.text || menu.attachments.reduce((a,c) => a += (c.text || ""), ""))
+                    menu.close()
+                }
+            }
+            Kirigami.BasicListItem {
+                visible: menu.attachments.length > 0
+                text: i18n("Save attachment")
+                icon: "mail-attachment-symbolic"
+                onClicked: {
+                    attachmentList.selected = []
+                    attachmentList.items = menu.attachments.filter(o => o.fileName)
+                    attachmentList.open()
+                    menu.close()
+                }
+            }
+            Kirigami.BasicListItem {
+                visible: menu.smil
+                text: i18n("View slideshow")
+                icon: "view-presentation-symbolic"
+                onClicked: {
+                    pageStack.layers.push("qrc:/SlideshowPage.qml", {
+                        recipients: msgPage.title,
+                        attachments: menu.attachments,
+                        folder: attachmentsFolder,
+                        smil: menu.smil
+                    } )
                     menu.close()
                 }
             }
@@ -470,45 +811,242 @@ Kirigami.ScrollablePage {
                 icon: "edit-delete"
                 onClicked: {
                     listView.currentIndex = menu.index
-                    messageModel.deleteMessage(menu.id, menu.index)
+                    messageModel.deleteMessage(menu.id, menu.index, menu.attachments.map(o => o.fileName))
                     menu.close()
+                }
+            }
+            Kirigami.BasicListItem {
+                visible: menu.resend
+                text: i18n("Resend")
+                icon: "edit-redo"
+                onClicked: {
+                    messageModel.sendMessage(menu.text, menu.attachments.map(o => "file://" + attachmentsFolder + "/" + o.fileName), menu.attachments.reduce((a,c) => a += (c.size || 0), 0))
+                    listView.currentIndex = menu.index
+                    messageModel.deleteMessage(menu.id, menu.index, menu.attachments.map(o => o.fileName))
+                    menu.close()
+                    delayCountChanged.restart()
                 }
             }
         }
     }
 
-    footer: Kirigami.ActionTextField {
-        id: field
-        height: Kirigami.Units.gridUnit * 2
-        placeholderText: {
-            var number = Utils.sendingNumber()
-            if (number === "0") {
-                return i18n("Write Message...")
-            } else {
-                return i18nc("%1 is a phone number", "Send Message from %1...", number)
-            }
-        }
-        onAccepted: text !== "" && sendAction.triggered()
-        rightActions: [
-            Kirigami.Action {
-                id: sendAction
-                text: i18n("Send")
-                icon.name: "document-send"
-                enabled: field.text !== ""
-                onTriggered: {
-                    messageModel.sendMessage(field.text)
-                    field.text = ""
+    Kirigami.OverlaySheet {
+        id: attachmentList
+
+        property var items: []
+        property var selected: []
+
+        title: i18n("Save attachment")
+
+        ListView {
+            model: attachmentList.items
+            implicitWidth: Kirigami.Units.gridUnit * 30
+            onCountChanged: currentIndex = -1
+
+            delegate: Kirigami.AbstractListItem {
+                Controls.CheckBox {
+                    Layout.fillWidth: true
+                    checked: attachmentList.selected.indexOf(modelData.fileName) >= 0
+                    text: (modelData.name || modelData.fileName)
+                    onClicked: {
+                        const index = attachmentList.selected.indexOf(modelData.fileName)
+                        if (index >=0) {
+                            attachmentList.selected.splice(index, 1)
+                        } else {
+                            attachmentList.selected.push(modelData.fileName)
+                        }
+                        attachmentList.selected = attachmentList.selected
+                    }
                 }
             }
-        ]
-        font.pointSize: pointSize
+        }
 
-        Kirigami.InlineMessage {
-            id: duplicateNotify
-            width: parent.width
-            type: Kirigami.MessageType.Warning
-            text: i18n("Duplicate recipient")
-            visible: false
+        footer: Row {
+            spacing: Kirigami.Units.gridUnit
+            layoutDirection: Qt.RightToLeft
+
+            Controls.Button {
+                enabled: attachmentList.selected.length > 0
+                text: i18n("Save")
+                onClicked: {
+                    messageModel.saveAttachments(attachmentList.selected)
+                    attachmentList.close()
+                }
+            }
+            Controls.Button {
+                text: i18n("Cancel")
+                onClicked: attachmentList.close()
+            }
+        }
+    }
+
+    footer: ColumnLayout {
+        spacing: 0
+
+        Rectangle {
+            Layout.fillWidth: true
+            height: Kirigami.Units.devicePixelRatio
+            color: Kirigami.Theme.alternateBackgroundColor
+        }
+
+        Rectangle {
+            Layout.fillWidth: true
+            Layout.leftMargin: Kirigami.Units.smallSpacing
+            Layout.rightMargin: Kirigami.Units.smallSpacing
+            color: Kirigami.Theme.backgroundColor
+            implicitWidth: flow.implicitWidth
+            implicitHeight: flow.implicitHeight
+
+            Flow {
+                id: flow
+                anchors.fill: parent
+                spacing: 0
+
+                Repeater {
+                    model: files
+                    Item {
+                        width: fileItem.width + Kirigami.Units.largeSpacing
+                        height: fileItem.height + Kirigami.Units.largeSpacing
+
+                        property bool isImage: mimeType.indexOf("image/") >= 0
+
+                        Rectangle {
+                            id: fileItem
+                            anchors.centerIn: parent
+                            implicitWidth: (isImage ? attachImg.implicitWidth : layout.implicitWidth) + Kirigami.Units.devicePixelRatio * 2
+                            implicitHeight: (isImage ? attachImg.implicitHeight : layout.implicitHeight) + Kirigami.Units.devicePixelRatio * 2
+                            border.width: Kirigami.Units.devicePixelRatio
+                            border.color: Kirigami.Theme.alternateBackgroundColor
+
+                            RowLayout {
+                                id: layout
+                                visible: !isImage
+                                Kirigami.Icon {
+                                    source: iconName
+                                }
+                                Text {
+                                    text: name
+                                    color: Kirigami.Theme.textColor
+                                }
+                                Item {
+                                    width: Kirigami.Units.largeSpacing
+                                }
+                                MouseArea {
+                                    width: parent.width
+                                    height: parent.height
+                                    onDoubleClicked: Qt.openUrlExternally(filePath)
+                                }
+                            }
+
+                            Image {
+                                id: attachImg
+                                anchors.centerIn: parent
+                                source: isImage ? filePath : ""
+                                sourceSize.height: Kirigami.Units.gridUnit * 4
+                                cache: false
+                                fillMode: Image.PreserveAspectCrop
+
+                                MouseArea {
+                                    anchors.fill: parent
+                                    onClicked: pageStack.layers.push("qrc:/PreviewPage.qml", {
+                                        filePath: filePath,
+                                        type: mimeType
+                                    } )
+                                }
+
+                                AnimatedImage {
+                                    source: parent.source && mimeType === "image/gif" ? parent.source : ""
+                                    anchors.fill: parent
+                                }
+                            }
+                        }
+
+                        Controls.RoundButton {
+                            anchors.right: parent.right
+                            anchors.top: parent.top
+                            icon.name: "remove"
+                            icon.color: Kirigami.Theme.negativeTextColor
+                            padding: 0
+                            width: Kirigami.Units.gridUnit
+                            height: Kirigami.Units.gridUnit
+                            onPressed: files.remove(index)
+                            Controls.ToolTip.delay: 1000
+                            Controls.ToolTip.timeout: 5000
+                            Controls.ToolTip.visible: hovered
+                            Controls.ToolTip.text: i18n("Remove")
+                        }
+                    }
+                }
+            }
+
+            Text {
+                visible: files.count > 0
+                anchors.right: parent.right
+                anchors.bottom: parent.bottom
+                text: files.count > 0 ? formatBytes(filesTotalSize()) : ""
+                color: Kirigami.Theme.textColor
+            }
+        }
+
+        Kirigami.ActionTextField {
+            id: field
+            Layout.fillWidth: true
+            height: Kirigami.Units.gridUnit * 2
+            placeholderText: {
+                var number = Utils.sendingNumber()
+                if (number === "0") {
+                    return i18n("Write Message...")
+                } else {
+                    return i18nc("%1 is a phone number", "Send Message from %1...", number)
+                }
+            }
+            onAccepted: text !== "" && sendAction.triggered()
+            onPressed: Qt.callLater( listView.positionViewAtEnd )
+            leftActions: [
+                Kirigami.Action {
+                    visible: SettingsManager.mmsc != ""
+                    text: i18n("Attach")
+                    icon.name: "mail-attachment-symbolic"
+                    onTriggered: {
+                        fileDialog.open()
+                    }
+                }
+            ]
+            rightActions: [
+                Kirigami.Action {
+                    id: sendAction
+                    text: i18n("Send")
+                    icon.name: "document-send"
+                    enabled: (field.text.length !== 0 || files.count > 0) && !maxAttachmentsError.visible
+                    onTriggered: {
+                        messageModel.sendMessage(field.text, filesToList(), filesTotalSize())
+                        files.clear()
+                        field.text = ""
+                        msgPage.forceActiveFocus()
+                    }
+                }
+            ]
+            font.pointSize: pointSize
+
+            Kirigami.InlineMessage {
+                id: duplicateNotify
+                width: parent.width
+                type: Kirigami.MessageType.Warning
+                text: i18n("Duplicate recipient")
+                visible: false
+            }
+        }
+
+        FileDialog {
+            id: fileDialog
+            title: i18n("Choose a file")
+            folder: shortcuts.pictures
+            selectMultiple: true
+            onAccepted: {
+                for (let i = 0; i < fileDialog.fileUrls.length; i++) {
+                    files.append(messageModel.fileInfo(fileDialog.fileUrls[i]))
+                }
+            }
         }
     }
 }

@@ -1,13 +1,15 @@
 // SPDX-FileCopyrightText: 2020 Jonah Brüchert <jbb@kaidan.im>
+// SPDX-FileCopyrightText: 2021 Michael Lang <criticaltemp@protonmail.com>
 //
 // SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
 
 #include "messagemodel.h"
 
 #include <QDebug>
-#include <QFutureWatcher>
+#include <QJsonObject>
+#include <QMimeDatabase>
+#include <QMimeType>
 
-#include <KTextToHTML>
 #include <KLocalizedString>
 
 #include <ModemManagerQt/Sms>
@@ -20,6 +22,7 @@
 #include "channelhandler.h"
 #include "utils.h"
 #include "modemcontroller.h"
+#include "settingsmanager.h"
 
 #include <QCoroDBusPendingReply>
 
@@ -37,32 +40,33 @@ MessageModel::MessageModel(ChannelHandler &handler, const PhoneNumberList &phone
         m_peopleData.append(person);
     }
 
-    connect(&ModemController::instance(), &ModemController::messageAdded, this, [this](ModemManager::Sms::Ptr msg) {
-        if (PhoneNumberList(msg->number()) != m_phoneNumberList) {
-            return; // Message is not for this model
-        }
-        Message message;
-        message.id = Database::generateRandomId();
-        message.read = false;
-        message.text = Utils::textToHtml(msg->text());
-        message.datetime = msg->timestamp();
-        message.sentByMe = false;
-        message.deliveryStatus = MessageState::Received; // If it arrived here, it was
-        message.phoneNumberList = PhoneNumberList(msg->number());
+    connect(m_handler.interface(), &OrgKdeSpacebarDaemonInterface::messageAdded, this, &MessageModel::messagedAdded);
 
-        addMessage(message);
+    connect(m_handler.interface(), &OrgKdeSpacebarDaemonInterface::manualDownloadFinished, this, [this](const QString &id, const bool isEmpty) {
+        if (isEmpty) {
+            updateMessageState(id, MessageState::Failed, true);
+        } else {
+            const auto idx = getMessageIndex(id);
+            deleteMessage(id, idx.second, QStringList());
+        }
     });
 
     connect(&m_handler.database(), &AsyncDatabase::messagesFetchedForNumber,
             this, [this](const PhoneNumberList &phoneNumberList, const QVector<Message> &messages) {
         if (phoneNumberList == m_phoneNumberList) {
-            beginResetModel();
-            m_messages = messages;
-            endResetModel();
+            if (messages.count() == 1) {
+                beginInsertRows({}, m_messages.count(), m_messages.count());
+                m_messages.prepend(messages.at(0));
+                endInsertRows();
+            } else {
+                beginResetModel();
+                m_messages = messages;
+                endResetModel();
+            }
         }
     });
 
-    Q_EMIT m_handler.database().requestMessagesForNumber(m_phoneNumberList);
+    Q_EMIT m_handler.database().requestMessagesForNumber(m_phoneNumberList, QString());
 }
 
 QHash<int, QByteArray> MessageModel::roleNames() const
@@ -74,7 +78,18 @@ QHash<int, QByteArray> MessageModel::roleNames() const
         {Role::SentByMeRole, BL("sentByMe")},
         {Role::ReadRole, BL("read")},
         {Role::DeliveryStateRole, BL("deliveryState")},
-        {Role::IdRole, BL("id")}
+        {Role::IdRole, BL("id")},
+        {Role::AttachmentsRole, BL("attachments")},
+        {Role::SmilRole, BL("smil")},
+        {Role::FromNumberRole, BL("fromNumber")},
+        {Role::MessageIdRole, BL("messageId")},
+        {Role::DeliveryReportRole, BL("deliveryReport")},
+        {Role::ReadReportRole, BL("readReport")},
+        {Role::PendingDownloadRole, BL("pendingDownload")},
+        {Role::ContentLocationRole, BL("contentLocation")},
+        {Role::ExpiresRole, BL("expires")},
+        {Role::ExpiresDateTimeRole, BL("expiresDateTime")},
+        {Role::SizeRole, BL("size")}
     };
 }
 
@@ -101,6 +116,28 @@ QVariant MessageModel::data(const QModelIndex &index, int role) const
         return DeliveryState(message.deliveryStatus);
     case Role::IdRole:
         return message.id;
+    case Role::AttachmentsRole:
+        return message.attachments;
+    case Role::SmilRole:
+        return message.smil;
+    case Role::FromNumberRole:
+        return message.fromNumber;
+    case Role::MessageIdRole:
+        return message.messageId;
+    case Role::DeliveryReportRole:
+        return message.deliveryReport;
+    case Role::ReadReportRole:
+        return message.readReport;
+    case Role::PendingDownloadRole:
+        return message.pendingDownload;
+    case Role::ContentLocationRole:
+        return message.contentLocation;
+    case Role::ExpiresRole:
+        return message.expires;
+    case Role::ExpiresDateTimeRole:
+        return message.expires.toLocalTime().toString(SL("MMM d, h:mm ap"));
+    case Role::SizeRole:
+        return message.size;
     }
 
     return {};
@@ -121,6 +158,42 @@ PhoneNumberList MessageModel::phoneNumberList() const
     return m_phoneNumberList;
 }
 
+QString MessageModel::attachmentsFolder() const
+{
+    const QString folder = QString::number(qHash(m_phoneNumberList.toString()));
+    return QStandardPaths::writableLocation(QStandardPaths::GenericDataLocation) + SL("/spacebar/attachments/") + folder;
+}
+
+QVariant MessageModel::fileInfo(const QString &path)
+{
+    QFile file(path.mid(6, path.length() - 6)); // remove "file://" prefix
+    file.open(QIODevice::ReadOnly);
+    QByteArray data = file.readAll();
+    QMimeDatabase db;
+    QMimeType mime = db.mimeTypeForData(data);
+
+    QJsonObject object
+    {
+        { SL("filePath"), path },
+        { SL("name"), path.mid(path.lastIndexOf(SL("/")) + 1) },
+        { SL("fileName"), Database::generateRandomId() + SL(".") + mime.preferredSuffix() },
+        { SL("size"), data.length() },
+        { SL("mimeType"), mime.name() },
+        { SL("iconName"), mime.iconName() }
+    };
+
+    return object;
+}
+
+void MessageModel::messagedAdded(const QString &numbers, const QString &id)
+{
+    if (PhoneNumberList(numbers) != m_phoneNumberList) {
+        return; // Message is not for this model
+    }
+
+    Q_EMIT m_handler.database().requestMessagesForNumber(m_phoneNumberList, id);
+}
+
 void MessageModel::addMessage(const Message &message)
 {
     beginInsertRows({}, m_messages.count(), m_messages.count());
@@ -131,14 +204,23 @@ void MessageModel::addMessage(const Message &message)
     Q_EMIT m_handler.database().requestAddMessage(message);
 }
 
-void MessageModel::sendMessage(const QString &text)
+void MessageModel::sendMessage(const QString &text, const QStringList &files, const long totalSize)
 {
-    [this, text] () -> QCoro::Task<void> {
+    [this, text, files, totalSize] () -> QCoro::Task<void> {
         QString result;
-        if (m_phoneNumberList.size() > 1) {
-            // send as individual messages
-            for (const auto &phoneNumber : m_phoneNumberList) {
-                result += co_await sendMessageInternal(phoneNumber, text);
+        // check if it is a mms message
+        if (m_phoneNumberList.size() > 1 || files.length() > 0) {
+            if (SettingsManager::self()->groupConversation()) {
+                sendMessageInternalMms(m_phoneNumberList, text, files, totalSize);
+            } else {
+                // send as individual messages
+                for (const auto &phoneNumber : m_phoneNumberList) {
+                    if (files.length() > 0) {
+                        sendMessageInternalMms(PhoneNumberList(phoneNumber.toInternational()), text, files, totalSize);
+                    } else {
+                        result = co_await sendMessageInternal(phoneNumber, text);
+                    }
+                }
             }
         } else {
             result = co_await sendMessageInternal(m_phoneNumberList.first(), text);
@@ -164,12 +246,16 @@ QPair<Message *, int> MessageModel::getMessageIndex(const QString &path)
     return qMakePair(modelIt, i);
 }
 
-void MessageModel::updateMessageState(const QString &msgPath, MessageState state)
+void MessageModel::updateMessageState(const QString &msgPath, MessageState state, const bool temp)
 {
     const auto idx = getMessageIndex(msgPath);
 
     idx.first->deliveryStatus = state;
-    Q_EMIT m_handler.database().requestUpdateMessageDeliveryState(msgPath, state);
+
+    if (!temp) {
+        Q_EMIT m_handler.database().requestUpdateMessageDeliveryState(msgPath, state);
+    }
+
     Q_EMIT dataChanged(index(idx.second), index(idx.second), {Role::DeliveryStateRole});
 }
 
@@ -185,18 +271,24 @@ QCoro::Task<QString> MessageModel::sendMessageInternal(const PhoneNumber &phoneN
     message.datetime = QDateTime::currentDateTime();
     message.read = true; // Messages sent by us are automatically read.
     message.sentByMe = true; // only called if message sent by us.
-    message.deliveryStatus = MessageState::Unknown; // if this signal is called, the message was delivered.
+    message.deliveryStatus = MessageState::Pending; // this signal is changed to either failed or sent, depending if the message was delivered.
 
 
     auto maybeReply = ModemController::instance().createMessage(m);
 
     if (!maybeReply) {
+        message.id = Database::generateRandomId();
+        message.deliveryStatus = MessageState::Failed;
+        addMessage(message);
         co_return QStringLiteral("No modem");
     }
 
     const QDBusReply<QDBusObjectPath> msgPathResult = co_await *maybeReply;
 
     if (!msgPathResult.isValid()) {
+        message.id = Database::generateRandomId();
+        message.deliveryStatus = MessageState::Failed;
+        addMessage(message);
         co_return msgPathResult.error().message();
     }
 
@@ -252,18 +344,103 @@ QCoro::Task<QString> MessageModel::sendMessageInternal(const PhoneNumber &phoneN
     co_return QString();
 }
 
+QCoro::Task<QString> MessageModel::sendMessageInternalMms(const PhoneNumberList &phoneNumberList, const QString &text, const QStringList &files, const long totalSize)
+{
+    Message message;
+    message.phoneNumberList = phoneNumberList;
+    message.text = text;//Utils::textToHtml(text);
+    message.datetime = QDateTime::currentDateTime();
+    message.read = true; // Messages sent by us are automatically read.
+    message.sentByMe = true; // only called if message sent by us.
+    message.deliveryStatus = MessageState::Pending; // if this signal is called, the message was delivered.
+
+    QString to = phoneNumberList.toString();
+    const QStringList toList = to.replace(SL("-"), QString()).replace(SL(" "), QString()).split(SL(";"));
+    QString from = Utils::instance()->ownNumber();
+
+    MmsMessage mmsMessage;
+    mmsMessage.ownNumber = PhoneNumber(from);
+    mmsMessage.from = from.replace(SL("-"), QString()).replace(SL(" "), QString());
+    mmsMessage.to = toList;
+    mmsMessage.text = message.text;
+    QByteArray data;
+    m_handler.mms().encodeMessage(mmsMessage, data, files, totalSize);
+
+    // update message with encoded content parts
+    message.id = Database::generateRandomId();
+    message.text = mmsMessage.text;
+    message.attachments = mmsMessage.attachments;
+    message.smil = mmsMessage.smil;
+
+    // Add message to model
+    addMessage(message);
+
+    //send message
+    connect(&m_handler.mms(), &Mms::uploadFinished, this, [this, message](const QByteArray &response) {
+        disconnect(&m_handler.mms(), &Mms::uploadError, nullptr, nullptr);
+        disconnect(&m_handler.mms(), &Mms::uploadFinished, nullptr, nullptr);
+        if (response.length() == 0) {
+            updateMessageState(message.id, MessageState::Failed);
+        } else {
+            MmsMessage mmsMessage;
+            m_handler.mms().decodeConfirmation(mmsMessage, response);
+            if (mmsMessage.responseStatus == 0) {
+                updateMessageState(message.id, MessageState::Sent);
+
+                if (!mmsMessage.messageId.isEmpty()) {
+                    Q_EMIT m_handler.database().requestUpdateMessageSent(message.id, mmsMessage.messageId, mmsMessage.contentLocation);
+                }
+            } else {
+                updateMessageState(message.id, MessageState::Failed);
+                qDebug() << mmsMessage.responseText;
+            }
+        }
+    });
+    connect(&m_handler.mms(), &Mms::uploadError, this, [this, message]() {
+        disconnect(&m_handler.mms(), &Mms::uploadError, nullptr, nullptr);
+        disconnect(&m_handler.mms(), &Mms::uploadFinished, nullptr, nullptr);
+        updateMessageState(message.id, MessageState::Failed);
+    });
+    m_handler.mms().uploadMessage(data);
+
+    co_return QString();
+}
+
 void MessageModel::markMessageRead(const int id)
 {
     Q_EMIT m_handler.database().requestMarkMessageRead(id);
 }
 
-void MessageModel::deleteMessage(const QString &id, const int index)
+void MessageModel::downloadMessage(const QString &id, const QString &url, const QDateTime &expires)
+{
+    updateMessageState(id, MessageState::Pending, true);
+    m_handler.interface()->manualDownload(id, url, expires);
+}
+
+void MessageModel::deleteMessage(const QString &id, const int index, const QStringList &files)
 {
     Q_EMIT m_handler.database().requestDeleteMessage(id);
+
+    // delete attachments
+    const QString sourceFolder = attachmentsFolder();
+    for (const auto &file : files) {
+        if (!file.isEmpty()) {
+            QFile::remove(sourceFolder + SL("/") + file);
+        }
+    }
 
     beginRemoveRows(QModelIndex(), index, index);
     m_messages.remove(m_messages.count() - index - 1);
     endRemoveRows();
+}
+
+void MessageModel::saveAttachments(const QStringList &attachments)
+{
+    const QString sourceFolder = attachmentsFolder();
+    const QString targetFolder = QStandardPaths::writableLocation(QStandardPaths::DownloadLocation);
+    for (const auto& i : attachments) {
+        QFile::copy(sourceFolder + QStringLiteral("/") + i, targetFolder + QStringLiteral("/") + i);
+    }
 }
 
 void MessageModel::disableNotifications(const PhoneNumberList &phoneNumberList)

@@ -24,11 +24,12 @@ public:
 
     Q_SIGNAL void messagesChanged(const PhoneNumberList &phoneNumberList);
 
-    // Fetch requessts
+    // Fetch requests
     Q_SIGNAL void requestAddMessage(const Message &message);
     Q_SIGNAL void requestDeleteMessage(const QString &id);
-    Q_SIGNAL void requestMessagesForNumber(const PhoneNumberList &phoneNumberList);
+    Q_SIGNAL void requestMessagesForNumber(const PhoneNumberList &phoneNumberList, const QString &id);
     Q_SIGNAL void requestUpdateMessageDeliveryState(const QString &id, const MessageState state);
+    Q_SIGNAL void requestUpdateMessageSent(const QString &id, const QString &messageId, const QString &contentLocation);
     Q_SIGNAL void requestMarkMessageRead(const int id);
     Q_SIGNAL void requestChats();
     Q_SIGNAL void requestUnreadMessagesForNumber(const PhoneNumberList &phoneNumberList);
@@ -47,8 +48,9 @@ public:
 private:
     Q_SLOT void addMessage(const Message &message);
     Q_SLOT void deleteMessage(const QString &id);
-    Q_SLOT void messagesForNumber(const PhoneNumberList &phoneNumberList);
+    Q_SLOT void messagesForNumber(const PhoneNumberList &phoneNumberList, const QString &id);
     Q_SLOT void updateMessageDeliveryState(const QString &id, const MessageState state);
+    Q_SLOT void updateMessageSent(const QString &id, const QString &messageId, const QString &contentLocation);
     Q_SLOT void markMessageRead(const int id);
     Q_SLOT void chats();
     Q_SLOT void unreadMessagesForNumber(const PhoneNumberList &phoneNumberList);

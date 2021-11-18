@@ -32,6 +32,7 @@ class MessageModel : public QAbstractListModel
     Q_OBJECT
     Q_PROPERTY(PhoneNumberList phoneNumberList READ phoneNumberList NOTIFY phoneNumberListChanged)
     Q_PROPERTY(QVector<Person> people READ people NOTIFY peopleChanged)
+    Q_PROPERTY(QString attachmentsFolder READ attachmentsFolder CONSTANT)
 
 public:
     enum Role {
@@ -41,7 +42,18 @@ public:
         SentByMeRole,
         ReadRole,
         DeliveryStateRole,
-        IdRole
+        IdRole,
+        AttachmentsRole,
+        SmilRole,
+        FromNumberRole,
+        MessageIdRole,
+        DeliveryReportRole,
+        ReadReportRole,
+        PendingDownloadRole,
+        ContentLocationRole,
+        ExpiresRole,
+        ExpiresDateTimeRole,
+        SizeRole
     };
     Q_ENUM(Role)
 
@@ -66,6 +78,10 @@ public:
 
     PhoneNumberList phoneNumberList() const;
 
+    QString attachmentsFolder() const;
+
+    Q_INVOKABLE QVariant fileInfo(const QString &path);
+
     /**
      * @brief Adds a message to the model and the database.
      * Can be used for example when a new message is received.
@@ -78,7 +94,7 @@ public:
      * and adds it to the model and database by calling addMessage(const QString&)
      * @param text
      */
-    Q_INVOKABLE void sendMessage(const QString &text);
+    Q_INVOKABLE void sendMessage(const QString &text, const QStringList &files, const long totalSize);
 
     /**
      * @brief marks a message as read by calling the respective database function
@@ -86,9 +102,20 @@ public:
     Q_INVOKABLE void markMessageRead(const int id);
 
     /**
-     * @brief permanently deletes a message
+     * @brief downloads the contents of an MMS message
      */
-    Q_INVOKABLE void deleteMessage(const QString &id, const int index);
+    Q_INVOKABLE void downloadMessage(const QString &id, const QString &url, const QDateTime &expires);
+
+    /**
+     * @brief permanently deletes a message and any attachments
+     */
+    Q_INVOKABLE void deleteMessage(const QString &id, const int index, const QStringList &files);
+
+    /**
+     * @brief saves selected attachments to downloads folder
+     * @param list
+     */
+    Q_INVOKABLE void saveAttachments(const QStringList &attachments);
 
     /**
      * @brief excludes set phone number from message notifications
@@ -98,8 +125,9 @@ public:
 
 private:
     QCoro::Task<QString> sendMessageInternal(const PhoneNumber &phoneNumber, const QString &text);
+    QCoro::Task<QString> sendMessageInternalMms(const PhoneNumberList &phoneNumberList, const QString &text, const QStringList &files, const long totalSize);
     QPair<Message *, int> getMessageIndex(const QString &path);
-    void updateMessageState(const QString &path, MessageState state);
+    void updateMessageState(const QString &path, MessageState state, const bool temp = false);
 
     ChannelHandler &m_handler;
     QVector<Message> m_messages;
@@ -107,6 +135,9 @@ private:
     // properties
     PhoneNumberList m_phoneNumberList;
     QVector<Person> m_peopleData;
+
+private slots:
+    void messagedAdded(const QString &numbers, const QString &id);
 
 signals:
     void phoneNumberListChanged();

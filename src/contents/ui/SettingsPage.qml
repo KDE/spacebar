@@ -114,13 +114,135 @@ Kirigami.ScrollablePage {
 
         Kirigami.Heading {
             Kirigami.FormData.isSection: true
+            text: i18n("Multimedia messages (MMS)")
+        }
+
+        Controls.TextField {
+            id: mmsc
+            placeholderText: "http://example.com/mms/wapenc"
+            text: SettingsManager.mmsc
+            Kirigami.FormData.label: i18n("MMSC:")
+            onTextChanged: SettingsManager.mmsc = text
+            wrapMode: TextInput.WrapAnywhere
+        }
+
+        Controls.TextField {
+            id: mmsProxy
+            placeholderText: "proxy.example.com"
+            text: SettingsManager.mmsProxy
+            Kirigami.FormData.label: i18n("Proxy:")
+            onTextChanged: SettingsManager.mmsProxy = text
+            wrapMode: TextInput.WrapAnywhere
+        }
+
+        Controls.SpinBox {
+            id: mmsPort
+            value: SettingsManager.mmsPort
+            Kirigami.FormData.label: i18n("Port:")
+            from: 0
+            to: 65535
+            stepSize: 1
+            onValueModified: SettingsManager.mmsPort = value
+            textFromValue: function(value, locale) {
+                return value
+            }
+        }
+
+        Controls.CheckBox {
+            id: requestDeliveryReports
+            checked: SettingsManager.requestDeliveryReports
+            text: i18n("Request delivery reports")
+            onToggled: SettingsManager.requestDeliveryReports = checked
+        }
+
+        Controls.CheckBox {
+            id: requestReadReports
+            checked: SettingsManager.requestReadReports
+            text: i18n("Request read reports")
+            onToggled: SettingsManager.requestReadReports = checked
+        }
+
+        Controls.CheckBox {
+            id: shareDeliveryStatus
+            checked: SettingsManager.shareDeliveryStatus
+            text: i18n("Share delivery status")
+            onToggled: SettingsManager.shareDeliveryStatus = checked
+        }
+
+        Controls.CheckBox {
+            id: shareReadStatus
+            checked: SettingsManager.shareReadStatus
+            text: i18n("Share read status")
+            onToggled: SettingsManager.shareReadStatus = checked
+            enabled: false
+        }
+
+        Controls.CheckBox {
+            id: autoDownload
+            checked: SettingsManager.autoDownload
+            text: i18n("Auto download messages")
+            onToggled: SettingsManager.autoDownload = checked
+        }
+
+        Row {
+            leftPadding: Kirigami.Units.gridUnit * 2
+
+            Controls.CheckBox {
+                id: autoDownloadContactsOnly
+                checked: SettingsManager.autoDownloadContactsOnly
+                text: i18n("Existing contacts only")
+                onToggled: SettingsManager.autoDownloadContactsOnly = checked
+                enabled: SettingsManager.autoDownload == true
+            }
+        }
+
+        Controls.SpinBox {
+            id: totalMaxAttachmentSize
+            value: SettingsManager.totalMaxAttachmentSize
+            Kirigami.FormData.label: i18n("Max message size (KiB):")
+            from: 100
+            to: 5000
+            stepSize: 50
+            onValueModified: SettingsManager.totalMaxAttachmentSize = value
+        }
+
+        Controls.SpinBox {
+            id: maxAttachments
+            value: SettingsManager.maxAttachments
+            Kirigami.FormData.label: i18n("Max attachments:")
+            from: 1
+            to: 25
+            onValueModified: SettingsManager.maxAttachments = value
+        }
+
+        Controls.CheckBox {
+            id: autoCreateSmil
+            checked: SettingsManager.autoCreateSmil
+            text: i18n("Auto create SMIL")
+            onToggled: SettingsManager.autoCreateSmil = checked
+        }
+
+        Controls.CheckBox {
+            id: groupConversation
+            checked: SettingsManager.groupConversation
+            text: i18n("Default to group conversations")
+            onToggled: SettingsManager.groupConversation = checked
+        }
+
+
+        Kirigami.Heading {
+            Kirigami.FormData.isSection: true
             text: i18n("Defaults")
         }
 
         Controls.Button {
             text: i18n("Restore defaults")
             onClicked: {
+                const server = SettingsManager.mmsc
+                const proxy = SettingsManager.mmsProxy
                 chatListModel.restoreDefaults()
+                SettingsManager.mmsc = server
+                SettingsManager.mmsProxy = proxy
             }
         }
     }
@@ -135,9 +257,7 @@ Kirigami.ScrollablePage {
         property string field
         property color selected
 
-        header: Kirigami.Heading {
-            text: qsTr("Choose a color")
-        }
+        title: i18n("Choose a color")
 
         Grid {
             anchors.centerIn: parent
@@ -183,7 +303,7 @@ Kirigami.ScrollablePage {
 
         footer: RowLayout {
             Controls.Button {
-                text: qsTr("Cancel")
+                text: i18n("Cancel")
                 onClicked: colorDialog.close()
             }
 
@@ -193,7 +313,7 @@ Kirigami.ScrollablePage {
             }
 
             Controls.Button {
-                text: qsTr("Set")
+                text: i18n("Set")
                 onClicked: {
                     SettingsManager[colorDialog.field] = colorDialog.selected
                     colorDialog.close()

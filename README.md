@@ -1,12 +1,12 @@
 # Spacebar
 
-Spacebar is an SMS application that primarily targets Plasma Mobile.
+Spacebar is an SMS/MMS application that primarily targets Plasma Mobile.
 It depends on Qt and few KDE Frameworks (Kirigami2, KI18n, KPeople, and ModemManagerQt).
 
 # Architecture
 
 Spacebar consists of an app and a daemon.
-The app is user-facing, and only runs while the user is reading or writing messages. The daemon runs in the background to catch incoming SMS.
+The app is user-facing, and only runs while the user is reading or writing messages. The daemon runs in the background to catch incoming SMS and MMS messages.
 
 The database is mostly managed by the daemon, as it is responsible for writing incoming and outgoing messages into it.
 It also sends notifications to the user when a new message arrived, using KNotifications.
