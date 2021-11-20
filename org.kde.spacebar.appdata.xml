@@ -19,7 +19,7 @@
   <name xml:lang="it">Spacebar</name>
   <name xml:lang="ko">Spacebar</name>
   <name xml:lang="lt">Spacebar</name>
-  <name xml:lang="nl">Spatiebalk</name>
+  <name xml:lang="nl">Spacebar</name>
   <name xml:lang="nn">Spacebar</name>
   <name xml:lang="pa">ਸਪੇਸਬਾਰ</name>
   <name xml:lang="pl">Spacebar</name>
@@ -34,6 +34,12 @@
   <name xml:lang="x-test">xxSpacebarxx</name>
   <name xml:lang="zh-TW">空間列</name>
   <summary>SMS/MMS telepathy client</summary>
+  <summary xml:lang="ca">Client Telepathy d'SMS/MMS</summary>
+  <summary xml:lang="es">Cliente SMS/MMS de Telepathy</summary>
+  <summary xml:lang="nl">Client voor SMS/MMS van telepathy</summary>
+  <summary xml:lang="sv">SMS/MMS Telepathy-klient</summary>
+  <summary xml:lang="uk">Клієнт SMS/MMS telepathy</summary>
+  <summary xml:lang="x-test">xxSMS/MMS telepathy clientxx</summary>
   <metadata_license>CC0-1.0</metadata_license>
   <project_license>GPL-2.0-or-later</project_license>
   <developer_name>KDE Community</developer_name>
@@ -70,6 +76,12 @@
   <developer_name xml:lang="zh-TW">KDE 社群</developer_name>
   <description>
     <p>Spacebar is a telepathy client for Plasma Mobile, that is primarily written for sending and receiving SMS/MMS.</p>
+    <p xml:lang="ca">L'Spacebar és un client del Telepathy per al Plasma Mobile, el qual està escrit principalment per a enviar i rebre SMS/MMS.</p>
+    <p xml:lang="es">Spacebar es un cliente de Telepathy para Plasma Mobile, escrito principalmente para enviar y recibir SMS/MMS.</p>
+    <p xml:lang="nl">Spacebar is een client van telepathy voor Plasma Mobile, die primair is geschreven voor het verzenden en ontvangen van SMS/MMS.</p>
+    <p xml:lang="sv">Spacebar är en Telepathy-klient för Plasma Mobil, som i huvudsak är skriven för att skicka och ta emot SMS/MMS.</p>
+    <p xml:lang="uk">Spacebar — клієнт telepathy для мобільної версії Плазми. Основним завданням програми є надсилання і отримання SMS/MMS.</p>
+    <p xml:lang="x-test">xxSpacebar is a telepathy client for Plasma Mobile, that is primarily written for sending and receiving SMS/MMS.xx</p>
   </description>
   <url type="bugtracker">https://invent.kde.org/plasma-mobile/spacebar/-/issues</url>
   <releases>
