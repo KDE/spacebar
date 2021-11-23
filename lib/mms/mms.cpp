@@ -101,7 +101,7 @@ void Mms::uploadMessage(const QByteArray &data)
     request.setHeader(QNetworkRequest::ContentLengthHeader, data.length());
     if (!SettingsManager::self()->mmsProxy().isEmpty()) {
         QNetworkProxy proxy;
-        proxy.setType(QNetworkProxy::Socks5Proxy);
+        proxy.setType(QNetworkProxy::HttpProxy);
         proxy.setHostName(SettingsManager::self()->mmsProxy());
         proxy.setPort(SettingsManager::self()->mmsPort());
         manager->setProxy(proxy);
@@ -126,6 +126,13 @@ void Mms::downloadMessage(const MmsMessage &message)
     QNetworkAccessManager *manager = new QNetworkAccessManager(this);
     QNetworkRequest request;
     request.setUrl(QUrl(message.contentLocation));
+    if (!SettingsManager::self()->mmsProxy().isEmpty()) {
+        QNetworkProxy proxy;
+        proxy.setType(QNetworkProxy::HttpProxy);
+        proxy.setHostName(SettingsManager::self()->mmsProxy());
+        proxy.setPort(SettingsManager::self()->mmsPort());
+        manager->setProxy(proxy);
+    }
 
     QNetworkReply *reply = manager->get(request);
     connect(reply, &QNetworkReply::finished, this, [this, reply, message]() {
