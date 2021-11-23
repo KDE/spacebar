@@ -170,7 +170,9 @@ Kirigami.ScrollablePage {
 
             onClicked: {
                 // mark as read first, so data is correct when the model is initialized. This saves us a model reset
-                ChatListModel.markChatAsRead(delegateRoot.phoneNumberList)
+                if (delegateRoot.unreadMessages > 0) {
+                    ChatListModel.markChatAsRead(delegateRoot.phoneNumberList)
+                }
                 ChatListModel.startChat(delegateRoot.phoneNumberList)
             }
         }
