@@ -966,6 +966,8 @@ Kirigami.ScrollablePage {
                             anchors.top: parent.top
                             icon.name: "remove"
                             icon.color: Kirigami.Theme.negativeTextColor
+                            icon.width: Kirigami.Units.gridUnit
+                            icon.height: Kirigami.Units.gridUnit
                             padding: 0
                             width: Kirigami.Units.gridUnit
                             height: Kirigami.Units.gridUnit
