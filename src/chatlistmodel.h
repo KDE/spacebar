@@ -52,6 +52,8 @@ public:
     Q_INVOKABLE void restoreDefaults();
     Q_INVOKABLE void saveSettings();
 
+    void setChats(const QVector<Chat> &&chats);
+
     bool ready() const;
 
 public Q_SLOTS:

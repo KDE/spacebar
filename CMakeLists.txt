@@ -38,6 +38,8 @@ find_package(QCoro REQUIRED)
 
 qcoro_enable_coroutines()
 
+add_compile_options(-Wno-error)
+
 ################# build and install #################
 add_subdirectory(lib)
 add_subdirectory(daemon)

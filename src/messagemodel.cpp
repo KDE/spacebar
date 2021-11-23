@@ -53,22 +53,10 @@ MessageModel::MessageModel(ChannelHandler &handler, const PhoneNumberList &phone
         }
     });
 
-    connect(&m_handler.database(), &AsyncDatabase::messagesFetchedForNumber,
-            this, [this](const PhoneNumberList &phoneNumberList, const QVector<Message> &messages) {
-        if (phoneNumberList == m_phoneNumberList) {
-            if (messages.count() == 1) {
-                beginInsertRows({}, m_messages.count(), m_messages.count());
-                m_messages.prepend(messages.at(0));
-                endInsertRows();
-            } else {
-                beginResetModel();
-                m_messages = messages;
-                endResetModel();
-            }
-        }
+    QTimer::singleShot(0, this, [this]() -> QCoro::Task<> {
+        auto messages = co_await m_handler.database().messagesForNumber(m_phoneNumberList, QString());
+        setMessages(std::move(messages));
     });
-
-    Q_EMIT m_handler.database().requestMessagesForNumber(m_phoneNumberList, QString());
 }
 
 QHash<int, QByteArray> MessageModel::roleNames() const
@@ -188,13 +176,14 @@ QVariant MessageModel::fileInfo(const QString &path)
     return object;
 }
 
-void MessageModel::messagedAdded(const QString &numbers, const QString &id)
+QCoro::Task<> MessageModel::messagedAdded(const QString &numbers, const QString &id)
 {
     if (PhoneNumberList(numbers) != m_phoneNumberList) {
-        return; // Message is not for this model
+        co_return; // Message is not for this model
     }
 
-    Q_EMIT m_handler.database().requestMessagesForNumber(m_phoneNumberList, id);
+    auto messages = co_await m_handler.database().messagesForNumber(m_phoneNumberList, id);
+    setMessages(std::move(messages));
 }
 
 void MessageModel::addMessage(const Message &message)
@@ -211,7 +200,7 @@ void MessageModel::addMessage(const Message &message)
 
 void MessageModel::sendMessage(const QString &text, const QStringList &files, const long totalSize)
 {
-    [this, text, files, totalSize] () -> QCoro::Task<void> {
+    QTimer::singleShot(0, this, [this, text, files, totalSize] () -> QCoro::Task<void> {
         QString result;
         // check if it is a mms message
         if (m_phoneNumberList.size() > 1 || files.length() > 0) {
@@ -251,17 +240,30 @@ QPair<Message *, int> MessageModel::getMessageIndex(const QString &path)
     return qMakePair(modelIt, i);
 }
 
-void MessageModel::updateMessageState(const QString &msgPath, MessageState state, const bool temp)
+QCoro::Task<> MessageModel::updateMessageState(const QString &msgPath, MessageState state, const bool temp)
 {
     const auto idx = getMessageIndex(msgPath);
 
     idx.first->deliveryStatus = state;
 
     if (!temp) {
-        Q_EMIT m_handler.database().requestUpdateMessageDeliveryState(msgPath, state);
+        co_await m_handler.database().updateMessageDeliveryState(msgPath, state);
     }
 
     Q_EMIT dataChanged(index(idx.second), index(idx.second), {Role::DeliveryStateRole});
+}
+
+void MessageModel::setMessages(const QVector<Message> &&messages)
+{
+    if (messages.count() == 1) {
+        beginInsertRows({}, m_messages.count(), m_messages.count());
+        m_messages.prepend(messages.at(0));
+        endInsertRows();
+    } else {
+        beginResetModel();
+        m_messages = messages;
+        endResetModel();
+    }
 }
 
 QCoro::Task<QString> MessageModel::sendMessageInternal(const PhoneNumber &phoneNumber, const QString &text)
@@ -393,7 +395,7 @@ QCoro::Task<QString> MessageModel::sendMessageInternalMms(const PhoneNumberList 
                 updateMessageState(message.id, MessageState::Sent);
 
                 if (!mmsMessage.messageId.isEmpty()) {
-                    Q_EMIT m_handler.database().requestUpdateMessageSent(message.id, mmsMessage.messageId, mmsMessage.contentLocation);
+                    m_handler.database().updateMessageSent(message.id, mmsMessage.messageId, mmsMessage.contentLocation);
                 }
             } else {
                 updateMessageState(message.id, MessageState::Failed);
@@ -413,7 +415,7 @@ QCoro::Task<QString> MessageModel::sendMessageInternalMms(const PhoneNumberList 
 
 void MessageModel::markMessageRead(const int id)
 {
-    QMetaObject::invokeMethod(this, [=, this]() -> QCoro::Task<> {
+    QTimer::singleShot(0, this, [=, this]() -> QCoro::Task<> {
         co_await m_handler.database().markMessageRead(id);
     });
 }
@@ -426,7 +428,7 @@ void MessageModel::downloadMessage(const QString &id, const QString &url, const 
 
 void MessageModel::deleteMessage(const QString &id, const int index, const QStringList &files)
 {
-    QMetaObject::invokeMethod(this, [=, this]() -> QCoro::Task<> {
+    QTimer::singleShot(0, [=, this]() -> QCoro::Task<> {
         co_await m_handler.database().deleteMessage(id);
     });
 

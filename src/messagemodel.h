@@ -127,7 +127,8 @@ private:
     QCoro::Task<QString> sendMessageInternal(const PhoneNumber &phoneNumber, const QString &text);
     QCoro::Task<QString> sendMessageInternalMms(const PhoneNumberList &phoneNumberList, const QString &text, const QStringList &files, const long totalSize);
     QPair<Message *, int> getMessageIndex(const QString &path);
-    void updateMessageState(const QString &path, MessageState state, const bool temp = false);
+    QCoro::Task<> updateMessageState(const QString &path, MessageState state, const bool temp = false);
+    void setMessages(const QVector<Message> &&messages);
 
     ChannelHandler &m_handler;
     QVector<Message> m_messages;
@@ -137,7 +138,7 @@ private:
     QVector<Person> m_peopleData;
 
 private Q_SLOTS:
-    void messagedAdded(const QString &numbers, const QString &id);
+    QCoro::Task<> messagedAdded(const QString &numbers, const QString &id);
 
 Q_SIGNALS:
     void phoneNumberListChanged();

@@ -22,20 +22,21 @@ class AsyncDatabase : public QObject
 public:
     explicit AsyncDatabase();
 
-    Q_SIGNAL void messagesChanged(const PhoneNumber &phoneNumber);
+    Q_SIGNAL void messagesChanged(const PhoneNumberList &phoneNumber);
 
     // All of these functions are thread-safe, and are processed in an internal queue.
     QFuture<void> addMessage(const Message &message);
     QFuture<void> deleteMessage(const QString &id);
-    QFuture<QVector<Message>> messagesForNumber(const PhoneNumber &phoneNumber);
+    QFuture<QVector<Message>> messagesForNumber(const PhoneNumberList &phoneNumber, const QString &id);
     QFuture<void> updateMessageDeliveryState(const QString &id, const MessageState state);
+    QFuture<void> updateMessageSent(const QString &id, const QString &messageId, const QString &contentLocation);
     QFuture<void> markMessageRead(const int id);
     QFuture<QVector<Chat>> chats();
-    QFuture<int> unreadMessagesForNumber(const PhoneNumber &phoneNumber);
-    QFuture<QString> lastMessageForNumber(const PhoneNumber &phoneNumber);
-    QFuture<QDateTime> lastContactedForNumber(const PhoneNumber &phoneNumber);
-    QFuture<void> markChatAsRead(const PhoneNumber &phoneNumber);
-    QFuture<void> deleteChat(const PhoneNumber &phoneNumber);
+    QFuture<int> unreadMessagesForNumber(const PhoneNumberList &phoneNumber);
+    QFuture<QString> lastMessageForNumber(const PhoneNumberList &phoneNumber);
+    QFuture<QDateTime> lastContactedForNumber(const PhoneNumberList &phoneNumber);
+    QFuture<void> markChatAsRead(const PhoneNumberList &phoneNumber);
+    QFuture<void> deleteChat(const PhoneNumberList &phoneNumber);
 
 private:
     template <typename T, typename Func>

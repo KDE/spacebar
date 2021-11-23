@@ -303,6 +303,8 @@ void Database::addMessage(const Message &message)
     putCall.bindValue(SL(":contentLocation"), message.contentLocation);
     if (!message.expires.isNull()) {
         putCall.bindValue(SL(":expires"), message.expires.toMSecsSinceEpoch());
+    } else {
+        putCall.bindValue(SL(":expires"), 0);
     }
     putCall.bindValue(SL(":size"), message.size);
     exec(putCall);
