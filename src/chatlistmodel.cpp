@@ -104,8 +104,15 @@ QVariant ChatListModel::data(const QModelIndex &index, int role) const
         }
     case PhoneNumberListRole:
         return QVariant::fromValue(phoneNumberList);
-    case LastContactedRole:
-        return m_chats.at(index.row()).lastContacted.toString(Utils::instance()->isLocale24HourTime() ? SL("hh:mm") : SL("h:mm ap"));
+    case LastContactedRole: {
+        QDateTime lastContacted = m_chats.at(index.row()).lastContacted;
+        if (lastContacted.daysTo(QDateTime::currentDateTime()) == 0) {
+            QString format = Utils::instance()->isLocale24HourTime() ? SL("hh:mm") : SL("h:mm ap");
+            return lastContacted.toString(format);
+        } else {
+            return lastContacted.toString(QLocale::system().dateFormat(QLocale::ShortFormat));
+        }
+    }
     case UnreadMessagesRole:
         return m_chats.at(index.row()).unreadMessages;
     case LastMessageRole:
