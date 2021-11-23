@@ -30,7 +30,7 @@ private:
     org::kde::spacebar::Daemon *m_interface;
     Mms m_mms;
 
-signals:
+Q_SIGNALS:
     void handlerReady();
     void channelOpen(const QString &phoneNumber);
 };

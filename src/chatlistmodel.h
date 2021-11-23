@@ -54,11 +54,11 @@ public:
 
     bool ready() const;
 
-public slots:
+public Q_SLOTS:
     void fetchChats();
     void deleteChat(const PhoneNumberList &phoneNumberList);
 
-signals:
+Q_SIGNALS:
     void chatStarted(MessageModel* messageModel);
     void startingChatFaild(const QString &errorMessage);
 

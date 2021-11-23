@@ -54,7 +54,7 @@ void ContactPhoneNumberMapper::processRows(const int first, const int last)
         }
     }
 
-    emit contactsChanged(affectedNumbers);
+    Q_EMIT contactsChanged(affectedNumbers);
 }
 
 QString ContactPhoneNumberMapper::uriForNumber(const PhoneNumber &phoneNumber) const

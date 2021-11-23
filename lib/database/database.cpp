@@ -49,7 +49,7 @@ Database::Database(QObject *parent)
     : QObject(parent)
     , m_database(QSqlDatabase::addDatabase(QStringLiteral("QSQLITE"), QStringLiteral("messages")))
 {
-    const auto databaseLocation = QStandardPaths::writableLocation(QStandardPaths::GenericDataLocation) + SL("/spacebar");
+    const QString databaseLocation = QStandardPaths::writableLocation(QStandardPaths::GenericDataLocation) + SL("/spacebar");
     if (!QDir().mkpath(databaseLocation)) {
         qDebug() << "Could not create the database directory at" << databaseLocation;
     }

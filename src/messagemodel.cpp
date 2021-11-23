@@ -171,12 +171,13 @@ QVariant MessageModel::fileInfo(const QString &path)
     QByteArray data = file.readAll();
     QMimeDatabase db;
     QMimeType mime = db.mimeTypeForData(data);
+    QString fileName = Database::generateRandomId() + SL(".") + mime.preferredSuffix();
 
     QJsonObject object
     {
         { SL("filePath"), path },
         { SL("name"), path.mid(path.lastIndexOf(SL("/")) + 1) },
-        { SL("fileName"), Database::generateRandomId() + SL(".") + mime.preferredSuffix() },
+        { SL("fileName"), fileName },
         { SL("size"), data.length() },
         { SL("mimeType"), mime.name() },
         { SL("iconName"), mime.iconName() }
@@ -236,7 +237,7 @@ void MessageModel::sendMessage(const QString &text, const QStringList &files, co
 
 QPair<Message *, int> MessageModel::getMessageIndex(const QString &path)
 {
-    Message *modelIt = std::find_if(m_messages.begin(), m_messages.end(), [&](const Message &message) {
+    auto modelIt = std::find_if(m_messages.begin(), m_messages.end(), [&](const Message &message) {
         return message.id == path;
     });
 

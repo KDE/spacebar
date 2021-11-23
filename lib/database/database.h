@@ -101,6 +101,6 @@ private:
 
     QSqlDatabase m_database;
 
-signals:
+Q_SIGNALS:
     void messagesChanged(const PhoneNumberList &phoneNumberList);
 };

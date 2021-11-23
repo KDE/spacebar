@@ -28,7 +28,7 @@ public:
 
     static ContactPhoneNumberMapper &instance();
 
-signals:
+Q_SIGNALS:
     /**
      * @brief contactsChanged is emitted whenever the ContactMapper has new data,
      * because a contact was added to KPeople
@@ -36,7 +36,7 @@ signals:
      */
     void contactsChanged(const QVector<PhoneNumber> phoneNumber);
 
-private slots:
+private Q_SLOTS:
     void processRows(const int first, const int last);
 
 private:

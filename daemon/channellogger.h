@@ -55,10 +55,10 @@ private:
 
     QStringList m_deferredIndicators;
 
-private slots:
+private Q_SLOTS:
     void handleDownloadedMessage(const QByteArray &response, const QString &url, const QDateTime &expires);
 
-signals:
+Q_SIGNALS:
     Q_SCRIPTABLE void messageAdded(const QString &phoneNumber, const QString &id);
     Q_SCRIPTABLE void manualDownloadFinished(const QString &id, const bool isEmpty);
 };

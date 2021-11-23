@@ -320,7 +320,7 @@ private:
         { 0x1D, u"pathVal",              u"textValue" }
     };
 
-signals:
+Q_SIGNALS:
     void downloadFinished(const QByteArray &data, const QString &url, const QDateTime &expires);
     void downloadError(const MmsMessage &message);
     void manualDownloadFinished(const QString &id, const bool isEmpty);

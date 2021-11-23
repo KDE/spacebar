@@ -136,10 +136,10 @@ private:
     PhoneNumberList m_phoneNumberList;
     QVector<Person> m_peopleData;
 
-private slots:
+private Q_SLOTS:
     void messagedAdded(const QString &numbers, const QString &id);
 
-signals:
+Q_SIGNALS:
     void phoneNumberListChanged();
     void peopleChanged();
 };

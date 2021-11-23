@@ -37,7 +37,7 @@ ChatListModel::ChatListModel(ChannelHandler &handler, QObject *parent)
 
             int i = std::distance(m_chats.begin(), chatIt);
             const auto row = index(i);
-            emit dataChanged(row, row, {Role::DisplayNameRole});
+            Q_EMIT dataChanged(row, row, {Role::DisplayNameRole});
         }
     });
 
@@ -50,7 +50,7 @@ ChatListModel::ChatListModel(ChannelHandler &handler, QObject *parent)
             return a.lastContacted > b.lastContacted; 
         });
         endResetModel();
-        emit chatsFetched();
+        Q_EMIT chatsFetched();
     });
 
     Q_EMIT m_handler.database().requestChats();
