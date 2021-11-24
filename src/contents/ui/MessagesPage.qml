@@ -917,6 +917,7 @@ Kirigami.ScrollablePage {
                             implicitHeight: (isImage ? attachImg.implicitHeight : layout.implicitHeight) + Kirigami.Units.devicePixelRatio * 2
                             border.width: Kirigami.Units.devicePixelRatio
                             border.color: Kirigami.Theme.alternateBackgroundColor
+                            color: Kirigami.Theme.backgroundColor
 
                             RowLayout {
                                 id: layout
