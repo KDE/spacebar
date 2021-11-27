@@ -23,7 +23,7 @@ public:
     QString m_phoneNumber;
     QString m_name;
 };
-Q_DECLARE_METATYPE(Person);
+Q_DECLARE_METATYPE(Person)
 
 class ChannelHandler;
 

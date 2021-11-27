@@ -42,7 +42,7 @@ struct MmsMessage {
     PhoneNumberList phoneNumberList;
     PhoneNumber ownNumber;
 };
-Q_DECLARE_METATYPE(MmsMessage);
+Q_DECLARE_METATYPE(MmsMessage)
 
 struct field_map {
     unsigned char id;

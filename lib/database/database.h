@@ -20,7 +20,7 @@ enum MessageState {
     Failed,
     Received
 };
-Q_DECLARE_METATYPE(MessageState);
+Q_DECLARE_METATYPE(MessageState)
 
 inline MessageState parseMessageState(const QString &state) {
     if (state == SL("pending")) {
@@ -53,7 +53,7 @@ struct Message {
     QDateTime expires;
     int size = 0;
 };
-Q_DECLARE_METATYPE(Message);
+Q_DECLARE_METATYPE(Message)
 
 struct Chat {
     PhoneNumberList phoneNumberList;
@@ -61,7 +61,7 @@ struct Chat {
     QString lastMessage;
     int unreadMessages;
 };
-Q_DECLARE_METATYPE(Chat);
+Q_DECLARE_METATYPE(Chat)
 
 class Database : public QObject
 {
