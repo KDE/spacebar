@@ -288,7 +288,7 @@ Kirigami.ScrollablePage {
             currentIndex: -1
 
             delegate: Kirigami.AbstractListItem {
-                width: parent.width || 0
+                width: parent ? parent.width : 0
                 backgroundColor: Kirigami.Theme.backgroundColor
 
                 contentItem: RowLayout {
@@ -893,7 +893,7 @@ Kirigami.ScrollablePage {
             Layout.fillWidth: true
             Layout.leftMargin: Kirigami.Units.smallSpacing
             Layout.rightMargin: Kirigami.Units.smallSpacing
-            color: Kirigami.Theme.backgroundColor
+            color: Kirigami.Theme.alternateBackgroundColor
             implicitWidth: flow.implicitWidth
             implicitHeight: flow.implicitHeight
 
@@ -916,8 +916,9 @@ Kirigami.ScrollablePage {
                             implicitWidth: (isImage ? attachImg.implicitWidth : layout.implicitWidth) + Kirigami.Units.devicePixelRatio * 2
                             implicitHeight: (isImage ? attachImg.implicitHeight : layout.implicitHeight) + Kirigami.Units.devicePixelRatio * 2
                             border.width: Kirigami.Units.devicePixelRatio
-                            border.color: Kirigami.Theme.alternateBackgroundColor
+                            border.color: Kirigami.ColorUtils.tintWithAlpha(color, Kirigami.Theme.textColor, 0.15)
                             color: Kirigami.Theme.backgroundColor
+                            radius: Kirigami.Units.largeSpacing
 
                             RowLayout {
                                 id: layout
@@ -955,6 +956,19 @@ Kirigami.ScrollablePage {
                                     } )
                                 }
 
+                                // rounded corners on image
+                                layer.enabled: true
+                                layer.effect: OpacityMask {
+                                    maskSource: Item {
+                                        width: attachImg.width
+                                        height: attachImg.height
+                                        Rectangle {
+                                            anchors.fill: parent
+                                            radius: Kirigami.Units.largeSpacing
+                                        }
+                                    }
+                                }
+
                                 AnimatedImage {
                                     source: parent.source && mimeType === "image/gif" ? parent.source : ""
                                     anchors.fill: parent
@@ -986,15 +1000,19 @@ Kirigami.ScrollablePage {
                 visible: files.count > 0
                 anchors.right: parent.right
                 anchors.bottom: parent.bottom
+                bottomPadding: textarea.lineCount === 1 && textarea.length > 0 ? Kirigami.Units.gridUnit : 0
                 text: files.count > 0 ? formatBytes(filesTotalSize()) : ""
-                color: Kirigami.Theme.textColor
+                color: Kirigami.Theme.disabledTextColor
             }
         }
 
-        Kirigami.ActionTextField {
-            id: field
+        Controls.TextArea {
+            id: textarea
             Layout.fillWidth: true
-            height: Kirigami.Units.gridUnit * 2
+            topPadding: Kirigami.Units.smallSpacing * 3
+            bottomPadding: Kirigami.Units.largeSpacing
+            leftPadding: attachAction.width + Kirigami.Units.smallSpacing
+            rightPadding: sendAction.width + Kirigami.Units.smallSpacing
             placeholderText: {
                 var number = Utils.sendingNumber()
                 if (number === "0") {
@@ -1003,41 +1021,60 @@ Kirigami.ScrollablePage {
                     return i18nc("%1 is a phone number", "Send Message from %1...", number)
                 }
             }
-            onAccepted: text !== "" && sendAction.triggered()
-            onPressed: Qt.callLater( listView.positionViewAtEnd )
-            leftActions: [
-                Kirigami.Action {
-                    visible: SettingsManager.mmsc != ""
-                    text: i18n("Attach")
-                    icon.name: "mail-attachment-symbolic"
-                    onTriggered: {
-                        fileDialog.open()
-                    }
-                }
-            ]
-            rightActions: [
-                Kirigami.Action {
-                    id: sendAction
-                    text: i18n("Send")
-                    icon.name: "document-send"
-                    enabled: (field.text.length !== 0 || files.count > 0) && !maxAttachmentsError.visible
-                    onTriggered: {
-                        messageModel.sendMessage(field.text, filesToList(), filesTotalSize())
-                        files.clear()
-                        field.text = ""
-                        msgPage.forceActiveFocus()
-                    }
-                }
-            ]
             font.pointSize: pointSize
-
-            Kirigami.InlineMessage {
-                id: duplicateNotify
-                width: parent.width
-                type: Kirigami.MessageType.Warning
-                text: i18n("Duplicate recipient")
-                visible: false
+            textFormat: Text.StyledText
+            wrapMode: Text.Wrap
+            background: Rectangle {
+                color: Kirigami.Theme.backgroundColor
             }
+            inputMethodHints: Qt.ImhNoPredictiveText
+
+            Controls.Button {
+                id: attachAction
+                anchors.left: parent.left
+                anchors.bottom: parent.bottom
+                anchors.margins: Kirigami.Units.smallSpacing
+                implicitWidth: Kirigami.Units.iconSizes.small * 2
+                icon.name: "mail-attachment-symbolic"
+                flat: true
+                hoverEnabled: false
+                onPressed: fileDialog.open()
+            }
+
+            Controls.Button {
+                id: sendAction
+                anchors.right: parent.right
+                anchors.bottom: parent.bottom
+                anchors.margins: Kirigami.Units.smallSpacing
+                implicitWidth: Kirigami.Units.iconSizes.small * 2
+                icon.name: "document-send"
+                hoverEnabled: false
+                enabled: (textarea.length > 0 || files.count > 0) && !maxAttachmentsError.visible
+                onPressed: {
+                    msgPage.forceActiveFocus()
+                    messageModel.sendMessage(textarea.text, filesToList(), filesTotalSize())
+                    files.clear()
+                    textarea.text = ""
+                }
+            }
+
+            Controls.Label {
+                text: textarea.length
+                font: Kirigami.Theme.smallFont
+                color: Kirigami.Theme.disabledTextColor
+                visible: textarea.length > 0
+                anchors.left: sendAction.left
+                anchors.bottom: sendAction.top
+                anchors.margins: Kirigami.Units.smallSpacing * 1.5
+            }
+        }
+
+        Kirigami.InlineMessage {
+            id: duplicateNotify
+            width: parent.width
+            type: Kirigami.MessageType.Warning
+            text: i18n("Duplicate recipient")
+            visible: false
         }
 
         FileDialog {
