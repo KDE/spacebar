@@ -429,7 +429,7 @@ Kirigami.ScrollablePage {
                 shadow.size: Kirigami.Units.smallSpacing
                 shadow.color: !model.isHighlighted ? Qt.rgba(0.0, 0.0, 0.0, 0.10) : Qt.rgba(Kirigami.Theme.textColor.r, Kirigami.Theme.textColor.g, Kirigami.Theme.textColor.b, 0.10)
                 border.color: Kirigami.ColorUtils.tintWithAlpha(color, Kirigami.Theme.textColor, 0.15)
-                border.width: Kirigami.Units.devicePixelRatio
+                border.width: 1
                 color: model.sentByMe ? listView.outgoingColor : listView.incomingColor
                 height: content.height + padding
                 width: content.width + padding * 1.5
@@ -648,7 +648,7 @@ Kirigami.ScrollablePage {
                         visible: modelText.truncated || content.clipped
                         Rectangle {
                             width: content.implicitWidth
-                            height: Kirigami.Units.devicePixelRatio
+                            height: 1
                             color: Kirigami.Theme.disabledTextColor
                         }
 
@@ -885,7 +885,7 @@ Kirigami.ScrollablePage {
 
         Rectangle {
             Layout.fillWidth: true
-            height: Kirigami.Units.devicePixelRatio
+            height: 1
             color: Kirigami.Theme.alternateBackgroundColor
         }
 
@@ -913,9 +913,9 @@ Kirigami.ScrollablePage {
                         Rectangle {
                             id: fileItem
                             anchors.centerIn: parent
-                            implicitWidth: (isImage ? attachImg.implicitWidth : layout.implicitWidth) + Kirigami.Units.devicePixelRatio * 2
-                            implicitHeight: (isImage ? attachImg.implicitHeight : layout.implicitHeight) + Kirigami.Units.devicePixelRatio * 2
-                            border.width: Kirigami.Units.devicePixelRatio
+                            implicitWidth: (isImage ? attachImg.implicitWidth : layout.implicitWidth) + 2
+                            implicitHeight: (isImage ? attachImg.implicitHeight : layout.implicitHeight) + 2
+                            border.width: 1
                             border.color: Kirigami.ColorUtils.tintWithAlpha(color, Kirigami.Theme.textColor, 0.15)
                             color: Kirigami.Theme.backgroundColor
                             radius: Kirigami.Units.largeSpacing

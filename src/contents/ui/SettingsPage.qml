@@ -60,7 +60,7 @@ Kirigami.ScrollablePage {
 
                     Rectangle {
                         anchors.fill: parent
-                        anchors.margins: Kirigami.Units.devicePixelRatio
+                        anchors.margins: 1
                         color: SettingsManager.incomingMessageColor
                     }
                 }
@@ -88,7 +88,7 @@ Kirigami.ScrollablePage {
 
                     Rectangle {
                         anchors.fill: parent
-                        anchors.margins: Kirigami.Units.devicePixelRatio
+                        anchors.margins: 1
                         color: SettingsManager.outgoingMessageColor
                     }
                 }
@@ -286,7 +286,7 @@ Kirigami.ScrollablePage {
                     height: parent.cellSize
                     background: Rectangle {
                         color: modelData
-                        border.width: Kirigami.Units.devicePixelRatio
+                        border.width: 1
                         border.color: Kirigami.Theme.disabledTextColor
                     }
                     onClicked: colorDialog.selected = modelData
