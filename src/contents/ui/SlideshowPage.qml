@@ -168,7 +168,7 @@ Kirigami.Page {
                     width: Math.min(page.width, implicitWidth)
                     text: modelData.text
                     wrapMode: Text.Wrap
-                    textFormat: Text.StyledText
+                    textFormat: Text.AutoText
                     linkColor: Kirigami.Theme.linkColor
                     color: Kirigami.Theme.textColor
                 }

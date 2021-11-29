@@ -31,7 +31,7 @@ Kirigami.ScrollablePage {
             Layout.maximumWidth: page.width - Kirigami.Units.largeSpacing * 2
             text: page.text
             wrapMode: Text.Wrap
-            textFormat: Text.StyledText
+            textFormat: Text.AutoText
             linkColor: Kirigami.Theme.linkColor
             color: Kirigami.Theme.textColor
             font.pointSize: pointSize
@@ -95,7 +95,7 @@ Kirigami.ScrollablePage {
                     width: Math.min(page.width, implicitWidth)
                     text: modelData.text
                     wrapMode: Text.Wrap
-                    //textFormat: Text.StyledText
+                    textFormat: Text.AutoText
                     linkColor: Kirigami.Theme.linkColor
                     color: Kirigami.Theme.textColor
                     font.pointSize: pointSize

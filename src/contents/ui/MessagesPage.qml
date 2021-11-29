@@ -483,7 +483,7 @@ Kirigami.ScrollablePage {
                         maximumLineCount: 12
                         text: model.text
                         wrapMode: Text.Wrap
-                        textFormat: Text.StyledText
+                        textFormat: Text.AutoText
                         linkColor: model.sentByMe ? Kirigami.Theme.highlightedTextColor : Kirigami.Theme.linkColor
                         color: content.textColor
                         font.pointSize: pointSize
@@ -635,7 +635,7 @@ Kirigami.ScrollablePage {
                                 text: modelData.text
                                 maximumLineCount: 12
                                 wrapMode: Text.Wrap
-                                textFormat: Text.StyledText
+                                textFormat: Text.AutoText
                                 linkColor: modelData.sentByMe ? Kirigami.Theme.highlightedTextColor : Kirigami.Theme.linkColor
                                 color: content.textColor
                                 font.pointSize: pointSize
@@ -1022,7 +1022,7 @@ Kirigami.ScrollablePage {
                 }
             }
             font.pointSize: pointSize
-            textFormat: Text.StyledText
+            textFormat: Text.AutoText
             wrapMode: Text.Wrap
             background: Rectangle {
                 color: Kirigami.Theme.backgroundColor
