@@ -165,4 +165,5 @@ void ChatListModel::restoreDefaults()
 void ChatListModel::saveSettings()
 {
     SettingsManager::self()->save();
+    Q_EMIT m_handler.interface()->syncSettings();
 }
