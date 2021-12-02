@@ -39,6 +39,7 @@
   <summary xml:lang="ca-valencia">Client Telepathy d'SMS/MMS</summary>
   <summary xml:lang="es">Cliente SMS/MMS de Telepathy</summary>
   <summary xml:lang="fr">Client « Telepathy » pour messages « SMS / MMS »</summary>
+  <summary xml:lang="it">Client di telepathy per SMS e MMS</summary>
   <summary xml:lang="ko">SMS/MMS Telepathy 클라이언트</summary>
   <summary xml:lang="nl">Client voor SMS/MMS van telepathy</summary>
   <summary xml:lang="pt">Cliente de SMS/MMS e Telepathy</summary>
@@ -88,6 +89,7 @@
     <p xml:lang="ca-valencia">L'Spacebar és un client del Telepathy per al Plasma Mobile, el qual està escrit principalment per a enviar i rebre SMS/MMS.</p>
     <p xml:lang="es">Spacebar es un cliente de Telepathy para Plasma Mobile, escrito principalmente para enviar y recibir SMS/MMS.</p>
     <p xml:lang="fr">Le logiciel Spacebar est un client « Telepathy » pour Plasma Mobile. Il a été développé initialement pour l'envoi et la réception de messages « SMS / MMS ».</p>
+    <p xml:lang="it">Spacebar è un client di telepathy per Plasma Mobile, che è stato scritto principalmente per inviare e per ricevere SMS e MMS.</p>
     <p xml:lang="ko">Spacebar는 Plasma 모바일용 Telepathy 클라이언트입니다. 주 사용 목적은 SMS/MMS 주고받기입니다.</p>
     <p xml:lang="nl">Spacebar is een client van telepathy voor Plasma Mobile, die primair is geschreven voor het verzenden en ontvangen van SMS/MMS.</p>
     <p xml:lang="pt">O Spacebar é um cliente de Telepathy para o Plasma Mobile, que foi criado principalmente para receber e enviar SMS/MMS.</p>
