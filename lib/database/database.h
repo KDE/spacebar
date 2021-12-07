@@ -32,7 +32,7 @@ inline MessageState parseMessageState(const QString &state) {
     }
 
     Q_UNREACHABLE();
-};
+}
 
 struct Message {
     QString id;
