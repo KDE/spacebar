@@ -1000,45 +1000,46 @@ Kirigami.ScrollablePage {
                 visible: files.count > 0
                 anchors.right: parent.right
                 anchors.bottom: parent.bottom
-                bottomPadding: textarea.lineCount === 1 && textarea.length > 0 ? Kirigami.Units.gridUnit : 0
+                bottomPadding: textarea.lineCount < 3 && textarea.length > 0 ? Kirigami.Units.gridUnit : 0
                 text: files.count > 0 ? formatBytes(filesTotalSize()) : ""
                 color: Kirigami.Theme.disabledTextColor
             }
         }
 
-        Controls.TextArea {
-            id: textarea
-            Layout.fillWidth: true
-            topPadding: Kirigami.Units.smallSpacing * 3
-            bottomPadding: Kirigami.Units.largeSpacing
-            leftPadding: attachAction.width + Kirigami.Units.smallSpacing
-            rightPadding: sendAction.width + Kirigami.Units.smallSpacing
-            placeholderText: {
-                var number = Utils.sendingNumber()
-                if (number === "0") {
-                    return i18n("Write Message...")
-                } else {
-                    return i18nc("%1 is a phone number", "Send Message from %1...", number)
-                }
-            }
-            font.pointSize: pointSize
-            textFormat: Text.AutoText
-            wrapMode: Text.Wrap
-            background: Rectangle {
-                color: Kirigami.Theme.backgroundColor
-            }
-            inputMethodHints: Qt.ImhNoPredictiveText
-
+        RowLayout {
             Controls.Button {
                 id: attachAction
                 anchors.left: parent.left
                 anchors.bottom: parent.bottom
                 anchors.margins: Kirigami.Units.smallSpacing
-                implicitWidth: Kirigami.Units.iconSizes.small * 2
                 icon.name: "mail-attachment-symbolic"
+                icon.width: Kirigami.Units.iconSizes.smallMedium
+                icon.height: Kirigami.Units.iconSizes.smallMedium
                 flat: true
                 hoverEnabled: false
                 onPressed: fileDialog.open()
+            }
+
+            Controls.TextArea {
+                id: textarea
+                Layout.fillWidth: true
+                Layout.minimumHeight: sendAction.height + Kirigami.Units.smallSpacing * 2
+                verticalAlignment: TextEdit.AlignVCenter
+                placeholderText: {
+                    var number = Utils.sendingNumber()
+                    if (number === "0") {
+                        return i18n("Write Message...")
+                    } else {
+                        return i18nc("%1 is a phone number", "Send Message from %1...", number)
+                    }
+                }
+                font.pointSize: pointSize
+                textFormat: Text.AutoText
+                wrapMode: Text.Wrap
+                background: Rectangle {
+                    color: Kirigami.Theme.backgroundColor
+                }
+                inputMethodHints: Qt.ImhNoPredictiveText
             }
 
             Controls.Button {
@@ -1046,8 +1047,9 @@ Kirigami.ScrollablePage {
                 anchors.right: parent.right
                 anchors.bottom: parent.bottom
                 anchors.margins: Kirigami.Units.smallSpacing
-                implicitWidth: Kirigami.Units.iconSizes.small * 2
                 icon.name: "document-send"
+                icon.width: Kirigami.Units.iconSizes.smallMedium
+                icon.height: Kirigami.Units.iconSizes.smallMedium
                 hoverEnabled: false
                 enabled: (textarea.length > 0 || files.count > 0) && !maxAttachmentsError.visible
                 onPressed: {
