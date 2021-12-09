@@ -12,7 +12,14 @@
 using namespace i18n;
 
 struct PhoneNumberPrivate : QSharedData {
+    enum Representation {
+        Parsed,
+        String
+    };
+
     i18n::phonenumbers::PhoneNumber number;
+    QString numberString;
+    Representation representation;
 };
 
 std::string countryCode() {
@@ -36,7 +43,12 @@ PhoneNumber::PhoneNumber(const QString &number)
     static auto country = countryCode();
 
     auto error = phonenumbers::PhoneNumberUtil::GetInstance()->Parse(number.toStdString(), country, &d->number);
-    Q_UNUSED(error); // TODO
+    if (error == phonenumbers::PhoneNumberUtil::ErrorType::NO_PARSING_ERROR) {
+        d->representation = PhoneNumberPrivate::Parsed;
+    } else {
+        d->numberString = number;
+        d->representation = PhoneNumberPrivate::String;
+    }
 }
 
 
@@ -45,31 +57,54 @@ bool PhoneNumber::operator==(const PhoneNumber &other) const
     if (!isValid()) {
         return false;
     }
-    return phonenumbers::PhoneNumberUtil::GetInstance()->IsNumberMatch(d->number, other.d->number) == phonenumbers::PhoneNumberUtil::EXACT_MATCH;
+    if (d->representation == PhoneNumberPrivate::Parsed && other.d->representation == PhoneNumberPrivate::Parsed) {
+        return phonenumbers::PhoneNumberUtil::GetInstance()->IsNumberMatch(d->number, other.d->number) == phonenumbers::PhoneNumberUtil::EXACT_MATCH;
+    } else if (d->representation == PhoneNumberPrivate::String && other.d->representation == PhoneNumberPrivate::String) {
+        return d->numberString == other.d->numberString;
+    }
+
+    // The same input cannot be successfully parsed one time and the other time not, so assume false here
+    return false;
 }
 
 QString PhoneNumber::toInternational() const
 {
-    std::string formattedNumber;
-    phonenumbers::PhoneNumberUtil::GetInstance()->Format(d->number, phonenumbers::PhoneNumberUtil::PhoneNumberFormat::INTERNATIONAL, &formattedNumber);
-    return QString::fromStdString(formattedNumber);
+    if (d->representation == PhoneNumberPrivate::Parsed) {
+        std::string formattedNumber;
+        phonenumbers::PhoneNumberUtil::GetInstance()->Format(d->number, phonenumbers::PhoneNumberUtil::PhoneNumberFormat::INTERNATIONAL, &formattedNumber);
+        return QString::fromStdString(formattedNumber);
+    } else {
+        return d->numberString;
+    }
 }
 
 QString PhoneNumber::toNational() const
 {
-    std::string formattedNumber;
-    phonenumbers::PhoneNumberUtil::GetInstance()->Format(d->number, phonenumbers::PhoneNumberUtil::PhoneNumberFormat::NATIONAL, &formattedNumber);
-    return QString::fromStdString(formattedNumber);
+    if (d->representation == PhoneNumberPrivate::Parsed) {
+        std::string formattedNumber;
+        phonenumbers::PhoneNumberUtil::GetInstance()->Format(d->number, phonenumbers::PhoneNumberUtil::PhoneNumberFormat::NATIONAL, &formattedNumber);
+        return QString::fromStdString(formattedNumber);
+    } else {
+        return d->numberString;
+    }
 }
 
 QString PhoneNumber::toE164() const
 {
-    std::string formattedNumber;
-    phonenumbers::PhoneNumberUtil::GetInstance()->Format(d->number, phonenumbers::PhoneNumberUtil::PhoneNumberFormat::E164, &formattedNumber);
-    return QString::fromStdString(formattedNumber);
+    if (d->representation == PhoneNumberPrivate::Parsed) {
+        std::string formattedNumber;
+        phonenumbers::PhoneNumberUtil::GetInstance()->Format(d->number, phonenumbers::PhoneNumberUtil::PhoneNumberFormat::E164, &formattedNumber);
+        return QString::fromStdString(formattedNumber);
+    } else {
+        return d->numberString;
+    }
 }
 
 bool PhoneNumber::isValid() const
 {
-    return d->number.IsInitialized();
+    if (d->representation == PhoneNumberPrivate::Parsed) {
+        return d->number.IsInitialized();
+    } else {
+        return !d->numberString.isEmpty();
+    }
 }
