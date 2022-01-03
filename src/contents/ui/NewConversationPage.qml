@@ -47,7 +47,9 @@ Kirigami.ScrollablePage {
                     text: i18n("Compose")
                     onClicked: {
                         pageStack.pop()
-                        ChatListModel.startChat(Utils.phoneNumberList(selected.map(o => o.phoneNumber)))
+                        let numbers = selected.map(o => o.phoneNumber)
+                        if (numbers.length === 0) numbers.push(searchField.text)
+                        ChatListModel.startChat(Utils.phoneNumberList(numbers))
                     }
                 }
             }
