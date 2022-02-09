@@ -18,6 +18,8 @@ add_executable(spacebar ${spacebar_SRCS})
 
 kconfig_add_kcfg_files(spacebar settingsmanager.kcfgc GENERATE_MOC)
 
+add_dependencies(spacebar spacebar-daemon)
+
 target_include_directories(spacebar PRIVATE ${CMAKE_BINARY_DIR})
 target_compile_definitions(spacebar PRIVATE -DQT_NO_CAST_FROM_ASCII)
 target_link_libraries(spacebar
