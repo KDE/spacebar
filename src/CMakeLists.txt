@@ -39,7 +39,16 @@ target_link_libraries(spacebar
     kTelephonySupport
     macros
     mms
-    QCoro::QCoroCore
-    QCoro::QCoroDBus
 )
+if (TARGET QCoro5::Core)
+    target_link_libraries(spacebar
+        QCoro::Core
+        QCoro::DBus
+    )
+else()
+    target_link_libraries(spacebar
+        QCoro::QCoroCore
+        QCoro::QCoroDBus
+    )
+endif()
 install(TARGETS spacebar ${KF5_INSTALL_TARGETS_DEFAULT_ARGS})
