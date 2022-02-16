@@ -32,6 +32,7 @@
   <name xml:lang="tg">Фосилагузор</name>
   <name xml:lang="uk">Spacebar</name>
   <name xml:lang="x-test">xxSpacebarxx</name>
+  <name xml:lang="zh-CN">Spacebar</name>
   <name xml:lang="zh-TW">空間列</name>
   <summary>SMS/MMS telepathy client</summary>
   <summary xml:lang="az">SMS/MMS telepaty müştərisi</summary>
@@ -50,6 +51,7 @@
   <summary xml:lang="sv">SMS/MMS Telepathy-klient</summary>
   <summary xml:lang="uk">Клієнт SMS/MMS telepathy</summary>
   <summary xml:lang="x-test">xxSMS/MMS telepathy clientxx</summary>
+  <summary xml:lang="zh-CN">短信/彩信客户端</summary>
   <metadata_license>CC0-1.0</metadata_license>
   <project_license>GPL-2.0-or-later</project_license>
   <developer_name>KDE Community</developer_name>
@@ -83,6 +85,7 @@
   <developer_name xml:lang="tg">Ҷамъияти KDE</developer_name>
   <developer_name xml:lang="uk">Спільнота KDE</developer_name>
   <developer_name xml:lang="x-test">xxKDE Communityxx</developer_name>
+  <developer_name xml:lang="zh-CN">KDE 社区</developer_name>
   <developer_name xml:lang="zh-TW">KDE 社群</developer_name>
   <description>
     <p>Spacebar is a telepathy client for Plasma Mobile, that is primarily written for sending and receiving SMS/MMS.</p>
@@ -102,6 +105,7 @@
     <p xml:lang="sv">Spacebar är en Telepathy-klient för Plasma Mobil, som i huvudsak är skriven för att skicka och ta emot SMS/MMS.</p>
     <p xml:lang="uk">Spacebar — клієнт telepathy для мобільної версії Плазми. Основним завданням програми є надсилання і отримання SMS/MMS.</p>
     <p xml:lang="x-test">xxSpacebar is a telepathy client for Plasma Mobile, that is primarily written for sending and receiving SMS/MMS.xx</p>
+    <p xml:lang="zh-CN">Spacebar 是为 Plasma Mobile 设计的短消息客户端。它的主要功能是用来收发短信和彩信。</p>
   </description>
   <url type="bugtracker">https://invent.kde.org/plasma-mobile/spacebar/-/issues</url>
   <releases>
