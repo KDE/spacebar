@@ -23,5 +23,6 @@ Name[sl]=Spacebar storitev v ozadju
 Name[sv]=Spacebar bakgrundstjänst
 Name[uk]=Фонова служба Spacebar
 Name[x-test]=xxSpacebar background servicexx
+Name[zh_CN]=Spacebar 后台服务
 Exec=@CMAKE_INSTALL_FULL_LIBEXECDIR@/spacebar-daemon
 Type=Application
