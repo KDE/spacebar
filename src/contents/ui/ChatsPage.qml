@@ -14,60 +14,30 @@ Kirigami.ScrollablePage {
     id: chatPage
     title: i18n("Chats")
     supportsRefreshing: true
+    
     actions {
         main: Kirigami.Action {
+            visible: !Kirigami.Settings.isMobile
             text: i18n("New Conversation")
             onTriggered: pageStack.push("qrc:/NewConversationPage.qml", { isNew: true })
             icon.name: "contact-new"
         }
-    }
-
-    actions.contextualActions: [
-        Kirigami.Action {
-            displayHint: Kirigami.Action.AlwaysHide
-            iconName: "settings-configure"
-            text: i18n("Settings")
-            onTriggered: {
-                pageStack.layers.push("qrc:/SettingsPage.qml", {"chatListModel": ChatListModel})
+        
+        contextualActions: [
+            Kirigami.Action {
+                displayHint: Kirigami.Action.IconOnly
+                iconName: "settings-configure"
+                text: i18n("Settings")
+                onTriggered: {
+                    applicationWindow().pageStack.push("qrc:/SettingsPage.qml", {"chatListModel": ChatListModel})
+                }
             }
-        },
-        Kirigami.Action {
-            displayHint: Kirigami.Action.AlwaysHide
-            iconName: "help-about-symbolic"
-            text: i18n("About")
-            onTriggered: pageStack.layers.push("qrc:/AboutPage.qml")
-        }
-    ]
+        ]
+    }
 
     onRefreshingChanged: {
         if (refreshing) {
             ChatListModel.fetchChats()
-        }
-    }
-
-    Kirigami.PlaceholderMessage {
-        anchors.centerIn: parent
-        text: i18n("No chats yet")
-        helpfulAction: actions.main
-
-        visible: listView.count === 0
-    }
-
-    Connections {
-        target: ChatListModel
-        function onChatStarted (messageModel) {
-            let isNew = false
-
-            // Don't open two MessagesPages at the same time
-            if (pageStack.currentItem.hasOwnProperty("messageModel")) {
-                pageStack.pop()
-                isNew = true
-            }
-
-            Qt.callLater(pageStack.push, "qrc:/MessagesPage.qml", {"messageModel": messageModel, isNew: isNew})
-        }
-        function onChatsFetched () {
-            chatPage.refreshing = false
         }
     }
 
@@ -76,6 +46,41 @@ Kirigami.ScrollablePage {
         model: ChatListModel
 
         reuseItems: true
+        
+        Connections {
+            target: ChatListModel
+            function onChatStarted (messageModel) {
+                let isNew = false
+
+                // Don't open two MessagesPages at the same time
+                if (pageStack.currentItem.hasOwnProperty("messageModel")) {
+                    pageStack.pop()
+                    isNew = true
+                }
+
+                Qt.callLater(pageStack.push, "qrc:/MessagesPage.qml", {"messageModel": messageModel, isNew: isNew})
+            }
+            function onChatsFetched () {
+                chatPage.refreshing = false
+            }
+        }
+        
+        Kirigami.PlaceholderMessage {
+            anchors.centerIn: parent
+            text: i18n("Create a chat")
+            icon.name: "dialog-messages"
+            helpfulAction: actions.main
+
+            visible: listView.count === 0
+        }
+        
+        // mobile add action
+        FloatingActionButton {
+            anchors.fill: parent
+            iconName: "list-add"
+            onClicked: pageStack.push("qrc:/NewConversationPage.qml", { isNew: true })
+            visible: Kirigami.Settings.isMobile
+        }
 
         delegate: Kirigami.SwipeListItem {
             id: delegateRoot

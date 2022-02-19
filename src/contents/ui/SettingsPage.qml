@@ -19,6 +19,9 @@ Kirigami.ScrollablePage {
 
     Component.onDestruction: if (chatListModel) chatListModel.saveSettings()
 
+    width: applicationWindow().width
+    Kirigami.ColumnView.fillWidth: true
+    
     Kirigami.FormLayout {
         MouseArea {
             anchors.fill: parent
@@ -232,7 +235,7 @@ Kirigami.ScrollablePage {
 
         Kirigami.Heading {
             Kirigami.FormData.isSection: true
-            text: i18n("Defaults")
+            text: i18n("Other")
         }
 
         Controls.Button {
@@ -244,6 +247,12 @@ Kirigami.ScrollablePage {
                 SettingsManager.mmsc = server
                 SettingsManager.mmsProxy = proxy
             }
+        }
+        
+        Controls.Button {
+            text: i18n("About")
+            icon.name: "help-about-symbolic"
+            onClicked: applicationWindow().pageStack.push("qrc:/AboutPage.qml")
         }
     }
 

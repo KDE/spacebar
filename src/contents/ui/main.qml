@@ -15,6 +15,29 @@ Kirigami.ApplicationWindow {
         id: contextDrawer
     }
 
-    pageStack.globalToolBar.canContainHandles: true
     pageStack.initialPage: "qrc:/ChatsPage.qml"
+    
+    pageStack.globalToolBar.canContainHandles: true
+    pageStack.globalToolBar.style: Kirigami.ApplicationHeaderStyle.ToolBar
+    pageStack.globalToolBar.showNavigationButtons: Kirigami.ApplicationHeaderStyle.ShowBackButton;
+    
+    // pop pages when not in use
+    Connections {
+        target: applicationWindow().pageStack
+        function onCurrentIndexChanged() {
+            // wait for animation to finish before popping pages
+            popPageTimer.restart();
+        }
+    }
+    
+    Timer {
+        id: popPageTimer
+        interval: 300
+        onTriggered: {
+            let currentIndex = applicationWindow().pageStack.currentIndex;
+            while (applicationWindow().pageStack.depth > (currentIndex + 1) && currentIndex >= 0) {
+                applicationWindow().pageStack.pop();
+            }
+        }
+    }
 }

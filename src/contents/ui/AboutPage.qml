@@ -10,4 +10,5 @@ import org.kde.spacebar 1.0
 
 Kirigami.AboutPage {
     aboutData: AboutType.aboutData
+    Kirigami.ColumnView.fillWidth: true
 }
