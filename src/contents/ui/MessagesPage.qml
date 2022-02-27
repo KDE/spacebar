@@ -882,24 +882,25 @@ Kirigami.ScrollablePage {
 
     footer: ColumnLayout {
         spacing: 0
+        width: parent.width
 
-        Rectangle {
+        Controls.ScrollView {
+            id: scrollView
             Layout.fillWidth: true
-            height: 1
-            color: Kirigami.Theme.alternateBackgroundColor
-        }
-
-        Rectangle {
-            Layout.fillWidth: true
-            Layout.leftMargin: Kirigami.Units.smallSpacing
-            Layout.rightMargin: Kirigami.Units.smallSpacing
-            color: Kirigami.Theme.alternateBackgroundColor
+            bottomPadding: 0
             implicitWidth: flow.implicitWidth
-            implicitHeight: flow.implicitHeight
+            implicitHeight: files.count > 0 ? Math.min(msgPage.availableHeight - composeArea.height - Kirigami.Units.largeSpacing, flow.implicitHeight) : 1
+            contentWidth: availableWidth
+            contentHeight: flow.implicitHeight
+            clip: true
+            background: Rectangle {
+                color: Kirigami.Theme.alternateBackgroundColor
+            }
 
             Flow {
                 id: flow
                 anchors.fill: parent
+                padding: Kirigami.Units.smallSpacing
                 spacing: 0
 
                 Repeater {
@@ -944,7 +945,7 @@ Kirigami.ScrollablePage {
                                 id: attachImg
                                 anchors.centerIn: parent
                                 source: isImage ? filePath : ""
-                                sourceSize.height: Kirigami.Units.gridUnit * 4
+                                sourceSize.height: Kirigami.Units.gridUnit * 8
                                 cache: false
                                 fillMode: Image.PreserveAspectCrop
 
@@ -981,11 +982,11 @@ Kirigami.ScrollablePage {
                             anchors.top: parent.top
                             icon.name: "remove"
                             icon.color: Kirigami.Theme.negativeTextColor
-                            icon.width: Kirigami.Units.gridUnit
-                            icon.height: Kirigami.Units.gridUnit
+                            icon.width: Kirigami.Units.gridUnit * 1.5
+                            icon.height: Kirigami.Units.gridUnit * 1.5
                             padding: 0
-                            width: Kirigami.Units.gridUnit
-                            height: Kirigami.Units.gridUnit
+                            width: Kirigami.Units.gridUnit * 1.5
+                            height: Kirigami.Units.gridUnit * 1.5
                             onPressed: files.remove(index)
                             Controls.ToolTip.delay: 1000
                             Controls.ToolTip.timeout: 5000
@@ -1007,11 +1008,12 @@ Kirigami.ScrollablePage {
         }
 
         RowLayout {
+            id: composeArea
+
             Controls.Button {
                 id: attachAction
-                anchors.left: parent.left
-                anchors.bottom: parent.bottom
-                anchors.margins: Kirigami.Units.smallSpacing
+                Layout.alignment: Qt.AlignLeft | Qt.AlignBottom
+                Layout.margins: Kirigami.Units.smallSpacing
                 icon.name: "mail-attachment-symbolic"
                 icon.width: Kirigami.Units.iconSizes.smallMedium
                 icon.height: Kirigami.Units.iconSizes.smallMedium
@@ -1060,25 +1062,24 @@ Kirigami.ScrollablePage {
                         textarea.text = ""
                     }
                 }
-                anchors.right: parent.right
-                anchors.bottom: parent.bottom
-                anchors.margins: Kirigami.Units.smallSpacing
+                Layout.alignment: Qt.AlignRight | Qt.AlignBottom
+                Layout.margins: Kirigami.Units.smallSpacing
                 icon.name: "document-send"
                 icon.width: Kirigami.Units.iconSizes.smallMedium
                 icon.height: Kirigami.Units.iconSizes.smallMedium
                 hoverEnabled: false
                 enabled: (textarea.length > 0 || files.count > 0) && !maxAttachmentsError.visible
                 onPressed: action.trigger()
-            }
 
-            Controls.Label {
-                text: textarea.length
-                font: Kirigami.Theme.smallFont
-                color: Kirigami.Theme.disabledTextColor
-                visible: textarea.length > 0
-                anchors.left: sendAction.left
-                anchors.bottom: sendAction.top
-                anchors.margins: Kirigami.Units.smallSpacing * 1.5
+                Controls.Label {
+                    text: textarea.length
+                    font: Kirigami.Theme.smallFont
+                    color: Kirigami.Theme.disabledTextColor
+                    visible: textarea.length > 0
+                    anchors.left: parent.left
+                    anchors.bottom: parent.top
+                    anchors.margins: Kirigami.Units.smallSpacing * 1.5
+                }
             }
         }
 
