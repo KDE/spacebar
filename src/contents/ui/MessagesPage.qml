@@ -1041,9 +1041,25 @@ Kirigami.ScrollablePage {
                 }
                 inputMethodHints: Qt.ImhNoPredictiveText
             }
+            
+            Item {
+                Shortcut{
+                    id: sendShortcut
+                    sequences: ["Ctrl+Enter", "Ctrl+Return"]
+                    onActivated: sendAction.action.trigger()
+                }
+            }
 
             Controls.Button {
                 id: sendAction
+                action: Controls.Action {
+                    onTriggered: {
+                        msgPage.forceActiveFocus()
+                        messageModel.sendMessage(textarea.text, filesToList(), filesTotalSize())
+                        files.clear()
+                        textarea.text = ""
+                    }
+                }
                 anchors.right: parent.right
                 anchors.bottom: parent.bottom
                 anchors.margins: Kirigami.Units.smallSpacing
@@ -1052,12 +1068,7 @@ Kirigami.ScrollablePage {
                 icon.height: Kirigami.Units.iconSizes.smallMedium
                 hoverEnabled: false
                 enabled: (textarea.length > 0 || files.count > 0) && !maxAttachmentsError.visible
-                onPressed: {
-                    msgPage.forceActiveFocus()
-                    messageModel.sendMessage(textarea.text, filesToList(), filesTotalSize())
-                    files.clear()
-                    textarea.text = ""
-                }
+                onPressed: action.trigger()
             }
 
             Controls.Label {
