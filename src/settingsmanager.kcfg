@@ -76,4 +76,14 @@
             <default>true</default>
         </entry>
     </group>
+    <group name="Notifications">
+        <entry name="showSenderInfo" type="Bool">
+            <label>Show sender name / number</label>
+            <default>true</default>
+        </entry>
+        <entry name="showMessageContent" type="Bool">
+            <label>Show a preview of the message content</label>
+            <default>true</default>
+        </entry>
+    </group>
 </kcfg>

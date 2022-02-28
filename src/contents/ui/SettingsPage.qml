@@ -235,6 +235,26 @@ Kirigami.ScrollablePage {
 
         Kirigami.Heading {
             Kirigami.FormData.isSection: true
+            text: i18n("Notifications")
+        }
+
+        Controls.CheckBox {
+            id: showSenderInfo
+            checked: SettingsManager.showSenderInfo
+            text: i18n("Show sender name / number")
+            onToggled: SettingsManager.showSenderInfo = checked
+        }
+
+        Controls.CheckBox {
+            id: showMessageContent
+            checked: SettingsManager.showMessageContent
+            text: i18n("Show a preview of the message content")
+            onToggled: SettingsManager.showMessageContent = checked
+        }
+
+
+        Kirigami.Heading {
+            Kirigami.FormData.isSection: true
             text: i18n("Other")
         }
 

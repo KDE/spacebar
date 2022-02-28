@@ -235,23 +235,31 @@ void ChannelLogger::saveMessage(
         return;
     }
 
-    QString notificationText = text;
-    if (!attachments.isEmpty()) {
-        int attachmentCount = attachments.count(SL("fileName"));
-        notificationText = QString::number(attachmentCount) + SL(" ");
-        notificationText.append(attachmentCount > 1 ? i18n("Attachments") : i18n("Attachment"));
+    QString notificationText;
+    if (SettingsManager::self()->showMessageContent()) {
+        notificationText = text;
+        notificationText.truncate(200);
+        if (!attachments.isEmpty()) {
+            int attachmentCount = attachments.count(SL("fileName"));
+            notificationText = QString::number(attachmentCount) + SL(" ");
+            notificationText.append(attachmentCount > 1 ? i18n("Attachments") : i18n("Attachment"));
+        }
     }
 
-    const PhoneNumber from = fromNumber.isEmpty() ? phoneNumberList.first() : PhoneNumber(fromNumber);
-    QString name = KPeople::PersonData(ContactPhoneNumberMapper::instance().uriForNumber(from), this).name();
-    if (name.isEmpty()) {
-        name = from.toNational();
+    QString title = i18n("New message");
+    if (SettingsManager::self()->showSenderInfo()) {
+        const PhoneNumber from = fromNumber.isEmpty() ? phoneNumberList.first() : PhoneNumber(fromNumber);
+        title = KPeople::PersonData(ContactPhoneNumberMapper::instance().uriForNumber(from), this).name();
+        if (title.isEmpty()) {
+            title = from.toNational();
+        }
+        title = i18n("Message from %1", title);
     }
 
     auto *notification = new KNotification(QStringLiteral("incomingMessage"));
     notification->setComponentName(SL("spacebar"));
     notification->setIconName(SL("org.kde.spacebar"));
-    notification->setTitle(i18n("Message from %1", name));
+    notification->setTitle(title);
     notification->setText(notificationText);
     notification->setDefaultAction(i18nc("@action open message in application", "Open"));
     notification->sendEvent();
