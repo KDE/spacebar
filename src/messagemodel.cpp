@@ -235,10 +235,10 @@ void MessageModel::sendMessage(const QString &text, const QStringList &files, co
     }();
 }
 
-QPair<Message *, int> MessageModel::getMessageIndex(const QString &path)
+QPair<Message *, int> MessageModel::getMessageIndex(const QString &id)
 {
     auto modelIt = std::find_if(m_messages.begin(), m_messages.end(), [&](const Message &message) {
-        return message.id == path;
+        return message.id == id;
     });
 
     Q_ASSERT(modelIt != m_messages.cend());
@@ -247,14 +247,14 @@ QPair<Message *, int> MessageModel::getMessageIndex(const QString &path)
     return qMakePair(modelIt, i);
 }
 
-void MessageModel::updateMessageState(const QString &msgPath, MessageState state, const bool temp)
+void MessageModel::updateMessageState(const QString &id, MessageState state, const bool temp)
 {
-    const auto idx = getMessageIndex(msgPath);
+    const auto idx = getMessageIndex(id);
 
     idx.first->deliveryStatus = state;
 
     if (!temp) {
-        Q_EMIT m_handler.database().requestUpdateMessageDeliveryState(msgPath, state);
+        Q_EMIT m_handler.database().requestUpdateMessageDeliveryState(id, state);
     }
 
     Q_EMIT dataChanged(index(idx.second), index(idx.second), {Role::DeliveryStateRole});
@@ -267,6 +267,7 @@ QCoro::Task<QString> MessageModel::sendMessageInternal(const PhoneNumber &phoneN
     m.text = text;//Utils::textToHtml(text);
 
     Message message;
+    message.id = Database::generateRandomId();
     message.phoneNumberList = PhoneNumberList(phoneNumber.toInternational());
     message.text = text;//Utils::textToHtml(text);
     message.datetime = QDateTime::currentDateTime();
@@ -278,7 +279,6 @@ QCoro::Task<QString> MessageModel::sendMessageInternal(const PhoneNumber &phoneN
     auto maybeReply = ModemController::instance().createMessage(m);
 
     if (!maybeReply) {
-        message.id = Database::generateRandomId();
         message.deliveryStatus = MessageState::Failed;
         addMessage(message);
         co_return QStringLiteral("No modem");
@@ -287,26 +287,22 @@ QCoro::Task<QString> MessageModel::sendMessageInternal(const PhoneNumber &phoneN
     const QDBusReply<QDBusObjectPath> msgPathResult = co_await *maybeReply;
 
     if (!msgPathResult.isValid()) {
-        message.id = Database::generateRandomId();
         message.deliveryStatus = MessageState::Failed;
         addMessage(message);
         co_return msgPathResult.error().message();
     }
 
-    const QString msgPath = msgPathResult.value().path();
-
-    message.id = msgPath;
     // Add message to model
     addMessage(message);
 
-    ModemManager::Sms::Ptr mmMessage = QSharedPointer<ModemManager::Sms>::create(msgPath);
+    ModemManager::Sms::Ptr mmMessage = QSharedPointer<ModemManager::Sms>::create(msgPathResult.value().path());
 
-    connect(mmMessage.get(), &ModemManager::Sms::stateChanged, this, [mmMessage, msgPath, this] {
+    connect(mmMessage.get(), &ModemManager::Sms::stateChanged, this, [mmMessage, message, this] {
         qDebug() << "state changed" << mmMessage->state();
 
         switch (mmMessage->state()) {
             case MM_SMS_STATE_SENT:
-                updateMessageState(msgPath, MessageState::Sent);
+                updateMessageState(message.id, MessageState::Sent);
                 break;
             case MM_SMS_STATE_RECEIVED:
                 // Should not happen
@@ -317,13 +313,13 @@ QCoro::Task<QString> MessageModel::sendMessageInternal(const PhoneNumber &phoneN
                 qWarning() << "Receiving a message we sent";
                 break;
             case MM_SMS_STATE_SENDING:
-                updateMessageState(msgPath, MessageState::Pending);
+                updateMessageState(message.id, MessageState::Pending);
                 break;
             case MM_SMS_STATE_STORED:
-                updateMessageState(msgPath, MessageState::Pending);
+                updateMessageState(message.id, MessageState::Pending);
                 break;
             case MM_SMS_STATE_UNKNOWN:
-                updateMessageState(msgPath, MessageState::Unknown);
+                updateMessageState(message.id, MessageState::Unknown);
                 break;
         }
     });
@@ -338,7 +334,7 @@ QCoro::Task<QString> MessageModel::sendMessageInternal(const PhoneNumber &phoneN
     QDBusReply<void> sendResult = co_await mmMessage->send();
 
     if (!sendResult.isValid()) {
-        updateMessageState(msgPath, MessageState::Failed);
+        updateMessageState(message.id, MessageState::Failed);
         co_return sendResult.error().message();
     }
 

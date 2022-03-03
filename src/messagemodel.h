@@ -126,8 +126,8 @@ public:
 private:
     QCoro::Task<QString> sendMessageInternal(const PhoneNumber &phoneNumber, const QString &text);
     QCoro::Task<QString> sendMessageInternalMms(const PhoneNumberList &phoneNumberList, const QString &text, const QStringList &files, const long totalSize);
-    QPair<Message *, int> getMessageIndex(const QString &path);
-    void updateMessageState(const QString &path, MessageState state, const bool temp = false);
+    QPair<Message *, int> getMessageIndex(const QString &id);
+    void updateMessageState(const QString &id, MessageState state, const bool temp = false);
 
     ChannelHandler &m_handler;
     QVector<Message> m_messages;

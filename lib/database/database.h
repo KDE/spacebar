@@ -97,6 +97,7 @@ private:
     void migrationV2(uint current);
     void migrationV3(uint current);
     void migrationV4(uint current);
+    void migrationV5(uint current);
     void migrate();
 
     QSqlDatabase m_database;

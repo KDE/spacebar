@@ -17,13 +17,13 @@
 #include <global.h>
 
 constexpr auto ID_LEN = 10;
-constexpr auto DATABASE_REVISION = 4; // Keep MIGRATE_TO_LATEST_FROM in sync
+constexpr auto DATABASE_REVISION = 5; // Keep MIGRATE_TO_LATEST_FROM in sync
 #define MIGRATE_TO(n, current) \
     if (current < n) { \
         qDebug() << "Running migration" << #n; \
         migrationV##n(current); \
     }
-#define MIGRATE_TO_LATEST_FROM(current) MIGRATE_TO(4, current)
+#define MIGRATE_TO_LATEST_FROM(current) MIGRATE_TO(5, current)
 
 enum Column {
     IdColumn = 0,
@@ -451,4 +451,13 @@ void Database::migrationV4(uint current)
     Database::exec(addMmsColumns);
     addMmsColumns.prepare(SL("ALTER TABLE Messages ADD COLUMN size INTEGER;"));
     Database::exec(addMmsColumns);
+}
+
+void Database::migrationV5(uint current)
+{
+    MIGRATE_TO(4, current);
+
+    QSqlQuery fixDuplicateIds(m_database);
+    fixDuplicateIds.prepare(SL("UPDATE Messages SET id = ROWID WHERE LENGTH(id) <> 10;"));
+    Database::exec(fixDuplicateIds);
 }
