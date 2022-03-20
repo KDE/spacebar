@@ -564,6 +564,7 @@ Kirigami.ScrollablePage {
                                 color: content.textColor
                                 font.pointSize: pointSize
                                 Component.onCompleted: content.clipped = truncated
+                                onLinkActivated: Qt.openUrlExternally(link)
                             }
                         }
                     }
