@@ -17,7 +17,6 @@
 // Models
 #include "chatlistmodel.h"
 #include "messagemodel.h"
-#include "contactmodel.h"
 
 #include <contactphonenumbermapper.h>
 #include "version.h"
@@ -94,7 +93,6 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
     qmlRegisterAnonymousType<QAbstractItemModel>(APPLICATION_ID, 1);
     qmlRegisterSingletonInstance<Utils>(APPLICATION_ID, 1, 0, "Utils", Utils::instance());
     qmlRegisterSingletonInstance("org.kde.spacebar", 1, 0, "SettingsManager", SettingsManager::self());
-    qmlRegisterType<ContactModel>(APPLICATION_ID, 1, 0, "ContactModel");
     qRegisterMetaType<PhoneNumber>();
     qRegisterMetaType<PhoneNumberList>();
     engine.rootContext()->setContextObject(new KLocalizedContext(&engine));

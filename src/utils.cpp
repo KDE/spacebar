@@ -12,6 +12,9 @@
 #include <QClipboard>
 
 #include <KTextToHTML>
+#include <KContacts/VCardConverter>
+#include <KPeople/KPeopleBackend/AbstractContact>
+#include <KPeople/PersonData>
 
 #include <ranges>
 
@@ -21,6 +24,23 @@ Utils *Utils::s_instance = nullptr;
 
 namespace ranges = std::ranges;
 
+template<typename T>
+static QVariantList toVariantList(const QVector<T> &v)
+{
+    QVariantList l;
+    l.reserve(v.size());
+    std::transform(v.begin(), v.end(), std::back_inserter(l), [](const T &elem) {
+        return QVariant::fromValue(elem);
+    });
+    return l;
+}
+
+const static KContacts::VCardConverter converter;
+
+static QSharedPointer<KPeople::PersonData> contactData(const QString &uri)
+{
+    return QSharedPointer<KPeople::PersonData>(new KPeople::PersonData(uri));
+}
 
 Utils::Utils(QQmlApplicationEngine *engine)
     : m_engine(engine)
@@ -161,4 +181,13 @@ QString Utils::phoneNumberListToString(const PhoneNumberList &phoneNumberList) c
 bool Utils::isLocale24HourTime()
 {
     return QLocale::system().timeFormat(QLocale::ShortFormat).toLower().indexOf(SL("ap")) == -1;
+}
+
+QVariantList Utils::phoneNumbers(const QString &kPeopleUri)
+{
+    auto person = contactData(kPeopleUri);
+    auto vcard = person->contactCustomProperty(KPeople::AbstractContact::VCardProperty).toByteArray();
+    auto addressee = converter.parseVCard(vcard);
+
+    return toVariantList(addressee.phoneNumbers());
 }

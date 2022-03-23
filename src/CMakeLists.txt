@@ -7,7 +7,6 @@ set(spacebar_SRCS
     databasethread.cpp
     asyncdatabase.cpp
     channelhandler.cpp
-    contactmodel.cpp
     resources.qrc
 )
 
@@ -34,6 +33,7 @@ target_link_libraries(spacebar
     KF5::ConfigGui
     KF5::CoreAddons
     KF5::I18n
+    KF5::Contacts
     KF5::People
     KF5::PeopleBackend
     KF5::ModemManagerQt

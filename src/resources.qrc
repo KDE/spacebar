@@ -3,10 +3,12 @@
         <file alias="main.qml">contents/ui/main.qml</file>
         <file alias="AboutPage.qml">contents/ui/AboutPage.qml</file>
         <file alias="ChatsPage.qml">contents/ui/ChatsPage.qml</file>
+        <file alias="ContactsList.qml">contents/ui/ContactsList.qml</file>
         <file alias="FloatingActionButton.qml">contents/ui/FloatingActionButton.qml</file>
         <file alias="FullscreenPage.qml">contents/ui/FullscreenPage.qml</file>
         <file alias="MessagesPage.qml">contents/ui/MessagesPage.qml</file>
         <file alias="NewConversationPage.qml">contents/ui/NewConversationPage.qml</file>
+        <file alias="PhoneNumberDialog.qml">contents/ui/PhoneNumberDialog.qml</file>
         <file alias="PreviewPage.qml">contents/ui/PreviewPage.qml</file>
         <file alias="SettingsPage.qml">contents/ui/SettingsPage.qml</file>
         <file alias="SlideshowPage.qml">contents/ui/SlideshowPage.qml</file>

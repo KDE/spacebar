@@ -10,6 +10,7 @@
 #include <ModemManagerQt/Manager>
 #include <ModemManagerQt/Modem>
 #include <ModemManagerQt/ModemDevice>
+#include <KContacts/PhoneNumber>
 
 #include <phonenumberlist.h>
 
@@ -50,6 +51,8 @@ public:
     bool isLocale24HourTime();
 
     static QString textToHtml(const QString &text);
+
+    Q_INVOKABLE QVariantList phoneNumbers(const QString &kPeopleUri);
 
     static Utils *instance();
 

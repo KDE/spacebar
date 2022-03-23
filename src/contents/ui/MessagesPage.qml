@@ -34,6 +34,29 @@ Kirigami.ScrollablePage {
         }
     }
 
+    Component.onCompleted: {
+        if (isNew) {
+            listView.header = contactsList
+        }
+    }
+
+    Component {
+        id: contactsList
+
+        ContactsList {
+            visible: isNew
+            z: 3
+            width: listView.width
+            height: listView.height
+            multiSelect: false
+            showSections: false
+            showAll: false
+            onSelect: {
+                tryAddRecipient(number)
+            }
+        }
+    }
+
     function getContrastYIQColor(hexcolor){
         hexcolor = hexcolor.replace("#", "");
         const r = parseInt(hexcolor.substr(0, 2), 16);
@@ -115,14 +138,15 @@ Kirigami.ScrollablePage {
                 visible: !isNew
                 iconName: "contact-new-symbolic"
                 text: i18n("Add/remove")
-                onTriggered: isNew = true
+                onTriggered: {
+                    isNew = true
+                    listView.header = contactsList
+                }
             }
         ]
     }
 
     header: ColumnLayout {
-        id: header
-
         Kirigami.InlineMessage {
             id: premiumWarning
             Layout.fillWidth: true
@@ -181,7 +205,6 @@ Kirigami.ScrollablePage {
             visible: people.length > 0 && isNew
             Layout.fillWidth: true
             Layout.margins: Kirigami.Units.largeSpacing
-            Layout.bottomMargin: 0
             spacing: Kirigami.Units.largeSpacing
 
             Repeater {
@@ -216,106 +239,6 @@ Kirigami.ScrollablePage {
                 }
             }
         }
-
-        Controls.Control {
-            visible: isNew
-            Layout.fillWidth: true
-            Layout.margins: Kirigami.Units.largeSpacing
-            Layout.topMargin: 0
-
-            contentItem: Kirigami.ActionTextField {
-                id: searchField
-                onTextChanged: {
-                    contactsProxyModel.setFilterFixedString(text)
-                    if (text.length == 1){
-                        contactsList.open()
-                    } else if (text.length == 0) {
-                        contactsList.close()
-                    }
-                }
-                onPressed: if (text.length > 0) contactsList.open()
-                inputMethodHints: Qt.ImhNoPredictiveText
-                placeholderText: i18n("Recipient")
-                focusSequence: "Ctrl+F"
-                rightActions: [
-                    // Code copy from kirigami, existing actions are being overridden when setting the property
-                    Kirigami.Action {
-                        icon.name: "edit-delete-remove"
-                        visible: searchField.text.length > 0 && !Utils.isPhoneNumber(searchField.text)
-                        onTriggered: {
-                            searchField.text = ""
-                            searchField.accepted()
-                            contactsList.close()
-                        }
-                    },
-                    Kirigami.Action {
-                        icon.name: "contact-new-symbolic"
-                        visible: searchField.text.length == 0
-                        onTriggered: {
-                            pageStack.push("qrc:/NewConversationPage.qml", { selected: people })
-                        }
-                    },
-                    Kirigami.Action {
-                        icon.name: "list-add-symbolic"
-                        visible: searchField.text.length > 0 && Utils.isPhoneNumber(searchField.text)
-                        onTriggered: tryAddRecipient(searchField.text)
-                    }
-                ]
-            }
-        }
-    }
-
-    Controls.Popup {
-        id: contactsList
-        anchors.centerIn: parent
-        topMargin: header.height + searchField.height
-        padding: 0
-        width: parent.width - Kirigami.Units.largeSpacing * 2
-        height: parent.height - header.height - footer.height
-        background: null
-
-        contentItem: ListView {
-            anchors.fill: parent
-
-            clip: true
-
-            model: ContactModel {
-                id: contactsProxyModel
-            }
-
-            reuseItems: true
-
-            currentIndex: -1
-
-            delegate: Kirigami.AbstractListItem {
-                width: parent ? parent.width : 0
-                backgroundColor: Kirigami.Theme.backgroundColor
-
-                contentItem: RowLayout {
-                    Kirigami.Avatar {
-                        Layout.fillHeight: true
-                        Layout.preferredWidth: Kirigami.Units.iconSizes.medium
-                        Layout.preferredHeight: Kirigami.Units.iconSizes.medium
-                        source: contactsList.visible && model.phoneNumber ? "image://avatar/" + model.phoneNumber : ""
-                        name: model.display
-                        imageMode: Kirigami.Avatar.AdaptiveImageOrInitals
-                    }
-
-                    Kirigami.Heading {
-                        level: 3
-                        text: model.display
-                        Layout.fillWidth: true
-                    }
-                }
-                onClicked: tryAddRecipient(model.phoneNumber)
-            }
-        }
-
-        MouseArea {
-            anchors.fill: parent
-            z: -1
-            onClicked: contactsList.close()
-        }
     }
 
     ListView {
@@ -323,6 +246,7 @@ Kirigami.ScrollablePage {
         model: messageModel
         spacing: Kirigami.Units.largeSpacing
         currentIndex: -1
+        headerPositioning: ListView.OverlayHeader
 
         // configure chat bubble colors
         Kirigami.Theme.inherit: false
