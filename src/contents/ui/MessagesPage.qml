@@ -411,6 +411,7 @@ Kirigami.ScrollablePage {
                         linkColor: model.sentByMe ? Kirigami.Theme.highlightedTextColor : Kirigami.Theme.linkColor
                         color: content.textColor
                         font.pointSize: pointSize
+                        onLinkActivated: Qt.openUrlExternally(link)
                     }
 
                     // download message contents
