@@ -216,7 +216,7 @@ void ChannelLogger::saveMessage(
     message.deliveryStatus =  MessageState::Received; // It arrived, soo
     message.phoneNumberList = phoneNumberList;
     message.id = Database::generateRandomId();
-    message.read = false;
+    message.read = message.phoneNumberList == m_disabledNotificationNumber;
     message.attachments = attachments;
     message.smil = smil;
     message.fromNumber = fromNumber;
