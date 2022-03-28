@@ -951,7 +951,7 @@ Kirigami.ScrollablePage {
             Controls.TextArea {
                 id: textarea
                 Layout.fillWidth: true
-                Layout.minimumHeight: sendAction.height + Kirigami.Units.smallSpacing * 2
+                Layout.minimumHeight: sendButton.height + Kirigami.Units.smallSpacing * 2
                 verticalAlignment: TextEdit.AlignVCenter
                 placeholderText: {
                     var number = Utils.sendingNumber()
@@ -969,25 +969,24 @@ Kirigami.ScrollablePage {
                 }
                 inputMethodHints: Qt.ImhNoPredictiveText
             }
-            
-            Item {
-                Shortcut{
-                    id: sendShortcut
-                    sequences: ["Ctrl+Enter", "Ctrl+Return"]
-                    onActivated: sendAction.action.trigger()
+
+            Controls.Action {
+                id: sendAction
+                onTriggered: {
+                    msgPage.forceActiveFocus()
+                    messageModel.sendMessage(textarea.text, filesToList(), filesTotalSize())
+                    files.clear()
+                    textarea.text = ""
                 }
             }
 
+            Shortcut{
+                sequences: ["Ctrl+Enter", "Ctrl+Return"]
+                onActivated: sendAction.trigger()
+            }
+
             Controls.Button {
-                id: sendAction
-                action: Controls.Action {
-                    onTriggered: {
-                        msgPage.forceActiveFocus()
-                        messageModel.sendMessage(textarea.text, filesToList(), filesTotalSize())
-                        files.clear()
-                        textarea.text = ""
-                    }
-                }
+                id: sendButton
                 Layout.alignment: Qt.AlignRight | Qt.AlignBottom
                 Layout.margins: Kirigami.Units.smallSpacing
                 icon.name: "document-send"
@@ -995,7 +994,7 @@ Kirigami.ScrollablePage {
                 icon.height: Kirigami.Units.iconSizes.smallMedium
                 hoverEnabled: false
                 enabled: (textarea.length > 0 || files.count > 0) && !maxAttachmentsError.visible
-                onPressed: action.trigger()
+                onPressed: sendAction.trigger()
 
                 Controls.Label {
                     text: textarea.length
