@@ -213,7 +213,7 @@ ListView {
 
             Kirigami.BasicListItem {
                 Layout.fillWidth: true
-                visible: contactsList.count === 0
+                visible: searchField.text.length > 0
                 backgroundColor: showSections ? "transparent" : Kirigami.Theme.backgroundColor
                 icon: "list-add"
                 iconSize: Kirigami.Units.iconSizes.medium
@@ -263,19 +263,18 @@ ListView {
         separatorVisible: !showSections
         label: model.display
         subtitle: showNumber ? Utils.phoneNumberToInternationalString(Utils.phoneNumber(model.phoneNumber)) : ""
-        leading: RowLayout {
+        leading: Row {
             Controls.CheckBox {
                 visible: multiSelect
-                Layout.fillHeight: true
+                height: parent.height
                 checked: isSelected(model.personUri)
                 checkable: false
                 onToggled: selectNumber(model.personUri, model.name)
             }
 
             Kirigami.Avatar {
-                Layout.fillHeight: true
-                Layout.preferredWidth: Kirigami.Units.iconSizes.medium
-                Layout.preferredHeight: Kirigami.Units.iconSizes.medium
+                width: Kirigami.Units.iconSizes.medium
+                height: Kirigami.Units.iconSizes.medium
                 source: model.phoneNumber ? "image://avatar/" + model.phoneNumber : ""
                 name: model.display
                 imageMode: Kirigami.Avatar.AdaptiveImageOrInitals

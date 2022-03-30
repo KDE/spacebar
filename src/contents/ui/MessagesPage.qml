@@ -840,7 +840,7 @@ Kirigami.ScrollablePage {
                         Rectangle {
                             id: fileItem
                             anchors.centerIn: parent
-                            implicitWidth: (isImage ? attachImg.implicitWidth : layout.implicitWidth) + 2
+                            implicitWidth: (isImage ? attachImg.width : layout.implicitWidth) + 2
                             implicitHeight: (isImage ? attachImg.implicitHeight : layout.implicitHeight) + 2
                             border.width: 1
                             border.color: Kirigami.ColorUtils.tintWithAlpha(color, Kirigami.Theme.textColor, 0.15)
@@ -872,6 +872,7 @@ Kirigami.ScrollablePage {
                                 anchors.centerIn: parent
                                 source: isImage ? filePath : ""
                                 sourceSize.height: Kirigami.Units.gridUnit * 8
+                                width: Math.min(flow.width - Kirigami.Units.largeSpacing * 2, implicitWidth)
                                 cache: false
                                 fillMode: Image.PreserveAspectCrop
 
