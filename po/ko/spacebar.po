@@ -1,0 +1,465 @@
+# Copyright (C) YEAR This file is copyright:
+# This file is distributed under the same license as the spacebar package.
+# Shinjo Park <kde@peremen.name>, 2020, 2021, 2022.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: spacebar\n"
+"Report-Msgid-Bugs-To: https://bugs.kde.org\n"
+"POT-Creation-Date: 2022-03-31 00:45+0000\n"
+"PO-Revision-Date: 2022-04-16 01:26+0200\n"
+"Last-Translator: Shinjo Park <kde@peremen.name>\n"
+"Language-Team: Korean <kde-kr@kde.org>\n"
+"Language: ko\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Lokalize 21.08.1\n"
+
+#, kde-format
+msgctxt "NAME OF TRANSLATORS"
+msgid "Your names"
+msgstr "박신조"
+
+#, kde-format
+msgctxt "EMAIL OF TRANSLATORS"
+msgid "Your emails"
+msgstr "kde@peremen.name"
+
+#: daemon/channellogger.cpp:245
+#, kde-format
+msgid "Attachments"
+msgstr "첨부"
+
+#: daemon/channellogger.cpp:245
+#, kde-format
+msgid "Attachment"
+msgstr "첨부"
+
+#: daemon/channellogger.cpp:249 src/contents/ui/MessagesPage.qml:19
+#, kde-format
+msgid "New message"
+msgstr "새 메시지"
+
+#: daemon/channellogger.cpp:256
+#, kde-format
+msgid "Message from %1"
+msgstr "%1의 메시지"
+
+#: daemon/channellogger.cpp:264
+#, kde-format
+msgctxt "@action open message in application"
+msgid "Open"
+msgstr "열기"
+
+#: daemon/main.cpp:25
+#, kde-format
+msgid "Spacebar background service"
+msgstr "Spacebar 백그라운드 서비스"
+
+#: src/chatlistmodel.cpp:98
+#, kde-format
+msgid "Unknown"
+msgstr "알 수 없음"
+
+#: src/contents/ui/ChatsPage.qml:15
+#, kde-format
+msgid "Chats"
+msgstr "대화"
+
+#: src/contents/ui/ChatsPage.qml:21
+#, kde-format
+msgid "New Conversation"
+msgstr "새 대화"
+
+#: src/contents/ui/ChatsPage.qml:30 src/contents/ui/SettingsPage.qml:15
+#, kde-format
+msgid "Settings"
+msgstr "설정"
+
+#: src/contents/ui/ChatsPage.qml:70
+#, kde-format
+msgid "Create a chat"
+msgstr "대화 만들기"
+
+#: src/contents/ui/ChatsPage.qml:168
+#, kde-format
+msgid "Delete chat"
+msgstr "대화 삭제"
+
+#: src/contents/ui/ContactsList.qml:43
+#, kde-format
+msgid "Select a number"
+msgstr "번호 선택"
+
+#: src/contents/ui/ContactsList.qml:160
+#, kde-format
+msgid "Selected"
+msgstr "선택됨"
+
+#: src/contents/ui/ContactsList.qml:170
+#, kde-format
+msgid "Compose"
+msgstr "작성"
+
+#: src/contents/ui/ContactsList.qml:199
+#, kde-format
+msgid "Search or enter number…"
+msgstr "검색 및 번호 입력..."
+
+#: src/contents/ui/ContactsList.qml:289
+#, kde-format
+msgid "No contacts with phone numbers yet"
+msgstr "전화 번호가 있는 연락처 없음"
+
+#: src/contents/ui/ContactsList.qml:292
+#, kde-format
+msgid "Open contacts app"
+msgstr "연락처 앱 열기"
+
+#: src/contents/ui/ContactsList.qml:299
+#, kde-format
+msgid "No results found"
+msgstr "결과 없음"
+
+#: src/contents/ui/MessagesPage.qml:140
+#, kde-format
+msgid "Add/remove"
+msgstr "추가/삭제"
+
+#: src/contents/ui/MessagesPage.qml:156
+#, kde-format
+msgid "Texting this premium SMS number might cause you to be charged money"
+msgstr ""
+"프리미엄 SMS 번호로 문자 메시지를 전송하면 추가 요금이 발생할 수 있습니다"
+
+#: src/contents/ui/MessagesPage.qml:167
+#, kde-format
+msgid "Max attachment limit exceeded"
+msgstr "최대 첨부 제한 초과함"
+
+#: src/contents/ui/MessagesPage.qml:178
+#, kde-format
+msgid "No MMSC configured"
+msgstr "설정한 MMSC 없음"
+
+#: src/contents/ui/MessagesPage.qml:189
+#, kde-format
+msgid "Message has expired and will be deleted"
+msgstr "메시지가 만료되었고 삭제됨"
+
+#: src/contents/ui/MessagesPage.qml:200
+#, kde-format
+msgid "Message will be sent as individual messages"
+msgstr "메시지가 개별 메시지로 전송됨"
+
+#: src/contents/ui/MessagesPage.qml:457
+#, kde-format
+msgid "MMS message"
+msgstr "MMS 메시지"
+
+#: src/contents/ui/MessagesPage.qml:465
+#, kde-format
+msgid "Message size: %1"
+msgstr "메시지 크기: %1"
+
+#: src/contents/ui/MessagesPage.qml:471
+#, kde-format
+msgid "Expires: %1"
+msgstr "만료: %1"
+
+#: src/contents/ui/MessagesPage.qml:592
+#, kde-format
+msgid "View all"
+msgstr "모두 보기"
+
+#: src/contents/ui/MessagesPage.qml:682
+#, kde-format
+msgid "Copy code"
+msgstr "코드 복사"
+
+#: src/contents/ui/MessagesPage.qml:691
+#, kde-format
+msgid "Copy link"
+msgstr "링크 복사"
+
+#: src/contents/ui/MessagesPage.qml:703
+#, kde-format
+msgid "Copy text"
+msgstr "텍스트 복사"
+
+#: src/contents/ui/MessagesPage.qml:712 src/contents/ui/MessagesPage.qml:765
+#, kde-format
+msgid "Save attachment"
+msgstr "첨부 파일 저장"
+
+#: src/contents/ui/MessagesPage.qml:723
+#, kde-format
+msgid "View slideshow"
+msgstr "슬라이드 쇼 보기"
+
+#: src/contents/ui/MessagesPage.qml:736
+#, kde-format
+msgid "Delete message"
+msgstr "메시지 삭제"
+
+#: src/contents/ui/MessagesPage.qml:746
+#, kde-format
+msgid "Resend"
+msgstr "다시 보내기"
+
+#: src/contents/ui/MessagesPage.qml:796
+#, kde-format
+msgid "Save"
+msgstr "저장"
+
+#: src/contents/ui/MessagesPage.qml:803 src/contents/ui/SettingsPage.qml:335
+#, kde-format
+msgid "Cancel"
+msgstr "취소"
+
+#: src/contents/ui/MessagesPage.qml:921
+#, kde-format
+msgid "Remove"
+msgstr "삭제"
+
+#: src/contents/ui/MessagesPage.qml:960
+#, kde-format
+msgid "Write Message..."
+msgstr "메시지 쓰기..."
+
+#: src/contents/ui/MessagesPage.qml:962
+#, kde-format
+msgctxt "%1 is a phone number"
+msgid "Send Message from %1..."
+msgstr "%1에서 메시지 보내기..."
+
+#: src/contents/ui/MessagesPage.qml:1016
+#, kde-format
+msgid "Duplicate recipient"
+msgstr "중복된 받는 사람"
+
+#: src/contents/ui/MessagesPage.qml:1022
+#, kde-format
+msgid "Choose a file"
+msgstr "파일 선택"
+
+#: src/contents/ui/NewConversationPage.qml:14
+#, kde-format
+msgid "Contacts"
+msgstr "연락처"
+
+#: src/contents/ui/PreviewPage.qml:32
+#, kde-format
+msgid "Back"
+msgstr "뒤로"
+
+#: src/contents/ui/SettingsPage.qml:34
+#, kde-format
+msgid "Appearance"
+msgstr "모양"
+
+#: src/contents/ui/SettingsPage.qml:40
+#, kde-format
+msgid "Use custom colors for messages"
+msgstr "메시지에 사용자 정의 색상 사용"
+
+#: src/contents/ui/SettingsPage.qml:73
+#, kde-format
+msgid "Incoming"
+msgstr "수신"
+
+#: src/contents/ui/SettingsPage.qml:101
+#, kde-format
+msgid "Outgoing"
+msgstr "발신"
+
+#: src/contents/ui/SettingsPage.qml:110
+#, kde-format
+msgid "Message font size:"
+msgstr "메시지 글꼴 크기:"
+
+#: src/contents/ui/SettingsPage.qml:120
+#, kde-format
+msgid "Multimedia messages (MMS)"
+msgstr "멀티미디어 메시지(MMS)"
+
+#: src/contents/ui/SettingsPage.qml:127
+#, kde-format
+msgid "MMSC:"
+msgstr "MMSC:"
+
+#: src/contents/ui/SettingsPage.qml:136
+#, kde-format
+msgid "Proxy:"
+msgstr "프록시:"
+
+#: src/contents/ui/SettingsPage.qml:144
+#, kde-format
+msgid "Port:"
+msgstr "포트:"
+
+#: src/contents/ui/SettingsPage.qml:157
+#, kde-format
+msgid "Request delivery reports"
+msgstr "전송 확인 요청"
+
+#: src/contents/ui/SettingsPage.qml:164
+#, kde-format
+msgid "Request read reports"
+msgstr "읽음 확인 요청"
+
+#: src/contents/ui/SettingsPage.qml:171
+#, kde-format
+msgid "Share delivery status"
+msgstr "전송 상태 공유"
+
+#: src/contents/ui/SettingsPage.qml:178
+#, kde-format
+msgid "Share read status"
+msgstr "읽음 상태 공유"
+
+#: src/contents/ui/SettingsPage.qml:186
+#, kde-format
+msgid "Auto download messages"
+msgstr "자동으로 메시지 다운로드"
+
+#: src/contents/ui/SettingsPage.qml:196
+#, kde-format
+msgid "Existing contacts only"
+msgstr "기존 연락처만"
+
+#: src/contents/ui/SettingsPage.qml:205
+#, kde-format
+msgid "Max message size (KiB):"
+msgstr "최대 메시지 크기(KiB):"
+
+#: src/contents/ui/SettingsPage.qml:215
+#, kde-format
+msgid "Max attachments:"
+msgstr "최대 첨부:"
+
+#: src/contents/ui/SettingsPage.qml:224
+#, kde-format
+msgid "Auto create SMIL"
+msgstr "자동으로 SMIL 생성"
+
+#: src/contents/ui/SettingsPage.qml:231
+#, kde-format
+msgid "Default to group conversations"
+msgstr "그룹 대화 기본값"
+
+#: src/contents/ui/SettingsPage.qml:238
+#, kde-format
+msgid "Notifications"
+msgstr "알림"
+
+#: src/contents/ui/SettingsPage.qml:244
+#, kde-format
+msgid "Show sender name / number"
+msgstr "보낸 사람 이름/번호 표시"
+
+#: src/contents/ui/SettingsPage.qml:251
+#, kde-format
+msgid "Show a preview of the message content"
+msgstr "메시지 내용 미리 보기 표시"
+
+#: src/contents/ui/SettingsPage.qml:258
+#, kde-format
+msgid "Other"
+msgstr "기타"
+
+#: src/contents/ui/SettingsPage.qml:262
+#, kde-format
+msgid "Restore defaults"
+msgstr "기본값 복원"
+
+#: src/contents/ui/SettingsPage.qml:273
+#, kde-format
+msgid "About"
+msgstr "정보"
+
+#: src/contents/ui/SettingsPage.qml:289
+#, kde-format
+msgid "Choose a color"
+msgstr "색상 선택"
+
+#: src/contents/ui/SettingsPage.qml:345
+#, kde-format
+msgid "Set"
+msgstr "설정"
+
+#: src/main.cpp:55
+#, kde-format
+msgid "SMS/MMS messaging client"
+msgstr "SMS/MMS 메시지 클라이언트"
+
+#: src/main.cpp:57
+#, kde-format
+msgid "© 2020-2021 KDE Community"
+msgstr "© 2020-2021 KDE Community"
+
+#: src/main.cpp:58
+#, kde-format
+msgid "Bhushan Shah"
+msgstr "Bhushan Shah"
+
+#: src/main.cpp:59
+#, kde-format
+msgid "Jonah Brüchert"
+msgstr "Jonah Brüchert"
+
+#: src/main.cpp:60
+#, kde-format
+msgid "Martin Klapetek"
+msgstr "Martin Klapetek"
+
+#: src/main.cpp:61
+#, kde-format
+msgid "Michael Lang"
+msgstr "Michael Lang"
+
+#: src/main.cpp:62
+#, kde-format
+msgid "Nicolas Fella"
+msgstr "Nicolas Fella"
+
+#: src/main.cpp:63
+#, kde-format
+msgid "Smitty van Bodegom"
+msgstr "Smitty van Bodegom"
+
+#: src/main.cpp:69
+#, kde-format
+msgid "Spacebar SMS/MMS client"
+msgstr "Spacebar SMS/MMS 클라이언트"
+
+#: src/main.cpp:70
+#, kde-format
+msgid "Open a chat with the given phone number"
+msgstr "지정한 전화 번호와의 대화 열기"
+
+#~ msgid "Recipient"
+#~ msgstr "받는 사람"
+
+#~ msgid "No chats yet"
+#~ msgstr "대화 없음"
+
+#~ msgid "Defaults"
+#~ msgstr "기본값"
+
+#~ msgid "Attach"
+#~ msgstr "첨부"
+
+#~ msgid "Send"
+#~ msgstr "보내기"
+
+#~ msgid "The modem interface is not available"
+#~ msgstr "모뎀 인터페이스를 사용할 수 없음"
+
+#~ msgid "Loading..."
+#~ msgstr "불러오는 중..."
+
+#~ msgid "spacebar"
+#~ msgstr "spacebar"

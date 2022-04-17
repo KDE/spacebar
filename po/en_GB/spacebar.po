@@ -1,0 +1,471 @@
+# Copyright (C) YEAR This file is copyright:
+# This file is distributed under the same license as the spacebar package.
+#
+# Steve Allewell <steve.allewell@gmail.com>, 2020, 2021, 2022.
+msgid ""
+msgstr ""
+"Project-Id-Version: spacebar\n"
+"Report-Msgid-Bugs-To: https://bugs.kde.org\n"
+"POT-Creation-Date: 2022-03-31 00:45+0000\n"
+"PO-Revision-Date: 2022-04-02 16:54+0100\n"
+"Last-Translator: Steve Allewell <steve.allewell@gmail.com>\n"
+"Language-Team: British English <kde-l10n-en_gb@kde.org>\n"
+"Language: en_GB\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Lokalize 21.12.3\n"
+
+#, kde-format
+msgctxt "NAME OF TRANSLATORS"
+msgid "Your names"
+msgstr "Steve Allewell"
+
+#, kde-format
+msgctxt "EMAIL OF TRANSLATORS"
+msgid "Your emails"
+msgstr "steve.allewell@gmail.com"
+
+#: daemon/channellogger.cpp:245
+#, kde-format
+msgid "Attachments"
+msgstr "Attachments"
+
+#: daemon/channellogger.cpp:245
+#, kde-format
+msgid "Attachment"
+msgstr "Attachment"
+
+#: daemon/channellogger.cpp:249 src/contents/ui/MessagesPage.qml:19
+#, kde-format
+msgid "New message"
+msgstr "New message"
+
+#: daemon/channellogger.cpp:256
+#, kde-format
+msgid "Message from %1"
+msgstr "Message from %1"
+
+#: daemon/channellogger.cpp:264
+#, kde-format
+msgctxt "@action open message in application"
+msgid "Open"
+msgstr "Open"
+
+#: daemon/main.cpp:25
+#, kde-format
+msgid "Spacebar background service"
+msgstr "Spacebar background service"
+
+#: src/chatlistmodel.cpp:98
+#, kde-format
+msgid "Unknown"
+msgstr "Unknown"
+
+#: src/contents/ui/ChatsPage.qml:15
+#, kde-format
+msgid "Chats"
+msgstr "Chats"
+
+#: src/contents/ui/ChatsPage.qml:21
+#, kde-format
+msgid "New Conversation"
+msgstr "New Conversation"
+
+#: src/contents/ui/ChatsPage.qml:30 src/contents/ui/SettingsPage.qml:15
+#, kde-format
+msgid "Settings"
+msgstr "Settings"
+
+#: src/contents/ui/ChatsPage.qml:70
+#, kde-format
+msgid "Create a chat"
+msgstr "Create a chat"
+
+#: src/contents/ui/ChatsPage.qml:168
+#, kde-format
+msgid "Delete chat"
+msgstr "Delete chat"
+
+#: src/contents/ui/ContactsList.qml:43
+#, kde-format
+msgid "Select a number"
+msgstr "Select a number"
+
+#: src/contents/ui/ContactsList.qml:160
+#, kde-format
+msgid "Selected"
+msgstr "Selected"
+
+#: src/contents/ui/ContactsList.qml:170
+#, kde-format
+msgid "Compose"
+msgstr "Compose"
+
+#: src/contents/ui/ContactsList.qml:199
+#, kde-format
+msgid "Search or enter number…"
+msgstr "Search or enter number…"
+
+#: src/contents/ui/ContactsList.qml:289
+#, kde-format
+msgid "No contacts with phone numbers yet"
+msgstr "No contacts with phone numbers yet"
+
+#: src/contents/ui/ContactsList.qml:292
+#, kde-format
+msgid "Open contacts app"
+msgstr "Open contacts app"
+
+#: src/contents/ui/ContactsList.qml:299
+#, kde-format
+msgid "No results found"
+msgstr "No results found"
+
+#: src/contents/ui/MessagesPage.qml:140
+#, kde-format
+msgid "Add/remove"
+msgstr "Add/remove"
+
+#: src/contents/ui/MessagesPage.qml:156
+#, kde-format
+msgid "Texting this premium SMS number might cause you to be charged money"
+msgstr "Texting this premium SMS number might cause you to be charged money"
+
+#: src/contents/ui/MessagesPage.qml:167
+#, kde-format
+msgid "Max attachment limit exceeded"
+msgstr "Max attachment limit exceeded"
+
+#: src/contents/ui/MessagesPage.qml:178
+#, kde-format
+msgid "No MMSC configured"
+msgstr "No MMSC configured"
+
+#: src/contents/ui/MessagesPage.qml:189
+#, kde-format
+msgid "Message has expired and will be deleted"
+msgstr "Message has expired and will be deleted"
+
+#: src/contents/ui/MessagesPage.qml:200
+#, kde-format
+msgid "Message will be sent as individual messages"
+msgstr "Message will be sent as individual messages"
+
+#: src/contents/ui/MessagesPage.qml:457
+#, kde-format
+msgid "MMS message"
+msgstr "MMS message"
+
+#: src/contents/ui/MessagesPage.qml:465
+#, kde-format
+msgid "Message size: %1"
+msgstr "Message size: %1"
+
+#: src/contents/ui/MessagesPage.qml:471
+#, kde-format
+msgid "Expires: %1"
+msgstr "Expires: %1"
+
+#: src/contents/ui/MessagesPage.qml:592
+#, kde-format
+msgid "View all"
+msgstr "View all"
+
+#: src/contents/ui/MessagesPage.qml:682
+#, kde-format
+msgid "Copy code"
+msgstr "Copy code"
+
+#: src/contents/ui/MessagesPage.qml:691
+#, kde-format
+msgid "Copy link"
+msgstr "Copy link"
+
+#: src/contents/ui/MessagesPage.qml:703
+#, kde-format
+msgid "Copy text"
+msgstr "Copy text"
+
+#: src/contents/ui/MessagesPage.qml:712 src/contents/ui/MessagesPage.qml:765
+#, kde-format
+msgid "Save attachment"
+msgstr "Save attachment"
+
+#: src/contents/ui/MessagesPage.qml:723
+#, kde-format
+msgid "View slideshow"
+msgstr "View slideshow"
+
+#: src/contents/ui/MessagesPage.qml:736
+#, kde-format
+msgid "Delete message"
+msgstr "Delete message"
+
+#: src/contents/ui/MessagesPage.qml:746
+#, kde-format
+msgid "Resend"
+msgstr "Resend"
+
+#: src/contents/ui/MessagesPage.qml:796
+#, kde-format
+msgid "Save"
+msgstr "Save"
+
+#: src/contents/ui/MessagesPage.qml:803 src/contents/ui/SettingsPage.qml:335
+#, kde-format
+msgid "Cancel"
+msgstr "Cancel"
+
+#: src/contents/ui/MessagesPage.qml:921
+#, kde-format
+msgid "Remove"
+msgstr "Remove"
+
+#: src/contents/ui/MessagesPage.qml:960
+#, kde-format
+msgid "Write Message..."
+msgstr "Write Message..."
+
+#: src/contents/ui/MessagesPage.qml:962
+#, kde-format
+msgctxt "%1 is a phone number"
+msgid "Send Message from %1..."
+msgstr "Send Message from %1..."
+
+#: src/contents/ui/MessagesPage.qml:1016
+#, kde-format
+msgid "Duplicate recipient"
+msgstr "Duplicate recipient"
+
+#: src/contents/ui/MessagesPage.qml:1022
+#, kde-format
+msgid "Choose a file"
+msgstr "Choose a file"
+
+#: src/contents/ui/NewConversationPage.qml:14
+#, kde-format
+msgid "Contacts"
+msgstr "Contacts"
+
+#: src/contents/ui/PreviewPage.qml:32
+#, kde-format
+msgid "Back"
+msgstr "Back"
+
+#: src/contents/ui/SettingsPage.qml:34
+#, kde-format
+msgid "Appearance"
+msgstr "Appearance"
+
+#: src/contents/ui/SettingsPage.qml:40
+#, kde-format
+msgid "Use custom colors for messages"
+msgstr "Use custom colours for messages"
+
+#: src/contents/ui/SettingsPage.qml:73
+#, kde-format
+msgid "Incoming"
+msgstr "Incoming"
+
+#: src/contents/ui/SettingsPage.qml:101
+#, kde-format
+msgid "Outgoing"
+msgstr "Outgoing"
+
+#: src/contents/ui/SettingsPage.qml:110
+#, kde-format
+msgid "Message font size:"
+msgstr "Message font size:"
+
+#: src/contents/ui/SettingsPage.qml:120
+#, kde-format
+msgid "Multimedia messages (MMS)"
+msgstr "Multimedia messages (MMS)"
+
+#: src/contents/ui/SettingsPage.qml:127
+#, kde-format
+msgid "MMSC:"
+msgstr "MMSC:"
+
+#: src/contents/ui/SettingsPage.qml:136
+#, kde-format
+msgid "Proxy:"
+msgstr "Proxy:"
+
+#: src/contents/ui/SettingsPage.qml:144
+#, kde-format
+msgid "Port:"
+msgstr "Port:"
+
+#: src/contents/ui/SettingsPage.qml:157
+#, kde-format
+msgid "Request delivery reports"
+msgstr "Request delivery reports"
+
+#: src/contents/ui/SettingsPage.qml:164
+#, kde-format
+msgid "Request read reports"
+msgstr "Request read reports"
+
+#: src/contents/ui/SettingsPage.qml:171
+#, kde-format
+msgid "Share delivery status"
+msgstr "Share delivery status"
+
+#: src/contents/ui/SettingsPage.qml:178
+#, kde-format
+msgid "Share read status"
+msgstr "Share read status"
+
+#: src/contents/ui/SettingsPage.qml:186
+#, kde-format
+msgid "Auto download messages"
+msgstr "Auto download messages"
+
+#: src/contents/ui/SettingsPage.qml:196
+#, kde-format
+msgid "Existing contacts only"
+msgstr "Existing contacts only"
+
+#: src/contents/ui/SettingsPage.qml:205
+#, kde-format
+msgid "Max message size (KiB):"
+msgstr "Max message size (KiB):"
+
+#: src/contents/ui/SettingsPage.qml:215
+#, kde-format
+msgid "Max attachments:"
+msgstr "Max attachments:"
+
+#: src/contents/ui/SettingsPage.qml:224
+#, kde-format
+msgid "Auto create SMIL"
+msgstr "Auto create SMIL"
+
+#: src/contents/ui/SettingsPage.qml:231
+#, kde-format
+msgid "Default to group conversations"
+msgstr "Default to group conversations"
+
+#: src/contents/ui/SettingsPage.qml:238
+#, kde-format
+msgid "Notifications"
+msgstr "Notifications"
+
+#: src/contents/ui/SettingsPage.qml:244
+#, kde-format
+msgid "Show sender name / number"
+msgstr "Show sender name / number"
+
+#: src/contents/ui/SettingsPage.qml:251
+#, kde-format
+msgid "Show a preview of the message content"
+msgstr "Show a preview of the message content"
+
+#: src/contents/ui/SettingsPage.qml:258
+#, kde-format
+msgid "Other"
+msgstr "Other"
+
+#: src/contents/ui/SettingsPage.qml:262
+#, kde-format
+msgid "Restore defaults"
+msgstr "Restore defaults"
+
+#: src/contents/ui/SettingsPage.qml:273
+#, kde-format
+msgid "About"
+msgstr "About"
+
+#: src/contents/ui/SettingsPage.qml:289
+#, kde-format
+msgid "Choose a color"
+msgstr "Choose a colour"
+
+#: src/contents/ui/SettingsPage.qml:345
+#, kde-format
+msgid "Set"
+msgstr "Set"
+
+#: src/main.cpp:55
+#, kde-format
+msgid "SMS/MMS messaging client"
+msgstr "SMS/MMS messaging client"
+
+#: src/main.cpp:57
+#, kde-format
+msgid "© 2020-2021 KDE Community"
+msgstr "© 2020-2021 KDE Community"
+
+#: src/main.cpp:58
+#, kde-format
+msgid "Bhushan Shah"
+msgstr "Bhushan Shah"
+
+#: src/main.cpp:59
+#, kde-format
+msgid "Jonah Brüchert"
+msgstr "Jonah Brüchert"
+
+#: src/main.cpp:60
+#, kde-format
+msgid "Martin Klapetek"
+msgstr "Martin Klapetek"
+
+#: src/main.cpp:61
+#, kde-format
+msgid "Michael Lang"
+msgstr "Michael Lang"
+
+#: src/main.cpp:62
+#, kde-format
+msgid "Nicolas Fella"
+msgstr "Nicolas Fella"
+
+#: src/main.cpp:63
+#, kde-format
+msgid "Smitty van Bodegom"
+msgstr "Smitty van Bodegom"
+
+#: src/main.cpp:69
+#, kde-format
+msgid "Spacebar SMS/MMS client"
+msgstr "Spacebar SMS/MMS client"
+
+#: src/main.cpp:70
+#, kde-format
+msgid "Open a chat with the given phone number"
+msgstr "Open a chat with the given phone number"
+
+#~ msgid "Recipient"
+#~ msgstr "Recipient"
+
+#~ msgid "No chats yet"
+#~ msgstr "No chats yet"
+
+#~ msgid "Defaults"
+#~ msgstr "Defaults"
+
+#~ msgid "Send"
+#~ msgstr "Send"
+
+#~ msgid "The modem interface is not available"
+#~ msgstr "The modem interface is not available"
+
+#~ msgid ""
+#~ "Could not find a sim account, can't open chat. Please check the log for "
+#~ "details"
+#~ msgstr ""
+#~ "Could not find a sim account, cannot open chat. Please check the log for "
+#~ "details"
+
+#~ msgid "Failed to open chat: %1"
+#~ msgstr "Failed to open chat: %1"
+
+#~ msgid "Loading..."
+#~ msgstr "Loading..."
+
+#~ msgid "spacebar"
+#~ msgstr "spacebar"

@@ -1,0 +1,444 @@
+# Translation of spacebar.po to Catalan (Valencian)
+# Copyright (C) 2020-2022 This_file_is_part_of_KDE
+# This file is distributed under the license LGPL version 2.1 or
+# version 3 or later versions approved by the membership of KDE e.V.
+#
+# Josep M. Ferrer <txemaq@gmail.com>, 2020, 2021, 2022.
+msgid ""
+msgstr ""
+"Project-Id-Version: spacebar\n"
+"Report-Msgid-Bugs-To: https://bugs.kde.org\n"
+"POT-Creation-Date: 2022-03-31 00:45+0000\n"
+"PO-Revision-Date: 2022-03-24 10:09+0100\n"
+"Last-Translator: Josep M. Ferrer <txemaq@gmail.com>\n"
+"Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
+"Language: ca@valencia\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Accelerator-Marker: &\n"
+"X-Generator: Lokalize 20.12.0\n"
+
+#, kde-format
+msgctxt "NAME OF TRANSLATORS"
+msgid "Your names"
+msgstr "Josep M. Ferrer"
+
+#, kde-format
+msgctxt "EMAIL OF TRANSLATORS"
+msgid "Your emails"
+msgstr "txemaq@gmail.com"
+
+#: daemon/channellogger.cpp:245
+#, kde-format
+msgid "Attachments"
+msgstr "Adjunts"
+
+#: daemon/channellogger.cpp:245
+#, kde-format
+msgid "Attachment"
+msgstr "Adjunt"
+
+#: daemon/channellogger.cpp:249 src/contents/ui/MessagesPage.qml:19
+#, kde-format
+msgid "New message"
+msgstr "Missatge nou"
+
+#: daemon/channellogger.cpp:256
+#, kde-format
+msgid "Message from %1"
+msgstr "Missatge de %1"
+
+#: daemon/channellogger.cpp:264
+#, kde-format
+msgctxt "@action open message in application"
+msgid "Open"
+msgstr "Obri"
+
+#: daemon/main.cpp:25
+#, kde-format
+msgid "Spacebar background service"
+msgstr "Servei en segon pla de l'Spacebar"
+
+#: src/chatlistmodel.cpp:98
+#, kde-format
+msgid "Unknown"
+msgstr "Desconegut"
+
+#: src/contents/ui/ChatsPage.qml:15
+#, kde-format
+msgid "Chats"
+msgstr "Xats"
+
+#: src/contents/ui/ChatsPage.qml:21
+#, kde-format
+msgid "New Conversation"
+msgstr "Conversa nova"
+
+#: src/contents/ui/ChatsPage.qml:30 src/contents/ui/SettingsPage.qml:15
+#, kde-format
+msgid "Settings"
+msgstr "Configuració"
+
+#: src/contents/ui/ChatsPage.qml:70
+#, kde-format
+msgid "Create a chat"
+msgstr "Crea un xat"
+
+#: src/contents/ui/ChatsPage.qml:168
+#, kde-format
+msgid "Delete chat"
+msgstr "Suprimeix el xat"
+
+#: src/contents/ui/ContactsList.qml:43
+#, kde-format
+msgid "Select a number"
+msgstr "Seleccioneu un número"
+
+#: src/contents/ui/ContactsList.qml:160
+#, kde-format
+msgid "Selected"
+msgstr "Seleccionat"
+
+#: src/contents/ui/ContactsList.qml:170
+#, kde-format
+msgid "Compose"
+msgstr "Redacta"
+
+#: src/contents/ui/ContactsList.qml:199
+#, kde-format
+msgid "Search or enter number…"
+msgstr "Busca o introduïu un número…"
+
+#: src/contents/ui/ContactsList.qml:289
+#, kde-format
+msgid "No contacts with phone numbers yet"
+msgstr "Encara no hi ha cap contacte amb número de telèfon"
+
+#: src/contents/ui/ContactsList.qml:292
+#, kde-format
+msgid "Open contacts app"
+msgstr "Obri l'aplicació de contactes"
+
+#: src/contents/ui/ContactsList.qml:299
+#, kde-format
+msgid "No results found"
+msgstr "No s'ha trobat cap resultat"
+
+#: src/contents/ui/MessagesPage.qml:140
+#, kde-format
+msgid "Add/remove"
+msgstr "Afig/Elimina"
+
+#: src/contents/ui/MessagesPage.qml:156
+#, kde-format
+msgid "Texting this premium SMS number might cause you to be charged money"
+msgstr ""
+"Enviar un missatge de text a este número SMS prèmium pot tindre un cost"
+
+#: src/contents/ui/MessagesPage.qml:167
+#, kde-format
+msgid "Max attachment limit exceeded"
+msgstr "S'ha superat el límit màxim d'adjunts"
+
+#: src/contents/ui/MessagesPage.qml:178
+#, kde-format
+msgid "No MMSC configured"
+msgstr "No s'ha configurat cap MMSC"
+
+#: src/contents/ui/MessagesPage.qml:189
+#, kde-format
+msgid "Message has expired and will be deleted"
+msgstr "El missatge ha caducat i se suprimirà"
+
+#: src/contents/ui/MessagesPage.qml:200
+#, kde-format
+msgid "Message will be sent as individual messages"
+msgstr "El missatge s'enviarà com a missatges individuals"
+
+#: src/contents/ui/MessagesPage.qml:457
+#, kde-format
+msgid "MMS message"
+msgstr "Missatge MMS"
+
+#: src/contents/ui/MessagesPage.qml:465
+#, kde-format
+msgid "Message size: %1"
+msgstr "Mida del missatge: %1"
+
+#: src/contents/ui/MessagesPage.qml:471
+#, kde-format
+msgid "Expires: %1"
+msgstr "Caduca: %1"
+
+#: src/contents/ui/MessagesPage.qml:592
+#, kde-format
+msgid "View all"
+msgstr "Visualitza-ho tot"
+
+#: src/contents/ui/MessagesPage.qml:682
+#, kde-format
+msgid "Copy code"
+msgstr "Copia el codi"
+
+#: src/contents/ui/MessagesPage.qml:691
+#, kde-format
+msgid "Copy link"
+msgstr "Copia l'enllaç"
+
+#: src/contents/ui/MessagesPage.qml:703
+#, kde-format
+msgid "Copy text"
+msgstr "Copia el text"
+
+#: src/contents/ui/MessagesPage.qml:712 src/contents/ui/MessagesPage.qml:765
+#, kde-format
+msgid "Save attachment"
+msgstr "Guarda l'adjunt"
+
+#: src/contents/ui/MessagesPage.qml:723
+#, kde-format
+msgid "View slideshow"
+msgstr "Visualitza un passe de diapositives"
+
+#: src/contents/ui/MessagesPage.qml:736
+#, kde-format
+msgid "Delete message"
+msgstr "Suprimeix el missatge"
+
+#: src/contents/ui/MessagesPage.qml:746
+#, kde-format
+msgid "Resend"
+msgstr "Reenvia"
+
+#: src/contents/ui/MessagesPage.qml:796
+#, kde-format
+msgid "Save"
+msgstr "Guarda"
+
+#: src/contents/ui/MessagesPage.qml:803 src/contents/ui/SettingsPage.qml:335
+#, kde-format
+msgid "Cancel"
+msgstr "Cancel·la"
+
+#: src/contents/ui/MessagesPage.qml:921
+#, kde-format
+msgid "Remove"
+msgstr "Elimina"
+
+#: src/contents/ui/MessagesPage.qml:960
+#, kde-format
+msgid "Write Message..."
+msgstr "Escriu un missatge..."
+
+#: src/contents/ui/MessagesPage.qml:962
+#, kde-format
+msgctxt "%1 is a phone number"
+msgid "Send Message from %1..."
+msgstr "Envia un missatge des del %1..."
+
+#: src/contents/ui/MessagesPage.qml:1016
+#, kde-format
+msgid "Duplicate recipient"
+msgstr "Duplica el destinatari"
+
+#: src/contents/ui/MessagesPage.qml:1022
+#, kde-format
+msgid "Choose a file"
+msgstr "Escolliu un fitxer"
+
+#: src/contents/ui/NewConversationPage.qml:14
+#, kde-format
+msgid "Contacts"
+msgstr "Contactes"
+
+#: src/contents/ui/PreviewPage.qml:32
+#, kde-format
+msgid "Back"
+msgstr "Enrere"
+
+#: src/contents/ui/SettingsPage.qml:34
+#, kde-format
+msgid "Appearance"
+msgstr "Aparença"
+
+#: src/contents/ui/SettingsPage.qml:40
+#, kde-format
+msgid "Use custom colors for messages"
+msgstr "Utilitza colors personalitzats per als missatges"
+
+#: src/contents/ui/SettingsPage.qml:73
+#, kde-format
+msgid "Incoming"
+msgstr "Entrants"
+
+#: src/contents/ui/SettingsPage.qml:101
+#, kde-format
+msgid "Outgoing"
+msgstr "Sortints"
+
+#: src/contents/ui/SettingsPage.qml:110
+#, kde-format
+msgid "Message font size:"
+msgstr "Mida del tipus de lletra del missatge:"
+
+#: src/contents/ui/SettingsPage.qml:120
+#, kde-format
+msgid "Multimedia messages (MMS)"
+msgstr "Missatges multimèdia (MMS)"
+
+#: src/contents/ui/SettingsPage.qml:127
+#, kde-format
+msgid "MMSC:"
+msgstr "MMSC:"
+
+#: src/contents/ui/SettingsPage.qml:136
+#, kde-format
+msgid "Proxy:"
+msgstr "Servidor intermediari:"
+
+#: src/contents/ui/SettingsPage.qml:144
+#, kde-format
+msgid "Port:"
+msgstr "Port:"
+
+#: src/contents/ui/SettingsPage.qml:157
+#, kde-format
+msgid "Request delivery reports"
+msgstr "Sol·licita informes de lliurament"
+
+#: src/contents/ui/SettingsPage.qml:164
+#, kde-format
+msgid "Request read reports"
+msgstr "Sol·licita informes de lectura"
+
+#: src/contents/ui/SettingsPage.qml:171
+#, kde-format
+msgid "Share delivery status"
+msgstr "Comparteix l'estat de lliurament"
+
+#: src/contents/ui/SettingsPage.qml:178
+#, kde-format
+msgid "Share read status"
+msgstr "Comparteix l'estat de lectura"
+
+#: src/contents/ui/SettingsPage.qml:186
+#, kde-format
+msgid "Auto download messages"
+msgstr "Baixada automàtica dels missatges"
+
+#: src/contents/ui/SettingsPage.qml:196
+#, kde-format
+msgid "Existing contacts only"
+msgstr "Només els contactes existents"
+
+#: src/contents/ui/SettingsPage.qml:205
+#, kde-format
+msgid "Max message size (KiB):"
+msgstr "Mida màxima dels missatges (KiB):"
+
+#: src/contents/ui/SettingsPage.qml:215
+#, kde-format
+msgid "Max attachments:"
+msgstr "Nombre màxim d'adjunts:"
+
+#: src/contents/ui/SettingsPage.qml:224
+#, kde-format
+msgid "Auto create SMIL"
+msgstr "Crea l'SMIL automàticament"
+
+#: src/contents/ui/SettingsPage.qml:231
+#, kde-format
+msgid "Default to group conversations"
+msgstr "Agrupa converses de manera predeterminada"
+
+#: src/contents/ui/SettingsPage.qml:238
+#, kde-format
+msgid "Notifications"
+msgstr "Notificacions"
+
+#: src/contents/ui/SettingsPage.qml:244
+#, kde-format
+msgid "Show sender name / number"
+msgstr "Mostra el nom / número del remitent"
+
+#: src/contents/ui/SettingsPage.qml:251
+#, kde-format
+msgid "Show a preview of the message content"
+msgstr "Mostra una vista prèvia del contingut del missatge"
+
+#: src/contents/ui/SettingsPage.qml:258
+#, kde-format
+msgid "Other"
+msgstr "Altres"
+
+#: src/contents/ui/SettingsPage.qml:262
+#, kde-format
+msgid "Restore defaults"
+msgstr "Restaura als valors predeterminats"
+
+#: src/contents/ui/SettingsPage.qml:273
+#, kde-format
+msgid "About"
+msgstr "Quant a"
+
+#: src/contents/ui/SettingsPage.qml:289
+#, kde-format
+msgid "Choose a color"
+msgstr "Escolliu un color"
+
+#: src/contents/ui/SettingsPage.qml:345
+#, kde-format
+msgid "Set"
+msgstr "Estableix"
+
+#: src/main.cpp:55
+#, kde-format
+msgid "SMS/MMS messaging client"
+msgstr "Client de missatgeria SMS/MMS"
+
+#: src/main.cpp:57
+#, kde-format
+msgid "© 2020-2021 KDE Community"
+msgstr "© 2020-2021 KDE Community"
+
+#: src/main.cpp:58
+#, kde-format
+msgid "Bhushan Shah"
+msgstr "Bhushan Shah"
+
+#: src/main.cpp:59
+#, kde-format
+msgid "Jonah Brüchert"
+msgstr "Jonah Brüchert"
+
+#: src/main.cpp:60
+#, kde-format
+msgid "Martin Klapetek"
+msgstr "Martin Klapetek"
+
+#: src/main.cpp:61
+#, kde-format
+msgid "Michael Lang"
+msgstr "Michael Lang"
+
+#: src/main.cpp:62
+#, kde-format
+msgid "Nicolas Fella"
+msgstr "Nicolas Fella"
+
+#: src/main.cpp:63
+#, kde-format
+msgid "Smitty van Bodegom"
+msgstr "Smitty van Bodegom"
+
+#: src/main.cpp:69
+#, kde-format
+msgid "Spacebar SMS/MMS client"
+msgstr "Client SMS/MMS Spacebar"
+
+#: src/main.cpp:70
+#, kde-format
+msgid "Open a chat with the given phone number"
+msgstr "Obri un xat amb el número de telèfon indicat"
