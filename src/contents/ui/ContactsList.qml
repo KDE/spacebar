@@ -122,7 +122,7 @@ ListView {
     function quickScroll(index) {
         let i
         for (i = index; i < az.count; i++) {
-            const index = contactsProxyModel.match(contactsProxyModel.index(0,0), 0, az.itemAt(i).text, 1, Qt.MatchStartsWith)[0]
+            const index = contactsProxyModel.match(contactsProxyModel.index(0,0), 0, az.itemAt(i).contentItem.text, 1, Qt.MatchStartsWith)[0]
 
             if (index) {
                 contactsList.positionViewAtIndex(index.row, ListView.Beginning)
@@ -132,6 +132,11 @@ ListView {
         if (i === az.count) {
             contactsList.positionViewAtEnd()
         }
+    }
+
+    MouseArea {
+        anchors.fill: contactsList.contentItem
+        propagateComposedEvents: true
     }
 
     headerPositioning: ListView.OverlayHeader
@@ -251,12 +256,14 @@ ListView {
         Component.onCompleted: sort(0)
     }
 
+    interactive: searchText.length > 0
     boundsBehavior: Flickable.StopAtBounds
 
+
+
     delegate: Kirigami.BasicListItem {
-        id: contact
         width: contactsList.width
-        height: Kirigami.Units.iconSizes.medium + Kirigami.Units.largeSpacing
+        height: Kirigami.Units.iconSizes.medium + Kirigami.Units.largeSpacing * 2
         visible: showAll || searchText.length > 0
         backgroundColor: showSections ? "transparent" : Kirigami.Theme.backgroundColor
         highlighted: false
@@ -280,7 +287,12 @@ ListView {
                 imageMode: Kirigami.Avatar.AdaptiveImageOrInitals
             }
         }
-        onClicked: selectNumber(model.personUri, model.name)
+
+        MouseArea {
+            Layout.preferredWidth: parent.width
+            Layout.preferredHeight: parent.height
+            onClicked: selectNumber(model.personUri, model.name)
+        }
     }
 
     Kirigami.PlaceholderMessage {
@@ -307,7 +319,7 @@ ListView {
         anchors.verticalCenter: parent.verticalCenter
         anchors.verticalCenterOffset: contactsList.headerItem.height / 2
         height: contactsList.height - contactsList.headerItem.height - Kirigami.Units.largeSpacing
-        width: Kirigami.Units.gridUnit
+        width: Kirigami.Units.gridUnit * 1.5
         color: Kirigami.Theme.backgroundColor
         border.width: 1
         border.color: Kirigami.Theme.disabledTextColor
@@ -319,29 +331,24 @@ ListView {
 
             Repeater {
                 id: az
-                model:parent.height < 320 ? [
+                model: parent.height < 320 ? [
                 "A","C","E","G","I","K","M","O","Q","S","U","W","Z"] : [
                 "A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"]
-                Text {
-                    text: modelData
-                    font: Kirigami.Theme.smallFont
-                    color: Kirigami.Theme.disabledTextColor
-                    Layout.alignment: Qt.AlignHCenter
 
-                    MouseArea {
-                        z: 3
-                        anchors.fill: parent
-                        propagateComposedEvents: false
-                        onClicked: quickScroll(index)
+                Controls.Button {
+                    Layout.fillWidth: true
+                    Layout.fillHeight: true
+                    flat: true
+                    contentItem: Text {
+                        text: modelData
+                        font: Kirigami.Theme.smallFont
+                        color: Kirigami.Theme.disabledTextColor
+                        horizontalAlignment: Text.AlignHCenter
+                        verticalAlignment: Text.AlignVCenter
                     }
+                    onPressed: quickScroll(index)
                 }
             }
         }
-    }
-
-    MouseArea {
-        anchors.fill: parent
-        z: -1
-        propagateComposedEvents: true
     }
 }
