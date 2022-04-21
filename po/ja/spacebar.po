@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: spacebar\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-03-31 00:45+0000\n"
+"POT-Creation-Date: 2022-04-21 00:47+0000\n"
 "PO-Revision-Date: 2020-06-20 13:28-0700\n"
 "Last-Translator: Japanese KDE translation team <kde-jp@kde.org>\n"
 "Language-Team: Japanese <kde-jp@kde.org>\n"
@@ -90,32 +90,32 @@ msgstr ""
 msgid "Select a number"
 msgstr ""
 
-#: src/contents/ui/ContactsList.qml:160
+#: src/contents/ui/ContactsList.qml:165
 #, kde-format
 msgid "Selected"
 msgstr ""
 
-#: src/contents/ui/ContactsList.qml:170
+#: src/contents/ui/ContactsList.qml:175
 #, kde-format
 msgid "Compose"
 msgstr ""
 
-#: src/contents/ui/ContactsList.qml:199
+#: src/contents/ui/ContactsList.qml:204
 #, kde-format
 msgid "Search or enter number…"
 msgstr ""
 
-#: src/contents/ui/ContactsList.qml:289
+#: src/contents/ui/ContactsList.qml:301
 #, kde-format
 msgid "No contacts with phone numbers yet"
 msgstr ""
 
-#: src/contents/ui/ContactsList.qml:292
+#: src/contents/ui/ContactsList.qml:304
 #, kde-format
 msgid "Open contacts app"
 msgstr ""
 
-#: src/contents/ui/ContactsList.qml:299
+#: src/contents/ui/ContactsList.qml:311
 #, kde-format
 msgid "No results found"
 msgstr ""

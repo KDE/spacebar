@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: spacebar\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-03-31 00:45+0000\n"
+"POT-Creation-Date: 2022-04-21 00:47+0000\n"
 "PO-Revision-Date: 2022-04-16 01:26+0200\n"
 "Last-Translator: Shinjo Park <kde@peremen.name>\n"
 "Language-Team: Korean <kde-kr@kde.org>\n"
@@ -93,32 +93,32 @@ msgstr "대화 삭제"
 msgid "Select a number"
 msgstr "번호 선택"
 
-#: src/contents/ui/ContactsList.qml:160
+#: src/contents/ui/ContactsList.qml:165
 #, kde-format
 msgid "Selected"
 msgstr "선택됨"
 
-#: src/contents/ui/ContactsList.qml:170
+#: src/contents/ui/ContactsList.qml:175
 #, kde-format
 msgid "Compose"
 msgstr "작성"
 
-#: src/contents/ui/ContactsList.qml:199
+#: src/contents/ui/ContactsList.qml:204
 #, kde-format
 msgid "Search or enter number…"
 msgstr "검색 및 번호 입력..."
 
-#: src/contents/ui/ContactsList.qml:289
+#: src/contents/ui/ContactsList.qml:301
 #, kde-format
 msgid "No contacts with phone numbers yet"
 msgstr "전화 번호가 있는 연락처 없음"
 
-#: src/contents/ui/ContactsList.qml:292
+#: src/contents/ui/ContactsList.qml:304
 #, kde-format
 msgid "Open contacts app"
 msgstr "연락처 앱 열기"
 
-#: src/contents/ui/ContactsList.qml:299
+#: src/contents/ui/ContactsList.qml:311
 #, kde-format
 msgid "No results found"
 msgstr "결과 없음"

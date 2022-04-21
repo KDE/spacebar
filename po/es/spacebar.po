@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: spacebar\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-03-31 00:45+0000\n"
+"POT-Creation-Date: 2022-04-21 00:47+0000\n"
 "PO-Revision-Date: 2022-03-24 17:39+0100\n"
 "Last-Translator: Eloy Cuadra <ecuadra@eloihr.net>\n"
 "Language-Team: Spanish <kde-l10n-es@kde.org>\n"
@@ -95,32 +95,32 @@ msgstr "Borrar conversación"
 msgid "Select a number"
 msgstr "Seleccione un número"
 
-#: src/contents/ui/ContactsList.qml:160
+#: src/contents/ui/ContactsList.qml:165
 #, kde-format
 msgid "Selected"
 msgstr "Seleccionados"
 
-#: src/contents/ui/ContactsList.qml:170
+#: src/contents/ui/ContactsList.qml:175
 #, kde-format
 msgid "Compose"
 msgstr "Componer"
 
-#: src/contents/ui/ContactsList.qml:199
+#: src/contents/ui/ContactsList.qml:204
 #, kde-format
 msgid "Search or enter number…"
 msgstr "Buscar o introducir número..."
 
-#: src/contents/ui/ContactsList.qml:289
+#: src/contents/ui/ContactsList.qml:301
 #, kde-format
 msgid "No contacts with phone numbers yet"
 msgstr "Aún no hay contactos con número de teléfono"
 
-#: src/contents/ui/ContactsList.qml:292
+#: src/contents/ui/ContactsList.qml:304
 #, kde-format
 msgid "Open contacts app"
 msgstr "Abrir la aplicación de contactos"
 
-#: src/contents/ui/ContactsList.qml:299
+#: src/contents/ui/ContactsList.qml:311
 #, kde-format
 msgid "No results found"
 msgstr "No se han encontrado resultados"
