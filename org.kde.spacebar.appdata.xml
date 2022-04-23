@@ -110,7 +110,21 @@
   </description>
   <url type="bugtracker">https://invent.kde.org/plasma-mobile/spacebar/-/issues</url>
   <releases>
-    <release version="22.02" date="2022-02-09">
+    <release version="22.04" date="2022-04-26">
+      <url>https://www.plasma-mobile.org/2022/04/26/plasma-mobile-gear-22-04/</url>
+      <description>
+        <ul>
+          <li>Change header style to toolbar</li>
+          <li>Flatten application navigation</li>
+          <li>Improvements in add attachment layout</li>
+          <li>Add notification settings options</li>
+          <li>Add support for choosing phone number via contact</li>
+          <li>Allow to open the links in messages</li>
+          <li>Mark incoming message as read for open chat conversations</li>
+        </ul>
+      </description>
+    </release>
+     <release version="22.02" date="2022-02-09">
       <url>https://www.plasma-mobile.org/2022/02/09/plasma-mobile-gear-22-02/</url>
       <description>
         <ul>
