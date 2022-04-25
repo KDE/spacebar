@@ -8,9 +8,9 @@ edition = "2018"
 crate-type = [ "staticlib" ]
 
 [dependencies]
-libsignal-protocol = { git = "https://github.com/signalapp/libsignal-client", tag = "v0.11.0" }
-cxx = "*"
-rand = { version = "0.7.3", features = [ "getrandom" ] }
+libsignal-protocol = { git = "https://github.com/signalapp/libsignal-client", tag = "v0.16.0" }
+cxx = "1.0"
+rand_core = { version = "*", features = [ "getrandom" ] }
 
 [build-dependencies]
-cxx-build = "*"
+cxx-build = "1.0"
