@@ -401,7 +401,7 @@ msgstr "Client de missatgeria SMS/MMS"
 #: src/main.cpp:57
 #, kde-format
 msgid "© 2020-2021 KDE Community"
-msgstr "© 2020-2021 KDE Community"
+msgstr "© 2020-2021 Comunitat KDE"
 
 #: src/main.cpp:58
 #, kde-format
