@@ -371,7 +371,7 @@ msgstr "Mostra una vista prèvia del contingut del missatge"
 #: src/contents/ui/SettingsPage.qml:258
 #, kde-format
 msgid "Other"
-msgstr "Altres"
+msgstr "Atres"
 
 #: src/contents/ui/SettingsPage.qml:262
 #, kde-format
