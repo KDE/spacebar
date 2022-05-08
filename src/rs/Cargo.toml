@@ -10,7 +10,9 @@ crate-type = [ "staticlib" ]
 [dependencies]
 libsignal-protocol = { git = "https://github.com/signalapp/libsignal-client", tag = "v0.16.0" }
 cxx = "1.0"
-rand_core = { version = "*", features = [ "getrandom" ] }
+rand_core = { version = "0.5.1", features = [ "getrandom" ] }
+futures-executor = "0.3"
+async-trait = "*"
 
 [build-dependencies]
 cxx-build = "1.0"
