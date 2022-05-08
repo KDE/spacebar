@@ -4,6 +4,10 @@
 
 #[macro_use]
 extern crate async_trait;
+#[macro_use]
+extern crate diesel;
+#[macro_use]
+extern crate diesel_migrations;
 
 mod database;
 
@@ -266,7 +270,7 @@ impl PreKeySignalMessage {
 
 fn message_encrypt(
     ptext: &[u8],
-    remote_address: &ProtocolAddress,
+    remote_address: &Box<ProtocolAddress>,
     session_store: &mut Box<SqliteSessionStore>,
     identity_store: &mut Box<SqliteIdentityKeyStore>,
     ctx: &Context,
@@ -286,7 +290,7 @@ fn message_encrypt(
 
 fn message_decrypt(
     ciphertext: &CiphertextMessage,
-    remote_address: &ProtocolAddress,
+    remote_address: &Box<ProtocolAddress>,
     session_store: &mut Box<SqliteSessionStore>,
     identity_store: &mut Box<SqliteIdentityKeyStore>,
     pre_key_store: &mut Box<SqlitePreKeyStore>,
@@ -309,8 +313,8 @@ fn message_decrypt(
 }
 
 fn message_decrypt_prekey(
-    ciphertext: &PreKeySignalMessage,
-    remote_address: &ProtocolAddress,
+    ciphertext: &Box<PreKeySignalMessage>,
+    remote_address: &Box<ProtocolAddress>,
     session_store: &mut Box<SqliteSessionStore>,
     identity_store: &mut Box<SqliteIdentityKeyStore>,
     pre_key_store: &mut Box<SqlitePreKeyStore>,
@@ -333,8 +337,8 @@ fn message_decrypt_prekey(
 }
 
 fn message_decrypt_signal(
-    ciphertext: &SignalMessage,
-    remote_address: &ProtocolAddress,
+    ciphertext: &Box<SignalMessage>,
+    remote_address: &Box<ProtocolAddress>,
     session_store: &mut Box<SqliteSessionStore>,
     identity_store: &mut Box<SqliteIdentityKeyStore>,
     ctx: &Context,
@@ -367,6 +371,7 @@ mod ffi {
         type SignalMessageRef<'a>;
         type Context;
         type CiphertextMessage;
+        type FFiE2eeDbPtr;
 
         #[cxx_name = "generateKeypair"]
         fn generate_keypair() -> Box<KeyPair>;
@@ -499,7 +504,7 @@ mod ffi {
         #[cxx_name = "messageEncrypt"]
         fn message_encrypt(
             ptext: &[u8],
-            remote_address: &ProtocolAddress,
+            remote_address: &Box<ProtocolAddress>,
             session_store: &mut Box<SqliteSessionStore>,
             identity_store: &mut Box<SqliteIdentityKeyStore>,
             ctx: &Context,
@@ -508,7 +513,7 @@ mod ffi {
         #[cxx_name = "messageDecrypt"]
         fn message_decrypt(
             ciphertext: &CiphertextMessage,
-            remote_address: &ProtocolAddress,
+            remote_address: &Box<ProtocolAddress>,
             session_store: &mut Box<SqliteSessionStore>,
             identity_store: &mut Box<SqliteIdentityKeyStore>,
             pre_key_store: &mut Box<SqlitePreKeyStore>,
@@ -518,8 +523,8 @@ mod ffi {
 
         #[cxx_name = "messageDecryptPrekey"]
         fn message_decrypt_prekey(
-            ciphertext: &PreKeySignalMessage,
-            remote_address: &ProtocolAddress,
+            ciphertext: &Box<PreKeySignalMessage>,
+            remote_address: &Box<ProtocolAddress>,
             session_store: &mut Box<SqliteSessionStore>,
             identity_store: &mut Box<SqliteIdentityKeyStore>,
             pre_key_store: &mut Box<SqlitePreKeyStore>,
@@ -529,8 +534,8 @@ mod ffi {
 
         #[cxx_name = "messageDecryptSignal"]
         fn message_decrypt_signal(
-            ciphertext: &SignalMessage,
-            remote_address: &ProtocolAddress,
+            ciphertext: &Box<SignalMessage>,
+            remote_address: &Box<ProtocolAddress>,
             session_store: &mut Box<SqliteSessionStore>,
             identity_store: &mut Box<SqliteIdentityKeyStore>,
             ctx: &Context,
@@ -543,15 +548,18 @@ mod ffi {
         type SqlitePreKeyStore;
 
         #[cxx_name = "newSqliteIdentityKeyStore"]
-        fn new_sqlite_identity_key_store() -> Box<SqliteIdentityKeyStore>;
+        fn new_sqlite_identity_key_store(db: &Box<FFiE2eeDbPtr>) -> Box<SqliteIdentityKeyStore>;
 
         #[cxx_name = "newSqliteSessionStore"]
-        fn new_sqlite_session_store() -> Box<SqliteSessionStore>;
+        fn new_sqlite_session_store(db: &Box<FFiE2eeDbPtr>) -> Box<SqliteSessionStore>;
 
         #[cxx_name = "newSqlitePreKeyStore"]
-        fn new_sqlite_pre_key_store() -> Box<SqlitePreKeyStore>;
+        fn new_sqlite_pre_key_store(db: &Box<FFiE2eeDbPtr>) -> Box<SqlitePreKeyStore>;
 
         #[cxx_name = "newSqliteSignedPreKeyStore"]
-        fn new_sqlite_signed_pre_key_store() -> Box<SqliteSignedPreKeyStore>;
+        fn new_sqlite_signed_pre_key_store(db: &Box<FFiE2eeDbPtr>) -> Box<SqliteSignedPreKeyStore>;
+
+        #[cxx_name = "newE2eeDatabase"]
+        fn new_e2ee_database(storage_location: &str) -> Result<Box<FFiE2eeDbPtr>>;
     }
 }

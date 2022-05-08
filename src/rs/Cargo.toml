@@ -12,7 +12,9 @@ libsignal-protocol = { git = "https://github.com/signalapp/libsignal-client", ta
 cxx = "1.0"
 rand_core = { version = "0.5.1", features = [ "getrandom" ] }
 futures-executor = "0.3"
-async-trait = "*"
+async-trait = "0.1"
+diesel = { version = "1.4", features = ["sqlite"] }
+diesel_migrations = "1.4"
 
 [build-dependencies]
 cxx-build = "1.0"

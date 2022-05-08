@@ -21,13 +21,16 @@ add_dependencies(spacebar spacebar-daemon)
 
 if(Corrosion_FOUND)
     corrosion_import_crate(MANIFEST_PATH ${CMAKE_CURRENT_SOURCE_DIR}/rs/Cargo.toml)
+
+    # Teach cmake that this static library needs to be linked against SQLite to find all symbols
+    set_property(TARGET spacebar-rust APPEND PROPERTY INTERFACE_LINK_LIBRARIES SQLite::SQLite3)
     target_include_directories(spacebar PRIVATE
         ${CMAKE_BINARY_DIR}/cargo/build/${Rust_CARGO_TARGET}/cxxbridge/spacebar-rust/src/)
 endif()
 
 target_include_directories(spacebar PRIVATE ${CMAKE_BINARY_DIR})
 target_compile_definitions(spacebar PRIVATE -DQT_NO_CAST_FROM_ASCII)
-target_link_libraries(spacebar
+target_link_libraries(spacebar PRIVATE
     Qt5::Core
     Qt5::Gui
     Qt5::Qml
@@ -51,13 +54,14 @@ target_link_libraries(spacebar
     mms
     spacebar-rust
 )
+
 if (TARGET QCoro5::Core)
-    target_link_libraries(spacebar
+    target_link_libraries(spacebar PRIVATE
         QCoro::Core
         QCoro::DBus
     )
 else()
-    target_link_libraries(spacebar
+    target_link_libraries(spacebar PRIVATE
         QCoro::QCoroCore
         QCoro::QCoroDBus
     )
