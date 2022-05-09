@@ -80,7 +80,7 @@ public:
 
     QString attachmentsFolder() const;
 
-    Q_INVOKABLE QVariant fileInfo(const QString &path);
+    Q_INVOKABLE QVariant fileInfo(const QUrl &path);
 
     /**
      * @brief Adds a message to the model and the database.

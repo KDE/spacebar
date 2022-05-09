@@ -149,9 +149,9 @@ QString MessageModel::attachmentsFolder() const
     return QStandardPaths::writableLocation(QStandardPaths::GenericDataLocation) + SL("/spacebar/attachments/") + folder;
 }
 
-QVariant MessageModel::fileInfo(const QString &path)
+QVariant MessageModel::fileInfo(const QUrl &path)
 {
-    QFile file(path.mid(6, path.length() - 6)); // remove "file://" prefix
+    QFile file(path.toLocalFile());
     file.open(QIODevice::ReadOnly);
     QByteArray data = file.readAll();
     QMimeDatabase db;
@@ -160,8 +160,8 @@ QVariant MessageModel::fileInfo(const QString &path)
 
     QJsonObject object
     {
-        { SL("filePath"), path },
-        { SL("name"), path.mid(path.lastIndexOf(SL("/")) + 1) },
+        { SL("filePath"), path.toString() },
+        { SL("name"), path.fileName() },
         { SL("fileName"), fileName },
         { SL("size"), data.length() },
         { SL("mimeType"), mime.name() },
