@@ -2,6 +2,8 @@ table! {
     identities (address) {
         address -> Text,
         identity_key -> Binary,
+        trusted_incoming -> Bool,
+        trusted_outgoing -> Bool,
     }
 }
 

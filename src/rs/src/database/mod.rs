@@ -114,6 +114,8 @@ impl E2eeDatabase {
 struct Identity {
     address: String,
     identity_key: Vec<u8>,
+    trusted_incoming: bool,
+    trusted_outgoing: bool,
 }
 
 #[derive(Queryable, Insertable)]
@@ -147,7 +149,7 @@ struct Session {
 
 #[async_trait(?Send)]
 impl rsp::IdentityKeyStore for SqliteIdentityKeyStore {
-    async fn get_identity_key_pair(&self, ctx: rsp::Context) -> SignalResult<rsp::IdentityKeyPair> {
+    async fn get_identity_key_pair(&self, _ctx: rsp::Context) -> SignalResult<rsp::IdentityKeyPair> {
         own_identities::table
             .get_result::<OwnIdentity>(&self.db.connection)
             .map_err(to_signal_error)
@@ -159,7 +161,7 @@ impl rsp::IdentityKeyStore for SqliteIdentityKeyStore {
                 rsp::IdentityKeyPair::new(identity_key, private_key)
             })
     }
-    async fn get_local_registration_id(&self, ctx: rsp::Context) -> SignalResult<u32> {
+    async fn get_local_registration_id(&self, _ctx: rsp::Context) -> SignalResult<u32> {
         own_identities::table
             .select(own_identities::registration_id)
             .get_result::<i64>(&self.db.connection)
@@ -171,12 +173,14 @@ impl rsp::IdentityKeyStore for SqliteIdentityKeyStore {
         &mut self,
         address: &rsp::ProtocolAddress,
         identity: &rsp::IdentityKey,
-        ctx: rsp::Context,
+        _ctx: rsp::Context,
     ) -> SignalResult<bool> {
         let rows = diesel::insert_into(identities::table)
-            .values(&Identity {
+            .values(Identity {
                 address: address.to_string(),
                 identity_key: identity.serialize().to_vec(),
+                trusted_incoming: false,
+                trusted_outgoing: false,
             })
             .execute(&self.db.connection)
             .map_err(to_signal_error)?;
@@ -188,16 +192,27 @@ impl rsp::IdentityKeyStore for SqliteIdentityKeyStore {
         address: &rsp::ProtocolAddress,
         identity: &rsp::IdentityKey,
         direction: rsp::Direction,
-        ctx: rsp::Context,
+        _ctx: rsp::Context,
     ) -> SignalResult<bool> {
-        // TODO
-        Ok(true)
+        match direction {
+            rsp::Direction::Sending => identities::table
+                .filter(identities::address.eq(address.to_string()))
+                .filter(identities::identity_key.eq(&*identity.serialize()))
+                .select(identities::trusted_outgoing)
+                .get_result::<bool>(&self.db.connection)
+                .map_err(to_signal_error),
+            rsp::Direction::Receiving => identities::table
+                .filter(identities::address.eq(address.to_string()))
+                .select(identities::trusted_incoming)
+                .get_result::<bool>(&self.db.connection)
+                .map_err(to_signal_error),
+        }
     }
 
     async fn get_identity(
         &self,
         address: &rsp::ProtocolAddress,
-        ctx: rsp::Context,
+        _ctx: rsp::Context,
     ) -> SignalResult<Option<rsp::IdentityKey>> {
         let identity = identities::table
             .filter(identities::address.eq(address.to_string()))
@@ -225,7 +240,7 @@ impl rsp::SessionStore for SqliteSessionStore {
     async fn load_session(
         &self,
         address: &rsp::ProtocolAddress,
-        ctx: rsp::Context,
+        _ctx: rsp::Context,
     ) -> SignalResult<Option<rsp::SessionRecord>> {
         let session = sessions::table
             .filter(sessions::address.eq(address.to_string()))
@@ -243,7 +258,7 @@ impl rsp::SessionStore for SqliteSessionStore {
         &mut self,
         address: &rsp::ProtocolAddress,
         record: &rsp::SessionRecord,
-        ctx: rsp::Context,
+        _ctx: rsp::Context,
     ) -> SignalResult<()> {
         diesel::insert_into(sessions::table)
             .values(Session {
@@ -271,7 +286,7 @@ impl rsp::PreKeyStore for SqlitePreKeyStore {
     async fn get_pre_key(
         &self,
         prekey_id: u32,
-        ctx: rsp::Context,
+        _ctx: rsp::Context,
     ) -> SignalResult<rsp::PreKeyRecord> {
         let prekey = pre_keys::table
             .filter(pre_keys::pre_key_id.eq(prekey_id as i64))
@@ -284,7 +299,7 @@ impl rsp::PreKeyStore for SqlitePreKeyStore {
         &mut self,
         pre_key_id: u32,
         record: &rsp::PreKeyRecord,
-        ctx: rsp::Context,
+        _ctx: rsp::Context,
     ) -> SignalResult<()> {
         diesel::insert_into(pre_keys::table)
             .values(PreKey {
@@ -296,7 +311,7 @@ impl rsp::PreKeyStore for SqlitePreKeyStore {
         Ok(())
     }
 
-    async fn remove_pre_key(&mut self, prekey_id: u32, ctx: rsp::Context) -> SignalResult<()> {
+    async fn remove_pre_key(&mut self, prekey_id: u32, _ctx: rsp::Context) -> SignalResult<()> {
         diesel::delete(pre_keys::table)
             .filter(pre_keys::pre_key_id.eq(prekey_id as i64))
             .execute(&self.db.connection)
@@ -320,7 +335,7 @@ impl rsp::SignedPreKeyStore for SqliteSignedPreKeyStore {
     async fn get_signed_pre_key(
         &self,
         signed_prekey_id: u32,
-        ctx: rsp::Context,
+        _ctx: rsp::Context,
     ) -> SignalResult<rsp::SignedPreKeyRecord> {
         let pre_key = signed_pre_keys::table
             .filter(signed_pre_keys::signed_pre_key_id.eq(signed_prekey_id as i64))
@@ -334,7 +349,7 @@ impl rsp::SignedPreKeyStore for SqliteSignedPreKeyStore {
         &mut self,
         signed_pre_key_id: u32,
         record: &rsp::SignedPreKeyRecord,
-        ctx: rsp::Context,
+        _ctx: rsp::Context,
     ) -> SignalResult<()> {
         diesel::insert_into(signed_pre_keys::table)
             .values(SignedPreKey {

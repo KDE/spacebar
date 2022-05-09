@@ -1,6 +1,8 @@
 create table identities (
     address Text primary key not null,
-    identity_key Blob not null
+    identity_key Blob not null,
+    trusted_incoming Boolean not null,
+    trusted_outgoing Boolean not null
 );
 
 create table own_identities (
