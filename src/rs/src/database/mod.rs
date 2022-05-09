@@ -149,7 +149,10 @@ struct Session {
 
 #[async_trait(?Send)]
 impl rsp::IdentityKeyStore for SqliteIdentityKeyStore {
-    async fn get_identity_key_pair(&self, _ctx: rsp::Context) -> SignalResult<rsp::IdentityKeyPair> {
+    async fn get_identity_key_pair(
+        &self,
+        _ctx: rsp::Context,
+    ) -> SignalResult<rsp::IdentityKeyPair> {
         own_identities::table
             .get_result::<OwnIdentity>(&self.db.connection)
             .map_err(to_signal_error)
