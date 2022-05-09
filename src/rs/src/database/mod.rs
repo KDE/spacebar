@@ -124,6 +124,27 @@ struct OwnIdentity {
     private_key: Vec<u8>,
 }
 
+#[derive(Queryable, Insertable)]
+#[table_name = "signed_pre_keys"]
+struct SignedPreKey {
+    signed_pre_key_id: i64,
+    signed_pre_key: Vec<u8>,
+}
+
+#[derive(Queryable, Insertable)]
+#[table_name = "pre_keys"]
+struct PreKey {
+    pre_key_id: i64,
+    pre_key: Vec<u8>,
+}
+
+#[derive(Queryable, Insertable)]
+#[table_name = "sessions"]
+struct Session {
+    address: String,
+    session_state: Vec<u8>,
+}
+
 #[async_trait(?Send)]
 impl rsp::IdentityKeyStore for SqliteIdentityKeyStore {
     async fn get_identity_key_pair(&self, ctx: rsp::Context) -> SignalResult<rsp::IdentityKeyPair> {
@@ -206,7 +227,16 @@ impl rsp::SessionStore for SqliteSessionStore {
         address: &rsp::ProtocolAddress,
         ctx: rsp::Context,
     ) -> SignalResult<Option<rsp::SessionRecord>> {
-        Ok(None)
+        let session = sessions::table
+            .filter(sessions::address.eq(address.to_string()))
+            .get_result::<Session>(&self.db.connection)
+            .optional()
+            .map_err(to_signal_error)?;
+
+        match session {
+            Some(session) => rsp::SessionRecord::deserialize(&session.session_state).map(Some),
+            None => Ok(None),
+        }
     }
 
     async fn store_session(
@@ -215,6 +245,13 @@ impl rsp::SessionStore for SqliteSessionStore {
         record: &rsp::SessionRecord,
         ctx: rsp::Context,
     ) -> SignalResult<()> {
+        diesel::insert_into(sessions::table)
+            .values(Session {
+                address: address.to_string(),
+                session_state: record.serialize()?,
+            })
+            .execute(&self.db.connection)
+            .map_err(to_signal_error)?;
         Ok(())
     }
 }
@@ -236,19 +273,34 @@ impl rsp::PreKeyStore for SqlitePreKeyStore {
         prekey_id: u32,
         ctx: rsp::Context,
     ) -> SignalResult<rsp::PreKeyRecord> {
-        Err(rsp::SignalProtocolError::NoKeyTypeIdentifier)
+        let prekey = pre_keys::table
+            .filter(pre_keys::pre_key_id.eq(prekey_id as i64))
+            .get_result::<PreKey>(&self.db.connection)
+            .map_err(to_signal_error)?;
+        rsp::PreKeyRecord::deserialize(&prekey.pre_key)
     }
 
     async fn save_pre_key(
         &mut self,
-        prekey_id: u32,
+        pre_key_id: u32,
         record: &rsp::PreKeyRecord,
         ctx: rsp::Context,
     ) -> SignalResult<()> {
+        diesel::insert_into(pre_keys::table)
+            .values(PreKey {
+                pre_key_id: pre_key_id as i64,
+                pre_key: record.serialize()?,
+            })
+            .execute(&self.db.connection)
+            .map_err(to_signal_error)?;
         Ok(())
     }
 
     async fn remove_pre_key(&mut self, prekey_id: u32, ctx: rsp::Context) -> SignalResult<()> {
+        diesel::delete(pre_keys::table)
+            .filter(pre_keys::pre_key_id.eq(prekey_id as i64))
+            .execute(&self.db.connection)
+            .map_err(to_signal_error)?;
         Ok(())
     }
 }
@@ -270,15 +322,27 @@ impl rsp::SignedPreKeyStore for SqliteSignedPreKeyStore {
         signed_prekey_id: u32,
         ctx: rsp::Context,
     ) -> SignalResult<rsp::SignedPreKeyRecord> {
-        Err(rsp::SignalProtocolError::NoKeyTypeIdentifier)
+        let pre_key = signed_pre_keys::table
+            .filter(signed_pre_keys::signed_pre_key_id.eq(signed_prekey_id as i64))
+            .get_result::<SignedPreKey>(&self.db.connection)
+            .map_err(to_signal_error)?;
+        let pre_key = rsp::SignedPreKeyRecord::deserialize(&pre_key.signed_pre_key)?;
+        Ok(pre_key)
     }
 
     async fn save_signed_pre_key(
         &mut self,
-        signed_prekey_id: u32,
+        signed_pre_key_id: u32,
         record: &rsp::SignedPreKeyRecord,
         ctx: rsp::Context,
     ) -> SignalResult<()> {
+        diesel::insert_into(signed_pre_keys::table)
+            .values(SignedPreKey {
+                signed_pre_key_id: signed_pre_key_id as i64,
+                signed_pre_key: record.serialize()?,
+            })
+            .execute(&self.db.connection)
+            .map_err(to_signal_error)?;
         Ok(())
     }
 }

@@ -10,16 +10,16 @@ create table own_identities (
 );
 
 create table sessions (
-    previous_counter Int primary key not null,
+    address Text primary key not null,
     session_state Blob not null
 );
 
 create table pre_keys (
-    prekey_id BigInt primary key not null,
+    pre_key_id BigInt primary key not null,
     pre_key Blob not null
 );
 
 create table signed_pre_keys (
-    signed_prekey_id BigInt primary key not null,
+    signed_pre_key_id BigInt primary key not null,
     signed_pre_key Blob not null
 );

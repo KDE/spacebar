@@ -14,22 +14,22 @@ table! {
 }
 
 table! {
-    pre_keys (prekey_id) {
-        prekey_id -> BigInt,
+    pre_keys (pre_key_id) {
+        pre_key_id -> BigInt,
         pre_key -> Binary,
     }
 }
 
 table! {
-    sessions (previous_counter) {
-        previous_counter -> Integer,
+    sessions (address) {
+        address -> Text,
         session_state -> Binary,
     }
 }
 
 table! {
-    signed_pre_keys (signed_prekey_id) {
-        signed_prekey_id -> BigInt,
+    signed_pre_keys (signed_pre_key_id) {
+        signed_pre_key_id -> BigInt,
         signed_pre_key -> Binary,
     }
 }
