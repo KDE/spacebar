@@ -1,1 +1,5 @@
--- This file should undo anything in `up.sql`
+drop table identities;
+drop table own_identities;
+drop table sessions;
+drop table pre_keys;
+drop table signed_pre_keys;

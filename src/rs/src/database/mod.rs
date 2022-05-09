@@ -5,6 +5,7 @@
 mod schema;
 
 use libsignal_protocol as rsp;
+use std::panic::UnwindSafe;
 
 use crate::SignalResult;
 
@@ -13,12 +14,47 @@ use std::fmt::{self, Display, Formatter};
 use std::rc::Rc;
 
 use diesel::prelude::*;
+use schema::*;
 
 use diesel::ConnectionError;
 use diesel_migrations::RunMigrationsError;
 
 embed_migrations!("migrations/");
 
+/// Stub error that can be passed to signal and is UnwindSafe
+#[derive(Debug)]
+struct ErrorString(String);
+
+impl Display for ErrorString {
+    fn fmt(&self, f: &mut Formatter<'_>) -> fmt::Result {
+        write!(f, "{}", self.0)?;
+        Ok(())
+    }
+}
+
+impl UnwindSafe for ErrorString {}
+impl Error for ErrorString {}
+
+impl From<diesel::result::Error> for ErrorString {
+    fn from(error: diesel::result::Error) -> ErrorString {
+        ErrorString(error.to_string())
+    }
+}
+
+impl Into<rsp::SignalProtocolError> for ErrorString {
+    fn into(self) -> rsp::SignalProtocolError {
+        rsp::SignalProtocolError::ApplicationCallbackError(
+            "spacebar",
+            Box::<ErrorString>::from(self),
+        )
+    }
+}
+
+fn to_signal_error(e: diesel::result::Error) -> rsp::SignalProtocolError {
+    ErrorString::from(e).into()
+}
+
+/// Error type for database operations
 #[derive(Debug)]
 pub enum DatabaseError {
     ConnectionError(ConnectionError),
@@ -51,7 +87,7 @@ impl From<RunMigrationsError> for DatabaseError {
 pub type DatabaseResult<T> = Result<T, DatabaseError>;
 
 pub struct E2eeDatabase {
-    connection: SqliteConnection,
+    pub connection: SqliteConnection,
 }
 
 pub type E2eeDbPtr = Rc<E2eeDatabase>;
@@ -63,32 +99,67 @@ pub struct SqliteIdentityKeyStore {
 
 impl E2eeDatabase {
     pub fn new(storage_location: &str) -> DatabaseResult<E2eeDatabase> {
+        println!("Opening E2EE Database");
         let connection = SqliteConnection::establish(storage_location)?;
 
+        println!("Running migrations");
         embedded_migrations::run_with_output(&connection, &mut std::io::stdout())?;
 
         Ok(E2eeDatabase { connection })
     }
 }
 
+#[derive(Queryable, Insertable)]
+#[table_name = "identities"]
+struct Identity {
+    address: String,
+    identity_key: Vec<u8>,
+}
+
+#[derive(Queryable, Insertable)]
+#[table_name = "own_identities"]
+struct OwnIdentity {
+    registration_id: i64,
+    identity_key: Vec<u8>,
+    private_key: Vec<u8>,
+}
+
 #[async_trait(?Send)]
 impl rsp::IdentityKeyStore for SqliteIdentityKeyStore {
     async fn get_identity_key_pair(&self, ctx: rsp::Context) -> SignalResult<rsp::IdentityKeyPair> {
-        // TODO
-        Err(rsp::SignalProtocolError::NoKeyTypeIdentifier)
+        own_identities::table
+            .get_result::<OwnIdentity>(&self.db.connection)
+            .map_err(to_signal_error)
+            .map(|i| -> rsp::IdentityKeyPair {
+                let identity_key = rsp::IdentityKey::decode(&i.identity_key)
+                    .expect("Corrupted identity key in database");
+                let private_key = rsp::PrivateKey::deserialize(&i.private_key)
+                    .expect("Corrupted private key in database");
+                rsp::IdentityKeyPair::new(identity_key, private_key)
+            })
     }
     async fn get_local_registration_id(&self, ctx: rsp::Context) -> SignalResult<u32> {
-        // TODO
-        Ok(0)
+        own_identities::table
+            .select(own_identities::registration_id)
+            .get_result::<i64>(&self.db.connection)
+            .map_err(to_signal_error)
+            .map(|id| id as u32)
     }
+
     async fn save_identity(
         &mut self,
         address: &rsp::ProtocolAddress,
         identity: &rsp::IdentityKey,
         ctx: rsp::Context,
     ) -> SignalResult<bool> {
-        // TODO
-        Ok(true)
+        let rows = diesel::insert_into(identities::table)
+            .values(&Identity {
+                address: address.to_string(),
+                identity_key: identity.serialize().to_vec(),
+            })
+            .execute(&self.db.connection)
+            .map_err(to_signal_error)?;
+        Ok(rows > 0)
     }
 
     async fn is_trusted_identity(
@@ -107,8 +178,14 @@ impl rsp::IdentityKeyStore for SqliteIdentityKeyStore {
         address: &rsp::ProtocolAddress,
         ctx: rsp::Context,
     ) -> SignalResult<Option<rsp::IdentityKey>> {
-        // TODO
-        Ok(None)
+        let identity = identities::table
+            .filter(identities::address.eq(address.to_string()))
+            .get_result::<Identity>(&self.db.connection)
+            .optional()
+            .map_err(to_signal_error)?;
+
+        Ok(identity
+            .map(|i| rsp::IdentityKey::decode(&i.identity_key).expect("Corrupted key in database")))
     }
 }
 
