@@ -172,7 +172,7 @@ void Mms::sendNotifyResponse(const QString &transactionId, const QString &status
     data.append(encodeHeaderPrefix(SL("m-notifyresp-ind"), transactionId));
 
     data.append(MMS_HEADER_STATUS);
-    data.append(encodeValueFromList(status, statusValues));
+    data.append(encodeValueFromList(status, STATUS_VALUES));
 
     data.append(MMS_HEADER_REPORT_ALLOWED);
     data.append((SettingsManager::self()->shareDeliveryStatus() ? MMS_CODE_YES : MMS_CODE_NO));
@@ -439,7 +439,7 @@ void Mms::encodeMessage(MmsMessage &message, QByteArray &data, const QStringList
             }
         }
 
-        data.append(encodePart(encodeValueFromList(mimeType, contentTypes), name, fileData));
+        data.append(encodePart(encodeValueFromList(mimeType, CONTENT_TYPES), name, fileData));
 
         if (parts > 1 && settings->autoCreateSmil()) {
             smil.append(SL(R"(<par dur="5000ms">)"));
@@ -457,7 +457,7 @@ void Mms::encodeMessage(MmsMessage &message, QByteArray &data, const QStringList
     // add text as one of the parts
     if (!message.text.isEmpty()) {
         const QString name = SL("text01.txt");
-        data.append(encodePart(encodeValueFromList(SL("text/plain"), contentTypes), name, message.text.toUtf8()));
+        data.append(encodePart(encodeValueFromList(SL("text/plain"), CONTENT_TYPES), name, message.text.toUtf8()));
         message.text.clear();
 
         if (parts > 1 && settings->autoCreateSmil()) {
@@ -497,7 +497,7 @@ bool Mms::decodeHeader(MmsMessage &message, const QByteArray &data, int &pos)
     }
 
     unsigned char field = data.at(++pos);
-    for (const auto &headerField : header_fields) {
+    for (const auto &headerField : HEADER_FIELDS) {
         if (headerField.id == field) {
             QVariant val;
             QStringView type = headerField.type;
@@ -544,7 +544,7 @@ QByteArray Mms::encodeHeaderPrefix(const QString &type, const QString &id, bool 
 {
     QByteArray data;
     data.append(MMS_HEADER_MESSAGE_TYPE);
-    data.append(encodeValueFromList(type, messageTypes));
+    data.append(encodeValueFromList(type, MESSAGE_TYPES));
 
     data.append(msgId ? MMS_HEADER_MESSAGE_ID : MMS_HEADER_TRANSACTION_ID);
     data.append(encodeTextValue(id));
@@ -685,7 +685,7 @@ QString Mms::contentTypeValue(const QByteArray &data, int & pos, MmsMessage &mes
 {
     QString type;
     if (data.at(pos + 1) & 0x80) {
-        type = lookupValString(data, pos, contentTypes);
+        type = lookupValString(data, pos, CONTENT_TYPES);
     } else if (data.at(pos + 1) == 0 || data.at(pos + 1) >= 0x20) {
         type = textString(data, pos);
     } else {
@@ -696,16 +696,16 @@ QString Mms::contentTypeValue(const QByteArray &data, int & pos, MmsMessage &mes
         if (data.at(pos + 1) == 0 || (data.at(pos + 1) >= 32 && (unsigned char)data.at(pos + 1) <= 127)) {
             type = encodedStringValue(data, pos);
         } else if ((data.at(pos + 1) & 0x80) || data.at(pos + 1) <= 30) {
-            type = lookupValString(data, pos, contentTypes);
+            type = lookupValString(data, pos, CONTENT_TYPES);
         }
 
         while(pos < end) {
             unsigned char field = data.at(++pos) & 0x7F;
-            int len = param_fields.size();
+            int len = HEADER_FIELDS.size();
             for (int i = 0; i < len; i++) {
-                if (param_fields[i].id == field) {
+                if (HEADER_FIELDS[i].id == field) {
                     QVariant val;
-                    QStringView type = param_fields[i].type;
+                    QStringView type = HEADER_FIELDS[i].type;
                     if (type == u"unsignedInt") val = unsignedInt(data, pos);
                     else if (type == u"longInteger") val = longInteger(data, pos);
                     else if (type == u"shortInteger") val = shortInteger(data, pos);
@@ -716,7 +716,7 @@ QString Mms::contentTypeValue(const QByteArray &data, int & pos, MmsMessage &mes
                     else val = data.at(++pos);
 
                     // store relevant values
-                    QStringView name = param_fields[i].name;
+                    QStringView name = HEADER_FIELDS[i].name;
                     if (name == u"name") message.partNames.append(val.toString());
                     //else qDebug() << param_fields[i].name << ":" << val.toString();
 
@@ -731,7 +731,7 @@ QString Mms::contentTypeValue(const QByteArray &data, int & pos, MmsMessage &mes
 
 QString Mms::messageTypeValue(const QByteArray &data, int & pos)
 {
-    return lookupValString(data, pos, messageTypes);
+    return lookupValString(data, pos, MESSAGE_TYPES);
 }
 
 unsigned int Mms::unsignedInt(const QByteArray &data, int &pos)
@@ -892,7 +892,7 @@ QString Mms::mmsVersion(const QByteArray &data, int &pos)
     return major + SL(".") + minor;
 }
 
-QString Mms::lookupValString(const QByteArray &data, int &pos, const QVector<QStringView> &list)
+QString Mms::lookupValString(const QByteArray &data, int &pos, std::span<const QStringView> list)
 {
     return list[shortInteger(data, pos)].toString();
 }
@@ -959,7 +959,7 @@ QByteArray Mms::encodeFromValue(const QString &value)
     return bytes;
 }
 
-QByteArray Mms::encodeValueFromList(const QString &value, const QVector<QStringView> &list)
+QByteArray Mms::encodeValueFromList(const QString &value, std::span<const QStringView> list)
 {
     QByteArray type;
     int index = list.size();
