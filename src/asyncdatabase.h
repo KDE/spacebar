@@ -1,12 +1,36 @@
-// SPDX-FileCopyrightText: 2020 Jonah Brüchert <jbb@kaidan.im>
+// SPDX-FileCopyrightText: 2022 Jonah Brüchert <jbb@kaidan.im>
 //
 // SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
 
 #pragma once
 
 #include <QObject>
+#include <QFuture>
+#include <QFutureInterface>
+#include <QFutureWatcherBase>
 
 #include "database.h"
+
+template <typename T, typename QObjectDerivedType, typename Function>
+void connectFuture(const QFuture<T> &future, QObjectDerivedType *self, const Function &fun) {
+    auto watcher = std::make_shared<QFutureWatcher<T>>();
+    watcher->setFuture(future);
+    QObject::connect(watcher.get(), &QFutureWatcherBase::finished, self, [self, watcher, fun, future] {
+        if constexpr (std::is_same_v<void, T>) {
+            if constexpr (std::is_member_function_pointer_v<Function>) {
+                fun->*(self);
+            } else {
+                fun();
+            }
+        } else if (future.resultCount() > 0) {
+            if constexpr (std::is_member_function_pointer_v<Function>) {
+                (self->*fun)(watcher->result());
+            } else {
+                fun(watcher->result());
+            }
+        }
+    });
+}
 
 ///
 /// \brief The AsyncDatabase class provides an asynchronous API around the Database class
@@ -24,40 +48,37 @@ public:
 
     Q_SIGNAL void messagesChanged(const PhoneNumberList &phoneNumberList);
 
-    // Fetch requests
-    Q_SIGNAL void requestAddMessage(const Message &message);
-    Q_SIGNAL void requestDeleteMessage(const QString &id);
-    Q_SIGNAL void requestMessagesForNumber(const PhoneNumberList &phoneNumberList, const QString &id);
-    Q_SIGNAL void requestUpdateMessageDeliveryState(const QString &id, const MessageState state);
-    Q_SIGNAL void requestUpdateMessageSent(const QString &id, const QString &messageId, const QString &contentLocation);
-    Q_SIGNAL void requestMarkMessageRead(const int id);
-    Q_SIGNAL void requestChats();
-    Q_SIGNAL void requestUnreadMessagesForNumber(const PhoneNumberList &phoneNumberList);
-    Q_SIGNAL void requestLastMessageForNumber(const PhoneNumberList &phoneNumberList);
-    Q_SIGNAL void requestLastContactedForNumber(const PhoneNumberList &phoneNumberList);
-    Q_SIGNAL void requestMarkChatAsRead(const PhoneNumberList &phoneNumberList);
-    Q_SIGNAL void requestDeleteChat(const PhoneNumberList &phoneNumberList);
-
-    // Responses
-    Q_SIGNAL void messagesFetchedForNumber(const PhoneNumberList &phoneNumberList, const QVector<Message> messages);
-    Q_SIGNAL void chatsFetched(QVector<Chat> chats);
-    Q_SIGNAL void unreadMessagesFetchedForNumber(const PhoneNumberList &phoneNumberList, const int unreadMessages);
-    Q_SIGNAL void lastMessageFetchedForNumber(const PhoneNumberList &phoneNumberList, const QString &message);
-    Q_SIGNAL void lastContactedFetchedForNumber(const PhoneNumberList &phoneNumberList, const QDateTime &lastContacted);
+    QFuture<void> addMessage(const Message &message);
+    QFuture<void> deleteMessage(const QString &id);
+    QFuture<QVector<Message>> messagesForNumber(const PhoneNumberList &phoneNumberList, const QString &id);
+    QFuture<void> updateMessageDeliveryState(const QString &id, const MessageState state);
+    QFuture<void> updateMessageSent(const QString &id, const QString &messageId, const QString &contentLocation);
+    QFuture<void> markMessageRead(const int id);
+    QFuture<QVector<Chat>> chats();
+    QFuture<int> unreadMessagesForNumber(const PhoneNumberList &phoneNumberList);
+    QFuture<QString> lastMessageForNumber(const PhoneNumberList &phoneNumberList);
+    QFuture<QDateTime> lastContactedForNumber(const PhoneNumberList &phoneNumberList);
+    QFuture<void> markChatAsRead(const PhoneNumberList &phoneNumberList);
+    QFuture<void> deleteChat(const PhoneNumberList &phoneNumberList);
 
 private:
-    Q_SLOT void addMessage(const Message &message);
-    Q_SLOT void deleteMessage(const QString &id);
-    Q_SLOT void messagesForNumber(const PhoneNumberList &phoneNumberList, const QString &id);
-    Q_SLOT void updateMessageDeliveryState(const QString &id, const MessageState state);
-    Q_SLOT void updateMessageSent(const QString &id, const QString &messageId, const QString &contentLocation);
-    Q_SLOT void markMessageRead(const int id);
-    Q_SLOT void chats();
-    Q_SLOT void unreadMessagesForNumber(const PhoneNumberList &phoneNumberList);
-    Q_SLOT void lastMessageForNumber(const PhoneNumberList &phoneNumberList);
-    Q_SLOT void lastContactedForNumber(const PhoneNumberList &phoneNumberList);
-    Q_SLOT void markChatAsRead(const PhoneNumberList &phoneNumberList);
-    Q_SLOT void deleteChat(const PhoneNumberList &phoneNumberList);
+    template <typename T, typename Functor>
+    QFuture<T> runAsync(Functor func) {
+        auto interface = std::make_shared<QFutureInterface<T>>();
+
+        QMetaObject::invokeMethod(this, [interface, func] {
+            if constexpr (!std::is_same_v<T, void>) {
+                auto result = func();
+                interface->reportResult(result);
+            } else {
+                func();
+            }
+
+            interface->reportFinished();
+        });
+
+        return interface->future();
+    }
 
     Database m_database;
 };

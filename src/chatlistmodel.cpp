@@ -1,5 +1,5 @@
 // SPDX-FileCopyrightText: 2020 Anthony Fieroni <bvbfan@abv.bg>
-// SPDX-FileCopyrightText: 2021 Jonah Brüchert <jbb@kaidan.im>
+// SPDX-FileCopyrightText: 2022 Jonah Brüchert <jbb@kaidan.im>
 //
 // SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
 
@@ -41,19 +41,8 @@ ChatListModel::ChatListModel(ChannelHandler &handler, QObject *parent)
         }
     });
 
-    connect(&m_handler.database(), &AsyncDatabase::chatsFetched, this, [this](const QVector<Chat> &chats) {
-        beginResetModel();
-        m_chats = chats;
-        // Sort chat list by most recent chat 
-        std::sort(m_chats.begin(), m_chats.end(), [](const Chat & a, const Chat & b) -> bool
-        { 
-            return a.lastContacted > b.lastContacted; 
-        });
-        endResetModel();
-        Q_EMIT chatsFetched();
-    });
+    connectFuture(m_handler.database().chats(), this, &ChatListModel::updateChats);
 
-    Q_EMIT m_handler.database().requestChats();
     Q_EMIT m_handler.interface()->disableNotificationsForNumber(QString());
 }
 
@@ -140,21 +129,34 @@ void ChatListModel::startChat(const PhoneNumberList &phoneNumberList)
 
 void ChatListModel::markChatAsRead(const PhoneNumberList &phoneNumberList)
 {
-    Q_EMIT m_handler.database().requestMarkChatAsRead(phoneNumberList);
+    m_handler.database().markChatAsRead(phoneNumberList);
 }
 
 void ChatListModel::fetchChats()
 {
-    Q_EMIT m_handler.database().requestChats();
+    connectFuture(m_handler.database().chats(), this, &ChatListModel::updateChats);
 }
 
 void ChatListModel::deleteChat(const PhoneNumberList &phoneNumberList)
 {
-    Q_EMIT m_handler.database().requestDeleteChat(phoneNumberList);
+    m_handler.database().deleteChat(phoneNumberList);
 
     const QString folder = QString::number(qHash(phoneNumberList.toString()));
     QDir dir(QStandardPaths::writableLocation(QStandardPaths::GenericDataLocation) + SL("/spacebar/attachments/") + folder);
     dir.removeRecursively();
+}
+
+void ChatListModel::updateChats(const QVector<Chat> &chats)
+{
+    beginResetModel();
+    m_chats = chats;
+    // Sort chat list by most recent chat
+    std::sort(m_chats.begin(), m_chats.end(), [](const Chat & a, const Chat & b) -> bool
+    {
+        return a.lastContacted > b.lastContacted;
+    });
+    endResetModel();
+    Q_EMIT chatsFetched();
 }
 
 void ChatListModel::restoreDefaults()

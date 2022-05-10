@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2020 Jonah Brüchert <jbb@kaidan.im>
+// SPDX-FileCopyrightText: 2022 Jonah Brüchert <jbb@kaidan.im>
 // SPDX-FileCopyrightText: 2021 Michael Lang <criticaltemp@protonmail.com>
 //
 // SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
@@ -51,22 +51,18 @@ MessageModel::MessageModel(ChannelHandler &handler, const PhoneNumberList &phone
         }
     });
 
-    connect(&m_handler.database(), &AsyncDatabase::messagesFetchedForNumber,
-            this, [this](const PhoneNumberList &phoneNumberList, const QVector<Message> &messages) {
-        if (phoneNumberList == m_phoneNumberList) {
-            if (messages.count() == 1) {
-                beginInsertRows({}, m_messages.count(), m_messages.count());
-                m_messages.prepend(messages.at(0));
-                endInsertRows();
-            } else {
-                beginResetModel();
-                m_messages = messages;
-                endResetModel();
-            }
+    connectFuture(m_handler.database().messagesForNumber(m_phoneNumberList, QString()),
+            this, [=, this](const QVector<Message> &messages) {
+        if (messages.count() == 1) {
+            beginInsertRows({}, m_messages.count(), m_messages.count());
+            m_messages.prepend(messages.at(0));
+            endInsertRows();
+        } else {
+            beginResetModel();
+            m_messages = messages;
+            endResetModel();
         }
     });
-
-    Q_EMIT m_handler.database().requestMessagesForNumber(m_phoneNumberList, QString());
 }
 
 QHash<int, QByteArray> MessageModel::roleNames() const
@@ -192,7 +188,7 @@ void MessageModel::messagedAdded(const QString &numbers, const QString &id)
         return; // Message is not for this model
     }
 
-    Q_EMIT m_handler.database().requestMessagesForNumber(m_phoneNumberList, id);
+    m_handler.database().messagesForNumber(m_phoneNumberList, id);
 }
 
 void MessageModel::addMessage(const Message &message)
@@ -202,7 +198,7 @@ void MessageModel::addMessage(const Message &message)
     endInsertRows();
 
     // save to database
-    Q_EMIT m_handler.database().requestAddMessage(message);
+    m_handler.database().addMessage(message);
 }
 
 void MessageModel::sendMessage(const QString &text, const QStringList &files, const long totalSize)
@@ -254,7 +250,7 @@ void MessageModel::updateMessageState(const QString &id, MessageState state, con
     idx.first->deliveryStatus = state;
 
     if (!temp) {
-        Q_EMIT m_handler.database().requestUpdateMessageDeliveryState(id, state);
+        m_handler.database().updateMessageDeliveryState(id, state);
     }
 
     Q_EMIT dataChanged(index(idx.second), index(idx.second), {Role::DeliveryStateRole});
@@ -324,7 +320,7 @@ QCoro::Task<QString> MessageModel::sendMessageInternal(const PhoneNumber &phoneN
         }
     });
 
-    connect(mmMessage.get(), &ModemManager::Sms::deliveryStateChanged, this, [=, this] {
+    connect(mmMessage.get(), &ModemManager::Sms::deliveryStateChanged, this, [=] {
         MMSmsDeliveryState state = mmMessage->deliveryState();
         // TODO does this even change?
         // TODO do something with the state
@@ -385,7 +381,7 @@ QCoro::Task<QString> MessageModel::sendMessageInternalMms(const PhoneNumberList 
                 updateMessageState(message.id, MessageState::Sent);
 
                 if (!mmsMessage.messageId.isEmpty()) {
-                    Q_EMIT m_handler.database().requestUpdateMessageSent(message.id, mmsMessage.messageId, mmsMessage.contentLocation);
+                    m_handler.database().updateMessageSent(message.id, mmsMessage.messageId, mmsMessage.contentLocation);
                 }
             } else {
                 updateMessageState(message.id, MessageState::Failed);
@@ -405,7 +401,7 @@ QCoro::Task<QString> MessageModel::sendMessageInternalMms(const PhoneNumberList 
 
 void MessageModel::markMessageRead(const int id)
 {
-    Q_EMIT m_handler.database().requestMarkMessageRead(id);
+    m_handler.database().markMessageRead(id);
 }
 
 void MessageModel::downloadMessage(const QString &id, const QString &url, const QDateTime &expires)
@@ -416,7 +412,7 @@ void MessageModel::downloadMessage(const QString &id, const QString &url, const 
 
 void MessageModel::deleteMessage(const QString &id, const int index, const QStringList &files)
 {
-    Q_EMIT m_handler.database().requestDeleteMessage(id);
+    m_handler.database().deleteMessage(id);
 
     // delete attachments
     const QString sourceFolder = attachmentsFolder();
