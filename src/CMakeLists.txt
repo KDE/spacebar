@@ -38,6 +38,8 @@ target_link_libraries(spacebar
     KF5::PeopleBackend
     KF5::ModemManagerQt
     KF5::KIOGui
+    KF5::DBusAddons
+    KF5::WindowSystem
     database
     kTelephonySupport
     macros

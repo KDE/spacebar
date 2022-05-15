@@ -9,6 +9,7 @@
 
 #include <QTimer>
 
+#include <KIO/CommandLauncherJob>
 #include <KLocalizedString>
 #include <KNotification>
 #include <KPeople/PersonData>
@@ -265,9 +266,12 @@ void ChannelLogger::saveMessage(
     notification->sendEvent();
 
     // copy current pointer to notification, otherwise this would just close the most recent one.
-    connect(notification, &KNotification::defaultActivated, this, [notification]() {
+    connect(notification, &KNotification::defaultActivated, this, [notification, phoneNumberList]() {
         notification->close();
-        QProcess::startDetached(SL("spacebar"), QStringList{});
+        auto *job = new KIO::CommandLauncherJob(SL("spacebar"), {phoneNumberList.toString()});
+        job->setStartupId(notification->xdgActivationToken().toUtf8());
+        job->setDesktopName(SL("org.kde.spacebar"));
+        job->start();
     });
 }
 

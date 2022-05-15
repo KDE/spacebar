@@ -31,6 +31,7 @@ target_link_libraries(spacebar-daemon
     KF5::DBusAddons
     KF5::Notifications
     KF5::ModemManagerQt
+    KF5::KIOGui
     database
     kTelephonySupport
     macros
