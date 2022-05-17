@@ -51,18 +51,7 @@ MessageModel::MessageModel(ChannelHandler &handler, const PhoneNumberList &phone
         }
     });
 
-    connectFuture(m_handler.database().messagesForNumber(m_phoneNumberList, QString()),
-            this, [=, this](const QVector<Message> &messages) {
-        if (messages.count() == 1) {
-            beginInsertRows({}, m_messages.count(), m_messages.count());
-            m_messages.prepend(messages.at(0));
-            endInsertRows();
-        } else {
-            beginResetModel();
-            m_messages = messages;
-            endResetModel();
-        }
-    });
+    connectFuture(m_handler.database().messagesForNumber(m_phoneNumberList, QString()), this, &MessageModel::updateModel);
 }
 
 QHash<int, QByteArray> MessageModel::roleNames() const
@@ -188,7 +177,20 @@ void MessageModel::messagedAdded(const QString &numbers, const QString &id)
         return; // Message is not for this model
     }
 
-    m_handler.database().messagesForNumber(m_phoneNumberList, id);
+    connectFuture(m_handler.database().messagesForNumber(m_phoneNumberList, id), this, &MessageModel::updateModel);
+}
+
+void MessageModel::updateModel(const QVector<Message> &messages)
+{
+    if (messages.count() == 1) {
+        beginInsertRows({}, m_messages.count(), m_messages.count());
+        m_messages.prepend(messages.at(0));
+        endInsertRows();
+    } else {
+        beginResetModel();
+        m_messages = messages;
+        endResetModel();
+    }
 }
 
 void MessageModel::addMessage(const Message &message)
