@@ -12,7 +12,6 @@
 #include <QClipboard>
 
 #include <KTextToHTML>
-#include <KContacts/VCardConverter>
 #include <KPeople/KPeopleBackend/AbstractContact>
 #include <KPeople/PersonData>
 
@@ -34,8 +33,6 @@ static QVariantList toVariantList(const QVector<T> &v)
     });
     return l;
 }
-
-const static KContacts::VCardConverter converter;
 
 static QSharedPointer<KPeople::PersonData> contactData(const QString &uri)
 {

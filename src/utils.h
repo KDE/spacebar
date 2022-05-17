@@ -11,6 +11,7 @@
 #include <ModemManagerQt/Modem>
 #include <ModemManagerQt/ModemDevice>
 #include <KContacts/PhoneNumber>
+#include <KContacts/VCardConverter>
 
 #include <phonenumberlist.h>
 
@@ -64,4 +65,5 @@ private:
     QQmlApplicationEngine *m_engine;
     QQuickWindow *m_window = nullptr;
     PhoneNumber m_sendingNumber;
+    const KContacts::VCardConverter converter;
 };
