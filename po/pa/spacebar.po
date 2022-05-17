@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: spacebar\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-04-21 00:47+0000\n"
+"POT-Creation-Date: 2022-05-17 00:47+0000\n"
 "PO-Revision-Date: 2021-10-07 17:52-0700\n"
 "Last-Translator: A S Alam <aalam@satluj.org>\n"
 "Language-Team: Punjabi <punjabi-users@lists.sf.net>\n"
@@ -59,7 +59,7 @@ msgstr "ਖੋਲ੍ਹੋ"
 msgid "Spacebar background service"
 msgstr "ਸਪੇਸਬਾਰ ਬੈਕਗਰਾਊਂਡ ਸੇਵਾ"
 
-#: src/chatlistmodel.cpp:98
+#: src/chatlistmodel.cpp:87
 #, kde-format
 msgid "Unknown"
 msgstr ""

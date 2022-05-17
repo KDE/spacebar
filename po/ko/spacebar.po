@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: spacebar\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-04-21 00:47+0000\n"
+"POT-Creation-Date: 2022-05-17 00:47+0000\n"
 "PO-Revision-Date: 2022-04-16 01:26+0200\n"
 "Last-Translator: Shinjo Park <kde@peremen.name>\n"
 "Language-Team: Korean <kde-kr@kde.org>\n"
@@ -58,7 +58,7 @@ msgstr "열기"
 msgid "Spacebar background service"
 msgstr "Spacebar 백그라운드 서비스"
 
-#: src/chatlistmodel.cpp:98
+#: src/chatlistmodel.cpp:87
 #, kde-format
 msgid "Unknown"
 msgstr "알 수 없음"
