@@ -247,15 +247,15 @@ QPair<Message *, int> MessageModel::getMessageIndex(const QString &id)
 
 void MessageModel::updateMessageState(const QString &id, MessageState state, const bool temp)
 {
-    const auto idx = getMessageIndex(id);
+    const auto &[message, i] = getMessageIndex(id);
 
-    idx.first->deliveryStatus = state;
+    message->deliveryStatus = state;
 
     if (!temp) {
         m_handler.database().updateMessageDeliveryState(id, state);
     }
 
-    Q_EMIT dataChanged(index(idx.second), index(idx.second), {Role::DeliveryStateRole});
+    Q_EMIT dataChanged(index(i), index(i), {Role::DeliveryStateRole});
 }
 
 QCoro::Task<QString> MessageModel::sendMessageInternal(const PhoneNumber &phoneNumber, const QString &text)
