@@ -11,9 +11,10 @@
 #include <QGuiApplication>
 #include <QClipboard>
 
-#include <KTextToHTML>
+#include <KIO/ApplicationLauncherJob>
 #include <KPeople/KPeopleBackend/AbstractContact>
 #include <KPeople/PersonData>
+#include <KTextToHTML>
 
 #include <ranges>
 
@@ -114,7 +115,15 @@ bool Utils::isPremiumNumber(const PhoneNumberList &phoneNumberList) const
 
 void Utils::launchPhonebook()
 {
-    QProcess::startDetached(SL("plasma-phonebook"), {});
+    auto phonebook = KService::serviceByDesktopName(QStringLiteral("org.kde.phonebook"));
+
+    if (!phonebook) {
+        qWarning() << "Could not find plasma-phonebook";
+        return;
+    }
+
+    auto *job = new KIO::ApplicationLauncherJob(phonebook);
+    job->start();
 }
 
 void Utils::copyTextToClipboard(const QString &text) const

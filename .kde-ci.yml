@@ -14,3 +14,4 @@ Dependencies:
     'frameworks/knotifications': '@stable'
     'frameworks/kdbusaddons': '@stable'
     'frameworks/modemmanager-qt': '@stable'
+    'frameworks/kio': '@stable'
