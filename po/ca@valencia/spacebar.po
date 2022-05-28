@@ -69,7 +69,7 @@ msgstr "Desconegut"
 #: src/contents/ui/ChatsPage.qml:15
 #, kde-format
 msgid "Chats"
-msgstr "Xats"
+msgstr "Chats"
 
 #: src/contents/ui/ChatsPage.qml:21
 #, kde-format
@@ -84,12 +84,12 @@ msgstr "Configuració"
 #: src/contents/ui/ChatsPage.qml:70
 #, kde-format
 msgid "Create a chat"
-msgstr "Crea un xat"
+msgstr "Crea un chat"
 
 #: src/contents/ui/ChatsPage.qml:168
 #, kde-format
 msgid "Delete chat"
-msgstr "Suprimeix el xat"
+msgstr "Suprimix el chat"
 
 #: src/contents/ui/ContactsList.qml:43
 #, kde-format
@@ -175,7 +175,7 @@ msgstr "Caduca: %1"
 #: src/contents/ui/MessagesPage.qml:592
 #, kde-format
 msgid "View all"
-msgstr "Visualitza-ho tot"
+msgstr "Visualisa-ho tot"
 
 #: src/contents/ui/MessagesPage.qml:682
 #, kde-format
@@ -200,12 +200,12 @@ msgstr "Guarda l'adjunt"
 #: src/contents/ui/MessagesPage.qml:723
 #, kde-format
 msgid "View slideshow"
-msgstr "Visualitza un passe de diapositives"
+msgstr "Visualisa un passe de diapositives"
 
 #: src/contents/ui/MessagesPage.qml:736
 #, kde-format
 msgid "Delete message"
-msgstr "Suprimeix el missatge"
+msgstr "Suprimix el missatge"
 
 #: src/contents/ui/MessagesPage.qml:746
 #, kde-format
@@ -220,7 +220,7 @@ msgstr "Guarda"
 #: src/contents/ui/MessagesPage.qml:803 src/contents/ui/SettingsPage.qml:335
 #, kde-format
 msgid "Cancel"
-msgstr "Cancel·la"
+msgstr "Cancela"
 
 #: src/contents/ui/MessagesPage.qml:921
 #, kde-format
@@ -266,7 +266,7 @@ msgstr "Aparença"
 #: src/contents/ui/SettingsPage.qml:40
 #, kde-format
 msgid "Use custom colors for messages"
-msgstr "Utilitza colors personalitzats per als missatges"
+msgstr "Utilisa colors personalitzats per als missatges"
 
 #: src/contents/ui/SettingsPage.qml:73
 #, kde-format
@@ -306,12 +306,12 @@ msgstr "Port:"
 #: src/contents/ui/SettingsPage.qml:157
 #, kde-format
 msgid "Request delivery reports"
-msgstr "Sol·licita informes de lliurament"
+msgstr "Solicita informes de lliurament"
 
 #: src/contents/ui/SettingsPage.qml:164
 #, kde-format
 msgid "Request read reports"
-msgstr "Sol·licita informes de lectura"
+msgstr "Solicita informes de lectura"
 
 #: src/contents/ui/SettingsPage.qml:171
 #, kde-format
@@ -441,4 +441,4 @@ msgstr "Client SMS/MMS Spacebar"
 #: src/main.cpp:70
 #, kde-format
 msgid "Open a chat with the given phone number"
-msgstr "Obri un xat amb el número de telèfon indicat"
+msgstr "Obri un chat amb el número de telèfon indicat"
