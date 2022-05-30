@@ -49,8 +49,6 @@ private:
 
     PhoneNumberList m_disabledNotificationNumber;
 
-    PhoneNumber m_ownNumber;
-
     bool m_dataConnected;
 
     QStringList m_deferredIndicators;

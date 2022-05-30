@@ -24,8 +24,6 @@ ChannelLogger::ChannelLogger(std::optional<QString> &modemPath, QObject *parent)
 
     ModemController::instance().init(modemPath);
 
-    m_ownNumber = PhoneNumber(ModemController::instance().ownNumber());
-
     connect(&m_mms, &Mms::downloadFinished, this, &ChannelLogger::handleDownloadedMessage);
 
     connect(&m_mms, &Mms::downloadError, this, &ChannelLogger::createDownloadNotification);
@@ -174,7 +172,7 @@ void ChannelLogger::manualDownload(const QString &id, const QString &url, const 
 void ChannelLogger::handleDownloadedMessage(const QByteArray &response, const QString &url, const QDateTime &expires)
 {
     MmsMessage mmsMessage;
-    mmsMessage.ownNumber = m_ownNumber;
+    mmsMessage.ownNumber = PhoneNumber(ModemController::instance().ownNumber());
     m_mms.decodeMessage(mmsMessage, response);
 
     // fromNumber is only useful to know in group conversations
