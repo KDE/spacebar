@@ -701,11 +701,11 @@ QString Mms::contentTypeValue(const QByteArray &data, int & pos, MmsMessage &mes
 
         while(pos < end) {
             unsigned char field = data.at(++pos) & 0x7F;
-            int len = HEADER_FIELDS.size();
+            int len = PARAM_FIELDS.size();
             for (int i = 0; i < len; i++) {
-                if (HEADER_FIELDS[i].id == field) {
+                if (PARAM_FIELDS[i].id == field) {
                     QVariant val;
-                    QStringView type = HEADER_FIELDS[i].type;
+                    QStringView type = PARAM_FIELDS[i].type;
                     if (type == u"unsignedInt") val = unsignedInt(data, pos);
                     else if (type == u"longInteger") val = longInteger(data, pos);
                     else if (type == u"shortInteger") val = shortInteger(data, pos);
@@ -716,7 +716,7 @@ QString Mms::contentTypeValue(const QByteArray &data, int & pos, MmsMessage &mes
                     else val = data.at(++pos);
 
                     // store relevant values
-                    QStringView name = HEADER_FIELDS[i].name;
+                    QStringView name = PARAM_FIELDS[i].name;
                     if (name == u"name") message.partNames.append(val.toString());
                     //else qDebug() << param_fields[i].name << ":" << val.toString();
 

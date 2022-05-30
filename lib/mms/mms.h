@@ -149,7 +149,8 @@ constexpr std::array<QStringView, 8> STATUS_VALUES = {
 };
 
 constexpr std::array<FieldMap, 63>  HEADER_FIELDS = {
-    FieldMap { 0x81, u"bcc",                  u"encodedStringValue" },
+    FieldMap
+    { 0x81, u"bcc",                  u"encodedStringValue" },
     { 0x82, u"cc",                   u"encodedStringValue" },
     { 0x83, u"contentLocation",      u"textString" },
     { 0x84, u"contentType",          u"contentTypeValue" },
@@ -215,7 +216,8 @@ constexpr std::array<FieldMap, 63>  HEADER_FIELDS = {
 };
 
 constexpr std::array<FieldMap, 29> PARAM_FIELDS = {
-    FieldMap { 0x01, u"q",                    u"qValue" },
+    FieldMap
+    { 0x01, u"q",                    u"qValue" },
     { 0x02, u"charset",              u"textString" },
     { 0x03, u"level",                u"versionValue" },
     { 0x04, u"type",                 u"integerValue" },
