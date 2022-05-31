@@ -266,7 +266,7 @@ msgstr "Aparença"
 #: src/contents/ui/SettingsPage.qml:40
 #, kde-format
 msgid "Use custom colors for messages"
-msgstr "Utilisa colors personalitzats per als missatges"
+msgstr "Utilisa colors personalisats per als missatges"
 
 #: src/contents/ui/SettingsPage.qml:73
 #, kde-format
@@ -391,7 +391,7 @@ msgstr "Escolliu un color"
 #: src/contents/ui/SettingsPage.qml:345
 #, kde-format
 msgid "Set"
-msgstr "Estableix"
+msgstr "Establix"
 
 #: src/main.cpp:55
 #, kde-format
