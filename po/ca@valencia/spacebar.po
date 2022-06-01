@@ -114,7 +114,7 @@ msgstr "Busca o introduïu un número…"
 #: src/contents/ui/ContactsList.qml:301
 #, kde-format
 msgid "No contacts with phone numbers yet"
-msgstr "Encara no hi ha cap contacte amb número de telèfon"
+msgstr "Encara no hi ha cap contacte amb número de teléfon"
 
 #: src/contents/ui/ContactsList.qml:304
 #, kde-format
@@ -441,4 +441,4 @@ msgstr "Client SMS/MMS Spacebar"
 #: src/main.cpp:70
 #, kde-format
 msgid "Open a chat with the given phone number"
-msgstr "Obri un chat amb el número de telèfon indicat"
+msgstr "Obri un chat amb el número de teléfon indicat"
