@@ -246,7 +246,7 @@ msgstr "Duplica el destinatari"
 #: src/contents/ui/MessagesPage.qml:1022
 #, kde-format
 msgid "Choose a file"
-msgstr "Escolliu un fitxer"
+msgstr "Escolliu un ficher"
 
 #: src/contents/ui/NewConversationPage.qml:14
 #, kde-format
@@ -316,12 +316,12 @@ msgstr "Solicita informes de lectura"
 #: src/contents/ui/SettingsPage.qml:171
 #, kde-format
 msgid "Share delivery status"
-msgstr "Comparteix l'estat de lliurament"
+msgstr "Compartix l'estat de lliurament"
 
 #: src/contents/ui/SettingsPage.qml:178
 #, kde-format
 msgid "Share read status"
-msgstr "Comparteix l'estat de lectura"
+msgstr "Compartix l'estat de lectura"
 
 #: src/contents/ui/SettingsPage.qml:186
 #, kde-format
