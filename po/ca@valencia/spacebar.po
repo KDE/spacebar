@@ -246,7 +246,7 @@ msgstr "Duplica el destinatari"
 #: src/contents/ui/MessagesPage.qml:1022
 #, kde-format
 msgid "Choose a file"
-msgstr "Escolliu un ficher"
+msgstr "Escolliu un fitxer"
 
 #: src/contents/ui/NewConversationPage.qml:14
 #, kde-format
