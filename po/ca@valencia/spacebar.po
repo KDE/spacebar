@@ -175,7 +175,7 @@ msgstr "Caduca: %1"
 #: src/contents/ui/MessagesPage.qml:592
 #, kde-format
 msgid "View all"
-msgstr "Visualisa-ho tot"
+msgstr "Visualitza-ho tot"
 
 #: src/contents/ui/MessagesPage.qml:682
 #, kde-format
@@ -200,7 +200,7 @@ msgstr "Guarda l'adjunt"
 #: src/contents/ui/MessagesPage.qml:723
 #, kde-format
 msgid "View slideshow"
-msgstr "Visualisa un passe de diapositives"
+msgstr "Visualitza un passe de diapositives"
 
 #: src/contents/ui/MessagesPage.qml:736
 #, kde-format
@@ -220,7 +220,7 @@ msgstr "Guarda"
 #: src/contents/ui/MessagesPage.qml:803 src/contents/ui/SettingsPage.qml:335
 #, kde-format
 msgid "Cancel"
-msgstr "Cancela"
+msgstr "Cancel·la"
 
 #: src/contents/ui/MessagesPage.qml:921
 #, kde-format
@@ -266,7 +266,7 @@ msgstr "Aparença"
 #: src/contents/ui/SettingsPage.qml:40
 #, kde-format
 msgid "Use custom colors for messages"
-msgstr "Utilisa colors personalisats per als missatges"
+msgstr "Utilitza colors personalitzats per als missatges"
 
 #: src/contents/ui/SettingsPage.qml:73
 #, kde-format
@@ -306,12 +306,12 @@ msgstr "Port:"
 #: src/contents/ui/SettingsPage.qml:157
 #, kde-format
 msgid "Request delivery reports"
-msgstr "Solicita informes de lliurament"
+msgstr "Sol·licita informes de lliurament"
 
 #: src/contents/ui/SettingsPage.qml:164
 #, kde-format
 msgid "Request read reports"
-msgstr "Solicita informes de lectura"
+msgstr "Sol·licita informes de lectura"
 
 #: src/contents/ui/SettingsPage.qml:171
 #, kde-format
@@ -371,7 +371,7 @@ msgstr "Mostra una vista prèvia del contingut del missatge"
 #: src/contents/ui/SettingsPage.qml:258
 #, kde-format
 msgid "Other"
-msgstr "Atres"
+msgstr "Altres"
 
 #: src/contents/ui/SettingsPage.qml:262
 #, kde-format
