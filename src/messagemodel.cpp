@@ -40,7 +40,7 @@ MessageModel::MessageModel(ChannelHandler &handler, const PhoneNumberList &phone
         m_peopleData.append(person);
     }
 
-    connect(m_handler.interface(), &OrgKdeSpacebarDaemonInterface::messageAdded, this, &MessageModel::messagedAdded);
+    connect(m_handler.interface(), &OrgKdeSpacebarDaemonInterface::messageAdded, this, &MessageModel::messageAdded);
 
     connect(m_handler.interface(), &OrgKdeSpacebarDaemonInterface::manualDownloadFinished, this, [this](const QString &id, const bool isEmpty) {
         if (isEmpty) {
@@ -171,7 +171,7 @@ QVariant MessageModel::fileInfo(const QUrl &path)
     return object;
 }
 
-void MessageModel::messagedAdded(const QString &numbers, const QString &id)
+void MessageModel::messageAdded(const QString &numbers, const QString &id)
 {
     if (PhoneNumberList(numbers) != m_phoneNumberList) {
         return; // Message is not for this model

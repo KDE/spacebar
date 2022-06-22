@@ -137,7 +137,7 @@ private:
     QVector<Person> m_peopleData;
 
 private Q_SLOTS:
-    void messagedAdded(const QString &numbers, const QString &id);
+    void messageAdded(const QString &numbers, const QString &id);
     void updateModel(const QVector<Message> &messages);
 
 Q_SIGNALS:
