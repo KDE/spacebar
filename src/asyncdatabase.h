@@ -11,27 +11,6 @@
 
 #include "database.h"
 
-template <typename T, typename QObjectDerivedType, typename Function>
-void connectFuture(const QFuture<T> &future, QObjectDerivedType *self, const Function &fun) {
-    auto watcher = std::make_shared<QFutureWatcher<T>>();
-    watcher->setFuture(future);
-    QObject::connect(watcher.get(), &QFutureWatcherBase::finished, self, [self, watcher, fun, future] {
-        if constexpr (std::is_same_v<void, T>) {
-            if constexpr (std::is_member_function_pointer_v<Function>) {
-                fun->*(self);
-            } else {
-                fun();
-            }
-        } else if (future.resultCount() > 0) {
-            if constexpr (std::is_member_function_pointer_v<Function>) {
-                (self->*fun)(watcher->result());
-            } else {
-                fun(watcher->result());
-            }
-        }
-    });
-}
-
 ///
 /// \brief The AsyncDatabase class provides an asynchronous API around the Database class
 ///

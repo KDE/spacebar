@@ -25,6 +25,7 @@
 #include "settingsmanager.h"
 
 #include <QCoroDBusPendingReply>
+#include <QCoroFuture>
 
 MessageModel::MessageModel(ChannelHandler &handler, const PhoneNumberList &phoneNumberList, QObject *parent)
     : QAbstractListModel(parent)
@@ -51,7 +52,22 @@ MessageModel::MessageModel(ChannelHandler &handler, const PhoneNumberList &phone
         }
     });
 
-    connectFuture(m_handler.database().messagesForNumber(m_phoneNumberList, QString()), this, &MessageModel::updateModel);
+    fetchMessages(QString());
+}
+
+QCoro::Task<void> MessageModel::fetchMessages(const QString &id)
+{
+    const QVector<Message> messages = co_await m_handler.database().messagesForNumber(m_phoneNumberList, id);
+
+    if (messages.count() == 1) {
+        beginInsertRows({}, m_messages.count(), m_messages.count());
+        m_messages.prepend(messages.at(0));
+        endInsertRows();
+    } else {
+        beginResetModel();
+        m_messages = messages;
+        endResetModel();
+    }
 }
 
 QHash<int, QByteArray> MessageModel::roleNames() const
@@ -177,20 +193,7 @@ void MessageModel::messageAdded(const QString &numbers, const QString &id)
         return; // Message is not for this model
     }
 
-    connectFuture(m_handler.database().messagesForNumber(m_phoneNumberList, id), this, &MessageModel::updateModel);
-}
-
-void MessageModel::updateModel(const QVector<Message> &messages)
-{
-    if (messages.count() == 1) {
-        beginInsertRows({}, m_messages.count(), m_messages.count());
-        m_messages.prepend(messages.at(0));
-        endInsertRows();
-    } else {
-        beginResetModel();
-        m_messages = messages;
-        endResetModel();
-    }
+    fetchMessages(id);
 }
 
 void MessageModel::addMessage(const Message &message)

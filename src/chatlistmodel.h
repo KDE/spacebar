@@ -9,6 +9,8 @@
 #include <QObject>
 #include <QSqlDatabase>
 
+#include <QCoro/Task>
+
 #include <contactphonenumbermapper.h>
 #include "database.h"
 #include "global.h"
@@ -62,7 +64,7 @@ Q_SIGNALS:
     void chatsFetched();
 
 private:
-    void updateChats(const QVector<Chat> &chats);
+    QCoro::Task<void> fetchChatsInternal();
 
     ChannelHandler &m_handler;
     QVector<Chat> m_chats;
