@@ -391,6 +391,16 @@ void Mms::encodeMessage(MmsMessage &message, QByteArray &data, const QStringList
         QMimeDatabase db;
         QString mimeType = db.mimeTypeForData(fileData).name();
 
+        /*
+         * WSP Content Type codes do not have numeric identifiers for the
+         * following media types. Use alternate supported media types instead.
+         */
+        if (mimeType.toLower() == SL("text/vcard")) {
+            mimeType = SL("text/x-vCard");
+        } else if (mimeType.toLower() == SL("text/calendar")) {
+            mimeType = SL("text/x-vCalendar");
+        }
+
         // resize/transcode if total size exceeds max size
         if (totalSize > sizeLimit) {
             if (mimeType.contains(SL("image")) && mimeType != SL("image/gif")) {

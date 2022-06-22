@@ -60,7 +60,7 @@ constexpr std::array<QStringView, 81> CONTENT_TYPES = {
     u"text/plain",
     u"text/x-hdml",
     u"text/x-ttml",
-    u"text/x-vcalendar",
+    u"text/x-vCalendar",
     u"text/x-vCard",
     u"text/vnd.wap.wml",
     u"text/vnd.wap.wmlscript",
