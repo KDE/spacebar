@@ -276,7 +276,7 @@ msgstr "Entrants"
 #: src/contents/ui/SettingsPage.qml:101
 #, kde-format
 msgid "Outgoing"
-msgstr "Sortints"
+msgstr "Ixents"
 
 #: src/contents/ui/SettingsPage.qml:110
 #, kde-format
