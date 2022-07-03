@@ -712,7 +712,7 @@ Kirigami.ScrollablePage {
                 text: i18n("Save attachment")
                 icon: "mail-attachment-symbolic"
                 onClicked: {
-                    attachmentList.selected = []
+                    attachmentList.selected = menu.attachments.length === 1 ? [menu.attachments[0].fileName] : []
                     attachmentList.items = menu.attachments.filter(o => o.fileName)
                     attachmentList.open()
                     menu.close()
