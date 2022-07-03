@@ -16,6 +16,7 @@ Kirigami.Dialog {
     id: root
 
     property alias numbers: list.model
+    property var selected: []
 
     signal numberSelected(string number)
 
@@ -28,6 +29,15 @@ Kirigami.Dialog {
         delegate: Kirigami.BasicListItem {
             text: modelData.typeLabel
             subtitle: Utils.phoneNumberToInternationalString(Utils.phoneNumber(modelData.number))
+            leading: RowLayout {
+                Controls.CheckBox {
+                    Layout.fillHeight: true
+                    Layout.preferredWidth: height
+                    checked: selected.findIndex(o => o.phoneNumber == subtitle) >= 0
+                    checkable: true
+                    onToggled: root.numberSelected(modelData.normalizedNumber)
+                }
+            }
             onClicked: {
                 close()
                 root.numberSelected(modelData.normalizedNumber)

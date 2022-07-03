@@ -40,7 +40,11 @@ ListView {
         if (phoneNumbers.length === 1) {
             modifySelection(formatNumber(phoneNumbers[0].normalizedNumber), name)
         } else {
-            const pop = numberPopup.createObject(parent, {numbers: phoneNumbers, title: i18n("Select a number")})
+            const pop = numberPopup.createObject(parent, {
+                numbers: phoneNumbers,
+                title: i18n("Select a number"),
+                selected: selected
+            })
             pop.onNumberSelected.connect(number => modifySelection(formatNumber(number), name))
             pop.open()
         }
@@ -136,8 +140,10 @@ ListView {
 
     MouseArea {
         anchors.fill: contactsList.contentItem
-        propagateComposedEvents: true
+        onPressed: mouse.accepted = false
     }
+
+    pressDelay: 200
 
     headerPositioning: ListView.OverlayHeader
     header: Rectangle {
@@ -238,10 +244,12 @@ ListView {
     section.property: showSections && searchText === "" ? "display" : ""
     section.criteria: ViewSection.FirstCharacter
     section.delegate: Kirigami.ListSectionHeader {
+        backgroundColor: "transparent"
+        width: contactsList.width - Kirigami.Units.smallSpacing
         text: section.toUpperCase()
     }
     clip: true
-    reuseItems: true
+    reuseItems: false
     currentIndex: -1
 
     model: KPeople.PersonsSortFilterProxyModel {
@@ -259,40 +267,34 @@ ListView {
     interactive: searchText.length > 0
     boundsBehavior: Flickable.StopAtBounds
 
-
-
     delegate: Kirigami.BasicListItem {
-        width: contactsList.width
-        height: Kirigami.Units.iconSizes.medium + Kirigami.Units.largeSpacing * 2
+        width: contactsList.width - Kirigami.Units.smallSpacing
+        height: Kirigami.Units.iconSizes.large
         visible: showAll || searchText.length > 0
         backgroundColor: showSections ? "transparent" : Kirigami.Theme.backgroundColor
         highlighted: false
         separatorVisible: !showSections
         label: model.display
         subtitle: showNumber ? Utils.phoneNumberToInternationalString(Utils.phoneNumber(model.phoneNumber)) : ""
-        leading: Row {
+        leading: RowLayout {
             Controls.CheckBox {
+                Layout.fillHeight: true
+                Layout.preferredWidth: height
                 visible: multiSelect
-                height: parent.height
                 checked: isSelected(model.personUri)
-                checkable: false
+                checkable: true
                 onToggled: selectNumber(model.personUri, model.name)
             }
 
             Kirigami.Avatar {
-                width: Kirigami.Units.iconSizes.medium
-                height: Kirigami.Units.iconSizes.medium
+                Layout.fillHeight: true
+                Layout.preferredWidth: height
                 source: model.phoneNumber ? "image://avatar/" + model.phoneNumber : ""
                 name: model.display
                 imageMode: Kirigami.Avatar.AdaptiveImageOrInitals
             }
         }
-
-        MouseArea {
-            Layout.preferredWidth: parent.width
-            Layout.preferredHeight: parent.height
-            onClicked: selectNumber(model.personUri, model.name)
-        }
+        onReleased: selectNumber(model.personUri, model.name)
     }
 
     Kirigami.PlaceholderMessage {
