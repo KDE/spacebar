@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kdeorg\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-05-17 00:47+0000\n"
+"POT-Creation-Date: 2022-07-04 00:48+0000\n"
 "PO-Revision-Date: 2022-07-02 11:00\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
@@ -88,37 +88,37 @@ msgstr "创建聊天"
 msgid "Delete chat"
 msgstr "删除对话"
 
-#: src/contents/ui/ContactsList.qml:43
+#: src/contents/ui/ContactsList.qml:45
 #, kde-format
 msgid "Select a number"
 msgstr "选择号码"
 
-#: src/contents/ui/ContactsList.qml:165
+#: src/contents/ui/ContactsList.qml:171
 #, kde-format
 msgid "Selected"
 msgstr "已选择"
 
-#: src/contents/ui/ContactsList.qml:175
+#: src/contents/ui/ContactsList.qml:181
 #, kde-format
 msgid "Compose"
 msgstr "撰写"
 
-#: src/contents/ui/ContactsList.qml:204
+#: src/contents/ui/ContactsList.qml:210
 #, kde-format
 msgid "Search or enter number…"
 msgstr "搜索或输入号码…"
 
-#: src/contents/ui/ContactsList.qml:301
+#: src/contents/ui/ContactsList.qml:303
 #, kde-format
 msgid "No contacts with phone numbers yet"
 msgstr "没有已设置电话号码的联系人"
 
-#: src/contents/ui/ContactsList.qml:304
+#: src/contents/ui/ContactsList.qml:306
 #, kde-format
 msgid "Open contacts app"
 msgstr "打开通讯录应用"
 
-#: src/contents/ui/ContactsList.qml:311
+#: src/contents/ui/ContactsList.qml:313
 #, kde-format
 msgid "No results found"
 msgstr "未找到结果"

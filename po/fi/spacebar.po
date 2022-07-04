@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: spacebar\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-05-17 00:47+0000\n"
+"POT-Creation-Date: 2022-07-04 00:48+0000\n"
 "PO-Revision-Date: 2021-08-28 12:00+0300\n"
 "Last-Translator: Tommi Nieminen <translator@legisign.org>\n"
 "Language-Team: Finnish <kde-i18n-doc@kde.org>\n"
@@ -90,38 +90,38 @@ msgstr "Poista keskustelu"
 msgid "Delete chat"
 msgstr "Poista keskustelu"
 
-#: src/contents/ui/ContactsList.qml:43
+#: src/contents/ui/ContactsList.qml:45
 #, fuzzy, kde-format
 #| msgid "Search or enter number…"
 msgid "Select a number"
 msgstr "Etsi numeroa tai anna se…"
 
-#: src/contents/ui/ContactsList.qml:165
+#: src/contents/ui/ContactsList.qml:171
 #, kde-format
 msgid "Selected"
 msgstr ""
 
-#: src/contents/ui/ContactsList.qml:175
+#: src/contents/ui/ContactsList.qml:181
 #, kde-format
 msgid "Compose"
 msgstr ""
 
-#: src/contents/ui/ContactsList.qml:204
+#: src/contents/ui/ContactsList.qml:210
 #, kde-format
 msgid "Search or enter number…"
 msgstr "Etsi numeroa tai anna se…"
 
-#: src/contents/ui/ContactsList.qml:301
+#: src/contents/ui/ContactsList.qml:303
 #, kde-format
 msgid "No contacts with phone numbers yet"
 msgstr "Ei vielä puhelinnumerollisia yhteystietoja"
 
-#: src/contents/ui/ContactsList.qml:304
+#: src/contents/ui/ContactsList.qml:306
 #, kde-format
 msgid "Open contacts app"
 msgstr "Avaa yhteystietosovellus"
 
-#: src/contents/ui/ContactsList.qml:311
+#: src/contents/ui/ContactsList.qml:313
 #, kde-format
 msgid "No results found"
 msgstr ""

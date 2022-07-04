@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: spacebar\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-05-17 00:47+0000\n"
+"POT-Creation-Date: 2022-07-04 00:48+0000\n"
 "PO-Revision-Date: 2022-03-25 07:15+0100\n"
 "Last-Translator: Matjaž Jeran <matjaz.jeran@amis.net>\n"
 "Language-Team: Slovenian <lugos-slo@lugos.si>\n"
@@ -89,37 +89,37 @@ msgstr "Ustvari klepet"
 msgid "Delete chat"
 msgstr "Zbriši klepet"
 
-#: src/contents/ui/ContactsList.qml:43
+#: src/contents/ui/ContactsList.qml:45
 #, kde-format
 msgid "Select a number"
 msgstr "Izberi število"
 
-#: src/contents/ui/ContactsList.qml:165
+#: src/contents/ui/ContactsList.qml:171
 #, kde-format
 msgid "Selected"
 msgstr "Izbrano"
 
-#: src/contents/ui/ContactsList.qml:175
+#: src/contents/ui/ContactsList.qml:181
 #, kde-format
 msgid "Compose"
 msgstr "Sestavi"
 
-#: src/contents/ui/ContactsList.qml:204
+#: src/contents/ui/ContactsList.qml:210
 #, kde-format
 msgid "Search or enter number…"
 msgstr "Išči ali vnesi številko…"
 
-#: src/contents/ui/ContactsList.qml:301
+#: src/contents/ui/ContactsList.qml:303
 #, kde-format
 msgid "No contacts with phone numbers yet"
 msgstr "Še ni stikov s telefonskimi številkami"
 
-#: src/contents/ui/ContactsList.qml:304
+#: src/contents/ui/ContactsList.qml:306
 #, kde-format
 msgid "Open contacts app"
 msgstr "Odpri aplikacijo stikov"
 
-#: src/contents/ui/ContactsList.qml:311
+#: src/contents/ui/ContactsList.qml:313
 #, kde-format
 msgid "No results found"
 msgstr "Ni najdenih rezultatov"
