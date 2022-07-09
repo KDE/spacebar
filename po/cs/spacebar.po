@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: spacebar\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-07-04 00:48+0000\n"
-"PO-Revision-Date: 2022-02-28 10:51+0100\n"
+"PO-Revision-Date: 2022-05-19 11:24+0200\n"
 "Last-Translator: Vit Pelcak <vpelcak@suse.cz>\n"
 "Language-Team: Czech <kde-i18n-doc@kde.org>\n"
 "Language: cs\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
-"X-Generator: Lokalize 21.12.2\n"
+"X-Generator: Lokalize 22.04.1\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -91,7 +91,7 @@ msgstr "Smazat rozhovor"
 #: src/contents/ui/ContactsList.qml:45
 #, kde-format
 msgid "Select a number"
-msgstr ""
+msgstr "Vyberte číslo"
 
 #: src/contents/ui/ContactsList.qml:171
 #, kde-format
@@ -337,7 +337,7 @@ msgstr "Limit velikosti zprávy (KiB):"
 #: src/contents/ui/SettingsPage.qml:215
 #, kde-format
 msgid "Max attachments:"
-msgstr ""
+msgstr "Maximální přílohy:"
 
 #: src/contents/ui/SettingsPage.qml:224
 #, kde-format
@@ -357,12 +357,12 @@ msgstr "Upozornění"
 #: src/contents/ui/SettingsPage.qml:244
 #, kde-format
 msgid "Show sender name / number"
-msgstr ""
+msgstr "Zobrazit jméno/číslo odesílatele"
 
 #: src/contents/ui/SettingsPage.qml:251
 #, kde-format
 msgid "Show a preview of the message content"
-msgstr ""
+msgstr "Zobrazit náhled obsahu zprávy"
 
 #: src/contents/ui/SettingsPage.qml:258
 #, kde-format
