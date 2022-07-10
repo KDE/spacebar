@@ -275,6 +275,17 @@ struct MmsMessage {
 };
 Q_DECLARE_METATYPE(MmsMessage)
 
+
+class MmsPendingUpload : public QObject {
+    Q_OBJECT
+
+    using QObject::QObject;
+
+public:
+    Q_SIGNAL void uploadFinished(const QByteArray &content);
+    Q_SIGNAL void uploadError();
+};
+
 class Mms : public QObject
 {
     Q_OBJECT
@@ -282,7 +293,7 @@ class Mms : public QObject
 public:
     explicit Mms(QObject *parent = nullptr);
 
-    void uploadMessage(const QByteArray &data);
+    MmsPendingUpload *uploadMessage(const QByteArray &data);
     void downloadMessage(const MmsMessage &message);
     void sendNotifyResponse(const QString &transactionId, const QString &status);
     void sendDeliveryAcknowledgement(const QString &transactionId);

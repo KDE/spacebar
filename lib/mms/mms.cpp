@@ -84,13 +84,13 @@ Mms::Mms(QObject *parent)
 {
 }
 
-void Mms::uploadMessage(const QByteArray &data)
+MmsPendingUpload *Mms::uploadMessage(const QByteArray &data)
 {
     const QString url = SettingsManager::self()->mmsc();
     if (url.length() < 10) {
         qDebug() << "Invalid URL provided";
         Q_EMIT uploadFinished(BL(""));
-        return;
+        return nullptr;
     }
 
     //TODO default to use modem connection when connected to wifi
@@ -107,17 +107,20 @@ void Mms::uploadMessage(const QByteArray &data)
         manager->setProxy(proxy);
     }
 
+    auto uploadResult = new MmsPendingUpload(this);
+
     QNetworkReply *reply = manager->post(request, data);
-    connect(reply, &QNetworkReply::finished, this, [this, reply]() {
-        Q_EMIT uploadFinished(reply->readAll());
+    connect(reply, &QNetworkReply::finished, this, [this, reply, uploadResult]() {
+        Q_EMIT uploadResult->uploadFinished(reply->readAll());
         reply->deleteLater();
     });
 
-    connect(reply, &QNetworkReply::errorOccurred, this, [this, reply]() {
+    connect(reply, &QNetworkReply::errorOccurred, this, [this, reply, uploadResult]() {
         qDebug() << "upload error:" << reply->error();
         reply->deleteLater();
-        Q_EMIT uploadError();
+        Q_EMIT uploadResult->uploadError();
     });
+    return uploadResult;
 }
 
 void Mms::downloadMessage(const MmsMessage &message)

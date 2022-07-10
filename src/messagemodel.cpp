@@ -371,9 +371,9 @@ QCoro::Task<QString> MessageModel::sendMessageInternalMms(const PhoneNumberList 
     addMessage(message);
 
     //send message
-    connect(&m_handler.mms(), &Mms::uploadFinished, this, [this, message](const QByteArray &response) {
-        disconnect(&m_handler.mms(), &Mms::uploadError, nullptr, nullptr);
-        disconnect(&m_handler.mms(), &Mms::uploadFinished, nullptr, nullptr);
+    auto upload = m_handler.mms().uploadMessage(data);
+    connect(upload, &MmsPendingUpload::uploadFinished, this, [this, message, upload](QByteArray response) {
+        upload->deleteLater();
         if (response.length() == 0) {
             updateMessageState(message.id, MessageState::Failed);
         } else {
@@ -391,12 +391,10 @@ QCoro::Task<QString> MessageModel::sendMessageInternalMms(const PhoneNumberList 
             }
         }
     });
-    connect(&m_handler.mms(), &Mms::uploadError, this, [this, message]() {
-        disconnect(&m_handler.mms(), &Mms::uploadError, nullptr, nullptr);
-        disconnect(&m_handler.mms(), &Mms::uploadFinished, nullptr, nullptr);
+    connect(upload, &MmsPendingUpload::uploadError, this, [this, message, upload]() {
+        upload->deleteLater();
         updateMessageState(message.id, MessageState::Failed);
     });
-    m_handler.mms().uploadMessage(data);
 
     co_return QString();
 }
