@@ -1,10 +1,12 @@
 // SPDX-FileCopyrightText: 2020 Jonah Brüchert <jbb@kaidan.im>
+// SPDX-FileCopyrightText: 2022 Michael Lang <criticaltemp@protonmail.com>
 //
 // SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
 
 import QtQuick 2.15
 import QtQuick.Layouts 1.15
 import QtQuick.Controls 2.15 as Controls
+import QtGraphicalEffects 1.15
 
 import org.kde.kirigami 2.15 as Kirigami
 
@@ -90,17 +92,26 @@ Kirigami.ScrollablePage {
             required property string lastContacted
             required property int unreadMessages
             required property string lastMessage
+            required property bool lastSentByMe
+            required property var lastAttachment
             required property bool isContact
+
+            property var attachments: lastAttachment ? JSON.parse(lastAttachment) : []
+            property var image: attachments.find(o => o.mimeType.indexOf("image/") >= 0)
 
             checkable: false
             highlighted: false
+            separatorVisible: false
+            topPadding: Kirigami.Units.smallSpacing
+            bottomPadding: Kirigami.Units.smallSpacing
 
             contentItem: RowLayout {
                 Kirigami.Avatar {
                     Layout.preferredWidth: Kirigami.Units.iconSizes.medium
                     Layout.preferredHeight: Kirigami.Units.iconSizes.medium
                     Layout.rightMargin: Kirigami.Units.largeSpacing
-
+                    Layout.topMargin: Kirigami.Units.largeSpacing
+                    Layout.bottomMargin: Kirigami.Units.largeSpacing
                     source: isContact ? "image://avatar/" + Utils.phoneNumberListToString(delegateRoot.phoneNumberList) : ""
                     name: delegateRoot.displayName
                     imageMode: Kirigami.Avatar.AdaptiveImageOrInitals
@@ -124,7 +135,7 @@ Kirigami.ScrollablePage {
                     Text {
                         id: lastMessage
                         Layout.fillWidth: true
-                        text: delegateRoot.lastMessage
+                        text: (delegateRoot.lastSentByMe ? i18n("You: ") : "") + (delegateRoot.lastMessage || (delegateRoot.image ? i18n("Picture") : ""))
                         wrapMode: Text.WrapAnywhere
                         textFormat: Text.PlainText
                         maximumLineCount: 1
@@ -155,7 +166,31 @@ Kirigami.ScrollablePage {
                     }
                 }
 
+                Image {
+                    id: image
+                    source: delegateRoot.image ? "file://" + ChatListModel.attachmentsFolder(delegateRoot.phoneNumberList) + "/" + delegateRoot.image.fileName : ""
+                    fillMode: Image.PreserveAspectCrop
+                    sourceSize.height: Kirigami.Units.iconSizes.smallMedium * 4
+                    Layout.preferredWidth: Kirigami.Units.iconSizes.smallMedium * 2
+                    Layout.preferredHeight: Kirigami.Units.iconSizes.smallMedium * 2
+                    cache: false
+
+                    // rounded corners on image
+                    layer.enabled: true
+                    layer.effect: OpacityMask {
+                        maskSource: Item {
+                            width: image.width
+                            height: image.height
+                            Rectangle {
+                                anchors.fill: parent
+                                radius: Kirigami.Units.smallSpacing
+                            }
+                        }
+                    }
+                }
+
                 Text {
+                    visible: !delegateRoot.image
                     topPadding: Kirigami.Units.largeSpacing * 2
                     text: delegateRoot.lastContacted
                     font.pointSize: Kirigami.Theme.defaultFont.pointSize - 2

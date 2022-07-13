@@ -59,6 +59,8 @@ QHash<int, QByteArray> ChatListModel::roleNames() const
         {Role::LastContactedRole, BL("lastContacted")},
         {Role::UnreadMessagesRole, BL("unreadMessages")},
         {Role::LastMessageRole, BL("lastMessage")},
+        {Role::LastSentByMeRole, BL("lastSentByMe")},
+        {Role::LastAttachmentRole, BL("lastAttachment")},
         {Role::IsContactRole, BL("isContact")},
     };
 }
@@ -106,6 +108,10 @@ QVariant ChatListModel::data(const QModelIndex &index, int role) const
         return m_chats.at(index.row()).unreadMessages;
     case LastMessageRole:
         return m_chats.at(index.row()).lastMessage;
+    case LastSentByMeRole:
+        return m_chats.at(index.row()).lastSentByMe;
+    case LastAttachmentRole:
+        return m_chats.at(index.row()).lastAttachment;
     case IsContactRole:
         return phoneNumberList.size() == 1 && !KPeople::PersonData(m_mapper.uriForNumber(phoneNumberList.first())).name().isEmpty();
     }
@@ -168,4 +174,10 @@ void ChatListModel::saveSettings()
 {
     SettingsManager::self()->save();
     Q_EMIT m_handler.interface()->syncSettings();
+}
+
+QString ChatListModel::attachmentsFolder(const PhoneNumberList &phoneNumberList) const
+{
+    const QString folder = QString::number(qHash(phoneNumberList.toString()));
+    return QStandardPaths::writableLocation(QStandardPaths::GenericDataLocation) + SL("/spacebar/attachments/") + folder;
 }

@@ -55,9 +55,6 @@ public:
     QFuture<void> updateMessageSent(const QString &id, const QString &messageId, const QString &contentLocation);
     QFuture<void> markMessageRead(const int id);
     [[nodiscard]] QFuture<QVector<Chat>> chats();
-    [[nodiscard]] QFuture<int> unreadMessagesForNumber(const PhoneNumberList &phoneNumberList);
-    [[nodiscard]] QFuture<QString> lastMessageForNumber(const PhoneNumberList &phoneNumberList);
-    [[nodiscard]] QFuture<QDateTime> lastContactedForNumber(const PhoneNumberList &phoneNumberList);
     QFuture<void> markChatAsRead(const PhoneNumberList &phoneNumberList);
     QFuture<void> deleteChat(const PhoneNumberList &phoneNumberList);
 

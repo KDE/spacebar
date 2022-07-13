@@ -52,21 +52,6 @@ QFuture<QVector<Chat>> AsyncDatabase::chats()
     return runAsync<QVector<Chat>>([=, this] { return  m_database.chats(); });
 }
 
-QFuture<int> AsyncDatabase::unreadMessagesForNumber(const PhoneNumberList &phoneNumberList)
-{
-    return runAsync<int>([=, this] { return m_database.unreadMessagesForNumber(phoneNumberList); });
-}
-
-QFuture<QString> AsyncDatabase::lastMessageForNumber(const PhoneNumberList &phoneNumberList)
-{
-    return runAsync<QString>([=, this] { return m_database.lastMessageForNumber(phoneNumberList); });
-}
-
-QFuture<QDateTime> AsyncDatabase::lastContactedForNumber(const PhoneNumberList &phoneNumberList)
-{
-    return runAsync<QDateTime>([=, this] { return m_database.lastContactedForNumber(phoneNumberList); });
-}
-
 QFuture<void> AsyncDatabase::markChatAsRead(const PhoneNumberList &phoneNumberList)
 {
     return runAsync<void>([=, this] { m_database.markChatAsRead(phoneNumberList); });

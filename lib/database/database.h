@@ -60,6 +60,8 @@ struct Chat {
     QDateTime lastContacted;
     QString lastMessage;
     int unreadMessages;
+    bool lastSentByMe;
+    QString lastAttachment;
 };
 Q_DECLARE_METATYPE(Chat)
 
@@ -73,7 +75,7 @@ public:
     // Messages
     void addMessage(const Message &message);
     void deleteMessage(const QString &id);
-    QVector<Message> messagesForNumber(const PhoneNumberList &phoneNumberList, const QString &id = QString()) const;
+    QVector<Message> messagesForNumber(const PhoneNumberList &phoneNumberList, const QString &id = QString(), const bool last = false) const;
     void updateMessageDeliveryState(const QString &id, const MessageState state);
     void updateMessageSent(const QString &id, const QString &messageId, const QString &contentLocation);
     void updateMessageDeliveryReport(const QString &messageId);
@@ -83,8 +85,6 @@ public:
     // Chats
     QVector<Chat> chats() const;
     int unreadMessagesForNumber(const PhoneNumberList &phoneNumberList) const;
-    QString lastMessageForNumber(const PhoneNumberList &phoneNumberList) const;
-    QDateTime lastContactedForNumber(const PhoneNumberList &phoneNumberList) const;
     void markChatAsRead(const PhoneNumberList &phoneNumberList);
     void deleteChat(const PhoneNumberList &phoneNumberList);
 

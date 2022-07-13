@@ -17,13 +17,6 @@
 class MessageModel;
 class ChannelHandler;
 
-struct ChatData {
-    QString displayName;
-    QString phoneNumber;
-    int unreadMessages;
-    QDateTime lastContacted;
-};
-
 class ChatListModel : public QAbstractListModel
 {
     Q_OBJECT
@@ -37,6 +30,8 @@ public:
         UnreadMessagesRole,
         LastContactedRole,
         LastMessageRole,
+        LastSentByMeRole,
+        LastAttachmentRole,
         IsContactRole
     };
     Q_ENUM(Role)
@@ -51,6 +46,7 @@ public:
     Q_INVOKABLE void markChatAsRead(const PhoneNumberList &phoneNumberList);
     Q_INVOKABLE void restoreDefaults();
     Q_INVOKABLE void saveSettings();
+    Q_INVOKABLE QString attachmentsFolder(const PhoneNumberList &phoneNumberList) const;
 
     bool ready() const;
 

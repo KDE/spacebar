@@ -64,12 +64,11 @@ Database::Database(QObject *parent)
     migrate();
 }
 
-QVector<Message> Database::messagesForNumber(const PhoneNumberList &phoneNumberList, const QString &id) const
+QVector<Message> Database::messagesForNumber(const PhoneNumberList &phoneNumberList, const QString &id, const bool last) const
 {
     QVector<Message> messages;
 
-    QSqlQuery fetch(m_database);
-    fetch.prepare(SL(R"(
+    QString sql = SL(R"(
         SELECT
             id,
             phoneNumber,
@@ -91,7 +90,13 @@ QVector<Message> Database::messagesForNumber(const PhoneNumberList &phoneNumberL
         FROM Messages
         WHERE (phoneNumber == :phoneNumber AND :id IS NULL) OR id ==:id
         ORDER BY time DESC
-    )"));
+    )");
+    if (last) {
+        sql.append(SL(" LIMIT 1"));
+    }
+
+    QSqlQuery fetch(m_database);
+    fetch.prepare(sql);
     fetch.bindValue(SL(":phoneNumber"), phoneNumberList.toString());
     fetch.bindValue(SL(":id"), id);
     exec(fetch);
@@ -180,8 +185,15 @@ QVector<Chat> Database::chats() const
         Chat chat;
         chat.phoneNumberList = PhoneNumberList(fetch.value(0).toString());
         chat.unreadMessages = unreadMessagesForNumber(chat.phoneNumberList);
-        chat.lastMessage = lastMessageForNumber(chat.phoneNumberList);
-        chat.lastContacted = lastContactedForNumber(chat.phoneNumberList);
+
+        QVector<Message> messages = messagesForNumber(chat.phoneNumberList, QString(), true);
+
+        if (messages.length() > 0) {
+            chat.lastMessage = messages.at(0).text;
+            chat.lastContacted = messages.at(0).datetime;
+            chat.lastSentByMe = messages.at(0).sentByMe;
+            chat.lastAttachment = messages.at(0).attachments;
+        }
 
         chats.append(chat);
     }
@@ -201,28 +213,6 @@ int Database::unreadMessagesForNumber(const PhoneNumberList &phoneNumberList) co
 
     fetch.first();
     return fetch.value(0).toInt();
-}
-
-QString Database::lastMessageForNumber(const PhoneNumberList &phoneNumberList) const
-{
-    QSqlQuery fetch(m_database);
-    fetch.prepare(SL("SELECT text FROM Messages WHERE phoneNumber == :phoneNumber ORDER BY time DESC LIMIT 1"));
-    fetch.bindValue(SL(":phoneNumber"), phoneNumberList.toString());
-    fetch.exec();
-
-    fetch.first();
-    return fetch.value(0).toString();
-}
-
-QDateTime Database::lastContactedForNumber(const PhoneNumberList &phoneNumberList) const
-{
-    QSqlQuery fetch(m_database);
-    fetch.prepare(SL("SELECT time FROM Messages WHERE phoneNumber == :phoneNumber ORDER BY time DESC LIMIT 1"));
-    fetch.bindValue(SL(":phoneNumber"), phoneNumberList.toString());
-    exec(fetch);
-
-    fetch.first();
-    return QDateTime::fromMSecsSinceEpoch(fetch.value(0).toLongLong());
 }
 
 void Database::markChatAsRead(const PhoneNumberList &phoneNumberList)
