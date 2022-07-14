@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: spacebar\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-07-04 00:48+0000\n"
+"POT-Creation-Date: 2022-07-14 00:48+0000\n"
 "PO-Revision-Date: 2021-07-06 18:44+0530\n"
 "Last-Translator: Raghavendra Kamath <raghu@raghukamath.com>\n"
 "Language-Team: kde-hindi\n"
@@ -60,33 +60,43 @@ msgstr "खोलें"
 msgid "Spacebar background service"
 msgstr "स्पेसबार पृष्ठभूमि सेवा"
 
-#: src/chatlistmodel.cpp:87
+#: src/chatlistmodel.cpp:89
 #, kde-format
 msgid "Unknown"
 msgstr ""
 
-#: src/contents/ui/ChatsPage.qml:15
+#: src/contents/ui/ChatsPage.qml:17
 #, kde-format
 msgid "Chats"
 msgstr "बातचीत"
 
-#: src/contents/ui/ChatsPage.qml:21
+#: src/contents/ui/ChatsPage.qml:23
 #, kde-format
 msgid "New Conversation"
 msgstr "नया वार्तालाप"
 
-#: src/contents/ui/ChatsPage.qml:30 src/contents/ui/SettingsPage.qml:15
+#: src/contents/ui/ChatsPage.qml:32 src/contents/ui/SettingsPage.qml:15
 #, kde-format
 msgid "Settings"
 msgstr ""
 
-#: src/contents/ui/ChatsPage.qml:70
+#: src/contents/ui/ChatsPage.qml:72
 #, fuzzy, kde-format
 #| msgid "Delete chat"
 msgid "Create a chat"
 msgstr "बातचीत मिटाएँ"
 
-#: src/contents/ui/ChatsPage.qml:168
+#: src/contents/ui/ChatsPage.qml:138
+#, kde-format
+msgid "You: "
+msgstr ""
+
+#: src/contents/ui/ChatsPage.qml:138
+#, kde-format
+msgid "Picture"
+msgstr ""
+
+#: src/contents/ui/ChatsPage.qml:203
 #, kde-format
 msgid "Delete chat"
 msgstr "बातचीत मिटाएँ"

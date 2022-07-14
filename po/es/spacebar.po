@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: spacebar\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-07-04 00:48+0000\n"
+"POT-Creation-Date: 2022-07-14 00:48+0000\n"
 "PO-Revision-Date: 2022-03-24 17:39+0100\n"
 "Last-Translator: Eloy Cuadra <ecuadra@eloihr.net>\n"
 "Language-Team: Spanish <kde-l10n-es@kde.org>\n"
@@ -60,32 +60,42 @@ msgstr "Abrir"
 msgid "Spacebar background service"
 msgstr "Servicio en segundo plano Spacebar"
 
-#: src/chatlistmodel.cpp:87
+#: src/chatlistmodel.cpp:89
 #, kde-format
 msgid "Unknown"
 msgstr "Desconocido"
 
-#: src/contents/ui/ChatsPage.qml:15
+#: src/contents/ui/ChatsPage.qml:17
 #, kde-format
 msgid "Chats"
 msgstr "Conversaciones"
 
-#: src/contents/ui/ChatsPage.qml:21
+#: src/contents/ui/ChatsPage.qml:23
 #, kde-format
 msgid "New Conversation"
 msgstr "Nueva conversación"
 
-#: src/contents/ui/ChatsPage.qml:30 src/contents/ui/SettingsPage.qml:15
+#: src/contents/ui/ChatsPage.qml:32 src/contents/ui/SettingsPage.qml:15
 #, kde-format
 msgid "Settings"
 msgstr "Preferencias"
 
-#: src/contents/ui/ChatsPage.qml:70
+#: src/contents/ui/ChatsPage.qml:72
 #, kde-format
 msgid "Create a chat"
 msgstr "Crear una conversación"
 
-#: src/contents/ui/ChatsPage.qml:168
+#: src/contents/ui/ChatsPage.qml:138
+#, kde-format
+msgid "You: "
+msgstr ""
+
+#: src/contents/ui/ChatsPage.qml:138
+#, kde-format
+msgid "Picture"
+msgstr ""
+
+#: src/contents/ui/ChatsPage.qml:203
 #, kde-format
 msgid "Delete chat"
 msgstr "Borrar conversación"
