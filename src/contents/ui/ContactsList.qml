@@ -268,30 +268,33 @@ ListView {
     boundsBehavior: Flickable.StopAtBounds
 
     delegate: Kirigami.BasicListItem {
+        property bool selected: isSelected(model.personUri)
+
         width: contactsList.width - Kirigami.Units.smallSpacing
-        height: Kirigami.Units.iconSizes.large
+        implicitHeight: Kirigami.Units.iconSizes.medium + Kirigami.Units.largeSpacing * 2
         visible: showAll || searchText.length > 0
-        backgroundColor: showSections ? "transparent" : Kirigami.Theme.backgroundColor
+        backgroundColor: selected ? Kirigami.Theme.alternateBackgroundColor : Kirigami.Theme.backgroundColor
         highlighted: false
         separatorVisible: !showSections
         label: model.display
         subtitle: showNumber ? Utils.phoneNumberToInternationalString(Utils.phoneNumber(model.phoneNumber)) : ""
-        leading: RowLayout {
-            Controls.CheckBox {
-                Layout.fillHeight: true
-                Layout.preferredWidth: height
-                visible: multiSelect
-                checked: isSelected(model.personUri)
-                checkable: true
-                onToggled: selectNumber(model.personUri, model.name)
-            }
+        leading: Kirigami.Avatar {
+            width: height
+            source: model.phoneNumber ? "image://avatar/" + model.phoneNumber : ""
+            name: model.display
+            imageMode: Kirigami.Avatar.AdaptiveImageOrInitals
 
-            Kirigami.Avatar {
-                Layout.fillHeight: true
-                Layout.preferredWidth: height
-                source: model.phoneNumber ? "image://avatar/" + model.phoneNumber : ""
-                name: model.display
-                imageMode: Kirigami.Avatar.AdaptiveImageOrInitals
+            Rectangle {
+                anchors.fill: parent
+                radius: width * 0.5
+                color: Kirigami.Theme.highlightColor
+                visible: selected
+
+                Kirigami.Icon {
+                    anchors.fill: parent
+                    source: "checkbox"
+                    color: Kirigami.Theme.highlightedTextColor
+                }
             }
         }
         onReleased: selectNumber(model.personUri, model.name)
