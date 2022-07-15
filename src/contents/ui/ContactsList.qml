@@ -273,7 +273,7 @@ ListView {
         width: contactsList.width - Kirigami.Units.smallSpacing
         implicitHeight: Kirigami.Units.iconSizes.medium + Kirigami.Units.largeSpacing * 2
         visible: showAll || searchText.length > 0
-        backgroundColor: selected ? Kirigami.Theme.alternateBackgroundColor : Kirigami.Theme.backgroundColor
+        backgroundColor: selected ? Kirigami.Theme.activeBackgroundColor : Kirigami.Theme.backgroundColor
         highlighted: false
         separatorVisible: !showSections
         label: model.display

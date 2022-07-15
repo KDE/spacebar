@@ -131,7 +131,7 @@ Kirigami.ScrollablePage {
             separatorVisible: false
             topPadding: Kirigami.Units.smallSpacing
             bottomPadding: Kirigami.Units.smallSpacing
-            backgroundColor: selected ? Kirigami.Theme.alternateBackgroundColor : Kirigami.Theme.backgroundColor
+            backgroundColor: selected ? Kirigami.Theme.activeBackgroundColor : Kirigami.Theme.backgroundColor
 
             contentItem: RowLayout {
                 Kirigami.Avatar {
