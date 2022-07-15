@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: spacebar\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-07-14 00:48+0000\n"
-"PO-Revision-Date: 2022-03-24 10:09+0100\n"
+"PO-Revision-Date: 2022-07-14 11:43+0200\n"
 "Last-Translator: Josep M. Ferrer <txemaq@gmail.com>\n"
 "Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
 "Language: ca\n"
@@ -89,12 +89,12 @@ msgstr "Crea un xat"
 #: src/contents/ui/ChatsPage.qml:138
 #, kde-format
 msgid "You: "
-msgstr ""
+msgstr "Vós: "
 
 #: src/contents/ui/ChatsPage.qml:138
 #, kde-format
 msgid "Picture"
-msgstr ""
+msgstr "Imatge"
 
 #: src/contents/ui/ChatsPage.qml:203
 #, kde-format
@@ -452,37 +452,3 @@ msgstr "Client SMS/MMS Spacebar"
 #, kde-format
 msgid "Open a chat with the given phone number"
 msgstr "Obre un xat amb el número de telèfon indicat"
-
-#~ msgid "Recipient"
-#~ msgstr "Destinatari"
-
-#~ msgid "No chats yet"
-#~ msgstr "Encara no hi ha cap xat"
-
-#~ msgid "Defaults"
-#~ msgstr "Predeterminats"
-
-#~ msgid "Attach"
-#~ msgstr "Adjunta"
-
-#~ msgid "Send"
-#~ msgstr "Envia"
-
-#~ msgid "The modem interface is not available"
-#~ msgstr "La interfície del mòdem no està disponible"
-
-#~ msgid ""
-#~ "Could not find a sim account, can't open chat. Please check the log for "
-#~ "details"
-#~ msgstr ""
-#~ "No s'ha pogut trobar un compte de simulació, no s'ha pogut obrir el xat. "
-#~ "Comproveu el registre per als detalls"
-
-#~ msgid "Failed to open chat: %1"
-#~ msgstr "Ha fallat en obrir el xat: %1"
-
-#~ msgid "Loading..."
-#~ msgstr "S'està carregant..."
-
-#~ msgid "spacebar"
-#~ msgstr "spacebar"
