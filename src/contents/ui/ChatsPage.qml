@@ -212,7 +212,7 @@ Kirigami.ScrollablePage {
                     source: delegateRoot.image ? "file://" + ChatListModel.attachmentsFolder(delegateRoot.phoneNumberList) + "/" + delegateRoot.image.fileName : ""
                     fillMode: Image.PreserveAspectCrop
                     sourceSize.height: Kirigami.Units.iconSizes.smallMedium * 4
-                    Layout.preferredWidth: Kirigami.Units.iconSizes.smallMedium * 2
+                    Layout.preferredWidth: delegateRoot.image ? Kirigami.Units.iconSizes.smallMedium * 2 : 0
                     Layout.preferredHeight: Kirigami.Units.iconSizes.smallMedium * 2
                     cache: false
 
@@ -232,6 +232,8 @@ Kirigami.ScrollablePage {
 
                 Text {
                     visible: !delegateRoot.image
+                    Layout.minimumWidth: Kirigami.Units.smallSpacing * 13
+                    horizontalAlignment: Text.AlignRight
                     topPadding: Kirigami.Units.largeSpacing * 2
                     text: delegateRoot.lastContacted
                     font.pointSize: Kirigami.Theme.defaultFont.pointSize - 2
