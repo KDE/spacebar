@@ -8,7 +8,7 @@ import QtQuick.Layouts 1.15
 import QtQuick.Controls 2.15 as Controls
 import QtGraphicalEffects 1.15
 
-import org.kde.kirigami 2.15 as Kirigami
+import org.kde.kirigami 2.19 as Kirigami
 
 import org.kde.spacebar 1.0
 
@@ -16,6 +16,25 @@ Kirigami.ScrollablePage {
     id: chatPage
     title: i18n("Chats")
     supportsRefreshing: true
+
+    property var conversations: []
+    property bool editing: false
+
+    function setConversations (phoneNumberList) {
+        if (conversations.length === 0) {
+            editing = true
+        }
+        const index = conversations.indexOf(phoneNumberList)
+        if (index === -1) {
+            conversations.push(phoneNumberList)
+        } else {
+            conversations.splice(index, 1)
+        }
+        conversations = conversations
+        if (conversations.length === 0) {
+            editing = false
+        }
+    }
     
     actions {
         main: Kirigami.Action {
@@ -33,6 +52,13 @@ Kirigami.ScrollablePage {
                 onTriggered: {
                     applicationWindow().pageStack.push("qrc:/SettingsPage.qml", {"chatListModel": ChatListModel})
                 }
+            },
+            Kirigami.Action {
+                displayHint: Kirigami.Action.IconOnly
+                iconName: "delete"
+                text: i18n("Delete")
+                onTriggered: promptDialog.open()
+                visible: editing === true
             }
         ]
     }
@@ -84,7 +110,7 @@ Kirigami.ScrollablePage {
             visible: Kirigami.Settings.isMobile
         }
 
-        delegate: Kirigami.SwipeListItem {
+        delegate: Kirigami.AbstractListItem {
             id: delegateRoot
 
             required property string displayName
@@ -98,12 +124,14 @@ Kirigami.ScrollablePage {
 
             property var attachments: lastAttachment ? JSON.parse(lastAttachment) : []
             property var image: attachments.find(o => o.mimeType.indexOf("image/") >= 0)
+            property bool selected: conversations.indexOf(delegateRoot.phoneNumberList) >= 0
 
             checkable: false
             highlighted: false
             separatorVisible: false
             topPadding: Kirigami.Units.smallSpacing
             bottomPadding: Kirigami.Units.smallSpacing
+            backgroundColor: selected ? Kirigami.Theme.alternateBackgroundColor : Kirigami.Theme.backgroundColor
 
             contentItem: RowLayout {
                 Kirigami.Avatar {
@@ -116,6 +144,19 @@ Kirigami.ScrollablePage {
                     name: delegateRoot.displayName
                     imageMode: Kirigami.Avatar.AdaptiveImageOrInitals
                     initialsMode: isContact ? Kirigami.Avatar.UseInitials : Kirigami.Avatar.UseIcon
+
+                    Rectangle {
+                        anchors.fill: parent
+                        radius: width * 0.5
+                        color: Kirigami.Theme.highlightColor
+                        visible: selected
+
+                        Kirigami.Icon {
+                            anchors.fill: parent
+                            source: "checkbox"
+                            color: Kirigami.Theme.highlightedTextColor
+                        }
+                    }
                 }
 
                 ColumnLayout {
@@ -198,23 +239,34 @@ Kirigami.ScrollablePage {
                 }
             }
 
-            actions: [
-                Kirigami.Action {
-                    text: i18n("Delete chat")
-                    icon.name: "delete"
-                    onTriggered: {
-                        ChatListModel.deleteChat(delegateRoot.phoneNumberList)
-                    }
-                }
-            ]
+            onPressAndHold: setConversations(delegateRoot.phoneNumberList)
 
             onClicked: {
-                // mark as read first, so data is correct when the model is initialized. This saves us a model reset
-                if (delegateRoot.unreadMessages > 0) {
-                    ChatListModel.markChatAsRead(delegateRoot.phoneNumberList)
+                if (editing) {
+                    setConversations(delegateRoot.phoneNumberList)
+                } else {
+                    // mark as read first, so data is correct when the model is initialized. This saves us a model reset
+                    if (delegateRoot.unreadMessages > 0) {
+                        ChatListModel.markChatAsRead(delegateRoot.phoneNumberList)
+                    }
+                    ChatListModel.startChat(delegateRoot.phoneNumberList)
                 }
-                ChatListModel.startChat(delegateRoot.phoneNumberList)
             }
         }
+    }
+
+    Kirigami.PromptDialog {
+        id: promptDialog
+        title: conversations.length > 1 ? i18n("Delete") + " " + conversations.length + " " + i18n("conversations?") : i18n("Delete this conversation?")
+        subtitle: i18n("This is permanent and can't be undone")
+        standardButtons: Kirigami.Dialog.Ok | Kirigami.Dialog.Cancel
+        onAccepted: {
+            conversations.forEach(conversation => {
+                ChatListModel.deleteChat(conversation)
+            })
+            conversations = []
+            editing = false
+        }
+        onRejected: close()
     }
 }
