@@ -27,7 +27,6 @@ target_link_libraries(spacebar-daemon
     Qt5::DBus
     KF5::I18n
     KF5::ConfigGui
-    KF5::CoreAddons
     KF5::DBusAddons
     KF5::Notifications
     KF5::ModemManagerQt

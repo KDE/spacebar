@@ -166,9 +166,9 @@ Kirigami.Page {
                     visible: !!modelData.text
                     anchors.horizontalCenter: parent.horizontalCenter
                     width: Math.min(page.width, implicitWidth)
-                    text: modelData.text
+                    text: Utils.textToHtml(modelData.text)
                     wrapMode: Text.Wrap
-                    textFormat: Text.AutoText
+                    textFormat: Text.StyledText
                     linkColor: Kirigami.Theme.linkColor
                     color: Kirigami.Theme.textColor
                 }

@@ -262,12 +262,12 @@ QCoro::Task<QString> MessageModel::sendMessageInternal(const PhoneNumber &phoneN
 {
     ModemManager::ModemMessaging::Message m;
     m.number = phoneNumber.toE164();
-    m.text = text;//Utils::textToHtml(text);
+    m.text = text;
 
     Message message;
     message.id = Database::generateRandomId();
     message.phoneNumberList = PhoneNumberList(phoneNumber.toInternational());
-    message.text = text;//Utils::textToHtml(text);
+    message.text = text;
     message.datetime = QDateTime::currentDateTime();
     message.read = true; // Messages sent by us are automatically read.
     message.sentByMe = true; // only called if message sent by us.
@@ -343,7 +343,7 @@ QCoro::Task<QString> MessageModel::sendMessageInternalMms(const PhoneNumberList 
 {
     Message message;
     message.phoneNumberList = phoneNumberList;
-    message.text = text;//Utils::textToHtml(text);
+    message.text = text;
     message.datetime = QDateTime::currentDateTime();
     message.read = true; // Messages sent by us are automatically read.
     message.sentByMe = true; // only called if message sent by us.

@@ -12,7 +12,6 @@
 #include <KLocalizedString>
 #include <KNotification>
 #include <KPeople/PersonData>
-#include <KTextToHTML>
 
 #include <contactphonenumbermapper.h>
 #include <global.h>
@@ -210,7 +209,7 @@ void ChannelLogger::saveMessage(
 )
 {
     Message message;
-    message.text = KTextToHTML::convertToHtml(text, KTextToHTML::Options(KTextToHTML::PreserveSpaces | KTextToHTML::ConvertPhoneNumbers));
+    message.text = text;
     message.sentByMe = false; // SMS doesn't have any kind of synchronization, so received messages are always from the chat partner.
     message.datetime = datetime;
     message.deliveryStatus =  MessageState::Received; // It arrived, soo

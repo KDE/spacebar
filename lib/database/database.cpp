@@ -17,13 +17,13 @@
 #include <global.h>
 
 constexpr auto ID_LEN = 10;
-constexpr auto DATABASE_REVISION = 5; // Keep MIGRATE_TO_LATEST_FROM in sync
+constexpr auto DATABASE_REVISION = 6; // Keep MIGRATE_TO_LATEST_FROM in sync
 #define MIGRATE_TO(n, current) \
     if (current < n) { \
         qDebug() << "Running migration" << #n; \
         migrationV##n(current); \
     }
-#define MIGRATE_TO_LATEST_FROM(current) MIGRATE_TO(5, current)
+#define MIGRATE_TO_LATEST_FROM(current) MIGRATE_TO(6, current)
 
 enum Column {
     IdColumn = 0,
@@ -450,4 +450,27 @@ void Database::migrationV5(uint current)
     QSqlQuery fixDuplicateIds(m_database);
     fixDuplicateIds.prepare(SL("UPDATE Messages SET id = ROWID WHERE LENGTH(id) <> 10;"));
     Database::exec(fixDuplicateIds);
+}
+
+void Database::migrationV6(uint current)
+{
+    MIGRATE_TO(5, current);
+
+    QSqlQuery removeHtml(m_database);
+    removeHtml.prepare(SL("UPDATE Messages SET text = REPLACE(text,'&nbsp;', ' ')"));
+    Database::exec(removeHtml);
+    removeHtml.prepare(SL("UPDATE Messages SET text = REPLACE(text, '&lt;', '<')"));
+    Database::exec(removeHtml);
+    removeHtml.prepare(SL("UPDATE Messages SET text = REPLACE(text, '&gt;', '>')"));
+    Database::exec(removeHtml);
+    removeHtml.prepare(SL("UPDATE Messages SET text = REPLACE(text, '&quot;', '\"')"));
+    Database::exec(removeHtml);
+    removeHtml.prepare(SL("UPDATE Messages SET text = REPLACE(text, '&amp;', '&')"));
+    Database::exec(removeHtml);
+    removeHtml.prepare(SL("UPDATE Messages SET text = REPLACE(text, '<br />', CHAR(13))"));
+    Database::exec(removeHtml);
+    removeHtml.prepare(SL("UPDATE Messages SET text = REPLACE(text, '</a>', '')"));
+    Database::exec(removeHtml);
+    removeHtml.prepare(SL("UPDATE Messages SET text = REPLACE(text, SUBSTR(text, INSTR(text, '<a href='), INSTR(text, '>http') - INSTR(text, '<a href=') + CASE WHEN INSTR(text, '>http') > 0 THEN 1 ELSE 0 END), '')"));
+    Database::exec(removeHtml);
 }

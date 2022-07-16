@@ -29,9 +29,9 @@ Kirigami.ScrollablePage {
             visible: !!page.text
             Layout.alignment: Qt.AlignHCenter
             Layout.maximumWidth: page.width - Kirigami.Units.largeSpacing * 2
-            text: page.text
+            text: Utils.textToHtml(page.text)
             wrapMode: Text.Wrap
-            textFormat: Text.AutoText
+            textFormat: Text.StyledText
             linkColor: Kirigami.Theme.linkColor
             color: Kirigami.Theme.textColor
             font.pointSize: pointSize
@@ -93,9 +93,9 @@ Kirigami.ScrollablePage {
                     visible: !!modelData.text
                     anchors.horizontalCenter: parent.horizontalCenter
                     width: Math.min(page.width, implicitWidth)
-                    text: modelData.text
+                    text: Utils.textToHtml(modelData.text)
                     wrapMode: Text.Wrap
-                    textFormat: Text.AutoText
+                    textFormat: Text.StyledText
                     linkColor: Kirigami.Theme.linkColor
                     color: Kirigami.Theme.textColor
                     font.pointSize: pointSize

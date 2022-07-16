@@ -405,9 +405,9 @@ Kirigami.ScrollablePage {
                         Layout.minimumWidth: Kirigami.Units.gridUnit / 5
                         Layout.maximumWidth: Math.round(delegateParent.width * 0.7)
                         maximumLineCount: 12
-                        text: model.text
+                        text: Utils.textToHtml(model.text)
                         wrapMode: Text.Wrap
-                        textFormat: Text.AutoText
+                        textFormat: Text.StyledText
                         linkColor: model.sentByMe ? Kirigami.Theme.highlightedTextColor : Kirigami.Theme.linkColor
                         color: content.textColor
                         font.pointSize: pointSize
@@ -557,10 +557,10 @@ Kirigami.ScrollablePage {
                             Controls.Label {
                                 visible: !!modelData.text
                                 width: Math.min(delegateParent.width * 0.7, implicitWidth)
-                                text: modelData.text
+                                text: Utils.textToHtml(modelData.text)
                                 maximumLineCount: 12
                                 wrapMode: Text.Wrap
-                                textFormat: Text.AutoText
+                                textFormat: Text.StyledText
                                 linkColor: modelData.sentByMe ? Kirigami.Theme.highlightedTextColor : Kirigami.Theme.linkColor
                                 color: content.textColor
                                 font.pointSize: pointSize
@@ -712,7 +712,7 @@ Kirigami.ScrollablePage {
                 text: i18n("Save attachment")
                 icon: "mail-attachment-symbolic"
                 onClicked: {
-                    attachmentList.selected = menu.attachments.length === 1 ? [menu.attachments[0].fileName] : []
+                    attachmentList.selected = []
                     attachmentList.items = menu.attachments.filter(o => o.fileName)
                     attachmentList.open()
                     menu.close()
@@ -963,7 +963,7 @@ Kirigami.ScrollablePage {
                     }
                 }
                 font.pointSize: pointSize
-                textFormat: Text.AutoText
+                textFormat: Text.PlainText
                 wrapMode: Text.Wrap
                 background: Rectangle {
                     color: Kirigami.Theme.backgroundColor

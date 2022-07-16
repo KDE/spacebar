@@ -51,7 +51,7 @@ public:
 
     bool isLocale24HourTime();
 
-    static QString textToHtml(const QString &text);
+    Q_INVOKABLE static QString textToHtml(const QString &text);
 
     Q_INVOKABLE QVariantList phoneNumbers(const QString &kPeopleUri);
 
