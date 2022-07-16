@@ -6,6 +6,7 @@
 #include "settingsmanager.h"
 
 #include <QBuffer>
+#include <QCoroFuture>
 #include <QDebug>
 #include <QDir>
 #include <QImage>
@@ -14,10 +15,8 @@
 #include <QJsonObject>
 #include <QMimeDatabase>
 #include <QMimeType>
-#include <QNetworkAccessManager>
-#include <QNetworkProxy>
-#include <QNetworkReply>
 #include <QStandardPaths>
+#include <QtConcurrent>
 #include <QUuid>
 
 #include <random>
@@ -84,86 +83,56 @@ Mms::Mms(QObject *parent)
 {
 }
 
-void Mms::uploadMessage(const QByteArray &data)
+QCoro::Task<void> Mms::uploadMessage(const QByteArray &data)
 {
     const QString url = SettingsManager::self()->mmsc();
     if (url.length() < 10) {
         qDebug() << "Invalid URL provided";
         Q_EMIT uploadFinished(BL(""));
-        return;
+        co_return;
     }
 
-    //TODO default to use modem connection when connected to wifi
-    QNetworkAccessManager *manager = new QNetworkAccessManager(this);
-    QNetworkRequest request;
-    request.setUrl(QUrl(url));
-    request.setHeader(QNetworkRequest::ContentTypeHeader, SL("application/vnd.wap.mms-message"));
-    request.setHeader(QNetworkRequest::ContentLengthHeader, data.length());
-    if (!SettingsManager::self()->mmsProxy().isEmpty()) {
-        QNetworkProxy proxy;
-        proxy.setType(QNetworkProxy::HttpProxy);
-        proxy.setHostName(SettingsManager::self()->mmsProxy());
-        proxy.setPort(SettingsManager::self()->mmsPort());
-        manager->setProxy(proxy);
-    }
+    const QByteArray response = co_await QtConcurrent::run(&m_curl, &ECurl::networkRequest, url, data);
 
-    QNetworkReply *reply = manager->post(request, data);
-    connect(reply, &QNetworkReply::finished, this, [this, reply]() {
-        Q_EMIT uploadFinished(reply->readAll());
-        reply->deleteLater();
-    });
-
-    connect(reply, &QNetworkReply::errorOccurred, this, [this, reply]() {
-        qDebug() << "upload error:" << reply->error();
-        reply->deleteLater();
+    if (response.isNull()) {
         Q_EMIT uploadError();
-    });
+    } else {
+        Q_EMIT uploadFinished(response);
+    }
+
+    co_return;
 }
 
-void Mms::downloadMessage(const MmsMessage &message)
+QCoro::Task<void> Mms::downloadMessage(const MmsMessage message)
 {
-    //TODO default to use modem connection when connected to wifi
-    QNetworkAccessManager *manager = new QNetworkAccessManager(this);
-    QNetworkRequest request;
-    request.setUrl(QUrl(message.contentLocation));
-    if (!SettingsManager::self()->mmsProxy().isEmpty()) {
-        QNetworkProxy proxy;
-        proxy.setType(QNetworkProxy::HttpProxy);
-        proxy.setHostName(SettingsManager::self()->mmsProxy());
-        proxy.setPort(SettingsManager::self()->mmsPort());
-        manager->setProxy(proxy);
-    }
+    const QString url = message.contentLocation;
 
-    QNetworkReply *reply = manager->get(request);
-    connect(reply, &QNetworkReply::finished, this, [this, reply, message]() {
-        const QByteArray data = reply->readAll();
-        reply->deleteLater();
+    const QByteArray response = co_await QtConcurrent::run(&m_curl, &ECurl::networkRequest, url, BL(""));
 
-        // if message exists, do not create a new download notification
-        if (!message.databaseId.isEmpty()) {
-            Q_EMIT manualDownloadFinished(message.databaseId, data.isEmpty());
-        } else if (data.isEmpty()) {
-            Q_EMIT downloadError(message);
-        }
-
-        if (!data.isEmpty()) {
-            Q_EMIT downloadFinished(data, message.contentLocation, message.expiry);
-
-            if (!message.transactionId.isEmpty()) {
-                sendDeliveryAcknowledgement(message.transactionId); // acknowledge download
-            }
-        }
-    });
-
-    connect(reply, &QNetworkReply::errorOccurred, this, [this, reply, message]() {
-        qDebug() << "download error:" << reply->error();
-        reply->deleteLater();
+    if (response.isNull()) {
         if (!message.databaseId.isEmpty()) {
             Q_EMIT manualDownloadFinished(message.databaseId, true);
         } else {
             Q_EMIT downloadError(message);
         }
-    });
+    } else {
+        // if message exists, do not create a new download notification
+        if (!message.databaseId.isEmpty()) {
+            Q_EMIT manualDownloadFinished(message.databaseId, response.isEmpty());
+        } else if (response.isEmpty()) {
+            Q_EMIT downloadError(message);
+        }
+
+        if (!response.isEmpty()) {
+            Q_EMIT downloadFinished(response, message.contentLocation, message.expiry);
+
+            if (!message.transactionId.isEmpty()) {
+                sendDeliveryAcknowledgement(message.transactionId); // acknowledge download
+            }
+        }
+    }
+
+    co_return;
 }
 
 void Mms::sendNotifyResponse(const QString &transactionId, const QString &status)

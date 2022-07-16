@@ -31,9 +31,11 @@ ecm_setup_version(${PROJECT_VERSION}
 )
 
 ################# Find dependencies #################
-find_package(Qt5 ${QT_MIN_VERSION} REQUIRED COMPONENTS Core Gui Network Qml Quick QuickControls2 Widgets Sql Xml)
+find_package(Qt5 ${QT_MIN_VERSION} REQUIRED COMPONENTS Core Concurrent Gui Qml Quick QuickControls2 Widgets Sql Xml)
 find_package(KF5 ${KF5_MIN_VERSION} REQUIRED COMPONENTS Kirigami2 I18n Contacts People Notifications Config CoreAddons DBusAddons ModemManagerQt KIO)
 find_package(PhoneNumber COMPONENTS PhoneNumber REQUIRED)
+find_package(CURL REQUIRED)
+find_package(c-ares REQUIRED)
 
 find_package(QCoro5 COMPONENTS Core DBus QUIET)
 if(NOT QCoro5_FOUND)

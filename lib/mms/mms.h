@@ -11,6 +11,9 @@
 
 #include <global.h>
 #include <phonenumberlist.h>
+#include "ecurl.h"
+
+#include "qcoro/task.h"
 
 /*
  * Spec documentation:
@@ -282,8 +285,8 @@ class Mms : public QObject
 public:
     explicit Mms(QObject *parent = nullptr);
 
-    void uploadMessage(const QByteArray &data);
-    void downloadMessage(const MmsMessage &message);
+    QCoro::Task<void> uploadMessage(const QByteArray &data);
+    QCoro::Task<void> downloadMessage(const MmsMessage message);
     void sendNotifyResponse(const QString &transactionId, const QString &status);
     void sendDeliveryAcknowledgement(const QString &transactionId);
     void sendReadReport(const QString &messageId);
@@ -324,6 +327,8 @@ private:
     QByteArray encodeFromValue(const QString &value);
     QByteArray encodeValueFromList(const QString &value, std::span<const QStringView> list);
     QByteArray encodePart(const QByteArray &type, const QString &name, const QByteArray &body, const QByteArray &params = QByteArrayLiteral(""));
+
+    ECurl m_curl;
 
 Q_SIGNALS:
     void downloadFinished(const QByteArray &data, const QString &url, const QDateTime &expires);
