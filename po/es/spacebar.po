@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: spacebar\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-07-14 00:48+0000\n"
-"PO-Revision-Date: 2022-03-24 17:39+0100\n"
+"POT-Creation-Date: 2022-07-16 00:50+0000\n"
+"PO-Revision-Date: 2022-07-15 18:27+0200\n"
 "Last-Translator: Eloy Cuadra <ecuadra@eloihr.net>\n"
 "Language-Team: Spanish <kde-l10n-es@kde.org>\n"
 "Language: es\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 21.12.3\n"
+"X-Generator: Lokalize 22.04.3\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -70,35 +70,53 @@ msgstr "Desconocido"
 msgid "Chats"
 msgstr "Conversaciones"
 
-#: src/contents/ui/ChatsPage.qml:23
+#: src/contents/ui/ChatsPage.qml:42
 #, kde-format
 msgid "New Conversation"
 msgstr "Nueva conversación"
 
-#: src/contents/ui/ChatsPage.qml:32 src/contents/ui/SettingsPage.qml:15
+#: src/contents/ui/ChatsPage.qml:51 src/contents/ui/SettingsPage.qml:15
 #, kde-format
 msgid "Settings"
 msgstr "Preferencias"
 
-#: src/contents/ui/ChatsPage.qml:72
+#: src/contents/ui/ChatsPage.qml:59 src/contents/ui/ChatsPage.qml:262
+#, fuzzy, kde-format
+#| msgid "Delete chat"
+msgid "Delete"
+msgstr "Borrar conversación"
+
+#: src/contents/ui/ChatsPage.qml:98
 #, kde-format
 msgid "Create a chat"
 msgstr "Crear una conversación"
 
-#: src/contents/ui/ChatsPage.qml:138
+#: src/contents/ui/ChatsPage.qml:179
 #, kde-format
 msgid "You: "
-msgstr ""
+msgstr "Usted: "
 
-#: src/contents/ui/ChatsPage.qml:138
+#: src/contents/ui/ChatsPage.qml:179
 #, kde-format
 msgid "Picture"
-msgstr ""
+msgstr "Imagen"
 
-#: src/contents/ui/ChatsPage.qml:203
+#: src/contents/ui/ChatsPage.qml:262
+#, fuzzy, kde-format
+#| msgid "New Conversation"
+msgid "conversations?"
+msgstr "Nueva conversación"
+
+#: src/contents/ui/ChatsPage.qml:262
+#, fuzzy, kde-format
+#| msgid "Default to group conversations"
+msgid "Delete this conversation?"
+msgstr "Predeterminado para conversaciones de grupos"
+
+#: src/contents/ui/ChatsPage.qml:263
 #, kde-format
-msgid "Delete chat"
-msgstr "Borrar conversación"
+msgid "This is permanent and can't be undone"
+msgstr ""
 
 #: src/contents/ui/ContactsList.qml:45
 #, kde-format
@@ -120,17 +138,17 @@ msgstr "Componer"
 msgid "Search or enter number…"
 msgstr "Buscar o introducir número..."
 
-#: src/contents/ui/ContactsList.qml:303
+#: src/contents/ui/ContactsList.qml:306
 #, kde-format
 msgid "No contacts with phone numbers yet"
 msgstr "Aún no hay contactos con número de teléfono"
 
-#: src/contents/ui/ContactsList.qml:306
+#: src/contents/ui/ContactsList.qml:309
 #, kde-format
 msgid "Open contacts app"
 msgstr "Abrir la aplicación de contactos"
 
-#: src/contents/ui/ContactsList.qml:313
+#: src/contents/ui/ContactsList.qml:316
 #, kde-format
 msgid "No results found"
 msgstr "No se han encontrado resultados"

@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: spacebar\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-07-14 00:48+0000\n"
-"PO-Revision-Date: 2022-03-25 07:15+0100\n"
+"POT-Creation-Date: 2022-07-16 00:50+0000\n"
+"PO-Revision-Date: 2022-07-15 05:16+0200\n"
 "Last-Translator: Matjaž Jeran <matjaz.jeran@amis.net>\n"
 "Language-Team: Slovenian <lugos-slo@lugos.si>\n"
 "Language: sl\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n%100==1 ? 1 : n%100==2 ? 2 : n%100==3 || n"
 "%100==4 ? 3 : 0);\n"
-"X-Generator: Lokalize 21.12.2\n"
+"X-Generator: Lokalize 22.04.1\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -69,35 +69,53 @@ msgstr "Neznano"
 msgid "Chats"
 msgstr "Klepeti"
 
-#: src/contents/ui/ChatsPage.qml:23
+#: src/contents/ui/ChatsPage.qml:42
 #, kde-format
 msgid "New Conversation"
 msgstr "Nov pogovor"
 
-#: src/contents/ui/ChatsPage.qml:32 src/contents/ui/SettingsPage.qml:15
+#: src/contents/ui/ChatsPage.qml:51 src/contents/ui/SettingsPage.qml:15
 #, kde-format
 msgid "Settings"
 msgstr "Nastavitve"
 
-#: src/contents/ui/ChatsPage.qml:72
+#: src/contents/ui/ChatsPage.qml:59 src/contents/ui/ChatsPage.qml:262
+#, fuzzy, kde-format
+#| msgid "Delete chat"
+msgid "Delete"
+msgstr "Zbriši klepet"
+
+#: src/contents/ui/ChatsPage.qml:98
 #, kde-format
 msgid "Create a chat"
 msgstr "Ustvari klepet"
 
-#: src/contents/ui/ChatsPage.qml:138
+#: src/contents/ui/ChatsPage.qml:179
 #, kde-format
 msgid "You: "
-msgstr ""
+msgstr "Vi: "
 
-#: src/contents/ui/ChatsPage.qml:138
+#: src/contents/ui/ChatsPage.qml:179
 #, kde-format
 msgid "Picture"
-msgstr ""
+msgstr "Slika"
 
-#: src/contents/ui/ChatsPage.qml:203
+#: src/contents/ui/ChatsPage.qml:262
+#, fuzzy, kde-format
+#| msgid "New Conversation"
+msgid "conversations?"
+msgstr "Nov pogovor"
+
+#: src/contents/ui/ChatsPage.qml:262
+#, fuzzy, kde-format
+#| msgid "Default to group conversations"
+msgid "Delete this conversation?"
+msgstr "Privzeto v skupinske debate"
+
+#: src/contents/ui/ChatsPage.qml:263
 #, kde-format
-msgid "Delete chat"
-msgstr "Zbriši klepet"
+msgid "This is permanent and can't be undone"
+msgstr ""
 
 #: src/contents/ui/ContactsList.qml:45
 #, kde-format
@@ -119,17 +137,17 @@ msgstr "Sestavi"
 msgid "Search or enter number…"
 msgstr "Išči ali vnesi številko…"
 
-#: src/contents/ui/ContactsList.qml:303
+#: src/contents/ui/ContactsList.qml:306
 #, kde-format
 msgid "No contacts with phone numbers yet"
 msgstr "Še ni stikov s telefonskimi številkami"
 
-#: src/contents/ui/ContactsList.qml:306
+#: src/contents/ui/ContactsList.qml:309
 #, kde-format
 msgid "Open contacts app"
 msgstr "Odpri aplikacijo stikov"
 
-#: src/contents/ui/ContactsList.qml:313
+#: src/contents/ui/ContactsList.qml:316
 #, kde-format
 msgid "No results found"
 msgstr "Ni najdenih rezultatov"

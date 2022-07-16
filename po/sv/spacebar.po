@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: spacebar\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-07-14 00:48+0000\n"
+"POT-Creation-Date: 2022-07-16 00:50+0000\n"
 "PO-Revision-Date: 2022-03-24 16:29+0100\n"
 "Last-Translator: Stefan Asserhäll <stefan.asserhall@bredband.net>\n"
 "Language-Team: Swedish <kde-i18n-doc@kde.org>\n"
@@ -68,35 +68,53 @@ msgstr "Okänd"
 msgid "Chats"
 msgstr "Chattar"
 
-#: src/contents/ui/ChatsPage.qml:23
+#: src/contents/ui/ChatsPage.qml:42
 #, kde-format
 msgid "New Conversation"
 msgstr "Ny konversation"
 
-#: src/contents/ui/ChatsPage.qml:32 src/contents/ui/SettingsPage.qml:15
+#: src/contents/ui/ChatsPage.qml:51 src/contents/ui/SettingsPage.qml:15
 #, kde-format
 msgid "Settings"
 msgstr "Inställningar"
 
-#: src/contents/ui/ChatsPage.qml:72
+#: src/contents/ui/ChatsPage.qml:59 src/contents/ui/ChatsPage.qml:262
+#, fuzzy, kde-format
+#| msgid "Delete chat"
+msgid "Delete"
+msgstr "Ta bort chatt"
+
+#: src/contents/ui/ChatsPage.qml:98
 #, kde-format
 msgid "Create a chat"
 msgstr "Skapa en chatt"
 
-#: src/contents/ui/ChatsPage.qml:138
+#: src/contents/ui/ChatsPage.qml:179
 #, kde-format
 msgid "You: "
 msgstr ""
 
-#: src/contents/ui/ChatsPage.qml:138
+#: src/contents/ui/ChatsPage.qml:179
 #, kde-format
 msgid "Picture"
 msgstr ""
 
-#: src/contents/ui/ChatsPage.qml:203
+#: src/contents/ui/ChatsPage.qml:262
+#, fuzzy, kde-format
+#| msgid "New Conversation"
+msgid "conversations?"
+msgstr "Ny konversation"
+
+#: src/contents/ui/ChatsPage.qml:262
+#, fuzzy, kde-format
+#| msgid "Default to group conversations"
+msgid "Delete this conversation?"
+msgstr "Gruppkonversationer är förval"
+
+#: src/contents/ui/ChatsPage.qml:263
 #, kde-format
-msgid "Delete chat"
-msgstr "Ta bort chatt"
+msgid "This is permanent and can't be undone"
+msgstr ""
 
 #: src/contents/ui/ContactsList.qml:45
 #, kde-format
@@ -118,17 +136,17 @@ msgstr "Skriv"
 msgid "Search or enter number…"
 msgstr "Sök efter eller skriv in nummer…"
 
-#: src/contents/ui/ContactsList.qml:303
+#: src/contents/ui/ContactsList.qml:306
 #, kde-format
 msgid "No contacts with phone numbers yet"
 msgstr "Inga kontakter med telefonnummer ännu"
 
-#: src/contents/ui/ContactsList.qml:306
+#: src/contents/ui/ContactsList.qml:309
 #, kde-format
 msgid "Open contacts app"
 msgstr "Visa kontaktprogram"
 
-#: src/contents/ui/ContactsList.qml:313
+#: src/contents/ui/ContactsList.qml:316
 #, kde-format
 msgid "No results found"
 msgstr "Inga resultat hittades"

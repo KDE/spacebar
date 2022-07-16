@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: spacebar\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-07-14 00:48+0000\n"
+"POT-Creation-Date: 2022-07-16 00:50+0000\n"
 "PO-Revision-Date: 2022-05-19 11:24+0200\n"
 "Last-Translator: Vit Pelcak <vpelcak@suse.cz>\n"
 "Language-Team: Czech <kde-i18n-doc@kde.org>\n"
@@ -68,35 +68,53 @@ msgstr "Neznámý"
 msgid "Chats"
 msgstr "Rozhovory"
 
-#: src/contents/ui/ChatsPage.qml:23
+#: src/contents/ui/ChatsPage.qml:42
 #, kde-format
 msgid "New Conversation"
 msgstr "Nový rozhovor"
 
-#: src/contents/ui/ChatsPage.qml:32 src/contents/ui/SettingsPage.qml:15
+#: src/contents/ui/ChatsPage.qml:51 src/contents/ui/SettingsPage.qml:15
 #, kde-format
 msgid "Settings"
 msgstr "Nastavení"
 
-#: src/contents/ui/ChatsPage.qml:72
+#: src/contents/ui/ChatsPage.qml:59 src/contents/ui/ChatsPage.qml:262
+#, fuzzy, kde-format
+#| msgid "Delete chat"
+msgid "Delete"
+msgstr "Smazat rozhovor"
+
+#: src/contents/ui/ChatsPage.qml:98
 #, kde-format
 msgid "Create a chat"
 msgstr "Vytvořit rozhovor"
 
-#: src/contents/ui/ChatsPage.qml:138
+#: src/contents/ui/ChatsPage.qml:179
 #, kde-format
 msgid "You: "
 msgstr ""
 
-#: src/contents/ui/ChatsPage.qml:138
+#: src/contents/ui/ChatsPage.qml:179
 #, kde-format
 msgid "Picture"
 msgstr ""
 
-#: src/contents/ui/ChatsPage.qml:203
+#: src/contents/ui/ChatsPage.qml:262
+#, fuzzy, kde-format
+#| msgid "New Conversation"
+msgid "conversations?"
+msgstr "Nový rozhovor"
+
+#: src/contents/ui/ChatsPage.qml:262
+#, fuzzy, kde-format
+#| msgid "New Conversation"
+msgid "Delete this conversation?"
+msgstr "Nový rozhovor"
+
+#: src/contents/ui/ChatsPage.qml:263
 #, kde-format
-msgid "Delete chat"
-msgstr "Smazat rozhovor"
+msgid "This is permanent and can't be undone"
+msgstr ""
 
 #: src/contents/ui/ContactsList.qml:45
 #, kde-format
@@ -118,17 +136,17 @@ msgstr "Napsat"
 msgid "Search or enter number…"
 msgstr "Hledat nebo zadat číslo..."
 
-#: src/contents/ui/ContactsList.qml:303
+#: src/contents/ui/ContactsList.qml:306
 #, kde-format
 msgid "No contacts with phone numbers yet"
 msgstr "Žádné kontakty s telefonními čísly"
 
-#: src/contents/ui/ContactsList.qml:306
+#: src/contents/ui/ContactsList.qml:309
 #, kde-format
 msgid "Open contacts app"
 msgstr "Otevřít aplikaci s kontakty"
 
-#: src/contents/ui/ContactsList.qml:313
+#: src/contents/ui/ContactsList.qml:316
 #, kde-format
 msgid "No results found"
 msgstr "Nenalezeny žádné výsledky"
