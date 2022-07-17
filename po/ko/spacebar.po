@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: spacebar\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-07-16 00:50+0000\n"
+"POT-Creation-Date: 2022-07-17 00:48+0000\n"
 "PO-Revision-Date: 2022-04-16 01:26+0200\n"
 "Last-Translator: Shinjo Park <kde@peremen.name>\n"
 "Language-Team: Korean <kde-kr@kde.org>\n"
@@ -27,27 +27,27 @@ msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
 msgstr "kde@peremen.name"
 
-#: daemon/channellogger.cpp:245
+#: daemon/channellogger.cpp:244
 #, kde-format
 msgid "Attachments"
 msgstr "첨부"
 
-#: daemon/channellogger.cpp:245
+#: daemon/channellogger.cpp:244
 #, kde-format
 msgid "Attachment"
 msgstr "첨부"
 
-#: daemon/channellogger.cpp:249 src/contents/ui/MessagesPage.qml:19
+#: daemon/channellogger.cpp:248 src/contents/ui/MessagesPage.qml:19
 #, kde-format
 msgid "New message"
 msgstr "새 메시지"
 
-#: daemon/channellogger.cpp:256
+#: daemon/channellogger.cpp:255
 #, kde-format
 msgid "Message from %1"
 msgstr "%1의 메시지"
 
-#: daemon/channellogger.cpp:264
+#: daemon/channellogger.cpp:263
 #, kde-format
 msgctxt "@action open message in application"
 msgid "Open"

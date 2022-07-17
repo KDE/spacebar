@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: spacebar\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-07-16 00:50+0000\n"
-"PO-Revision-Date: 2022-07-14 14:38+0200\n"
+"POT-Creation-Date: 2022-07-17 00:48+0000\n"
+"PO-Revision-Date: 2022-07-16 10:47+0200\n"
 "Last-Translator: Freek de Kruijf <freekdekruijf@kde.nl>\n"
 "Language-Team: \n"
 "Language: nl\n"
@@ -27,27 +27,27 @@ msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
 msgstr "freekdekruijf@kde.nl"
 
-#: daemon/channellogger.cpp:245
+#: daemon/channellogger.cpp:244
 #, kde-format
 msgid "Attachments"
 msgstr "Bijlagen"
 
-#: daemon/channellogger.cpp:245
+#: daemon/channellogger.cpp:244
 #, kde-format
 msgid "Attachment"
 msgstr "Bijlage"
 
-#: daemon/channellogger.cpp:249 src/contents/ui/MessagesPage.qml:19
+#: daemon/channellogger.cpp:248 src/contents/ui/MessagesPage.qml:19
 #, kde-format
 msgid "New message"
 msgstr "Nieuw bericht"
 
-#: daemon/channellogger.cpp:256
+#: daemon/channellogger.cpp:255
 #, kde-format
 msgid "Message from %1"
 msgstr "Bericht van %1"
 
-#: daemon/channellogger.cpp:264
+#: daemon/channellogger.cpp:263
 #, kde-format
 msgctxt "@action open message in application"
 msgid "Open"
@@ -79,10 +79,9 @@ msgid "Settings"
 msgstr "Instellingen"
 
 #: src/contents/ui/ChatsPage.qml:59 src/contents/ui/ChatsPage.qml:262
-#, fuzzy, kde-format
-#| msgid "Delete chat"
+#, kde-format
 msgid "Delete"
-msgstr "Chat verwijderen"
+msgstr "Verwijderen"
 
 #: src/contents/ui/ChatsPage.qml:98
 #, kde-format
@@ -100,21 +99,19 @@ msgid "Picture"
 msgstr "Afbeelding"
 
 #: src/contents/ui/ChatsPage.qml:262
-#, fuzzy, kde-format
-#| msgid "New Conversation"
+#, kde-format
 msgid "conversations?"
-msgstr "Nieuwe conversatie"
+msgstr "gesprekken?"
 
 #: src/contents/ui/ChatsPage.qml:262
-#, fuzzy, kde-format
-#| msgid "Default to group conversations"
+#, kde-format
 msgid "Delete this conversation?"
-msgstr "Standaard naar conversaties tussen groepen"
+msgstr "Dit gesprek verwijderen?"
 
 #: src/contents/ui/ChatsPage.qml:263
 #, kde-format
 msgid "This is permanent and can't be undone"
-msgstr ""
+msgstr "Dit is permanent en niet ongedaan worden gemaakt"
 
 #: src/contents/ui/ContactsList.qml:45
 #, kde-format

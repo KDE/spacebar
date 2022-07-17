@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: spacebar\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-07-16 00:50+0000\n"
-"PO-Revision-Date: 2022-07-14 09:00+0300\n"
+"POT-Creation-Date: 2022-07-17 00:48+0000\n"
+"PO-Revision-Date: 2022-07-16 09:08+0300\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <kde-i18n-uk@kde.org>\n"
 "Language: uk\n"
@@ -30,27 +30,27 @@ msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
 msgstr "yurchor@ukr.net"
 
-#: daemon/channellogger.cpp:245
+#: daemon/channellogger.cpp:244
 #, kde-format
 msgid "Attachments"
 msgstr "Долучення"
 
-#: daemon/channellogger.cpp:245
+#: daemon/channellogger.cpp:244
 #, kde-format
 msgid "Attachment"
 msgstr "Долучення"
 
-#: daemon/channellogger.cpp:249 src/contents/ui/MessagesPage.qml:19
+#: daemon/channellogger.cpp:248 src/contents/ui/MessagesPage.qml:19
 #, kde-format
 msgid "New message"
 msgstr "Нове повідомлення"
 
-#: daemon/channellogger.cpp:256
+#: daemon/channellogger.cpp:255
 #, kde-format
 msgid "Message from %1"
 msgstr "Повідомлення від %1"
 
-#: daemon/channellogger.cpp:264
+#: daemon/channellogger.cpp:263
 #, kde-format
 msgctxt "@action open message in application"
 msgid "Open"
@@ -82,10 +82,9 @@ msgid "Settings"
 msgstr "Параметри"
 
 #: src/contents/ui/ChatsPage.qml:59 src/contents/ui/ChatsPage.qml:262
-#, fuzzy, kde-format
-#| msgid "Delete chat"
+#, kde-format
 msgid "Delete"
-msgstr "Вилучити спілкування"
+msgstr "Вилучити"
 
 #: src/contents/ui/ChatsPage.qml:98
 #, kde-format
@@ -103,21 +102,19 @@ msgid "Picture"
 msgstr "Зображення"
 
 #: src/contents/ui/ChatsPage.qml:262
-#, fuzzy, kde-format
-#| msgid "New Conversation"
+#, kde-format
 msgid "conversations?"
-msgstr "Нове спілкування"
+msgstr "спілкування?"
 
 #: src/contents/ui/ChatsPage.qml:262
-#, fuzzy, kde-format
-#| msgid "Default to group conversations"
+#, kde-format
 msgid "Delete this conversation?"
-msgstr "Типовий для спілкування у групі"
+msgstr "Вилучити це спілкування?"
 
 #: src/contents/ui/ChatsPage.qml:263
 #, kde-format
 msgid "This is permanent and can't be undone"
-msgstr ""
+msgstr "Наслідки дії не можна буде скасувати"
 
 #: src/contents/ui/ContactsList.qml:45
 #, kde-format
