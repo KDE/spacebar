@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: spacebar\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-07-17 00:48+0000\n"
-"PO-Revision-Date: 2022-07-15 05:16+0200\n"
+"PO-Revision-Date: 2022-07-17 08:01+0200\n"
 "Last-Translator: Matjaž Jeran <matjaz.jeran@amis.net>\n"
 "Language-Team: Slovenian <lugos-slo@lugos.si>\n"
 "Language: sl\n"
@@ -80,10 +80,9 @@ msgid "Settings"
 msgstr "Nastavitve"
 
 #: src/contents/ui/ChatsPage.qml:59 src/contents/ui/ChatsPage.qml:262
-#, fuzzy, kde-format
-#| msgid "Delete chat"
+#, kde-format
 msgid "Delete"
-msgstr "Zbriši klepet"
+msgstr "Zbriši"
 
 #: src/contents/ui/ChatsPage.qml:98
 #, kde-format
@@ -101,21 +100,19 @@ msgid "Picture"
 msgstr "Slika"
 
 #: src/contents/ui/ChatsPage.qml:262
-#, fuzzy, kde-format
-#| msgid "New Conversation"
+#, kde-format
 msgid "conversations?"
-msgstr "Nov pogovor"
+msgstr "pogovori?"
 
 #: src/contents/ui/ChatsPage.qml:262
-#, fuzzy, kde-format
-#| msgid "Default to group conversations"
+#, kde-format
 msgid "Delete this conversation?"
-msgstr "Privzeto v skupinske debate"
+msgstr "Naj zbrišem ta pogovor?"
 
 #: src/contents/ui/ChatsPage.qml:263
 #, kde-format
 msgid "This is permanent and can't be undone"
-msgstr ""
+msgstr "To je trajno in ni mogoče stornirati"
 
 #: src/contents/ui/ContactsList.qml:45
 #, kde-format
