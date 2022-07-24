@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: spacebar\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-07-17 00:48+0000\n"
-"PO-Revision-Date: 2022-03-13 09:36+0100\n"
+"PO-Revision-Date: 2022-07-23 23:53+0200\n"
 "Last-Translator: Frederik Schwarzer <schwarzer@kde.org>\n"
 "Language-Team: German <kde-i18n-de@kde.org>\n"
 "Language: de\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 21.12.3\n"
+"X-Generator: Lokalize 22.07.70\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -80,10 +80,9 @@ msgid "Settings"
 msgstr "Einstellungen"
 
 #: src/contents/ui/ChatsPage.qml:59 src/contents/ui/ChatsPage.qml:262
-#, fuzzy, kde-format
-#| msgid "Delete chat"
+#, kde-format
 msgid "Delete"
-msgstr "Chat löschen"
+msgstr "Löschen"
 
 #: src/contents/ui/ChatsPage.qml:98
 #, kde-format
@@ -93,24 +92,22 @@ msgstr "Chat erstellen"
 #: src/contents/ui/ChatsPage.qml:179
 #, kde-format
 msgid "You: "
-msgstr ""
+msgstr "Sie: "
 
 #: src/contents/ui/ChatsPage.qml:179
 #, kde-format
 msgid "Picture"
-msgstr ""
+msgstr "Bild"
 
 #: src/contents/ui/ChatsPage.qml:262
-#, fuzzy, kde-format
-#| msgid "New Conversation"
+#, kde-format
 msgid "conversations?"
-msgstr "Neue Unterhaltung"
+msgstr "Unterhaltungen?"
 
 #: src/contents/ui/ChatsPage.qml:262
-#, fuzzy, kde-format
-#| msgid "New Conversation"
+#, kde-format
 msgid "Delete this conversation?"
-msgstr "Neue Unterhaltung"
+msgstr "Diese Unterhaltung löschen?"
 
 #: src/contents/ui/ChatsPage.qml:263
 #, kde-format
