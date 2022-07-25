@@ -16,6 +16,18 @@
 #include <contactphonenumbermapper.h>
 #include <global.h>
 
+static bool isScreenSaverActive()
+{
+    bool active = false;
+    QDBusMessage request = QDBusMessage::createMethodCall(QStringLiteral("org.freedesktop.ScreenSaver"),
+                                                          QStringLiteral("/ScreenSaver"),
+                                                          QStringLiteral("org.freedesktop.ScreenSaver"),
+                                                          QStringLiteral("GetActive"));
+    const QDBusReply<bool> response = QDBusConnection::sessionBus().call(request);
+    active = response.isValid() ? response.value() : false;
+    return active;
+}
+
 ChannelLogger::ChannelLogger(std::optional<QString> &modemPath, QObject *parent)
     : QObject(parent)
 {
@@ -231,7 +243,9 @@ void ChannelLogger::saveMessage(
 
     //TODO add setting to turn off notifications for multiple chats in addition to current chat
     if (message.phoneNumberList == m_disabledNotificationNumber) {
-        return;
+        if (!isScreenSaverActive()) {
+            return;
+        }
     }
 
     QString notificationText;
