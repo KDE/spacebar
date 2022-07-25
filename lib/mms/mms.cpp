@@ -92,7 +92,11 @@ QCoro::Task<void> Mms::uploadMessage(const QByteArray &data)
         co_return;
     }
 
+#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
+    const QByteArray response = co_await QtConcurrent::run(&ECurl::networkRequest, &m_curl, url, data);
+#else
     const QByteArray response = co_await QtConcurrent::run(&m_curl, &ECurl::networkRequest, url, data);
+#endif
 
     if (response.isNull()) {
         Q_EMIT uploadError();
@@ -107,7 +111,11 @@ QCoro::Task<void> Mms::downloadMessage(const MmsMessage message)
 {
     const QString url = message.contentLocation;
 
+#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
+    const QByteArray response = co_await QtConcurrent::run(&ECurl::networkRequest, &m_curl, url, BL(""));
+#else
     const QByteArray response = co_await QtConcurrent::run(&m_curl, &ECurl::networkRequest, url, BL(""));
+#endif
 
     if (response.isNull()) {
         if (!message.databaseId.isEmpty()) {
