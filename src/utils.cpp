@@ -12,7 +12,7 @@
 #include <QClipboard>
 
 #include <KIO/ApplicationLauncherJob>
-#include <KPeople/KPeopleBackend/AbstractContact>
+#include <KPeopleBackend/AbstractContact>
 #include <KPeople/PersonData>
 #include <KTextToHTML>
 
