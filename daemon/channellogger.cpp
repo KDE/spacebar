@@ -248,32 +248,49 @@ void ChannelLogger::saveMessage(
         }
     }
 
-    QString notificationText;
-    if (SettingsManager::self()->showMessageContent()) {
-        notificationText = text;
-        notificationText.truncate(200);
-        if (!attachments.isEmpty()) {
-            int attachmentCount = attachments.count(SL("fileName"));
-            notificationText = QString::number(attachmentCount) + SL(" ");
-            notificationText.append(attachmentCount > 1 ? i18n("Attachments") : i18n("Attachment"));
-        }
-    }
+    createNotification(message);
+}
+
+void ChannelLogger::createNotification(Message &message)
+{
+    auto *notification = new KNotification(QStringLiteral("incomingMessage"));
+    notification->setComponentName(SL("spacebar"));
 
     QString title = i18n("New message");
     if (SettingsManager::self()->showSenderInfo()) {
-        const PhoneNumber from = fromNumber.isEmpty() ? phoneNumberList.first() : PhoneNumber(fromNumber);
+        const PhoneNumber from = message.fromNumber.isEmpty() ? message.phoneNumberList.first() : PhoneNumber(message.fromNumber);
         title = KPeople::PersonData(ContactPhoneNumberMapper::instance().uriForNumber(from), this).name();
         if (title.isEmpty()) {
             title = from.toNational();
         }
         title = i18n("Message from %1", title);
     }
-
-    auto *notification = new KNotification(QStringLiteral("incomingMessage"));
-    notification->setComponentName(SL("spacebar"));
-    notification->setIconName(SL("org.kde.spacebar"));
     notification->setTitle(title);
-    notification->setText(notificationText);
+
+    if (SettingsManager::self()->showMessageContent()) {
+        QString notificationText = message.text;
+        notificationText.truncate(200);
+        if (!message.attachments.isEmpty()) {
+            QJsonArray items = QJsonDocument::fromJson(message.attachments.toUtf8()).array();
+
+            int count = static_cast<int>(items.count());
+            notificationText = QString::number(count) + SL(" ");
+            notificationText.append(count > 1 ? i18n("Attachments") : i18n("Attachment"));
+            notification->setText(notificationText);
+
+            if (SettingsManager::self()->showAttachments()) {
+                QList<QUrl> urls;
+                for (const auto &item : items) {
+                    const QString local = QStandardPaths::writableLocation(QStandardPaths::GenericDataLocation);
+                    const QString folder = QString::number(qHash(message.phoneNumberList.toString()));
+                    const QString fileName = item.toObject()[SL("fileName")].toString();
+                    urls.append(QUrl::fromLocalFile(local + SL("/spacebar/attachments/") + folder + SL("/") + fileName));
+                }
+                notification->setUrls(urls);
+            }
+        }
+    }
+
     notification->setDefaultAction(i18nc("@action open message in application", "Open"));
     notification->sendEvent();
 

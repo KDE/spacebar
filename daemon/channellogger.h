@@ -42,6 +42,7 @@ private:
         const QDateTime &expires = QDateTime(),
         const int size = 0
     );
+    void createNotification(Message &message);
 
     Database m_database;
 

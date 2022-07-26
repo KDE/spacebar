@@ -252,6 +252,13 @@ Kirigami.ScrollablePage {
             onToggled: SettingsManager.showMessageContent = checked
         }
 
+        Controls.CheckBox {
+            id: showAttachments
+            checked: SettingsManager.showAttachments
+            text: i18n("Show attachment previews")
+            onToggled: SettingsManager.showAttachments = checked
+        }
+
 
         Kirigami.Heading {
             Kirigami.FormData.isSection: true

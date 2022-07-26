@@ -85,5 +85,9 @@
             <label>Show a preview of the message content</label>
             <default>true</default>
         </entry>
+        <entry name="showAttachments" type="Bool">
+            <label>Show attachment previews</label>
+            <default>true</default>
+        </entry>
     </group>
 </kcfg>
