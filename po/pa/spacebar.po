@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: spacebar\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-07-26 00:48+0000\n"
+"POT-Creation-Date: 2022-07-27 00:49+0000\n"
 "PO-Revision-Date: 2022-06-11 09:33-0700\n"
 "Last-Translator: A S Alam <aalam@satluj.org>\n"
 "Language-Team: Punjabi <punjabi-users@lists.sf.net>\n"
@@ -27,27 +27,27 @@ msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
 msgstr "alam.yellow@gmail.com"
 
-#: daemon/channellogger.cpp:258
-#, kde-format
-msgid "Attachments"
-msgstr "ਅਟੈਚਮੈਂਟਾਂ"
-
-#: daemon/channellogger.cpp:258
-#, kde-format
-msgid "Attachment"
-msgstr "ਅਟੈਚਮੈਂਟ"
-
-#: daemon/channellogger.cpp:262 src/contents/ui/MessagesPage.qml:19
+#: daemon/channellogger.cpp:259 src/contents/ui/MessagesPage.qml:19
 #, kde-format
 msgid "New message"
 msgstr "ਨਵਾਂ ਸੁਨੇਹਾ"
 
-#: daemon/channellogger.cpp:269
+#: daemon/channellogger.cpp:266
 #, kde-format
 msgid "Message from %1"
 msgstr "%1 ਤੋਂ ਸੁਨੇਹਾ"
 
-#: daemon/channellogger.cpp:277
+#: daemon/channellogger.cpp:278
+#, kde-format
+msgid "Attachments"
+msgstr "ਅਟੈਚਮੈਂਟਾਂ"
+
+#: daemon/channellogger.cpp:278
+#, kde-format
+msgid "Attachment"
+msgstr "ਅਟੈਚਮੈਂਟ"
+
+#: daemon/channellogger.cpp:294
 #, kde-format
 msgctxt "@action open message in application"
 msgid "Open"
@@ -58,7 +58,7 @@ msgstr "ਖੋਲ੍ਹੋ"
 msgid "Spacebar background service"
 msgstr "ਸਪੇਸਬਾਰ ਬੈਕਗਰਾਊਂਡ ਸੇਵਾ"
 
-#: src/chatlistmodel.cpp:89
+#: src/chatlistmodel.cpp:91
 #, kde-format
 msgid "Unknown"
 msgstr "ਅਣਪਛਾਤਾ"
@@ -241,7 +241,7 @@ msgstr "ਮੁੜ-ਭੇਜੋ"
 msgid "Save"
 msgstr "ਸੰਭਾਲੋ"
 
-#: src/contents/ui/MessagesPage.qml:803 src/contents/ui/SettingsPage.qml:335
+#: src/contents/ui/MessagesPage.qml:803 src/contents/ui/SettingsPage.qml:342
 #, kde-format
 msgid "Cancel"
 msgstr "ਰੱਦ ਕਰੋ"
@@ -394,26 +394,32 @@ msgid "Show a preview of the message content"
 msgstr ""
 
 #: src/contents/ui/SettingsPage.qml:258
+#, fuzzy, kde-format
+#| msgid "Save attachment"
+msgid "Show attachment previews"
+msgstr "ਅਟੈਚਮੈਂਟ ਨੂੰ ਸੰਭਾਲੋ"
+
+#: src/contents/ui/SettingsPage.qml:265
 #, kde-format
 msgid "Other"
 msgstr "ਹੋਰ"
 
-#: src/contents/ui/SettingsPage.qml:262
+#: src/contents/ui/SettingsPage.qml:269
 #, kde-format
 msgid "Restore defaults"
 msgstr "ਡਿਫਾਲਟ ਬਹਾਲ ਕਰੋ"
 
-#: src/contents/ui/SettingsPage.qml:273
+#: src/contents/ui/SettingsPage.qml:280
 #, kde-format
 msgid "About"
 msgstr "ਇਸ ਬਾਰੇ"
 
-#: src/contents/ui/SettingsPage.qml:289
+#: src/contents/ui/SettingsPage.qml:296
 #, kde-format
 msgid "Choose a color"
 msgstr "ਰੰਗ ਚੁਣੋ"
 
-#: src/contents/ui/SettingsPage.qml:345
+#: src/contents/ui/SettingsPage.qml:352
 #, kde-format
 msgid "Set"
 msgstr "ਲਾਓ"

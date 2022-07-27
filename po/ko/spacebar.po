@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: spacebar\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-07-26 00:48+0000\n"
+"POT-Creation-Date: 2022-07-27 00:49+0000\n"
 "PO-Revision-Date: 2022-04-16 01:26+0200\n"
 "Last-Translator: Shinjo Park <kde@peremen.name>\n"
 "Language-Team: Korean <kde-kr@kde.org>\n"
@@ -27,27 +27,27 @@ msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
 msgstr "kde@peremen.name"
 
-#: daemon/channellogger.cpp:258
-#, kde-format
-msgid "Attachments"
-msgstr "첨부"
-
-#: daemon/channellogger.cpp:258
-#, kde-format
-msgid "Attachment"
-msgstr "첨부"
-
-#: daemon/channellogger.cpp:262 src/contents/ui/MessagesPage.qml:19
+#: daemon/channellogger.cpp:259 src/contents/ui/MessagesPage.qml:19
 #, kde-format
 msgid "New message"
 msgstr "새 메시지"
 
-#: daemon/channellogger.cpp:269
+#: daemon/channellogger.cpp:266
 #, kde-format
 msgid "Message from %1"
 msgstr "%1의 메시지"
 
-#: daemon/channellogger.cpp:277
+#: daemon/channellogger.cpp:278
+#, kde-format
+msgid "Attachments"
+msgstr "첨부"
+
+#: daemon/channellogger.cpp:278
+#, kde-format
+msgid "Attachment"
+msgstr "첨부"
+
+#: daemon/channellogger.cpp:294
 #, kde-format
 msgctxt "@action open message in application"
 msgid "Open"
@@ -58,7 +58,7 @@ msgstr "열기"
 msgid "Spacebar background service"
 msgstr "Spacebar 백그라운드 서비스"
 
-#: src/chatlistmodel.cpp:89
+#: src/chatlistmodel.cpp:91
 #, kde-format
 msgid "Unknown"
 msgstr "알 수 없음"
@@ -242,7 +242,7 @@ msgstr "다시 보내기"
 msgid "Save"
 msgstr "저장"
 
-#: src/contents/ui/MessagesPage.qml:803 src/contents/ui/SettingsPage.qml:335
+#: src/contents/ui/MessagesPage.qml:803 src/contents/ui/SettingsPage.qml:342
 #, kde-format
 msgid "Cancel"
 msgstr "취소"
@@ -394,26 +394,32 @@ msgid "Show a preview of the message content"
 msgstr "메시지 내용 미리 보기 표시"
 
 #: src/contents/ui/SettingsPage.qml:258
+#, fuzzy, kde-format
+#| msgid "Save attachment"
+msgid "Show attachment previews"
+msgstr "첨부 파일 저장"
+
+#: src/contents/ui/SettingsPage.qml:265
 #, kde-format
 msgid "Other"
 msgstr "기타"
 
-#: src/contents/ui/SettingsPage.qml:262
+#: src/contents/ui/SettingsPage.qml:269
 #, kde-format
 msgid "Restore defaults"
 msgstr "기본값 복원"
 
-#: src/contents/ui/SettingsPage.qml:273
+#: src/contents/ui/SettingsPage.qml:280
 #, kde-format
 msgid "About"
 msgstr "정보"
 
-#: src/contents/ui/SettingsPage.qml:289
+#: src/contents/ui/SettingsPage.qml:296
 #, kde-format
 msgid "Choose a color"
 msgstr "색상 선택"
 
-#: src/contents/ui/SettingsPage.qml:345
+#: src/contents/ui/SettingsPage.qml:352
 #, kde-format
 msgid "Set"
 msgstr "설정"

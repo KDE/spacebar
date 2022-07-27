@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: spacebar\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-07-26 00:48+0000\n"
+"POT-Creation-Date: 2022-07-27 00:49+0000\n"
 "PO-Revision-Date: 2022-07-22 15:31+0100\n"
 "Last-Translator: Steve Allewell <steve.allewell@gmail.com>\n"
 "Language-Team: British English <kde-l10n-en_gb@kde.org>\n"
@@ -27,27 +27,27 @@ msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
 msgstr "steve.allewell@gmail.com"
 
-#: daemon/channellogger.cpp:258
-#, kde-format
-msgid "Attachments"
-msgstr "Attachments"
-
-#: daemon/channellogger.cpp:258
-#, kde-format
-msgid "Attachment"
-msgstr "Attachment"
-
-#: daemon/channellogger.cpp:262 src/contents/ui/MessagesPage.qml:19
+#: daemon/channellogger.cpp:259 src/contents/ui/MessagesPage.qml:19
 #, kde-format
 msgid "New message"
 msgstr "New message"
 
-#: daemon/channellogger.cpp:269
+#: daemon/channellogger.cpp:266
 #, kde-format
 msgid "Message from %1"
 msgstr "Message from %1"
 
-#: daemon/channellogger.cpp:277
+#: daemon/channellogger.cpp:278
+#, kde-format
+msgid "Attachments"
+msgstr "Attachments"
+
+#: daemon/channellogger.cpp:278
+#, kde-format
+msgid "Attachment"
+msgstr "Attachment"
+
+#: daemon/channellogger.cpp:294
 #, kde-format
 msgctxt "@action open message in application"
 msgid "Open"
@@ -58,7 +58,7 @@ msgstr "Open"
 msgid "Spacebar background service"
 msgstr "Spacebar background service"
 
-#: src/chatlistmodel.cpp:89
+#: src/chatlistmodel.cpp:91
 #, kde-format
 msgid "Unknown"
 msgstr "Unknown"
@@ -238,7 +238,7 @@ msgstr "Resend"
 msgid "Save"
 msgstr "Save"
 
-#: src/contents/ui/MessagesPage.qml:803 src/contents/ui/SettingsPage.qml:335
+#: src/contents/ui/MessagesPage.qml:803 src/contents/ui/SettingsPage.qml:342
 #, kde-format
 msgid "Cancel"
 msgstr "Cancel"
@@ -390,26 +390,32 @@ msgid "Show a preview of the message content"
 msgstr "Show a preview of the message content"
 
 #: src/contents/ui/SettingsPage.qml:258
+#, fuzzy, kde-format
+#| msgid "Save attachment"
+msgid "Show attachment previews"
+msgstr "Save attachment"
+
+#: src/contents/ui/SettingsPage.qml:265
 #, kde-format
 msgid "Other"
 msgstr "Other"
 
-#: src/contents/ui/SettingsPage.qml:262
+#: src/contents/ui/SettingsPage.qml:269
 #, kde-format
 msgid "Restore defaults"
 msgstr "Restore defaults"
 
-#: src/contents/ui/SettingsPage.qml:273
+#: src/contents/ui/SettingsPage.qml:280
 #, kde-format
 msgid "About"
 msgstr "About"
 
-#: src/contents/ui/SettingsPage.qml:289
+#: src/contents/ui/SettingsPage.qml:296
 #, kde-format
 msgid "Choose a color"
 msgstr "Choose a colour"
 
-#: src/contents/ui/SettingsPage.qml:345
+#: src/contents/ui/SettingsPage.qml:352
 #, kde-format
 msgid "Set"
 msgstr "Set"

@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kdeorg\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-07-26 00:48+0000\n"
+"POT-Creation-Date: 2022-07-27 00:49+0000\n"
 "PO-Revision-Date: 2022-07-16 05:20\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
@@ -27,27 +27,27 @@ msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
 msgstr "tysontan@tysontan.com"
 
-#: daemon/channellogger.cpp:258
-#, kde-format
-msgid "Attachments"
-msgstr "附件"
-
-#: daemon/channellogger.cpp:258
-#, kde-format
-msgid "Attachment"
-msgstr "附件"
-
-#: daemon/channellogger.cpp:262 src/contents/ui/MessagesPage.qml:19
+#: daemon/channellogger.cpp:259 src/contents/ui/MessagesPage.qml:19
 #, kde-format
 msgid "New message"
 msgstr "新消息"
 
-#: daemon/channellogger.cpp:269
+#: daemon/channellogger.cpp:266
 #, kde-format
 msgid "Message from %1"
 msgstr "来自 %1 的消息"
 
-#: daemon/channellogger.cpp:277
+#: daemon/channellogger.cpp:278
+#, kde-format
+msgid "Attachments"
+msgstr "附件"
+
+#: daemon/channellogger.cpp:278
+#, kde-format
+msgid "Attachment"
+msgstr "附件"
+
+#: daemon/channellogger.cpp:294
 #, kde-format
 msgctxt "@action open message in application"
 msgid "Open"
@@ -58,7 +58,7 @@ msgstr "打开"
 msgid "Spacebar background service"
 msgstr "Spacebar 后台服务"
 
-#: src/chatlistmodel.cpp:89
+#: src/chatlistmodel.cpp:91
 #, kde-format
 msgid "Unknown"
 msgstr "未知"
@@ -241,7 +241,7 @@ msgstr "重新发送"
 msgid "Save"
 msgstr "保存"
 
-#: src/contents/ui/MessagesPage.qml:803 src/contents/ui/SettingsPage.qml:335
+#: src/contents/ui/MessagesPage.qml:803 src/contents/ui/SettingsPage.qml:342
 #, kde-format
 msgid "Cancel"
 msgstr "取消"
@@ -393,26 +393,32 @@ msgid "Show a preview of the message content"
 msgstr "显示消息内容的预览"
 
 #: src/contents/ui/SettingsPage.qml:258
+#, fuzzy, kde-format
+#| msgid "Save attachment"
+msgid "Show attachment previews"
+msgstr "保存附件"
+
+#: src/contents/ui/SettingsPage.qml:265
 #, kde-format
 msgid "Other"
 msgstr "其他"
 
-#: src/contents/ui/SettingsPage.qml:262
+#: src/contents/ui/SettingsPage.qml:269
 #, kde-format
 msgid "Restore defaults"
 msgstr "重置为默认值"
 
-#: src/contents/ui/SettingsPage.qml:273
+#: src/contents/ui/SettingsPage.qml:280
 #, kde-format
 msgid "About"
 msgstr "关于"
 
-#: src/contents/ui/SettingsPage.qml:289
+#: src/contents/ui/SettingsPage.qml:296
 #, kde-format
 msgid "Choose a color"
 msgstr "选择颜色"
 
-#: src/contents/ui/SettingsPage.qml:345
+#: src/contents/ui/SettingsPage.qml:352
 #, kde-format
 msgid "Set"
 msgstr "设置"
