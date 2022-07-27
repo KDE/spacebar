@@ -30,6 +30,7 @@
   <name xml:lang="sl">Spacebar</name>
   <name xml:lang="sv">Spacebar</name>
   <name xml:lang="tg">Фосилагузор</name>
+  <name xml:lang="tr">Spacebar</name>
   <name xml:lang="uk">Spacebar</name>
   <name xml:lang="x-test">xxSpacebarxx</name>
   <name xml:lang="zh-CN">Spacebar</name>
@@ -51,6 +52,7 @@
   <summary xml:lang="pt-BR">Cliente Telepathy de SMS/MMS</summary>
   <summary xml:lang="sl">Odjemalec telepathy za SMS/MMS</summary>
   <summary xml:lang="sv">SMS/MMS Telepathy-klient</summary>
+  <summary xml:lang="tr">SMS/MMS telepathy istemcisi</summary>
   <summary xml:lang="uk">Клієнт SMS/MMS telepathy</summary>
   <summary xml:lang="x-test">xxSMS/MMS telepathy clientxx</summary>
   <summary xml:lang="zh-CN">短信/彩信客户端</summary>
@@ -85,6 +87,7 @@
   <developer_name xml:lang="sl">Skupnost KDE</developer_name>
   <developer_name xml:lang="sv">KDE-gemenskapen</developer_name>
   <developer_name xml:lang="tg">Ҷамъияти KDE</developer_name>
+  <developer_name xml:lang="tr">KDE Topluluğu</developer_name>
   <developer_name xml:lang="uk">Спільнота KDE</developer_name>
   <developer_name xml:lang="x-test">xxKDE Communityxx</developer_name>
   <developer_name xml:lang="zh-CN">KDE 社区</developer_name>
@@ -106,6 +109,7 @@
     <p xml:lang="pt-BR">O Spacebar é um cliente Telepathy para o Plasma Mobile, que é escrito principalmente para enviar e receber SMS/MMS.</p>
     <p xml:lang="sl">Spacebar je odjemalec programa telepahy za Plasma Mobile, ki je v prvenstveno napisan za pošiljanje in prejemanje SMS/MMS-ov.</p>
     <p xml:lang="sv">Spacebar är en Telepathy-klient för Plasma Mobil, som i huvudsak är skriven för att skicka och ta emot SMS/MMS.</p>
+    <p xml:lang="tr">Spacebar, Plasma Mobile için bir telepathy istemcisidir. Ana amacı, SMS/MMS alımı ve gönderimidir.</p>
     <p xml:lang="uk">Spacebar — клієнт telepathy для мобільної версії Плазми. Основним завданням програми є надсилання і отримання SMS/MMS.</p>
     <p xml:lang="x-test">xxSpacebar is a telepathy client for Plasma Mobile, that is primarily written for sending and receiving SMS/MMS.xx</p>
     <p xml:lang="zh-CN">Spacebar 是为 Plasma Mobile 设计的短消息客户端。它的主要功能是用来收发短信和彩信。</p>
