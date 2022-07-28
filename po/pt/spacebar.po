@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: spacebar\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-07-27 00:49+0000\n"
-"PO-Revision-Date: 2022-07-16 10:45+0100\n"
+"PO-Revision-Date: 2022-07-27 12:37+0100\n"
 "Last-Translator: José Nuno Coelho Pires <zepires@gmail.com>\n"
 "Language-Team: Portuguese <kde-i18n-pt@kde.org>\n"
 "Language: pt\n"
@@ -390,10 +390,9 @@ msgid "Show a preview of the message content"
 msgstr "Mostrar uma antevisão do conteúdo da mensagem"
 
 #: src/contents/ui/SettingsPage.qml:258
-#, fuzzy, kde-format
-#| msgid "Save attachment"
+#, kde-format
 msgid "Show attachment previews"
-msgstr "Gravar o anexo"
+msgstr "Mostrar as antevisões dos anexos"
 
 #: src/contents/ui/SettingsPage.qml:265
 #, kde-format
