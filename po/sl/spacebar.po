@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: spacebar\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-07-27 00:49+0000\n"
-"PO-Revision-Date: 2022-07-17 08:01+0200\n"
+"PO-Revision-Date: 2022-07-28 07:23+0200\n"
 "Last-Translator: Matjaž Jeran <matjaz.jeran@amis.net>\n"
 "Language-Team: Slovenian <lugos-slo@lugos.si>\n"
 "Language: sl\n"
@@ -393,10 +393,9 @@ msgid "Show a preview of the message content"
 msgstr "Prikaži predogled vsebine sporočila"
 
 #: src/contents/ui/SettingsPage.qml:258
-#, fuzzy, kde-format
-#| msgid "Save attachment"
+#, kde-format
 msgid "Show attachment previews"
-msgstr "Shrani prilogo"
+msgstr "Prikaži predogled prilog"
 
 #: src/contents/ui/SettingsPage.qml:265
 #, kde-format
