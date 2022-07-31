@@ -281,7 +281,7 @@ msgstr "Contactes"
 #: src/contents/ui/PreviewPage.qml:32
 #, kde-format
 msgid "Back"
-msgstr "Enrere"
+msgstr "Arrere"
 
 #: src/contents/ui/SettingsPage.qml:34
 #, kde-format

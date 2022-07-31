@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: kdeorg\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-07-27 00:49+0000\n"
-"PO-Revision-Date: 2022-07-16 05:20\n"
+"PO-Revision-Date: 2022-07-30 15:55\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
 "Language: zh_CN\n"
@@ -79,10 +79,9 @@ msgid "Settings"
 msgstr "设置"
 
 #: src/contents/ui/ChatsPage.qml:59 src/contents/ui/ChatsPage.qml:262
-#, fuzzy, kde-format
-#| msgid "Delete chat"
+#, kde-format
 msgid "Delete"
-msgstr "删除对话"
+msgstr ""
 
 #: src/contents/ui/ChatsPage.qml:98
 #, kde-format
@@ -100,16 +99,14 @@ msgid "Picture"
 msgstr ""
 
 #: src/contents/ui/ChatsPage.qml:262
-#, fuzzy, kde-format
-#| msgid "New Conversation"
+#, kde-format
 msgid "conversations?"
-msgstr "新建对话"
+msgstr ""
 
 #: src/contents/ui/ChatsPage.qml:262
-#, fuzzy, kde-format
-#| msgid "Default to group conversations"
+#, kde-format
 msgid "Delete this conversation?"
-msgstr "默认分组对话"
+msgstr ""
 
 #: src/contents/ui/ChatsPage.qml:263
 #, kde-format
@@ -393,10 +390,9 @@ msgid "Show a preview of the message content"
 msgstr "显示消息内容的预览"
 
 #: src/contents/ui/SettingsPage.qml:258
-#, fuzzy, kde-format
-#| msgid "Save attachment"
+#, kde-format
 msgid "Show attachment previews"
-msgstr "保存附件"
+msgstr ""
 
 #: src/contents/ui/SettingsPage.qml:265
 #, kde-format
