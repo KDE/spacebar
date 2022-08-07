@@ -59,7 +59,7 @@ msgstr "Obri"
 #: daemon/main.cpp:25
 #, kde-format
 msgid "Spacebar background service"
-msgstr "Servei en segon pla de l'Spacebar"
+msgstr "Servei en segon pla de Spacebar"
 
 #: src/chatlistmodel.cpp:91
 #, kde-format
