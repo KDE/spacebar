@@ -43,6 +43,8 @@ MessageModel::MessageModel(ChannelHandler &handler, const PhoneNumberList &phone
 
     connect(m_handler.interface(), &OrgKdeSpacebarDaemonInterface::messageAdded, this, &MessageModel::messageAdded);
 
+    connect(m_handler.interface(), &OrgKdeSpacebarDaemonInterface::messageUpdated, this, &MessageModel::messageUpdated);
+
     connect(m_handler.interface(), &OrgKdeSpacebarDaemonInterface::manualDownloadFinished, this, [this](const QString &id, const bool isEmpty) {
         if (isEmpty) {
             updateMessageState(id, MessageState::Failed, true);
@@ -70,6 +72,16 @@ QCoro::Task<void> MessageModel::fetchMessages(const QString &id)
     }
 }
 
+QCoro::Task<void> MessageModel::fetchUpdatedMessage(const QString &id)
+{
+    const auto &[message, i] = getMessageIndex(id);
+    const QVector<Message> messages = co_await m_handler.database().messagesForNumber(m_phoneNumberList, id);
+
+    message->tapbacks = messages.first().tapbacks;
+
+    Q_EMIT dataChanged(index(i), index(i), {Role::TapbacksRole});
+}
+
 QHash<int, QByteArray> MessageModel::roleNames() const
 {
     return {
@@ -90,7 +102,8 @@ QHash<int, QByteArray> MessageModel::roleNames() const
         {Role::ContentLocationRole, BL("contentLocation")},
         {Role::ExpiresRole, BL("expires")},
         {Role::ExpiresDateTimeRole, BL("expiresDateTime")},
-        {Role::SizeRole, BL("size")}
+        {Role::SizeRole, BL("size")},
+        {Role::TapbacksRole, BL("tapbacks")}
     };
 }
 
@@ -139,6 +152,8 @@ QVariant MessageModel::data(const QModelIndex &index, int role) const
         return message.expires.toLocalTime().toString(SL("MMM d, h:mm ap"));
     case Role::SizeRole:
         return message.size;
+    case Role::TapbacksRole:
+        return message.tapbacks;
     }
 
     return {};
@@ -196,6 +211,15 @@ void MessageModel::messageAdded(const QString &numbers, const QString &id)
     fetchMessages(id);
 }
 
+void MessageModel::messageUpdated(const QString &numbers, const QString &id)
+{
+    if (PhoneNumberList(numbers) != m_phoneNumberList) {
+        return; // Message is not for this model
+    }
+
+    fetchUpdatedMessage(id);
+}
+
 void MessageModel::addMessage(const Message &message)
 {
     beginInsertRows({}, m_messages.count(), m_messages.count());
@@ -204,6 +228,11 @@ void MessageModel::addMessage(const Message &message)
 
     // save to database
     m_handler.database().addMessage(message);
+}
+
+void MessageModel::sendTapback(const QString &id, const QString &tapback, const bool &isRemoved)
+{
+    m_handler.interface()->sendTapback(m_phoneNumberList.toString(), id, tapback, isRemoved);
 }
 
 void MessageModel::sendMessage(const QString &text, const QStringList &files, const long totalSize)

@@ -53,7 +53,8 @@ public:
         ContentLocationRole,
         ExpiresRole,
         ExpiresDateTimeRole,
-        SizeRole
+        SizeRole,
+        TapbacksRole
     };
     Q_ENUM(Role)
 
@@ -88,6 +89,15 @@ public:
      * @param message
      */
     void addMessage(const Message &message);
+
+    /**
+     * @brief adds a tapack reaction to a previously sent or recieved message,
+     * and updates the model and database
+     * @param id
+     * @param tapback
+     * @param isRemoved
+     */
+    Q_INVOKABLE void sendTapback(const QString &id, const QString &tapback, const bool &isRemoved);
 
     /**
      * @brief sends a message with the specified text,
@@ -138,7 +148,9 @@ private:
 
 private Q_SLOTS:
     QCoro::Task<void> fetchMessages(const QString &id);
+    QCoro::Task<void> fetchUpdatedMessage(const QString &id);
     void messageAdded(const QString &numbers, const QString &id);
+    void messageUpdated(const QString &numbers, const QString &id);
 
 Q_SIGNALS:
     void phoneNumberListChanged();

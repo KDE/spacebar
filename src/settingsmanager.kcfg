@@ -89,5 +89,9 @@
             <label>Show attachment previews</label>
             <default>true</default>
         </entry>
+        <entry name="ignoreTapbacks" type="Bool">
+            <label>Ignore tapbacks</label>
+            <default>true</default>
+        </entry>
     </group>
 </kcfg>

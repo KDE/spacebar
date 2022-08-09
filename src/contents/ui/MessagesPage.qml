@@ -24,6 +24,7 @@ Kirigami.ScrollablePage {
     property var people: messageModel ? messageModel.people : []
     property string attachmentsFolder: messageModel ? messageModel.attachmentsFolder : "";
     property ListModel files: ListModel {}
+    property var tapbackKeys: ["♥️", "👍" , "👎", "😂", "‼️", "❓"]
 
     Connections {
         target: pageStack
@@ -287,7 +288,7 @@ Kirigami.ScrollablePage {
 
         section.property: "date"
         section.delegate: Controls.Control {
-            padding: Kirigami.Units.largeSpacing
+            bottomPadding: Kirigami.Units.gridUnit * 1.5
             width: parent.width
             contentItem:
             RowLayout {
@@ -346,6 +347,7 @@ Kirigami.ScrollablePage {
                 anchors.right: model.sentByMe ? parent.right : undefined
 
                 property int padding: Kirigami.Units.largeSpacing * 2
+                property var tapbacks: model.tapbacks ? JSON.parse(model.tapbacks) : ""
 
                 radius: Kirigami.Units.gridUnit
                 corners.bottomRightRadius: model.sentByMe ? 0 : -1
@@ -645,6 +647,71 @@ Kirigami.ScrollablePage {
                         color: model.deliveryState == MessageModel.Failed ? Kirigami.Theme.negativeTextColor : Kirigami.Theme.disabledTextColor
                     }
                 }
+
+                Rectangle {
+                    visible: rect.tapbacks
+                    anchors.left: model.sentByMe ? undefined : parent.left
+                    anchors.right: model.sentByMe ? parent.right : undefined
+                    anchors.bottom: parent.bottom
+                    anchors.leftMargin: model.sentByMe ? undefined : parent.width - Kirigami.Units.largeSpacing * 2
+                    anchors.rightMargin: model.sentByMe ? parent.width - Kirigami.Units.largeSpacing * 2 : undefined
+                    anchors.bottomMargin: parent.height - Kirigami.Units.largeSpacing * 1.5
+                    color: model.sentByMe ?  listView.incomingColor : listView.outgoingColor
+                    height: tapback.height
+                    width: tapback.width
+                    radius: height / 2
+                    border.width: 2
+                    border.color: Kirigami.Theme.backgroundColor
+
+                    Rectangle {
+                        anchors.left: model.sentByMe ? undefined : parent.left
+                        anchors.right: model.sentByMe ? parent.right : undefined
+                        anchors.top: parent.top
+                        anchors.leftMargin: model.sentByMe ? undefined : parent.width - height
+                        anchors.rightMargin: model.sentByMe ? parent.width - height : undefined
+                        anchors.topMargin: parent.height - height * 1.2
+                        color: parent.color
+                        width: Kirigami.Units.smallSpacing * 3
+                        height: Kirigami.Units.smallSpacing * 3
+                        radius: height / 2
+
+                        Rectangle {
+                            anchors.left: model.sentByMe ? undefined : parent.right
+                            anchors.right: model.sentByMe ? parent.left : undefined
+                            anchors.top: parent.top
+                            anchors.leftMargin: model.sentByMe ? undefined : parent.width - height * 2
+                            anchors.rightMargin: model.sentByMe ? parent.width - height * 2 : undefined
+                            anchors.topMargin: parent.height - height / 2
+                            color: parent.color
+                            width: Kirigami.Units.smallSpacing * 1.5
+                            height: Kirigami.Units.smallSpacing * 1.5
+                            radius: height / 2
+                        }
+                    }
+
+                    Row {
+                        id: tapback
+                        property color textColor: model.sentByMe ?  listView.incomingTextColor : listView.outgoingTextColor
+                        padding: Kirigami.Units.largeSpacing
+
+                        Repeater {
+                            model: tapbackKeys.filter(key => rect.tapbacks && rect.tapbacks[key] && rect.tapbacks[key].length > 0)
+
+                            Text {
+                                text: modelData
+                                font.family: "emoji"
+                                fontSizeMode: Text.Fit
+                                minimumPixelSize: 10
+                                font.pixelSize: 72
+                                height: pointSize * 2
+                                width: height
+                                horizontalAlignment: Text.AlignHCenter
+                                verticalAlignment: Text.AlignVCenter
+                                anchors.verticalCenter: parent.verticalCenter
+                            }
+                        }
+                    }
+                }
             }
 
             MouseArea {
@@ -657,6 +724,7 @@ Kirigami.ScrollablePage {
                     menu.attachments = content.attachments
                     menu.smil = model.smil
                     menu.resend = model.sentByMe && model.deliveryState == MessageModel.Failed
+                    menu.tapbacks = rect.tapbacks
                     menu.open()
                 }
                 onPressed: parent.forceActiveFocus()
@@ -673,10 +741,60 @@ Kirigami.ScrollablePage {
         property var attachments: []
         property string smil
         property bool resend: false
+        property var tapbacks
+        property string sendingNumber: Utils.phoneNumberToInternationalString(Utils.phoneNumber(Utils.sendingNumber()))
 
         edge: Qt.BottomEdge
 
         contentItem: ColumnLayout {
+            RowLayout {
+                Repeater {
+                    model: tapbackKeys
+                    ColumnLayout {
+                        property int count: menu.tapbacks &&  menu.tapbacks[modelData] ? menu.tapbacks[modelData].length : 0
+
+                        Controls.RoundButton {
+                            padding: Kirigami.Units.largeSpacing * 2
+                            flat: !highlighted
+                            highlighted: count > 0 && menu.tapbacks[modelData].indexOf(menu.sendingNumber) >= 0
+                            onPressed: {
+                                if (!menu.tapbacks) {
+                                    menu.tapbacks = {}
+                                }
+
+                                if (!menu.tapbacks[modelData]) {
+                                    menu.tapbacks[modelData] = []
+                                }
+
+                                const isRemoved = menu.tapbacks[modelData].indexOf(menu.sendingNumber) >= 0
+                                messageModel.sendTapback(menu.id, modelData, isRemoved)
+                                menu.close()
+                            }
+
+                            Text {
+                                anchors.centerIn: parent
+                                text: modelData
+                                font.family: "emoji"
+                                fontSizeMode: Text.Fit
+                                minimumPixelSize: 10
+                                font.pixelSize: 72
+                                height: pointSize * 3
+                                width: height
+                                horizontalAlignment: Text.AlignHCenter
+                                verticalAlignment: Text.AlignVCenter
+                                anchors.verticalCenter: parent.verticalCenter
+                            }
+                        }
+
+                        Text {
+                            Layout.alignment: Qt.AlignHCenter
+                            text: count > 0 ? count : ""
+                            color: Kirigami.Theme.disabledTextColor
+                            font.pointSize: pointSize - 2
+                        }
+                    }
+                }
+            }
             Kirigami.BasicListItem {
                 visible: menu.text.match(/[0-9]{6}/)
                 text: i18n("Copy code")

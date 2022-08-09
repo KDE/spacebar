@@ -52,6 +52,7 @@ struct Message {
     QString contentLocation;
     QDateTime expires;
     int size = 0;
+    QString tapbacks;
 };
 Q_DECLARE_METATYPE(Message)
 
@@ -81,6 +82,9 @@ public:
     void updateMessageDeliveryReport(const QString &messageId);
     void updateMessageReadReport(const QString &messageId, const PhoneNumber &fromNumber);
     void markMessageRead(const int id);
+    void updateMessageTapbacks(const QString &id, const QString tapbacks);
+    QString lastMessageWithText(const PhoneNumberList &phoneNumberList, const QString &text);
+    QString lastMessageWithAttachment(const PhoneNumberList &phoneNumberList);
 
     // Chats
     QVector<Chat> chats() const;
@@ -99,6 +103,7 @@ private:
     void migrationV4(uint current);
     void migrationV5(uint current);
     void migrationV6(uint current);
+    void migrationV7(uint current);
     void migrate();
 
     QSqlDatabase m_database;

@@ -17,13 +17,13 @@
 #include <global.h>
 
 constexpr auto ID_LEN = 10;
-constexpr auto DATABASE_REVISION = 6; // Keep MIGRATE_TO_LATEST_FROM in sync
+constexpr auto DATABASE_REVISION = 7; // Keep MIGRATE_TO_LATEST_FROM in sync
 #define MIGRATE_TO(n, current) \
     if (current < n) { \
         qDebug() << "Running migration" << #n; \
         migrationV##n(current); \
     }
-#define MIGRATE_TO_LATEST_FROM(current) MIGRATE_TO(6, current)
+#define MIGRATE_TO_LATEST_FROM(current) MIGRATE_TO(7, current)
 
 enum Column {
     IdColumn = 0,
@@ -42,7 +42,8 @@ enum Column {
     PendingDownloadColumn,
     ContentLocationColumn,
     ExpiresColumn,
-    SizeColumn
+    SizeColumn,
+    TapbacksColumn
 };
 
 Database::Database(QObject *parent)
@@ -86,7 +87,8 @@ QVector<Message> Database::messagesForNumber(const PhoneNumberList &phoneNumberL
             pendingDownload,
             contentLocation,
             expires,
-            size
+            size,
+            tapbacks
         FROM Messages
         WHERE (phoneNumber == :phoneNumber AND :id IS NULL) OR id ==:id
         ORDER BY time DESC
@@ -120,6 +122,7 @@ QVector<Message> Database::messagesForNumber(const PhoneNumberList &phoneNumberL
         message.contentLocation = fetch.value(Column::ContentLocationColumn).toString();
         message.expires = QDateTime::fromMSecsSinceEpoch(fetch.value(Column::ExpiresColumn).value<quint64>());
         message.size = fetch.value(Column::SizeColumn).toInt();
+        message.tapbacks = fetch.value(Column::TapbacksColumn).toString();
 
         messages.append(std::move(message));
     }
@@ -169,6 +172,38 @@ void Database::markMessageRead(const int id)
     put.prepare(SL("UPDATE Messages SET read = True WHERE id == :id AND NOT read = True"));
     put.bindValue(SL(":id"), id);
     exec(put);
+}
+
+void Database::updateMessageTapbacks(const QString &id, const QString tapbacks)
+{
+    QSqlQuery put(m_database);
+    put.prepare(SL("UPDATE Messages SET tapbacks = :tapbacks WHERE id == :id"));
+    put.bindValue(SL(":id"), id);
+    put.bindValue(SL(":tapbacks"), tapbacks);
+    exec(put);
+}
+
+QString Database::lastMessageWithText(const PhoneNumberList &phoneNumberList, const QString &text)
+{
+    QSqlQuery fetch(m_database);
+    fetch.prepare(SL("SELECT id FROM Messages WHERE phoneNumber == :phoneNumber AND text == :text ORDER BY time DESC LIMIT 1"));
+    fetch.bindValue(SL(":phoneNumber"), phoneNumberList.toString());
+    fetch.bindValue(SL(":text"), text);
+    exec(fetch);
+
+    fetch.first();
+    return fetch.value(0).toString();
+}
+
+QString Database::lastMessageWithAttachment(const PhoneNumberList &phoneNumberList)
+{
+    QSqlQuery fetch(m_database);
+    fetch.prepare(SL("SELECT id FROM Messages WHERE phoneNumber == :phoneNumber AND attachments IS NOT NULL ORDER BY time DESC LIMIT 1"));
+    fetch.bindValue(SL(":phoneNumber"), phoneNumberList.toString());
+    exec(fetch);
+
+    fetch.first();
+    return fetch.value(0).toString();
 }
 
 QVector<Chat> Database::chats() const
@@ -473,4 +508,13 @@ void Database::migrationV6(uint current)
     Database::exec(removeHtml);
     removeHtml.prepare(SL("UPDATE Messages SET text = REPLACE(text, SUBSTR(text, INSTR(text, '<a href='), INSTR(text, '>http') - INSTR(text, '<a href=') + CASE WHEN INSTR(text, '>http') > 0 THEN 1 ELSE 0 END), '')"));
     Database::exec(removeHtml);
+}
+
+void Database::migrationV7(uint current)
+{
+    MIGRATE_TO(6, current);
+
+    QSqlQuery sql(m_database);
+    sql.prepare(SL("ALTER TABLE Messages ADD COLUMN tapbacks TEXT"));
+    Database::exec(sql);
 }

@@ -259,6 +259,13 @@ Kirigami.ScrollablePage {
             onToggled: SettingsManager.showAttachments = checked
         }
 
+        Controls.CheckBox {
+            id: ignoreTapbacks
+            checked: SettingsManager.ignoreTapbacks
+            text: i18n("Ignore tapbacks")
+            onToggled: SettingsManager.ignoreTapbacks = checked
+        }
+
 
         Kirigami.Heading {
             Kirigami.FormData.isSection: true

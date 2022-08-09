@@ -237,9 +237,16 @@ void ChannelLogger::saveMessage(
     message.expires = expires;
     message.size = size;
 
-    m_database.addMessage(message);
+    if (handleTapbackReaction(message, message.fromNumber.isEmpty() ? message.phoneNumberList.toString() : message.fromNumber)) {
+        Q_EMIT messageUpdated(message.phoneNumberList.toString(), message.id);
 
-    Q_EMIT messageAdded(message.phoneNumberList.toString(), message.id);
+        if (SettingsManager::self()->ignoreTapbacks()) {
+            return;
+        }
+    } else {
+        m_database.addMessage(message);
+        Q_EMIT messageAdded(message.phoneNumberList.toString(), message.id);
+    }
 
     //TODO add setting to turn off notifications for multiple chats in addition to current chat
     if (message.phoneNumberList == m_disabledNotificationNumber) {
@@ -304,6 +311,138 @@ void ChannelLogger::createNotification(Message &message)
 void ChannelLogger::disableNotificationsForNumber(const QString &numbers)
 {
     m_disabledNotificationNumber = PhoneNumberList(numbers);
+}
+
+bool ChannelLogger::handleTapbackReaction(Message &message, const QString &reactNumber)
+{
+    for (const auto &tapback : TAPBACK_REMOVED) {
+        if (message.text.startsWith(tapback)) {
+            return saveTapback(message, reactNumber, tapback, TAPBACK_REMOVED, false, false);
+        } else if (message.text == tapback.left(tapback.length() - 1) + SL("an image")) {
+            return saveTapback(message, reactNumber, tapback, TAPBACK_REMOVED, false, true);
+        }
+    }
+
+    for (const auto &tapback : TAPBACK_ADDED) {
+        if (message.text.startsWith(tapback)) {
+            return saveTapback(message, reactNumber, tapback, TAPBACK_ADDED, true, false);
+        } else if (message.text == tapback.left(tapback.length() - 1) + SL("an image")) {
+            return saveTapback(message, reactNumber, tapback, TAPBACK_ADDED, true, true);
+        }
+    }
+
+    return false;
+}
+
+bool ChannelLogger::saveTapback(Message &message, const QString &reactNumber, const QStringView &tapback, std::span<const QStringView> list, const bool &isAdd, const bool &isImage)
+{
+    const QString searchText = isImage ? SL("") : message.text.mid(tapback.length(), message.text.length() - tapback.length() - 1);
+    const QString id = isImage ? m_database.lastMessageWithAttachment(message.phoneNumberList) : m_database.lastMessageWithText(message.phoneNumberList, searchText);
+
+    if (!id.isEmpty()) {
+        Message msg = m_database.messagesForNumber(message.phoneNumberList, id).first();
+        QJsonObject reactions = QJsonDocument::fromJson(msg.tapbacks.toUtf8()).object();
+        QJsonArray numbers;
+        const QJsonValue number = QJsonValue(reactNumber);
+
+        // limits tapbacks to one per message per number
+        for (const auto &keyToRemove : TAPBACK_KEYS) {
+            if (reactions.contains(keyToRemove)) {
+                numbers = reactions[keyToRemove].toArray();
+
+                for (int i = 0; i < numbers.size(); ++i) {
+                    if (numbers.at(i) == number) {
+                        numbers.removeAt(i);
+
+                        if(numbers.isEmpty()) {
+                            reactions.remove(keyToRemove);
+                        } else {
+                            reactions[keyToRemove] = numbers;
+                        }
+                    }
+                }
+            }
+        }
+
+        if (isAdd) {
+            const int idx = std::find(list.begin(), list.end(), tapback) - list.begin();
+
+            numbers = reactions[TAPBACK_KEYS[idx]].toArray();
+
+            if (!numbers.contains(number)) {
+                numbers.append(number);
+            }
+
+            reactions.insert(TAPBACK_KEYS[idx], numbers);
+        }
+
+
+        if (reactions.isEmpty()) {
+            msg.tapbacks = QString();
+        } else {
+            QJsonDocument jsonDoc;
+            jsonDoc.setObject(reactions);
+            msg.tapbacks = QString::fromUtf8(jsonDoc.toJson(QJsonDocument::Compact));
+        }
+
+        m_database.updateMessageTapbacks(id, msg.tapbacks);
+
+        message.id = msg.id;
+        return true;
+    }
+
+    return false;
+}
+
+void ChannelLogger::sendTapback(const QString &numbers, const QString &id, const QString &tapback, const bool &isRemoved)
+{
+    Message message = m_database.messagesForNumber(PhoneNumberList(numbers), id).first();
+    const int idx = std::find(TAPBACK_KEYS.cbegin(), TAPBACK_KEYS.cend(), tapback) - TAPBACK_KEYS.cbegin();
+
+    if (message.attachments.isEmpty()) {
+        if (isRemoved) {
+            message.text = TAPBACK_REMOVED[idx] + message.text + SL("\"");
+        } else {
+            message.text = TAPBACK_ADDED[idx] + message.text + SL("\"");
+        }
+    } else {
+        if (isRemoved) {
+            message.text = TAPBACK_REMOVED[idx].left(TAPBACK_REMOVED[idx].length() - 1) + SL("an image");
+        } else {
+            message.text = TAPBACK_ADDED[idx].left(TAPBACK_ADDED[idx].length() - 1) + SL("an image");
+        }
+    }
+
+    handleTapbackReaction(message, m_ownNumber.toInternational());
+    Q_EMIT messageUpdated(numbers, message.id);
+
+    for (const auto &phoneNumber : PhoneNumberList(numbers)) {
+        ModemManager::ModemMessaging::Message m;
+        m.number = phoneNumber.toE164();
+        m.text = message.text;
+
+        auto maybeReply = ModemController::instance().createMessage(m);
+
+        if (!maybeReply) {
+            qDebug() << "No modem";
+            return;
+        }
+
+        const QDBusReply<QDBusObjectPath> msgPathResult = *maybeReply;
+
+        if (!msgPathResult.isValid()) {
+            return;
+        }
+
+        ModemManager::Sms::Ptr mmMessage = QSharedPointer<ModemManager::Sms>::create(msgPathResult.value().path());
+
+        QDBusReply<void> sendResult = mmMessage->send();
+
+        if (!sendResult.isValid()) {
+            qDebug() << sendResult.error().message();
+            return;
+        }
+    }
 }
 
 void ChannelLogger::syncSettings()
