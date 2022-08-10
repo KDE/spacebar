@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: spacebar\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-07-27 00:49+0000\n"
+"POT-Creation-Date: 2022-08-10 00:48+0000\n"
 "PO-Revision-Date: 2022-05-19 11:24+0200\n"
 "Last-Translator: Vit Pelcak <vpelcak@suse.cz>\n"
 "Language-Team: Czech <kde-i18n-doc@kde.org>\n"
@@ -27,27 +27,27 @@ msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
 msgstr "vit@pelcak.org"
 
-#: daemon/channellogger.cpp:259 src/contents/ui/MessagesPage.qml:19
+#: daemon/channellogger.cpp:266 src/contents/ui/MessagesPage.qml:19
 #, kde-format
 msgid "New message"
 msgstr "Nová zpráva"
 
-#: daemon/channellogger.cpp:266
+#: daemon/channellogger.cpp:273
 #, kde-format
 msgid "Message from %1"
 msgstr "Zpráva od %1"
 
-#: daemon/channellogger.cpp:278
+#: daemon/channellogger.cpp:285
 #, kde-format
 msgid "Attachments"
 msgstr "Přílohy"
 
-#: daemon/channellogger.cpp:278
+#: daemon/channellogger.cpp:285
 #, kde-format
 msgid "Attachment"
 msgstr "Příloha"
 
-#: daemon/channellogger.cpp:294
+#: daemon/channellogger.cpp:301
 #, kde-format
 msgctxt "@action open message in application"
 msgid "Open"
@@ -151,123 +151,123 @@ msgstr "Otevřít aplikaci s kontakty"
 msgid "No results found"
 msgstr "Nenalezeny žádné výsledky"
 
-#: src/contents/ui/MessagesPage.qml:140
+#: src/contents/ui/MessagesPage.qml:141
 #, kde-format
 msgid "Add/remove"
 msgstr "Přidat/odebrat"
 
-#: src/contents/ui/MessagesPage.qml:156
+#: src/contents/ui/MessagesPage.qml:157
 #, kde-format
 msgid "Texting this premium SMS number might cause you to be charged money"
 msgstr "Posílání textu na toto prémiové číslo vás může stát extra poplatek"
 
-#: src/contents/ui/MessagesPage.qml:167
+#: src/contents/ui/MessagesPage.qml:168
 #, kde-format
 msgid "Max attachment limit exceeded"
 msgstr "Byl překročen limit velikosti přílohy"
 
-#: src/contents/ui/MessagesPage.qml:178
+#: src/contents/ui/MessagesPage.qml:179
 #, kde-format
 msgid "No MMSC configured"
 msgstr "MMSC nebylo nastaveno"
 
-#: src/contents/ui/MessagesPage.qml:189
+#: src/contents/ui/MessagesPage.qml:190
 #, kde-format
 msgid "Message has expired and will be deleted"
 msgstr "Platnost zprávy vypršela a zpráva bude smazána"
 
-#: src/contents/ui/MessagesPage.qml:200
+#: src/contents/ui/MessagesPage.qml:201
 #, kde-format
 msgid "Message will be sent as individual messages"
 msgstr ""
 
-#: src/contents/ui/MessagesPage.qml:457
+#: src/contents/ui/MessagesPage.qml:459
 #, kde-format
 msgid "MMS message"
 msgstr "Zpráva MMS"
 
-#: src/contents/ui/MessagesPage.qml:465
+#: src/contents/ui/MessagesPage.qml:467
 #, kde-format
 msgid "Message size: %1"
 msgstr "Velikost zprávy: %1"
 
-#: src/contents/ui/MessagesPage.qml:471
+#: src/contents/ui/MessagesPage.qml:473
 #, kde-format
 msgid "Expires: %1"
 msgstr "Vyprší: %1"
 
-#: src/contents/ui/MessagesPage.qml:592
+#: src/contents/ui/MessagesPage.qml:594
 #, kde-format
 msgid "View all"
 msgstr "Zobrazit všechny"
 
-#: src/contents/ui/MessagesPage.qml:682
+#: src/contents/ui/MessagesPage.qml:800
 #, kde-format
 msgid "Copy code"
 msgstr "Kopírovat kód"
 
-#: src/contents/ui/MessagesPage.qml:691
+#: src/contents/ui/MessagesPage.qml:809
 #, kde-format
 msgid "Copy link"
 msgstr "Kopírovat odkaz"
 
-#: src/contents/ui/MessagesPage.qml:703
+#: src/contents/ui/MessagesPage.qml:821
 #, kde-format
 msgid "Copy text"
 msgstr "Kopírovat text"
 
-#: src/contents/ui/MessagesPage.qml:712 src/contents/ui/MessagesPage.qml:765
+#: src/contents/ui/MessagesPage.qml:830 src/contents/ui/MessagesPage.qml:883
 #, kde-format
 msgid "Save attachment"
 msgstr "Uložit přílohu"
 
-#: src/contents/ui/MessagesPage.qml:723
+#: src/contents/ui/MessagesPage.qml:841
 #, kde-format
 msgid "View slideshow"
 msgstr "Zobrazit promítání"
 
-#: src/contents/ui/MessagesPage.qml:736
+#: src/contents/ui/MessagesPage.qml:854
 #, kde-format
 msgid "Delete message"
 msgstr "Smazat zprávu"
 
-#: src/contents/ui/MessagesPage.qml:746
+#: src/contents/ui/MessagesPage.qml:864
 #, kde-format
 msgid "Resend"
 msgstr "Poslat znovu"
 
-#: src/contents/ui/MessagesPage.qml:796
+#: src/contents/ui/MessagesPage.qml:914
 #, kde-format
 msgid "Save"
 msgstr "Uložit"
 
-#: src/contents/ui/MessagesPage.qml:803 src/contents/ui/SettingsPage.qml:342
+#: src/contents/ui/MessagesPage.qml:921 src/contents/ui/SettingsPage.qml:349
 #, kde-format
 msgid "Cancel"
 msgstr "Zrušit"
 
-#: src/contents/ui/MessagesPage.qml:921
+#: src/contents/ui/MessagesPage.qml:1039
 #, kde-format
 msgid "Remove"
 msgstr "Odstranit"
 
-#: src/contents/ui/MessagesPage.qml:960
+#: src/contents/ui/MessagesPage.qml:1078
 #, kde-format
 msgid "Write Message..."
 msgstr "Napsat zprávu..."
 
-#: src/contents/ui/MessagesPage.qml:962
+#: src/contents/ui/MessagesPage.qml:1080
 #, kde-format
 msgctxt "%1 is a phone number"
 msgid "Send Message from %1..."
 msgstr "Poslat zprávu od %1..."
 
-#: src/contents/ui/MessagesPage.qml:1016
+#: src/contents/ui/MessagesPage.qml:1134
 #, kde-format
 msgid "Duplicate recipient"
 msgstr "Duplicitní příjemce"
 
-#: src/contents/ui/MessagesPage.qml:1022
+#: src/contents/ui/MessagesPage.qml:1140
 #, kde-format
 msgid "Choose a file"
 msgstr "Vybrat soubor"
@@ -400,25 +400,30 @@ msgstr "Uložit přílohu"
 
 #: src/contents/ui/SettingsPage.qml:265
 #, kde-format
+msgid "Ignore tapbacks"
+msgstr ""
+
+#: src/contents/ui/SettingsPage.qml:272
+#, kde-format
 msgid "Other"
 msgstr "Jiné"
 
-#: src/contents/ui/SettingsPage.qml:269
+#: src/contents/ui/SettingsPage.qml:276
 #, kde-format
 msgid "Restore defaults"
 msgstr "Obnovit výchozí"
 
-#: src/contents/ui/SettingsPage.qml:280
+#: src/contents/ui/SettingsPage.qml:287
 #, kde-format
 msgid "About"
 msgstr "O aplikaci"
 
-#: src/contents/ui/SettingsPage.qml:296
+#: src/contents/ui/SettingsPage.qml:303
 #, kde-format
 msgid "Choose a color"
 msgstr "Vybrat barvu"
 
-#: src/contents/ui/SettingsPage.qml:352
+#: src/contents/ui/SettingsPage.qml:359
 #, kde-format
 msgid "Set"
 msgstr "Nastavit"

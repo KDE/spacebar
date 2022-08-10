@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: spacebar\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-07-27 00:49+0000\n"
+"POT-Creation-Date: 2022-08-10 00:48+0000\n"
 "PO-Revision-Date: 2021-07-06 18:44+0530\n"
 "Last-Translator: Raghavendra Kamath <raghu@raghukamath.com>\n"
 "Language-Team: kde-hindi\n"
@@ -28,28 +28,28 @@ msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
 msgstr ""
 
-#: daemon/channellogger.cpp:259 src/contents/ui/MessagesPage.qml:19
+#: daemon/channellogger.cpp:266 src/contents/ui/MessagesPage.qml:19
 #, fuzzy, kde-format
 #| msgid "Delete chat"
 msgid "New message"
 msgstr "बातचीत मिटाएँ"
 
-#: daemon/channellogger.cpp:266
+#: daemon/channellogger.cpp:273
 #, kde-format
 msgid "Message from %1"
 msgstr "%1 से सन्देश है"
 
-#: daemon/channellogger.cpp:278
+#: daemon/channellogger.cpp:285
 #, kde-format
 msgid "Attachments"
 msgstr ""
 
-#: daemon/channellogger.cpp:278
+#: daemon/channellogger.cpp:285
 #, kde-format
 msgid "Attachment"
 msgstr ""
 
-#: daemon/channellogger.cpp:294
+#: daemon/channellogger.cpp:301
 #, kde-format
 msgctxt "@action open message in application"
 msgid "Open"
@@ -155,126 +155,126 @@ msgstr "सम्पर्क अनुप्रयोग खोलें"
 msgid "No results found"
 msgstr ""
 
-#: src/contents/ui/MessagesPage.qml:140
+#: src/contents/ui/MessagesPage.qml:141
 #, kde-format
 msgid "Add/remove"
 msgstr ""
 
-#: src/contents/ui/MessagesPage.qml:156
+#: src/contents/ui/MessagesPage.qml:157
 #, kde-format
 msgid "Texting this premium SMS number might cause you to be charged money"
 msgstr "इस अधिमूल्यित एसएमएस नंबर पर पाठ भाजने से आपसे पैसे लिए जा सकते हैं"
 
-#: src/contents/ui/MessagesPage.qml:167
+#: src/contents/ui/MessagesPage.qml:168
 #, kde-format
 msgid "Max attachment limit exceeded"
 msgstr ""
 
-#: src/contents/ui/MessagesPage.qml:178
+#: src/contents/ui/MessagesPage.qml:179
 #, kde-format
 msgid "No MMSC configured"
 msgstr ""
 
-#: src/contents/ui/MessagesPage.qml:189
+#: src/contents/ui/MessagesPage.qml:190
 #, kde-format
 msgid "Message has expired and will be deleted"
 msgstr ""
 
-#: src/contents/ui/MessagesPage.qml:200
+#: src/contents/ui/MessagesPage.qml:201
 #, kde-format
 msgid "Message will be sent as individual messages"
 msgstr ""
 
-#: src/contents/ui/MessagesPage.qml:457
+#: src/contents/ui/MessagesPage.qml:459
 #, fuzzy, kde-format
 #| msgid "Copy message"
 msgid "MMS message"
 msgstr "संदेश की नकल करें"
 
-#: src/contents/ui/MessagesPage.qml:465
+#: src/contents/ui/MessagesPage.qml:467
 #, fuzzy, kde-format
 #| msgid "Message from %1"
 msgid "Message size: %1"
 msgstr "%1 से सन्देश है"
 
-#: src/contents/ui/MessagesPage.qml:471
+#: src/contents/ui/MessagesPage.qml:473
 #, kde-format
 msgid "Expires: %1"
 msgstr ""
 
-#: src/contents/ui/MessagesPage.qml:592
+#: src/contents/ui/MessagesPage.qml:594
 #, kde-format
 msgid "View all"
 msgstr ""
 
-#: src/contents/ui/MessagesPage.qml:682
+#: src/contents/ui/MessagesPage.qml:800
 #, kde-format
 msgid "Copy code"
 msgstr ""
 
-#: src/contents/ui/MessagesPage.qml:691
+#: src/contents/ui/MessagesPage.qml:809
 #, kde-format
 msgid "Copy link"
 msgstr ""
 
-#: src/contents/ui/MessagesPage.qml:703
+#: src/contents/ui/MessagesPage.qml:821
 #, kde-format
 msgid "Copy text"
 msgstr ""
 
-#: src/contents/ui/MessagesPage.qml:712 src/contents/ui/MessagesPage.qml:765
+#: src/contents/ui/MessagesPage.qml:830 src/contents/ui/MessagesPage.qml:883
 #, kde-format
 msgid "Save attachment"
 msgstr ""
 
-#: src/contents/ui/MessagesPage.qml:723
+#: src/contents/ui/MessagesPage.qml:841
 #, kde-format
 msgid "View slideshow"
 msgstr ""
 
-#: src/contents/ui/MessagesPage.qml:736
+#: src/contents/ui/MessagesPage.qml:854
 #, fuzzy, kde-format
 #| msgid "Delete chat"
 msgid "Delete message"
 msgstr "बातचीत मिटाएँ"
 
-#: src/contents/ui/MessagesPage.qml:746
+#: src/contents/ui/MessagesPage.qml:864
 #, kde-format
 msgid "Resend"
 msgstr ""
 
-#: src/contents/ui/MessagesPage.qml:796
+#: src/contents/ui/MessagesPage.qml:914
 #, kde-format
 msgid "Save"
 msgstr ""
 
-#: src/contents/ui/MessagesPage.qml:803 src/contents/ui/SettingsPage.qml:342
+#: src/contents/ui/MessagesPage.qml:921 src/contents/ui/SettingsPage.qml:349
 #, kde-format
 msgid "Cancel"
 msgstr ""
 
-#: src/contents/ui/MessagesPage.qml:921
+#: src/contents/ui/MessagesPage.qml:1039
 #, kde-format
 msgid "Remove"
 msgstr ""
 
-#: src/contents/ui/MessagesPage.qml:960
+#: src/contents/ui/MessagesPage.qml:1078
 #, kde-format
 msgid "Write Message..."
 msgstr "सन्देश लिखें..."
 
-#: src/contents/ui/MessagesPage.qml:962
+#: src/contents/ui/MessagesPage.qml:1080
 #, kde-format
 msgctxt "%1 is a phone number"
 msgid "Send Message from %1..."
 msgstr "%1 से सन्देश भेजें"
 
-#: src/contents/ui/MessagesPage.qml:1016
+#: src/contents/ui/MessagesPage.qml:1134
 #, kde-format
 msgid "Duplicate recipient"
 msgstr ""
 
-#: src/contents/ui/MessagesPage.qml:1022
+#: src/contents/ui/MessagesPage.qml:1140
 #, kde-format
 msgid "Choose a file"
 msgstr ""
@@ -409,25 +409,30 @@ msgstr ""
 
 #: src/contents/ui/SettingsPage.qml:265
 #, kde-format
+msgid "Ignore tapbacks"
+msgstr ""
+
+#: src/contents/ui/SettingsPage.qml:272
+#, kde-format
 msgid "Other"
 msgstr ""
 
-#: src/contents/ui/SettingsPage.qml:269
+#: src/contents/ui/SettingsPage.qml:276
 #, kde-format
 msgid "Restore defaults"
 msgstr ""
 
-#: src/contents/ui/SettingsPage.qml:280
+#: src/contents/ui/SettingsPage.qml:287
 #, kde-format
 msgid "About"
 msgstr ""
 
-#: src/contents/ui/SettingsPage.qml:296
+#: src/contents/ui/SettingsPage.qml:303
 #, kde-format
 msgid "Choose a color"
 msgstr ""
 
-#: src/contents/ui/SettingsPage.qml:352
+#: src/contents/ui/SettingsPage.qml:359
 #, kde-format
 msgid "Set"
 msgstr ""
