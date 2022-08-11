@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: spacebar\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-08-10 00:48+0000\n"
-"PO-Revision-Date: 2022-07-27 13:46+0200\n"
+"PO-Revision-Date: 2022-08-10 12:50+0200\n"
 "Last-Translator: Freek de Kruijf <freekdekruijf@kde.nl>\n"
 "Language-Team: \n"
 "Language: nl\n"
@@ -397,7 +397,7 @@ msgstr "Voorbeelden van bijlage tonen"
 #: src/contents/ui/SettingsPage.qml:265
 #, kde-format
 msgid "Ignore tapbacks"
-msgstr ""
+msgstr "Terugtik negeren"
 
 #: src/contents/ui/SettingsPage.qml:272
 #, kde-format

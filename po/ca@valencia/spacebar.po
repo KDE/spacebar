@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: spacebar\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-08-10 00:48+0000\n"
-"PO-Revision-Date: 2022-07-27 09:31+0200\n"
+"PO-Revision-Date: 2022-08-10 19:00+0200\n"
 "Last-Translator: Josep M. Ferrer <txemaq@gmail.com>\n"
 "Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
 "Language: ca@valencia\n"
@@ -401,7 +401,7 @@ msgstr "Mostra les vistes prèvies dels adjunts"
 #: src/contents/ui/SettingsPage.qml:265
 #, kde-format
 msgid "Ignore tapbacks"
-msgstr ""
+msgstr "Ignora els «tapbacks»"
 
 #: src/contents/ui/SettingsPage.qml:272
 #, kde-format
