@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: spacebar\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-08-10 00:48+0000\n"
-"PO-Revision-Date: 2022-07-14 10:09-0300\n"
+"PO-Revision-Date: 2022-08-19 15:16-0300\n"
 "Last-Translator: Luiz Fernando Ranghetti <elchevive@opensuse.org>\n"
 "Language-Team: Portuguese <kde-i18n-pt_BR@kde.org>\n"
 "Language: pt_BR\n"
@@ -79,10 +79,9 @@ msgid "Settings"
 msgstr "Configurações"
 
 #: src/contents/ui/ChatsPage.qml:59 src/contents/ui/ChatsPage.qml:262
-#, fuzzy, kde-format
-#| msgid "Delete chat"
+#, kde-format
 msgid "Delete"
-msgstr "Excluir bate-papo"
+msgstr "Excluir"
 
 #: src/contents/ui/ChatsPage.qml:98
 #, kde-format
@@ -100,21 +99,19 @@ msgid "Picture"
 msgstr "Imagem"
 
 #: src/contents/ui/ChatsPage.qml:262
-#, fuzzy, kde-format
-#| msgid "New Conversation"
+#, kde-format
 msgid "conversations?"
-msgstr "Nova conversa"
+msgstr "conversas?"
 
 #: src/contents/ui/ChatsPage.qml:262
-#, fuzzy, kde-format
-#| msgid "Default to group conversations"
+#, kde-format
 msgid "Delete this conversation?"
-msgstr "Padrão para conversas em grupo"
+msgstr "Excluir esta conversa?"
 
 #: src/contents/ui/ChatsPage.qml:263
 #, kde-format
 msgid "This is permanent and can't be undone"
-msgstr ""
+msgstr "Isto é permanente e não pode ser desfeito"
 
 #: src/contents/ui/ContactsList.qml:45
 #, kde-format
