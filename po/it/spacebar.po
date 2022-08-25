@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: spacebar\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-08-10 00:48+0000\n"
-"PO-Revision-Date: 2022-07-27 14:16+0200\n"
+"PO-Revision-Date: 2022-08-11 09:48+0200\n"
 "Last-Translator: Vincenzo Reale <smart2128vr@gmail.com>\n"
 "Language-Team: Italian <kde-i18n-it@kde.org>\n"
 "Language: it\n"
@@ -399,7 +399,7 @@ msgstr "Mostra le anteprime degli allegati"
 #: src/contents/ui/SettingsPage.qml:265
 #, kde-format
 msgid "Ignore tapbacks"
-msgstr ""
+msgstr "Ignora i tapback"
 
 #: src/contents/ui/SettingsPage.qml:272
 #, kde-format
