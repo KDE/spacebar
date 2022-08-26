@@ -35,6 +35,7 @@ Kirigami.ScrollablePage {
             linkColor: Kirigami.Theme.linkColor
             color: Kirigami.Theme.textColor
             font.pointSize: pointSize
+            font.family: "Noto Sans, Noto Color Emoji"
         }
 
         Repeater {
@@ -99,6 +100,7 @@ Kirigami.ScrollablePage {
                     linkColor: Kirigami.Theme.linkColor
                     color: Kirigami.Theme.textColor
                     font.pointSize: pointSize
+                    font.family: "Noto Sans, Noto Color Emoji"
                 }
             }
         }

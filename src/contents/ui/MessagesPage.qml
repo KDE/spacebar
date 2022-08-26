@@ -413,6 +413,7 @@ Kirigami.ScrollablePage {
                         linkColor: model.sentByMe ? Kirigami.Theme.highlightedTextColor : Kirigami.Theme.linkColor
                         color: content.textColor
                         font.pointSize: pointSize
+                        font.family: "Noto Sans, Noto Color Emoji"
                         onLinkActivated: Qt.openUrlExternally(link)
                     }
 
@@ -566,6 +567,7 @@ Kirigami.ScrollablePage {
                                 linkColor: modelData.sentByMe ? Kirigami.Theme.highlightedTextColor : Kirigami.Theme.linkColor
                                 color: content.textColor
                                 font.pointSize: pointSize
+                                font.family: "Noto Sans, Noto Color Emoji"
                                 Component.onCompleted: content.clipped = truncated
                                 onLinkActivated: Qt.openUrlExternally(link)
                             }
@@ -699,7 +701,7 @@ Kirigami.ScrollablePage {
 
                             Text {
                                 text: modelData
-                                font.family: "emoji"
+                                font.family: "Noto Sans, Noto Color Emoji"
                                 fontSizeMode: Text.Fit
                                 minimumPixelSize: 10
                                 font.pixelSize: 72
@@ -774,7 +776,7 @@ Kirigami.ScrollablePage {
                             Text {
                                 anchors.centerIn: parent
                                 text: modelData
-                                font.family: "emoji"
+                                font.family: "Noto Sans, Noto Color Emoji"
                                 fontSizeMode: Text.Fit
                                 minimumPixelSize: 10
                                 font.pixelSize: 72
@@ -1081,6 +1083,7 @@ Kirigami.ScrollablePage {
                     }
                 }
                 font.pointSize: pointSize
+                font.family: "Noto Sans, Noto Color Emoji"
                 textFormat: Text.PlainText
                 wrapMode: Text.Wrap
                 background: Rectangle {

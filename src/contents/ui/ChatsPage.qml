@@ -182,6 +182,7 @@ Kirigami.ScrollablePage {
                         maximumLineCount: 1
                         elide: Qt.ElideRight
                         font.pointSize: Kirigami.Theme.defaultFont.pointSize - 2
+                        font.family: "Noto Sans, Noto Color Emoji"
                         color: Kirigami.Theme.disabledTextColor
                     }
                 }

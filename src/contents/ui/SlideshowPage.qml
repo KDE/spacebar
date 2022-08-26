@@ -171,6 +171,8 @@ Kirigami.Page {
                     textFormat: Text.StyledText
                     linkColor: Kirigami.Theme.linkColor
                     color: Kirigami.Theme.textColor
+                    font.pointSize: pointSize
+                    font.family: "Noto Sans, Noto Color Emoji"
                 }
             }
         }
