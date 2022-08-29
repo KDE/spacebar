@@ -48,7 +48,7 @@ Kirigami.ScrollablePage {
             Kirigami.Action {
                 displayHint: Kirigami.Action.IconOnly
                 iconName: "settings-configure"
-                text: i18n("Settings")
+                text: i18nc("Configuring application settings", "Settings")
                 onTriggered: {
                     applicationWindow().pageStack.push("qrc:/SettingsPage.qml", {"chatListModel": ChatListModel})
                 }
@@ -56,7 +56,7 @@ Kirigami.ScrollablePage {
             Kirigami.Action {
                 displayHint: Kirigami.Action.IconOnly
                 iconName: "delete"
-                text: i18n("Delete")
+                text: i18nc("Deleting a conversation", "Delete")
                 onTriggered: promptDialog.open()
                 visible: editing === true
             }
@@ -95,7 +95,7 @@ Kirigami.ScrollablePage {
         
         Kirigami.PlaceholderMessage {
             anchors.centerIn: parent
-            text: i18n("Create a chat")
+            text: i18nc("Selecting recipients from contacts list", "Create a chat")
             icon.name: "dialog-messages"
             helpfulAction: actions.main
 
@@ -176,7 +176,7 @@ Kirigami.ScrollablePage {
                     Text {
                         id: lastMessage
                         Layout.fillWidth: true
-                        text: (delegateRoot.lastSentByMe ? i18n("You: ") : "") + (delegateRoot.lastMessage || (delegateRoot.image ? i18n("Picture") : ""))
+                        text: (delegateRoot.lastSentByMe ? i18nc("Indicating that message was sent by you", "You") + ": " : "") + (delegateRoot.lastMessage || (delegateRoot.image ? i18nc("Indicating that message contains an image", "Picture") : ""))
                         wrapMode: Text.WrapAnywhere
                         textFormat: Text.PlainText
                         maximumLineCount: 1
@@ -260,7 +260,7 @@ Kirigami.ScrollablePage {
 
     Kirigami.PromptDialog {
         id: promptDialog
-        title: conversations.length > 1 ? i18n("Delete") + " " + conversations.length + " " + i18n("conversations?") : i18n("Delete this conversation?")
+        title: i18np("Delete this conversation", "Delete %1 conversations?", conversations.length)
         subtitle: i18n("This is permanent and can't be undone")
         standardButtons: Kirigami.Dialog.Ok | Kirigami.Dialog.Cancel
         onAccepted: {

@@ -281,8 +281,7 @@ void ChannelLogger::createNotification(Message &message)
             QJsonArray items = QJsonDocument::fromJson(message.attachments.toUtf8()).array();
 
             int count = static_cast<int>(items.count());
-            notificationText = QString::number(count) + SL(" ");
-            notificationText.append(count > 1 ? i18n("Attachments") : i18n("Attachment"));
+            notificationText = i18ncp("Number of files attached", "%1 Attachment", "%1 Attachments", count);
             notification->setText(notificationText);
 
             if (SettingsManager::self()->showAttachments()) {

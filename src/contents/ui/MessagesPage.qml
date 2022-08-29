@@ -863,7 +863,7 @@ Kirigami.ScrollablePage {
             }
             Kirigami.BasicListItem {
                 visible: menu.resend
-                text: i18n("Resend")
+                text: i18nc("Retry sending message", "Resend")
                 icon: "edit-redo"
                 onClicked: {
                     messageModel.sendMessage(menu.text, menu.attachments.map(o => "file://" + attachmentsFolder + "/" + o.fileName), menu.attachments.reduce((a,c) => a += (c.size || 0), 0))
@@ -1038,7 +1038,7 @@ Kirigami.ScrollablePage {
                             Controls.ToolTip.delay: 1000
                             Controls.ToolTip.timeout: 5000
                             Controls.ToolTip.visible: hovered
-                            Controls.ToolTip.text: i18n("Remove")
+                            Controls.ToolTip.text: i18nc("Remove item from list", "Remove")
                         }
                     }
                 }

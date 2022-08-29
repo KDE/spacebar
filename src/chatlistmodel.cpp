@@ -88,7 +88,7 @@ QVariant ChatListModel::data(const QModelIndex &index, int role) const
                 if (name.isEmpty()) {
                     name = number.toNational();
                     if (name == SL("0")) {
-                        name = i18n("Unknown");
+                        name = i18nc("Invalid phone number", "Unknown");
                     }
                 }
                 names.append(name);

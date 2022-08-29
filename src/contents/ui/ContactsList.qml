@@ -168,7 +168,7 @@ ListView {
                     padding: Kirigami.Units.largeSpacing
                     level: 4
                     type: Kirigami.Heading.Type.Normal
-                    text: selected.length + " " + i18n("Selected")
+                    text: i18nc("Number of items selected", "%1 Selected", selected.length)
                     color: Kirigami.Theme.disabledTextColor
                 }
 
@@ -178,7 +178,7 @@ ListView {
                     padding: Kirigami.Units.smallSpacing
                     Controls.Button {
                         id: compose
-                        text: i18n("Compose")
+                        text: i18nc("Open chat conversation window", "Compose")
                         onClicked: {
                             let numbers = selected.map(o => o.phoneNumber)
                             if (numbers.length === 0) {
