@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: spacebar\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-08-10 00:48+0000\n"
+"POT-Creation-Date: 2022-09-03 00:46+0000\n"
 "PO-Revision-Date: 2022-08-10 20:59+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
@@ -37,17 +37,16 @@ msgstr "Yeni ileti"
 msgid "Message from %1"
 msgstr "%1 kişisinden ileti"
 
-#: daemon/channellogger.cpp:285
-#, kde-format
-msgid "Attachments"
-msgstr "Ekler"
+#: daemon/channellogger.cpp:284
+#, fuzzy, kde-format
+#| msgid "Attachment"
+msgctxt "Number of files attached"
+msgid "%1 Attachment"
+msgid_plural "%1 Attachments"
+msgstr[0] "Ek"
+msgstr[1] "Ek"
 
-#: daemon/channellogger.cpp:285
-#, kde-format
-msgid "Attachment"
-msgstr "Ek"
-
-#: daemon/channellogger.cpp:301
+#: daemon/channellogger.cpp:300
 #, kde-format
 msgctxt "@action open message in application"
 msgid "Open"
@@ -59,7 +58,9 @@ msgid "Spacebar background service"
 msgstr "Spacebar arka plan hizmeti"
 
 #: src/chatlistmodel.cpp:91
-#, kde-format
+#, fuzzy, kde-format
+#| msgid "Unknown"
+msgctxt "Invalid phone number"
 msgid "Unknown"
 msgstr "Bilinmiyor"
 
@@ -73,42 +74,50 @@ msgstr "Sohbetler"
 msgid "New Conversation"
 msgstr "Yeni Konuşma"
 
-#: src/contents/ui/ChatsPage.qml:51 src/contents/ui/SettingsPage.qml:15
-#, kde-format
+#: src/contents/ui/ChatsPage.qml:51
+#, fuzzy, kde-format
+#| msgid "Settings"
+msgctxt "Configuring application settings"
 msgid "Settings"
 msgstr "Ayarlar"
 
-#: src/contents/ui/ChatsPage.qml:59 src/contents/ui/ChatsPage.qml:262
-#, kde-format
+#: src/contents/ui/ChatsPage.qml:59
+#, fuzzy, kde-format
+#| msgid "Delete"
+msgctxt "Deleting a conversation"
 msgid "Delete"
 msgstr "Sil"
 
 #: src/contents/ui/ChatsPage.qml:98
-#, kde-format
+#, fuzzy, kde-format
+#| msgid "Create a chat"
+msgctxt "Selecting recipients from contacts list"
 msgid "Create a chat"
 msgstr "Bir sohbet oluştur"
 
 #: src/contents/ui/ChatsPage.qml:179
-#, kde-format
-msgid "You: "
+#, fuzzy, kde-format
+#| msgid "You: "
+msgctxt "Indicating that message was sent by you"
+msgid "You"
 msgstr "Siz: "
 
 #: src/contents/ui/ChatsPage.qml:179
-#, kde-format
+#, fuzzy, kde-format
+#| msgid "Picture"
+msgctxt "Indicating that message contains an image"
 msgid "Picture"
 msgstr "Resim"
 
-#: src/contents/ui/ChatsPage.qml:262
-#, kde-format
-msgid "conversations?"
-msgstr "konuşmalar?"
-
-#: src/contents/ui/ChatsPage.qml:262
-#, kde-format
-msgid "Delete this conversation?"
-msgstr "Bu konuşma silinsin mi?"
-
 #: src/contents/ui/ChatsPage.qml:263
+#, fuzzy, kde-format
+#| msgid "Delete this conversation?"
+msgid "Delete this conversation"
+msgid_plural "Delete %1 conversations?"
+msgstr[0] "Bu konuşma silinsin mi?"
+msgstr[1] "Bu konuşma silinsin mi?"
+
+#: src/contents/ui/ChatsPage.qml:264
 #, kde-format
 msgid "This is permanent and can't be undone"
 msgstr "Bu kalıcıdır ve geri alınamaz"
@@ -119,12 +128,16 @@ msgid "Select a number"
 msgstr "Bir numara seçin"
 
 #: src/contents/ui/ContactsList.qml:171
-#, kde-format
-msgid "Selected"
+#, fuzzy, kde-format
+#| msgid "Selected"
+msgctxt "Number of items selected"
+msgid "%1 Selected"
 msgstr "Seçili"
 
 #: src/contents/ui/ContactsList.qml:181
-#, kde-format
+#, fuzzy, kde-format
+#| msgid "Compose"
+msgctxt "Open chat conversation window"
 msgid "Compose"
 msgstr "Oluştur"
 
@@ -178,93 +191,97 @@ msgstr "İletinin süresi doldu ve silinecek"
 msgid "Message will be sent as individual messages"
 msgstr "İleti, teker teker gönderilecek"
 
-#: src/contents/ui/MessagesPage.qml:459
+#: src/contents/ui/MessagesPage.qml:460
 #, kde-format
 msgid "MMS message"
 msgstr "MMS iletisi"
 
-#: src/contents/ui/MessagesPage.qml:467
+#: src/contents/ui/MessagesPage.qml:468
 #, kde-format
 msgid "Message size: %1"
 msgstr "İleti boyutu: %1"
 
-#: src/contents/ui/MessagesPage.qml:473
+#: src/contents/ui/MessagesPage.qml:474
 #, kde-format
 msgid "Expires: %1"
 msgstr "Süre dolumu: %1"
 
-#: src/contents/ui/MessagesPage.qml:594
+#: src/contents/ui/MessagesPage.qml:596
 #, kde-format
 msgid "View all"
 msgstr "Tümünü görüntüle"
 
-#: src/contents/ui/MessagesPage.qml:800
+#: src/contents/ui/MessagesPage.qml:802
 #, kde-format
 msgid "Copy code"
 msgstr "Kodu kopyala"
 
-#: src/contents/ui/MessagesPage.qml:809
+#: src/contents/ui/MessagesPage.qml:811
 #, kde-format
 msgid "Copy link"
 msgstr "Bağlantıyı kopyala"
 
-#: src/contents/ui/MessagesPage.qml:821
+#: src/contents/ui/MessagesPage.qml:823
 #, kde-format
 msgid "Copy text"
 msgstr "Metni kopyala"
 
-#: src/contents/ui/MessagesPage.qml:830 src/contents/ui/MessagesPage.qml:883
+#: src/contents/ui/MessagesPage.qml:832 src/contents/ui/MessagesPage.qml:885
 #, kde-format
 msgid "Save attachment"
 msgstr "Eki kaydet"
 
-#: src/contents/ui/MessagesPage.qml:841
+#: src/contents/ui/MessagesPage.qml:843
 #, kde-format
 msgid "View slideshow"
 msgstr "Slayt gösterisini görüntüle"
 
-#: src/contents/ui/MessagesPage.qml:854
+#: src/contents/ui/MessagesPage.qml:856
 #, kde-format
 msgid "Delete message"
 msgstr "İletiyi sil"
 
-#: src/contents/ui/MessagesPage.qml:864
-#, kde-format
+#: src/contents/ui/MessagesPage.qml:866
+#, fuzzy, kde-format
+#| msgid "Resend"
+msgctxt "Retry sending message"
 msgid "Resend"
 msgstr "Yeniden gönder"
 
-#: src/contents/ui/MessagesPage.qml:914
+#: src/contents/ui/MessagesPage.qml:916
 #, kde-format
 msgid "Save"
 msgstr "Kaydet"
 
-#: src/contents/ui/MessagesPage.qml:921 src/contents/ui/SettingsPage.qml:349
+#: src/contents/ui/MessagesPage.qml:923 src/contents/ui/SettingsPage.qml:349
 #, kde-format
 msgid "Cancel"
 msgstr "İptal"
 
-#: src/contents/ui/MessagesPage.qml:1039
-#, kde-format
+#: src/contents/ui/MessagesPage.qml:1041
+#, fuzzy, kde-format
+#| msgid "Remove"
+msgctxt "Remove item from list"
 msgid "Remove"
 msgstr "Kaldır"
 
-#: src/contents/ui/MessagesPage.qml:1078
+#: src/contents/ui/MessagesPage.qml:1080
 #, kde-format
 msgid "Write Message..."
 msgstr "İleti Yaz…"
 
-#: src/contents/ui/MessagesPage.qml:1080
+#: src/contents/ui/MessagesPage.qml:1082
 #, kde-format
 msgctxt "%1 is a phone number"
 msgid "Send Message from %1..."
 msgstr "%1 Numarasından İleti Gönder..."
 
-#: src/contents/ui/MessagesPage.qml:1134
+#: src/contents/ui/MessagesPage.qml:1137
 #, kde-format
 msgid "Duplicate recipient"
 msgstr "Yinelenmiş alıcı"
 
-#: src/contents/ui/MessagesPage.qml:1140
+#: src/contents/ui/MessagesPage.qml:1143
 #, kde-format
 msgid "Choose a file"
 msgstr "Bir dosya seçin"
@@ -278,6 +295,11 @@ msgstr "Kişiler"
 #, kde-format
 msgid "Back"
 msgstr "Geri"
+
+#: src/contents/ui/SettingsPage.qml:15
+#, kde-format
+msgid "Settings"
+msgstr "Ayarlar"
 
 #: src/contents/ui/SettingsPage.qml:34
 #, kde-format
@@ -473,3 +495,9 @@ msgstr "Spacebar SMS/MMS istemcisi"
 #, kde-format
 msgid "Open a chat with the given phone number"
 msgstr "Verilen telefon numarası ile bir sohbet başlatın"
+
+#~ msgid "Attachments"
+#~ msgstr "Ekler"
+
+#~ msgid "conversations?"
+#~ msgstr "konuşmalar?"

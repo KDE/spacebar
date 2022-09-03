@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: spacebar\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-08-10 00:48+0000\n"
+"POT-Creation-Date: 2022-09-03 00:46+0000\n"
 "PO-Revision-Date: 2022-08-10 08:23+0300\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <kde-i18n-uk@kde.org>\n"
@@ -40,17 +40,18 @@ msgstr "Нове повідомлення"
 msgid "Message from %1"
 msgstr "Повідомлення від %1"
 
-#: daemon/channellogger.cpp:285
-#, kde-format
-msgid "Attachments"
-msgstr "Долучення"
+#: daemon/channellogger.cpp:284
+#, fuzzy, kde-format
+#| msgid "Attachment"
+msgctxt "Number of files attached"
+msgid "%1 Attachment"
+msgid_plural "%1 Attachments"
+msgstr[0] "Долучення"
+msgstr[1] "Долучення"
+msgstr[2] "Долучення"
+msgstr[3] "Долучення"
 
-#: daemon/channellogger.cpp:285
-#, kde-format
-msgid "Attachment"
-msgstr "Долучення"
-
-#: daemon/channellogger.cpp:301
+#: daemon/channellogger.cpp:300
 #, kde-format
 msgctxt "@action open message in application"
 msgid "Open"
@@ -62,7 +63,9 @@ msgid "Spacebar background service"
 msgstr "Фонова служба Spacebar"
 
 #: src/chatlistmodel.cpp:91
-#, kde-format
+#, fuzzy, kde-format
+#| msgid "Unknown"
+msgctxt "Invalid phone number"
 msgid "Unknown"
 msgstr "Невідомий"
 
@@ -76,42 +79,52 @@ msgstr "Спілкування"
 msgid "New Conversation"
 msgstr "Нове спілкування"
 
-#: src/contents/ui/ChatsPage.qml:51 src/contents/ui/SettingsPage.qml:15
-#, kde-format
+#: src/contents/ui/ChatsPage.qml:51
+#, fuzzy, kde-format
+#| msgid "Settings"
+msgctxt "Configuring application settings"
 msgid "Settings"
 msgstr "Параметри"
 
-#: src/contents/ui/ChatsPage.qml:59 src/contents/ui/ChatsPage.qml:262
-#, kde-format
+#: src/contents/ui/ChatsPage.qml:59
+#, fuzzy, kde-format
+#| msgid "Delete"
+msgctxt "Deleting a conversation"
 msgid "Delete"
 msgstr "Вилучити"
 
 #: src/contents/ui/ChatsPage.qml:98
-#, kde-format
+#, fuzzy, kde-format
+#| msgid "Create a chat"
+msgctxt "Selecting recipients from contacts list"
 msgid "Create a chat"
 msgstr "Створити спілкування"
 
 #: src/contents/ui/ChatsPage.qml:179
-#, kde-format
-msgid "You: "
+#, fuzzy, kde-format
+#| msgid "You: "
+msgctxt "Indicating that message was sent by you"
+msgid "You"
 msgstr "Ви:"
 
 #: src/contents/ui/ChatsPage.qml:179
-#, kde-format
+#, fuzzy, kde-format
+#| msgid "Picture"
+msgctxt "Indicating that message contains an image"
 msgid "Picture"
 msgstr "Зображення"
 
-#: src/contents/ui/ChatsPage.qml:262
-#, kde-format
-msgid "conversations?"
-msgstr "спілкування?"
-
-#: src/contents/ui/ChatsPage.qml:262
-#, kde-format
-msgid "Delete this conversation?"
-msgstr "Вилучити це спілкування?"
-
 #: src/contents/ui/ChatsPage.qml:263
+#, fuzzy, kde-format
+#| msgid "Delete this conversation?"
+msgid "Delete this conversation"
+msgid_plural "Delete %1 conversations?"
+msgstr[0] "Вилучити це спілкування?"
+msgstr[1] "Вилучити це спілкування?"
+msgstr[2] "Вилучити це спілкування?"
+msgstr[3] "Вилучити це спілкування?"
+
+#: src/contents/ui/ChatsPage.qml:264
 #, kde-format
 msgid "This is permanent and can't be undone"
 msgstr "Наслідки дії не можна буде скасувати"
@@ -122,12 +135,16 @@ msgid "Select a number"
 msgstr "Виберіть число"
 
 #: src/contents/ui/ContactsList.qml:171
-#, kde-format
-msgid "Selected"
+#, fuzzy, kde-format
+#| msgid "Selected"
+msgctxt "Number of items selected"
+msgid "%1 Selected"
 msgstr "Позначені"
 
 #: src/contents/ui/ContactsList.qml:181
-#, kde-format
+#, fuzzy, kde-format
+#| msgid "Compose"
+msgctxt "Open chat conversation window"
 msgid "Compose"
 msgstr "Створити"
 
@@ -183,93 +200,97 @@ msgstr "Строк життя повідомлення вичерпано, йо�
 msgid "Message will be sent as individual messages"
 msgstr "Повідомлення буде надіслано як окремі повідомлення"
 
-#: src/contents/ui/MessagesPage.qml:459
+#: src/contents/ui/MessagesPage.qml:460
 #, kde-format
 msgid "MMS message"
 msgstr "Повідомлення MMS"
 
-#: src/contents/ui/MessagesPage.qml:467
+#: src/contents/ui/MessagesPage.qml:468
 #, kde-format
 msgid "Message size: %1"
 msgstr "Розмір повідомлення: %1"
 
-#: src/contents/ui/MessagesPage.qml:473
+#: src/contents/ui/MessagesPage.qml:474
 #, kde-format
 msgid "Expires: %1"
 msgstr "Строк життя: %1"
 
-#: src/contents/ui/MessagesPage.qml:594
+#: src/contents/ui/MessagesPage.qml:596
 #, kde-format
 msgid "View all"
 msgstr "Переглянути все"
 
-#: src/contents/ui/MessagesPage.qml:800
+#: src/contents/ui/MessagesPage.qml:802
 #, kde-format
 msgid "Copy code"
 msgstr "Копіювати код"
 
-#: src/contents/ui/MessagesPage.qml:809
+#: src/contents/ui/MessagesPage.qml:811
 #, kde-format
 msgid "Copy link"
 msgstr "Копіювати посилання"
 
-#: src/contents/ui/MessagesPage.qml:821
+#: src/contents/ui/MessagesPage.qml:823
 #, kde-format
 msgid "Copy text"
 msgstr "Копіювати текст"
 
-#: src/contents/ui/MessagesPage.qml:830 src/contents/ui/MessagesPage.qml:883
+#: src/contents/ui/MessagesPage.qml:832 src/contents/ui/MessagesPage.qml:885
 #, kde-format
 msgid "Save attachment"
 msgstr "Збереження долучення"
 
-#: src/contents/ui/MessagesPage.qml:841
+#: src/contents/ui/MessagesPage.qml:843
 #, kde-format
 msgid "View slideshow"
 msgstr "Переглянути показ слайдів"
 
-#: src/contents/ui/MessagesPage.qml:854
+#: src/contents/ui/MessagesPage.qml:856
 #, kde-format
 msgid "Delete message"
 msgstr "Вилучити повідомлення"
 
-#: src/contents/ui/MessagesPage.qml:864
-#, kde-format
+#: src/contents/ui/MessagesPage.qml:866
+#, fuzzy, kde-format
+#| msgid "Resend"
+msgctxt "Retry sending message"
 msgid "Resend"
 msgstr "Надіслати ще раз"
 
-#: src/contents/ui/MessagesPage.qml:914
+#: src/contents/ui/MessagesPage.qml:916
 #, kde-format
 msgid "Save"
 msgstr "Зберегти"
 
-#: src/contents/ui/MessagesPage.qml:921 src/contents/ui/SettingsPage.qml:349
+#: src/contents/ui/MessagesPage.qml:923 src/contents/ui/SettingsPage.qml:349
 #, kde-format
 msgid "Cancel"
 msgstr "Скасувати"
 
-#: src/contents/ui/MessagesPage.qml:1039
-#, kde-format
+#: src/contents/ui/MessagesPage.qml:1041
+#, fuzzy, kde-format
+#| msgid "Remove"
+msgctxt "Remove item from list"
 msgid "Remove"
 msgstr "Вилучити"
 
-#: src/contents/ui/MessagesPage.qml:1078
+#: src/contents/ui/MessagesPage.qml:1080
 #, kde-format
 msgid "Write Message..."
 msgstr "Написати повідомлення…"
 
-#: src/contents/ui/MessagesPage.qml:1080
+#: src/contents/ui/MessagesPage.qml:1082
 #, kde-format
 msgctxt "%1 is a phone number"
 msgid "Send Message from %1..."
 msgstr "Надіслати повідомлення з %1…"
 
-#: src/contents/ui/MessagesPage.qml:1134
+#: src/contents/ui/MessagesPage.qml:1137
 #, kde-format
 msgid "Duplicate recipient"
 msgstr "Дублювання одержувача"
 
-#: src/contents/ui/MessagesPage.qml:1140
+#: src/contents/ui/MessagesPage.qml:1143
 #, kde-format
 msgid "Choose a file"
 msgstr "Виберіть файл"
@@ -283,6 +304,11 @@ msgstr "Контакти"
 #, kde-format
 msgid "Back"
 msgstr "Назад"
+
+#: src/contents/ui/SettingsPage.qml:15
+#, kde-format
+msgid "Settings"
+msgstr "Параметри"
 
 #: src/contents/ui/SettingsPage.qml:34
 #, kde-format
@@ -478,6 +504,12 @@ msgstr "SMS/MMS-клієнт Spacebar"
 #, kde-format
 msgid "Open a chat with the given phone number"
 msgstr "Почати спілкування із власником вказаного номера телефону"
+
+#~ msgid "Attachments"
+#~ msgstr "Долучення"
+
+#~ msgid "conversations?"
+#~ msgstr "спілкування?"
 
 #~ msgid "Recipient"
 #~ msgstr "Одержувач"

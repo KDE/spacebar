@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: spacebar\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-08-10 00:48+0000\n"
+"POT-Creation-Date: 2022-09-03 00:46+0000\n"
 "PO-Revision-Date: 2022-04-07 18:23+0200\n"
 "Last-Translator: Roman Paholik <wizzardsk@gmail.com>\n"
 "Language-Team: Slovak <kde-sk@linux.sk>\n"
@@ -35,17 +35,17 @@ msgstr "Nová správa"
 msgid "Message from %1"
 msgstr ""
 
-#: daemon/channellogger.cpp:285
-#, kde-format
-msgid "Attachments"
-msgstr "Prílohy"
+#: daemon/channellogger.cpp:284
+#, fuzzy, kde-format
+#| msgid "Attachment"
+msgctxt "Number of files attached"
+msgid "%1 Attachment"
+msgid_plural "%1 Attachments"
+msgstr[0] "Príloha"
+msgstr[1] "Príloha"
+msgstr[2] "Príloha"
 
-#: daemon/channellogger.cpp:285
-#, kde-format
-msgid "Attachment"
-msgstr "Príloha"
-
-#: daemon/channellogger.cpp:301
+#: daemon/channellogger.cpp:300
 #, kde-format
 msgctxt "@action open message in application"
 msgid "Open"
@@ -58,6 +58,7 @@ msgstr ""
 
 #: src/chatlistmodel.cpp:91
 #, fuzzy, kde-format
+msgctxt "Invalid phone number"
 msgid "Unknown"
 msgstr "Neznáme"
 
@@ -71,45 +72,47 @@ msgstr "Rozhovory"
 msgid "New Conversation"
 msgstr "Nová konverzácia"
 
-#: src/contents/ui/ChatsPage.qml:51 src/contents/ui/SettingsPage.qml:15
+#: src/contents/ui/ChatsPage.qml:51
 #, fuzzy, kde-format
+msgctxt "Configuring application settings"
 msgid "Settings"
 msgstr "Nastavenia"
 
-#: src/contents/ui/ChatsPage.qml:59 src/contents/ui/ChatsPage.qml:262
+#: src/contents/ui/ChatsPage.qml:59
 #, fuzzy, kde-format
 #| msgid "Write Message..."
+msgctxt "Deleting a conversation"
 msgid "Delete"
 msgstr "Zmazať správu"
 
 #: src/contents/ui/ChatsPage.qml:98
 #, kde-format
+msgctxt "Selecting recipients from contacts list"
 msgid "Create a chat"
 msgstr ""
 
 #: src/contents/ui/ChatsPage.qml:179
 #, kde-format
-msgid "You: "
+msgctxt "Indicating that message was sent by you"
+msgid "You"
 msgstr ""
 
 #: src/contents/ui/ChatsPage.qml:179
 #, kde-format
+msgctxt "Indicating that message contains an image"
 msgid "Picture"
 msgstr ""
 
-#: src/contents/ui/ChatsPage.qml:262
-#, fuzzy, kde-format
-#| msgid "New Conversation"
-msgid "conversations?"
-msgstr "Nová konverzácia"
-
-#: src/contents/ui/ChatsPage.qml:262
-#, fuzzy, kde-format
-#| msgid "New Conversation"
-msgid "Delete this conversation?"
-msgstr "Nová konverzácia"
-
 #: src/contents/ui/ChatsPage.qml:263
+#, fuzzy, kde-format
+#| msgid "New Conversation"
+msgid "Delete this conversation"
+msgid_plural "Delete %1 conversations?"
+msgstr[0] "Nová konverzácia"
+msgstr[1] "Nová konverzácia"
+msgstr[2] "Nová konverzácia"
+
+#: src/contents/ui/ChatsPage.qml:264
 #, kde-format
 msgid "This is permanent and can't be undone"
 msgstr ""
@@ -121,12 +124,15 @@ msgid "Select a number"
 msgstr "Hľadať alebo zadať číslo..."
 
 #: src/contents/ui/ContactsList.qml:171
-#, kde-format
-msgid "Selected"
+#, fuzzy, kde-format
+#| msgid "Selected"
+msgctxt "Number of items selected"
+msgid "%1 Selected"
 msgstr "Vybrané"
 
 #: src/contents/ui/ContactsList.qml:181
 #, kde-format
+msgctxt "Open chat conversation window"
 msgid "Compose"
 msgstr ""
 
@@ -181,96 +187,99 @@ msgstr ""
 msgid "Message will be sent as individual messages"
 msgstr ""
 
-#: src/contents/ui/MessagesPage.qml:459
+#: src/contents/ui/MessagesPage.qml:460
 #, fuzzy, kde-format
 #| msgid "Write Message..."
 msgid "MMS message"
 msgstr "Písanie správ..."
 
-#: src/contents/ui/MessagesPage.qml:467
+#: src/contents/ui/MessagesPage.qml:468
 #, fuzzy, kde-format
 msgid "Message size: %1"
 msgstr "Veľkosť správy"
 
-#: src/contents/ui/MessagesPage.qml:473
+#: src/contents/ui/MessagesPage.qml:474
 #, fuzzy, kde-format
 msgid "Expires: %1"
 msgstr "Vyprší:"
 
-#: src/contents/ui/MessagesPage.qml:594
+#: src/contents/ui/MessagesPage.qml:596
 #, kde-format
 msgid "View all"
 msgstr ""
 
-#: src/contents/ui/MessagesPage.qml:800
+#: src/contents/ui/MessagesPage.qml:802
 #, fuzzy, kde-format
 msgid "Copy code"
 msgstr "Kopírovať kód"
 
-#: src/contents/ui/MessagesPage.qml:809
+#: src/contents/ui/MessagesPage.qml:811
 #, fuzzy, kde-format
 msgid "Copy link"
 msgstr "Kopírovať odkaz"
 
-#: src/contents/ui/MessagesPage.qml:821
+#: src/contents/ui/MessagesPage.qml:823
 #, fuzzy, kde-format
 msgid "Copy text"
 msgstr "&Kopírovať text"
 
-#: src/contents/ui/MessagesPage.qml:830 src/contents/ui/MessagesPage.qml:883
+#: src/contents/ui/MessagesPage.qml:832 src/contents/ui/MessagesPage.qml:885
 #, kde-format
 msgid "Save attachment"
 msgstr "Uložiť prílohu"
 
-#: src/contents/ui/MessagesPage.qml:841
+#: src/contents/ui/MessagesPage.qml:843
 #, kde-format
 msgid "View slideshow"
 msgstr ""
 
-#: src/contents/ui/MessagesPage.qml:854
+#: src/contents/ui/MessagesPage.qml:856
 #, fuzzy, kde-format
 #| msgid "Write Message..."
 msgid "Delete message"
 msgstr "Zmazať správu"
 
-#: src/contents/ui/MessagesPage.qml:864
+#: src/contents/ui/MessagesPage.qml:866
 #, fuzzy, kde-format
+msgctxt "Retry sending message"
 msgid "Resend"
 msgstr "Znovu odoslať"
 
-#: src/contents/ui/MessagesPage.qml:914
+#: src/contents/ui/MessagesPage.qml:916
 #, fuzzy, kde-format
 msgid "Save"
 msgstr "Uložiť"
 
-#: src/contents/ui/MessagesPage.qml:921 src/contents/ui/SettingsPage.qml:349
+#: src/contents/ui/MessagesPage.qml:923 src/contents/ui/SettingsPage.qml:349
 #, kde-format
 msgid "Cancel"
 msgstr "Zrušiť"
 
-#: src/contents/ui/MessagesPage.qml:1039
-#, kde-format
+#: src/contents/ui/MessagesPage.qml:1041
+#, fuzzy, kde-format
+#| msgid "Remove"
+msgctxt "Remove item from list"
 msgid "Remove"
 msgstr "Odstrániť"
 
-#: src/contents/ui/MessagesPage.qml:1078
+#: src/contents/ui/MessagesPage.qml:1080
 #, kde-format
 msgid "Write Message..."
 msgstr "Písanie správ..."
 
-#: src/contents/ui/MessagesPage.qml:1080
+#: src/contents/ui/MessagesPage.qml:1082
 #, fuzzy, kde-format
 #| msgid "Write Message..."
 msgctxt "%1 is a phone number"
 msgid "Send Message from %1..."
 msgstr "Písanie správ..."
 
-#: src/contents/ui/MessagesPage.qml:1134
+#: src/contents/ui/MessagesPage.qml:1137
 #, kde-format
 msgid "Duplicate recipient"
 msgstr ""
 
-#: src/contents/ui/MessagesPage.qml:1140
+#: src/contents/ui/MessagesPage.qml:1143
 #, kde-format
 msgid "Choose a file"
 msgstr "Vyberte súbor"
@@ -284,6 +293,11 @@ msgstr "Kontakty"
 #, fuzzy, kde-format
 msgid "Back"
 msgstr "Späť"
+
+#: src/contents/ui/SettingsPage.qml:15
+#, fuzzy, kde-format
+msgid "Settings"
+msgstr "Nastavenia"
 
 #: src/contents/ui/SettingsPage.qml:34
 #, kde-format
@@ -481,6 +495,14 @@ msgstr ""
 #, kde-format
 msgid "Open a chat with the given phone number"
 msgstr ""
+
+#~ msgid "Attachments"
+#~ msgstr "Prílohy"
+
+#, fuzzy
+#~| msgid "New Conversation"
+#~ msgid "conversations?"
+#~ msgstr "Nová konverzácia"
 
 #~ msgid "No chats yet"
 #~ msgstr "Ešte žiadne rozhovory"
