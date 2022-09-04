@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: spacebar\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-09-03 00:46+0000\n"
-"PO-Revision-Date: 2022-08-10 20:59+0300\n"
+"PO-Revision-Date: 2022-09-03 17:27+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
 "Language: tr\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Lokalize 22.04.3\n"
+"X-Generator: Lokalize 22.08.0\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -38,13 +38,12 @@ msgid "Message from %1"
 msgstr "%1 kişisinden ileti"
 
 #: daemon/channellogger.cpp:284
-#, fuzzy, kde-format
-#| msgid "Attachment"
+#, kde-format
 msgctxt "Number of files attached"
 msgid "%1 Attachment"
 msgid_plural "%1 Attachments"
-msgstr[0] "Ek"
-msgstr[1] "Ek"
+msgstr[0] "%1 Ek"
+msgstr[1] "%1 Ek"
 
 #: daemon/channellogger.cpp:300
 #, kde-format
@@ -58,8 +57,7 @@ msgid "Spacebar background service"
 msgstr "Spacebar arka plan hizmeti"
 
 #: src/chatlistmodel.cpp:91
-#, fuzzy, kde-format
-#| msgid "Unknown"
+#, kde-format
 msgctxt "Invalid phone number"
 msgid "Unknown"
 msgstr "Bilinmiyor"
@@ -75,47 +73,41 @@ msgid "New Conversation"
 msgstr "Yeni Konuşma"
 
 #: src/contents/ui/ChatsPage.qml:51
-#, fuzzy, kde-format
-#| msgid "Settings"
+#, kde-format
 msgctxt "Configuring application settings"
 msgid "Settings"
 msgstr "Ayarlar"
 
 #: src/contents/ui/ChatsPage.qml:59
-#, fuzzy, kde-format
-#| msgid "Delete"
+#, kde-format
 msgctxt "Deleting a conversation"
 msgid "Delete"
 msgstr "Sil"
 
 #: src/contents/ui/ChatsPage.qml:98
-#, fuzzy, kde-format
-#| msgid "Create a chat"
+#, kde-format
 msgctxt "Selecting recipients from contacts list"
 msgid "Create a chat"
 msgstr "Bir sohbet oluştur"
 
 #: src/contents/ui/ChatsPage.qml:179
-#, fuzzy, kde-format
-#| msgid "You: "
+#, kde-format
 msgctxt "Indicating that message was sent by you"
 msgid "You"
-msgstr "Siz: "
+msgstr "Siz"
 
 #: src/contents/ui/ChatsPage.qml:179
-#, fuzzy, kde-format
-#| msgid "Picture"
+#, kde-format
 msgctxt "Indicating that message contains an image"
 msgid "Picture"
 msgstr "Resim"
 
 #: src/contents/ui/ChatsPage.qml:263
-#, fuzzy, kde-format
-#| msgid "Delete this conversation?"
+#, kde-format
 msgid "Delete this conversation"
 msgid_plural "Delete %1 conversations?"
 msgstr[0] "Bu konuşma silinsin mi?"
-msgstr[1] "Bu konuşma silinsin mi?"
+msgstr[1] "%1 konuşma silinsin mi?"
 
 #: src/contents/ui/ChatsPage.qml:264
 #, kde-format
@@ -128,15 +120,13 @@ msgid "Select a number"
 msgstr "Bir numara seçin"
 
 #: src/contents/ui/ContactsList.qml:171
-#, fuzzy, kde-format
-#| msgid "Selected"
+#, kde-format
 msgctxt "Number of items selected"
 msgid "%1 Selected"
-msgstr "Seçili"
+msgstr "%1 Seçili"
 
 #: src/contents/ui/ContactsList.qml:181
-#, fuzzy, kde-format
-#| msgid "Compose"
+#, kde-format
 msgctxt "Open chat conversation window"
 msgid "Compose"
 msgstr "Oluştur"
@@ -242,11 +232,10 @@ msgid "Delete message"
 msgstr "İletiyi sil"
 
 #: src/contents/ui/MessagesPage.qml:866
-#, fuzzy, kde-format
-#| msgid "Resend"
+#, kde-format
 msgctxt "Retry sending message"
 msgid "Resend"
-msgstr "Yeniden gönder"
+msgstr "Yeniden Gönder"
 
 #: src/contents/ui/MessagesPage.qml:916
 #, kde-format
@@ -259,8 +248,7 @@ msgid "Cancel"
 msgstr "İptal"
 
 #: src/contents/ui/MessagesPage.qml:1041
-#, fuzzy, kde-format
-#| msgid "Remove"
+#, kde-format
 msgctxt "Remove item from list"
 msgid "Remove"
 msgstr "Kaldır"

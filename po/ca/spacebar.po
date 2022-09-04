@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: spacebar\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-09-03 00:46+0000\n"
-"PO-Revision-Date: 2022-08-10 19:00+0200\n"
+"PO-Revision-Date: 2022-09-03 13:37+0200\n"
 "Last-Translator: Josep M. Ferrer <txemaq@gmail.com>\n"
 "Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
 "Language: ca\n"
@@ -41,13 +41,12 @@ msgid "Message from %1"
 msgstr "Missatge de %1"
 
 #: daemon/channellogger.cpp:284
-#, fuzzy, kde-format
-#| msgid "Attachment"
+#, kde-format
 msgctxt "Number of files attached"
 msgid "%1 Attachment"
 msgid_plural "%1 Attachments"
-msgstr[0] "Adjunt"
-msgstr[1] "Adjunt"
+msgstr[0] "%1 adjunt"
+msgstr[1] "%1 adjunts"
 
 #: daemon/channellogger.cpp:300
 #, kde-format
@@ -61,8 +60,7 @@ msgid "Spacebar background service"
 msgstr "Servei en segon pla de l'Spacebar"
 
 #: src/chatlistmodel.cpp:91
-#, fuzzy, kde-format
-#| msgid "Unknown"
+#, kde-format
 msgctxt "Invalid phone number"
 msgid "Unknown"
 msgstr "Desconegut"
@@ -78,47 +76,41 @@ msgid "New Conversation"
 msgstr "Conversa nova"
 
 #: src/contents/ui/ChatsPage.qml:51
-#, fuzzy, kde-format
-#| msgid "Settings"
+#, kde-format
 msgctxt "Configuring application settings"
 msgid "Settings"
 msgstr "Configuració"
 
 #: src/contents/ui/ChatsPage.qml:59
-#, fuzzy, kde-format
-#| msgid "Delete"
+#, kde-format
 msgctxt "Deleting a conversation"
 msgid "Delete"
 msgstr "Suprimeix"
 
 #: src/contents/ui/ChatsPage.qml:98
-#, fuzzy, kde-format
-#| msgid "Create a chat"
+#, kde-format
 msgctxt "Selecting recipients from contacts list"
 msgid "Create a chat"
 msgstr "Crea un xat"
 
 #: src/contents/ui/ChatsPage.qml:179
-#, fuzzy, kde-format
-#| msgid "You: "
+#, kde-format
 msgctxt "Indicating that message was sent by you"
 msgid "You"
-msgstr "Vós: "
+msgstr "Tu"
 
 #: src/contents/ui/ChatsPage.qml:179
-#, fuzzy, kde-format
-#| msgid "Picture"
+#, kde-format
 msgctxt "Indicating that message contains an image"
 msgid "Picture"
 msgstr "Imatge"
 
 #: src/contents/ui/ChatsPage.qml:263
-#, fuzzy, kde-format
-#| msgid "Delete this conversation?"
+#, kde-format
 msgid "Delete this conversation"
 msgid_plural "Delete %1 conversations?"
 msgstr[0] "Suprimeixo aquesta conversa?"
-msgstr[1] "Suprimeixo aquesta conversa?"
+msgstr[1] "Suprimeixo %1 converses?"
 
 #: src/contents/ui/ChatsPage.qml:264
 #, kde-format
@@ -131,15 +123,13 @@ msgid "Select a number"
 msgstr "Seleccioneu un número"
 
 #: src/contents/ui/ContactsList.qml:171
-#, fuzzy, kde-format
-#| msgid "Selected"
+#, kde-format
 msgctxt "Number of items selected"
 msgid "%1 Selected"
-msgstr "Seleccionat"
+msgstr "%1 seleccionats"
 
 #: src/contents/ui/ContactsList.qml:181
-#, fuzzy, kde-format
-#| msgid "Compose"
+#, kde-format
 msgctxt "Open chat conversation window"
 msgid "Compose"
 msgstr "Redacta"
@@ -246,11 +236,10 @@ msgid "Delete message"
 msgstr "Suprimeix el missatge"
 
 #: src/contents/ui/MessagesPage.qml:866
-#, fuzzy, kde-format
-#| msgid "Resend"
+#, kde-format
 msgctxt "Retry sending message"
 msgid "Resend"
-msgstr "Reenvia"
+msgstr "Torna a enviar"
 
 #: src/contents/ui/MessagesPage.qml:916
 #, kde-format
@@ -263,8 +252,7 @@ msgid "Cancel"
 msgstr "Cancel·la"
 
 #: src/contents/ui/MessagesPage.qml:1041
-#, fuzzy, kde-format
-#| msgid "Remove"
+#, kde-format
 msgctxt "Remove item from list"
 msgid "Remove"
 msgstr "Elimina"
@@ -499,9 +487,3 @@ msgstr "Client SMS/MMS Spacebar"
 #, kde-format
 msgid "Open a chat with the given phone number"
 msgstr "Obre un xat amb el número de telèfon indicat"
-
-#~ msgid "Attachments"
-#~ msgstr "Adjunts"
-
-#~ msgid "conversations?"
-#~ msgstr "converses?"

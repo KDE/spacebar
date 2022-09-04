@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: spacebar\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-09-03 00:46+0000\n"
-"PO-Revision-Date: 2022-08-10 08:23+0300\n"
+"PO-Revision-Date: 2022-09-03 08:43+0300\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <kde-i18n-uk@kde.org>\n"
 "Language: uk\n"
@@ -41,15 +41,14 @@ msgid "Message from %1"
 msgstr "Повідомлення від %1"
 
 #: daemon/channellogger.cpp:284
-#, fuzzy, kde-format
-#| msgid "Attachment"
+#, kde-format
 msgctxt "Number of files attached"
 msgid "%1 Attachment"
 msgid_plural "%1 Attachments"
-msgstr[0] "Долучення"
-msgstr[1] "Долучення"
-msgstr[2] "Долучення"
-msgstr[3] "Долучення"
+msgstr[0] "%1 долучення"
+msgstr[1] "%1 долучення"
+msgstr[2] "%1 долучень"
+msgstr[3] "%1 долучення"
 
 #: daemon/channellogger.cpp:300
 #, kde-format
@@ -63,8 +62,7 @@ msgid "Spacebar background service"
 msgstr "Фонова служба Spacebar"
 
 #: src/chatlistmodel.cpp:91
-#, fuzzy, kde-format
-#| msgid "Unknown"
+#, kde-format
 msgctxt "Invalid phone number"
 msgid "Unknown"
 msgstr "Невідомий"
@@ -80,48 +78,42 @@ msgid "New Conversation"
 msgstr "Нове спілкування"
 
 #: src/contents/ui/ChatsPage.qml:51
-#, fuzzy, kde-format
-#| msgid "Settings"
+#, kde-format
 msgctxt "Configuring application settings"
 msgid "Settings"
 msgstr "Параметри"
 
 #: src/contents/ui/ChatsPage.qml:59
-#, fuzzy, kde-format
-#| msgid "Delete"
+#, kde-format
 msgctxt "Deleting a conversation"
 msgid "Delete"
 msgstr "Вилучити"
 
 #: src/contents/ui/ChatsPage.qml:98
-#, fuzzy, kde-format
-#| msgid "Create a chat"
+#, kde-format
 msgctxt "Selecting recipients from contacts list"
 msgid "Create a chat"
-msgstr "Створити спілкування"
+msgstr "Створення спілкування"
 
 #: src/contents/ui/ChatsPage.qml:179
-#, fuzzy, kde-format
-#| msgid "You: "
+#, kde-format
 msgctxt "Indicating that message was sent by you"
 msgid "You"
-msgstr "Ви:"
+msgstr "Ви"
 
 #: src/contents/ui/ChatsPage.qml:179
-#, fuzzy, kde-format
-#| msgid "Picture"
+#, kde-format
 msgctxt "Indicating that message contains an image"
 msgid "Picture"
 msgstr "Зображення"
 
 #: src/contents/ui/ChatsPage.qml:263
-#, fuzzy, kde-format
-#| msgid "Delete this conversation?"
+#, kde-format
 msgid "Delete this conversation"
 msgid_plural "Delete %1 conversations?"
-msgstr[0] "Вилучити це спілкування?"
-msgstr[1] "Вилучити це спілкування?"
-msgstr[2] "Вилучити це спілкування?"
+msgstr[0] "Вилучити %1 спілкування?"
+msgstr[1] "Вилучити %1 спілкування?"
+msgstr[2] "Вилучити %1 спілкувань?"
 msgstr[3] "Вилучити це спілкування?"
 
 #: src/contents/ui/ChatsPage.qml:264
@@ -135,15 +127,13 @@ msgid "Select a number"
 msgstr "Виберіть число"
 
 #: src/contents/ui/ContactsList.qml:171
-#, fuzzy, kde-format
-#| msgid "Selected"
+#, kde-format
 msgctxt "Number of items selected"
 msgid "%1 Selected"
-msgstr "Позначені"
+msgstr "%1 позначених"
 
 #: src/contents/ui/ContactsList.qml:181
-#, fuzzy, kde-format
-#| msgid "Compose"
+#, kde-format
 msgctxt "Open chat conversation window"
 msgid "Compose"
 msgstr "Створити"
@@ -251,8 +241,7 @@ msgid "Delete message"
 msgstr "Вилучити повідомлення"
 
 #: src/contents/ui/MessagesPage.qml:866
-#, fuzzy, kde-format
-#| msgid "Resend"
+#, kde-format
 msgctxt "Retry sending message"
 msgid "Resend"
 msgstr "Надіслати ще раз"
@@ -268,8 +257,7 @@ msgid "Cancel"
 msgstr "Скасувати"
 
 #: src/contents/ui/MessagesPage.qml:1041
-#, fuzzy, kde-format
-#| msgid "Remove"
+#, kde-format
 msgctxt "Remove item from list"
 msgid "Remove"
 msgstr "Вилучити"
