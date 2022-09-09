@@ -35,8 +35,7 @@ find_package(Qt${QT_MAJOR_VERSION} ${QT_MIN_VERSION} REQUIRED COMPONENTS Core Co
 find_package(KF5 ${KF5_MIN_VERSION} REQUIRED COMPONENTS Kirigami2 I18n Contacts People Notifications Config CoreAddons DBusAddons ModemManagerQt KIO)
 find_package(PhoneNumber COMPONENTS PhoneNumber REQUIRED)
 find_package(CURL REQUIRED)
-find_package(c-ares REQUIRED)
-
+pkg_search_module(c-ares libcares REQUIRED IMPORTED_TARGET)
 find_package(QCoro${QT_MAJOR_VERSION} COMPONENTS Core DBus REQUIRED)
 
 qcoro_enable_coroutines()
