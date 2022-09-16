@@ -1,16 +1,16 @@
 # Translation for spacebar.po to Euskara/Basque (eu).
-# Copyright (C) 2020-2021, This file is copyright:
+# Copyright (C) 2020-2022, This file is copyright:
 # This file is distributed under the same license as the spacebar package.
 # KDE euskaratzeko proiektuko arduraduna <xalba@ni.eus>.
 #
 # Translators:
-# Iñigo Salvador Azurmendi <xalba@ni.eus>, 2020, 2021.
+# Iñigo Salvador Azurmendi <xalba@ni.eus>, 2020, 2021, 2022.
 msgid ""
 msgstr ""
 "Project-Id-Version: spacebar\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-09-03 00:46+0000\n"
-"PO-Revision-Date: 2021-08-16 22:57+0200\n"
+"PO-Revision-Date: 2022-09-15 06:26+0200\n"
 "Last-Translator: Iñigo Salvador Azurmendi <xalba@ni.eus>\n"
 "Language-Team: Basque <kde-i18n-eu@kde.org>\n"
 "Language: eu\n"
@@ -18,23 +18,22 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Lokalize 21.08.0\n"
+"X-Generator: Lokalize 22.08.0\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
 msgid "Your names"
-msgstr ""
+msgstr "Iñigo Salvador Azurmendi"
 
 #, kde-format
 msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
-msgstr ""
+msgstr "xalba@ni.eus"
 
 #: daemon/channellogger.cpp:266 src/contents/ui/MessagesPage.qml:19
-#, fuzzy, kde-format
-#| msgid "Delete chat"
+#, kde-format
 msgid "New message"
-msgstr "Ezabatu berriketa"
+msgstr "Mezu berria"
 
 #: daemon/channellogger.cpp:273
 #, kde-format
@@ -46,8 +45,8 @@ msgstr "%1(e)ren mezua"
 msgctxt "Number of files attached"
 msgid "%1 Attachment"
 msgid_plural "%1 Attachments"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Eranskin %1"
+msgstr[1] "%1 eranskin"
 
 #: daemon/channellogger.cpp:300
 #, kde-format
@@ -64,7 +63,7 @@ msgstr "Spacebar atzeko planoko zerbitzua"
 #, kde-format
 msgctxt "Invalid phone number"
 msgid "Unknown"
-msgstr ""
+msgstr "Ezezaguna"
 
 #: src/contents/ui/ChatsPage.qml:17
 #, kde-format
@@ -80,64 +79,60 @@ msgstr "Elkarrizketa berria"
 #, kde-format
 msgctxt "Configuring application settings"
 msgid "Settings"
-msgstr ""
+msgstr "Ezarpenak"
 
 #: src/contents/ui/ChatsPage.qml:59
-#, fuzzy, kde-format
-#| msgid "Delete chat"
+#, kde-format
 msgctxt "Deleting a conversation"
 msgid "Delete"
-msgstr "Ezabatu berriketa"
+msgstr "Ezabatu"
 
 #: src/contents/ui/ChatsPage.qml:98
-#, fuzzy, kde-format
-#| msgid "Delete chat"
+#, kde-format
 msgctxt "Selecting recipients from contacts list"
 msgid "Create a chat"
-msgstr "Ezabatu berriketa"
+msgstr "Sortu berriketa bat"
 
 #: src/contents/ui/ChatsPage.qml:179
 #, kde-format
 msgctxt "Indicating that message was sent by you"
 msgid "You"
-msgstr ""
+msgstr "Zu"
 
 #: src/contents/ui/ChatsPage.qml:179
 #, kde-format
 msgctxt "Indicating that message contains an image"
 msgid "Picture"
-msgstr ""
+msgstr "Irudia"
 
 #: src/contents/ui/ChatsPage.qml:263
-#, fuzzy, kde-format
-#| msgid "New Conversation"
+#, kde-format
 msgid "Delete this conversation"
 msgid_plural "Delete %1 conversations?"
-msgstr[0] "Elkarrizketa berria"
-msgstr[1] "Elkarrizketa berria"
+msgstr[0] "Elkarrizketa hau ezabatu?"
+msgstr[1] "%1 Elkarrizketa ezabatu?"
 
 #: src/contents/ui/ChatsPage.qml:264
 #, kde-format
 msgid "This is permanent and can't be undone"
-msgstr ""
+msgstr "Hau iraunkorra da eta ezin da desegin"
 
 #: src/contents/ui/ContactsList.qml:45
-#, fuzzy, kde-format
-#| msgid "Search or enter number…"
+#, kde-format
 msgid "Select a number"
-msgstr "Bilatu edo aurkitu zenbakia..."
+msgstr "Aukeratu zenbaki bat"
 
 #: src/contents/ui/ContactsList.qml:171
 #, kde-format
 msgctxt "Number of items selected"
 msgid "%1 Selected"
-msgstr ""
+msgstr "%1 hautatuta"
 
 #: src/contents/ui/ContactsList.qml:181
 #, kde-format
 msgctxt "Open chat conversation window"
 msgid "Compose"
-msgstr ""
+msgstr "Konposatu"
 
 #: src/contents/ui/ContactsList.qml:210
 #, kde-format
@@ -157,114 +152,111 @@ msgstr "Ireki kontaktuen aplikazioa"
 #: src/contents/ui/ContactsList.qml:316
 #, kde-format
 msgid "No results found"
-msgstr ""
+msgstr "Ez da emaitzarik aurkitu"
 
 #: src/contents/ui/MessagesPage.qml:141
 #, kde-format
 msgid "Add/remove"
-msgstr ""
+msgstr "Gehitu/kendu"
 
 #: src/contents/ui/MessagesPage.qml:157
 #, kde-format
 msgid "Texting this premium SMS number might cause you to be charged money"
 msgstr ""
-"Prima duen SMS zenbaki honetara testu-mezuak bidaltzeak ordaindu behar "
-"izatea eragin lezake"
+"Prima duen SMS zenbaki honetara testu-mezuak bidaltzeak dirua ordaindu behar "
+"izatea ekar diezazuke"
 
 #: src/contents/ui/MessagesPage.qml:168
 #, kde-format
 msgid "Max attachment limit exceeded"
-msgstr ""
+msgstr "Gehienezko eranskin kopurua gainditu da"
 
 #: src/contents/ui/MessagesPage.qml:179
 #, kde-format
 msgid "No MMSC configured"
-msgstr ""
+msgstr "Ez da MMSC konfiguratu"
 
 #: src/contents/ui/MessagesPage.qml:190
 #, kde-format
 msgid "Message has expired and will be deleted"
-msgstr ""
+msgstr "Mezua iraungi egin da eta ezabatu egingo da"
 
 #: src/contents/ui/MessagesPage.qml:201
 #, kde-format
 msgid "Message will be sent as individual messages"
-msgstr ""
+msgstr "Mezua banakako mezu gisa bidaliko da"
 
 #: src/contents/ui/MessagesPage.qml:460
-#, fuzzy, kde-format
-#| msgid "Copy message"
+#, kde-format
 msgid "MMS message"
-msgstr "Kopiatu mezua"
+msgstr "MMS mezua"
 
 #: src/contents/ui/MessagesPage.qml:468
-#, fuzzy, kde-format
-#| msgid "Message from %1"
+#, kde-format
 msgid "Message size: %1"
-msgstr "%1(e)ren mezua"
+msgstr "Mezuaren neurria: %1"
 
 #: src/contents/ui/MessagesPage.qml:474
 #, kde-format
 msgid "Expires: %1"
-msgstr ""
+msgstr "Iraungitzea: %1"
 
 #: src/contents/ui/MessagesPage.qml:596
 #, kde-format
 msgid "View all"
-msgstr ""
+msgstr "Ikusi dena"
 
 #: src/contents/ui/MessagesPage.qml:802
 #, kde-format
 msgid "Copy code"
-msgstr ""
+msgstr "Kopiatu kodea"
 
 #: src/contents/ui/MessagesPage.qml:811
 #, kde-format
 msgid "Copy link"
-msgstr ""
+msgstr "Kopiatu esteka"
 
 #: src/contents/ui/MessagesPage.qml:823
 #, kde-format
 msgid "Copy text"
-msgstr ""
+msgstr "Kopiatu testua"
 
 #: src/contents/ui/MessagesPage.qml:832 src/contents/ui/MessagesPage.qml:885
 #, kde-format
 msgid "Save attachment"
-msgstr ""
+msgstr "Gorde eranskina"
 
 #: src/contents/ui/MessagesPage.qml:843
 #, kde-format
 msgid "View slideshow"
-msgstr ""
+msgstr "Ikusi diapositiba emanaldia"
 
 #: src/contents/ui/MessagesPage.qml:856
-#, fuzzy, kde-format
-#| msgid "Delete chat"
+#, kde-format
 msgid "Delete message"
-msgstr "Ezabatu berriketa"
+msgstr "Ezabatu mezua"
 
 #: src/contents/ui/MessagesPage.qml:866
 #, kde-format
 msgctxt "Retry sending message"
 msgid "Resend"
-msgstr ""
+msgstr "Berriz bidali"
 
 #: src/contents/ui/MessagesPage.qml:916
 #, kde-format
 msgid "Save"
-msgstr ""
+msgstr "Gorde"
 
 #: src/contents/ui/MessagesPage.qml:923 src/contents/ui/SettingsPage.qml:349
 #, kde-format
 msgid "Cancel"
-msgstr ""
+msgstr "Utzi"
 
 #: src/contents/ui/MessagesPage.qml:1041
 #, kde-format
 msgctxt "Remove item from list"
 msgid "Remove"
-msgstr ""
+msgstr "Kendu"
 
 #: src/contents/ui/MessagesPage.qml:1080
 #, kde-format
@@ -280,12 +272,12 @@ msgstr "Bidali mezua %1(e)tik..."
 #: src/contents/ui/MessagesPage.qml:1137
 #, kde-format
 msgid "Duplicate recipient"
-msgstr ""
+msgstr "Bikoiztu hartzailea"
 
 #: src/contents/ui/MessagesPage.qml:1143
 #, kde-format
 msgid "Choose a file"
-msgstr ""
+msgstr "Aukeratu fitxategi bat"
 
 #: src/contents/ui/NewConversationPage.qml:14
 #, kde-format
@@ -295,206 +287,202 @@ msgstr "Kontaktuak"
 #: src/contents/ui/PreviewPage.qml:32
 #, kde-format
 msgid "Back"
-msgstr ""
+msgstr "Atzera"
 
 #: src/contents/ui/SettingsPage.qml:15
 #, kde-format
 msgid "Settings"
-msgstr ""
+msgstr "Ezarpenak"
 
 #: src/contents/ui/SettingsPage.qml:34
 #, kde-format
 msgid "Appearance"
-msgstr ""
+msgstr "Itxura"
 
 #: src/contents/ui/SettingsPage.qml:40
 #, kde-format
 msgid "Use custom colors for messages"
-msgstr ""
+msgstr "Erabili mezuetan zure gustura finkatutako koloreak"
 
 #: src/contents/ui/SettingsPage.qml:73
 #, kde-format
 msgid "Incoming"
-msgstr ""
+msgstr "Sarrerakoa"
 
 #: src/contents/ui/SettingsPage.qml:101
 #, kde-format
 msgid "Outgoing"
-msgstr ""
+msgstr "Irteerakoa"
 
 #: src/contents/ui/SettingsPage.qml:110
-#, fuzzy, kde-format
-#| msgid "Message from %1"
+#, kde-format
 msgid "Message font size:"
-msgstr "%1(e)ren mezua"
+msgstr "Mezuaren letra-tipo neurria:"
 
 #: src/contents/ui/SettingsPage.qml:120
 #, kde-format
 msgid "Multimedia messages (MMS)"
-msgstr ""
+msgstr "Multimedia mezuak (MMS)"
 
 #: src/contents/ui/SettingsPage.qml:127
 #, kde-format
 msgid "MMSC:"
-msgstr ""
+msgstr "MMSC:"
 
 #: src/contents/ui/SettingsPage.qml:136
 #, kde-format
 msgid "Proxy:"
-msgstr ""
+msgstr "Ordezkaria:"
 
 #: src/contents/ui/SettingsPage.qml:144
 #, kde-format
 msgid "Port:"
-msgstr ""
+msgstr "Ataka:"
 
 #: src/contents/ui/SettingsPage.qml:157
 #, kde-format
 msgid "Request delivery reports"
-msgstr ""
+msgstr "Eskatu banatu izanaren txostenak"
 
 #: src/contents/ui/SettingsPage.qml:164
 #, kde-format
 msgid "Request read reports"
-msgstr ""
+msgstr "Eskatu irakurri izanaren txostenak"
 
 #: src/contents/ui/SettingsPage.qml:171
 #, kde-format
 msgid "Share delivery status"
-msgstr ""
+msgstr "Partekatu banaketa egoera"
 
 #: src/contents/ui/SettingsPage.qml:178
 #, kde-format
 msgid "Share read status"
-msgstr ""
+msgstr "Partekatu irakurtze egoera"
 
 #: src/contents/ui/SettingsPage.qml:186
 #, kde-format
 msgid "Auto download messages"
-msgstr ""
+msgstr "Mezuak automatikoki zama-jaitsi"
 
 #: src/contents/ui/SettingsPage.qml:196
 #, kde-format
 msgid "Existing contacts only"
-msgstr ""
+msgstr "Existitzen diren kontaktuak bakarrik"
 
 #: src/contents/ui/SettingsPage.qml:205
-#, fuzzy, kde-format
-#| msgid "Message from %1"
+#, kde-format
 msgid "Max message size (KiB):"
-msgstr "%1(e)ren mezua"
+msgstr "Mezuaren gehienezko neurria (KiB):"
 
 #: src/contents/ui/SettingsPage.qml:215
 #, kde-format
 msgid "Max attachments:"
-msgstr ""
+msgstr "Gehienezko eranskinak:"
 
 #: src/contents/ui/SettingsPage.qml:224
 #, kde-format
 msgid "Auto create SMIL"
-msgstr ""
+msgstr "SMIL automatikoki sortu"
 
 #: src/contents/ui/SettingsPage.qml:231
 #, kde-format
 msgid "Default to group conversations"
-msgstr ""
+msgstr "Lehenespena, elkarrizketak taldekatzea"
 
 #: src/contents/ui/SettingsPage.qml:238
 #, kde-format
 msgid "Notifications"
-msgstr ""
+msgstr "Jakinarazpenak"
 
 #: src/contents/ui/SettingsPage.qml:244
-#, fuzzy, kde-format
-#| msgid "Search or enter number…"
+#, kde-format
 msgid "Show sender name / number"
-msgstr "Bilatu edo aurkitu zenbakia..."
+msgstr "Erakutsi bidaltzailearen izena / zenbakia"
 
 #: src/contents/ui/SettingsPage.qml:251
 #, kde-format
 msgid "Show a preview of the message content"
-msgstr ""
+msgstr "Erakutsi mezuaren edukiaren aurreikuspegi bat"
 
 #: src/contents/ui/SettingsPage.qml:258
 #, kde-format
 msgid "Show attachment previews"
-msgstr ""
+msgstr "Erakutsi eranskinaren aurreikuspegiak"
 
 #: src/contents/ui/SettingsPage.qml:265
 #, kde-format
 msgid "Ignore tapbacks"
-msgstr ""
+msgstr "Ez ikusi itzulerako tak egiteak"
 
 #: src/contents/ui/SettingsPage.qml:272
 #, kde-format
 msgid "Other"
-msgstr ""
+msgstr "Bestelakoak"
 
 #: src/contents/ui/SettingsPage.qml:276
 #, kde-format
 msgid "Restore defaults"
-msgstr ""
+msgstr "Leheneratu lehenetsietara"
 
 #: src/contents/ui/SettingsPage.qml:287
 #, kde-format
 msgid "About"
-msgstr ""
+msgstr "Honi buruz"
 
 #: src/contents/ui/SettingsPage.qml:303
 #, kde-format
 msgid "Choose a color"
-msgstr ""
+msgstr "Hautatu kolore bat"
 
 #: src/contents/ui/SettingsPage.qml:359
 #, kde-format
 msgid "Set"
-msgstr ""
+msgstr "Ezarri"
 
 #: src/main.cpp:55
 #, kde-format
 msgid "SMS/MMS messaging client"
-msgstr ""
+msgstr "SMS/MMS mezularitza bezeroa"
 
 #: src/main.cpp:57
 #, kde-format
 msgid "© 2020-2021 KDE Community"
-msgstr ""
+msgstr "© 2020-2021 KDE Komunitatea"
 
 #: src/main.cpp:58
 #, kde-format
 msgid "Bhushan Shah"
-msgstr ""
+msgstr "Bhushan Shah"
 
 #: src/main.cpp:59
 #, kde-format
 msgid "Jonah Brüchert"
-msgstr ""
+msgstr "Jonah Brüchert"
 
 #: src/main.cpp:60
 #, kde-format
 msgid "Martin Klapetek"
-msgstr ""
+msgstr "Martin Klapetek"
 
 #: src/main.cpp:61
 #, kde-format
 msgid "Michael Lang"
-msgstr ""
+msgstr "Michael Lang"
 
 #: src/main.cpp:62
 #, kde-format
 msgid "Nicolas Fella"
-msgstr ""
+msgstr "Nicolas Fella"
 
 #: src/main.cpp:63
 #, kde-format
 msgid "Smitty van Bodegom"
-msgstr ""
+msgstr "Smitty van Bodegom"
 
 #: src/main.cpp:69
-#, fuzzy, kde-format
-#| msgid "Spacebar SMS client"
+#, kde-format
 msgid "Spacebar SMS/MMS client"
-msgstr "Spacebar SMS bezeroa"
+msgstr "Spacebar SMS/MMS bezeroa"
 
 #: src/main.cpp:70
 #, kde-format
