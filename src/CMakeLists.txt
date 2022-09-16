@@ -46,4 +46,4 @@ target_link_libraries(spacebar
     QCoro::DBus
 )
 
-install(TARGETS spacebar ${KF5_INSTALL_TARGETS_DEFAULT_ARGS})
+install(TARGETS spacebar ${KDE_INSTALL_TARGETS_DEFAULT_ARGS})
