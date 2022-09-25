@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: spacebar\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-09-03 00:46+0000\n"
-"PO-Revision-Date: 2022-08-03 09:14+0200\n"
+"PO-Revision-Date: 2022-09-24 15:17+0200\n"
 "Last-Translator: Stefan Asserhäll <stefan.asserhall@bredband.net>\n"
 "Language-Team: Swedish <kde-i18n-doc@kde.org>\n"
 "Language: sv\n"
@@ -38,13 +38,12 @@ msgid "Message from %1"
 msgstr "Meddelande från %1"
 
 #: daemon/channellogger.cpp:284
-#, fuzzy, kde-format
-#| msgid "Attachment"
+#, kde-format
 msgctxt "Number of files attached"
 msgid "%1 Attachment"
 msgid_plural "%1 Attachments"
-msgstr[0] "Bilaga"
-msgstr[1] "Bilaga"
+msgstr[0] "%1 bilaga"
+msgstr[1] "%1 bilagor"
 
 #: daemon/channellogger.cpp:300
 #, kde-format
@@ -58,11 +57,10 @@ msgid "Spacebar background service"
 msgstr "Spacebar bakgrundstjänst"
 
 #: src/chatlistmodel.cpp:91
-#, fuzzy, kde-format
-#| msgid "Unknown"
+#, kde-format
 msgctxt "Invalid phone number"
 msgid "Unknown"
-msgstr "Okänd"
+msgstr "Okänt"
 
 #: src/contents/ui/ChatsPage.qml:17
 #, kde-format
@@ -75,47 +73,41 @@ msgid "New Conversation"
 msgstr "Ny konversation"
 
 #: src/contents/ui/ChatsPage.qml:51
-#, fuzzy, kde-format
-#| msgid "Settings"
+#, kde-format
 msgctxt "Configuring application settings"
 msgid "Settings"
 msgstr "Inställningar"
 
 #: src/contents/ui/ChatsPage.qml:59
-#, fuzzy, kde-format
-#| msgid "Delete"
+#, kde-format
 msgctxt "Deleting a conversation"
 msgid "Delete"
 msgstr "Ta bort"
 
 #: src/contents/ui/ChatsPage.qml:98
-#, fuzzy, kde-format
-#| msgid "Create a chat"
+#, kde-format
 msgctxt "Selecting recipients from contacts list"
 msgid "Create a chat"
 msgstr "Skapa en chatt"
 
 #: src/contents/ui/ChatsPage.qml:179
-#, fuzzy, kde-format
-#| msgid "You: "
+#, kde-format
 msgctxt "Indicating that message was sent by you"
 msgid "You"
-msgstr "Du: "
+msgstr "Du"
 
 #: src/contents/ui/ChatsPage.qml:179
-#, fuzzy, kde-format
-#| msgid "Picture"
+#, kde-format
 msgctxt "Indicating that message contains an image"
 msgid "Picture"
 msgstr "Bild"
 
 #: src/contents/ui/ChatsPage.qml:263
-#, fuzzy, kde-format
-#| msgid "Delete this conversation?"
+#, kde-format
 msgid "Delete this conversation"
 msgid_plural "Delete %1 conversations?"
-msgstr[0] "Ta bort den här konversationen?"
-msgstr[1] "Ta bort den här konversationen?"
+msgstr[0] "Ta bort den här konversationen"
+msgstr[1] "Ta bort %1 konversationer?"
 
 #: src/contents/ui/ChatsPage.qml:264
 #, kde-format
@@ -128,15 +120,13 @@ msgid "Select a number"
 msgstr "Välj ett tal"
 
 #: src/contents/ui/ContactsList.qml:171
-#, fuzzy, kde-format
-#| msgid "Selected"
+#, kde-format
 msgctxt "Number of items selected"
 msgid "%1 Selected"
-msgstr "Markerad"
+msgstr "%1 markerad"
 
 #: src/contents/ui/ContactsList.qml:181
-#, fuzzy, kde-format
-#| msgid "Compose"
+#, kde-format
 msgctxt "Open chat conversation window"
 msgid "Compose"
 msgstr "Skriv"
@@ -244,8 +234,7 @@ msgid "Delete message"
 msgstr "Ta bort meddelande"
 
 #: src/contents/ui/MessagesPage.qml:866
-#, fuzzy, kde-format
-#| msgid "Resend"
+#, kde-format
 msgctxt "Retry sending message"
 msgid "Resend"
 msgstr "Skicka igen"
@@ -261,8 +250,7 @@ msgid "Cancel"
 msgstr "Avbryt"
 
 #: src/contents/ui/MessagesPage.qml:1041
-#, fuzzy, kde-format
-#| msgid "Remove"
+#, kde-format
 msgctxt "Remove item from list"
 msgid "Remove"
 msgstr "Ta bort"
@@ -421,7 +409,7 @@ msgstr "Visa förhandsgranskningar av bilagor"
 #: src/contents/ui/SettingsPage.qml:265
 #, kde-format
 msgid "Ignore tapbacks"
-msgstr ""
+msgstr "Ignorera reaktioner"
 
 #: src/contents/ui/SettingsPage.qml:272
 #, kde-format
