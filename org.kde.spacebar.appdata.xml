@@ -17,6 +17,7 @@
   <name xml:lang="hi">स्पेसबार</name>
   <name xml:lang="id">Spacebar</name>
   <name xml:lang="it">Spacebar</name>
+  <name xml:lang="ka">Spacebar</name>
   <name xml:lang="ko">Spacebar</name>
   <name xml:lang="lt">Spacebar</name>
   <name xml:lang="nl">Spacebar</name>
@@ -46,6 +47,7 @@
   <summary xml:lang="fr">Client « Telepathy » pour messages « SMS / MMS »</summary>
   <summary xml:lang="id">Klien telepathy SMS/MMS</summary>
   <summary xml:lang="it">Client di telepathy per SMS e MMS</summary>
+  <summary xml:lang="ka">SMS/MMS ტელეპათიის კლიენტი</summary>
   <summary xml:lang="ko">SMS/MMS Telepathy 클라이언트</summary>
   <summary xml:lang="nl">Client voor SMS/MMS van telepathy</summary>
   <summary xml:lang="pa">SMS/MMS ਟੈਲੀਪੈਥੀ ਕਲਾਂਇਟ</summary>
@@ -76,6 +78,7 @@
   <developer_name xml:lang="hi">केडीई समुदाय</developer_name>
   <developer_name xml:lang="id">Komunitas KDE</developer_name>
   <developer_name xml:lang="it">Comunità KDE</developer_name>
+  <developer_name xml:lang="ka">KDE-ის საზოგადოება</developer_name>
   <developer_name xml:lang="ko">KDE 커뮤니티</developer_name>
   <developer_name xml:lang="lt">KDE bendruomenė</developer_name>
   <developer_name xml:lang="nl">KDE-gemeenschap</developer_name>
@@ -105,6 +108,7 @@
     <p xml:lang="fr">Le logiciel Spacebar est un client « Telepathy » pour Plasma Mobile. Il a été développé initialement pour l'envoi et la réception de messages « SMS / MMS ».</p>
     <p xml:lang="id">Spacebar adalah sebuah klien telepathy untuk Plasma Mobile, yang terutama ditulis untuk mengirim dan menerima SMS/MMS.</p>
     <p xml:lang="it">Spacebar è un client di telepathy per Plasma Mobile, che è stato scritto principalmente per inviare e per ricevere SMS e MMS.</p>
+    <p xml:lang="ka">Spacebar -ი Plasma Mobile-ის ტელეპათიის კლიენტია, რომელიც ძირითადად SMS/MMS-ების გაგზავნა მიღებისთვისაა განკუთვნილი.</p>
     <p xml:lang="ko">Spacebar는 Plasma 모바일용 Telepathy 클라이언트입니다. 주 사용 목적은 SMS/MMS 주고받기입니다.</p>
     <p xml:lang="nl">Spacebar is een client van telepathy voor Plasma Mobile, die primair is geschreven voor het verzenden en ontvangen van SMS/MMS.</p>
     <p xml:lang="pa">ਸਪੇਸਬਾਰ ਪਲਾਜ਼ਮਾ ਮੋਬਾਇਲ ਲਈ ਟੈਲੀਪੈਥੀ ਕਲਾਂਇਟ ਹੈ, ਜੋ ਕਿ ਮੂਲ ਰੂਪ ਵਿੱਚ SMS/MMS ਸੁਨੇਹੇ ਭੇਜਣ ਤੇ ਲੈਣ ਲਈ ਲਿਖਿਆ ਗਿਆ ਹੈ।</p>
