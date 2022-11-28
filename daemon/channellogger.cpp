@@ -400,9 +400,9 @@ void ChannelLogger::sendTapback(const QString &numbers, const QString &id, const
 
     if (message.attachments.isEmpty()) {
         if (isRemoved) {
-            message.text = TAPBACK_REMOVED[idx] + message.text + SL("\"");
+            message.text = TAPBACK_REMOVED[idx] + message.text + SL("”");
         } else {
-            message.text = TAPBACK_ADDED[idx] + message.text + SL("\"");
+            message.text = TAPBACK_ADDED[idx] + message.text + SL("”");
         }
     } else {
         if (isRemoved) {

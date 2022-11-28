@@ -14,21 +14,21 @@
 
 constexpr std::array<QStringView, 6> TAPBACK_KEYS = { u"♥️", u"👍", u"👎", u"😂", u"‼️", u"❓" };
 constexpr std::array<QStringView, 6> TAPBACK_REMOVED = {
-    u"Removed a heart from \"",
-    u"Removed a like from \"",
-    u"Removed a dislike from \"",
-    u"Removed a laugh from \"",
-    u"Removed an exclamation from \"",
-    u"Removed a question mark from \""
+    u"Removed a heart from “",
+    u"Removed a like from “",
+    u"Removed a dislike from “",
+    u"Removed a laugh from “",
+    u"Removed an exclamation from “",
+    u"Removed a question mark from “"
 };
 
 constexpr std::array<QStringView, 6> TAPBACK_ADDED = {
-    u"Loved \"",
-    u"Liked \"",
-    u"Disliked \"",
-    u"Laughed at \"",
-    u"Emphasized \"",
-    u"Questioned \""
+    u"Loved “",
+    u"Liked “",
+    u"Disliked “",
+    u"Laughed at “",
+    u"Emphasized “",
+    u"Questioned “"
 };
 
 class ChannelLogger : public QObject
