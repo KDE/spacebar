@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: spacebar\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-09-03 00:46+0000\n"
-"PO-Revision-Date: 2022-11-27 22:30+0100\n"
+"PO-Revision-Date: 2022-11-30 06:40+0100\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
 "Language: ka\n"
@@ -161,6 +161,7 @@ msgstr "დამატება/წაშლა"
 #, kde-format
 msgid "Texting this premium SMS number might cause you to be charged money"
 msgstr ""
+"პრემიუმ SMS ნომერზე მიწერამ შეიძლება დამატებითი თანხების გახარჯვა გამოიწვიოს"
 
 #: src/contents/ui/MessagesPage.qml:168
 #, kde-format
@@ -408,7 +409,7 @@ msgstr "მიმაგრებული ფაილების მინი�
 #: src/contents/ui/SettingsPage.qml:265
 #, kde-format
 msgid "Ignore tapbacks"
-msgstr ""
+msgstr "შეხების იგნორი"
 
 #: src/contents/ui/SettingsPage.qml:272
 #, kde-format
