@@ -1,0 +1,12 @@
+# SPDX-FileCopyrightText: None
+# SPDX-License-Identifier: CC0-1.0
+
+build/
+.clang-format
+
+# Ignore IDE specific files
+*.kdev4
+.kdev4/
+.vscode/
+.*.kate-swp
+.swp.*
