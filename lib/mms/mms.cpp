@@ -229,6 +229,11 @@ void Mms::decodeNotification(MmsMessage &message, const QByteArray &data)
     pos += headerLen - pos;
     while(decodeHeader(message, data, pos));
 
+    // use the message transaction id if url does not contain an id
+    if (message.contentLocation.endsWith(SL("="))) {
+        message.contentLocation.append(message.transactionId);
+    }
+
     // remove if successfully decoded
     if (!message.transactionId.isEmpty()) {
         QFile file (pathTemp);
