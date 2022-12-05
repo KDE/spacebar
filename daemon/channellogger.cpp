@@ -16,6 +16,8 @@
 #include <contactphonenumbermapper.h>
 #include <global.h>
 
+#include <QCoroDBusPendingReply>
+
 static bool isScreenSaverActive()
 {
     bool active = false;
@@ -206,6 +208,23 @@ void ChannelLogger::handleDownloadedMessage(const QByteArray &response, const QS
     );
 }
 
+void ChannelLogger::addMessage(const Message &message)
+{
+    // save to database
+    m_database.addMessage(message);
+
+    // add message to open conversation
+    if (!message.sentByMe) {
+        Q_EMIT messageAdded(message.phoneNumberList.toString(), message.id);
+    }
+}
+
+void ChannelLogger::updateMessage(const Message &message)
+{
+    // update message in open conversation
+    Q_EMIT messageUpdated(message.phoneNumberList.toString(), message.id);
+}
+
 void ChannelLogger::saveMessage(
     const PhoneNumberList &phoneNumberList,
     const QDateTime &datetime,
@@ -238,14 +257,13 @@ void ChannelLogger::saveMessage(
     message.size = size;
 
     if (handleTapbackReaction(message, message.fromNumber.isEmpty() ? message.phoneNumberList.toString() : message.fromNumber)) {
-        Q_EMIT messageUpdated(message.phoneNumberList.toString(), message.id);
+        updateMessage(message);
 
         if (SettingsManager::self()->ignoreTapbacks()) {
             return;
         }
     } else {
-        m_database.addMessage(message);
-        Q_EMIT messageAdded(message.phoneNumberList.toString(), message.id);
+        addMessage(message);
     }
 
     //TODO add setting to turn off notifications for multiple chats in addition to current chat
@@ -256,6 +274,205 @@ void ChannelLogger::saveMessage(
     }
 
     createNotification(message);
+}
+
+void ChannelLogger::sendMessage(const QString &numbers, const QString & id, const QString &text, const QStringList &files, const qint64 &totalSize)
+{
+    PhoneNumberList phoneNumberList = PhoneNumberList(numbers);
+
+    [this, phoneNumberList, id, text, files, totalSize] () -> QCoro::Task<void> {
+        QString result;
+        // check if it is a MMS message
+        if (phoneNumberList.size() > 1 || files.length() > 0) {
+            if (SettingsManager::self()->groupConversation()) {
+                sendMessageMMS(phoneNumberList, id, text, files, totalSize);
+            } else {
+                // send as individual messages
+                for (const auto &phoneNumber : phoneNumberList) {
+                    if (files.length() > 0) {
+                        sendMessageMMS(PhoneNumberList(phoneNumber.toInternational()), Database::generateRandomId(), text, files, totalSize);
+                    } else {
+                        result = co_await sendMessageSMS(phoneNumber, Database::generateRandomId(), text);
+                    }
+                }
+
+                // update delivery status of original message
+                Message message;
+                message.id = id;
+                message.phoneNumberList = phoneNumberList;
+                message.datetime = QDateTime::currentDateTime();
+                message.deliveryStatus = MessageState::Sent;
+                updateMessage(message);
+            }
+        } else {
+            result = co_await sendMessageSMS(phoneNumberList.first(), id, text);
+        }
+
+        if (result.isEmpty()) {
+            qDebug() << "Message sent successfully";
+        } else {
+            qDebug() << "Failed successfully" << result;
+        }
+    }();
+}
+
+QCoro::Task<QString> ChannelLogger::sendMessageSMS(const PhoneNumber &phoneNumber, const QString &id, const QString &text)
+{
+    ModemManager::ModemMessaging::Message m;
+    m.number = phoneNumber.toE164();
+    m.text = text;
+
+    Message message;
+    message.id = id;
+    message.phoneNumberList = PhoneNumberList(phoneNumber.toInternational());
+    message.text = text;
+    message.datetime = QDateTime::currentDateTime();
+    message.read = true;
+    message.sentByMe = true;
+    message.deliveryStatus = MessageState::Pending;
+
+    // add message to database
+    addMessage(message);
+
+    auto maybeReply = ModemController::instance().createMessage(m);
+
+    if (!maybeReply) {
+        m_database.updateMessageDeliveryState(message.id, MessageState::Failed);
+        updateMessage(message);
+        co_return QStringLiteral("No modem");
+    }
+
+    const QDBusReply<QDBusObjectPath> msgPathResult = co_await *maybeReply;
+
+    if (!msgPathResult.isValid()) {
+        m_database.updateMessageDeliveryState(message.id, MessageState::Failed);
+        updateMessage(message);
+        co_return msgPathResult.error().message();
+    }
+
+    ModemManager::Sms::Ptr mmMessage = QSharedPointer<ModemManager::Sms>::create(msgPathResult.value().path());
+
+    connect(mmMessage.get(), &ModemManager::Sms::stateChanged, this, [mmMessage, message, this] {
+        qDebug() << "state changed" << mmMessage->state();
+
+        switch (mmMessage->state()) {
+            case MM_SMS_STATE_SENT:
+                // The message was successfully sent
+                m_database.updateMessageDeliveryState(message.id, MessageState::Sent);
+                updateMessage(message);
+                break;
+            case MM_SMS_STATE_RECEIVED:
+                // The message has been completely received
+                // Should not happen
+                qWarning() << "Received a message we sent";
+                break;
+            case MM_SMS_STATE_RECEIVING:
+                // The message is being received but is not yet complete
+                // Should not happen
+                qWarning() << "Receiving a message we sent";
+                break;
+            case MM_SMS_STATE_SENDING:
+                // The message is queued for delivery
+                m_database.updateMessageDeliveryState(message.id, MessageState::Pending);
+                updateMessage(message);
+                break;
+            case MM_SMS_STATE_STORED:
+                // The message has been neither received nor yet sent
+                m_database.updateMessageDeliveryState(message.id, MessageState::Pending);
+                updateMessage(message);
+                break;
+            case MM_SMS_STATE_UNKNOWN:
+                // State unknown or not reportable
+                m_database.updateMessageDeliveryState(message.id, MessageState::Unknown);
+                updateMessage(message);
+                break;
+        }
+    });
+
+    connect(mmMessage.get(), &ModemManager::Sms::deliveryStateChanged, this, [=] {
+        MMSmsDeliveryState state = mmMessage->deliveryState();
+        // This is only applicable if the PDU type is MM_SMS_PDU_TYPE_STATUS_REPORT
+        // TODO handle and store message delivery report state
+        qDebug() << "deliverystate changed" << state;
+    });
+
+    QDBusReply<void> sendResult = co_await mmMessage->send();
+
+    if (!sendResult.isValid()) {
+        m_database.updateMessageDeliveryState(message.id, MessageState::Failed);
+        updateMessage(message);
+
+        co_return sendResult.error().message();
+    }
+
+    co_return QString();
+}
+
+QCoro::Task<QString> ChannelLogger::sendMessageMMS(const PhoneNumberList &phoneNumberList, const QString &id, const QString &text, const QStringList &files, const qint64 totalSize)
+{
+    Message message;
+    message.phoneNumberList = phoneNumberList;
+    message.text = text;
+    message.datetime = QDateTime::currentDateTime();
+    message.read = true;
+    message.sentByMe = true;
+    message.deliveryStatus = MessageState::Pending;
+
+    QString to = phoneNumberList.toString();
+    const QStringList toList = to.replace(SL("-"), QString()).replace(SL(" "), QString()).split(SL(";"));
+    QString from = m_ownNumber.toInternational();
+
+    MmsMessage mmsMessage;
+    mmsMessage.ownNumber = PhoneNumber(from);
+    mmsMessage.from = from.replace(SL("-"), QString()).replace(SL(" "), QString());
+    mmsMessage.to = toList;
+    mmsMessage.text = message.text;
+    QByteArray data;
+    m_mms.encodeMessage(mmsMessage, data, files, totalSize);
+
+    // update message with encoded content parts
+    message.id = id;
+    message.text = mmsMessage.text;
+    message.attachments = mmsMessage.attachments;
+    message.smil = mmsMessage.smil;
+    updateMessage(message);
+
+    // add message to database
+    addMessage(message);
+
+    //send message
+    connect(&m_mms, &Mms::uploadFinished, this, [this, message](const QByteArray &response) {
+        disconnect(&m_mms, &Mms::uploadError, nullptr, nullptr);
+        disconnect(&m_mms, &Mms::uploadFinished, nullptr, nullptr);
+        if (response.length() == 0) {
+            m_database.updateMessageDeliveryState(message.id, MessageState::Failed);
+            updateMessage(message);
+        } else {
+            MmsMessage mmsMessage;
+            m_mms.decodeConfirmation(mmsMessage, response);
+            if (mmsMessage.responseStatus == 0) {
+                m_database.updateMessageDeliveryState(message.id, MessageState::Sent);
+                updateMessage(message);
+
+                if (!mmsMessage.messageId.isEmpty()) {
+                    m_database.updateMessageSent(message.id, mmsMessage.messageId, mmsMessage.contentLocation);
+                }
+            } else {
+                m_database.updateMessageDeliveryState(message.id, MessageState::Failed);
+                updateMessage(message);
+                qDebug() << mmsMessage.responseText;
+            }
+        }
+    });
+    connect(&m_mms, &Mms::uploadError, this, [this, message]() {
+        disconnect(&m_mms, &Mms::uploadError, nullptr, nullptr);
+        disconnect(&m_mms, &Mms::uploadFinished, nullptr, nullptr);
+        m_database.updateMessageDeliveryState(message.id, MessageState::Failed);
+        updateMessage(message);
+    });
+    m_mms.uploadMessage(data);
+
+    co_return QString();
 }
 
 void ChannelLogger::createNotification(Message &message)

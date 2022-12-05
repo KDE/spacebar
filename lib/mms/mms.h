@@ -13,7 +13,7 @@
 #include <phonenumberlist.h>
 #include "ecurl.h"
 
-#include "qcoro/task.h"
+#include "qcorotask.h"
 
 /*
  * Spec documentation:
@@ -294,7 +294,7 @@ public:
     void decodeNotification(MmsMessage &message, const QByteArray &data);
     void decodeConfirmation(MmsMessage &message, const QByteArray &data);
     void decodeMessage(MmsMessage &message, const QByteArray &data);
-    void encodeMessage(MmsMessage &message, QByteArray &data, const QStringList &files, long totalSize);
+    void encodeMessage(MmsMessage &message, QByteArray &data, const QStringList &files, qint64 totalSize);
     static QString generateTransactionId();
 
 private:

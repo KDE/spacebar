@@ -12,6 +12,8 @@
 #include <mms.h>
 #include "modemcontroller.h"
 
+#include "qcorotask.h"
+
 constexpr std::array<QStringView, 6> TAPBACK_KEYS = { u"♥️", u"👍", u"👎", u"😂", u"‼️", u"❓" };
 constexpr std::array<QStringView, 6> TAPBACK_REMOVED = {
     u"Removed a heart from “",
@@ -42,6 +44,7 @@ public:
     // QString argument since this needs to be called from DBus
     Q_SCRIPTABLE void disableNotificationsForNumber(const QString &numbers);
     Q_SCRIPTABLE void manualDownload(const QString &id, const QString &url, const QDateTime &expires);
+    Q_SCRIPTABLE void sendMessage(const QString &numbers, const QString &id, const QString &text, const QStringList &files, const qint64 &totalSize);
     Q_SCRIPTABLE void sendTapback(const QString &numbers, const QString &id, const QString &tapback, const bool &isRemoved);
     Q_SCRIPTABLE void syncSettings();
 
@@ -49,6 +52,8 @@ private:
     void checkMessages();
     void handleIncomingMessage(ModemManager::Sms::Ptr msg);
     void createDownloadNotification(const MmsMessage &mmsMessage);
+    void addMessage(const Message &message);
+    void updateMessage(const Message &message);
     void saveMessage(
         const PhoneNumberList &phoneNumberList,
         const QDateTime &datetime,
@@ -62,6 +67,8 @@ private:
         const QDateTime &expires = QDateTime(),
         const int size = 0
     );
+    QCoro::Task<QString> sendMessageSMS(const PhoneNumber &phoneNumber, const QString &id, const QString &text);
+    QCoro::Task<QString> sendMessageMMS(const PhoneNumberList &phoneNumberList, const QString &id, const QString &text, const QStringList &files, const qint64 totalSize);
     void createNotification(Message &message);
     bool handleTapbackReaction(Message &message, const QString &reactNumber);
     bool saveTapback(Message &message, const QString &reactNumber, const QStringView &tapback, std::span<const QStringView> list, const bool &isAdd, const bool &isImage);

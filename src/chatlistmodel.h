@@ -9,7 +9,7 @@
 #include <QObject>
 #include <QSqlDatabase>
 
-#include <QCoro/Task>
+#include "qcorotask.h"
 
 #include <contactphonenumbermapper.h>
 #include "database.h"

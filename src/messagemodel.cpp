@@ -4,27 +4,18 @@
 // SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
 
 #include "messagemodel.h"
+#include "asyncdatabase.h"
+#include "channelhandler.h"
+#include "utils.h"
 
-#include <QDebug>
 #include <QJsonObject>
 #include <QMimeDatabase>
 #include <QMimeType>
-
-#include <KLocalizedString>
-
-#include <ModemManagerQt/Sms>
 
 #include <global.h>
 #include <contactphonenumbermapper.h>
 #include <phonenumberlist.h>
 
-#include "asyncdatabase.h"
-#include "channelhandler.h"
-#include "utils.h"
-#include "modemcontroller.h"
-#include "settingsmanager.h"
-
-#include <QCoroDBusPendingReply>
 #include <QCoroFuture>
 
 MessageModel::MessageModel(ChannelHandler &handler, const PhoneNumberList &phoneNumberList, QObject *parent)
@@ -77,9 +68,16 @@ QCoro::Task<void> MessageModel::fetchUpdatedMessage(const QString &id)
     const auto &[message, i] = getMessageIndex(id);
     const QVector<Message> messages = co_await m_handler.database().messagesForNumber(m_phoneNumberList, id);
 
+    message->text = messages.first().text;
+    message->datetime = messages.first().datetime;
+    message->deliveryStatus = messages.first().deliveryStatus;
+    message->attachments = messages.first().attachments;
+    message->smil = messages.first().smil;
+    message->deliveryReport = messages.first().deliveryReport;
+    message->readReport = messages.first().readReport;
     message->tapbacks = messages.first().tapbacks;
 
-    Q_EMIT dataChanged(index(i), index(i), {Role::TapbacksRole});
+    Q_EMIT dataChanged(index(i), index(i));
 }
 
 QHash<int, QByteArray> MessageModel::roleNames() const
@@ -220,49 +218,25 @@ void MessageModel::messageUpdated(const QString &numbers, const QString &id)
     fetchUpdatedMessage(id);
 }
 
-void MessageModel::addMessage(const Message &message)
-{
-    beginInsertRows({}, m_messages.count(), m_messages.count());
-    m_messages.prepend(message);
-    endInsertRows();
-
-    // save to database
-    m_handler.database().addMessage(message);
-}
-
 void MessageModel::sendTapback(const QString &id, const QString &tapback, const bool &isRemoved)
 {
     m_handler.interface()->sendTapback(m_phoneNumberList.toString(), id, tapback, isRemoved);
 }
 
-void MessageModel::sendMessage(const QString &text, const QStringList &files, const long totalSize)
+void MessageModel::sendMessage(const QString &text, const QStringList &files, const qint64 &totalSize)
 {
-    [this, text, files, totalSize] () -> QCoro::Task<void> {
-        QString result;
-        // check if it is a mms message
-        if (m_phoneNumberList.size() > 1 || files.length() > 0) {
-            if (SettingsManager::self()->groupConversation()) {
-                sendMessageInternalMms(m_phoneNumberList, text, files, totalSize);
-            } else {
-                // send as individual messages
-                for (const auto &phoneNumber : m_phoneNumberList) {
-                    if (files.length() > 0) {
-                        sendMessageInternalMms(PhoneNumberList(phoneNumber.toInternational()), text, files, totalSize);
-                    } else {
-                        result = co_await sendMessageInternal(phoneNumber, text);
-                    }
-                }
-            }
-        } else {
-            result = co_await sendMessageInternal(m_phoneNumberList.first(), text);
-        }
+    Message message;
+    message.id = Database::generateRandomId();
+    message.phoneNumberList = m_phoneNumberList;
+    message.text = text;
+    message.sentByMe = true;
+    message.deliveryStatus = MessageState::Pending;
 
-        if (result.isEmpty()) {
-            qDebug() << "Message sent successfully";
-        } else {
-            qDebug() << "Failed successfully" << result;
-        }
-    }();
+    beginInsertRows({}, m_messages.count(), m_messages.count());
+    m_messages.prepend(message);
+    endInsertRows();
+
+    m_handler.interface()->sendMessage(m_phoneNumberList.toString(), message.id, text, files, totalSize);
 }
 
 QPair<Message *, int> MessageModel::getMessageIndex(const QString &id)
@@ -288,149 +262,6 @@ void MessageModel::updateMessageState(const QString &id, MessageState state, con
     }
 
     Q_EMIT dataChanged(index(i), index(i), {Role::DeliveryStateRole});
-}
-
-QCoro::Task<QString> MessageModel::sendMessageInternal(const PhoneNumber &phoneNumber, const QString &text)
-{
-    ModemManager::ModemMessaging::Message m;
-    m.number = phoneNumber.toE164();
-    m.text = text;
-
-    Message message;
-    message.id = Database::generateRandomId();
-    message.phoneNumberList = PhoneNumberList(phoneNumber.toInternational());
-    message.text = text;
-    message.datetime = QDateTime::currentDateTime();
-    message.read = true; // Messages sent by us are automatically read.
-    message.sentByMe = true; // only called if message sent by us.
-    message.deliveryStatus = MessageState::Pending; // this signal is changed to either failed or sent, depending if the message was delivered.
-
-
-    auto maybeReply = ModemController::instance().createMessage(m);
-
-    if (!maybeReply) {
-        message.deliveryStatus = MessageState::Failed;
-        addMessage(message);
-        co_return QStringLiteral("No modem");
-    }
-
-    const QDBusReply<QDBusObjectPath> msgPathResult = co_await *maybeReply;
-
-    if (!msgPathResult.isValid()) {
-        message.deliveryStatus = MessageState::Failed;
-        addMessage(message);
-        co_return msgPathResult.error().message();
-    }
-
-    // Add message to model
-    addMessage(message);
-
-    ModemManager::Sms::Ptr mmMessage = QSharedPointer<ModemManager::Sms>::create(msgPathResult.value().path());
-
-    connect(mmMessage.get(), &ModemManager::Sms::stateChanged, this, [mmMessage, message, this] {
-        qDebug() << "state changed" << mmMessage->state();
-
-        switch (mmMessage->state()) {
-            case MM_SMS_STATE_SENT:
-                updateMessageState(message.id, MessageState::Sent);
-                break;
-            case MM_SMS_STATE_RECEIVED:
-                // Should not happen
-                qWarning() << "Received a message we sent";
-                break;
-            case MM_SMS_STATE_RECEIVING:
-                // Should not happen
-                qWarning() << "Receiving a message we sent";
-                break;
-            case MM_SMS_STATE_SENDING:
-                updateMessageState(message.id, MessageState::Pending);
-                break;
-            case MM_SMS_STATE_STORED:
-                updateMessageState(message.id, MessageState::Pending);
-                break;
-            case MM_SMS_STATE_UNKNOWN:
-                updateMessageState(message.id, MessageState::Unknown);
-                break;
-        }
-    });
-
-    connect(mmMessage.get(), &ModemManager::Sms::deliveryStateChanged, this, [=] {
-        MMSmsDeliveryState state = mmMessage->deliveryState();
-        // TODO does this even change?
-        // TODO do something with the state
-        qDebug() << "deliverystate changed" << state;
-    });
-
-    QDBusReply<void> sendResult = co_await mmMessage->send();
-
-    if (!sendResult.isValid()) {
-        updateMessageState(message.id, MessageState::Failed);
-        co_return sendResult.error().message();
-    }
-
-    co_return QString();
-}
-
-QCoro::Task<QString> MessageModel::sendMessageInternalMms(const PhoneNumberList &phoneNumberList, const QString &text, const QStringList &files, const long totalSize)
-{
-    Message message;
-    message.phoneNumberList = phoneNumberList;
-    message.text = text;
-    message.datetime = QDateTime::currentDateTime();
-    message.read = true; // Messages sent by us are automatically read.
-    message.sentByMe = true; // only called if message sent by us.
-    message.deliveryStatus = MessageState::Pending; // if this signal is called, the message was delivered.
-
-    QString to = phoneNumberList.toString();
-    const QStringList toList = to.replace(SL("-"), QString()).replace(SL(" "), QString()).split(SL(";"));
-    QString from = Utils::instance()->ownNumber();
-
-    MmsMessage mmsMessage;
-    mmsMessage.ownNumber = PhoneNumber(from);
-    mmsMessage.from = from.replace(SL("-"), QString()).replace(SL(" "), QString());
-    mmsMessage.to = toList;
-    mmsMessage.text = message.text;
-    QByteArray data;
-    m_handler.mms().encodeMessage(mmsMessage, data, files, totalSize);
-
-    // update message with encoded content parts
-    message.id = Database::generateRandomId();
-    message.text = mmsMessage.text;
-    message.attachments = mmsMessage.attachments;
-    message.smil = mmsMessage.smil;
-
-    // Add message to model
-    addMessage(message);
-
-    //send message
-    connect(&m_handler.mms(), &Mms::uploadFinished, this, [this, message](const QByteArray &response) {
-        disconnect(&m_handler.mms(), &Mms::uploadError, nullptr, nullptr);
-        disconnect(&m_handler.mms(), &Mms::uploadFinished, nullptr, nullptr);
-        if (response.length() == 0) {
-            updateMessageState(message.id, MessageState::Failed);
-        } else {
-            MmsMessage mmsMessage;
-            m_handler.mms().decodeConfirmation(mmsMessage, response);
-            if (mmsMessage.responseStatus == 0) {
-                updateMessageState(message.id, MessageState::Sent);
-
-                if (!mmsMessage.messageId.isEmpty()) {
-                    m_handler.database().updateMessageSent(message.id, mmsMessage.messageId, mmsMessage.contentLocation);
-                }
-            } else {
-                updateMessageState(message.id, MessageState::Failed);
-                qDebug() << mmsMessage.responseText;
-            }
-        }
-    });
-    connect(&m_handler.mms(), &Mms::uploadError, this, [this, message]() {
-        disconnect(&m_handler.mms(), &Mms::uploadError, nullptr, nullptr);
-        disconnect(&m_handler.mms(), &Mms::uploadFinished, nullptr, nullptr);
-        updateMessageState(message.id, MessageState::Failed);
-    });
-    m_handler.mms().uploadMessage(data);
-
-    co_return QString();
 }
 
 void MessageModel::markMessageRead(const int id)

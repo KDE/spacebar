@@ -5,7 +5,6 @@
 
 #include "channelhandler.h"
 
-#include "utils.h"
 #include "databasethread.h"
 #include "modemcontroller.h"
 
@@ -36,9 +35,4 @@ AsyncDatabase &ChannelHandler::database()
 org::kde::spacebar::Daemon *ChannelHandler::interface()
 {
     return m_interface;
-}
-
-Mms &ChannelHandler::mms()
-{
-    return m_mms;
 }

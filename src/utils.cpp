@@ -146,11 +146,6 @@ QQmlApplicationEngine *Utils::qmlEngine() const
     return m_engine;
 }
 
-QString Utils::ownNumber()
-{
-    return m_sendingNumber.toInternational();
-}
-
 QString Utils::sendingNumber()
 {
     return m_sendingNumber.toNational();

@@ -296,7 +296,7 @@ void Mms::decodeMessage(MmsMessage &message, const QByteArray &data)
     }
 }
 
-void Mms::encodeMessage(MmsMessage &message, QByteArray &data, const QStringList &files, long totalSize)
+void Mms::encodeMessage(MmsMessage &message, QByteArray &data, const QStringList &files, qint64 totalSize)
 {
     auto settings = SettingsManager::self();
     int sizeLimit = settings->totalMaxAttachmentSize() * 1024;

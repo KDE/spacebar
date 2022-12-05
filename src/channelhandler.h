@@ -8,8 +8,6 @@
 
 #include <databasethread.h>
 
-#include <mms.h>
-
 #include "daemoninterface.h"
 
 #include <optional>
@@ -23,12 +21,10 @@ public:
 
     AsyncDatabase &database();
     org::kde::spacebar::Daemon *interface();
-    Mms &mms();
 
 private:
     DatabaseThread m_databaseThread;
     org::kde::spacebar::Daemon *m_interface;
-    Mms m_mms;
 
 Q_SIGNALS:
     void handlerReady();

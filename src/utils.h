@@ -37,7 +37,6 @@ public:
     Q_INVOKABLE bool isPremiumNumber(const PhoneNumberList &phoneNumberList) const;
     Q_INVOKABLE static void launchPhonebook();
     Q_INVOKABLE void copyTextToClipboard(const QString &text) const;
-    QString ownNumber();
     Q_INVOKABLE QString sendingNumber();
     Q_INVOKABLE PhoneNumber phoneNumber(const QString &number) const;
     Q_INVOKABLE PhoneNumberList phoneNumberList(const QStringList &phoneNumbers) const;

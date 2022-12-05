@@ -13,7 +13,7 @@
 
 #include "database.h"
 
-#include "qcoro/task.h"
+#include "qcorotask.h"
 
 struct Person {
     Q_GADGET
@@ -84,13 +84,6 @@ public:
     Q_INVOKABLE QVariant fileInfo(const QUrl &path);
 
     /**
-     * @brief Adds a message to the model and the database.
-     * Can be used for example when a new message is received.
-     * @param message
-     */
-    void addMessage(const Message &message);
-
-    /**
      * @brief adds a tapack reaction to a previously sent or recieved message,
      * and updates the model and database
      * @param id
@@ -104,7 +97,7 @@ public:
      * and adds it to the model and database by calling addMessage(const QString&)
      * @param text
      */
-    Q_INVOKABLE void sendMessage(const QString &text, const QStringList &files, const long totalSize);
+    Q_INVOKABLE void sendMessage(const QString &text, const QStringList &files, const qint64 &totalSize);
 
     /**
      * @brief marks a message as read by calling the respective database function
@@ -134,8 +127,6 @@ public:
     Q_INVOKABLE void disableNotifications(const PhoneNumberList &phoneNumberList);
 
 private:
-    QCoro::Task<QString> sendMessageInternal(const PhoneNumber &phoneNumber, const QString &text);
-    QCoro::Task<QString> sendMessageInternalMms(const PhoneNumberList &phoneNumberList, const QString &text, const QStringList &files, const long totalSize);
     QPair<Message *, int> getMessageIndex(const QString &id);
     void updateMessageState(const QString &id, MessageState state, const bool temp = false);
 
