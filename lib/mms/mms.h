@@ -11,9 +11,6 @@
 
 #include <global.h>
 #include <phonenumberlist.h>
-#include "ecurl.h"
-
-#include "qcorotask.h"
 
 /*
  * Spec documentation:
@@ -285,12 +282,10 @@ class Mms : public QObject
 public:
     explicit Mms(QObject *parent = nullptr);
 
-    QCoro::Task<void> uploadMessage(const QByteArray &data);
-    QCoro::Task<void> downloadMessage(const MmsMessage message);
-    void sendNotifyResponse(const QString &transactionId, const QString &status);
-    void sendDeliveryAcknowledgement(const QString &transactionId);
-    void sendReadReport(const QString &messageId);
-    void sendCancelResponse(const QString &transactionId);
+    QByteArray encodeNotifyResponse(const QString &transactionId, const QString &status);
+    QByteArray encodeDeliveryAcknowledgement(const QString &transactionId);
+    QByteArray encodeReadReport(const QString &messageId);
+    QByteArray encodeCancelResponse(const QString &transactionId);
     void decodeNotification(MmsMessage &message, const QByteArray &data);
     void decodeConfirmation(MmsMessage &message, const QByteArray &data);
     void decodeMessage(MmsMessage &message, const QByteArray &data);
@@ -327,13 +322,4 @@ private:
     QByteArray encodeFromValue(const QString &value);
     QByteArray encodeValueFromList(const QString &value, std::span<const QStringView> list);
     QByteArray encodePart(const QByteArray &type, const QString &name, const QByteArray &body, const QByteArray &params = QByteArrayLiteral(""));
-
-    ECurl m_curl;
-
-Q_SIGNALS:
-    void downloadFinished(const QByteArray &data, const QString &url, const QDateTime &expires);
-    void downloadError(const MmsMessage &message);
-    void manualDownloadFinished(const QString &id, const bool isEmpty);
-    void uploadFinished(const QByteArray &data);
-    void uploadError();
 };

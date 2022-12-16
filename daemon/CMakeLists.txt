@@ -1,6 +1,7 @@
 set(spacebar_daemon_SRCS
     main.cpp
     channellogger.cpp
+    ecurl.cpp
 )
 
 # generate DBus adaptor xml
@@ -22,6 +23,7 @@ kconfig_add_kcfg_files(spacebar-daemon ../src/settingsmanager.kcfgc GENERATE_MOC
 
 target_compile_definitions(spacebar-daemon PRIVATE -DQT_NO_CAST_FROM_ASCII)
 target_link_libraries(spacebar-daemon
+    Qt::Concurrent
     Qt::Core
     Qt::Sql
     Qt::DBus
@@ -34,6 +36,9 @@ target_link_libraries(spacebar-daemon
     kTelephonySupport
     macros
     mms
+    CURL::libcurl
+    PkgConfig::c-ares
+    QCoro::Core
 )
 
 

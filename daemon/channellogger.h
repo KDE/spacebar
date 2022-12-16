@@ -11,6 +11,7 @@
 #include <database.h>
 #include <mms.h>
 #include "modemcontroller.h"
+#include "ecurl.h"
 
 #include "qcorotask.h"
 
@@ -69,6 +70,13 @@ private:
     );
     QCoro::Task<QString> sendMessageSMS(const PhoneNumber &phoneNumber, const QString &id, const QString &text);
     QCoro::Task<QString> sendMessageMMS(const PhoneNumberList &phoneNumberList, const QString &id, const QString &text, const QStringList &files, const qint64 totalSize);
+    QCoro::Task<void> sendCancelResponse(const QString &transactionId);
+    QCoro::Task<void> sendDeliveryAcknowledgement(const QString &transactionId);
+    QCoro::Task<void> sendNotifyResponse(const QString &transactionId, const QString &status);
+    QCoro::Task<void> sendReadReport(const QString &messageId);
+    QCoro::Task<QByteArray> uploadMessage(const QByteArray &data);
+    QCoro::Task<void> downloadMessage(const MmsMessage message);
+    void handleDownloadedMessage(const QByteArray &response, const QString &url, const QDateTime &expires);
     void createNotification(Message &message);
     bool handleTapbackReaction(Message &message, const QString &reactNumber);
     bool saveTapback(Message &message, const QString &reactNumber, const QStringView &tapback, std::span<const QStringView> list, const bool &isAdd, const bool &isImage);
@@ -77,6 +85,8 @@ private:
 
     Mms m_mms;
 
+    ECurl m_curl;
+
     PhoneNumberList m_disabledNotificationNumber;
 
     PhoneNumber m_ownNumber;
@@ -84,9 +94,6 @@ private:
     bool m_dataConnected;
 
     QStringList m_deferredIndicators;
-
-private Q_SLOTS:
-    void handleDownloadedMessage(const QByteArray &response, const QString &url, const QDateTime &expires);
 
 Q_SIGNALS:
     Q_SCRIPTABLE void messageAdded(const QString &phoneNumber, const QString &id);

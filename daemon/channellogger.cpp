@@ -7,7 +7,9 @@
 #include "modemcontroller.h"
 #include "settingsmanager.h"
 
+#include <QCoroFuture>
 #include <QTimer>
+#include <QtConcurrent>
 
 #include <KLocalizedString>
 #include <KNotification>
@@ -39,12 +41,6 @@ ChannelLogger::ChannelLogger(std::optional<QString> &modemPath, QObject *parent)
 
     m_ownNumber = PhoneNumber(ModemController::instance().ownNumber());
 
-    connect(&m_mms, &Mms::downloadFinished, this, &ChannelLogger::handleDownloadedMessage);
-
-    connect(&m_mms, &Mms::downloadError, this, &ChannelLogger::createDownloadNotification);
-
-    connect(&m_mms, &Mms::manualDownloadFinished, this, &ChannelLogger::manualDownloadFinished);
-
     checkMessages();
 
     connect(&ModemController::instance(), &ModemController::messageAdded, this, [this](ModemManager::Sms::Ptr msg) {
@@ -58,7 +54,7 @@ ChannelLogger::ChannelLogger(std::optional<QString> &modemPath, QObject *parent)
 
         if (isConnected) {
             for (const auto &indicator : m_deferredIndicators) {
-                m_mms.sendNotifyResponse(indicator, SL("deferred"));
+                sendNotifyResponse(indicator, SL("deferred"));
             }
             m_deferredIndicators.clear();
         }
@@ -117,7 +113,7 @@ void ChannelLogger::handleIncomingMessage(ModemManager::Sms::Ptr msg)
                         }
                     }
                     if (autoDownload && m_dataConnected) {
-                        m_mms.downloadMessage(mmsMessage);
+                        downloadMessage(mmsMessage);
                     } else {
                         // manually download later
                         createDownloadNotification(mmsMessage);
@@ -135,10 +131,10 @@ void ChannelLogger::handleIncomingMessage(ModemManager::Sms::Ptr msg)
                 m_database.updateMessageReadReport(mmsMessage.messageId, PhoneNumber(mmsMessage.from));
             }
         } else if (mmsMessage.messageType == SL("m-cancel-req"))  {
-            m_mms.sendCancelResponse(mmsMessage.transactionId);
+            sendCancelResponse(mmsMessage.transactionId);
         } else {
             qDebug() << "Unknown message type:" << mmsMessage.messageType;
-            m_mms.sendNotifyResponse(mmsMessage.transactionId, SL("unrecognized"));
+            sendNotifyResponse(mmsMessage.transactionId, SL("unrecognized"));
         }
     } else {
         saveMessage(phoneNumberList, datetime);
@@ -163,7 +159,7 @@ void ChannelLogger::createDownloadNotification(const MmsMessage &mmsMessage)
 
     // this is important, otherwise an MMSC server may send repeated notifications
     if (m_dataConnected) {
-        m_mms.sendNotifyResponse(mmsMessage.transactionId, SL("deferred"));
+        sendNotifyResponse(mmsMessage.transactionId, SL("deferred"));
     } else {
         m_deferredIndicators.append(mmsMessage.transactionId);
     }
@@ -178,7 +174,7 @@ void ChannelLogger::manualDownload(const QString &id, const QString &url, const 
     mmsMessage.transactionId = m_mms.generateTransactionId();
 
     if (m_dataConnected) {
-        m_mms.downloadMessage(mmsMessage);
+        downloadMessage(mmsMessage);
     } else {
         Q_EMIT manualDownloadFinished(id, true);
     }
@@ -441,38 +437,52 @@ QCoro::Task<QString> ChannelLogger::sendMessageMMS(const PhoneNumberList &phoneN
     addMessage(message);
 
     //send message
-    connect(&m_mms, &Mms::uploadFinished, this, [this, message](const QByteArray &response) {
-        disconnect(&m_mms, &Mms::uploadError, nullptr, nullptr);
-        disconnect(&m_mms, &Mms::uploadFinished, nullptr, nullptr);
-        if (response.length() == 0) {
-            m_database.updateMessageDeliveryState(message.id, MessageState::Failed);
-            updateMessage(message);
-        } else {
-            MmsMessage mmsMessage;
-            m_mms.decodeConfirmation(mmsMessage, response);
-            if (mmsMessage.responseStatus == 0) {
-                m_database.updateMessageDeliveryState(message.id, MessageState::Sent);
-                updateMessage(message);
-
-                if (!mmsMessage.messageId.isEmpty()) {
-                    m_database.updateMessageSent(message.id, mmsMessage.messageId, mmsMessage.contentLocation);
-                }
-            } else {
-                m_database.updateMessageDeliveryState(message.id, MessageState::Failed);
-                updateMessage(message);
-                qDebug() << mmsMessage.responseText;
-            }
-        }
-    });
-    connect(&m_mms, &Mms::uploadError, this, [this, message]() {
-        disconnect(&m_mms, &Mms::uploadError, nullptr, nullptr);
-        disconnect(&m_mms, &Mms::uploadFinished, nullptr, nullptr);
+    const QByteArray response = co_await uploadMessage(data);
+    if (response.isEmpty()) {
         m_database.updateMessageDeliveryState(message.id, MessageState::Failed);
         updateMessage(message);
-    });
-    m_mms.uploadMessage(data);
+    } else {
+        MmsMessage mmsMessage;
+        m_mms.decodeConfirmation(mmsMessage, response);
+        if (mmsMessage.responseStatus == 0) {
+            m_database.updateMessageDeliveryState(message.id, MessageState::Sent);
+            updateMessage(message);
+
+            if (!mmsMessage.messageId.isEmpty()) {
+                m_database.updateMessageSent(message.id, mmsMessage.messageId, mmsMessage.contentLocation);
+            }
+        } else {
+            m_database.updateMessageDeliveryState(message.id, MessageState::Failed);
+            updateMessage(message);
+            qDebug() << mmsMessage.responseText;
+        }
+    }
 
     co_return QString();
+}
+
+QCoro::Task<void> ChannelLogger::sendCancelResponse(const QString &transactionId)
+{
+    const QByteArray data = m_mms.encodeCancelResponse(transactionId);
+    const QByteArray response = co_await uploadMessage(data);
+}
+
+QCoro::Task<void> ChannelLogger::sendDeliveryAcknowledgement(const QString &transactionId)
+{
+    const QByteArray data = m_mms.encodeDeliveryAcknowledgement(transactionId);
+    const QByteArray response = co_await uploadMessage(data);
+}
+
+QCoro::Task<void> ChannelLogger::sendNotifyResponse(const QString &transactionId, const QString &status)
+{
+    const QByteArray data = m_mms.encodeNotifyResponse(transactionId, status);
+    const QByteArray response = co_await uploadMessage(data);
+}
+
+QCoro::Task<void> ChannelLogger::sendReadReport(const QString &messageId)
+{
+    const QByteArray data = m_mms.encodeReadReport(messageId);
+    const QByteArray response = co_await uploadMessage(data);
 }
 
 void ChannelLogger::createNotification(Message &message)
@@ -664,4 +674,59 @@ void ChannelLogger::sendTapback(const QString &numbers, const QString &id, const
 void ChannelLogger::syncSettings()
 {
     SettingsManager::self()->load();
+}
+
+QCoro::Task<QByteArray> ChannelLogger::uploadMessage(const QByteArray &data)
+{
+    const QString url = SettingsManager::self()->mmsc();
+    if (url.length() < 10) {
+        qDebug() << "Invalid URL provided";
+        co_return BL("");
+    }
+
+    #if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
+    const QByteArray response = co_await QtConcurrent::run(&ECurl::networkRequest, &m_curl, url, data);
+    #else
+    const QByteArray response = co_await QtConcurrent::run(&m_curl, &ECurl::networkRequest, url, data);
+    #endif
+
+    if (response.isNull()) {
+        co_return QByteArray();
+    } else {
+        co_return response;
+    }
+}
+
+QCoro::Task<void> ChannelLogger::downloadMessage(const MmsMessage message)
+{
+    const QString url = message.contentLocation;
+
+    #if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
+    const QByteArray response = co_await QtConcurrent::run(&ECurl::networkRequest, &m_curl, url, BL(""));
+    #else
+    const QByteArray response = co_await QtConcurrent::run(&m_curl, &ECurl::networkRequest, url, BL(""));
+    #endif
+
+    if (response.isNull()) {
+        if (!message.databaseId.isEmpty()) {
+            Q_EMIT manualDownloadFinished(message.databaseId, true);
+        } else {
+            createDownloadNotification(message);
+        }
+    } else {
+        // if message exists, do not create a new download notification
+        if (!message.databaseId.isEmpty()) {
+            Q_EMIT manualDownloadFinished(message.databaseId, response.isEmpty());
+        } else if (response.isEmpty()) {
+            createDownloadNotification(message);
+        }
+
+        if (!response.isEmpty()) {
+            handleDownloadedMessage(response, message.contentLocation, message.expiry);
+
+            if (!message.transactionId.isEmpty()) {
+                sendDeliveryAcknowledgement(message.transactionId); // acknowledge download
+            }
+        }
+    }
 }

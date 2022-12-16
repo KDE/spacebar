@@ -6,7 +6,6 @@
 #include "settingsmanager.h"
 
 #include <QBuffer>
-#include <QCoroFuture>
 #include <QDebug>
 #include <QDir>
 #include <QImage>
@@ -16,7 +15,6 @@
 #include <QMimeDatabase>
 #include <QMimeType>
 #include <QStandardPaths>
-#include <QtConcurrent>
 #include <QUuid>
 
 #include <random>
@@ -83,67 +81,7 @@ Mms::Mms(QObject *parent)
 {
 }
 
-QCoro::Task<void> Mms::uploadMessage(const QByteArray &data)
-{
-    const QString url = SettingsManager::self()->mmsc();
-    if (url.length() < 10) {
-        qDebug() << "Invalid URL provided";
-        Q_EMIT uploadFinished(BL(""));
-        co_return;
-    }
-
-#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
-    const QByteArray response = co_await QtConcurrent::run(&ECurl::networkRequest, &m_curl, url, data);
-#else
-    const QByteArray response = co_await QtConcurrent::run(&m_curl, &ECurl::networkRequest, url, data);
-#endif
-
-    if (response.isNull()) {
-        Q_EMIT uploadError();
-    } else {
-        Q_EMIT uploadFinished(response);
-    }
-
-    co_return;
-}
-
-QCoro::Task<void> Mms::downloadMessage(const MmsMessage message)
-{
-    const QString url = message.contentLocation;
-
-#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
-    const QByteArray response = co_await QtConcurrent::run(&ECurl::networkRequest, &m_curl, url, BL(""));
-#else
-    const QByteArray response = co_await QtConcurrent::run(&m_curl, &ECurl::networkRequest, url, BL(""));
-#endif
-
-    if (response.isNull()) {
-        if (!message.databaseId.isEmpty()) {
-            Q_EMIT manualDownloadFinished(message.databaseId, true);
-        } else {
-            Q_EMIT downloadError(message);
-        }
-    } else {
-        // if message exists, do not create a new download notification
-        if (!message.databaseId.isEmpty()) {
-            Q_EMIT manualDownloadFinished(message.databaseId, response.isEmpty());
-        } else if (response.isEmpty()) {
-            Q_EMIT downloadError(message);
-        }
-
-        if (!response.isEmpty()) {
-            Q_EMIT downloadFinished(response, message.contentLocation, message.expiry);
-
-            if (!message.transactionId.isEmpty()) {
-                sendDeliveryAcknowledgement(message.transactionId); // acknowledge download
-            }
-        }
-    }
-
-    co_return;
-}
-
-void Mms::sendNotifyResponse(const QString &transactionId, const QString &status)
+QByteArray Mms::encodeNotifyResponse(const QString &transactionId, const QString &status)
 {
     QByteArray data;
     data.append(encodeHeaderPrefix(SL("m-notifyresp-ind"), transactionId));
@@ -154,10 +92,10 @@ void Mms::sendNotifyResponse(const QString &transactionId, const QString &status
     data.append(MMS_HEADER_REPORT_ALLOWED);
     data.append((SettingsManager::self()->shareDeliveryStatus() ? MMS_CODE_YES : MMS_CODE_NO));
 
-    uploadMessage(data);
+    return data;
 }
 
-void Mms::sendDeliveryAcknowledgement(const QString &transactionId)
+QByteArray Mms::encodeDeliveryAcknowledgement(const QString &transactionId)
 {
     QByteArray data;
     data.append(encodeHeaderPrefix(SL("m-acknowledge-ind"), transactionId));
@@ -165,11 +103,11 @@ void Mms::sendDeliveryAcknowledgement(const QString &transactionId)
     data.append(MMS_HEADER_REPORT_ALLOWED);
     data.append((SettingsManager::self()->shareDeliveryStatus() ? MMS_CODE_YES : MMS_CODE_NO));
 
-    uploadMessage(data);
+    return data;
 }
 
 //confirms the read status of the MM to the MMS Proxy-Relay - send when marking mms messages as read
-void Mms::sendReadReport(const QString &messageId)
+QByteArray Mms::encodeReadReport(const QString &messageId)
 {
     QByteArray data;
     data.append(encodeHeaderPrefix(SL("m-read-rec-ind"), messageId, true));
@@ -184,13 +122,13 @@ void Mms::sendReadReport(const QString &messageId)
     data.append(MMS_CODE_READ); //MMS_CODE_DELETE_WITHOUT_READ
 
     //TODO: finish this
-    //uploadMessage(data);
+    return data;
 }
 
  //TODO add forwardMessage method - m-forward-req with handling of m-forward-conf - from, to, contentLocation, reportAllowed, deliveryReport, readReport
  //TODO add deleteRequest method - m-delete-req with handling of m-delete-conf - contentLocation
 
-void Mms::sendCancelResponse(const QString &transactionId)
+QByteArray Mms::encodeCancelResponse(const QString &transactionId)
 {
     QByteArray data;
     data.append(encodeHeaderPrefix(SL("m-cancel-conf"), transactionId));
@@ -198,7 +136,7 @@ void Mms::sendCancelResponse(const QString &transactionId)
     data.append(MMS_HEADER_CANCEL_STATUS);
     data.append(MMS_CODE_CANCEL_REQUEST_SUCCESSFULLY_RECEIVED);
 
-    uploadMessage(data);
+    return data;
 }
 
 void Mms::decodeNotification(MmsMessage &message, const QByteArray &data)
