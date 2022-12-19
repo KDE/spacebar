@@ -264,7 +264,7 @@ ListView {
         Component.onCompleted: sort(0)
     }
 
-    interactive: searchText.length > 0
+    interactive: showAll || searchText.length > 0
     boundsBehavior: Flickable.StopAtBounds
 
     delegate: Kirigami.BasicListItem {
