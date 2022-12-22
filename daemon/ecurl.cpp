@@ -4,6 +4,7 @@
 
 #include "ecurl.h"
 #include "settingsmanager.h"
+#include "modemcontroller.h"
 
 #include <netdb.h>
 
@@ -31,7 +32,8 @@ QByteArray ECurl::networkRequest(const QString &url, const QByteArray &data) con
     char errbuf[CURL_ERROR_SIZE];
     curl_easy_setopt(curl, CURLOPT_ERRORBUFFER, errbuf);
 
-    QString ifaceName = SL("wwan0");
+    QString ifaceName = ModemController::instance().ifaceName;
+    QString dnsServers = ModemController::instance().dnsServers;
     curl_easy_setopt(curl, CURLOPT_INTERFACE, (SL("if!") + ifaceName).toUtf8().constData());
     CURLcode supported = curl_easy_setopt(curl, CURLOPT_DNS_INTERFACE, ifaceName.toUtf8().constData());
 
@@ -45,6 +47,7 @@ QByteArray ECurl::networkRequest(const QString &url, const QByteArray &data) con
             qDebug() << "Ares init failed:" << ares_strerror(aresReturn);
         } else {
             ares_set_local_dev(channel, ifaceName.toUtf8().constData());
+            ares_set_servers_csv(channel, dnsServers.toUtf8().constData());
 
             CURLU *curlUrl = curl_url();
             curl_url_set(curlUrl, CURLUPART_URL, url.toUtf8().constData(), 0);
@@ -67,6 +70,8 @@ QByteArray ECurl::networkRequest(const QString &url, const QByteArray &data) con
             curl_free(hostname);
             ares_destroy(channel);
         }
+    } else {
+        curl_easy_setopt(curl, CURLOPT_DNS_SERVERS, dnsServers.toUtf8().constData());
     }
 
     curl_easy_setopt(curl, CURLOPT_URL, url.toUtf8().constData());

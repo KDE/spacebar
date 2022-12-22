@@ -45,6 +45,51 @@ void ModemController::init(std::optional<QString> modemPath)
         return;
     }
 
+    m_interface = m_modem->modemInterface();
+
+    connect(m_interface.get(), &ModemManager::Modem::bearerAdded, this, [this](const QString &bearer) {
+        m_bearer = m_interface->findBearer(bearer);
+
+        QList<QSharedPointer<ModemManager::Bearer> > bearers = m_interface->listBearers();
+        for (const ModemManager::Bearer::Ptr &item : bearers) {
+            if (item->uni() != bearer) {
+                item->disconnect();
+                m_interface->deleteBearer(item->uni());
+            }
+        }
+
+        // whether or not the bearer is connected and thus whether packet data communication using this bearer is possible
+        connect(m_bearer.data(), &ModemManager::Bearer::connectedChanged, this, [this](bool isConnected) {
+            Q_EMIT modemDataConnectedChanged(isConnected);
+            qDebug() << "bearer connected:" << isConnected;
+        });
+
+        // In some devices, packet data service will be suspended while the device is handling other communication, like a voice call
+        connect(m_bearer.data(), &ModemManager::Bearer::suspendedChanged, this, [this](bool isSuspended) {
+            Q_EMIT modemDataConnectedChanged(!isSuspended);
+            qDebug() << "bearer suspended:" << isSuspended;
+        });
+
+        dnsServers = getDNS(m_bearer);
+        qDebug() << "dns:" << dnsServers;
+        connect(m_bearer.data(), &ModemManager::Bearer::ip4ConfigChanged, this, [this, bearers](const ModemManager::IpConfig &ipv4Config) {
+            dnsServers = getDNS(m_bearer);
+            qDebug() << "dns4 updated:" << dnsServers;
+        });
+
+        connect(m_bearer.data(), &ModemManager::Bearer::ip6ConfigChanged, this, [this, bearers](const ModemManager::IpConfig &ipv6Config) {
+            dnsServers = getDNS(m_bearer);
+            qDebug() << "dns6 updated:" << dnsServers;
+        });
+
+        ifaceName = m_bearer->interface();
+        qDebug() << "interface:" << ifaceName;
+        connect(m_bearer.data(), &ModemManager::Bearer::interfaceChanged, this, [this](const QString &iface) {
+            ifaceName = iface;
+            qDebug() << "interface changed:" << ifaceName;
+        });
+    });
+
     connect(m_modem.get(), &ModemManager::ModemDevice::interfaceAdded, this, [this](ModemManager::ModemDevice::InterfaceType type) {
         if (type == ModemManager::ModemDevice::MessagingInterface) {
             initMessaging();
@@ -55,25 +100,13 @@ void ModemController::init(std::optional<QString> modemPath)
         initMessaging();
     }
 
-    m_interface = m_modem->modemInterface();
-
-    QList<QSharedPointer<ModemManager::Bearer> > bearers = m_interface->listBearers();
-
-    if (bearers.isEmpty()) {
-        return;
-    }
-
-    connect(m_interface.get(), &ModemManager::Modem::stateChanged, this, [this, bearers](MMModemState oldState, MMModemState newState, MMModemStateChangeReason reason) {
+    connect(m_interface.get(), &ModemManager::Modem::stateChanged, this, [this](MMModemState oldState, MMModemState newState, MMModemStateChangeReason reason) {
         Q_UNUSED(oldState);
         Q_UNUSED(reason);
         if (newState == MMModemState::MM_MODEM_STATE_CONNECTED) {
             Q_EMIT modemConnected();
-            Q_EMIT modemDataConnectedChanged(bearers.first()->isConnected());
+            Q_EMIT modemDataConnectedChanged(m_bearer ? m_bearer->isConnected() : false);
         }
-    });
-
-    connect(bearers.first().data(), &ModemManager::Bearer::connectedChanged, this, [this](bool isConnected) {
-        Q_EMIT modemDataConnectedChanged(isConnected);
     });
 }
 
@@ -149,4 +182,21 @@ QString ModemController::ownNumber()
     }
 
     return QString();
+}
+
+QString ModemController::getDNS(QSharedPointer<ModemManager::Bearer> bearer)
+{
+    QStringList dnsServerList = {
+        bearer->ip4Config().dns1(),
+        bearer->ip4Config().dns2(),
+        bearer->ip4Config().dns3(),
+        bearer->ip6Config().dns1(),
+        bearer->ip6Config().dns2(),
+        bearer->ip6Config().dns3()
+    };
+
+    // remove empty items
+    dnsServerList.removeAll(QString());
+
+    return dnsServerList.join(QStringLiteral(","));
 }

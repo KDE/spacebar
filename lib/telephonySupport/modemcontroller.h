@@ -27,6 +27,10 @@ public:
 
     QString ownNumber();
 
+    QString ifaceName;
+
+    QString dnsServers;
+
 Q_SIGNALS:
     void messageAdded(ModemManager::Sms::Ptr message);
     void modemConnected();
@@ -42,4 +46,7 @@ private:
     ModemManager::ModemDevice::Ptr m_modem;
     ModemManager::ModemMessaging::Ptr m_msgManager;
     ModemManager::Modem::Ptr m_interface;
+    ModemManager::Bearer::Ptr m_bearer;
+
+    QString getDNS(QSharedPointer<ModemManager::Bearer> bearer);
 };
