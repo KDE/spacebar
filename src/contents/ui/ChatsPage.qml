@@ -50,7 +50,7 @@ Kirigami.ScrollablePage {
                 iconName: "settings-configure"
                 text: i18nc("Configuring application settings", "Settings")
                 onTriggered: {
-                    applicationWindow().pageStack.push("qrc:/SettingsPage.qml", {"chatListModel": ChatListModel})
+                    applicationWindow().pageStack.push("qrc:/settings/SettingsPage.qml", {"chatListModel": ChatListModel})
                 }
             },
             Kirigami.Action {
