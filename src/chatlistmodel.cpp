@@ -80,18 +80,25 @@ QVariant ChatListModel::data(const QModelIndex &index, int role) const
         case DisplayNameRole:
         {
             QString names;
-            for (const auto &number : phoneNumberList) {
+            for (int i = 0; const auto &number : phoneNumberList) {
                 if (!names.isEmpty()) {
-                    names.append(SL(",  "));
+                    names.append(SL(", "));
                 }
                 QString name = KPeople::PersonData(m_mapper.uriForNumber(number)).name();
                 if (name.isEmpty()) {
-                    name = number.toNational();
-                    if (name == SL("0")) {
-                        name = i18nc("Invalid phone number", "Unknown");
-                    }
+                    name = number.toInternational();
+                } else if (phoneNumberList.count() >= 2) {
+                    name = name.split(SL(" ")).first();
                 }
+
+                if (i > 0 && names.size() + name.size() + 5 > m_characters) {
+                    names.append(i18n("and %1 more", phoneNumberList.count() - i));
+                    break;
+                }
+
                 names.append(name);
+
+                i++;
             }
             return names;
         }
@@ -149,6 +156,8 @@ QCoro::Task<void> ChatListModel::fetchChatsInternal()
 {
     const auto chats = co_await m_handler.database().chats();
 
+    Q_EMIT chatsFetched();
+
     beginResetModel();
     m_chats = chats;
     // Sort chat list by most recent chat
@@ -156,7 +165,6 @@ QCoro::Task<void> ChatListModel::fetchChatsInternal()
         return a.lastContacted > b.lastContacted;
     });
     endResetModel();
-    Q_EMIT chatsFetched();
 }
 
 void ChatListModel::deleteChat(const PhoneNumberList &phoneNumberList)
@@ -183,4 +191,10 @@ QString ChatListModel::attachmentsFolder(const PhoneNumberList &phoneNumberList)
 {
     const QString folder = QString::number(qHash(phoneNumberList.toString()));
     return QStandardPaths::writableLocation(QStandardPaths::GenericDataLocation) + SL("/spacebar/attachments/") + folder;
+}
+
+void ChatListModel::setCharacterLimit(const int &width)
+{
+    // 170 is the pixels taken up by other elements on the list row
+    m_characters = (width - 170) / 6;
 }

@@ -40,7 +40,7 @@ Kirigami.ScrollablePage {
         main: Kirigami.Action {
             visible: !Kirigami.Settings.isMobile
             text: i18n("New Conversation")
-            onTriggered: pageStack.push("qrc:/NewConversationPage.qml", { isNew: true })
+            onTriggered: pageStack.push("qrc:/NewConversationPage.qml")
             icon.name: "contact-new"
         }
         
@@ -78,17 +78,15 @@ Kirigami.ScrollablePage {
         Connections {
             target: ChatListModel
             function onChatStarted (messageModel) {
-                let isNew = false
-
                 // Don't open two MessagesPages at the same time
                 if (pageStack.currentItem.hasOwnProperty("messageModel")) {
                     pageStack.pop()
-                    isNew = true
                 }
 
-                Qt.callLater(pageStack.push, "qrc:/MessagesPage.qml", {"messageModel": messageModel, isNew: isNew})
+                Qt.callLater(pageStack.push, "qrc:/MessagesPage.qml", {"messageModel": messageModel})
             }
             function onChatsFetched () {
+                ChatListModel.setCharacterLimit(applicationWindow().width)
                 chatPage.refreshing = false
             }
         }
@@ -106,7 +104,7 @@ Kirigami.ScrollablePage {
         FloatingActionButton {
             anchors.fill: parent
             iconName: "list-add"
-            onClicked: pageStack.push("qrc:/NewConversationPage.qml", { isNew: true })
+            onClicked: pageStack.push("qrc:/NewConversationPage.qml")
             visible: Kirigami.Settings.isMobile
         }
 
@@ -166,7 +164,7 @@ Kirigami.ScrollablePage {
                     spacing: 0
                     Kirigami.Heading {
                         id: nameLabel
-                        level: 4
+                        level: 5
                         type: Kirigami.Heading.Type.Normal
                         Layout.fillWidth: true
                         text: delegateRoot.displayName

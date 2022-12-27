@@ -49,6 +49,7 @@ public:
     Q_INVOKABLE void restoreDefaults();
     Q_INVOKABLE void saveSettings();
     Q_INVOKABLE QString attachmentsFolder(const PhoneNumberList &phoneNumberList) const;
+    Q_INVOKABLE void setCharacterLimit(const int &width);
 
     bool ready() const;
 
@@ -70,4 +71,5 @@ private:
     QVector<Chat> m_chats;
     ContactPhoneNumberMapper &m_mapper;
     MessageModel *m_messageModel = nullptr;
+    int m_characters = 15;
 };

@@ -16,11 +16,9 @@ import org.kde.spacebar 1.0
 
 Kirigami.ScrollablePage {
     id: msgPage
-    title: people.length === 0 ? i18n("New message") : people.map(o => o.name || o.phoneNumber).join(",  ")
 
     property MessageModel messageModel;
     property real pointSize: Kirigami.Theme.defaultFont.pointSize + SettingsManager.messageFontSize
-    property bool isNew: true
     property var people: messageModel ? messageModel.people : []
     property string attachmentsFolder: messageModel ? messageModel.attachmentsFolder : "";
     property ListModel files: ListModel {}
@@ -36,25 +34,26 @@ Kirigami.ScrollablePage {
     }
 
     Component.onCompleted: {
-        if (isNew) {
-            listView.header = contactsList
-        }
-    }
+        // 80 is the pixels taken up by other elements in the page header
+        const width = Math.max(root.width - pageStack.currentItem.width, pageStack.currentItem.width) - 80
+        const characters = Math.floor(width / 10, 0)
 
-    Component {
-        id: contactsList
-
-        ContactsList {
-            visible: isNew
-            z: 3
-            width: listView.width
-            height: listView.height
-            multiSelect: false
-            showSections: false
-            showAll: false
-            onSelect: {
-                tryAddRecipient(number)
+        if (people.length > 1) {
+            for (let i = 0; i < people.length; i++) {
+                const name = people[i].name.split(" ")[0] || people[i].phoneNumber
+                if (i > 0) {
+                    title += ", "
+                    if (title.length + name.length + 5 > characters) {
+                        title += i18n("and %1 more", people.length - i)
+                        break
+                    }
+                }
+                title += name
             }
+        } else if (people.length === 1) {
+            title = people[0].name || people[0].phoneNumber
+        } else {
+            title = i18n("New message")
         }
     }
 
@@ -96,24 +95,6 @@ Kirigami.ScrollablePage {
         return list;
     }
 
-    function tryAddRecipient(number) {
-        number = Utils.phoneNumberToInternationalString(Utils.phoneNumber(number))
-        const index = people.findIndex(o => o.phoneNumber == number)
-
-        if (index == -1) {
-            people.push({ phoneNumber: number })
-            if (pageStack.depth > 2) {
-                pageStack.pop()
-            }
-            ChatListModel.startChat(Utils.phoneNumberList(people.map(o => o.phoneNumber)))
-        } else {
-            duplicateNotify.visible = true
-            setTimeout(function () {
-                duplicateNotify.visible = false
-            }, 3000)
-        }
-    }
-
     function lookupSenderName(number) {
         if (people.length < 2) {
             return ""
@@ -136,13 +117,17 @@ Kirigami.ScrollablePage {
     actions {
         contextualActions: [
             Kirigami.Action {
-                visible: !isNew
-                iconName: "contact-new-symbolic"
-                text: i18n("Add/remove")
-                onTriggered: {
-                    isNew = true
-                    listView.header = contactsList
-                }
+                displayHint: Kirigami.Action.IconOnly
+                visible: people.length === 1
+                iconName: "call-start"
+                text: i18n("Call")
+                onTriggered: Qt.openUrlExternally("tel:" + people[0].phoneNumber)
+            },
+            Kirigami.Action {
+                displayHint: Kirigami.Action.IconOnly
+                iconName: "view-list-details"
+                text: i18n("Details")
+                onTriggered: pageStack.push("qrc:/ChatDetailPage.qml", { people: people })
             }
         ]
     }
@@ -200,45 +185,6 @@ Kirigami.ScrollablePage {
             type: Kirigami.MessageType.Information
             text: i18n("Message will be sent as individual messages")
             visible: people.length > 1 && !SettingsManager.groupConversation
-        }
-
-        Flow {
-            visible: people.length > 0 && isNew
-            Layout.fillWidth: true
-            Layout.margins: Kirigami.Units.largeSpacing
-            spacing: Kirigami.Units.largeSpacing
-
-            Repeater {
-                model: people
-                Rectangle {
-                    color: "lightgrey"
-                    radius: remove.height / 2
-                    width: contact.width + remove.width
-                    height: remove.height
-
-                    Controls.RoundButton {
-                        id: contact
-                        height: parent.height
-                        text: modelData.name || modelData.phoneNumber
-                        flat: true
-                        onClicked: Utils.launchPhonebook()
-                    }
-
-                    Controls.RoundButton {
-                        id: remove
-                        flat: true
-                        icon.name: "edit-delete-remove"
-                        anchors.right: parent.right
-                        onClicked: {
-                            const number = Utils.phoneNumberToInternationalString(Utils.phoneNumber(modelData.phoneNumber))
-                            const index = people.findIndex(o => o.phoneNumber == number)
-
-                            people.splice(index, 1)
-                            ChatListModel.startChat(Utils.phoneNumberList(people.map(o => o.phoneNumber)))
-                        }
-                    }
-                }
-            }
         }
     }
 
@@ -1115,7 +1061,7 @@ Kirigami.ScrollablePage {
                 icon.width: Kirigami.Units.iconSizes.smallMedium
                 icon.height: Kirigami.Units.iconSizes.smallMedium
                 hoverEnabled: false
-                enabled: (textarea.length > 0 || files.count > 0) && !maxAttachmentsError.visible
+                enabled: people.length > 0 && (textarea.length > 0 || files.count > 0) && !maxAttachmentsError.visible
                 onPressed: sendAction.trigger()
 
                 Controls.Label {
@@ -1128,14 +1074,6 @@ Kirigami.ScrollablePage {
                     anchors.margins: Kirigami.Units.smallSpacing * 1.5
                 }
             }
-        }
-
-        Kirigami.InlineMessage {
-            id: duplicateNotify
-            width: parent.width
-            type: Kirigami.MessageType.Warning
-            text: i18n("Duplicate recipient")
-            visible: false
         }
 
         FileDialog {

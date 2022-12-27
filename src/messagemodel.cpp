@@ -303,5 +303,5 @@ void MessageModel::saveAttachments(const QStringList &attachments)
 
 void MessageModel::disableNotifications(const PhoneNumberList &phoneNumberList)
 {
-    m_handler.interface()->disableNotificationsForNumber(phoneNumberList.toString());
+    m_handler.interface()->disableNotificationsForNumber(phoneNumberList.toString().isNull() ? SL("") : phoneNumberList.toString());
 }

@@ -178,14 +178,8 @@ ListView {
                     padding: Kirigami.Units.smallSpacing
                     Controls.Button {
                         id: compose
-                        text: i18nc("Open chat conversation window", "Compose")
-                        onClicked: {
-                            let numbers = selected.map(o => o.phoneNumber)
-                            if (numbers.length === 0) {
-                                numbers.push(searchField.text)
-                            }
-                            contactsList.clicked(numbers)
-                        }
+                        text: i18nc("Open chat conversation window", "Next")
+                        onClicked: contactsList.clicked(selected.map(o => o.phoneNumber))
                     }
                 }
             }
@@ -226,9 +220,22 @@ ListView {
                 Layout.fillWidth: true
                 visible: searchField.text.length > 0
                 backgroundColor: showSections ? "transparent" : Kirigami.Theme.backgroundColor
-                icon: "list-add"
-                iconSize: Kirigami.Units.iconSizes.medium
-                iconColor: Kirigami.Theme.textColor
+                implicitHeight: Kirigami.Units.iconSizes.medium + Kirigami.Units.largeSpacing * 2
+                leading: Rectangle {
+                    width: height
+                    radius: height / 2
+                    border.color: Kirigami.Theme.linkColor
+                    border.width: 2
+                    color: "transparent"
+
+                    Text {
+                        anchors.centerIn: parent
+                        text: "+"
+                        color: Kirigami.Theme.linkColor
+                        font.bold: true
+                        font.pixelSize: parent.height / 1.5
+                    }
+                }
                 text: searchField.text
                 subtitle: isNaN(searchField.text) ? alphaToNumeric(searchField.text) : ""
                 separatorVisible: false
@@ -265,7 +272,6 @@ ListView {
     }
 
     interactive: showAll || searchText.length > 0
-    boundsBehavior: Flickable.StopAtBounds
 
     delegate: Kirigami.BasicListItem {
         property bool selected: isSelected(model.personUri)

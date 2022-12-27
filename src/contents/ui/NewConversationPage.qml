@@ -1,6 +1,6 @@
-// SPDX-FileCopyrightText:: Copyright 2015 Martin Klapetek <mklapetek@kde.org>
+// SPDX-FileCopyrightText: 2022 Michael Lang <criticaltemp@protonmail.com>
 //
-// SPDX-License-Identifier: GPL-2.0-or-later
+// SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
 
 import QtQuick 2.15
 import QtQuick.Layouts 1.15
@@ -14,14 +14,22 @@ Kirigami.ScrollablePage {
     title: i18n("Contacts")
     padding: 0
 
+    property var selected: []
+
     ContactsList {
+        id: list
         anchors.fill: parent
         multiSelect: true
         showSections: true
         showNumber: true
         onClicked: {
-            pageStack.pop()
+            while (pageStack.depth > 1) {
+                pageStack.pop()
+            }
+
             ChatListModel.startChat(Utils.phoneNumberList(numbers))
         }
     }
+
+    Component.onCompleted: list.selected = selected
 }
