@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: spacebar\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-12-17 00:52+0000\n"
+"POT-Creation-Date: 2022-12-28 00:52+0000\n"
 "PO-Revision-Date: 2021-08-28 12:00+0300\n"
 "Last-Translator: Tommi Nieminen <translator@legisign.org>\n"
 "Language-Team: Finnish <kde-i18n-doc@kde.org>\n"
@@ -27,7 +27,7 @@ msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
 msgstr ""
 
-#: daemon/channellogger.cpp:493 src/contents/ui/MessagesPage.qml:19
+#: daemon/channellogger.cpp:493 src/contents/ui/MessagesPage.qml:56
 #, fuzzy, kde-format
 #| msgid "Delete chat"
 msgid "New message"
@@ -57,10 +57,26 @@ msgstr "Avaa"
 msgid "Spacebar background service"
 msgstr "Spacebar-taustapalvelu"
 
-#: src/chatlistmodel.cpp:91
+#: src/chatlistmodel.cpp:95 src/contents/ui/MessagesPage.qml:47
 #, kde-format
-msgctxt "Invalid phone number"
-msgid "Unknown"
+msgid "and %1 more"
+msgstr ""
+
+#: src/contents/ui/ChatDetailPage.qml:14 src/contents/ui/MessagesPage.qml:129
+#, kde-format
+msgid "Details"
+msgstr ""
+
+#: src/contents/ui/ChatDetailPage.qml:30
+#, kde-format
+msgid "%1 person"
+msgid_plural "%1 people"
+msgstr[0] ""
+msgstr[1] ""
+
+#: src/contents/ui/ChatDetailPage.qml:52
+#, kde-format
+msgid "Add people"
 msgstr ""
 
 #: src/contents/ui/ChatsPage.qml:17
@@ -86,26 +102,26 @@ msgctxt "Deleting a conversation"
 msgid "Delete"
 msgstr "Poista keskustelu"
 
-#: src/contents/ui/ChatsPage.qml:98
+#: src/contents/ui/ChatsPage.qml:96
 #, fuzzy, kde-format
 #| msgid "Delete chat"
 msgctxt "Selecting recipients from contacts list"
 msgid "Create a chat"
 msgstr "Poista keskustelu"
 
-#: src/contents/ui/ChatsPage.qml:179
+#: src/contents/ui/ChatsPage.qml:177
 #, kde-format
 msgctxt "Indicating that message was sent by you"
 msgid "You"
 msgstr ""
 
-#: src/contents/ui/ChatsPage.qml:179
+#: src/contents/ui/ChatsPage.qml:177
 #, kde-format
 msgctxt "Indicating that message contains an image"
 msgid "Picture"
 msgstr ""
 
-#: src/contents/ui/ChatsPage.qml:263
+#: src/contents/ui/ChatsPage.qml:261
 #, fuzzy, kde-format
 #| msgid "New Conversation"
 msgid "Delete this conversation"
@@ -113,7 +129,7 @@ msgid_plural "Delete %1 conversations?"
 msgstr[0] "Uusi keskustelu"
 msgstr[1] "Uusi keskustelu"
 
-#: src/contents/ui/ChatsPage.qml:264
+#: src/contents/ui/ChatsPage.qml:262
 #, kde-format
 msgid "This is permanent and can't be undone"
 msgstr ""
@@ -133,151 +149,146 @@ msgstr ""
 #: src/contents/ui/ContactsList.qml:181
 #, kde-format
 msgctxt "Open chat conversation window"
-msgid "Compose"
+msgid "Next"
 msgstr ""
 
-#: src/contents/ui/ContactsList.qml:210
+#: src/contents/ui/ContactsList.qml:204
 #, kde-format
 msgid "Search or enter number…"
 msgstr "Etsi numeroa tai anna se…"
 
-#: src/contents/ui/ContactsList.qml:306
+#: src/contents/ui/ContactsList.qml:312
 #, kde-format
 msgid "No contacts with phone numbers yet"
 msgstr "Ei vielä puhelinnumerollisia yhteystietoja"
 
-#: src/contents/ui/ContactsList.qml:309
+#: src/contents/ui/ContactsList.qml:315
 #, kde-format
 msgid "Open contacts app"
 msgstr "Avaa yhteystietosovellus"
 
-#: src/contents/ui/ContactsList.qml:316
+#: src/contents/ui/ContactsList.qml:322
 #, kde-format
 msgid "No results found"
 msgstr ""
 
-#: src/contents/ui/MessagesPage.qml:141
+#: src/contents/ui/MessagesPage.qml:123
 #, kde-format
-msgid "Add/remove"
+msgid "Call"
 msgstr ""
 
-#: src/contents/ui/MessagesPage.qml:157
+#: src/contents/ui/MessagesPage.qml:142
 #, kde-format
 msgid "Texting this premium SMS number might cause you to be charged money"
 msgstr "Tekstiviestin lähettäminen tähän numeroon voi olla maksullista"
 
-#: src/contents/ui/MessagesPage.qml:168
+#: src/contents/ui/MessagesPage.qml:153
 #, kde-format
 msgid "Max attachment limit exceeded"
 msgstr ""
 
-#: src/contents/ui/MessagesPage.qml:179
+#: src/contents/ui/MessagesPage.qml:164
 #, kde-format
 msgid "No MMSC configured"
 msgstr ""
 
-#: src/contents/ui/MessagesPage.qml:190
+#: src/contents/ui/MessagesPage.qml:175
 #, kde-format
 msgid "Message has expired and will be deleted"
 msgstr ""
 
-#: src/contents/ui/MessagesPage.qml:201
+#: src/contents/ui/MessagesPage.qml:186
 #, kde-format
 msgid "Message will be sent as individual messages"
 msgstr ""
 
-#: src/contents/ui/MessagesPage.qml:460
+#: src/contents/ui/MessagesPage.qml:406
 #, fuzzy, kde-format
 #| msgid "Copy message"
 msgid "MMS message"
 msgstr "Kopioi viesti"
 
-#: src/contents/ui/MessagesPage.qml:468
+#: src/contents/ui/MessagesPage.qml:414
 #, fuzzy, kde-format
 #| msgid "Message from %1"
 msgid "Message size: %1"
 msgstr "Viesti henkilöltä %1"
 
-#: src/contents/ui/MessagesPage.qml:474
+#: src/contents/ui/MessagesPage.qml:420
 #, kde-format
 msgid "Expires: %1"
 msgstr ""
 
-#: src/contents/ui/MessagesPage.qml:596
+#: src/contents/ui/MessagesPage.qml:542
 #, kde-format
 msgid "View all"
 msgstr ""
 
-#: src/contents/ui/MessagesPage.qml:802
+#: src/contents/ui/MessagesPage.qml:748
 #, kde-format
 msgid "Copy code"
 msgstr ""
 
-#: src/contents/ui/MessagesPage.qml:811
+#: src/contents/ui/MessagesPage.qml:757
 #, kde-format
 msgid "Copy link"
 msgstr ""
 
-#: src/contents/ui/MessagesPage.qml:823
+#: src/contents/ui/MessagesPage.qml:769
 #, kde-format
 msgid "Copy text"
 msgstr ""
 
-#: src/contents/ui/MessagesPage.qml:832 src/contents/ui/MessagesPage.qml:885
+#: src/contents/ui/MessagesPage.qml:778 src/contents/ui/MessagesPage.qml:831
 #, kde-format
 msgid "Save attachment"
 msgstr ""
 
-#: src/contents/ui/MessagesPage.qml:843
+#: src/contents/ui/MessagesPage.qml:789
 #, kde-format
 msgid "View slideshow"
 msgstr ""
 
-#: src/contents/ui/MessagesPage.qml:856
+#: src/contents/ui/MessagesPage.qml:802
 #, fuzzy, kde-format
 #| msgid "Delete chat"
 msgid "Delete message"
 msgstr "Poista keskustelu"
 
-#: src/contents/ui/MessagesPage.qml:866
+#: src/contents/ui/MessagesPage.qml:812
 #, kde-format
 msgctxt "Retry sending message"
 msgid "Resend"
 msgstr ""
 
-#: src/contents/ui/MessagesPage.qml:916
+#: src/contents/ui/MessagesPage.qml:862
 #, kde-format
 msgid "Save"
 msgstr ""
 
-#: src/contents/ui/MessagesPage.qml:923 src/contents/ui/SettingsPage.qml:349
+#: src/contents/ui/MessagesPage.qml:869 src/contents/ui/SettingsPage.qml:349
 #, kde-format
 msgid "Cancel"
 msgstr ""
 
-#: src/contents/ui/MessagesPage.qml:1041
+#: src/contents/ui/MessagesPage.qml:987
 #, kde-format
 msgctxt "Remove item from list"
 msgid "Remove"
 msgstr ""
 
-#: src/contents/ui/MessagesPage.qml:1080
+#: src/contents/ui/MessagesPage.qml:1026
 #, kde-format
 msgid "Write Message..."
 msgstr "Kirjoita viesti…"
 
-#: src/contents/ui/MessagesPage.qml:1082
+#: src/contents/ui/MessagesPage.qml:1028
 #, kde-format
 msgctxt "%1 is a phone number"
 msgid "Send Message from %1..."
 msgstr "Lähetä viesti numerosta %1…"
 
-#: src/contents/ui/MessagesPage.qml:1137
-#, kde-format
-msgid "Duplicate recipient"
-msgstr ""
-
-#: src/contents/ui/MessagesPage.qml:1143
+#: src/contents/ui/MessagesPage.qml:1081
 #, kde-format
 msgid "Choose a file"
 msgstr ""

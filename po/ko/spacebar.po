@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: spacebar\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-12-17 00:52+0000\n"
+"POT-Creation-Date: 2022-12-28 00:52+0000\n"
 "PO-Revision-Date: 2022-10-03 15:11+0200\n"
 "Last-Translator: Shinjo Park <kde@peremen.name>\n"
 "Language-Team: Korean <kde-i18n-doc@kde.org>\n"
@@ -27,7 +27,7 @@ msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
 msgstr "kde@peremen.name"
 
-#: daemon/channellogger.cpp:493 src/contents/ui/MessagesPage.qml:19
+#: daemon/channellogger.cpp:493 src/contents/ui/MessagesPage.qml:56
 #, kde-format
 msgid "New message"
 msgstr "새 메시지"
@@ -55,11 +55,26 @@ msgstr "열기"
 msgid "Spacebar background service"
 msgstr "Spacebar 백그라운드 서비스"
 
-#: src/chatlistmodel.cpp:91
+#: src/chatlistmodel.cpp:95 src/contents/ui/MessagesPage.qml:47
 #, kde-format
-msgctxt "Invalid phone number"
-msgid "Unknown"
-msgstr "알 수 없음"
+msgid "and %1 more"
+msgstr ""
+
+#: src/contents/ui/ChatDetailPage.qml:14 src/contents/ui/MessagesPage.qml:129
+#, kde-format
+msgid "Details"
+msgstr ""
+
+#: src/contents/ui/ChatDetailPage.qml:30
+#, kde-format
+msgid "%1 person"
+msgid_plural "%1 people"
+msgstr[0] ""
+
+#: src/contents/ui/ChatDetailPage.qml:52
+#, kde-format
+msgid "Add people"
+msgstr ""
 
 #: src/contents/ui/ChatsPage.qml:17
 #, kde-format
@@ -83,31 +98,31 @@ msgctxt "Deleting a conversation"
 msgid "Delete"
 msgstr "삭제"
 
-#: src/contents/ui/ChatsPage.qml:98
+#: src/contents/ui/ChatsPage.qml:96
 #, kde-format
 msgctxt "Selecting recipients from contacts list"
 msgid "Create a chat"
 msgstr "대화 만들기"
 
-#: src/contents/ui/ChatsPage.qml:179
+#: src/contents/ui/ChatsPage.qml:177
 #, kde-format
 msgctxt "Indicating that message was sent by you"
 msgid "You"
 msgstr "나"
 
-#: src/contents/ui/ChatsPage.qml:179
+#: src/contents/ui/ChatsPage.qml:177
 #, kde-format
 msgctxt "Indicating that message contains an image"
 msgid "Picture"
 msgstr "그림"
 
-#: src/contents/ui/ChatsPage.qml:263
+#: src/contents/ui/ChatsPage.qml:261
 #, kde-format
 msgid "Delete this conversation"
 msgid_plural "Delete %1 conversations?"
 msgstr[0] "대화 %1개를 삭제하시겠습니까?"
 
-#: src/contents/ui/ChatsPage.qml:264
+#: src/contents/ui/ChatsPage.qml:262
 #, kde-format
 msgid "This is permanent and can't be undone"
 msgstr "이 작업은 영구적이며 실행 취소할 수 없습니다"
@@ -126,149 +141,144 @@ msgstr "%1개 선택됨"
 #: src/contents/ui/ContactsList.qml:181
 #, kde-format
 msgctxt "Open chat conversation window"
-msgid "Compose"
-msgstr "작성"
+msgid "Next"
+msgstr ""
 
-#: src/contents/ui/ContactsList.qml:210
+#: src/contents/ui/ContactsList.qml:204
 #, kde-format
 msgid "Search or enter number…"
 msgstr "검색 및 번호 입력..."
 
-#: src/contents/ui/ContactsList.qml:306
+#: src/contents/ui/ContactsList.qml:312
 #, kde-format
 msgid "No contacts with phone numbers yet"
 msgstr "전화 번호가 있는 연락처 없음"
 
-#: src/contents/ui/ContactsList.qml:309
+#: src/contents/ui/ContactsList.qml:315
 #, kde-format
 msgid "Open contacts app"
 msgstr "연락처 앱 열기"
 
-#: src/contents/ui/ContactsList.qml:316
+#: src/contents/ui/ContactsList.qml:322
 #, kde-format
 msgid "No results found"
 msgstr "결과 없음"
 
-#: src/contents/ui/MessagesPage.qml:141
+#: src/contents/ui/MessagesPage.qml:123
 #, kde-format
-msgid "Add/remove"
-msgstr "추가/삭제"
+msgid "Call"
+msgstr ""
 
-#: src/contents/ui/MessagesPage.qml:157
+#: src/contents/ui/MessagesPage.qml:142
 #, kde-format
 msgid "Texting this premium SMS number might cause you to be charged money"
 msgstr ""
 "프리미엄 SMS 번호로 문자 메시지를 전송하면 추가 요금이 발생할 수 있습니다"
 
-#: src/contents/ui/MessagesPage.qml:168
+#: src/contents/ui/MessagesPage.qml:153
 #, kde-format
 msgid "Max attachment limit exceeded"
 msgstr "최대 첨부 제한 초과함"
 
-#: src/contents/ui/MessagesPage.qml:179
+#: src/contents/ui/MessagesPage.qml:164
 #, kde-format
 msgid "No MMSC configured"
 msgstr "설정한 MMSC 없음"
 
-#: src/contents/ui/MessagesPage.qml:190
+#: src/contents/ui/MessagesPage.qml:175
 #, kde-format
 msgid "Message has expired and will be deleted"
 msgstr "메시지가 만료되었고 삭제됨"
 
-#: src/contents/ui/MessagesPage.qml:201
+#: src/contents/ui/MessagesPage.qml:186
 #, kde-format
 msgid "Message will be sent as individual messages"
 msgstr "메시지가 개별 메시지로 전송됨"
 
-#: src/contents/ui/MessagesPage.qml:460
+#: src/contents/ui/MessagesPage.qml:406
 #, kde-format
 msgid "MMS message"
 msgstr "MMS 메시지"
 
-#: src/contents/ui/MessagesPage.qml:468
+#: src/contents/ui/MessagesPage.qml:414
 #, kde-format
 msgid "Message size: %1"
 msgstr "메시지 크기: %1"
 
-#: src/contents/ui/MessagesPage.qml:474
+#: src/contents/ui/MessagesPage.qml:420
 #, kde-format
 msgid "Expires: %1"
 msgstr "만료: %1"
 
-#: src/contents/ui/MessagesPage.qml:596
+#: src/contents/ui/MessagesPage.qml:542
 #, kde-format
 msgid "View all"
 msgstr "모두 보기"
 
-#: src/contents/ui/MessagesPage.qml:802
+#: src/contents/ui/MessagesPage.qml:748
 #, kde-format
 msgid "Copy code"
 msgstr "코드 복사"
 
-#: src/contents/ui/MessagesPage.qml:811
+#: src/contents/ui/MessagesPage.qml:757
 #, kde-format
 msgid "Copy link"
 msgstr "링크 복사"
 
-#: src/contents/ui/MessagesPage.qml:823
+#: src/contents/ui/MessagesPage.qml:769
 #, kde-format
 msgid "Copy text"
 msgstr "텍스트 복사"
 
-#: src/contents/ui/MessagesPage.qml:832 src/contents/ui/MessagesPage.qml:885
+#: src/contents/ui/MessagesPage.qml:778 src/contents/ui/MessagesPage.qml:831
 #, kde-format
 msgid "Save attachment"
 msgstr "첨부 파일 저장"
 
-#: src/contents/ui/MessagesPage.qml:843
+#: src/contents/ui/MessagesPage.qml:789
 #, kde-format
 msgid "View slideshow"
 msgstr "슬라이드 쇼 보기"
 
-#: src/contents/ui/MessagesPage.qml:856
+#: src/contents/ui/MessagesPage.qml:802
 #, kde-format
 msgid "Delete message"
 msgstr "메시지 삭제"
 
-#: src/contents/ui/MessagesPage.qml:866
+#: src/contents/ui/MessagesPage.qml:812
 #, kde-format
 msgctxt "Retry sending message"
 msgid "Resend"
 msgstr "다시 보내기"
 
-#: src/contents/ui/MessagesPage.qml:916
+#: src/contents/ui/MessagesPage.qml:862
 #, kde-format
 msgid "Save"
 msgstr "저장"
 
-#: src/contents/ui/MessagesPage.qml:923 src/contents/ui/SettingsPage.qml:349
+#: src/contents/ui/MessagesPage.qml:869 src/contents/ui/SettingsPage.qml:349
 #, kde-format
 msgid "Cancel"
 msgstr "취소"
 
-#: src/contents/ui/MessagesPage.qml:1041
+#: src/contents/ui/MessagesPage.qml:987
 #, kde-format
 msgctxt "Remove item from list"
 msgid "Remove"
 msgstr "삭제"
 
-#: src/contents/ui/MessagesPage.qml:1080
+#: src/contents/ui/MessagesPage.qml:1026
 #, kde-format
 msgid "Write Message..."
 msgstr "메시지 쓰기..."
 
-#: src/contents/ui/MessagesPage.qml:1082
+#: src/contents/ui/MessagesPage.qml:1028
 #, kde-format
 msgctxt "%1 is a phone number"
 msgid "Send Message from %1..."
 msgstr "%1에서 메시지 보내기..."
 
-#: src/contents/ui/MessagesPage.qml:1137
-#, kde-format
-msgid "Duplicate recipient"
-msgstr "중복된 받는 사람"
-
-#: src/contents/ui/MessagesPage.qml:1143
+#: src/contents/ui/MessagesPage.qml:1081
 #, kde-format
 msgid "Choose a file"
 msgstr "파일 선택"
@@ -482,6 +492,20 @@ msgstr "Spacebar SMS/MMS 클라이언트"
 #, kde-format
 msgid "Open a chat with the given phone number"
 msgstr "지정한 전화 번호와의 대화 열기"
+
+#~ msgctxt "Invalid phone number"
+#~ msgid "Unknown"
+#~ msgstr "알 수 없음"
+
+#~ msgctxt "Open chat conversation window"
+#~ msgid "Compose"
+#~ msgstr "작성"
+
+#~ msgid "Add/remove"
+#~ msgstr "추가/삭제"
+
+#~ msgid "Duplicate recipient"
+#~ msgstr "중복된 받는 사람"
 
 #~ msgid "Attachments"
 #~ msgstr "첨부"
