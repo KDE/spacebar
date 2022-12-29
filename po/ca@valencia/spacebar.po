@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: spacebar\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-12-28 00:52+0000\n"
-"PO-Revision-Date: 2022-09-03 13:37+0200\n"
+"PO-Revision-Date: 2022-12-28 06:10+0100\n"
 "Last-Translator: Josep M. Ferrer <txemaq@gmail.com>\n"
 "Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
 "Language: ca@valencia\n"
@@ -62,24 +62,24 @@ msgstr "Servei en segon pla de Spacebar"
 #: src/chatlistmodel.cpp:95 src/contents/ui/MessagesPage.qml:47
 #, kde-format
 msgid "and %1 more"
-msgstr ""
+msgstr "i %1 més"
 
 #: src/contents/ui/ChatDetailPage.qml:14 src/contents/ui/MessagesPage.qml:129
 #, kde-format
 msgid "Details"
-msgstr ""
+msgstr "Detalls"
 
 #: src/contents/ui/ChatDetailPage.qml:30
 #, kde-format
 msgid "%1 person"
 msgid_plural "%1 people"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%1 persona"
+msgstr[1] "%1 persones"
 
 #: src/contents/ui/ChatDetailPage.qml:52
 #, kde-format
 msgid "Add people"
-msgstr ""
+msgstr "Afig persones"
 
 #: src/contents/ui/ChatsPage.qml:17
 #, kde-format
@@ -148,7 +148,7 @@ msgstr "%1 seleccionats"
 #, kde-format
 msgctxt "Open chat conversation window"
 msgid "Next"
-msgstr ""
+msgstr "Següent"
 
 #: src/contents/ui/ContactsList.qml:204
 #, kde-format
@@ -173,7 +173,7 @@ msgstr "No s'ha trobat cap resultat"
 #: src/contents/ui/MessagesPage.qml:123
 #, kde-format
 msgid "Call"
-msgstr ""
+msgstr "Toca"
 
 #: src/contents/ui/MessagesPage.qml:142
 #, kde-format
@@ -498,17 +498,3 @@ msgstr "Client SMS/MMS Spacebar"
 #, kde-format
 msgid "Open a chat with the given phone number"
 msgstr "Obri un xat amb el número de telèfon indicat"
-
-#~ msgctxt "Invalid phone number"
-#~ msgid "Unknown"
-#~ msgstr "Desconegut"
-
-#~ msgctxt "Open chat conversation window"
-#~ msgid "Compose"
-#~ msgstr "Redacta"
-
-#~ msgid "Add/remove"
-#~ msgstr "Afig/Elimina"
-
-#~ msgid "Duplicate recipient"
-#~ msgstr "Duplica el destinatari"
