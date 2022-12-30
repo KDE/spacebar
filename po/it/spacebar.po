@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: spacebar\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-12-28 00:52+0000\n"
-"PO-Revision-Date: 2022-09-05 19:06+0200\n"
+"PO-Revision-Date: 2022-12-28 20:19+0100\n"
 "Last-Translator: Vincenzo Reale <smart2128vr@gmail.com>\n"
 "Language-Team: Italian <kde-i18n-it@kde.org>\n"
 "Language: it\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Lokalize 22.08.0\n"
+"X-Generator: Lokalize 22.12.0\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -59,24 +59,24 @@ msgstr "Servizio in background di Spacebar"
 #: src/chatlistmodel.cpp:95 src/contents/ui/MessagesPage.qml:47
 #, kde-format
 msgid "and %1 more"
-msgstr ""
+msgstr "e %1 altri"
 
 #: src/contents/ui/ChatDetailPage.qml:14 src/contents/ui/MessagesPage.qml:129
 #, kde-format
 msgid "Details"
-msgstr ""
+msgstr "Dettagli"
 
 #: src/contents/ui/ChatDetailPage.qml:30
 #, kde-format
 msgid "%1 person"
 msgid_plural "%1 people"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%1 persona"
+msgstr[1] "%1 persone"
 
 #: src/contents/ui/ChatDetailPage.qml:52
 #, kde-format
 msgid "Add people"
-msgstr ""
+msgstr "Aggiungi persone"
 
 #: src/contents/ui/ChatsPage.qml:17
 #, kde-format
@@ -145,7 +145,7 @@ msgstr "%1 selezionati"
 #, kde-format
 msgctxt "Open chat conversation window"
 msgid "Next"
-msgstr ""
+msgstr "Successivo"
 
 #: src/contents/ui/ContactsList.qml:204
 #, kde-format
@@ -170,7 +170,7 @@ msgstr "Nessun risultato trovato"
 #: src/contents/ui/MessagesPage.qml:123
 #, kde-format
 msgid "Call"
-msgstr ""
+msgstr "Chiamata"
 
 #: src/contents/ui/MessagesPage.qml:142
 #, kde-format
