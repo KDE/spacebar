@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: spacebar\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-12-28 00:52+0000\n"
+"POT-Creation-Date: 2022-12-31 00:53+0000\n"
 "PO-Revision-Date: 2022-12-28 08:20+0200\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <kde-i18n-uk@kde.org>\n"
@@ -269,7 +269,7 @@ msgstr "Надіслати ще раз"
 msgid "Save"
 msgstr "Зберегти"
 
-#: src/contents/ui/MessagesPage.qml:869 src/contents/ui/SettingsPage.qml:349
+#: src/contents/ui/MessagesPage.qml:869
 #, kde-format
 msgid "Cancel"
 msgstr "Скасувати"
@@ -306,155 +306,176 @@ msgstr "Контакти"
 msgid "Back"
 msgstr "Назад"
 
-#: src/contents/ui/SettingsPage.qml:15
-#, kde-format
-msgid "Settings"
+#: src/contents/ui/settings/MMSSettingsPage.qml:16
+#, fuzzy, kde-format
+#| msgid "Settings"
+msgid "MMS Settings"
 msgstr "Параметри"
 
-#: src/contents/ui/SettingsPage.qml:34
-#, kde-format
-msgid "Appearance"
-msgstr "Вигляд"
-
-#: src/contents/ui/SettingsPage.qml:40
-#, kde-format
-msgid "Use custom colors for messages"
-msgstr "Нетипові кольори для повідомлень"
-
-#: src/contents/ui/SettingsPage.qml:73
-#, kde-format
-msgid "Incoming"
-msgstr "Вхідні"
-
-#: src/contents/ui/SettingsPage.qml:101
-#, kde-format
-msgid "Outgoing"
-msgstr "Вихідні"
-
-#: src/contents/ui/SettingsPage.qml:110
-#, kde-format
-msgid "Message font size:"
-msgstr "Розмір шрифту повідомлень:"
-
-#: src/contents/ui/SettingsPage.qml:120
+#: src/contents/ui/settings/MMSSettingsPage.qml:36
 #, kde-format
 msgid "Multimedia messages (MMS)"
 msgstr "Мультимедійні повідомлення (MMS)"
 
-#: src/contents/ui/SettingsPage.qml:127
-#, kde-format
-msgid "MMSC:"
+#: src/contents/ui/settings/MMSSettingsPage.qml:43
+#, fuzzy, kde-format
+#| msgid "MMSC:"
+msgid "MMSC"
 msgstr "MMSC:"
 
-#: src/contents/ui/SettingsPage.qml:136
-#, kde-format
-msgid "Proxy:"
+#: src/contents/ui/settings/MMSSettingsPage.qml:53
+#, fuzzy, kde-format
+#| msgid "Proxy:"
+msgid "Proxy"
 msgstr "Проксі:"
 
-#: src/contents/ui/SettingsPage.qml:144
-#, kde-format
-msgid "Port:"
+#: src/contents/ui/settings/MMSSettingsPage.qml:61
+#, fuzzy, kde-format
+#| msgid "Port:"
+msgid "Port"
 msgstr "Порт:"
 
-#: src/contents/ui/SettingsPage.qml:157
+#: src/contents/ui/settings/MMSSettingsPage.qml:79
 #, kde-format
 msgid "Request delivery reports"
 msgstr "Просити про звіти щодо доставлення"
 
-#: src/contents/ui/SettingsPage.qml:164
+#: src/contents/ui/settings/MMSSettingsPage.qml:86
 #, kde-format
 msgid "Request read reports"
 msgstr "Просити звіти щодо прочитання"
 
-#: src/contents/ui/SettingsPage.qml:171
+#: src/contents/ui/settings/MMSSettingsPage.qml:93
 #, kde-format
 msgid "Share delivery status"
 msgstr "Ділитися станом доставлення"
 
-#: src/contents/ui/SettingsPage.qml:178
+#: src/contents/ui/settings/MMSSettingsPage.qml:100
 #, kde-format
 msgid "Share read status"
 msgstr "Ділитися станом прочитання"
 
-#: src/contents/ui/SettingsPage.qml:186
+#: src/contents/ui/settings/MMSSettingsPage.qml:108
 #, kde-format
 msgid "Auto download messages"
 msgstr "Автоматично отримувати повідомлення"
 
-#: src/contents/ui/SettingsPage.qml:196
-#, kde-format
-msgid "Existing contacts only"
-msgstr "Лише наявні контакти"
+#: src/contents/ui/settings/MMSSettingsPage.qml:116
+#, fuzzy, kde-format
+#| msgid "Auto download messages"
+msgid "Auto download messages for existing contacts only"
+msgstr "Автоматично отримувати повідомлення"
 
-#: src/contents/ui/SettingsPage.qml:205
-#, kde-format
-msgid "Max message size (KiB):"
+#: src/contents/ui/settings/MMSSettingsPage.qml:123
+#, fuzzy, kde-format
+#| msgid "Max message size (KiB):"
+msgid "Max message size (KiB)"
 msgstr "Макс. розмір повідомлення (КіБ):"
 
-#: src/contents/ui/SettingsPage.qml:215
-#, kde-format
-msgid "Max attachments:"
+#: src/contents/ui/settings/MMSSettingsPage.qml:135
+#, fuzzy, kde-format
+#| msgid "Max attachments:"
+msgid "Max attachments"
 msgstr "Макс. долучення:"
 
-#: src/contents/ui/SettingsPage.qml:224
+#: src/contents/ui/settings/MMSSettingsPage.qml:147
 #, kde-format
 msgid "Auto create SMIL"
 msgstr "Автостворення SMIL"
 
-#: src/contents/ui/SettingsPage.qml:231
+#: src/contents/ui/settings/MMSSettingsPage.qml:154
 #, kde-format
 msgid "Default to group conversations"
 msgstr "Типовий для спілкування у групі"
 
-#: src/contents/ui/SettingsPage.qml:238
+#: src/contents/ui/settings/SettingsPage.qml:16
 #, kde-format
-msgid "Notifications"
-msgstr "Сповіщення"
+msgid "Settings"
+msgstr "Параметри"
 
-#: src/contents/ui/SettingsPage.qml:244
+#: src/contents/ui/settings/SettingsPage.qml:40
 #, kde-format
-msgid "Show sender name / number"
-msgstr "Показувати ім'я/номер відправника"
+msgid "General"
+msgstr ""
 
-#: src/contents/ui/SettingsPage.qml:251
-#, kde-format
-msgid "Show a preview of the message content"
-msgstr "Показувати попередній перегляд вмісту повідомлення"
-
-#: src/contents/ui/SettingsPage.qml:258
-#, kde-format
-msgid "Show attachment previews"
-msgstr "Показувати ескізи долучень"
-
-#: src/contents/ui/SettingsPage.qml:265
-#, kde-format
-msgid "Ignore tapbacks"
-msgstr "Ігнорувати зворотні звертання"
-
-#: src/contents/ui/SettingsPage.qml:272
-#, kde-format
-msgid "Other"
-msgstr "Інше"
-
-#: src/contents/ui/SettingsPage.qml:276
-#, kde-format
-msgid "Restore defaults"
-msgstr "Відновити типові параметри"
-
-#: src/contents/ui/SettingsPage.qml:287
+#: src/contents/ui/settings/SettingsPage.qml:45
 #, kde-format
 msgid "About"
 msgstr "Про програму"
 
-#: src/contents/ui/SettingsPage.qml:303
+#: src/contents/ui/settings/SettingsPage.qml:53
+#, fuzzy, kde-format
+#| msgid "Multimedia messages (MMS)"
+msgid "Multimedia Messages (MMS)"
+msgstr "Мультимедійні повідомлення (MMS)"
+
+#: src/contents/ui/settings/SettingsPage.qml:61
+#, kde-format
+msgid "Restore defaults"
+msgstr "Відновити типові параметри"
+
+#: src/contents/ui/settings/SettingsPage.qml:64
+#, fuzzy, kde-format
+#| msgctxt "Retry sending message"
+#| msgid "Resend"
+msgid "Reset"
+msgstr "Надіслати ще раз"
+
+#: src/contents/ui/settings/SettingsPage.qml:85
+#, kde-format
+msgid "Appearance"
+msgstr "Вигляд"
+
+#: src/contents/ui/settings/SettingsPage.qml:91
+#, kde-format
+msgid "Use custom colors for messages"
+msgstr "Нетипові кольори для повідомлень"
+
+#: src/contents/ui/settings/SettingsPage.qml:99
+#, kde-format
+msgid "Incoming message color"
+msgstr ""
+
+#: src/contents/ui/settings/SettingsPage.qml:122
+#, kde-format
+msgid "Outgoing message color"
+msgstr ""
+
+#: src/contents/ui/settings/SettingsPage.qml:145
+#, fuzzy, kde-format
+#| msgid "Message font size:"
+msgid "Message font size"
+msgstr "Розмір шрифту повідомлень:"
+
+#: src/contents/ui/settings/SettingsPage.qml:165
+#, kde-format
+msgid "Notifications"
+msgstr "Сповіщення"
+
+#: src/contents/ui/settings/SettingsPage.qml:171
+#, kde-format
+msgid "Show sender name / number"
+msgstr "Показувати ім'я/номер відправника"
+
+#: src/contents/ui/settings/SettingsPage.qml:178
+#, kde-format
+msgid "Show a preview of the message content"
+msgstr "Показувати попередній перегляд вмісту повідомлення"
+
+#: src/contents/ui/settings/SettingsPage.qml:185
+#, kde-format
+msgid "Show attachment previews"
+msgstr "Показувати ескізи долучень"
+
+#: src/contents/ui/settings/SettingsPage.qml:192
+#, kde-format
+msgid "Ignore tapbacks"
+msgstr "Ігнорувати зворотні звертання"
+
+#: src/contents/ui/settings/SettingsPage.qml:209
 #, kde-format
 msgid "Choose a color"
 msgstr "Виберіть колір"
-
-#: src/contents/ui/SettingsPage.qml:359
-#, kde-format
-msgid "Set"
-msgstr "Встановити"
 
 #: src/main.cpp:55
 #, kde-format
@@ -505,6 +526,21 @@ msgstr "SMS/MMS-клієнт Spacebar"
 #, kde-format
 msgid "Open a chat with the given phone number"
 msgstr "Почати спілкування із власником вказаного номера телефону"
+
+#~ msgid "Incoming"
+#~ msgstr "Вхідні"
+
+#~ msgid "Outgoing"
+#~ msgstr "Вихідні"
+
+#~ msgid "Existing contacts only"
+#~ msgstr "Лише наявні контакти"
+
+#~ msgid "Other"
+#~ msgstr "Інше"
+
+#~ msgid "Set"
+#~ msgstr "Встановити"
 
 #~ msgctxt "Invalid phone number"
 #~ msgid "Unknown"
