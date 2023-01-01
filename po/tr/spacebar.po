@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: spacebar\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-12-31 00:53+0000\n"
-"PO-Revision-Date: 2022-12-30 23:54+0300\n"
+"PO-Revision-Date: 2022-12-31 17:10+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
 "Language: tr\n"
@@ -296,10 +296,9 @@ msgid "Back"
 msgstr "Geri"
 
 #: src/contents/ui/settings/MMSSettingsPage.qml:16
-#, fuzzy, kde-format
-#| msgid "Settings"
+#, kde-format
 msgid "MMS Settings"
-msgstr "Ayarlar"
+msgstr "MMS Ayarları"
 
 #: src/contents/ui/settings/MMSSettingsPage.qml:36
 #, kde-format
@@ -307,22 +306,19 @@ msgid "Multimedia messages (MMS)"
 msgstr "Çoklu ortam iletileri (MMS)"
 
 #: src/contents/ui/settings/MMSSettingsPage.qml:43
-#, fuzzy, kde-format
-#| msgid "MMSC:"
+#, kde-format
 msgid "MMSC"
-msgstr "MMSC:"
+msgstr "MMSC"
 
 #: src/contents/ui/settings/MMSSettingsPage.qml:53
-#, fuzzy, kde-format
-#| msgid "Proxy:"
+#, kde-format
 msgid "Proxy"
-msgstr "Vekil:"
+msgstr "Vekil"
 
 #: src/contents/ui/settings/MMSSettingsPage.qml:61
-#, fuzzy, kde-format
-#| msgid "Port:"
+#, kde-format
 msgid "Port"
-msgstr "Kapı:"
+msgstr "Kapı"
 
 #: src/contents/ui/settings/MMSSettingsPage.qml:79
 #, kde-format
@@ -350,22 +346,19 @@ msgid "Auto download messages"
 msgstr "İletileri otomatik indir"
 
 #: src/contents/ui/settings/MMSSettingsPage.qml:116
-#, fuzzy, kde-format
-#| msgid "Auto download messages"
+#, kde-format
 msgid "Auto download messages for existing contacts only"
-msgstr "İletileri otomatik indir"
+msgstr "Yalnızca kayıtlı kişiler için iletileri otomatik indir"
 
 #: src/contents/ui/settings/MMSSettingsPage.qml:123
-#, fuzzy, kde-format
-#| msgid "Max message size (KiB):"
+#, kde-format
 msgid "Max message size (KiB)"
-msgstr "En büyük ileti boyutu (KiB):"
+msgstr "En büyük ileti boyutu (KiB)"
 
 #: src/contents/ui/settings/MMSSettingsPage.qml:135
-#, fuzzy, kde-format
-#| msgid "Max attachments:"
+#, kde-format
 msgid "Max attachments"
-msgstr "En çok ek sayısı:"
+msgstr "En çok ek sayısı"
 
 #: src/contents/ui/settings/MMSSettingsPage.qml:147
 #, kde-format
@@ -385,7 +378,7 @@ msgstr "Ayarlar"
 #: src/contents/ui/settings/SettingsPage.qml:40
 #, kde-format
 msgid "General"
-msgstr ""
+msgstr "Genel"
 
 #: src/contents/ui/settings/SettingsPage.qml:45
 #, kde-format
@@ -393,10 +386,9 @@ msgid "About"
 msgstr "Hakkında"
 
 #: src/contents/ui/settings/SettingsPage.qml:53
-#, fuzzy, kde-format
-#| msgid "Multimedia messages (MMS)"
+#, kde-format
 msgid "Multimedia Messages (MMS)"
-msgstr "Çoklu ortam iletileri (MMS)"
+msgstr "Çoklu Ortam İletileri (MMS)"
 
 #: src/contents/ui/settings/SettingsPage.qml:61
 #, kde-format
@@ -404,11 +396,9 @@ msgid "Restore defaults"
 msgstr "Öntanımlıları geri yükle"
 
 #: src/contents/ui/settings/SettingsPage.qml:64
-#, fuzzy, kde-format
-#| msgctxt "Retry sending message"
-#| msgid "Resend"
+#, kde-format
 msgid "Reset"
-msgstr "Yeniden Gönder"
+msgstr "Sıfırla"
 
 #: src/contents/ui/settings/SettingsPage.qml:85
 #, kde-format
@@ -423,18 +413,17 @@ msgstr "İletiler için özel renkler kullan"
 #: src/contents/ui/settings/SettingsPage.qml:99
 #, kde-format
 msgid "Incoming message color"
-msgstr ""
+msgstr "Gelen ileti rengi"
 
 #: src/contents/ui/settings/SettingsPage.qml:122
 #, kde-format
 msgid "Outgoing message color"
-msgstr ""
+msgstr "Giden ileti rengi"
 
 #: src/contents/ui/settings/SettingsPage.qml:145
-#, fuzzy, kde-format
-#| msgid "Message font size:"
+#, kde-format
 msgid "Message font size"
-msgstr "İleti yazıtipi boyutu:"
+msgstr "İleti yazıtipi boyutu"
 
 #: src/contents/ui/settings/SettingsPage.qml:165
 #, kde-format

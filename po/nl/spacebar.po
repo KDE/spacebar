@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: spacebar\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-12-31 00:53+0000\n"
-"PO-Revision-Date: 2022-12-28 13:56+0100\n"
+"PO-Revision-Date: 2022-12-31 16:22+0100\n"
 "Last-Translator: Freek de Kruijf <freekdekruijf@kde.nl>\n"
 "Language-Team: \n"
 "Language: nl\n"
@@ -296,10 +296,9 @@ msgid "Back"
 msgstr "Terug"
 
 #: src/contents/ui/settings/MMSSettingsPage.qml:16
-#, fuzzy, kde-format
-#| msgid "Settings"
+#, kde-format
 msgid "MMS Settings"
-msgstr "Instellingen"
+msgstr "MMS-instellingen"
 
 #: src/contents/ui/settings/MMSSettingsPage.qml:36
 #, kde-format
@@ -307,22 +306,19 @@ msgid "Multimedia messages (MMS)"
 msgstr "Multimediabericht (MMS)"
 
 #: src/contents/ui/settings/MMSSettingsPage.qml:43
-#, fuzzy, kde-format
-#| msgid "MMSC:"
+#, kde-format
 msgid "MMSC"
-msgstr "MMSC:"
+msgstr "MMSC"
 
 #: src/contents/ui/settings/MMSSettingsPage.qml:53
-#, fuzzy, kde-format
-#| msgid "Proxy:"
+#, kde-format
 msgid "Proxy"
-msgstr "Proxy:"
+msgstr "Proxy"
 
 #: src/contents/ui/settings/MMSSettingsPage.qml:61
-#, fuzzy, kde-format
-#| msgid "Port:"
+#, kde-format
 msgid "Port"
-msgstr "Poort:"
+msgstr "Poort"
 
 #: src/contents/ui/settings/MMSSettingsPage.qml:79
 #, kde-format
@@ -350,22 +346,19 @@ msgid "Auto download messages"
 msgstr "Berichten automatisch downloaden"
 
 #: src/contents/ui/settings/MMSSettingsPage.qml:116
-#, fuzzy, kde-format
-#| msgid "Auto download messages"
+#, kde-format
 msgid "Auto download messages for existing contacts only"
-msgstr "Berichten automatisch downloaden"
+msgstr "Berichten automatisch downloaden, allen voor bestaande contacten"
 
 #: src/contents/ui/settings/MMSSettingsPage.qml:123
-#, fuzzy, kde-format
-#| msgid "Max message size (KiB):"
+#, kde-format
 msgid "Max message size (KiB)"
-msgstr "Maximale berichtgrootte (KiB): "
+msgstr "Maximale berichtgrootte (KiB)"
 
 #: src/contents/ui/settings/MMSSettingsPage.qml:135
-#, fuzzy, kde-format
-#| msgid "Max attachments:"
+#, kde-format
 msgid "Max attachments"
-msgstr "Maximaal aantal bijlagen:"
+msgstr "Maximaal aantal bijlagen"
 
 #: src/contents/ui/settings/MMSSettingsPage.qml:147
 #, kde-format
@@ -385,7 +378,7 @@ msgstr "Instellingen"
 #: src/contents/ui/settings/SettingsPage.qml:40
 #, kde-format
 msgid "General"
-msgstr ""
+msgstr "Algemeen"
 
 #: src/contents/ui/settings/SettingsPage.qml:45
 #, kde-format
@@ -393,10 +386,9 @@ msgid "About"
 msgstr "Info over"
 
 #: src/contents/ui/settings/SettingsPage.qml:53
-#, fuzzy, kde-format
-#| msgid "Multimedia messages (MMS)"
+#, kde-format
 msgid "Multimedia Messages (MMS)"
-msgstr "Multimediabericht (MMS)"
+msgstr "Multimediaberichten (MMS)"
 
 #: src/contents/ui/settings/SettingsPage.qml:61
 #, kde-format
@@ -404,11 +396,9 @@ msgid "Restore defaults"
 msgstr "Standaardwaarden herstellen"
 
 #: src/contents/ui/settings/SettingsPage.qml:64
-#, fuzzy, kde-format
-#| msgctxt "Retry sending message"
-#| msgid "Resend"
+#, kde-format
 msgid "Reset"
-msgstr "Opnieuw verzenden"
+msgstr "Reset"
 
 #: src/contents/ui/settings/SettingsPage.qml:85
 #, kde-format
@@ -423,18 +413,17 @@ msgstr "Eigen kleuren voor berichten gebruiken"
 #: src/contents/ui/settings/SettingsPage.qml:99
 #, kde-format
 msgid "Incoming message color"
-msgstr ""
+msgstr "Inkomend berichtkleur"
 
 #: src/contents/ui/settings/SettingsPage.qml:122
 #, kde-format
 msgid "Outgoing message color"
-msgstr ""
+msgstr "Uitgaande berichtkleur"
 
 #: src/contents/ui/settings/SettingsPage.qml:145
-#, fuzzy, kde-format
-#| msgid "Message font size:"
+#, kde-format
 msgid "Message font size"
-msgstr "Tekengrootte van bericht:"
+msgstr "Tekengrootte van bericht"
 
 #: src/contents/ui/settings/SettingsPage.qml:165
 #, kde-format
