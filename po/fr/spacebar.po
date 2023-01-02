@@ -1,11 +1,11 @@
 # Xavier Besnard <xavier.besnard@neuf.fr>, 2020, 2021, 2022.
-# Xavier BESNARD <xavier.besnard]neuf.fr>, 2022.
+# Xavier BESNARD <xavier.besnard]neuf.fr>, 2022, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version: spacebar\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-12-31 00:53+0000\n"
-"PO-Revision-Date: 2022-12-31 15:16+0100\n"
+"PO-Revision-Date: 2023-01-01 11:12+0100\n"
 "Last-Translator: Xavier BESNARD <xavier.besnard]neuf.fr>\n"
 "Language-Team: fr\n"
 "Language: fr\n"
@@ -297,10 +297,9 @@ msgid "Back"
 msgstr "Retour"
 
 #: src/contents/ui/settings/MMSSettingsPage.qml:16
-#, fuzzy, kde-format
-#| msgid "Settings"
+#, kde-format
 msgid "MMS Settings"
-msgstr "Configuration"
+msgstr "Configuration pour les messages « MMS »"
 
 #: src/contents/ui/settings/MMSSettingsPage.qml:36
 #, kde-format
@@ -308,22 +307,19 @@ msgid "Multimedia messages (MMS)"
 msgstr "Messages multimédia (MMS)"
 
 #: src/contents/ui/settings/MMSSettingsPage.qml:43
-#, fuzzy, kde-format
-#| msgid "MMSC:"
+#, kde-format
 msgid "MMSC"
-msgstr "MMSC :"
+msgstr "MMSC"
 
 #: src/contents/ui/settings/MMSSettingsPage.qml:53
-#, fuzzy, kde-format
-#| msgid "Proxy:"
+#, kde-format
 msgid "Proxy"
-msgstr "Serveur mandataire :"
+msgstr "Serveur mandataire"
 
 #: src/contents/ui/settings/MMSSettingsPage.qml:61
-#, fuzzy, kde-format
-#| msgid "Port:"
+#, kde-format
 msgid "Port"
-msgstr "Port :"
+msgstr "Port"
 
 #: src/contents/ui/settings/MMSSettingsPage.qml:79
 #, kde-format
@@ -351,22 +347,21 @@ msgid "Auto download messages"
 msgstr "Télécharger automatiquement les messages"
 
 #: src/contents/ui/settings/MMSSettingsPage.qml:116
-#, fuzzy, kde-format
-#| msgid "Auto download messages"
+#, kde-format
 msgid "Auto download messages for existing contacts only"
-msgstr "Télécharger automatiquement les messages"
+msgstr ""
+"Télécharger automatiquement les messages, uniquement pour les contacts "
+"existants"
 
 #: src/contents/ui/settings/MMSSettingsPage.qml:123
-#, fuzzy, kde-format
-#| msgid "Max message size (KiB):"
+#, kde-format
 msgid "Max message size (KiB)"
-msgstr "Taille maximale des messages (Ko) :"
+msgstr "Taille maximale des messages (Ko)"
 
 #: src/contents/ui/settings/MMSSettingsPage.qml:135
-#, fuzzy, kde-format
-#| msgid "Max attachments:"
+#, kde-format
 msgid "Max attachments"
-msgstr "Nombre maximum de pièces jointes :"
+msgstr "Nombre maximum de pièces jointes"
 
 #: src/contents/ui/settings/MMSSettingsPage.qml:147
 #, kde-format
@@ -386,7 +381,7 @@ msgstr "Configuration"
 #: src/contents/ui/settings/SettingsPage.qml:40
 #, kde-format
 msgid "General"
-msgstr ""
+msgstr "Général"
 
 #: src/contents/ui/settings/SettingsPage.qml:45
 #, kde-format
@@ -394,8 +389,7 @@ msgid "About"
 msgstr "À propos"
 
 #: src/contents/ui/settings/SettingsPage.qml:53
-#, fuzzy, kde-format
-#| msgid "Multimedia messages (MMS)"
+#, kde-format
 msgid "Multimedia Messages (MMS)"
 msgstr "Messages multimédia (MMS)"
 
@@ -405,11 +399,9 @@ msgid "Restore defaults"
 msgstr "Restaurer la configuration par défaut"
 
 #: src/contents/ui/settings/SettingsPage.qml:64
-#, fuzzy, kde-format
-#| msgctxt "Retry sending message"
-#| msgid "Resend"
+#, kde-format
 msgid "Reset"
-msgstr "Ré-envoyer"
+msgstr "Ré-initialiser"
 
 #: src/contents/ui/settings/SettingsPage.qml:85
 #, kde-format
@@ -424,18 +416,17 @@ msgstr "Utiliser des couleurs personnalisées pour les messages"
 #: src/contents/ui/settings/SettingsPage.qml:99
 #, kde-format
 msgid "Incoming message color"
-msgstr ""
+msgstr "Couleur pour les messages entrants"
 
 #: src/contents/ui/settings/SettingsPage.qml:122
 #, kde-format
 msgid "Outgoing message color"
-msgstr ""
+msgstr "Couleur pour les messages sortants"
 
 #: src/contents/ui/settings/SettingsPage.qml:145
-#, fuzzy, kde-format
-#| msgid "Message font size:"
+#, kde-format
 msgid "Message font size"
-msgstr "Taille de la police de messages :"
+msgstr "Taille de la police de messages"
 
 #: src/contents/ui/settings/SettingsPage.qml:165
 #, kde-format
