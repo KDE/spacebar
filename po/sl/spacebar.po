@@ -1,13 +1,13 @@
 # Copyright (C) YEAR This file is copyright:
 # This file is distributed under the same license as the spacebar package.
 #
-# Matjaž Jeran <matjaz.jeran@amis.net>, 2020, 2021, 2022.
+# Matjaž Jeran <matjaz.jeran@amis.net>, 2020, 2021, 2022, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version: spacebar\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-12-31 00:53+0000\n"
-"PO-Revision-Date: 2022-09-04 08:16+0200\n"
+"PO-Revision-Date: 2023-01-02 20:53+0100\n"
 "Last-Translator: Matjaž Jeran <matjaz.jeran@amis.net>\n"
 "Language-Team: Slovenian <lugos-slo@lugos.si>\n"
 "Language: sl\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n%100==1 ? 1 : n%100==2 ? 2 : n%100==3 || n"
 "%100==4 ? 3 : 0);\n"
-"X-Generator: Poedit 3.1.1\n"
+"X-Generator: Lokalize 22.12.0\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -62,26 +62,26 @@ msgstr "Spacebar storitev v ozadju"
 #: src/chatlistmodel.cpp:95 src/contents/ui/MessagesPage.qml:47
 #, kde-format
 msgid "and %1 more"
-msgstr ""
+msgstr "in %1 več"
 
 #: src/contents/ui/ChatDetailPage.qml:14 src/contents/ui/MessagesPage.qml:129
 #, kde-format
 msgid "Details"
-msgstr ""
+msgstr "Podrobnosti"
 
 #: src/contents/ui/ChatDetailPage.qml:30
 #, kde-format
 msgid "%1 person"
 msgid_plural "%1 people"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
-msgstr[3] ""
+msgstr[0] "%1 oseba"
+msgstr[1] "%1 osebi"
+msgstr[2] "%1 osebe"
+msgstr[3] "%1 oseb"
 
 #: src/contents/ui/ChatDetailPage.qml:52
 #, kde-format
 msgid "Add people"
-msgstr ""
+msgstr "Dodaj osebe"
 
 #: src/contents/ui/ChatsPage.qml:17
 #, kde-format
@@ -152,7 +152,7 @@ msgstr "%1 izbrano"
 #, kde-format
 msgctxt "Open chat conversation window"
 msgid "Next"
-msgstr ""
+msgstr "Naslednja"
 
 #: src/contents/ui/ContactsList.qml:204
 #, kde-format
@@ -177,7 +177,7 @@ msgstr "Ni najdenih rezultatov"
 #: src/contents/ui/MessagesPage.qml:123
 #, kde-format
 msgid "Call"
-msgstr ""
+msgstr "Klic"
 
 #: src/contents/ui/MessagesPage.qml:142
 #, kde-format
@@ -305,10 +305,9 @@ msgid "Back"
 msgstr "Nazaj"
 
 #: src/contents/ui/settings/MMSSettingsPage.qml:16
-#, fuzzy, kde-format
-#| msgid "Settings"
+#, kde-format
 msgid "MMS Settings"
-msgstr "Nastavitve"
+msgstr "Nastavitve MMS"
 
 #: src/contents/ui/settings/MMSSettingsPage.qml:36
 #, kde-format
@@ -316,22 +315,19 @@ msgid "Multimedia messages (MMS)"
 msgstr "Večpredstavnostna sporočila (MMS)"
 
 #: src/contents/ui/settings/MMSSettingsPage.qml:43
-#, fuzzy, kde-format
-#| msgid "MMSC:"
+#, kde-format
 msgid "MMSC"
-msgstr "MMSC:"
+msgstr "MMSC"
 
 #: src/contents/ui/settings/MMSSettingsPage.qml:53
-#, fuzzy, kde-format
-#| msgid "Proxy:"
+#, kde-format
 msgid "Proxy"
-msgstr "Posrednik:"
+msgstr "Posrednik"
 
 #: src/contents/ui/settings/MMSSettingsPage.qml:61
-#, fuzzy, kde-format
-#| msgid "Port:"
+#, kde-format
 msgid "Port"
-msgstr "Vrata:"
+msgstr "Vrata"
 
 #: src/contents/ui/settings/MMSSettingsPage.qml:79
 #, kde-format
@@ -359,22 +355,19 @@ msgid "Auto download messages"
 msgstr "Samodejno prenesi sporočila k sebi"
 
 #: src/contents/ui/settings/MMSSettingsPage.qml:116
-#, fuzzy, kde-format
-#| msgid "Auto download messages"
+#, kde-format
 msgid "Auto download messages for existing contacts only"
-msgstr "Samodejno prenesi sporočila k sebi"
+msgstr "Samodejno prenesi sporočila samo za obstoječe stike"
 
 #: src/contents/ui/settings/MMSSettingsPage.qml:123
-#, fuzzy, kde-format
-#| msgid "Max message size (KiB):"
+#, kde-format
 msgid "Max message size (KiB)"
-msgstr "Največja velikost sporočila (KiB):"
+msgstr "Največja velikost sporočila (KiB)"
 
 #: src/contents/ui/settings/MMSSettingsPage.qml:135
-#, fuzzy, kde-format
-#| msgid "Max attachments:"
+#, kde-format
 msgid "Max attachments"
-msgstr "Največ prilog:"
+msgstr "Največ prilog"
 
 #: src/contents/ui/settings/MMSSettingsPage.qml:147
 #, kde-format
@@ -394,7 +387,7 @@ msgstr "Nastavitve"
 #: src/contents/ui/settings/SettingsPage.qml:40
 #, kde-format
 msgid "General"
-msgstr ""
+msgstr "Splošno"
 
 #: src/contents/ui/settings/SettingsPage.qml:45
 #, kde-format
@@ -402,8 +395,7 @@ msgid "About"
 msgstr "O programu"
 
 #: src/contents/ui/settings/SettingsPage.qml:53
-#, fuzzy, kde-format
-#| msgid "Multimedia messages (MMS)"
+#, kde-format
 msgid "Multimedia Messages (MMS)"
 msgstr "Večpredstavnostna sporočila (MMS)"
 
@@ -413,11 +405,9 @@ msgid "Restore defaults"
 msgstr "Obnovi privzete vrednosti"
 
 #: src/contents/ui/settings/SettingsPage.qml:64
-#, fuzzy, kde-format
-#| msgctxt "Retry sending message"
-#| msgid "Resend"
+#, kde-format
 msgid "Reset"
-msgstr "Ponovno pošlji"
+msgstr "Ponovno nastavi"
 
 #: src/contents/ui/settings/SettingsPage.qml:85
 #, kde-format
@@ -432,18 +422,17 @@ msgstr "Uporabljaj barve po meri za sporočila"
 #: src/contents/ui/settings/SettingsPage.qml:99
 #, kde-format
 msgid "Incoming message color"
-msgstr ""
+msgstr "Barva vhodnega sporočila"
 
 #: src/contents/ui/settings/SettingsPage.qml:122
 #, kde-format
 msgid "Outgoing message color"
-msgstr ""
+msgstr "Barva izhodnega sporočila"
 
 #: src/contents/ui/settings/SettingsPage.qml:145
-#, fuzzy, kde-format
-#| msgid "Message font size:"
+#, kde-format
 msgid "Message font size"
-msgstr "Velikost pisave sporočila:"
+msgstr "Velikost pisave sporočila"
 
 #: src/contents/ui/settings/SettingsPage.qml:165
 #, kde-format

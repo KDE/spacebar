@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: kdeorg\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-12-31 00:53+0000\n"
-"PO-Revision-Date: 2022-12-24 11:42\n"
+"PO-Revision-Date: 2023-01-02 07:12\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
 "Language: zh_CN\n"
@@ -293,10 +293,9 @@ msgid "Back"
 msgstr "返回"
 
 #: src/contents/ui/settings/MMSSettingsPage.qml:16
-#, fuzzy, kde-format
-#| msgid "Settings"
+#, kde-format
 msgid "MMS Settings"
-msgstr "设置"
+msgstr ""
 
 #: src/contents/ui/settings/MMSSettingsPage.qml:36
 #, kde-format
@@ -304,22 +303,19 @@ msgid "Multimedia messages (MMS)"
 msgstr "彩信 (MMS)"
 
 #: src/contents/ui/settings/MMSSettingsPage.qml:43
-#, fuzzy, kde-format
-#| msgid "MMSC:"
+#, kde-format
 msgid "MMSC"
-msgstr "MMSC："
+msgstr ""
 
 #: src/contents/ui/settings/MMSSettingsPage.qml:53
-#, fuzzy, kde-format
-#| msgid "Proxy:"
+#, kde-format
 msgid "Proxy"
-msgstr "代理："
+msgstr ""
 
 #: src/contents/ui/settings/MMSSettingsPage.qml:61
-#, fuzzy, kde-format
-#| msgid "Port:"
+#, kde-format
 msgid "Port"
-msgstr "端口："
+msgstr ""
 
 #: src/contents/ui/settings/MMSSettingsPage.qml:79
 #, kde-format
@@ -347,22 +343,19 @@ msgid "Auto download messages"
 msgstr "自动下载消息"
 
 #: src/contents/ui/settings/MMSSettingsPage.qml:116
-#, fuzzy, kde-format
-#| msgid "Auto download messages"
+#, kde-format
 msgid "Auto download messages for existing contacts only"
-msgstr "自动下载消息"
+msgstr ""
 
 #: src/contents/ui/settings/MMSSettingsPage.qml:123
-#, fuzzy, kde-format
-#| msgid "Max message size (KiB):"
+#, kde-format
 msgid "Max message size (KiB)"
-msgstr "最大消息大小 (KiB)："
+msgstr ""
 
 #: src/contents/ui/settings/MMSSettingsPage.qml:135
-#, fuzzy, kde-format
-#| msgid "Max attachments:"
+#, kde-format
 msgid "Max attachments"
-msgstr "最大附件："
+msgstr ""
 
 #: src/contents/ui/settings/MMSSettingsPage.qml:147
 #, kde-format
@@ -390,10 +383,9 @@ msgid "About"
 msgstr "关于"
 
 #: src/contents/ui/settings/SettingsPage.qml:53
-#, fuzzy, kde-format
-#| msgid "Multimedia messages (MMS)"
+#, kde-format
 msgid "Multimedia Messages (MMS)"
-msgstr "彩信 (MMS)"
+msgstr ""
 
 #: src/contents/ui/settings/SettingsPage.qml:61
 #, kde-format
@@ -426,10 +418,9 @@ msgid "Outgoing message color"
 msgstr ""
 
 #: src/contents/ui/settings/SettingsPage.qml:145
-#, fuzzy, kde-format
-#| msgid "Message font size:"
+#, kde-format
 msgid "Message font size"
-msgstr "消息字体大小："
+msgstr ""
 
 #: src/contents/ui/settings/SettingsPage.qml:165
 #, kde-format
@@ -510,24 +501,3 @@ msgstr "Spacebar 短信/彩信客户端"
 #, kde-format
 msgid "Open a chat with the given phone number"
 msgstr "发起与指定电话号码的对话"
-
-#~ msgid "Incoming"
-#~ msgstr "收到的消息"
-
-#~ msgid "Outgoing"
-#~ msgstr "发送的消息"
-
-#~ msgid "Existing contacts only"
-#~ msgstr "仅已有联系人"
-
-#~ msgid "Other"
-#~ msgstr "其他"
-
-#~ msgid "Set"
-#~ msgstr "设置"
-
-#~ msgid "Add/remove"
-#~ msgstr "添加/移除"
-
-#~ msgid "Duplicate recipient"
-#~ msgstr "重复收件人"
