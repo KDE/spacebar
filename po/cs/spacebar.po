@@ -8,7 +8,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-12-31 00:53+0000\n"
 "PO-Revision-Date: 2022-05-19 11:24+0200\n"
-"Last-Translator: Vit Pelcak <vpelcak@suse.cz>\n"
+"Last-Translator: Vit Pelcak <vit@pelcak.org>\n"
 "Language-Team: Czech <kde-i18n-doc@kde.org>\n"
 "Language: cs\n"
 "MIME-Version: 1.0\n"
@@ -65,15 +65,15 @@ msgstr ""
 #: src/contents/ui/ChatDetailPage.qml:14 src/contents/ui/MessagesPage.qml:129
 #, kde-format
 msgid "Details"
-msgstr ""
+msgstr "Podrobnosti"
 
 #: src/contents/ui/ChatDetailPage.qml:30
 #, kde-format
 msgid "%1 person"
 msgid_plural "%1 people"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "%1 osoba"
+msgstr[1] "%1 lidé"
+msgstr[2] "%1 lidí"
 
 #: src/contents/ui/ChatDetailPage.qml:52
 #, kde-format
@@ -173,7 +173,7 @@ msgstr "Nenalezeny žádné výsledky"
 #: src/contents/ui/MessagesPage.qml:123
 #, kde-format
 msgid "Call"
-msgstr ""
+msgstr "Volání"
 
 #: src/contents/ui/MessagesPage.qml:142
 #, kde-format
@@ -299,10 +299,9 @@ msgid "Back"
 msgstr "Zpět"
 
 #: src/contents/ui/settings/MMSSettingsPage.qml:16
-#, fuzzy, kde-format
-#| msgid "Settings"
+#, kde-format
 msgid "MMS Settings"
-msgstr "Nastavení"
+msgstr ""
 
 #: src/contents/ui/settings/MMSSettingsPage.qml:36
 #, kde-format
@@ -310,22 +309,19 @@ msgid "Multimedia messages (MMS)"
 msgstr "Multimediální zprávy (MMS)"
 
 #: src/contents/ui/settings/MMSSettingsPage.qml:43
-#, fuzzy, kde-format
-#| msgid "MMSC:"
+#, kde-format
 msgid "MMSC"
-msgstr "MMSC:"
+msgstr ""
 
 #: src/contents/ui/settings/MMSSettingsPage.qml:53
-#, fuzzy, kde-format
-#| msgid "Proxy:"
+#, kde-format
 msgid "Proxy"
-msgstr "Proxy:"
+msgstr "Proxy"
 
 #: src/contents/ui/settings/MMSSettingsPage.qml:61
-#, fuzzy, kde-format
-#| msgid "Port:"
+#, kde-format
 msgid "Port"
-msgstr "Port:"
+msgstr "Port"
 
 #: src/contents/ui/settings/MMSSettingsPage.qml:79
 #, kde-format
@@ -358,16 +354,14 @@ msgid "Auto download messages for existing contacts only"
 msgstr ""
 
 #: src/contents/ui/settings/MMSSettingsPage.qml:123
-#, fuzzy, kde-format
-#| msgid "Max message size (KiB):"
+#, kde-format
 msgid "Max message size (KiB)"
-msgstr "Limit velikosti zprávy (KiB):"
+msgstr ""
 
 #: src/contents/ui/settings/MMSSettingsPage.qml:135
-#, fuzzy, kde-format
-#| msgid "Max attachments:"
+#, kde-format
 msgid "Max attachments"
-msgstr "Maximální přílohy:"
+msgstr ""
 
 #: src/contents/ui/settings/MMSSettingsPage.qml:147
 #, kde-format
@@ -387,7 +381,7 @@ msgstr "Nastavení"
 #: src/contents/ui/settings/SettingsPage.qml:40
 #, kde-format
 msgid "General"
-msgstr ""
+msgstr "Obecné"
 
 #: src/contents/ui/settings/SettingsPage.qml:45
 #, kde-format
@@ -395,10 +389,9 @@ msgid "About"
 msgstr "O aplikaci"
 
 #: src/contents/ui/settings/SettingsPage.qml:53
-#, fuzzy, kde-format
-#| msgid "Multimedia messages (MMS)"
+#, kde-format
 msgid "Multimedia Messages (MMS)"
-msgstr "Multimediální zprávy (MMS)"
+msgstr ""
 
 #: src/contents/ui/settings/SettingsPage.qml:61
 #, kde-format
@@ -408,7 +401,7 @@ msgstr "Obnovit výchozí"
 #: src/contents/ui/settings/SettingsPage.qml:64
 #, kde-format
 msgid "Reset"
-msgstr ""
+msgstr "Obnovit"
 
 #: src/contents/ui/settings/SettingsPage.qml:85
 #, kde-format
@@ -431,10 +424,9 @@ msgid "Outgoing message color"
 msgstr ""
 
 #: src/contents/ui/settings/SettingsPage.qml:145
-#, fuzzy, kde-format
-#| msgid "Message font size:"
+#, kde-format
 msgid "Message font size"
-msgstr "Velikost písma zprávy:"
+msgstr ""
 
 #: src/contents/ui/settings/SettingsPage.qml:165
 #, kde-format
@@ -515,24 +507,3 @@ msgstr "Klient pro SMS/MMS Spacebar"
 #, kde-format
 msgid "Open a chat with the given phone number"
 msgstr "Otevřít rozhovor s daným telefonním číslem"
-
-#~ msgid "Incoming"
-#~ msgstr "Příchozí"
-
-#~ msgid "Outgoing"
-#~ msgstr "Odchozí"
-
-#~ msgid "Existing contacts only"
-#~ msgstr "Pouze existující kontakty"
-
-#~ msgid "Other"
-#~ msgstr "Jiné"
-
-#~ msgid "Set"
-#~ msgstr "Nastavit"
-
-#~ msgid "Add/remove"
-#~ msgstr "Přidat/odebrat"
-
-#~ msgid "Duplicate recipient"
-#~ msgstr "Duplicitní příjemce"
