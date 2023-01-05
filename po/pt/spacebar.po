@@ -313,10 +313,9 @@ msgid "MMSC"
 msgstr "MMSC:"
 
 #: src/contents/ui/settings/MMSSettingsPage.qml:53
-#, fuzzy, kde-format
-#| msgid "Proxy:"
+#, kde-format
 msgid "Proxy"
-msgstr "'Proxy':"
+msgstr "'Proxy'"
 
 #: src/contents/ui/settings/MMSSettingsPage.qml:61
 #, fuzzy, kde-format
@@ -385,7 +384,7 @@ msgstr "Configuração"
 #: src/contents/ui/settings/SettingsPage.qml:40
 #, kde-format
 msgid "General"
-msgstr ""
+msgstr "Geral"
 
 #: src/contents/ui/settings/SettingsPage.qml:45
 #, kde-format
@@ -404,11 +403,9 @@ msgid "Restore defaults"
 msgstr "Repor as predefinições"
 
 #: src/contents/ui/settings/SettingsPage.qml:64
-#, fuzzy, kde-format
-#| msgctxt "Retry sending message"
-#| msgid "Resend"
+#, kde-format
 msgid "Reset"
-msgstr "Reenviar"
+msgstr "Reiniciar"
 
 #: src/contents/ui/settings/SettingsPage.qml:85
 #, kde-format
