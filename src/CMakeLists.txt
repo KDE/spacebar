@@ -7,13 +7,18 @@ set(spacebar_SRCS
     databasethread.cpp
     asyncdatabase.cpp
     channelhandler.cpp
-    resources.qrc
 )
 
 set(DaemonXML ${CMAKE_CURRENT_BINARY_DIR}/../daemon/org.kde.spacebar.Daemon.xml)
 qt_add_dbus_interface(spacebar_SRCS ${DaemonXML} daemoninterface)
 
-add_executable(spacebar ${spacebar_SRCS})
+if(QT_MAJOR_VERSION STREQUAL "5")
+    qtquick_compiler_add_resources(RESOURCES resources.qrc)
+else()
+    qt_add_resources(RESOURCES resources.qrc)
+endif()
+
+add_executable(spacebar ${spacebar_SRCS} ${RESOURCES})
 
 kconfig_add_kcfg_files(spacebar settingsmanager.kcfgc GENERATE_MOC)
 
