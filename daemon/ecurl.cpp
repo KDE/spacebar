@@ -79,6 +79,9 @@ QByteArray ECurl::networkRequest(const QString &url, const QByteArray &data) con
     curl_easy_setopt(curl, CURLOPT_LOW_SPEED_TIME, 60L);
     curl_easy_setopt(curl, CURLOPT_LOW_SPEED_LIMIT, 30L);
 
+    // Fake user agent for carrier network compatibility
+    curl_easy_setopt(curl, CURLOPT_USERAGENT, "Android MmsLib/1.0");
+
     if (!SettingsManager::self()->mmsProxy().isEmpty()) {
         QString proxy = SettingsManager::self()->mmsProxy() + SL(":") + QString::number(SettingsManager::self()->mmsPort());
         curl_easy_setopt(curl, CURLOPT_PROXY, proxy.toUtf8().constData());
