@@ -252,6 +252,18 @@ void ChannelLogger::saveMessage(
     message.expires = expires;
     message.size = size;
 
+    // prevent chronologically misordered chat history
+    if (message.read && message.datetime.secsTo(QDateTime::currentDateTime()) < 60) {
+        // adjust for small delays if conversation is currently open
+        message.datetime = QDateTime::currentDateTime();
+    } else if (message.datetime.daysTo(QDateTime::currentDateTime()) > 7) {
+        // probably an invalid date if more than a week old
+        message.datetime = QDateTime::currentDateTime();
+    } else if (message.datetime > QDateTime::currentDateTime() && QDateTime::currentSecsSinceEpoch() > 31536000) {
+        // future datetimes do not make sense
+        message.datetime = QDateTime::currentDateTime();
+    }
+
     if (handleTapbackReaction(message, message.fromNumber.isEmpty() ? message.phoneNumberList.toString() : message.fromNumber)) {
         updateMessage(message);
 
