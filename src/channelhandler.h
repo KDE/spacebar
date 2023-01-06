@@ -29,4 +29,5 @@ private:
 Q_SIGNALS:
     void handlerReady();
     void channelOpen(const QString &phoneNumber);
+    void messagesChanged(const PhoneNumberList &phoneNumberList);
 };

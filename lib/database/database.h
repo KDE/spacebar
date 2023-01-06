@@ -58,10 +58,10 @@ Q_DECLARE_METATYPE(Message)
 
 struct Chat {
     PhoneNumberList phoneNumberList;
-    QDateTime lastContacted;
+    int unreadMessages = 0;
     QString lastMessage;
-    int unreadMessages;
-    bool lastSentByMe;
+    QDateTime lastDateTime;
+    bool lastSentByMe = false;
     QString lastAttachment;
 };
 Q_DECLARE_METATYPE(Chat)
@@ -76,7 +76,7 @@ public:
     // Messages
     void addMessage(const Message &message);
     void deleteMessage(const QString &id);
-    QVector<Message> messagesForNumber(const PhoneNumberList &phoneNumberList, const QString &id = QString(), const bool last = false) const;
+    QVector<Message> messagesForNumber(const PhoneNumberList &phoneNumberList, const QString &id = QString(), const int limit = 0) const;
     void updateMessageDeliveryState(const QString &id, const MessageState state);
     void updateMessageSent(const QString &id, const QString &messageId, const QString &contentLocation);
     void updateMessageDeliveryReport(const QString &messageId);
@@ -87,7 +87,7 @@ public:
     QString lastMessageWithAttachment(const PhoneNumberList &phoneNumberList);
 
     // Chats
-    QVector<Chat> chats() const;
+    QVector<Chat> chats(const PhoneNumberList &phoneNumberList) const;
     int unreadMessagesForNumber(const PhoneNumberList &phoneNumberList) const;
     void markChatAsRead(const PhoneNumberList &phoneNumberList);
     void deleteChat(const PhoneNumberList &phoneNumberList);
@@ -107,7 +107,4 @@ private:
     void migrate();
 
     QSqlDatabase m_database;
-
-Q_SIGNALS:
-    void messagesChanged(const PhoneNumberList &phoneNumberList);
 };

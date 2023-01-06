@@ -30,10 +30,11 @@ public:
         DisplayNameRole = Qt::UserRole + 1,
         PhoneNumberListRole,
         UnreadMessagesRole,
-        LastContactedRole,
         LastMessageRole,
+        LastDateTimeRole,
         LastSentByMeRole,
         LastAttachmentRole,
+        LastContactedRole,
         IsContactRole
     };
     Q_ENUM(Role)
@@ -44,6 +45,7 @@ public:
     QVariant data(const QModelIndex &index, int role) const override;
     int rowCount(const QModelIndex &parent = {}) const override;
 
+    Q_INVOKABLE void fetchChatDetails(const PhoneNumberList &phoneNumberList, const bool sort = false);
     Q_INVOKABLE void startChat(const PhoneNumberList &phoneNumberList);
     Q_INVOKABLE void markChatAsRead(const PhoneNumberList &phoneNumberList);
     Q_INVOKABLE void restoreDefaults();
@@ -54,7 +56,7 @@ public:
     bool ready() const;
 
 public Q_SLOTS:
-    void fetchChats();
+    void fetchChats(const PhoneNumberList &phoneNumberList);
     void deleteChat(const PhoneNumberList &phoneNumberList);
 
 Q_SIGNALS:
@@ -65,7 +67,9 @@ Q_SIGNALS:
     void chatsFetched();
 
 private:
+    QPair<Chat *, int> getChatIndex(const PhoneNumberList &phoneNumberList);
     QCoro::Task<void> fetchChatsInternal();
+    QCoro::Task<void> fetchChatDetailsInternal(const PhoneNumberList &phoneNumberList, const bool sort = false);
 
     ChannelHandler &m_handler;
     QVector<Chat> m_chats;

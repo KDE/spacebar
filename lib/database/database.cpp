@@ -65,7 +65,7 @@ Database::Database(QObject *parent)
     migrate();
 }
 
-QVector<Message> Database::messagesForNumber(const PhoneNumberList &phoneNumberList, const QString &id, const bool last) const
+QVector<Message> Database::messagesForNumber(const PhoneNumberList &phoneNumberList, const QString &id, const int limit) const
 {
     QVector<Message> messages;
 
@@ -90,17 +90,29 @@ QVector<Message> Database::messagesForNumber(const PhoneNumberList &phoneNumberL
             size,
             tapbacks
         FROM Messages
-        WHERE (phoneNumber == :phoneNumber AND :id IS NULL) OR id ==:id
-        ORDER BY time DESC
     )");
-    if (last) {
-        sql.append(SL(" LIMIT 1"));
+
+   QSqlQuery fetch(m_database);
+
+    if (id.isEmpty()) {
+        sql.append(SL("WHERE phoneNumber == :phoneNumber ORDER BY time DESC"));
+
+        if (limit == 0) {
+            sql.append(SL(" LIMIT 30"));
+        } else if (limit == 1) {
+            sql.append(SL(" LIMIT 1"));
+        } else {
+            sql.append(SL(" LIMIT -1 OFFSET 30"));
+        }
+
+        fetch.prepare(sql);
+        fetch.bindValue(SL(":phoneNumber"), phoneNumberList.toString());
+    } else {
+        sql.append(SL("WHERE id == :id"));
+        fetch.prepare(sql);
+        fetch.bindValue(SL(":id"), id);
     }
 
-    QSqlQuery fetch(m_database);
-    fetch.prepare(sql);
-    fetch.bindValue(SL(":phoneNumber"), phoneNumberList.toString());
-    fetch.bindValue(SL(":id"), id);
     exec(fetch);
 
     while (fetch.next()) {
@@ -206,35 +218,54 @@ QString Database::lastMessageWithAttachment(const PhoneNumberList &phoneNumberLi
     return fetch.value(0).toString();
 }
 
-QVector<Chat> Database::chats() const
+QVector<Chat> Database::chats(const PhoneNumberList &phoneNumberList) const
 {
     QVector<Chat> chats;
 
-    auto before = QTime::currentTime().msecsSinceStartOfDay();
-
-    QSqlQuery fetch(m_database);
-    fetch.prepare(SL("SELECT DISTINCT phoneNumber FROM Messages"));
-    exec(fetch);
-
-    while (fetch.next()) {
+    if (phoneNumberList.count() > 0) {
         Chat chat;
-        chat.phoneNumberList = PhoneNumberList(fetch.value(0).toString());
+        chat.phoneNumberList = phoneNumberList;
         chat.unreadMessages = unreadMessagesForNumber(chat.phoneNumberList);
 
-        QVector<Message> messages = messagesForNumber(chat.phoneNumberList, QString(), true);
+        QVector<Message> messages = messagesForNumber(chat.phoneNumberList, QString(), 1);
 
         if (messages.length() > 0) {
             chat.lastMessage = messages.at(0).text;
-            chat.lastContacted = messages.at(0).datetime;
+            chat.lastDateTime = messages.at(0).datetime;
             chat.lastSentByMe = messages.at(0).sentByMe;
             chat.lastAttachment = messages.at(0).attachments;
         }
 
         chats.append(chat);
-    }
+    } else {
+        auto before = QTime::currentTime().msecsSinceStartOfDay();
 
-    auto after = QTime::currentTime().msecsSinceStartOfDay();
-    qDebug() << "TOOK TIME" << after - before;
+        QSqlQuery fetch(m_database);
+
+        fetch.prepare(SL(R"(
+            WITH Numbers AS (
+                SELECT
+                    MAX(time) AS maxTime,
+                    phoneNumber
+                FROM Messages
+                GROUP BY phoneNumber
+            )
+            SELECT phoneNumber
+            FROM  Numbers
+            ORDER BY maxTime desc
+        )"));
+
+        exec(fetch);
+
+        while (fetch.next()) {
+            Chat chat;
+            chat.phoneNumberList = PhoneNumberList(fetch.value(0).toString());
+            chats.append(chat);
+        }
+
+        auto after = QTime::currentTime().msecsSinceStartOfDay();
+        qDebug() << "TOOK TIME" << after - before;
+    }
 
     return chats;
 }
@@ -256,8 +287,6 @@ void Database::markChatAsRead(const PhoneNumberList &phoneNumberList)
     update.prepare(SL("UPDATE Messages SET read = True WHERE phoneNumber = :phoneNumber AND NOT read == True"));
     update.bindValue(SL(":phoneNumber"), phoneNumberList.toString());
     exec(update);
-
-    Q_EMIT messagesChanged(phoneNumberList);
 }
 
 void Database::deleteChat(const PhoneNumberList &phoneNumberList)
@@ -266,8 +295,6 @@ void Database::deleteChat(const PhoneNumberList &phoneNumberList)
     update.prepare(SL("DELETE FROM Messages WHERE phoneNumber = :phoneNumber"));
     update.bindValue(SL(":phoneNumber"), phoneNumberList.toString());
     exec(update);
-
-    Q_EMIT messagesChanged(phoneNumberList);
 }
 
 void Database::addMessage(const Message &message)
@@ -331,8 +358,6 @@ void Database::addMessage(const Message &message)
     }
     putCall.bindValue(SL(":size"), message.size);
     exec(putCall);
-
-    Q_EMIT messagesChanged(message.phoneNumberList);
 }
 
 void Database::deleteMessage(const QString &id)

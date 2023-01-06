@@ -15,7 +15,6 @@ import org.kde.spacebar 1.0
 Kirigami.ScrollablePage {
     id: chatPage
     title: i18n("Chats")
-    supportsRefreshing: true
 
     property var conversations: []
     property bool editing: false
@@ -35,6 +34,8 @@ Kirigami.ScrollablePage {
             editing = false
         }
     }
+
+    onWidthChanged: ChatListModel.setCharacterLimit(applicationWindow().width)
     
     actions {
         main: Kirigami.Action {
@@ -63,18 +64,11 @@ Kirigami.ScrollablePage {
         ]
     }
 
-    onRefreshingChanged: {
-        if (refreshing) {
-            ChatListModel.fetchChats()
-        }
-    }
-
     ListView {
         id: listView
         model: ChatListModel
+        reuseItems: false
 
-        reuseItems: true
-        
         Connections {
             target: ChatListModel
             function onChatStarted (messageModel) {
@@ -85,9 +79,9 @@ Kirigami.ScrollablePage {
 
                 Qt.callLater(pageStack.push, "qrc:/MessagesPage.qml", {"messageModel": messageModel})
             }
-            function onChatsFetched () {
-                ChatListModel.setCharacterLimit(applicationWindow().width)
-                chatPage.refreshing = false
+
+            function onChatsFetched() {
+                loading.visible = false
             }
         }
         
@@ -96,8 +90,16 @@ Kirigami.ScrollablePage {
             text: i18nc("Selecting recipients from contacts list", "Create a chat")
             icon.name: "dialog-messages"
             helpfulAction: actions.main
+            visible: !loading.visible && listView.count === 0
+        }
 
+        Controls.BusyIndicator {
+            id: loading
+            anchors.centerIn: parent
             visible: listView.count === 0
+            running: visible
+            width: Kirigami.Units.iconSizes.huge
+            height: width
         }
         
         // mobile add action
@@ -113,11 +115,11 @@ Kirigami.ScrollablePage {
 
             required property string displayName
             required property var phoneNumberList
-            required property string lastContacted
             required property int unreadMessages
             required property string lastMessage
             required property bool lastSentByMe
             required property var lastAttachment
+            required property string lastContacted
             required property bool isContact
 
             property var attachments: lastAttachment ? JSON.parse(lastAttachment) : []
@@ -131,113 +133,119 @@ Kirigami.ScrollablePage {
             bottomPadding: Kirigami.Units.smallSpacing
             backgroundColor: selected ? Kirigami.Theme.activeBackgroundColor : Kirigami.Theme.backgroundColor
 
-            contentItem: RowLayout {
-                Kirigami.Avatar {
-                    Layout.preferredWidth: Kirigami.Units.iconSizes.medium
-                    Layout.preferredHeight: Kirigami.Units.iconSizes.medium
-                    Layout.rightMargin: Kirigami.Units.largeSpacing
-                    Layout.topMargin: Kirigami.Units.largeSpacing
-                    Layout.bottomMargin: Kirigami.Units.largeSpacing
-                    source: isContact ? "image://avatar/" + Utils.phoneNumberListToString(delegateRoot.phoneNumberList) : ""
-                    name: delegateRoot.displayName
-                    imageMode: Kirigami.Avatar.AdaptiveImageOrInitals
-                    initialsMode: isContact ? Kirigami.Avatar.UseInitials : Kirigami.Avatar.UseIcon
+            contentItem: Loader {
+                sourceComponent: Component {
+                    RowLayout {
+                        Kirigami.Avatar {
+                            Layout.preferredWidth: Kirigami.Units.iconSizes.medium
+                            Layout.preferredHeight: Kirigami.Units.iconSizes.medium
+                            Layout.rightMargin: Kirigami.Units.largeSpacing
+                            Layout.topMargin: Kirigami.Units.largeSpacing
+                            Layout.bottomMargin: Kirigami.Units.largeSpacing
+                            source: isContact ? "image://avatar/" + Utils.phoneNumberListToString(delegateRoot.phoneNumberList) : ""
+                            name: delegateRoot.displayName
+                            imageMode: Kirigami.Avatar.AdaptiveImageOrInitals
+                            initialsMode: isContact ? Kirigami.Avatar.UseInitials : Kirigami.Avatar.UseIcon
 
-                    Rectangle {
-                        anchors.fill: parent
-                        radius: width * 0.5
-                        color: Kirigami.Theme.highlightColor
-                        visible: selected
-
-                        Kirigami.Icon {
-                            anchors.fill: parent
-                            source: "checkbox"
-                            color: Kirigami.Theme.highlightedTextColor
-                        }
-                    }
-                }
-
-                ColumnLayout {
-                    Layout.fillHeight: true
-                    Layout.fillWidth: true
-
-                    spacing: 0
-                    Kirigami.Heading {
-                        id: nameLabel
-                        level: 5
-                        type: Kirigami.Heading.Type.Normal
-                        Layout.fillWidth: true
-                        text: delegateRoot.displayName
-                        wrapMode: Text.WrapAnywhere
-                        maximumLineCount: 1
-                    }
-                    Text {
-                        id: lastMessage
-                        Layout.fillWidth: true
-                        text: (delegateRoot.lastSentByMe ? i18nc("Indicating that message was sent by you", "You") + ": " : "") + (delegateRoot.lastMessage || (delegateRoot.image ? i18nc("Indicating that message contains an image", "Picture") : ""))
-                        wrapMode: Text.WrapAnywhere
-                        textFormat: Text.PlainText
-                        maximumLineCount: 1
-                        elide: Qt.ElideRight
-                        font.pointSize: Kirigami.Theme.defaultFont.pointSize - 2
-                        font.family: "Noto Sans, Noto Color Emoji"
-                        color: Kirigami.Theme.disabledTextColor
-                    }
-                }
-
-                // spacer
-                Item {
-                    Layout.fillWidth: true
-                }
-
-                Rectangle {
-                    Layout.alignment: Qt.AlignRight
-                    visible: delegateRoot.unreadMessages !== 0
-                    height: Kirigami.Units.gridUnit * 1.2
-                    width: number.width + 5 < height ? height: number.width + 5
-                    radius: height * 0.5
-                    color: Kirigami.Theme.highlightColor
-                    Controls.Label {
-                        id: number
-                        anchors.centerIn: parent
-                        visible: delegateRoot.unreadMessages !== 0
-                        text: delegateRoot.unreadMessages
-                        color: Qt.rgba(1, 1, 1, 1)
-                    }
-                }
-
-                Image {
-                    id: image
-                    source: delegateRoot.image ? "file://" + ChatListModel.attachmentsFolder(delegateRoot.phoneNumberList) + "/" + delegateRoot.image.fileName : ""
-                    fillMode: Image.PreserveAspectCrop
-                    sourceSize.height: Kirigami.Units.iconSizes.smallMedium * 4
-                    Layout.preferredWidth: delegateRoot.image ? Kirigami.Units.iconSizes.smallMedium * 2 : 0
-                    Layout.preferredHeight: Kirigami.Units.iconSizes.smallMedium * 2
-                    cache: false
-
-                    // rounded corners on image
-                    layer.enabled: true
-                    layer.effect: OpacityMask {
-                        maskSource: Item {
-                            width: image.width
-                            height: image.height
                             Rectangle {
                                 anchors.fill: parent
-                                radius: Kirigami.Units.smallSpacing
+                                radius: width * 0.5
+                                color: Kirigami.Theme.highlightColor
+                                visible: selected
+
+                                Kirigami.Icon {
+                                    anchors.fill: parent
+                                    source: "checkbox"
+                                    color: Kirigami.Theme.highlightedTextColor
+                                }
                             }
+                        }
+
+                        ColumnLayout {
+                            Layout.fillHeight: true
+                            Layout.fillWidth: true
+
+                            spacing: 0
+                            Kirigami.Heading {
+                                id: nameLabel
+                                level: 5
+                                type: Kirigami.Heading.Type.Normal
+                                Layout.fillWidth: true
+                                text: delegateRoot.displayName
+                                wrapMode: Text.WrapAnywhere
+                                maximumLineCount: 1
+                            }
+                            Text {
+                                id: lastMessage
+                                Layout.fillWidth: true
+                                text: (delegateRoot.lastSentByMe ? i18nc("Indicating that message was sent by you", "You") + ": " : "") + (delegateRoot.lastMessage || (delegateRoot.image ? i18nc("Indicating that message contains an image", "Picture") : ""))
+                                wrapMode: Text.WrapAnywhere
+                                textFormat: Text.PlainText
+                                maximumLineCount: 1
+                                elide: Qt.ElideRight
+                                font.pointSize: Kirigami.Theme.defaultFont.pointSize - 2
+                                font.family: "Noto Sans, Noto Color Emoji"
+                                color: Kirigami.Theme.disabledTextColor
+                            }
+                        }
+
+                        // spacer
+                        Item {
+                            Layout.fillWidth: true
+                        }
+
+                        Rectangle {
+                            Layout.alignment: Qt.AlignRight
+                            visible: delegateRoot.unreadMessages !== 0
+                            height: Kirigami.Units.gridUnit * 1.2
+                            width: number.width + 5 < height ? height: number.width + 5
+                            radius: height * 0.5
+                            color: Kirigami.Theme.highlightColor
+                            Controls.Label {
+                                id: number
+                                anchors.centerIn: parent
+                                visible: delegateRoot.unreadMessages !== 0
+                                text: delegateRoot.unreadMessages
+                                color: Qt.rgba(1, 1, 1, 1)
+                            }
+                        }
+
+                        Image {
+                            id: image
+                            source: delegateRoot.image ? "file://" + ChatListModel.attachmentsFolder(delegateRoot.phoneNumberList) + "/" + delegateRoot.image.fileName : ""
+                            fillMode: Image.PreserveAspectCrop
+                            sourceSize.height: Kirigami.Units.iconSizes.smallMedium * 4
+                            Layout.preferredWidth: delegateRoot.image ? Kirigami.Units.iconSizes.smallMedium * 2 : 0
+                            Layout.preferredHeight: Kirigami.Units.iconSizes.smallMedium * 2
+                            asynchronous: true
+                            cache: false
+
+                            // rounded corners on image
+                            layer.enabled: true
+                            layer.effect: OpacityMask {
+                                maskSource: Item {
+                                    width: image.width
+                                    height: image.height
+                                    Rectangle {
+                                        anchors.fill: parent
+                                        radius: Kirigami.Units.smallSpacing
+                                    }
+                                }
+                            }
+                        }
+
+                        Text {
+                            visible: !delegateRoot.image
+                            Layout.minimumWidth: Kirigami.Units.smallSpacing * 13
+                            horizontalAlignment: Text.AlignRight
+                            topPadding: Kirigami.Units.largeSpacing * 2
+                            text: delegateRoot.lastContacted
+                            font.pointSize: Kirigami.Theme.defaultFont.pointSize - 2
+                            color: Kirigami.Theme.disabledTextColor
                         }
                     }
                 }
-
-                Text {
-                    visible: !delegateRoot.image
-                    Layout.minimumWidth: Kirigami.Units.smallSpacing * 13
-                    horizontalAlignment: Text.AlignRight
-                    topPadding: Kirigami.Units.largeSpacing * 2
-                    text: delegateRoot.lastContacted
-                    font.pointSize: Kirigami.Theme.defaultFont.pointSize - 2
-                    color: Kirigami.Theme.disabledTextColor
-                }
+                onLoaded: ChatListModel.fetchChatDetails(delegateRoot.phoneNumberList)
             }
 
             onPressAndHold: setConversations(delegateRoot.phoneNumberList)
@@ -249,6 +257,7 @@ Kirigami.ScrollablePage {
                     // mark as read first, so data is correct when the model is initialized. This saves us a model reset
                     if (delegateRoot.unreadMessages > 0) {
                         ChatListModel.markChatAsRead(delegateRoot.phoneNumberList)
+                        delegateRoot.unreadMessages = 0
                     }
                     ChatListModel.startChat(delegateRoot.phoneNumberList)
                 }

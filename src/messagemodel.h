@@ -83,6 +83,8 @@ public:
 
     Q_INVOKABLE QVariant fileInfo(const QUrl &path);
 
+    Q_INVOKABLE void fetchAllMessages();
+
     /**
      * @brief adds a tapack reaction to a previously sent or recieved message,
      * and updates the model and database
@@ -138,7 +140,7 @@ private:
     QVector<Person> m_peopleData;
 
 private Q_SLOTS:
-    QCoro::Task<void> fetchMessages(const QString &id);
+    QCoro::Task<void> fetchMessages(const QString &id, const int limit = 0);
     QCoro::Task<void> fetchUpdatedMessage(const QString &id);
     void messageAdded(const QString &numbers, const QString &id);
     void messageUpdated(const QString &numbers, const QString &id);
@@ -146,4 +148,5 @@ private Q_SLOTS:
 Q_SIGNALS:
     void phoneNumberListChanged();
     void peopleChanged();
+    void messagesFetched();
 };

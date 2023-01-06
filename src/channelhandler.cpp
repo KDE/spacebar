@@ -19,11 +19,11 @@ ChannelHandler::ChannelHandler(std::optional<QString> &modemPath, QObject *paren
     // daemon dbus interface
     m_interface = new org::kde::spacebar::Daemon(QStringLiteral("org.kde.Spacebar"), QStringLiteral("/Daemon"), QDBusConnection::sessionBus(), this);
 
-    // Refresh chat list when message arrives
-    // The message will be saved by the background daemon
+    // Update the chat list when message arrives
+    // The message is saved to the database by the background daemon
     connect(m_interface, &OrgKdeSpacebarDaemonInterface::messageAdded, [this](const QString &phoneNumber, const QString &id) {
         Q_UNUSED(id);
-        Q_EMIT m_databaseThread.database().messagesChanged(PhoneNumberList(phoneNumber));
+        Q_EMIT messagesChanged(PhoneNumberList(phoneNumber));
     });
 }
 

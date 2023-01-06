@@ -25,15 +25,13 @@ public:
 
     // This class shall never expose anything but signals
 
-    Q_SIGNAL void messagesChanged(const PhoneNumberList &phoneNumberList);
-
     QFuture<void> addMessage(const Message &message);
     QFuture<void> deleteMessage(const QString &id);
-    [[nodiscard]] QFuture<QVector<Message>> messagesForNumber(const PhoneNumberList &phoneNumberList, const QString &id);
+    [[nodiscard]] QFuture<QVector<Message>> messagesForNumber(const PhoneNumberList &phoneNumberList, const QString &id, const int &limit = 0);
     QFuture<void> updateMessageDeliveryState(const QString &id, const MessageState state);
     QFuture<void> updateMessageSent(const QString &id, const QString &messageId, const QString &contentLocation);
     QFuture<void> markMessageRead(const int id);
-    [[nodiscard]] QFuture<QVector<Chat>> chats();
+    [[nodiscard]] QFuture<QVector<Chat>> chats(const PhoneNumberList &phoneNumberList);
     QFuture<void> markChatAsRead(const PhoneNumberList &phoneNumberList);
     QFuture<void> deleteChat(const PhoneNumberList &phoneNumberList);
 

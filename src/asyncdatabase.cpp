@@ -12,9 +12,6 @@ AsyncDatabase::AsyncDatabase()
     qRegisterMetaType<QVector<Chat>>();
     qRegisterMetaType<QVector<Message>>();
     qRegisterMetaType<MessageState>();
-
-    // Forward messagesChanged signal
-    connect(&m_database, &Database::messagesChanged, this, &AsyncDatabase::messagesChanged);
 }
 
 QFuture<void> AsyncDatabase::addMessage(const Message &message)
@@ -27,9 +24,9 @@ QFuture<void> AsyncDatabase::deleteMessage(const QString &id)
     return runAsync<void>([=, this] { m_database.deleteMessage(id); });
 }
 
-QFuture<QVector<Message>> AsyncDatabase::messagesForNumber(const PhoneNumberList &phoneNumberList, const QString &id)
+QFuture<QVector<Message>> AsyncDatabase::messagesForNumber(const PhoneNumberList &phoneNumberList, const QString &id, const int &limit)
 {
-    return runAsync<QVector<Message>>([=, this] { return m_database.messagesForNumber(phoneNumberList, id); });
+    return runAsync<QVector<Message>>([=, this] { return m_database.messagesForNumber(phoneNumberList, id, limit); });
 }
 
 QFuture<void> AsyncDatabase::updateMessageDeliveryState(const QString &id, const MessageState state)
@@ -47,9 +44,9 @@ QFuture<void> AsyncDatabase::markMessageRead(const int id)
     return runAsync<void>([=, this] { m_database.markMessageRead(id); });
 }
 
-QFuture<QVector<Chat>> AsyncDatabase::chats()
+QFuture<QVector<Chat>> AsyncDatabase::chats(const PhoneNumberList &phoneNumberList)
 {
-    return runAsync<QVector<Chat>>([=, this] { return  m_database.chats(); });
+    return runAsync<QVector<Chat>>([=, this] { return  m_database.chats(phoneNumberList); });
 }
 
 QFuture<void> AsyncDatabase::markChatAsRead(const PhoneNumberList &phoneNumberList)

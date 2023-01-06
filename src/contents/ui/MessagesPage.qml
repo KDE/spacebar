@@ -23,6 +23,7 @@ Kirigami.ScrollablePage {
     property string attachmentsFolder: messageModel ? messageModel.attachmentsFolder : "";
     property ListModel files: ListModel {}
     property var tapbackKeys: ["♥️", "👍" , "👎", "😂", "‼️", "❓"]
+    property real lastHeight: applicationWindow().height
 
     Connections {
         target: pageStack
@@ -57,7 +58,7 @@ Kirigami.ScrollablePage {
         }
     }
 
-    function getContrastYIQColor(hexcolor){
+    function getContrastYIQColor(hexcolor) {
         hexcolor = hexcolor.replace("#", "");
         const r = parseInt(hexcolor.substr(0, 2), 16);
         const g = parseInt(hexcolor.substr(2, 2), 16);
@@ -103,15 +104,15 @@ Kirigami.ScrollablePage {
         return person.name || person.phoneNumber
     }
 
-    function setTimeout(cb, delayTime) {
-        timer.interval = delayTime
-        timer.repeat = false
-        timer.triggered.connect(cb)
-        timer.start()
-    }
-
-    Timer {
-        id: timer
+    onHeightChanged: {
+        applicationWindow().controlsVisible = applicationWindow().contentItem.height > 200
+        const toolbarHeight = applicationWindow().controlsVisible ? 0 : root.globalToolBar.preferredHeight
+        if (listView.atYEnd) {
+            listView.positionViewAtEnd()
+        } else {
+            listView.contentY = listView.contentY + lastHeight - applicationWindow().height - toolbarHeight
+            lastHeight = applicationWindow().height + toolbarHeight
+        }
     }
 
     actions {
@@ -193,7 +194,6 @@ Kirigami.ScrollablePage {
         model: messageModel
         spacing: Kirigami.Units.largeSpacing
         currentIndex: -1
-        headerPositioning: ListView.OverlayHeader
 
         // configure chat bubble colors
         Kirigami.Theme.inherit: false
@@ -205,30 +205,77 @@ Kirigami.ScrollablePage {
         property string incomingTextColor: getContrastYIQColor(incomingColor)
         property string outgoingTextColor: getContrastYIQColor(outgoingColor)
 
-        // when there is a new message or the the chat is first viewed, go to the bottom
-        onCountChanged: delayCountChanged.restart()
+        property bool async: true
+        property int lastIndex: -1
+        property int lastCount: 0
+        property bool fetched: false
+        property bool lastAtYEnd: true
+        property int unreadCount: 0
+        property int lastContentY
 
-        // delay timer to make sure listview gets positioned at the end
-        Timer {
-            id: delayCountChanged
-            interval: 1
-            repeat: false
-            onTriggered: {
-                if (listView.currentIndex > -1 && listView.currentIndex < listView.count) {
-                    listView.positionViewAtIndex(listView.currentIndex, ListView.Visible)
-                    listView.currentIndex = -1
-                } else {
-                    Qt.callLater( listView.positionViewAtEnd )
+        function checkFetchMore() {
+            forceActiveFocus()
+            listView.lastAtYEnd = listView.atYEnd
+
+            if (!fetched) {
+                let idx = indexAt(contentX, contentY)
+                if (idx === -1 && listView.atYBeginning) {
+                    idx = 0
+                }
+
+                if (idx > -1 && idx < 15) {
+                    if (idx === 0) {
+                        // prevent moving to wrong position during fetch
+                        listView.interactive = false
+                    }
+                    fetched = true
+                    listView.lastCount = listView.count
+                    listView.lastIndex = idx
+                    messageModel.fetchAllMessages()
                 }
             }
         }
 
-        Component.onCompleted: Qt.callLater( listView.positionViewAtEnd )
+        function positionAtEnd() {
+            listView.unreadCount = 0
+            listView.async = false
+            listView.positionViewAtEnd()
+            listView.async = true
+            listView.lastContentY = listView.contentY
+        }
+
+        Connections {
+            target: messageModel
+            function onMessagesFetched() {
+                listView.interactive = true
+                if (listView.lastIndex > -1) {
+                    listView.positionViewAtIndex(listView.lastIndex + listView.count - listView.lastCount, ListView.Visible)
+                    listView.lastIndex = -1
+                } else if (listView.lastAtYEnd) {
+                    listView.positionAtEnd()
+                } else {
+                    listView.unreadCount++
+                }
+            }
+        }
+
+        WheelHandler {
+            acceptedDevices: PointerDevice.Mouse | PointerDevice.TouchPad
+            onWheel: listView.flick(0, event.angleDelta.y * 5)
+        }
+
+        onMovementStarted: checkFetchMore()
+        onMovementEnded: checkFetchMore()
+        onFlickStarted: checkFetchMore()
+        onFlickEnded: checkFetchMore()
 
         add: Transition {
             NumberAnimation { properties: "x,y"; duration: Kirigami.Units.shortDuration }
         }
-        addDisplaced: Transition {
+        remove: Transition {
+            NumberAnimation { properties: "x,y"; duration: Kirigami.Units.shortDuration }
+        }
+        displaced: Transition {
             NumberAnimation { properties: "x,y"; duration: Kirigami.Units.shortDuration }
         }
 
@@ -261,30 +308,10 @@ Kirigami.ScrollablePage {
             }
         }
 
-        // remove focus from message entry field
-        MouseArea {
-            anchors.fill: parent
-            z: -1
-            onClicked: forceActiveFocus()
-        }
-
         delegate: Item {
             id: delegateParent
             width: listView.width
             height: rect.height + senderDisplay.implicitHeight
-
-            Component.onCompleted: {
-                // Avoid unnecessary invocations
-
-                // This code is only for marking messages as read that arrived after opening the chat.
-                // However we currently don't know the id of those messages.
-                // For now we use the function to mark all messages as read, but this should actually use
-                // messageModel.markMessageRead(model.id)
-
-                if (visible && !model.sentByMe && !model.read) {
-                    Qt.callLater(ChatListModel.markChatAsRead, messageModel.phoneNumber);
-                }
-            }
 
             Kirigami.ShadowedRectangle {
                 id: rect
@@ -307,14 +334,25 @@ Kirigami.ScrollablePage {
                 width: content.width + padding * 1.5
 
                 MouseArea {
+                    id: rectMouse
                     anchors.fill: parent
-                    onClicked: if (!listView.moving && (content.attachments.length > 1 || modelText.truncated)) {
+                    onClicked: if (content.attachments.length > 1 || modelText.truncated) {
                         pageStack.layers.push("qrc:/FullscreenPage.qml", {
                             recipients: msgPage.title,
                             text: model.text,
                             attachments: content.attachments,
                             folder: attachmentsFolder
                         } )
+                    }
+                    onPressAndHold: {
+                        menu.index = model.index
+                        menu.id = model.id
+                        menu.text = model.text
+                        menu.attachments = content.attachments
+                        menu.smil = model.smil
+                        menu.resend = model.sentByMe && model.deliveryState == MessageModel.Failed
+                        menu.tapbacks = rect.tapbacks
+                        menu.open()
                     }
                 }
 
@@ -344,6 +382,18 @@ Kirigami.ScrollablePage {
                     property color textColor: model.sentByMe ? listView.outgoingTextColor : listView.incomingTextColor
                     property var attachments: model.attachments ? JSON.parse(model.attachments) : []
                     property bool clipped: false
+
+                    Component.onCompleted: {
+                        if (attachments.length === 1 && attachments[0].mimeType.indexOf("image/") >= 0) {
+                            rect.color = "transparent"
+                            rect.border.color = "transparent"
+                            rect.padding = 0
+                            if (listView.async) {
+                                // reserve space for async loaded image to ensure smooth scrolling
+                                content.height = msgPage.height / 2
+                            }
+                        }
+                    }
 
                     // message contents
                     Controls.Label {
@@ -378,14 +428,20 @@ Kirigami.ScrollablePage {
                                 // check if expired
                                 if (new Date(model.expires) < new Date()) {
                                     messageExpiredError.visible = true
-                                    setTimeout(function () {
-                                        listView.currentIndex = index
-                                        messageModel.deleteMessage(model.id, index,[])
-                                        messageExpiredError.visible = false
-                                    }, 5000)
+                                    expiredNotify.start()
                                 } else {
                                     messageModel.downloadMessage(model.id, model.contentLocation, model.expires)
                                 }
+                            }
+                        }
+
+                        Timer {
+                            id: expiredNotify
+                            interval: 5000
+                            onTriggered: {
+                                listView.currentIndex = index
+                                messageModel.deleteMessage(model.id, index,[])
+                                messageExpiredError.visible = false
                             }
                         }
 
@@ -461,25 +517,19 @@ Kirigami.ScrollablePage {
                                 source: isImage ? filePath : ""
                                 fillMode: Image.PreserveAspectFit
                                 sourceSize.width: Math.round(delegateParent.width * 0.7)
-                                height: Math.min(msgPage.height * 0.5, image.implicitHeight)
-                                asynchronous: false
+                                height: Math.min(Math.max(msgPage.width / 2, msgPage.height) * 0.5, image.implicitHeight)
+                                asynchronous: listView.async
+                                onStatusChanged: if (status == Image.Ready) content.height = undefined
                                 cache: false
                                 MouseArea {
                                     anchors.fill: parent
-                                    onClicked: if (!listView.moving) {
-                                            pageStack.layers.push("qrc:/PreviewPage.qml", {
+                                    onClicked: {
+                                        pageStack.layers.push("qrc:/PreviewPage.qml", {
                                             filePath: filePath,
                                             type: modelData.mimeType
                                         } )
                                     }
-                                }
-
-                                Component.onCompleted: {
-                                    if (content.attachments.length === 1 && isImage) {
-                                        rect.color = "transparent"
-                                        rect.border.color = "transparent"
-                                        rect.padding = 0
-                                    }
+                                    onPressAndHold: rectMouse.pressAndHold(x, y)
                                 }
 
                                 // rounded corners on image
@@ -587,10 +637,10 @@ Kirigami.ScrollablePage {
                                         return "error"
                                 }
                             }
-                            
+
                             return undefined
                         }
-                        
+
                         visible: !!(model.sentByMe && (model.deliveryState != MessageModel.Sent || model.index == (listView.count - 1)))
                         color: model.deliveryState == MessageModel.Failed ? Kirigami.Theme.negativeTextColor : Kirigami.Theme.disabledTextColor
                     }
@@ -661,22 +711,35 @@ Kirigami.ScrollablePage {
                     }
                 }
             }
+        }
 
-            MouseArea {
-                anchors.fill: rect
-                propagateComposedEvents: true
-                onPressAndHold: {
-                    menu.index = index
-                    menu.id = model.id
-                    menu.text = model.text
-                    menu.attachments = content.attachments
-                    menu.smil = model.smil
-                    menu.resend = model.sentByMe && model.deliveryState == MessageModel.Failed
-                    menu.tapbacks = rect.tapbacks
-                    menu.open()
+        footerPositioning: ListView.OverlayFooter
+        footer: Controls.RoundButton {
+            z: 3
+            visible: listView.unreadCount > 0 || listView.contentY < listView.lastContentY - listView.height * 2
+            anchors.horizontalCenter: parent.horizontalCenter
+            contentItem: Row {
+                spacing: Kirigami.Units.smallSpacing
+                Kirigami.Icon {
+                    anchors.verticalCenter: parent.verticalCenter
+                    source: "go-down-symbolic"
+                    height: Kirigami.Units.iconSizes.small
+                    width: height
+                    color: listView.incomingTextColor
                 }
-                onPressed: parent.forceActiveFocus()
+                Text {
+                    visible: listView.unreadCount > 0
+                    text: i18np("%1 new message", "%1 new messages", listView.unreadCount)
+                    color: listView.incomingTextColor
+                    font.bold: true
+                }
             }
+            flat: true
+            background: Rectangle {
+                color: Kirigami.ColorUtils.tintWithAlpha(listView.incomingColor, Kirigami.Theme.textColor, 0.15)
+                radius: parent.radius
+            }
+            onClicked: listView.positionAtEnd()
         }
     }
 
@@ -816,7 +879,6 @@ Kirigami.ScrollablePage {
                     listView.currentIndex = menu.index
                     messageModel.deleteMessage(menu.id, menu.index, menu.attachments.map(o => o.fileName))
                     menu.close()
-                    delayCountChanged.restart()
                 }
             }
         }
@@ -1041,10 +1103,10 @@ Kirigami.ScrollablePage {
             Controls.Action {
                 id: sendAction
                 onTriggered: {
-                    msgPage.forceActiveFocus()
                     messageModel.sendMessage(textarea.text, filesToList(), filesTotalSize())
                     files.clear()
                     textarea.text = ""
+                    listView.positionAtEnd()
                 }
             }
 

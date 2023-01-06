@@ -48,19 +48,27 @@ MessageModel::MessageModel(ChannelHandler &handler, const PhoneNumberList &phone
     fetchMessages(QString());
 }
 
-QCoro::Task<void> MessageModel::fetchMessages(const QString &id)
+QCoro::Task<void> MessageModel::fetchMessages(const QString &id, const int limit)
 {
-    const QVector<Message> messages = co_await m_handler.database().messagesForNumber(m_phoneNumberList, id);
+    const QVector<Message> messages = co_await m_handler.database().messagesForNumber(m_phoneNumberList, id, limit);
 
-    if (messages.count() == 1) {
-        beginInsertRows({}, m_messages.count(), m_messages.count());
-        m_messages.prepend(messages.at(0));
+    if (limit == -1) {
+        beginInsertRows({}, 0, messages.count() - 1);
+        m_messages.append(messages);
         endInsertRows();
     } else {
-        beginResetModel();
-        m_messages = messages;
-        endResetModel();
+        if (messages.count() == 1) {
+            beginInsertRows({}, m_messages.count(), m_messages.count());
+            m_messages.prepend(messages.at(0));
+            endInsertRows();
+        } else {
+            beginResetModel();
+            m_messages = messages;
+            endResetModel();
+        }
     }
+
+    Q_EMIT messagesFetched();
 }
 
 QCoro::Task<void> MessageModel::fetchUpdatedMessage(const QString &id)
@@ -78,6 +86,11 @@ QCoro::Task<void> MessageModel::fetchUpdatedMessage(const QString &id)
     message->tapbacks = messages.first().tapbacks;
 
     Q_EMIT dataChanged(index(i), index(i));
+}
+
+void MessageModel::fetchAllMessages()
+{
+    fetchMessages(QString(), -1);
 }
 
 QHash<int, QByteArray> MessageModel::roleNames() const
@@ -237,6 +250,9 @@ void MessageModel::sendMessage(const QString &text, const QStringList &files, co
     endInsertRows();
 
     m_handler.interface()->sendMessage(m_phoneNumberList.toString(), message.id, text, files, totalSize);
+
+    // update chat list
+    Q_EMIT m_handler.messagesChanged(m_phoneNumberList);
 }
 
 QPair<Message *, int> MessageModel::getMessageIndex(const QString &id)
@@ -290,6 +306,11 @@ void MessageModel::deleteMessage(const QString &id, const int index, const QStri
     beginRemoveRows(QModelIndex(), index, index);
     m_messages.remove(m_messages.count() - index - 1);
     endRemoveRows();
+
+    // update chat list only if it was the most recent message
+    if (index == m_messages.count()) {
+        Q_EMIT m_handler.messagesChanged(m_phoneNumberList);
+    }
 }
 
 void MessageModel::saveAttachments(const QStringList &attachments)
