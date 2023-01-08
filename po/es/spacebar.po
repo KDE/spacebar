@@ -3,13 +3,13 @@
 # This file is distributed under the same license as the spacebar package.
 #
 # Automatically generated, 2020.
-# Eloy Cuadra <ecuadra@eloihr.net>, 2020, 2021, 2022.
+# Eloy Cuadra <ecuadra@eloihr.net>, 2020, 2021, 2022, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version: spacebar\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-01-07 00:52+0000\n"
-"PO-Revision-Date: 2022-12-31 11:04+0100\n"
+"PO-Revision-Date: 2023-01-07 22:31+0100\n"
 "Last-Translator: Eloy Cuadra <ecuadra@eloihr.net>\n"
 "Language-Team: Spanish <kde-l10n-es@kde.org>\n"
 "Language: es\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 22.12.0\n"
+"X-Generator: Lokalize 22.12.1\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -222,12 +222,11 @@ msgid "View all"
 msgstr "Ver todo"
 
 #: src/contents/ui/MessagesPage.qml:732
-#, fuzzy, kde-format
-#| msgid "New message"
+#, kde-format
 msgid "%1 new message"
 msgid_plural "%1 new messages"
-msgstr[0] "Nuevo mensaje"
-msgstr[1] "Nuevo mensaje"
+msgstr[0] "%1 mensaje nuevo"
+msgstr[1] "%1 mensajes nuevos"
 
 #: src/contents/ui/MessagesPage.qml:811
 #, kde-format

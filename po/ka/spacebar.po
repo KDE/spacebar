@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: spacebar\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-01-07 00:52+0000\n"
-"PO-Revision-Date: 2023-01-01 07:42+0100\n"
+"PO-Revision-Date: 2023-01-07 06:59+0100\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
 "Language: ka\n"
@@ -220,12 +220,11 @@ msgid "View all"
 msgstr "ყველას ნახვა"
 
 #: src/contents/ui/MessagesPage.qml:732
-#, fuzzy, kde-format
-#| msgid "New message"
+#, kde-format
 msgid "%1 new message"
 msgid_plural "%1 new messages"
-msgstr[0] "ახალი შეტყობინება"
-msgstr[1] "ახალი შეტყობინება"
+msgstr[0] "%1 ახალი შეტყობინება"
+msgstr[1] "%1 ახალი შეტყობინება"
 
 #: src/contents/ui/MessagesPage.qml:811
 #, kde-format

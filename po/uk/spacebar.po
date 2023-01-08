@@ -3,13 +3,13 @@
 # This file is distributed under the license LGPL version 2.1 or
 # version 3 or later versions approved by the membership of KDE e.V.
 #
-# Yuri Chornoivan <yurchor@ukr.net>, 2020, 2021, 2022.
+# Yuri Chornoivan <yurchor@ukr.net>, 2020, 2021, 2022, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version: spacebar\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-01-07 00:52+0000\n"
-"PO-Revision-Date: 2022-12-31 09:05+0200\n"
+"PO-Revision-Date: 2023-01-07 08:51+0200\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <kde-i18n-uk@kde.org>\n"
 "Language: uk\n"
@@ -229,14 +229,13 @@ msgid "View all"
 msgstr "Переглянути все"
 
 #: src/contents/ui/MessagesPage.qml:732
-#, fuzzy, kde-format
-#| msgid "New message"
+#, kde-format
 msgid "%1 new message"
 msgid_plural "%1 new messages"
-msgstr[0] "Нове повідомлення"
-msgstr[1] "Нове повідомлення"
-msgstr[2] "Нове повідомлення"
-msgstr[3] "Нове повідомлення"
+msgstr[0] "%1 нове повідомлення"
+msgstr[1] "%1 нових повідомлення"
+msgstr[2] "%1 нових повідомлень"
+msgstr[3] "%1 нове повідомлення"
 
 #: src/contents/ui/MessagesPage.qml:811
 #, kde-format

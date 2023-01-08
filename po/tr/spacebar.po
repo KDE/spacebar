@@ -1,13 +1,13 @@
 # Copyright (C) YEAR This file is copyright:
 # This file is distributed under the same license as the spacebar package.
 #
-# Emir SARI <emir_sari@icloud.com>, 2022.
+# Emir SARI <emir_sari@icloud.com>, 2022, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version: spacebar\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-01-07 00:52+0000\n"
-"PO-Revision-Date: 2022-12-31 17:10+0300\n"
+"PO-Revision-Date: 2023-01-07 23:14+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
 "Language: tr\n"
@@ -218,12 +218,11 @@ msgid "View all"
 msgstr "Tümünü görüntüle"
 
 #: src/contents/ui/MessagesPage.qml:732
-#, fuzzy, kde-format
-#| msgid "New message"
+#, kde-format
 msgid "%1 new message"
 msgid_plural "%1 new messages"
-msgstr[0] "Yeni ileti"
-msgstr[1] "Yeni ileti"
+msgstr[0] "%1 yeni ileti"
+msgstr[1] "%1 yeni ileti"
 
 #: src/contents/ui/MessagesPage.qml:811
 #, kde-format
