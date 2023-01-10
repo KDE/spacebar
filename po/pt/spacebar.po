@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: spacebar\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-01-07 00:52+0000\n"
-"PO-Revision-Date: 2022-12-28 18:19+0000\n"
+"PO-Revision-Date: 2023-01-09 09:52+0000\n"
 "Last-Translator: José Nuno Coelho Pires <zepires@gmail.com>\n"
 "Language-Team: Portuguese <kde-i18n-pt@kde.org>\n"
 "Language: pt\n"
@@ -218,12 +218,11 @@ msgid "View all"
 msgstr "Ver tudo"
 
 #: src/contents/ui/MessagesPage.qml:732
-#, fuzzy, kde-format
-#| msgid "New message"
+#, kde-format
 msgid "%1 new message"
 msgid_plural "%1 new messages"
-msgstr[0] "Nova mensagem"
-msgstr[1] "Nova mensagem"
+msgstr[0] "%1 mensagem nova"
+msgstr[1] "%1 mensagens novas"
 
 #: src/contents/ui/MessagesPage.qml:811
 #, kde-format
@@ -304,10 +303,9 @@ msgid "Back"
 msgstr "Recuar"
 
 #: src/contents/ui/settings/MMSSettingsPage.qml:16
-#, fuzzy, kde-format
-#| msgid "Settings"
+#, kde-format
 msgid "MMS Settings"
-msgstr "Configuração"
+msgstr "Configuração do MMS"
 
 #: src/contents/ui/settings/MMSSettingsPage.qml:36
 #, kde-format
@@ -315,10 +313,9 @@ msgid "Multimedia messages (MMS)"
 msgstr "Mensagens multimédia (MMS)"
 
 #: src/contents/ui/settings/MMSSettingsPage.qml:43
-#, fuzzy, kde-format
-#| msgid "MMSC:"
+#, kde-format
 msgid "MMSC"
-msgstr "MMSC:"
+msgstr "MMSC"
 
 #: src/contents/ui/settings/MMSSettingsPage.qml:53
 #, kde-format
@@ -326,10 +323,9 @@ msgid "Proxy"
 msgstr "'Proxy'"
 
 #: src/contents/ui/settings/MMSSettingsPage.qml:61
-#, fuzzy, kde-format
-#| msgid "Port:"
+#, kde-format
 msgid "Port"
-msgstr "Porto:"
+msgstr "Porto"
 
 #: src/contents/ui/settings/MMSSettingsPage.qml:79
 #, kde-format
@@ -357,22 +353,20 @@ msgid "Auto download messages"
 msgstr "Transferir automaticamente as mensagens"
 
 #: src/contents/ui/settings/MMSSettingsPage.qml:116
-#, fuzzy, kde-format
-#| msgid "Auto download messages"
+#, kde-format
 msgid "Auto download messages for existing contacts only"
-msgstr "Transferir automaticamente as mensagens"
+msgstr ""
+"Transferir automaticamente as mensagens apenas para os contactos existentes"
 
 #: src/contents/ui/settings/MMSSettingsPage.qml:123
-#, fuzzy, kde-format
-#| msgid "Max message size (KiB):"
+#, kde-format
 msgid "Max message size (KiB)"
-msgstr "Tamanho máximo da mensagem (KiB):"
+msgstr "Tamanho máximo da mensagem (KiB)"
 
 #: src/contents/ui/settings/MMSSettingsPage.qml:135
-#, fuzzy, kde-format
-#| msgid "Max attachments:"
+#, kde-format
 msgid "Max attachments"
-msgstr "Máx. de anexos:"
+msgstr "Máx. de anexos"
 
 #: src/contents/ui/settings/MMSSettingsPage.qml:147
 #, kde-format
@@ -400,10 +394,9 @@ msgid "About"
 msgstr "Acerca"
 
 #: src/contents/ui/settings/SettingsPage.qml:53
-#, fuzzy, kde-format
-#| msgid "Multimedia messages (MMS)"
+#, kde-format
 msgid "Multimedia Messages (MMS)"
-msgstr "Mensagens multimédia (MMS)"
+msgstr "Mensagens Multimédia (MMS)"
 
 #: src/contents/ui/settings/SettingsPage.qml:61
 #, kde-format
@@ -428,18 +421,17 @@ msgstr "Usar cores personalizadas para as mensagens"
 #: src/contents/ui/settings/SettingsPage.qml:99
 #, kde-format
 msgid "Incoming message color"
-msgstr ""
+msgstr "Cor da mensagem recebida"
 
 #: src/contents/ui/settings/SettingsPage.qml:122
 #, kde-format
 msgid "Outgoing message color"
-msgstr ""
+msgstr "Cor da mensagem enviada"
 
 #: src/contents/ui/settings/SettingsPage.qml:145
-#, fuzzy, kde-format
-#| msgid "Message font size:"
+#, kde-format
 msgid "Message font size"
-msgstr "Tamanho do texto da mensagem:"
+msgstr "Tamanho do texto da mensagem"
 
 #: src/contents/ui/settings/SettingsPage.qml:165
 #, kde-format
@@ -520,18 +512,3 @@ msgstr "Cliente de SMS/MMS Spacebar"
 #, kde-format
 msgid "Open a chat with the given phone number"
 msgstr "Abrir uma conversa com o número de telefone indicado"
-
-#~ msgid "Incoming"
-#~ msgstr "Recebido"
-
-#~ msgid "Outgoing"
-#~ msgstr "Enviado"
-
-#~ msgid "Existing contacts only"
-#~ msgstr "Apenas nos contactos existentes"
-
-#~ msgid "Other"
-#~ msgstr "Outro"
-
-#~ msgid "Set"
-#~ msgstr "Modificar"
