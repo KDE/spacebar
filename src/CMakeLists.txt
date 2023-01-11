@@ -41,12 +41,10 @@ target_link_libraries(spacebar
     KF5::Contacts
     KF5::People
     KF5::PeopleBackend
-    KF5::ModemManagerQt
     KF5::KIOGui
     database
     kTelephonySupport
     macros
-    mms
     QCoro::Core
     QCoro::DBus
 )

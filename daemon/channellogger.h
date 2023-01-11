@@ -48,6 +48,7 @@ public:
     Q_SCRIPTABLE void sendMessage(const QString &numbers, const QString &id, const QString &text, const QStringList &files, const qint64 &totalSize);
     Q_SCRIPTABLE void sendTapback(const QString &numbers, const QString &id, const QString &tapback, const bool &isRemoved);
     Q_SCRIPTABLE void syncSettings();
+    Q_SCRIPTABLE QString ownNumber();
 
 private:
     void checkMessages();

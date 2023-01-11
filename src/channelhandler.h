@@ -17,7 +17,7 @@ class ChannelHandler : public QObject
     Q_OBJECT
 
 public:
-    explicit ChannelHandler(std::optional<QString> &modemPath, QObject *parent = nullptr);
+    explicit ChannelHandler(QObject *parent = nullptr);
 
     AsyncDatabase &database();
     org::kde::spacebar::Daemon *interface();

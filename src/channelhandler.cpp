@@ -6,16 +6,13 @@
 #include "channelhandler.h"
 
 #include "databasethread.h"
-#include "modemcontroller.h"
 
 #include <global.h>
 #include <database.h>
 
-ChannelHandler::ChannelHandler(std::optional<QString> &modemPath, QObject *parent)
+ChannelHandler::ChannelHandler(QObject *parent)
     : QObject(parent)
 {
-    ModemController::instance().init(modemPath);
-
     // daemon dbus interface
     m_interface = new org::kde::spacebar::Daemon(QStringLiteral("org.kde.Spacebar"), QStringLiteral("/Daemon"), QDBusConnection::sessionBus(), this);
 

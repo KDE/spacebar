@@ -20,6 +20,7 @@ Kirigami.ScrollablePage {
     property MessageModel messageModel;
     property real pointSize: Kirigami.Theme.defaultFont.pointSize + SettingsManager.messageFontSize
     property var people: messageModel ? messageModel.people : []
+    property string sendingNumber: messageModel ? messageModel.sendingNumber : ""
     property string attachmentsFolder: messageModel ? messageModel.attachmentsFolder : "";
     property ListModel files: ListModel {}
     property var tapbackKeys: ["♥️", "👍" , "👎", "😂", "‼️", "❓"]
@@ -753,7 +754,6 @@ Kirigami.ScrollablePage {
         property string smil
         property bool resend: false
         property var tapbacks
-        property string sendingNumber: Utils.phoneNumberToInternationalString(Utils.phoneNumber(Utils.sendingNumber()))
 
         edge: Qt.BottomEdge
 
@@ -767,7 +767,7 @@ Kirigami.ScrollablePage {
                         Controls.RoundButton {
                             padding: Kirigami.Units.largeSpacing * 2
                             flat: !highlighted
-                            highlighted: count > 0 && menu.tapbacks[modelData].indexOf(menu.sendingNumber) >= 0
+                            highlighted: count > 0 && menu.tapbacks[modelData].indexOf(sendingNumber) >= 0
                             onPressed: {
                                 if (!menu.tapbacks) {
                                     menu.tapbacks = {}
@@ -777,7 +777,7 @@ Kirigami.ScrollablePage {
                                     menu.tapbacks[modelData] = []
                                 }
 
-                                const isRemoved = menu.tapbacks[modelData].indexOf(menu.sendingNumber) >= 0
+                                const isRemoved = menu.tapbacks[modelData].indexOf(sendingNumber) >= 0
                                 messageModel.sendTapback(menu.id, modelData, isRemoved)
                                 menu.close()
                             }
@@ -1083,11 +1083,10 @@ Kirigami.ScrollablePage {
                 Layout.minimumHeight: sendButton.height + Kirigami.Units.smallSpacing * 2
                 verticalAlignment: TextEdit.AlignVCenter
                 placeholderText: {
-                    var number = Utils.sendingNumber()
-                    if (number === "0") {
+                    if (!sendingNumber) {
                         return i18n("Write Message...")
                     } else {
-                        return i18nc("%1 is a phone number", "Send Message from %1...", number)
+                        return i18nc("%1 is a phone number", "Send Message from %1...", sendingNumber)
                     }
                 }
                 font.pointSize: pointSize

@@ -185,6 +185,16 @@ PhoneNumberList MessageModel::phoneNumberList() const
     return m_phoneNumberList;
 }
 
+QString MessageModel::sendingNumber() const
+{
+    QString number = m_handler.interface()->ownNumber();
+    if (number == SL("The name org.kde.Spacebar was not provided by any .service files")) {
+        return QString();
+    } else {
+        return PhoneNumber(number).toInternational();
+    }
+}
+
 QString MessageModel::attachmentsFolder() const
 {
     const QString folder = QString::number(qHash(m_phoneNumberList.toString()));

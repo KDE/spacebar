@@ -68,8 +68,6 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
     parser.addHelpOption();
     parser.setApplicationDescription(i18n("Spacebar SMS/MMS client"));
     parser.addPositionalArgument(QStringLiteral("number"), i18n("Open a chat with the given phone number"));
-    const auto modemOpt = QCommandLineOption(SL("modem"), SL("Modem path to use, for development purpose"), SL("modem"));
-    parser.addOption(modemOpt);
     parser.process(app);
 
     KLocalizedString::setApplicationDomain("spacebar");
@@ -79,10 +77,7 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
     // Use using the instance getter
     new Utils(&engine);
 
-    auto modemPath = parser.isSet(modemOpt) && !parser.value(modemOpt).isEmpty()
-            ? parser.value(modemOpt)
-            : std::optional<QString>();
-    ChannelHandler handler(modemPath);
+    ChannelHandler handler;
     ChatListModel chatListModel(handler);
 
     // Register types

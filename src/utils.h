@@ -7,9 +7,6 @@
 #include <QObject>
 #include <QRegularExpression>
 
-#include <ModemManagerQt/Manager>
-#include <ModemManagerQt/Modem>
-#include <ModemManagerQt/ModemDevice>
 #include <KContacts/PhoneNumber>
 #include <KContacts/VCardConverter>
 
@@ -37,7 +34,6 @@ public:
     Q_INVOKABLE bool isPremiumNumber(const PhoneNumberList &phoneNumberList) const;
     Q_INVOKABLE static void launchPhonebook();
     Q_INVOKABLE void copyTextToClipboard(const QString &text) const;
-    Q_INVOKABLE QString sendingNumber();
     Q_INVOKABLE PhoneNumber phoneNumber(const QString &number) const;
     Q_INVOKABLE PhoneNumberList phoneNumberList(const QStringList &phoneNumbers) const;
 
@@ -63,6 +59,5 @@ public:
 private:
     QQmlApplicationEngine *m_engine;
     QQuickWindow *m_window = nullptr;
-    PhoneNumber m_sendingNumber;
     const KContacts::VCardConverter converter;
 };

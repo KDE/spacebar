@@ -31,6 +31,7 @@ class MessageModel : public QAbstractListModel
 {
     Q_OBJECT
     Q_PROPERTY(PhoneNumberList phoneNumberList READ phoneNumberList NOTIFY phoneNumberListChanged)
+    Q_PROPERTY(QString sendingNumber READ sendingNumber CONSTANT)
     Q_PROPERTY(QVector<Person> people READ people NOTIFY peopleChanged)
     Q_PROPERTY(QString attachmentsFolder READ attachmentsFolder CONSTANT)
 
@@ -78,6 +79,8 @@ public:
     QVector<Person> people() const;
 
     PhoneNumberList phoneNumberList() const;
+
+    QString sendingNumber() const;
 
     QString attachmentsFolder() const;
 

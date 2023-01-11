@@ -44,18 +44,6 @@ Utils::Utils(QQmlApplicationEngine *engine)
     : m_engine(engine)
 {
     s_instance = this;
-
-    ModemManager::ModemDevice::List devices = ModemManager::modemDevices();
-
-    if (!devices.isEmpty()) {
-        ModemManager::ModemDevice::Ptr modem = devices.first();
-
-        const QStringList numbers = modem->modemInterface()->ownNumbers();
-
-        if (!numbers.isEmpty()) {
-            m_sendingNumber = PhoneNumber(numbers.first());
-        }
-    }
 }
 
 void Utils::showPassiveNotification(const QString &message, int timeout)
@@ -144,11 +132,6 @@ Utils *Utils::instance()
 QQmlApplicationEngine *Utils::qmlEngine() const
 {
     return m_engine;
-}
-
-QString Utils::sendingNumber()
-{
-    return m_sendingNumber.toNational();
 }
 
 PhoneNumber Utils::phoneNumber(const QString &number) const

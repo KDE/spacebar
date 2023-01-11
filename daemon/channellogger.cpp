@@ -39,7 +39,7 @@ ChannelLogger::ChannelLogger(std::optional<QString> &modemPath, QObject *parent)
 
     ModemController::instance().init(modemPath);
 
-    m_ownNumber = PhoneNumber(ModemController::instance().ownNumber());
+    m_ownNumber = PhoneNumber(ownNumber());
 
     checkMessages();
 
@@ -70,6 +70,10 @@ void ChannelLogger::checkMessages()
             handleIncomingMessage(msg);
         }
     }
+}
+
+QString ChannelLogger::ownNumber() {
+    return ModemController::instance().ownNumber();
 }
 
 void ChannelLogger::handleIncomingMessage(ModemManager::Sms::Ptr msg)
