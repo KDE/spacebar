@@ -221,13 +221,12 @@ msgid "View all"
 msgstr "Zobrazit všechny"
 
 #: src/contents/ui/MessagesPage.qml:732
-#, fuzzy, kde-format
-#| msgid "New message"
+#, kde-format
 msgid "%1 new message"
 msgid_plural "%1 new messages"
-msgstr[0] "Nová zpráva"
-msgstr[1] "Nová zpráva"
-msgstr[2] "Nová zpráva"
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
 
 #: src/contents/ui/MessagesPage.qml:811
 #, kde-format
