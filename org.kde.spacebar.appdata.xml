@@ -37,6 +37,13 @@
   <name xml:lang="zh-CN">Spacebar</name>
   <name xml:lang="zh-TW">空間列</name>
   <summary>SMS/MMS messaging client</summary>
+  <summary xml:lang="ca">Client de missatgeria SMS/MMS</summary>
+  <summary xml:lang="ca-valencia">Client de missatgeria SMS/MMS</summary>
+  <summary xml:lang="eu">SMS/MMS mezularitza bezeroa</summary>
+  <summary xml:lang="nl">Client voor SMS/MMS berichten</summary>
+  <summary xml:lang="tr">SMS/MMS iletileşme istemcisi</summary>
+  <summary xml:lang="uk">Клієнт обміну повідомленнями SMS/MMS</summary>
+  <summary xml:lang="x-test">xxSMS/MMS messaging clientxx</summary>
   <metadata_license>CC0-1.0</metadata_license>
   <project_license>GPL-2.0-or-later</project_license>
   <developer_name>KDE Community</developer_name>
@@ -76,6 +83,13 @@
   <developer_name xml:lang="zh-TW">KDE 社群</developer_name>
   <description>
     <p>Spacebar is a SMS/MMS messaging client. It allows you to send text messages, pictures and other files over a cellular network.</p>
+    <p xml:lang="ca">L'Spacebar és un client de missatgeria SMS/MMS. Permet que envieu missatges de text, imatges i altres fitxers a través d'una xarxa mòbil.</p>
+    <p xml:lang="ca-valencia">Spacebar és un client de missatgeria SMS/MMS. Permet que envieu missatges de text, imatges i altres fitxers a través d'una xarxa mòbil.</p>
+    <p xml:lang="eu">Spacebar SMS/MMS mezularitza bezero bat da. Mugikorreko sare baten bidez testu-mezuak, argazkiak eta beste fitxategi batzuk bidaltzen uzten dizu.</p>
+    <p xml:lang="nl">Spacebar is een SMS/MMS client voor verzenden van berichten. Het biedt u het zenden van tekstberichten, plaatjes en andere bestanden over een cellulair netwerk.</p>
+    <p xml:lang="tr">Spacebar, bir SMS/MMS iletileşme istemcisidir. Bir hücresel ağ üzerinden metin iletileri, resimler ve diğer dosyaları göndermenize izin verir.</p>
+    <p xml:lang="uk">Spacebar є клієнтом обміну повідомленнями SMS/MMS. За допомогою програми ви можете надсилати текстові повідомлення, зображення та інші файли мережею стільникового телефонного зв'язку.</p>
+    <p xml:lang="x-test">xxSpacebar is a SMS/MMS messaging client. It allows you to send text messages, pictures and other files over a cellular network.xx</p>
   </description>
   <url type="bugtracker">https://invent.kde.org/plasma-mobile/spacebar/-/issues</url>
   <releases>
