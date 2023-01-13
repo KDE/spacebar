@@ -81,5 +81,5 @@ Exec=spacebar %u
 Icon=org.kde.spacebar
 Type=Application
 Terminal=false
-Categories=Qt;KDE;Network;Telephony;Communication;Chat;Messaging
+Categories=Qt;KDE;Network;Telephony;X-Communication;Chat;X-Messaging
 MimeType=x-scheme-handler/sms
