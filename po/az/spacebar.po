@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: spacebar\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-01-07 00:52+0000\n"
+"POT-Creation-Date: 2023-01-15 00:58+0000\n"
 "PO-Revision-Date: 2022-08-24 17:58+0400\n"
 "Last-Translator: Kheyyam <xxmn77@gmail.com>\n"
 "Language-Team: Azerbaijani <kde-i18n-doc@kde.org>\n"
@@ -27,17 +27,17 @@ msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
 msgstr "xxmn77@gmail.com"
 
-#: daemon/channellogger.cpp:505 src/contents/ui/MessagesPage.qml:57
+#: daemon/channellogger.cpp:509 src/contents/ui/MessagesPage.qml:58
 #, kde-format
 msgid "New message"
 msgstr "Yani ismarıc"
 
-#: daemon/channellogger.cpp:512
+#: daemon/channellogger.cpp:516
 #, kde-format
 msgid "Message from %1"
 msgstr "%1 ismarıcı"
 
-#: daemon/channellogger.cpp:523
+#: daemon/channellogger.cpp:527
 #, fuzzy, kde-format
 #| msgid "Attachment"
 msgctxt "Number of files attached"
@@ -46,7 +46,7 @@ msgid_plural "%1 Attachments"
 msgstr[0] "Qoşma fayl"
 msgstr[1] "Qoşma fayl"
 
-#: daemon/channellogger.cpp:539
+#: daemon/channellogger.cpp:543
 #, kde-format
 msgctxt "@action open message in application"
 msgid "Open"
@@ -57,12 +57,12 @@ msgstr "Açmaq"
 msgid "Spacebar background service"
 msgstr "Boşluq paneli arxa fon xidməti"
 
-#: src/chatlistmodel.cpp:95 src/contents/ui/MessagesPage.qml:48
+#: src/chatlistmodel.cpp:95 src/contents/ui/MessagesPage.qml:49
 #, kde-format
 msgid "and %1 more"
 msgstr ""
 
-#: src/contents/ui/ChatDetailPage.qml:14 src/contents/ui/MessagesPage.qml:130
+#: src/contents/ui/ChatDetailPage.qml:14 src/contents/ui/MessagesPage.qml:131
 #, kde-format
 msgid "Details"
 msgstr ""
@@ -175,59 +175,59 @@ msgstr "Əlaqələr tətbiqini açın"
 msgid "No results found"
 msgstr "Nəticə tapılmadı"
 
-#: src/contents/ui/MessagesPage.qml:124
+#: src/contents/ui/MessagesPage.qml:125
 #, kde-format
 msgid "Call"
 msgstr ""
 
-#: src/contents/ui/MessagesPage.qml:143
+#: src/contents/ui/MessagesPage.qml:144
 #, kde-format
 msgid "Texting this premium SMS number might cause you to be charged money"
 msgstr ""
 "Bu premium nömrəsinə SMS göndərmək hesabınızdan pul silinməsinə səbəb ola "
 "bilər"
 
-#: src/contents/ui/MessagesPage.qml:154
+#: src/contents/ui/MessagesPage.qml:155
 #, kde-format
 msgid "Max attachment limit exceeded"
 msgstr "Qoşma fayllarının ən çox həddi aşıldı"
 
-#: src/contents/ui/MessagesPage.qml:165
+#: src/contents/ui/MessagesPage.qml:166
 #, kde-format
 msgid "No MMSC configured"
 msgstr "MMSC tənzimlənməyib"
 
-#: src/contents/ui/MessagesPage.qml:176
+#: src/contents/ui/MessagesPage.qml:177
 #, kde-format
 msgid "Message has expired and will be deleted"
 msgstr "İsmarıcın vaxtı bitib və silinəcəkdir"
 
-#: src/contents/ui/MessagesPage.qml:187
+#: src/contents/ui/MessagesPage.qml:188
 #, kde-format
 msgid "Message will be sent as individual messages"
 msgstr "İsmarıc fərdi ismarıcıar kimi göndəriləcəkdir"
 
-#: src/contents/ui/MessagesPage.qml:462
+#: src/contents/ui/MessagesPage.qml:463
 #, kde-format
 msgid "MMS message"
 msgstr "MMS ismarıcları"
 
-#: src/contents/ui/MessagesPage.qml:470
+#: src/contents/ui/MessagesPage.qml:471
 #, kde-format
 msgid "Message size: %1"
 msgstr "İsmarıcın ölçüsü: %1"
 
-#: src/contents/ui/MessagesPage.qml:476
+#: src/contents/ui/MessagesPage.qml:477
 #, kde-format
 msgid "Expires: %1"
 msgstr "Vaxtı bitir: %1"
 
-#: src/contents/ui/MessagesPage.qml:592
+#: src/contents/ui/MessagesPage.qml:593
 #, kde-format
 msgid "View all"
 msgstr "Hamısına baxmaq"
 
-#: src/contents/ui/MessagesPage.qml:732
+#: src/contents/ui/MessagesPage.qml:733
 #, fuzzy, kde-format
 #| msgid "New message"
 msgid "%1 new message"
@@ -289,18 +289,18 @@ msgctxt "Remove item from list"
 msgid "Remove"
 msgstr "Silin"
 
-#: src/contents/ui/MessagesPage.qml:1088
+#: src/contents/ui/MessagesPage.qml:1087
 #, kde-format
 msgid "Write Message..."
 msgstr "İsmarıc yazın..."
 
-#: src/contents/ui/MessagesPage.qml:1090
+#: src/contents/ui/MessagesPage.qml:1089
 #, kde-format
 msgctxt "%1 is a phone number"
 msgid "Send Message from %1..."
 msgstr "Məktubu %1'dan göndərin..."
 
-#: src/contents/ui/MessagesPage.qml:1143
+#: src/contents/ui/MessagesPage.qml:1142
 #, kde-format
 msgid "Choose a file"
 msgstr "Faylı seçin"
