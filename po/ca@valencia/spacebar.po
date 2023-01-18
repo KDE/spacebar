@@ -309,7 +309,7 @@ msgstr "Arrere"
 #: src/contents/ui/settings/MMSSettingsPage.qml:16
 #, kde-format
 msgid "MMS Settings"
-msgstr "Configuració dels MMS"
+msgstr "Configureu els MMS"
 
 #: src/contents/ui/settings/MMSSettingsPage.qml:36
 #, kde-format
