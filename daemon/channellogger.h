@@ -49,6 +49,7 @@ public:
     Q_SCRIPTABLE void sendTapback(const QString &numbers, const QString &id, const QString &tapback, const bool &isRemoved);
     Q_SCRIPTABLE void syncSettings();
     Q_SCRIPTABLE QString ownNumber();
+    Q_SCRIPTABLE QString countryCode();
 
 private:
     void checkMessages();

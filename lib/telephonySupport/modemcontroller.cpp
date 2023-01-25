@@ -45,6 +45,22 @@ void ModemController::init(std::optional<QString> modemPath)
         return;
     }
 
+    if (m_modem->hasInterface(ModemManager::ModemDevice::GsmInterface)) {
+        m_modem3gpp = m_modem->interface(ModemManager::ModemDevice::GsmInterface).objectCast<ModemManager::Modem3gpp>();
+        countryCode = m_modem3gpp->countryCode();
+        qDebug() << "Country Code:" << countryCode;
+
+        connect(m_modem3gpp.get(), &ModemManager::Modem3gpp::countryCodeChanged, this, [this](const QString &code) {
+            countryCode = code;
+            Q_EMIT countryCodeChanged(code);
+            qDebug() << "country code changed" << code;
+        });
+
+        if (countryCode.isEmpty()) {
+            qWarning() << "Country code is null! Phone numbers may not be interpreted correctly";
+        }
+    }
+
     m_interface = m_modem->modemInterface();
 
     connect(m_interface.get(), &ModemManager::Modem::bearerAdded, this, [this](const QString &bearer) {
@@ -178,7 +194,10 @@ QString ModemController::ownNumber()
     const QStringList numbers = m_interface->ownNumbers();
 
     if (!numbers.isEmpty()) {
-        return numbers.first();
+        if (numbers.startsWith(QStringLiteral("+"))) {
+            return numbers.first();
+        }
+        return QStringLiteral("+") + numbers.first();
     }
 
     return QString();

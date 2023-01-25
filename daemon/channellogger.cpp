@@ -8,6 +8,7 @@
 #include "settingsmanager.h"
 
 #include <QCoroFuture>
+#include <QLocale>
 #include <QTimer>
 #include <QtConcurrent>
 
@@ -39,6 +40,8 @@ ChannelLogger::ChannelLogger(std::optional<QString> &modemPath, QObject *parent)
 
     ModemController::instance().init(modemPath);
 
+    PhoneNumber::setCountryCode(countryCode());
+
     m_ownNumber = PhoneNumber(ownNumber());
 
     checkMessages();
@@ -59,6 +62,10 @@ ChannelLogger::ChannelLogger(std::optional<QString> &modemPath, QObject *parent)
             m_deferredIndicators.clear();
         }
     });
+
+    connect(&ModemController::instance(), &ModemController::countryCodeChanged, this, [](const QString &countryCode) {
+        PhoneNumber::setCountryCode(countryCode);
+    });
 }
 
 void ChannelLogger::checkMessages()
@@ -74,6 +81,18 @@ void ChannelLogger::checkMessages()
 
 QString ChannelLogger::ownNumber() {
     return ModemController::instance().ownNumber();
+}
+
+QString ChannelLogger::countryCode() {
+    QString countryCode = ModemController::instance().countryCode;
+
+    if (countryCode.isEmpty()) {
+        const QLocale locale;
+        const QStringList qcountry = locale.name().split(u'_');
+        countryCode = qcountry.constLast();
+    }
+
+    return countryCode;
 }
 
 void ChannelLogger::handleIncomingMessage(ModemManager::Sms::Ptr msg)

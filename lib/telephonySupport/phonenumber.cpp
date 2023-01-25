@@ -6,9 +6,6 @@
 
 #include <phonenumbers/phonenumberutil.h>
 
-#include <QLocale>
-#include <QDebug>
-
 using namespace i18n;
 
 struct PhoneNumberPrivate : QSharedData {
@@ -22,12 +19,7 @@ struct PhoneNumberPrivate : QSharedData {
     Representation representation;
 };
 
-std::string countryCode() {
-    const QLocale locale;
-    const QStringList qcountry = locale.name().split(u'_');
-    const QString &countrycode(qcountry.constLast());
-    return countrycode.toStdString();
-}
+std::string PhoneNumber::countryCode;
 
 PhoneNumber::PhoneNumber()
     : d(new PhoneNumberPrivate())
@@ -40,9 +32,7 @@ PhoneNumber &PhoneNumber::operator=(const PhoneNumber &other) = default;
 PhoneNumber::PhoneNumber(const QString &number)
     : PhoneNumber()
 {
-    static auto country = countryCode();
-
-    auto error = phonenumbers::PhoneNumberUtil::GetInstance()->Parse(number.toStdString(), country, &d->number);
+    auto error = phonenumbers::PhoneNumberUtil::GetInstance()->Parse(number.toStdString(), countryCode, &d->number);
     if (error == phonenumbers::PhoneNumberUtil::ErrorType::NO_PARSING_ERROR) {
         d->representation = PhoneNumberPrivate::Parsed;
     } else {
@@ -107,4 +97,9 @@ bool PhoneNumber::isValid() const
     } else {
         return !d->numberString.isEmpty();
     }
+}
+
+void PhoneNumber::setCountryCode(const QString &code)
+{
+    countryCode = code.toStdString();
 }

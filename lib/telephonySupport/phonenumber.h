@@ -35,9 +35,11 @@ public:
     QString toNational() const;
     QString toE164() const;
     bool isValid() const;
+    static void setCountryCode(const QString &countryCode);
 
 private:
     QSharedDataPointer<PhoneNumberPrivate> d;
+    static std::string countryCode;
 };
 
 inline QDebug &operator<<(QDebug &debug, const PhoneNumber &phoneNumber) {

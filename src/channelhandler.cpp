@@ -7,6 +7,8 @@
 
 #include "databasethread.h"
 
+#include <QLocale>
+
 #include <global.h>
 #include <database.h>
 
@@ -15,6 +17,19 @@ ChannelHandler::ChannelHandler(QObject *parent)
 {
     // daemon dbus interface
     m_interface = new org::kde::spacebar::Daemon(QStringLiteral("org.kde.Spacebar"), QStringLiteral("/Daemon"), QDBusConnection::sessionBus(), this);
+
+    const QLocale locale;
+    const QStringList qcountry = locale.name().split(u'_');
+    QString countryCode = qcountry.constLast();
+    PhoneNumber::setCountryCode(countryCode);
+
+    // prefer locale country code, but use modem country code if not set
+    if (countryCode == QStringLiteral("C")) {
+        countryCode = m_interface->countryCode();
+        if (countryCode != SL("The name org.kde.Spacebar was not provided by any .service files")) {
+            PhoneNumber::setCountryCode(countryCode);
+        }
+    }
 
     // Update the chat list when message arrives
     // The message is saved to the database by the background daemon
