@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: spacebar\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-01-15 00:58+0000\n"
+"POT-Creation-Date: 2023-01-26 00:59+0000\n"
 "PO-Revision-Date: 2023-01-08 09:58+0100\n"
 "Last-Translator: Xavier BESNARD <xavier.besnard]neuf.fr>\n"
 "Language-Team: fr\n"
@@ -28,17 +28,17 @@ msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
 msgstr "xavier.besnard@neuf.fr"
 
-#: daemon/channellogger.cpp:509 src/contents/ui/MessagesPage.qml:58
+#: daemon/channellogger.cpp:528 src/contents/ui/MessagesPage.qml:58
 #, kde-format
 msgid "New message"
 msgstr "Nouveau message"
 
-#: daemon/channellogger.cpp:516
+#: daemon/channellogger.cpp:535
 #, kde-format
 msgid "Message from %1"
 msgstr "Message de %1"
 
-#: daemon/channellogger.cpp:527
+#: daemon/channellogger.cpp:546
 #, kde-format
 msgctxt "Number of files attached"
 msgid "%1 Attachment"
@@ -46,7 +46,7 @@ msgid_plural "%1 Attachments"
 msgstr[0] "Pièce jointe %1"
 msgstr[1] "%1 pièces jointes"
 
-#: daemon/channellogger.cpp:543
+#: daemon/channellogger.cpp:562
 #, kde-format
 msgctxt "@action open message in application"
 msgid "Open"
