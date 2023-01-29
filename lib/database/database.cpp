@@ -17,13 +17,13 @@
 #include <global.h>
 
 constexpr auto ID_LEN = 10;
-constexpr auto DATABASE_REVISION = 7; // Keep MIGRATE_TO_LATEST_FROM in sync
+constexpr auto DATABASE_REVISION = 8; // Keep MIGRATE_TO_LATEST_FROM in sync
 #define MIGRATE_TO(n, current) \
     if (current < n) { \
         qDebug() << "Running migration" << #n; \
         migrationV##n(current); \
     }
-#define MIGRATE_TO_LATEST_FROM(current) MIGRATE_TO(7, current)
+#define MIGRATE_TO_LATEST_FROM(current) MIGRATE_TO(8, current)
 
 enum Column {
     IdColumn = 0,
@@ -61,8 +61,6 @@ Database::Database(QObject *parent)
     if (!open) {
         qWarning() << "Could not open messages database" << m_database.lastError();
     }
-
-    migrate();
 }
 
 QVector<Message> Database::messagesForNumber(const PhoneNumberList &phoneNumberList, const QString &id, const int limit) const
@@ -377,6 +375,34 @@ QString Database::generateRandomId()
     return intermediateId;
 }
 
+void Database::mergeChats(const QString &fromNumbers, const QString toNumbers)
+{
+    QSqlQuery merge(m_database);
+    merge.prepare(SL("UPDATE Messages SET phoneNumber = :toNumbers WHERE phoneNumber = :fromNumbers"));
+    merge.bindValue(SL(":fromNumbers"), fromNumbers);
+    merge.bindValue(SL(":toNumbers"), toNumbers);
+    Database::exec(merge);
+
+    // need to move files to correct chat attachment subdirectory
+    QDir attachments(QStandardPaths::writableLocation(QStandardPaths::GenericDataLocation) + SL("/spacebar/attachments"));
+    const QString folderFromHash = QString::number(qHash(fromNumbers));
+    const QString folderToHash = QString::number(qHash(toNumbers));
+
+    // if folder already exists, just move the files
+    if (attachments.exists(folderToHash) && attachments.exists(folderFromHash)) {
+        const QString folderPathFrom = attachments.path() + QDir::separator() + folderFromHash;
+        const QString folderPathTo = attachments.path() + QDir::separator() + folderToHash;
+        const QStringList files = QDir(folderPathFrom).entryList();
+        for (auto &file : files) {
+            QFile::copy(folderPathFrom + QDir::separator() + file, folderPathTo + QDir::separator() + file);
+            QFile::remove(folderPathFrom + QDir::separator() + file);
+        }
+        attachments.rmdir(folderFromHash);
+    } else if (attachments.exists(folderFromHash)) {
+        attachments.rename(folderFromHash, folderToHash);
+    }
+}
+
 void Database::migrate()
 {
     // Create migration table if necessary
@@ -541,5 +567,36 @@ void Database::migrationV7(uint current)
 
     QSqlQuery sql(m_database);
     sql.prepare(SL("ALTER TABLE Messages ADD COLUMN tapbacks TEXT"));
+    Database::exec(sql);
+}
+
+void Database::migrationV8(uint current)
+{
+    MIGRATE_TO(7, current);
+
+    QSqlQuery fetch(m_database);
+    fetch.prepare(SL("SELECT DISTINCT phoneNumber FROM Messages"));
+    exec(fetch);
+
+    while (fetch.next()) {
+        const QString original = fetch.value(0).toString();
+
+        // now using the modem instead of locale to format numbers
+        // fixes any numbers that were not formatted for cases where the locale was unset
+        QString formatted = PhoneNumberList(fetch.value(0).toString().replace(u';', u'~')).toString();
+
+        if (formatted.contains(u'~')) {
+            QStringList numbers = formatted.split(u'~');
+            numbers.sort();
+            formatted = numbers.join(u'~');
+        }
+
+        if (original != formatted) {
+            mergeChats(original, formatted);
+        }
+    }
+
+    QSqlQuery sql(m_database);
+    sql.prepare(SL("UPDATE Messages SET phoneNumber = REPLACE(phoneNumber,';', '~')"));
     Database::exec(sql);
 }

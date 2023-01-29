@@ -208,8 +208,7 @@ void Mms::decodeMessage(MmsMessage &message, const QByteArray &data)
         numbers.append(message.from);
     }
     numbers.sort();
-    message.phoneNumberList = PhoneNumberList(numbers.join(u';'));
-    message.from = PhoneNumber(message.from).toInternational();
+    message.phoneNumberList = PhoneNumberList(numbers.join(u'~'));
 
     // remove own number if present
     const int index = message.phoneNumberList.indexOf(message.ownNumber);
@@ -246,12 +245,12 @@ void Mms::encodeMessage(MmsMessage &message, QByteArray &data, const QStringList
     data.append(encodeLongInteger(QDateTime::currentSecsSinceEpoch())); // optional
 
     data.append(MMS_HEADER_FROM);
-    data.append(encodeFromValue(message.from + SL("/TYPE=PLMN")));
+    data.append(encodeFromValue(message.from.remove(SL("-")).remove(SL(" ")) + SL("/TYPE=PLMN")));
     message.from.clear();
 
-    for (const auto &number : message.to) {
+    for (auto &number : message.to) {
         data.append(MMS_HEADER_TO);
-        data.append(encodeEncodedStringValue(number + SL("/TYPE=PLMN")));
+        data.append(encodeEncodedStringValue(number.remove(SL("-")).remove(SL(" ")) + SL("/TYPE=PLMN")));
     }
     message.to.clear();
 
@@ -453,8 +452,8 @@ bool Mms::decodeHeader(MmsMessage &message, const QByteArray &data, int &pos)
             else if (name == u"messageSize") message.messageSize = val.toInt();
             else if (name == u"expiry") message.expiry = val.toDateTime();
             else if (name == u"date") message.date = val.toDateTime();
-            else if (name == u"to") message.to.append(val.toString().replace(QLatin1String("/TYPE=PLMN"), QLatin1String("")));
-            else if (name == u"from") message.from = val.toString().replace(QLatin1String("/TYPE=PLMN"), QLatin1String(""));
+            else if (name == u"to") message.to.append(PhoneNumber(val.toString().remove(QLatin1String("/TYPE=PLMN"))).toInternational());
+            else if (name == u"from") message.from = PhoneNumber(val.toString().remove(QLatin1String("/TYPE=PLMN"))).toInternational();
             else if (name == u"subject") message.subject = val.toString();
             else if (name == u"contentType") message.contentType = val.toString();
             else if (name == u"contentLocation") message.contentLocation = val.toString();

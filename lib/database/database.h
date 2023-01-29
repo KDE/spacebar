@@ -91,10 +91,13 @@ public:
     int unreadMessagesForNumber(const PhoneNumberList &phoneNumberList) const;
     void markChatAsRead(const PhoneNumberList &phoneNumberList);
     void deleteChat(const PhoneNumberList &phoneNumberList);
+    void mergeChats(const QString &fromNumbers, const QString toNumbers);
 
     static QString generateRandomId();
 
     static void exec(QSqlQuery &query);
+
+    void migrate();
 
 private:
     void migrationV1(uint current);
@@ -104,7 +107,7 @@ private:
     void migrationV5(uint current);
     void migrationV6(uint current);
     void migrationV7(uint current);
-    void migrate();
+    void migrationV8(uint current);
 
     QSqlDatabase m_database;
 };

@@ -44,6 +44,8 @@ ChannelLogger::ChannelLogger(std::optional<QString> &modemPath, QObject *parent)
 
     m_ownNumber = PhoneNumber(ownNumber());
 
+    m_database.migrate();
+
     checkMessages();
 
     connect(&ModemController::instance(), &ModemController::messageAdded, this, [this](ModemManager::Sms::Ptr msg) {
@@ -449,14 +451,10 @@ QCoro::Task<QString> ChannelLogger::sendMessageMMS(const PhoneNumberList &phoneN
     message.sentByMe = true;
     message.deliveryStatus = MessageState::Pending;
 
-    QString to = phoneNumberList.toString();
-    const QStringList toList = to.replace(SL("-"), QString()).replace(SL(" "), QString()).split(SL(";"));
-    QString from = m_ownNumber.toInternational();
-
     MmsMessage mmsMessage;
-    mmsMessage.ownNumber = PhoneNumber(from);
-    mmsMessage.from = from.replace(SL("-"), QString()).replace(SL(" "), QString());
-    mmsMessage.to = toList;
+    mmsMessage.ownNumber = m_ownNumber;
+    mmsMessage.from = m_ownNumber.toInternational();
+    mmsMessage.to = phoneNumberList.toString().split(u'~');
     mmsMessage.text = message.text;
     QByteArray data;
     m_mms.encodeMessage(mmsMessage, data, files, totalSize);

@@ -9,7 +9,7 @@ namespace ranges = std::ranges;
 PhoneNumberList::PhoneNumberList(const QString &phoneNumbers)
     : QVector<PhoneNumber>()
 {
-    const auto individualNumbers = phoneNumbers.split(u';', Qt::SkipEmptyParts);
+    const auto individualNumbers = phoneNumbers.split(u'~', Qt::SkipEmptyParts);
     reserve(individualNumbers.size());
 
     ranges::transform(individualNumbers, std::back_inserter(*this), [](const QString &number) {
@@ -26,5 +26,5 @@ QString PhoneNumberList::toString() const
         return number.toInternational();
     });
 
-    return individualNumbers.join(u';');
+    return individualNumbers.join(u'~');
 }
