@@ -49,6 +49,8 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
     QCoreApplication::setApplicationVersion(QStringLiteral(SPACEBAR_VERSION_STRING));
     QGuiApplication::setApplicationDisplayName(SL("Spacebar"));
 
+    KLocalizedString::setApplicationDomain("spacebar");
+
     KAboutData about(SL("spacebar"),
                      SL("Spacebar"),
                      QStringLiteral(SPACEBAR_VERSION_STRING),
@@ -69,8 +71,6 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
     parser.setApplicationDescription(i18n("Spacebar SMS/MMS client"));
     parser.addPositionalArgument(QStringLiteral("number"), i18n("Open a chat with the given phone number"));
     parser.process(app);
-
-    KLocalizedString::setApplicationDomain("spacebar");
 
     QQmlApplicationEngine engine;
 
