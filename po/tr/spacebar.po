@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: spacebar\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-01-26 00:59+0000\n"
+"POT-Creation-Date: 2023-01-30 01:00+0000\n"
 "PO-Revision-Date: 2023-01-07 23:14+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
@@ -27,17 +27,17 @@ msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
 msgstr "emir_sari@icloud.com"
 
-#: daemon/channellogger.cpp:528 src/contents/ui/MessagesPage.qml:58
+#: daemon/channellogger.cpp:526 src/contents/ui/MessagesPage.qml:58
 #, kde-format
 msgid "New message"
 msgstr "Yeni ileti"
 
-#: daemon/channellogger.cpp:535
+#: daemon/channellogger.cpp:533
 #, kde-format
 msgid "Message from %1"
 msgstr "%1 kişisinden ileti"
 
-#: daemon/channellogger.cpp:546
+#: daemon/channellogger.cpp:544
 #, kde-format
 msgctxt "Number of files attached"
 msgid "%1 Attachment"
@@ -45,7 +45,7 @@ msgid_plural "%1 Attachments"
 msgstr[0] "%1 Ek"
 msgstr[1] "%1 Ek"
 
-#: daemon/channellogger.cpp:562
+#: daemon/channellogger.cpp:560
 #, kde-format
 msgctxt "@action open message in application"
 msgid "Open"
@@ -462,52 +462,52 @@ msgstr "Tepkileri yok say"
 msgid "Choose a color"
 msgstr "Bir renk seç"
 
-#: src/main.cpp:55
+#: src/main.cpp:57
 #, kde-format
 msgid "SMS/MMS messaging client"
 msgstr "SMS/MMS ileti istemcisi"
 
-#: src/main.cpp:57
+#: src/main.cpp:59
 #, kde-format
 msgid "© 2020-2021 KDE Community"
 msgstr "© 2020-2021 KDE Community"
 
-#: src/main.cpp:58
+#: src/main.cpp:60
 #, kde-format
 msgid "Bhushan Shah"
 msgstr "Buşan Şah"
 
-#: src/main.cpp:59
+#: src/main.cpp:61
 #, kde-format
 msgid "Jonah Brüchert"
 msgstr "Jonah Brüchert"
 
-#: src/main.cpp:60
+#: src/main.cpp:62
 #, kde-format
 msgid "Martin Klapetek"
 msgstr "Martin Klapetek"
 
-#: src/main.cpp:61
+#: src/main.cpp:63
 #, kde-format
 msgid "Michael Lang"
 msgstr "Michael Lang"
 
-#: src/main.cpp:62
+#: src/main.cpp:64
 #, kde-format
 msgid "Nicolas Fella"
 msgstr "Nicolas Fella"
 
-#: src/main.cpp:63
+#: src/main.cpp:65
 #, kde-format
 msgid "Smitty van Bodegom"
 msgstr "Smitty van Bodegom"
 
-#: src/main.cpp:69
+#: src/main.cpp:71
 #, kde-format
 msgid "Spacebar SMS/MMS client"
 msgstr "Spacebar SMS/MMS istemcisi"
 
-#: src/main.cpp:70
+#: src/main.cpp:72
 #, kde-format
 msgid "Open a chat with the given phone number"
 msgstr "Verilen telefon numarası ile bir sohbet başlatın"

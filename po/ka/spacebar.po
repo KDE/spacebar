@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: spacebar\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-01-26 00:59+0000\n"
+"POT-Creation-Date: 2023-01-30 01:00+0000\n"
 "PO-Revision-Date: 2023-01-07 06:59+0100\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
@@ -28,17 +28,17 @@ msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
 msgstr "Temuri.doghonadze@gmail.com"
 
-#: daemon/channellogger.cpp:528 src/contents/ui/MessagesPage.qml:58
+#: daemon/channellogger.cpp:526 src/contents/ui/MessagesPage.qml:58
 #, kde-format
 msgid "New message"
 msgstr "ახალი შეტყობინება"
 
-#: daemon/channellogger.cpp:535
+#: daemon/channellogger.cpp:533
 #, kde-format
 msgid "Message from %1"
 msgstr "შეტყობინება %1-სგან"
 
-#: daemon/channellogger.cpp:546
+#: daemon/channellogger.cpp:544
 #, kde-format
 msgctxt "Number of files attached"
 msgid "%1 Attachment"
@@ -46,7 +46,7 @@ msgid_plural "%1 Attachments"
 msgstr[0] "%1 მიმგრებული"
 msgstr[1] "%1 მიმაგრებული"
 
-#: daemon/channellogger.cpp:562
+#: daemon/channellogger.cpp:560
 #, kde-format
 msgctxt "@action open message in application"
 msgid "Open"
@@ -464,52 +464,52 @@ msgstr "შეხების იგნორი"
 msgid "Choose a color"
 msgstr "აირჩიეთ ფერი"
 
-#: src/main.cpp:55
+#: src/main.cpp:57
 #, kde-format
 msgid "SMS/MMS messaging client"
 msgstr "SMS/MMS შეტყობინებების კლიენტი"
 
-#: src/main.cpp:57
+#: src/main.cpp:59
 #, kde-format
 msgid "© 2020-2021 KDE Community"
 msgstr "© 2020-2021 KDE-ის საზოგადოება. ყველა უფლება დაცულია"
 
-#: src/main.cpp:58
+#: src/main.cpp:60
 #, kde-format
 msgid "Bhushan Shah"
 msgstr "Bhushan Shah"
 
-#: src/main.cpp:59
+#: src/main.cpp:61
 #, kde-format
 msgid "Jonah Brüchert"
 msgstr "Jonah Brüchert"
 
-#: src/main.cpp:60
+#: src/main.cpp:62
 #, kde-format
 msgid "Martin Klapetek"
 msgstr "Martin Klapetek"
 
-#: src/main.cpp:61
+#: src/main.cpp:63
 #, kde-format
 msgid "Michael Lang"
 msgstr "Michael Lang"
 
-#: src/main.cpp:62
+#: src/main.cpp:64
 #, kde-format
 msgid "Nicolas Fella"
 msgstr "ნიკოლას ფელა"
 
-#: src/main.cpp:63
+#: src/main.cpp:65
 #, kde-format
 msgid "Smitty van Bodegom"
 msgstr "Smitty van Bodegom"
 
-#: src/main.cpp:69
+#: src/main.cpp:71
 #, kde-format
 msgid "Spacebar SMS/MMS client"
 msgstr "Spacebar SMS/MMS კლიენტი"
 
-#: src/main.cpp:70
+#: src/main.cpp:72
 #, kde-format
 msgid "Open a chat with the given phone number"
 msgstr "მითითებულ ტელეფონის ნომერთან სასაუბროს გახსნა"

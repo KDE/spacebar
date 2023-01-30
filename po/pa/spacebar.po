@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: spacebar\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-01-26 00:59+0000\n"
+"POT-Creation-Date: 2023-01-30 01:00+0000\n"
 "PO-Revision-Date: 2022-06-11 09:33-0700\n"
 "Last-Translator: A S Alam <aalam@satluj.org>\n"
 "Language-Team: Punjabi <punjabi-users@lists.sf.net>\n"
@@ -27,17 +27,17 @@ msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
 msgstr "alam.yellow@gmail.com"
 
-#: daemon/channellogger.cpp:528 src/contents/ui/MessagesPage.qml:58
+#: daemon/channellogger.cpp:526 src/contents/ui/MessagesPage.qml:58
 #, kde-format
 msgid "New message"
 msgstr "ਨਵਾਂ ਸੁਨੇਹਾ"
 
-#: daemon/channellogger.cpp:535
+#: daemon/channellogger.cpp:533
 #, kde-format
 msgid "Message from %1"
 msgstr "%1 ਤੋਂ ਸੁਨੇਹਾ"
 
-#: daemon/channellogger.cpp:546
+#: daemon/channellogger.cpp:544
 #, fuzzy, kde-format
 #| msgid "Attachment"
 msgctxt "Number of files attached"
@@ -46,7 +46,7 @@ msgid_plural "%1 Attachments"
 msgstr[0] "ਅਟੈਚਮੈਂਟ"
 msgstr[1] "ਅਟੈਚਮੈਂਟ"
 
-#: daemon/channellogger.cpp:562
+#: daemon/channellogger.cpp:560
 #, kde-format
 msgctxt "@action open message in application"
 msgid "Open"
@@ -481,52 +481,52 @@ msgstr ""
 msgid "Choose a color"
 msgstr "ਰੰਗ ਚੁਣੋ"
 
-#: src/main.cpp:55
+#: src/main.cpp:57
 #, kde-format
 msgid "SMS/MMS messaging client"
 msgstr ""
 
-#: src/main.cpp:57
+#: src/main.cpp:59
 #, kde-format
 msgid "© 2020-2021 KDE Community"
 msgstr "© 2020-2021 ਕੇਡੀਈ ਕਮਿਊਨਟੀ"
 
-#: src/main.cpp:58
+#: src/main.cpp:60
 #, kde-format
 msgid "Bhushan Shah"
 msgstr "ਭੂਸ਼ਨ ਸ਼ਾਹ"
 
-#: src/main.cpp:59
+#: src/main.cpp:61
 #, kde-format
 msgid "Jonah Brüchert"
 msgstr ""
 
-#: src/main.cpp:60
+#: src/main.cpp:62
 #, kde-format
 msgid "Martin Klapetek"
 msgstr ""
 
-#: src/main.cpp:61
+#: src/main.cpp:63
 #, kde-format
 msgid "Michael Lang"
 msgstr ""
 
-#: src/main.cpp:62
+#: src/main.cpp:64
 #, kde-format
 msgid "Nicolas Fella"
 msgstr ""
 
-#: src/main.cpp:63
+#: src/main.cpp:65
 #, kde-format
 msgid "Smitty van Bodegom"
 msgstr ""
 
-#: src/main.cpp:69
+#: src/main.cpp:71
 #, kde-format
 msgid "Spacebar SMS/MMS client"
 msgstr "ਸਪੇਸਬਾਰ SMS/MMS ਕਲਾਈਂਟ"
 
-#: src/main.cpp:70
+#: src/main.cpp:72
 #, kde-format
 msgid "Open a chat with the given phone number"
 msgstr "ਦਿੱਤੇ ਫ਼ੋਨ ਨੰਬਰ ਨਾਲ ਚੈਟ ਕਰੋ"
