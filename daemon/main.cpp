@@ -20,6 +20,8 @@ int main(int argc, char *argv[])
     QCoreApplication::setOrganizationDomain(SL("kde.org"));
     QCoreApplication::setApplicationName(SL("Spacebar"));
 
+    KLocalizedString::setApplicationDomain("spacebar");
+
     parser.addVersionOption();
     parser.addHelpOption();
     parser.setApplicationDescription(i18n("Spacebar background service"));
