@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: spacebar\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-01-30 01:00+0000\n"
+"POT-Creation-Date: 2023-01-31 01:01+0000\n"
 "PO-Revision-Date: 2022-06-11 09:33-0700\n"
 "Last-Translator: A S Alam <aalam@satluj.org>\n"
 "Language-Team: Punjabi <punjabi-users@lists.sf.net>\n"
@@ -52,7 +52,7 @@ msgctxt "@action open message in application"
 msgid "Open"
 msgstr "ਖੋਲ੍ਹੋ"
 
-#: daemon/main.cpp:25
+#: daemon/main.cpp:27
 #, kde-format
 msgid "Spacebar background service"
 msgstr "ਸਪੇਸਬਾਰ ਬੈਕਗਰਾਊਂਡ ਸੇਵਾ"
