@@ -1,13 +1,13 @@
 # Copyright (C) YEAR This file is copyright:
 # This file is distributed under the same license as the spacebar package.
-# Vit Pelcak <vit@pelcak.org>, 2020, 2021, 2022.
+# Vit Pelcak <vit@pelcak.org>, 2020, 2021, 2022, 2023.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: spacebar\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-01-31 01:01+0000\n"
-"PO-Revision-Date: 2022-05-19 11:24+0200\n"
+"PO-Revision-Date: 2023-01-31 17:10+0100\n"
 "Last-Translator: Vit Pelcak <vit@pelcak.org>\n"
 "Language-Team: Czech <kde-i18n-doc@kde.org>\n"
 "Language: cs\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
-"X-Generator: Lokalize 22.04.1\n"
+"X-Generator: Lokalize 22.12.1\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -42,9 +42,9 @@ msgstr "Zpráva od %1"
 msgctxt "Number of files attached"
 msgid "%1 Attachment"
 msgid_plural "%1 Attachments"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "1 příloha"
+msgstr[1] "%1 přílohy"
+msgstr[2] "%1 příloh"
 
 #: daemon/channellogger.cpp:560
 #, kde-format
@@ -60,7 +60,7 @@ msgstr "Služba Spacebar na pozadí"
 #: src/chatlistmodel.cpp:95 src/contents/ui/MessagesPage.qml:49
 #, kde-format
 msgid "and %1 more"
-msgstr ""
+msgstr "a %1 další"
 
 #: src/contents/ui/ChatDetailPage.qml:14 src/contents/ui/MessagesPage.qml:131
 #, kde-format
@@ -78,7 +78,7 @@ msgstr[2] "%1 lidí"
 #: src/contents/ui/ChatDetailPage.qml:52
 #, kde-format
 msgid "Add people"
-msgstr ""
+msgstr "Přidat lidi"
 
 #: src/contents/ui/ChatsPage.qml:17
 #, kde-format
@@ -94,39 +94,39 @@ msgstr "Nový rozhovor"
 #, kde-format
 msgctxt "Configuring application settings"
 msgid "Settings"
-msgstr ""
+msgstr "Nastavení"
 
 #: src/contents/ui/ChatsPage.qml:60
 #, kde-format
 msgctxt "Deleting a conversation"
 msgid "Delete"
-msgstr ""
+msgstr "Smazat"
 
 #: src/contents/ui/ChatsPage.qml:90
 #, kde-format
 msgctxt "Selecting recipients from contacts list"
 msgid "Create a chat"
-msgstr ""
+msgstr "Vytvořit rozhovor"
 
 #: src/contents/ui/ChatsPage.qml:181
 #, kde-format
 msgctxt "Indicating that message was sent by you"
 msgid "You"
-msgstr ""
+msgstr "Vy"
 
 #: src/contents/ui/ChatsPage.qml:181
 #, kde-format
 msgctxt "Indicating that message contains an image"
 msgid "Picture"
-msgstr ""
+msgstr "Obrázek"
 
 #: src/contents/ui/ChatsPage.qml:270
 #, kde-format
 msgid "Delete this conversation"
 msgid_plural "Delete %1 conversations?"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "Smazat tento rozhovor?"
+msgstr[1] "Smazat tyto %1 rozhovory?"
+msgstr[2] "Smazat těchto %1 rozhovorů?"
 
 #: src/contents/ui/ChatsPage.qml:271
 #, kde-format
@@ -142,13 +142,13 @@ msgstr "Vyberte číslo"
 #, kde-format
 msgctxt "Number of items selected"
 msgid "%1 Selected"
-msgstr ""
+msgstr "%1 Vybráno"
 
 #: src/contents/ui/ContactsList.qml:181
 #, kde-format
 msgctxt "Open chat conversation window"
 msgid "Next"
-msgstr ""
+msgstr "Následující"
 
 #: src/contents/ui/ContactsList.qml:204
 #, kde-format
@@ -224,9 +224,9 @@ msgstr "Zobrazit všechny"
 #, kde-format
 msgid "%1 new message"
 msgid_plural "%1 new messages"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "%1 nová zpráva"
+msgstr[1] "%1 nové zprávy"
+msgstr[2] "%1 nových zpráv"
 
 #: src/contents/ui/MessagesPage.qml:811
 #, kde-format
@@ -262,7 +262,7 @@ msgstr "Smazat zprávu"
 #, kde-format
 msgctxt "Retry sending message"
 msgid "Resend"
-msgstr ""
+msgstr "Poslat znovu"
 
 #: src/contents/ui/MessagesPage.qml:924
 #, kde-format
@@ -278,7 +278,7 @@ msgstr "Zrušit"
 #, kde-format
 msgctxt "Remove item from list"
 msgid "Remove"
-msgstr ""
+msgstr "Odstranit"
 
 #: src/contents/ui/MessagesPage.qml:1087
 #, kde-format
@@ -309,7 +309,7 @@ msgstr "Zpět"
 #: src/contents/ui/settings/MMSSettingsPage.qml:16
 #, kde-format
 msgid "MMS Settings"
-msgstr ""
+msgstr "Nastavení MMS"
 
 #: src/contents/ui/settings/MMSSettingsPage.qml:36
 #, kde-format
@@ -319,7 +319,7 @@ msgstr "Multimediální zprávy (MMS)"
 #: src/contents/ui/settings/MMSSettingsPage.qml:43
 #, kde-format
 msgid "MMSC"
-msgstr ""
+msgstr "MMSC"
 
 #: src/contents/ui/settings/MMSSettingsPage.qml:53
 #, kde-format
@@ -349,12 +349,12 @@ msgstr ""
 #: src/contents/ui/settings/MMSSettingsPage.qml:100
 #, kde-format
 msgid "Share read status"
-msgstr ""
+msgstr "Sdílet přečtený stav"
 
 #: src/contents/ui/settings/MMSSettingsPage.qml:108
 #, kde-format
 msgid "Auto download messages"
-msgstr ""
+msgstr "Automaticky stáhnout zprávy"
 
 #: src/contents/ui/settings/MMSSettingsPage.qml:116
 #, kde-format
@@ -364,12 +364,12 @@ msgstr ""
 #: src/contents/ui/settings/MMSSettingsPage.qml:123
 #, kde-format
 msgid "Max message size (KiB)"
-msgstr ""
+msgstr "Maximální velikost zprávy (KiB)"
 
 #: src/contents/ui/settings/MMSSettingsPage.qml:135
 #, kde-format
 msgid "Max attachments"
-msgstr ""
+msgstr "Maximální počet příloh"
 
 #: src/contents/ui/settings/MMSSettingsPage.qml:147
 #, kde-format
@@ -399,7 +399,7 @@ msgstr "O aplikaci"
 #: src/contents/ui/settings/SettingsPage.qml:53
 #, kde-format
 msgid "Multimedia Messages (MMS)"
-msgstr ""
+msgstr "Multimediální zprávy (MMS)"
 
 #: src/contents/ui/settings/SettingsPage.qml:61
 #, kde-format
@@ -424,17 +424,17 @@ msgstr "Použít vlastní barvy pro zprávy"
 #: src/contents/ui/settings/SettingsPage.qml:99
 #, kde-format
 msgid "Incoming message color"
-msgstr ""
+msgstr "Barva příchozí zprávy"
 
 #: src/contents/ui/settings/SettingsPage.qml:122
 #, kde-format
 msgid "Outgoing message color"
-msgstr ""
+msgstr "Barva odchozí zprávy"
 
 #: src/contents/ui/settings/SettingsPage.qml:145
 #, kde-format
 msgid "Message font size"
-msgstr ""
+msgstr "Velikost písma zprávy"
 
 #: src/contents/ui/settings/SettingsPage.qml:165
 #, kde-format
@@ -454,7 +454,7 @@ msgstr "Zobrazit náhled obsahu zprávy"
 #: src/contents/ui/settings/SettingsPage.qml:185
 #, kde-format
 msgid "Show attachment previews"
-msgstr ""
+msgstr "Zobrazit náhledy příloh"
 
 #: src/contents/ui/settings/SettingsPage.qml:192
 #, kde-format
