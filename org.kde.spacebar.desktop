@@ -87,4 +87,5 @@ Icon=org.kde.spacebar
 Type=Application
 Terminal=false
 Categories=Qt;KDE;Network;Telephony;X-Communication;Chat;X-Messaging
+Keywords=SMS;MMS;chat;messaging;modem
 MimeType=x-scheme-handler/sms
