@@ -1,7 +1,7 @@
 {
     "id": "org.kde.spacebar",
     "runtime": "org.kde.Platform",
-    "runtime-version": "5.15",
+    "runtime-version": "5.15-22.08",
     "sdk": "org.kde.Sdk",
     "command": "spacebar",
     "tags": ["nightly"],
@@ -13,35 +13,120 @@
         "--socket=wayland",
         "--device=dri",
         "--filesystem=home",
-        "--talk-name=org.freedesktop.Notifications"
+        "--talk-name=org.freedesktop.Notifications",
+        "--system-talk-name=org.freedesktop.ModemManager1"
     ],
     "separate-locales": false,
+    "cleanup": [ "/app/include/" ],
 
     "modules": [
-        {
-            "name": "dbus-glib",
-            "buildsystem": "autotools",
-            "builddir": true,
-            "sources": [ { "type": "git", "url": "https://gitlab.freedesktop.org/dbus/dbus-glib", "tag": "dbus-glib-0.110" } ]
-        },
-        {
-            "name": "telepathy-glib",
-            "buildsystem": "autotools",
-            "builddir": true,
-            "sources": [ { "type": "git", "url": "https://github.com/TelepathyIM/telepathy-glib", "tag": "telepathy-glib-0.24.1" } ]
-        },
         {
             "name": "kpeople",
             "buildsystem": "cmake-ninja",
             "builddir": true,
-            "sources": [ { "type": "git", "url": "https://anongit.kde.org/frameworks/kpeople", "tag": "v5.74.0" } ]
+            "sources": [ { "type": "git", "url": "https://invent.kde.org/frameworks/kpeople", "tag": "v5.103.0" } ]
         },
         {
-            "name": "telepathy-qt",
+            "name": "modemmanager",
+            "buildsystem": "autotools",
+            "config-opts": ["--without-udev", "--without-mbim", "--without-qmi", "--with-udev-base-dir=/app/"],
+            "sources": [ { "type": "archive", "url": "https://www.freedesktop.org/software/ModemManager/ModemManager-1.18.12.tar.xz", "sha256": "b464e4925d955a6ca86dd08616e763b26ae46d7fd37dbe281678e34065b1e430" }]
+        },
+        {
+            "name": "modemmanager-qt",
             "buildsystem": "cmake-ninja",
-            "config-opts": [ "-DDESIRED_QT_VERSION=5", "-DENABLE_TESTS=OFF", "-DENABLE_EXAMPLES=OFF" ],
             "builddir": true,
-            "sources": [ { "type": "git", "url": "https://github.com/TelepathyIM/telepathy-qt" } ]
+            "sources": [ { "type": "git", "url": "https://invent.kde.org/frameworks/modemmanager-qt", "tag": "v5.103.0" } ]
+        },
+        {
+            "name": "kirigami-addons",
+            "config-opts": [
+                "-DBUILD_TESTING=OFF",
+                "-DCMAKE_BUILD_TYPE=Release"
+            ],
+            "buildsystem": "cmake-ninja",
+            "sources": [
+                {
+                    "type": "archive",
+                    "url": "https://download.kde.org/stable/kirigami-addons/kirigami-addons-0.7.0.tar.xz",
+                    "sha256": "0132a58b150229544a61e17e792c48cfc6daa03a8be9c7acd873a6c30d283df7",
+                    "x-checker-data": {
+                        "type": "anitya",
+                        "project-id": 242933,
+                        "stable-only": true,
+                        "url-template": "https://download.kde.org/stable/kirigami-addons/kirigami-addons-$version.tar.xz"
+                    }
+                }
+            ]
+        },
+        {
+            "name": "abseil-cpp",
+            "buildsystem": "cmake-ninja",
+            "config-opts": [
+                "-DCMAKE_BUILD_TYPE=Release",
+                "-DCMAKE_CXX_STANDARD=17",
+                "-DABSL_PROPAGATE_CXX_STD=ON",
+                "-DCMAKE_POSITION_INDEPENDENT_CODE=ON"
+            ],
+            "sources": [
+                {
+                    "type": "archive",
+                    "url": "https://github.com/abseil/abseil-cpp/archive/refs/tags/20230125.1.tar.gz",
+                    "sha256": "81311c17599b3712069ded20cca09a62ab0bf2a89dfa16993786c8782b7ed145"
+                }
+            ]
+        },
+        {
+            "name": "protobuf",
+            "buildsystem": "autotools",
+            "sources": [
+                {
+                    "type": "archive",
+                    "url": "https://github.com/protocolbuffers/protobuf/archive/refs/tags/v21.12.tar.gz",
+                    "sha256": "22fdaf641b31655d4b2297f9981fa5203b2866f8332d3c6333f6b0107bb320de",
+                    "x-checker-data": {
+                        "type": "anitya",
+                        "project-id": 3715,
+                        "stable-only": true,
+                        "url-template": "https://github.com/protocolbuffers/protobuf/archive/refs/tags/v$version.tar.gz"
+                    }
+                }
+            ]
+        },
+        {
+            "name": "libphonenumer",
+            "buildsystem": "cmake-ninja",
+            "subdir": "cpp",
+            "config-opts": [
+                "-DUSE_BOOST=OFF",
+                "-DBUILD_TESTING=OFF",
+                "-DREGENERATE_METADATA=OFF",
+                "-DBUILD_STATIC_LIB=OFF"
+            ],
+            "sources": [
+                {
+                    "type": "archive",
+                    "url": "https://github.com/google/libphonenumber/archive/refs/tags/v8.13.6.tar.gz",
+                    "sha256": "5c27ee33739981f87d77d1525a59a1358aebea045fea8cc00540662fcae8f62c"
+                }
+            ]
+        },
+        {
+            "name": "qcoro",
+            "buildsystem": "cmake-ninja",
+            "config-opts": ["-DQCORO_WITH_QTQUICK=OFF", "-DQCORO_WITH_QML=OFF", "-DQCORO_BUILD_EXAMPLES=OFF", "-DBUILD_TESTING=OFF"],
+            "sources": [
+                {
+                    "type": "archive",
+                    "url": "https://github.com/danvratil/qcoro/archive/refs/tags/v0.8.0.tar.gz",
+                    "sha256": "28f90d817f42352084242f7a1ff090c5cff92359e4dbecea8f04d39ebcf630f8"
+                }
+            ]
+        },
+        {
+            "name": "c-ares",
+            "buildsystem": "cmake-ninja",
+            "sources": [ { "type": "archive", "url": "https://c-ares.org/download/c-ares-1.19.0.tar.gz", "sha256": "bfceba37e23fd531293829002cac0401ef49a6dc55923f7f92236585b7ad1dd3" } ]
         },
         {
             "name": "spacebar",
