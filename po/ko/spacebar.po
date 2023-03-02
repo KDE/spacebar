@@ -1,15 +1,15 @@
 # Copyright (C) YEAR This file is copyright:
 # This file is distributed under the same license as the spacebar package.
-# Shinjo Park <kde@peremen.name>, 2020, 2021, 2022.
+# Shinjo Park <kde@peremen.name>, 2020, 2021, 2022, 2023.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: spacebar\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-01-31 01:01+0000\n"
-"PO-Revision-Date: 2022-10-03 15:11+0200\n"
+"PO-Revision-Date: 2023-03-01 01:44+0100\n"
 "Last-Translator: Shinjo Park <kde@peremen.name>\n"
-"Language-Team: Korean <kde-i18n-doc@kde.org>\n"
+"Language-Team: Korean <kde-kr@kde.org>\n"
 "Language: ko\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -58,23 +58,23 @@ msgstr "Spacebar 백그라운드 서비스"
 #: src/chatlistmodel.cpp:95 src/contents/ui/MessagesPage.qml:49
 #, kde-format
 msgid "and %1 more"
-msgstr ""
+msgstr "및 %1명 더"
 
 #: src/contents/ui/ChatDetailPage.qml:14 src/contents/ui/MessagesPage.qml:131
 #, kde-format
 msgid "Details"
-msgstr ""
+msgstr "자세히"
 
 #: src/contents/ui/ChatDetailPage.qml:30
 #, kde-format
 msgid "%1 person"
 msgid_plural "%1 people"
-msgstr[0] ""
+msgstr[0] "%1명"
 
 #: src/contents/ui/ChatDetailPage.qml:52
 #, kde-format
 msgid "Add people"
-msgstr ""
+msgstr "상대 추가"
 
 #: src/contents/ui/ChatsPage.qml:17
 #, kde-format
@@ -142,7 +142,7 @@ msgstr "%1개 선택됨"
 #, kde-format
 msgctxt "Open chat conversation window"
 msgid "Next"
-msgstr ""
+msgstr "다음"
 
 #: src/contents/ui/ContactsList.qml:204
 #, kde-format
@@ -152,7 +152,7 @@ msgstr "검색 및 번호 입력..."
 #: src/contents/ui/ContactsList.qml:312
 #, kde-format
 msgid "No contacts with phone numbers yet"
-msgstr "전화 번호가 있는 연락처 없음"
+msgstr "전화번호가 있는 연락처 없음"
 
 #: src/contents/ui/ContactsList.qml:315
 #, kde-format
@@ -167,7 +167,7 @@ msgstr "결과 없음"
 #: src/contents/ui/MessagesPage.qml:125
 #, kde-format
 msgid "Call"
-msgstr ""
+msgstr "통화"
 
 #: src/contents/ui/MessagesPage.qml:144
 #, kde-format
@@ -216,11 +216,10 @@ msgid "View all"
 msgstr "모두 보기"
 
 #: src/contents/ui/MessagesPage.qml:733
-#, fuzzy, kde-format
-#| msgid "New message"
+#, kde-format
 msgid "%1 new message"
 msgid_plural "%1 new messages"
-msgstr[0] "새 메시지"
+msgstr[0] "새 메시지 %1개"
 
 #: src/contents/ui/MessagesPage.qml:811
 #, kde-format
@@ -301,10 +300,9 @@ msgid "Back"
 msgstr "뒤로"
 
 #: src/contents/ui/settings/MMSSettingsPage.qml:16
-#, fuzzy, kde-format
-#| msgid "Settings"
+#, kde-format
 msgid "MMS Settings"
-msgstr "설정"
+msgstr "MMS 설정"
 
 #: src/contents/ui/settings/MMSSettingsPage.qml:36
 #, kde-format
@@ -312,22 +310,19 @@ msgid "Multimedia messages (MMS)"
 msgstr "멀티미디어 메시지(MMS)"
 
 #: src/contents/ui/settings/MMSSettingsPage.qml:43
-#, fuzzy, kde-format
-#| msgid "MMSC:"
+#, kde-format
 msgid "MMSC"
-msgstr "MMSC:"
+msgstr "MMSC"
 
 #: src/contents/ui/settings/MMSSettingsPage.qml:53
-#, fuzzy, kde-format
-#| msgid "Proxy:"
+#, kde-format
 msgid "Proxy"
-msgstr "프록시:"
+msgstr "프록시"
 
 #: src/contents/ui/settings/MMSSettingsPage.qml:61
-#, fuzzy, kde-format
-#| msgid "Port:"
+#, kde-format
 msgid "Port"
-msgstr "포트:"
+msgstr "포트"
 
 #: src/contents/ui/settings/MMSSettingsPage.qml:79
 #, kde-format
@@ -355,22 +350,19 @@ msgid "Auto download messages"
 msgstr "자동으로 메시지 다운로드"
 
 #: src/contents/ui/settings/MMSSettingsPage.qml:116
-#, fuzzy, kde-format
-#| msgid "Auto download messages"
+#, kde-format
 msgid "Auto download messages for existing contacts only"
-msgstr "자동으로 메시지 다운로드"
+msgstr "기존 연락처에서 수신한 메시지만 자동으로 다운로드"
 
 #: src/contents/ui/settings/MMSSettingsPage.qml:123
-#, fuzzy, kde-format
-#| msgid "Max message size (KiB):"
+#, kde-format
 msgid "Max message size (KiB)"
-msgstr "최대 메시지 크기(KiB):"
+msgstr "최대 메시지 크기(KiB)"
 
 #: src/contents/ui/settings/MMSSettingsPage.qml:135
-#, fuzzy, kde-format
-#| msgid "Max attachments:"
+#, kde-format
 msgid "Max attachments"
-msgstr "최대 첨부:"
+msgstr "최대 첨부"
 
 #: src/contents/ui/settings/MMSSettingsPage.qml:147
 #, kde-format
@@ -390,7 +382,7 @@ msgstr "설정"
 #: src/contents/ui/settings/SettingsPage.qml:40
 #, kde-format
 msgid "General"
-msgstr ""
+msgstr "일반"
 
 #: src/contents/ui/settings/SettingsPage.qml:45
 #, kde-format
@@ -398,8 +390,7 @@ msgid "About"
 msgstr "정보"
 
 #: src/contents/ui/settings/SettingsPage.qml:53
-#, fuzzy, kde-format
-#| msgid "Multimedia messages (MMS)"
+#, kde-format
 msgid "Multimedia Messages (MMS)"
 msgstr "멀티미디어 메시지(MMS)"
 
@@ -409,11 +400,9 @@ msgid "Restore defaults"
 msgstr "기본값 복원"
 
 #: src/contents/ui/settings/SettingsPage.qml:64
-#, fuzzy, kde-format
-#| msgctxt "Retry sending message"
-#| msgid "Resend"
+#, kde-format
 msgid "Reset"
-msgstr "다시 보내기"
+msgstr "초기화"
 
 #: src/contents/ui/settings/SettingsPage.qml:85
 #, kde-format
@@ -428,18 +417,17 @@ msgstr "메시지에 사용자 정의 색상 사용"
 #: src/contents/ui/settings/SettingsPage.qml:99
 #, kde-format
 msgid "Incoming message color"
-msgstr ""
+msgstr "받은 메시지 색상"
 
 #: src/contents/ui/settings/SettingsPage.qml:122
 #, kde-format
 msgid "Outgoing message color"
-msgstr ""
+msgstr "보낸 메시지 색상"
 
 #: src/contents/ui/settings/SettingsPage.qml:145
-#, fuzzy, kde-format
-#| msgid "Message font size:"
+#, kde-format
 msgid "Message font size"
-msgstr "메시지 글꼴 크기:"
+msgstr "메시지 글꼴 크기"
 
 #: src/contents/ui/settings/SettingsPage.qml:165
 #, kde-format
@@ -519,7 +507,7 @@ msgstr "Spacebar SMS/MMS 클라이언트"
 #: src/main.cpp:72
 #, kde-format
 msgid "Open a chat with the given phone number"
-msgstr "지정한 전화 번호와의 대화 열기"
+msgstr "지정한 전화번호와의 대화 열기"
 
 #~ msgid "Incoming"
 #~ msgstr "수신"
