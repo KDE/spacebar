@@ -47,6 +47,7 @@
   <summary xml:lang="it">Client di messaggistica SMS/MMS</summary>
   <summary xml:lang="ka">SMS/MMS შეტყობინებების კლიენტი</summary>
   <summary xml:lang="ko">SMS/MMS 메시지 클라이언트</summary>
+  <summary xml:lang="lt">SMS/MMS žinučių perdavimo kliento programa</summary>
   <summary xml:lang="nl">Client voor SMS/MMS berichten</summary>
   <summary xml:lang="pt">Cliente de mensagens SMS/MMS</summary>
   <summary xml:lang="sl">Odjemalec za SMS/MMS</summary>
@@ -101,6 +102,7 @@
     <p xml:lang="it">Spacebar è un client di messaggistica SMS/MMS. Ti permette di inviare messaggi di testo, immagini e altri file su una rete cellulare.</p>
     <p xml:lang="ka">Spacebar არის SMS / MMS შეტყობინებების კლიენტი. ის საშუალებას გაძლევთ გაგზავნოთ ტექსტური შეტყობინებები, სურათები და სხვა ფაილები ფიჭური ქსელით.</p>
     <p xml:lang="ko">Spacebar는 SMS/MMS 메시지 클라이언트입니다. 셀룰러 네트워크를 통해서 텍스트 메시지, 사진, 파일을 전송할 수 있습니다.</p>
+    <p xml:lang="lt">Spacebar yra SMS/MMS žinučių perdavimo kliento programa. Ji leidžia jums per korinį tinklą siųsti tekstines žinutes, paveikslus ir kitus failus.</p>
     <p xml:lang="nl">Spacebar is een SMS/MMS client voor verzenden van berichten. Het biedt u het zenden van tekstberichten, plaatjes en andere bestanden over een cellulair netwerk.</p>
     <p xml:lang="pt">O Spacebar é um cliente de mensagens SMS/MMS. Permite-lhe enviar mensagens de texto, imagens e outros ficheiros por uma rede móvel.</p>
     <p xml:lang="sl">Spacebar je odjemalec sporočil SMS/MMS. Dovoljuje pošiljanje besedilnih sporočil, slik in ostalih datotek v mobilnem omrežju.</p>
