@@ -27,11 +27,11 @@ target_link_libraries(spacebar-daemon
     Qt::Core
     Qt::Sql
     Qt::DBus
-    KF5::I18n
-    KF5::ConfigGui
-    KF5::DBusAddons
-    KF5::Notifications
-    KF5::ModemManagerQt
+    KF${QT_MAJOR_VERSION}::I18n
+    KF${QT_MAJOR_VERSION}::ConfigGui
+    KF${QT_MAJOR_VERSION}::DBusAddons
+    KF${QT_MAJOR_VERSION}::Notifications
+    KF${QT_MAJOR_VERSION}::ModemManagerQt
     database
     kTelephonySupport
     macros

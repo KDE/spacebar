@@ -35,13 +35,13 @@ target_link_libraries(spacebar
     Qt::Sql
     Qt::Widgets
     Qt::DBus
-    KF5::ConfigGui
-    KF5::CoreAddons
-    KF5::I18n
-    KF5::Contacts
-    KF5::People
-    KF5::PeopleBackend
-    KF5::KIOGui
+    KF${QT_MAJOR_VERSION}::ConfigGui
+    KF${QT_MAJOR_VERSION}::CoreAddons
+    KF${QT_MAJOR_VERSION}::I18n
+    KF${QT_MAJOR_VERSION}::Contacts
+    KF${QT_MAJOR_VERSION}::People
+    KF${QT_MAJOR_VERSION}::PeopleBackend
+    KF${QT_MAJOR_VERSION}::KIOGui
     database
     kTelephonySupport
     macros
