@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: spacebar\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-01-31 01:01+0000\n"
-"PO-Revision-Date: 2021-09-10 13:35+0300\n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2023-03-08 22:46+0200\n"
+"Last-Translator: Moo <<>>\n"
 "Language-Team: none\n"
 "Language: lt\n"
 "MIME-Version: 1.0\n"
@@ -17,23 +17,22 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n==1 ? 0 : n%10>=2 && (n%100<10 || n"
 "%100>=20) ? 1 : n%10==0 || (n%100>10 && n%100<20) ? 2 : 3);\n"
-"X-Generator: Poedit 2.3\n"
+"X-Generator: Poedit 3.2.2\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
 msgid "Your names"
-msgstr ""
+msgstr "Moo"
 
 #, kde-format
 msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
-msgstr ""
+msgstr "<>"
 
 #: daemon/channellogger.cpp:526 src/contents/ui/MessagesPage.qml:58
-#, fuzzy, kde-format
-#| msgid "Delete chat"
+#, kde-format
 msgid "New message"
-msgstr "Ištrinti pokalbį"
+msgstr "Nauja žinutė"
 
 #: daemon/channellogger.cpp:533
 #, kde-format
@@ -45,10 +44,10 @@ msgstr "Žinutė nuo %1"
 msgctxt "Number of files attached"
 msgid "%1 Attachment"
 msgid_plural "%1 Attachments"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
-msgstr[3] ""
+msgstr[0] "%1 priedas"
+msgstr[1] "%1 priedai"
+msgstr[2] "%1 priedų"
+msgstr[3] "%1 priedas"
 
 #: daemon/channellogger.cpp:560
 #, kde-format
@@ -64,26 +63,26 @@ msgstr "Spacebar foninė tarnyba"
 #: src/chatlistmodel.cpp:95 src/contents/ui/MessagesPage.qml:49
 #, kde-format
 msgid "and %1 more"
-msgstr ""
+msgstr "ir dar %1"
 
 #: src/contents/ui/ChatDetailPage.qml:14 src/contents/ui/MessagesPage.qml:131
 #, kde-format
 msgid "Details"
-msgstr ""
+msgstr "Išsamiau"
 
 #: src/contents/ui/ChatDetailPage.qml:30
 #, kde-format
 msgid "%1 person"
 msgid_plural "%1 people"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
-msgstr[3] ""
+msgstr[0] "%1 žmogus"
+msgstr[1] "%1 žmonės"
+msgstr[2] "%1 žmonių"
+msgstr[3] "%1 žmogus"
 
 #: src/contents/ui/ChatDetailPage.qml:52
 #, kde-format
 msgid "Add people"
-msgstr ""
+msgstr "Pridėti žmonių"
 
 #: src/contents/ui/ChatsPage.qml:17
 #, kde-format
@@ -99,66 +98,62 @@ msgstr "Naujas pokalbis"
 #, kde-format
 msgctxt "Configuring application settings"
 msgid "Settings"
-msgstr ""
+msgstr "Nuostatos"
 
 #: src/contents/ui/ChatsPage.qml:60
-#, fuzzy, kde-format
-#| msgid "Delete chat"
+#, kde-format
 msgctxt "Deleting a conversation"
 msgid "Delete"
-msgstr "Ištrinti pokalbį"
+msgstr "Ištrinti"
 
 #: src/contents/ui/ChatsPage.qml:90
-#, fuzzy, kde-format
-#| msgid "Delete chat"
+#, kde-format
 msgctxt "Selecting recipients from contacts list"
 msgid "Create a chat"
-msgstr "Ištrinti pokalbį"
+msgstr "Sukurti pokalbį"
 
 #: src/contents/ui/ChatsPage.qml:181
 #, kde-format
 msgctxt "Indicating that message was sent by you"
 msgid "You"
-msgstr ""
+msgstr "Jūs"
 
 #: src/contents/ui/ChatsPage.qml:181
 #, kde-format
 msgctxt "Indicating that message contains an image"
 msgid "Picture"
-msgstr ""
+msgstr "Paveikslas"
 
 #: src/contents/ui/ChatsPage.qml:270
-#, fuzzy, kde-format
-#| msgid "New Conversation"
+#, kde-format
 msgid "Delete this conversation"
 msgid_plural "Delete %1 conversations?"
-msgstr[0] "Naujas pokalbis"
-msgstr[1] "Naujas pokalbis"
-msgstr[2] "Naujas pokalbis"
-msgstr[3] "Naujas pokalbis"
+msgstr[0] "Ištrinti šį pokalbį?"
+msgstr[1] "Ištrinti %1 pokalbius?"
+msgstr[2] "Ištrinti %1 pokalbių?"
+msgstr[3] "Ištrinti %1 pokalbį?"
 
 #: src/contents/ui/ChatsPage.qml:271
 #, kde-format
 msgid "This is permanent and can't be undone"
-msgstr ""
+msgstr "Tai yra visam laikui ir to nebeįmanoma bus atšaukti"
 
 #: src/contents/ui/ContactsList.qml:45
-#, fuzzy, kde-format
-#| msgid "Search or enter number…"
+#, kde-format
 msgid "Select a number"
-msgstr "Ieškokite ar įveskite numerį…"
+msgstr "Pasirinkti numerį"
 
 #: src/contents/ui/ContactsList.qml:171
 #, kde-format
 msgctxt "Number of items selected"
 msgid "%1 Selected"
-msgstr ""
+msgstr "Pažymėta: %1"
 
 #: src/contents/ui/ContactsList.qml:181
 #, kde-format
 msgctxt "Open chat conversation window"
 msgid "Next"
-msgstr ""
+msgstr "Kitas"
 
 #: src/contents/ui/ContactsList.qml:204
 #, kde-format
@@ -178,12 +173,12 @@ msgstr "Atverti adresatų programėlę"
 #: src/contents/ui/ContactsList.qml:322
 #, kde-format
 msgid "No results found"
-msgstr ""
+msgstr "Rezultatų nerasta"
 
 #: src/contents/ui/MessagesPage.qml:125
 #, kde-format
 msgid "Call"
-msgstr ""
+msgstr "Skambinti"
 
 #: src/contents/ui/MessagesPage.qml:144
 #, kde-format
@@ -193,107 +188,103 @@ msgstr "Rašydami SMS žinutę šiam numeriui, galite būti papildomai apmokesti
 #: src/contents/ui/MessagesPage.qml:155
 #, kde-format
 msgid "Max attachment limit exceeded"
-msgstr ""
+msgstr "Viršyta didžiausio priedo riba"
 
 #: src/contents/ui/MessagesPage.qml:166
 #, kde-format
 msgid "No MMSC configured"
-msgstr ""
+msgstr "Nėra sukonfigūruota MMSC"
 
 #: src/contents/ui/MessagesPage.qml:177
 #, kde-format
 msgid "Message has expired and will be deleted"
-msgstr ""
+msgstr "Pasibaigė žinutės galiojimas ir ji bus ištrinta"
 
 #: src/contents/ui/MessagesPage.qml:188
 #, kde-format
 msgid "Message will be sent as individual messages"
-msgstr ""
+msgstr "Žinutė bus išsiųsta kaip atskiros žinutės"
 
 #: src/contents/ui/MessagesPage.qml:463
-#, fuzzy, kde-format
-#| msgid "Copy message"
+#, kde-format
 msgid "MMS message"
-msgstr "Kopijuoti žinutę"
+msgstr "MMS žinutė"
 
 #: src/contents/ui/MessagesPage.qml:471
-#, fuzzy, kde-format
-#| msgid "Message from %1"
+#, kde-format
 msgid "Message size: %1"
-msgstr "Žinutė nuo %1"
+msgstr "Žinutės dydis: %1"
 
 #: src/contents/ui/MessagesPage.qml:477
 #, kde-format
 msgid "Expires: %1"
-msgstr ""
+msgstr "Galioja iki: %1"
 
 #: src/contents/ui/MessagesPage.qml:593
 #, kde-format
 msgid "View all"
-msgstr ""
+msgstr "Rodyti visus"
 
 #: src/contents/ui/MessagesPage.qml:733
-#, fuzzy, kde-format
-#| msgid "Delete chat"
+#, kde-format
 msgid "%1 new message"
 msgid_plural "%1 new messages"
-msgstr[0] "Ištrinti pokalbį"
-msgstr[1] "Ištrinti pokalbį"
-msgstr[2] "Ištrinti pokalbį"
-msgstr[3] "Ištrinti pokalbį"
+msgstr[0] "%1 nauja žinutė"
+msgstr[1] "%1 naujos žinutės"
+msgstr[2] "%1 naujų žinučių"
+msgstr[3] "%1 nauja žinutė"
 
 #: src/contents/ui/MessagesPage.qml:811
 #, kde-format
 msgid "Copy code"
-msgstr ""
+msgstr "Kopijuoti kodą"
 
 #: src/contents/ui/MessagesPage.qml:820
 #, kde-format
 msgid "Copy link"
-msgstr ""
+msgstr "Kopijuoti nuorodą"
 
 #: src/contents/ui/MessagesPage.qml:832
 #, kde-format
 msgid "Copy text"
-msgstr ""
+msgstr "Kopijuoti tekstą"
 
 #: src/contents/ui/MessagesPage.qml:841 src/contents/ui/MessagesPage.qml:893
 #, kde-format
 msgid "Save attachment"
-msgstr ""
+msgstr "Įrašyti priedą"
 
 #: src/contents/ui/MessagesPage.qml:852
 #, kde-format
 msgid "View slideshow"
-msgstr ""
+msgstr "Pradėti skaidrių rodymą"
 
 #: src/contents/ui/MessagesPage.qml:865
-#, fuzzy, kde-format
-#| msgid "Delete chat"
+#, kde-format
 msgid "Delete message"
-msgstr "Ištrinti pokalbį"
+msgstr "Ištrinti žinutę"
 
 #: src/contents/ui/MessagesPage.qml:875
 #, kde-format
 msgctxt "Retry sending message"
 msgid "Resend"
-msgstr ""
+msgstr "Siųsti iš naujo"
 
 #: src/contents/ui/MessagesPage.qml:924
 #, kde-format
 msgid "Save"
-msgstr ""
+msgstr "Įrašyti"
 
 #: src/contents/ui/MessagesPage.qml:931
 #, kde-format
 msgid "Cancel"
-msgstr ""
+msgstr "Atsisakyti"
 
 #: src/contents/ui/MessagesPage.qml:1049
 #, kde-format
 msgctxt "Remove item from list"
 msgid "Remove"
-msgstr ""
+msgstr "Šalinti"
 
 #: src/contents/ui/MessagesPage.qml:1087
 #, kde-format
@@ -309,7 +300,7 @@ msgstr "Siųsti žinutę iš %1..."
 #: src/contents/ui/MessagesPage.qml:1142
 #, kde-format
 msgid "Choose a file"
-msgstr ""
+msgstr "Pasirinkti failą"
 
 #: src/contents/ui/NewConversationPage.qml:14
 #, kde-format
@@ -319,216 +310,212 @@ msgstr "Adresatai"
 #: src/contents/ui/PreviewPage.qml:32
 #, kde-format
 msgid "Back"
-msgstr ""
+msgstr "Atgal"
 
 #: src/contents/ui/settings/MMSSettingsPage.qml:16
 #, kde-format
 msgid "MMS Settings"
-msgstr ""
+msgstr "MMS nuostatos"
 
 #: src/contents/ui/settings/MMSSettingsPage.qml:36
 #, kde-format
 msgid "Multimedia messages (MMS)"
-msgstr ""
+msgstr "Multimedijos žinutės (MMS)"
 
 #: src/contents/ui/settings/MMSSettingsPage.qml:43
 #, kde-format
 msgid "MMSC"
-msgstr ""
+msgstr "MMSC"
 
 #: src/contents/ui/settings/MMSSettingsPage.qml:53
 #, kde-format
 msgid "Proxy"
-msgstr ""
+msgstr "Įgaliotasis serveris"
 
 #: src/contents/ui/settings/MMSSettingsPage.qml:61
 #, kde-format
 msgid "Port"
-msgstr ""
+msgstr "Prievadas"
 
 #: src/contents/ui/settings/MMSSettingsPage.qml:79
 #, kde-format
 msgid "Request delivery reports"
-msgstr ""
+msgstr "Reikalauti ataskaitų apie pristatytas žinutes"
 
 #: src/contents/ui/settings/MMSSettingsPage.qml:86
 #, kde-format
 msgid "Request read reports"
-msgstr ""
+msgstr "Reikalauti ataskaitų apie perskaitytas žinutes"
 
 #: src/contents/ui/settings/MMSSettingsPage.qml:93
 #, kde-format
 msgid "Share delivery status"
-msgstr ""
+msgstr "Bendrinti būseną apie žinutės pristatymą"
 
 #: src/contents/ui/settings/MMSSettingsPage.qml:100
 #, kde-format
 msgid "Share read status"
-msgstr ""
+msgstr "Bendrinti būseną apie žinutės perskaitymą"
 
 #: src/contents/ui/settings/MMSSettingsPage.qml:108
 #, kde-format
 msgid "Auto download messages"
-msgstr ""
+msgstr "Automatiškai atsisiųsti žinutes"
 
 #: src/contents/ui/settings/MMSSettingsPage.qml:116
 #, kde-format
 msgid "Auto download messages for existing contacts only"
-msgstr ""
+msgstr "Automatiškai atsisiųsti žinutes tik iš esamų adresatų"
 
 #: src/contents/ui/settings/MMSSettingsPage.qml:123
-#, fuzzy, kde-format
-#| msgid "Message from %1"
+#, kde-format
 msgid "Max message size (KiB)"
-msgstr "Žinutė nuo %1"
+msgstr "Didžiausias žinutės dydis (KiB)"
 
 #: src/contents/ui/settings/MMSSettingsPage.qml:135
 #, kde-format
 msgid "Max attachments"
-msgstr ""
+msgstr "Daugiausia priedų"
 
 #: src/contents/ui/settings/MMSSettingsPage.qml:147
 #, kde-format
 msgid "Auto create SMIL"
-msgstr ""
+msgstr "Automatiškai sukurti SMIL"
 
 #: src/contents/ui/settings/MMSSettingsPage.qml:154
 #, kde-format
 msgid "Default to group conversations"
-msgstr ""
+msgstr "Atstatyti pagal numatymą į grupes pokalbius"
 
 #: src/contents/ui/settings/SettingsPage.qml:16
 #, kde-format
 msgid "Settings"
-msgstr ""
+msgstr "Nuostatos"
 
 #: src/contents/ui/settings/SettingsPage.qml:40
 #, kde-format
 msgid "General"
-msgstr ""
+msgstr "Bendra"
 
 #: src/contents/ui/settings/SettingsPage.qml:45
 #, kde-format
 msgid "About"
-msgstr ""
+msgstr "Apie"
 
 #: src/contents/ui/settings/SettingsPage.qml:53
 #, kde-format
 msgid "Multimedia Messages (MMS)"
-msgstr ""
+msgstr "Multimedijos žinutės (MMS)"
 
 #: src/contents/ui/settings/SettingsPage.qml:61
 #, kde-format
 msgid "Restore defaults"
-msgstr ""
+msgstr "Atkurti numatytąsias reikšmes"
 
 #: src/contents/ui/settings/SettingsPage.qml:64
 #, kde-format
 msgid "Reset"
-msgstr ""
+msgstr "Atstatyti"
 
 #: src/contents/ui/settings/SettingsPage.qml:85
 #, kde-format
 msgid "Appearance"
-msgstr ""
+msgstr "Išvaizda"
 
 #: src/contents/ui/settings/SettingsPage.qml:91
 #, kde-format
 msgid "Use custom colors for messages"
-msgstr ""
+msgstr "Naudoti žinutėse tinkintas spalvas"
 
 #: src/contents/ui/settings/SettingsPage.qml:99
 #, kde-format
 msgid "Incoming message color"
-msgstr ""
+msgstr "Gaunamų žinučių spalva"
 
 #: src/contents/ui/settings/SettingsPage.qml:122
 #, kde-format
 msgid "Outgoing message color"
-msgstr ""
+msgstr "Siunčiamų žinučių spalva"
 
 #: src/contents/ui/settings/SettingsPage.qml:145
-#, fuzzy, kde-format
-#| msgid "Message from %1"
+#, kde-format
 msgid "Message font size"
-msgstr "Žinutė nuo %1"
+msgstr "Žinutės šrifto dydis"
 
 #: src/contents/ui/settings/SettingsPage.qml:165
 #, kde-format
 msgid "Notifications"
-msgstr ""
+msgstr "Pranešimai"
 
 #: src/contents/ui/settings/SettingsPage.qml:171
-#, fuzzy, kde-format
-#| msgid "Search or enter number…"
+#, kde-format
 msgid "Show sender name / number"
-msgstr "Ieškokite ar įveskite numerį…"
+msgstr "Rodyti siuntėjo vardą / numerį"
 
 #: src/contents/ui/settings/SettingsPage.qml:178
 #, kde-format
 msgid "Show a preview of the message content"
-msgstr ""
+msgstr "Rodyti žinutės turinio peržiūrą"
 
 #: src/contents/ui/settings/SettingsPage.qml:185
 #, kde-format
 msgid "Show attachment previews"
-msgstr ""
+msgstr "Rodyti priedų peržiūrą"
 
 #: src/contents/ui/settings/SettingsPage.qml:192
 #, kde-format
 msgid "Ignore tapbacks"
-msgstr ""
+msgstr "Nepaisyti reakcijų į žinutes"
 
 #: src/contents/ui/settings/SettingsPage.qml:209
 #, kde-format
 msgid "Choose a color"
-msgstr ""
+msgstr "Pasirinkti spalvą"
 
 #: src/main.cpp:57
 #, kde-format
 msgid "SMS/MMS messaging client"
-msgstr ""
+msgstr "SMS/MMS žinučių perdavimo kliento programa"
 
 #: src/main.cpp:59
 #, kde-format
 msgid "© 2020-2021 KDE Community"
-msgstr ""
+msgstr "© 2020-2021 KDE bendruomenė"
 
 #: src/main.cpp:60
 #, kde-format
 msgid "Bhushan Shah"
-msgstr ""
+msgstr "Bhushan Shah"
 
 #: src/main.cpp:61
 #, kde-format
 msgid "Jonah Brüchert"
-msgstr ""
+msgstr "Jonah Brüchert"
 
 #: src/main.cpp:62
 #, kde-format
 msgid "Martin Klapetek"
-msgstr ""
+msgstr "Martin Klapetek"
 
 #: src/main.cpp:63
 #, kde-format
 msgid "Michael Lang"
-msgstr ""
+msgstr "Michael Lang"
 
 #: src/main.cpp:64
 #, kde-format
 msgid "Nicolas Fella"
-msgstr ""
+msgstr "Nicolas Fella"
 
 #: src/main.cpp:65
 #, kde-format
 msgid "Smitty van Bodegom"
-msgstr ""
+msgstr "Smitty van Bodegom"
 
 #: src/main.cpp:71
-#, fuzzy, kde-format
-#| msgid "Spacebar SMS client"
+#, kde-format
 msgid "Spacebar SMS/MMS client"
-msgstr "Spacebar SMS kliento programa"
+msgstr "Spacebar SMS/MMS kliento programa"
 
 #: src/main.cpp:72
 #, kde-format
