@@ -41,7 +41,7 @@ Kirigami.ScrollablePage {
                     placeholderText: "http://example.com/mms/wapenc"
                     text: SettingsManager.mmsc
                     label: i18n("MMSC")
-                    onTextChanged: SettingsManager.mmsc = text
+                    onTextChanged: SettingsManager.mmsc = text.trim()
                 }
 
                 MobileForm.FormDelegateSeparator {}
@@ -51,7 +51,7 @@ Kirigami.ScrollablePage {
                     placeholderText: "proxy.example.com"
                     text: SettingsManager.mmsProxy
                     label: i18n("Proxy")
-                    onTextChanged: SettingsManager.mmsProxy = text
+                    onTextChanged: SettingsManager.mmsProxy = text.trim()
                 }
 
                 MobileForm.FormDelegateSeparator {}

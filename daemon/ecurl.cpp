@@ -33,45 +33,49 @@ QByteArray ECurl::networkRequest(const QString &url, const QByteArray &data) con
     curl_easy_setopt(curl, CURLOPT_ERRORBUFFER, errbuf);
 
     QString ifaceName = ModemController::instance().ifaceName;
-    QString dnsServers = ModemController::instance().dnsServers;
     curl_easy_setopt(curl, CURLOPT_INTERFACE, (SL("if!") + ifaceName).toUtf8().constData());
-    CURLcode supported = curl_easy_setopt(curl, CURLOPT_DNS_INTERFACE, ifaceName.toUtf8().constData());
 
-    // use c-ares if curl was built without dns resolver support
-    if (supported == CURLE_UNKNOWN_OPTION || supported == CURLE_NOT_BUILT_IN) {
-        ares_channel channel;
+    // only attempt to resolve if not using proxy
+    if (SettingsManager::self()->mmsProxy().isEmpty()) {
+        QString dnsServers = ModemController::instance().dnsServers;
+        CURLcode supported = curl_easy_setopt(curl, CURLOPT_DNS_INTERFACE, ifaceName.toUtf8().constData());
 
-        int aresReturn = ares_init(&channel);
+        // use c-ares if curl was built without dns resolver support
+        if (supported == CURLE_UNKNOWN_OPTION || supported == CURLE_NOT_BUILT_IN) {
+            ares_channel channel;
 
-        if(aresReturn != ARES_SUCCESS) {
-            qDebug() << "Ares init failed:" << ares_strerror(aresReturn);
-        } else {
-            ares_set_local_dev(channel, ifaceName.toUtf8().constData());
-            ares_set_servers_csv(channel, dnsServers.toUtf8().constData());
+            int aresReturn = ares_init(&channel);
 
-            CURLU *curlUrl = curl_url();
-            curl_url_set(curlUrl, CURLUPART_URL, url.toUtf8().constData(), 0);
-            char *hostname = url.toUtf8().data();
-            curl_url_get(curlUrl, CURLUPART_HOST, &hostname, 0);
-            curl_url_cleanup(curlUrl);
+            if(aresReturn != ARES_SUCCESS) {
+                qDebug() << "Ares init failed:" << ares_strerror(aresReturn);
+            } else {
+                ares_set_local_dev(channel, ifaceName.toUtf8().constData());
+                ares_set_servers_csv(channel, dnsServers.toUtf8().constData());
 
-            char *hostIp = NULL;
-            ares_gethostbyname(channel, hostname, AF_UNSPEC, aresResolveCallback,(void *)&hostIp);
-            aresResolveWait(channel);
+                CURLU *curlUrl = curl_url();
+                curl_url_set(curlUrl, CURLUPART_URL, url.toUtf8().constData(), 0);
+                char *hostname = url.toUtf8().data();
+                curl_url_get(curlUrl, CURLUPART_HOST, &hostname, 0);
+                curl_url_cleanup(curlUrl);
 
-            if (hostIp == NULL) {
-                qDebug() << "Failed to resolve:" << hostname;
+                char *hostIp = NULL;
+                ares_gethostbyname(channel, hostname, AF_UNSPEC, aresResolveCallback,(void *)&hostIp);
+                aresResolveWait(channel);
+
+                if (hostIp == NULL) {
+                    qDebug() << "Failed to resolve:" << hostname;
+                }
+
+                const char *resolve = QByteArray("+").append(hostname).append(":80:[").append(hostIp).append("]").constData();
+                host = curl_slist_append(NULL, resolve);
+                curl_easy_setopt(curl, CURLOPT_RESOLVE, host);
+
+                curl_free(hostname);
+                ares_destroy(channel);
             }
-
-            const char *resolve = QByteArray("+").append(hostname).append(":80:[").append(hostIp).append("]").constData();
-            host = curl_slist_append(NULL, resolve);
-            curl_easy_setopt(curl, CURLOPT_RESOLVE, host);
-
-            curl_free(hostname);
-            ares_destroy(channel);
+        } else {
+            curl_easy_setopt(curl, CURLOPT_DNS_SERVERS, dnsServers.toUtf8().constData());
         }
-    } else {
-        curl_easy_setopt(curl, CURLOPT_DNS_SERVERS, dnsServers.toUtf8().constData());
     }
 
     curl_easy_setopt(curl, CURLOPT_URL, url.toUtf8().constData());
