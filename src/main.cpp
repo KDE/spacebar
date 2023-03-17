@@ -3,8 +3,10 @@
 // SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
 
 #include <KAboutData>
+#include <KDBusService>
 #include <KLocalizedContext>
 #include <KLocalizedString>
+#include <KWindowSystem>
 
 #include <QApplication>
 #include <QQmlApplicationEngine>
@@ -72,6 +74,8 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
     parser.addPositionalArgument(QStringLiteral("number"), i18n("Open a chat with the given phone number"));
     parser.process(app);
 
+    KDBusService service(KDBusService::Unique);
+
     QQmlApplicationEngine engine;
 
     // Use using the instance getter
@@ -98,17 +102,35 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
         return -1;
     }
 
-    if (!parser.positionalArguments().isEmpty()) {
-        QString numberArg = parser.positionalArguments().constFirst();
-        if (numberArg.startsWith(QStringLiteral("sms:"))) {
-            numberArg = numberArg.mid(4);
+    auto handleArgs = [&parser, &chatListModel] {
+        if (!parser.positionalArguments().isEmpty()) {
+            QString numberArg = parser.positionalArguments().constFirst();
+            if (numberArg.startsWith(QStringLiteral("sms:"))) {
+                numberArg = numberArg.mid(4);
+            }
+            if (Utils::instance()->isPhoneNumber(numberArg)) {
+                chatListModel.startChat(PhoneNumberList(numberArg));
+            } else {
+                qWarning() << "invalid phone number on command line, ignoring";
+            }
         }
-        if (Utils::instance()->isPhoneNumber(numberArg)) {
-            chatListModel.startChat(PhoneNumberList(numberArg));
-        } else {
-            qWarning() << "invalid phone number on command line, ignoring";
+    };
+
+    QObject::connect(&service, &KDBusService::activateRequested, &service, [&parser, &handleArgs, &engine](const QStringList &args) {
+        parser.parse(args);
+        handleArgs();
+
+        // Move window to the front
+        auto *window = qobject_cast<QWindow *>(engine.rootObjects().constFirst());
+        if (window) {
+            window->hide(); // Hack - remove once works correctly without
+            KWindowSystem::updateStartupId(window);
+            KWindowSystem::activateWindow(window);
+            window->show(); // Hack - remove once works correctly without
         }
-    }
+    });
+
+    handleArgs();
 
     return app.exec();
 }

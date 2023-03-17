@@ -32,7 +32,7 @@ ecm_setup_version(${PROJECT_VERSION}
 
 ################# Find dependencies #################
 find_package(Qt${QT_MAJOR_VERSION} ${QT_MIN_VERSION} REQUIRED COMPONENTS Core Concurrent Gui Qml Quick QuickControls2 Widgets Sql Xml)
-find_package(KF${QT_MAJOR_VERSION} ${KF_MIN_VERSION} REQUIRED COMPONENTS Kirigami2 I18n Contacts People Notifications Config CoreAddons DBusAddons ModemManagerQt KIO)
+find_package(KF${QT_MAJOR_VERSION} ${KF_MIN_VERSION} REQUIRED COMPONENTS Kirigami2 I18n Contacts People Notifications Config CoreAddons DBusAddons ModemManagerQt KIO WindowSystem)
 find_package(Qt${QT_MAJOR_VERSION}QuickCompiler)
 find_package(KF${QT_MAJOR_VERSION}KirigamiAddons 0.6 REQUIRED)
 find_package(PhoneNumber COMPONENTS PhoneNumber REQUIRED)

@@ -28,6 +28,7 @@ target_link_libraries(spacebar-daemon
     Qt::Sql
     Qt::DBus
     KF${QT_MAJOR_VERSION}::I18n
+    KF${QT_MAJOR_VERSION}::KIOGui
     KF${QT_MAJOR_VERSION}::ConfigGui
     KF${QT_MAJOR_VERSION}::DBusAddons
     KF${QT_MAJOR_VERSION}::Notifications

@@ -37,11 +37,13 @@ target_link_libraries(spacebar
     Qt::DBus
     KF${QT_MAJOR_VERSION}::ConfigGui
     KF${QT_MAJOR_VERSION}::CoreAddons
+    KF${QT_MAJOR_VERSION}::DBusAddons
     KF${QT_MAJOR_VERSION}::I18n
     KF${QT_MAJOR_VERSION}::Contacts
     KF${QT_MAJOR_VERSION}::People
     KF${QT_MAJOR_VERSION}::PeopleBackend
     KF${QT_MAJOR_VERSION}::KIOGui
+    KF${QT_MAJOR_VERSION}::WindowSystem
     database
     kTelephonySupport
     macros

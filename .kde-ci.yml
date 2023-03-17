@@ -15,6 +15,7 @@ Dependencies:
     'frameworks/kdbusaddons': '@stable'
     'frameworks/modemmanager-qt': '@stable'
     'frameworks/kio': '@stable'
+    'frameworks/kwindowsystem': '@stable'
     'libraries/kirigami-addons': '@latest'
     'third-party/qcoro': '@latest'
 

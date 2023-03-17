@@ -22,6 +22,8 @@ int main(int argc, char *argv[])
 
     KLocalizedString::setApplicationDomain("spacebar");
 
+    app.setQuitLockEnabled(false); // prevent a finishing KJob from closing the daemon
+
     parser.addVersionOption();
     parser.addHelpOption();
     parser.setApplicationDescription(i18n("Spacebar background service"));
