@@ -42,11 +42,7 @@ ChannelLogger::ChannelLogger(std::optional<QString> &modemPath, QObject *parent)
 
     PhoneNumber::setCountryCode(countryCode());
 
-    m_ownNumber = PhoneNumber(ownNumber());
-
     m_database.migrate();
-
-    checkMessages();
 
     connect(&ModemController::instance(), &ModemController::messageAdded, this, [this](ModemManager::Sms::Ptr msg) {
         handleIncomingMessage(msg);
@@ -72,6 +68,9 @@ ChannelLogger::ChannelLogger(std::optional<QString> &modemPath, QObject *parent)
 
 void ChannelLogger::checkMessages()
 {
+    // update own number
+    m_ownNumber = PhoneNumber(ownNumber());
+
     // for any unhandled messages
     const ModemManager::Sms::List messages = ModemController::instance().messages();
     for (const ModemManager::Sms::Ptr &msg : messages) {

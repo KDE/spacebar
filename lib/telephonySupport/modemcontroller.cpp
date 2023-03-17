@@ -134,6 +134,8 @@ void ModemController::initMessaging()
     m_msgManager = m_modem->messagingInterface();
 
     connect(m_msgManager.get(), &ModemManager::ModemMessaging::messageAdded, this, &ModemController::slotMessageAdded, Qt::UniqueConnection);
+
+    Q_EMIT modemConnected();
 }
 
 void ModemController::slotMessageAdded(const QString &uni, bool received)
