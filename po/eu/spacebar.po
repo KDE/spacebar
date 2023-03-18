@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: spacebar\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-01-31 01:01+0000\n"
+"POT-Creation-Date: 2023-03-18 01:00+0000\n"
 "PO-Revision-Date: 2023-01-07 08:39+0100\n"
 "Last-Translator: Iñigo Salvador Azurmendi <xalba@ni.eus>\n"
 "Language-Team: Basque <kde-i18n-eu@kde.org>\n"
@@ -30,17 +30,17 @@ msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
 msgstr "xalba@ni.eus"
 
-#: daemon/channellogger.cpp:526 src/contents/ui/MessagesPage.qml:58
+#: daemon/channellogger.cpp:527 src/contents/ui/MessagesPage.qml:58
 #, kde-format
 msgid "New message"
 msgstr "Mezu berria"
 
-#: daemon/channellogger.cpp:533
+#: daemon/channellogger.cpp:534
 #, kde-format
 msgid "Message from %1"
 msgstr "%1(e)ren mezua"
 
-#: daemon/channellogger.cpp:544
+#: daemon/channellogger.cpp:545
 #, kde-format
 msgctxt "Number of files attached"
 msgid "%1 Attachment"
@@ -48,13 +48,13 @@ msgid_plural "%1 Attachments"
 msgstr[0] "Eranskin %1"
 msgstr[1] "%1 eranskin"
 
-#: daemon/channellogger.cpp:560
+#: daemon/channellogger.cpp:563
 #, kde-format
 msgctxt "@action open message in application"
 msgid "Open"
 msgstr "Ireki"
 
-#: daemon/main.cpp:27
+#: daemon/main.cpp:29
 #, kde-format
 msgid "Spacebar background service"
 msgstr "Spacebar atzeko planoko zerbitzua"
@@ -468,52 +468,52 @@ msgstr "Ez ikusi itzulerako tak egiteak"
 msgid "Choose a color"
 msgstr "Hautatu kolore bat"
 
-#: src/main.cpp:57
+#: src/main.cpp:59
 #, kde-format
 msgid "SMS/MMS messaging client"
 msgstr "SMS/MMS mezularitza bezeroa"
 
-#: src/main.cpp:59
+#: src/main.cpp:61
 #, kde-format
 msgid "© 2020-2021 KDE Community"
 msgstr "© 2020-2021 KDE Komunitatea"
 
-#: src/main.cpp:60
+#: src/main.cpp:62
 #, kde-format
 msgid "Bhushan Shah"
 msgstr "Bhushan Shah"
 
-#: src/main.cpp:61
+#: src/main.cpp:63
 #, kde-format
 msgid "Jonah Brüchert"
 msgstr "Jonah Brüchert"
 
-#: src/main.cpp:62
+#: src/main.cpp:64
 #, kde-format
 msgid "Martin Klapetek"
 msgstr "Martin Klapetek"
 
-#: src/main.cpp:63
+#: src/main.cpp:65
 #, kde-format
 msgid "Michael Lang"
 msgstr "Michael Lang"
 
-#: src/main.cpp:64
+#: src/main.cpp:66
 #, kde-format
 msgid "Nicolas Fella"
 msgstr "Nicolas Fella"
 
-#: src/main.cpp:65
+#: src/main.cpp:67
 #, kde-format
 msgid "Smitty van Bodegom"
 msgstr "Smitty van Bodegom"
 
-#: src/main.cpp:71
+#: src/main.cpp:73
 #, kde-format
 msgid "Spacebar SMS/MMS client"
 msgstr "Spacebar SMS/MMS bezeroa"
 
-#: src/main.cpp:72
+#: src/main.cpp:74
 #, kde-format
 msgid "Open a chat with the given phone number"
 msgstr "Ireki berriketa bat emandako telefono zenbakiarekin"
