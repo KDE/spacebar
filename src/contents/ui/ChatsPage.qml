@@ -267,7 +267,7 @@ Kirigami.ScrollablePage {
 
     Kirigami.PromptDialog {
         id: promptDialog
-        title: i18np("Delete this conversation", "Delete %1 conversations?", conversations.length)
+        title: i18np("Delete this conversation?", "Delete %1 conversations?", conversations.length)
         subtitle: i18n("This is permanent and can't be undone")
         standardButtons: Kirigami.Dialog.Ok | Kirigami.Dialog.Cancel
         onAccepted: {
