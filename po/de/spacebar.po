@@ -1,6 +1,6 @@
 # Copyright (C) YEAR This file is copyright:
 # This file is distributed under the same license as the spacebar package.
-# Frederik Schwarzer <schwarzer@kde.org>, 2020, 2022.
+# Frederik Schwarzer <schwarzer@kde.org>, 2020, 2022, 2023.
 # Burkhard Lück <lueck@hube-lueck.de>, 2020, 2021.
 #
 msgid ""
@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: spacebar\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-03-18 01:00+0000\n"
-"PO-Revision-Date: 2022-07-24 15:12+0200\n"
+"PO-Revision-Date: 2023-04-26 21:18+0200\n"
 "Last-Translator: Frederik Schwarzer <schwarzer@kde.org>\n"
 "Language-Team: German <kde-i18n-de@kde.org>\n"
 "Language: de\n"
@@ -39,13 +39,12 @@ msgid "Message from %1"
 msgstr "Nachricht von %1"
 
 #: daemon/channellogger.cpp:545
-#, fuzzy, kde-format
-#| msgid "Attachment"
+#, kde-format
 msgctxt "Number of files attached"
 msgid "%1 Attachment"
 msgid_plural "%1 Attachments"
-msgstr[0] "Anhang"
-msgstr[1] "Anhang"
+msgstr[0] "%1 Anhang"
+msgstr[1] "%1 Anhänge"
 
 #: daemon/channellogger.cpp:563
 #, kde-format
@@ -61,24 +60,24 @@ msgstr "Spacebar-Hintergrunddienst"
 #: src/chatlistmodel.cpp:95 src/contents/ui/MessagesPage.qml:49
 #, kde-format
 msgid "and %1 more"
-msgstr ""
+msgstr "und %1 weitere"
 
 #: src/contents/ui/ChatDetailPage.qml:14 src/contents/ui/MessagesPage.qml:131
 #, kde-format
 msgid "Details"
-msgstr ""
+msgstr "Details"
 
 #: src/contents/ui/ChatDetailPage.qml:30
 #, kde-format
 msgid "%1 person"
 msgid_plural "%1 people"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%1 Person"
+msgstr[1] "%1 Personen"
 
 #: src/contents/ui/ChatDetailPage.qml:52
 #, kde-format
 msgid "Add people"
-msgstr ""
+msgstr "Personen hinzufügen"
 
 #: src/contents/ui/ChatsPage.qml:17
 #, kde-format
@@ -91,47 +90,41 @@ msgid "New Conversation"
 msgstr "Neue Unterhaltung"
 
 #: src/contents/ui/ChatsPage.qml:52
-#, fuzzy, kde-format
-#| msgid "Settings"
+#, kde-format
 msgctxt "Configuring application settings"
 msgid "Settings"
 msgstr "Einstellungen"
 
 #: src/contents/ui/ChatsPage.qml:60
-#, fuzzy, kde-format
-#| msgid "Delete"
+#, kde-format
 msgctxt "Deleting a conversation"
 msgid "Delete"
 msgstr "Löschen"
 
 #: src/contents/ui/ChatsPage.qml:90
-#, fuzzy, kde-format
-#| msgid "Create a chat"
+#, kde-format
 msgctxt "Selecting recipients from contacts list"
 msgid "Create a chat"
 msgstr "Chat erstellen"
 
 #: src/contents/ui/ChatsPage.qml:181
-#, fuzzy, kde-format
-#| msgid "You: "
+#, kde-format
 msgctxt "Indicating that message was sent by you"
 msgid "You"
-msgstr "Sie: "
+msgstr "Sie"
 
 #: src/contents/ui/ChatsPage.qml:181
-#, fuzzy, kde-format
-#| msgid "Picture"
+#, kde-format
 msgctxt "Indicating that message contains an image"
 msgid "Picture"
 msgstr "Bild"
 
 #: src/contents/ui/ChatsPage.qml:270
-#, fuzzy, kde-format
-#| msgid "Delete this conversation?"
+#, kde-format
 msgid "Delete this conversation"
 msgid_plural "Delete %1 conversations?"
 msgstr[0] "Diese Unterhaltung löschen?"
-msgstr[1] "Diese Unterhaltung löschen?"
+msgstr[1] "%1 Unterhaltungen löschen?"
 
 #: src/contents/ui/ChatsPage.qml:271
 #, kde-format
@@ -144,17 +137,16 @@ msgid "Select a number"
 msgstr "Wählen Sie eine Nummer"
 
 #: src/contents/ui/ContactsList.qml:171
-#, fuzzy, kde-format
-#| msgid "Selected"
+#, kde-format
 msgctxt "Number of items selected"
 msgid "%1 Selected"
-msgstr "Ausgewählt"
+msgstr "%1 ausgewählt"
 
 #: src/contents/ui/ContactsList.qml:181
 #, kde-format
 msgctxt "Open chat conversation window"
 msgid "Next"
-msgstr ""
+msgstr "Weiter"
 
 #: src/contents/ui/ContactsList.qml:204
 #, kde-format
@@ -179,7 +171,7 @@ msgstr "Keine Ergebnisse gefunden"
 #: src/contents/ui/MessagesPage.qml:125
 #, kde-format
 msgid "Call"
-msgstr ""
+msgstr "Anruf"
 
 #: src/contents/ui/MessagesPage.qml:144
 #, kde-format
@@ -227,12 +219,11 @@ msgid "View all"
 msgstr "Alle anzeigen"
 
 #: src/contents/ui/MessagesPage.qml:733
-#, fuzzy, kde-format
-#| msgid "New message"
+#, kde-format
 msgid "%1 new message"
 msgid_plural "%1 new messages"
-msgstr[0] "Neue Nachricht"
-msgstr[1] "Neue Nachricht"
+msgstr[0] "%1 neue Nachricht"
+msgstr[1] "%1 neue Nachrichten"
 
 #: src/contents/ui/MessagesPage.qml:811
 #, kde-format
@@ -265,8 +256,7 @@ msgid "Delete message"
 msgstr "Nachricht löschen"
 
 #: src/contents/ui/MessagesPage.qml:875
-#, fuzzy, kde-format
-#| msgid "Resend"
+#, kde-format
 msgctxt "Retry sending message"
 msgid "Resend"
 msgstr "Erneut senden"
@@ -282,8 +272,7 @@ msgid "Cancel"
 msgstr "Abbrechen"
 
 #: src/contents/ui/MessagesPage.qml:1049
-#, fuzzy, kde-format
-#| msgid "Remove"
+#, kde-format
 msgctxt "Remove item from list"
 msgid "Remove"
 msgstr "Entfernen"
@@ -315,10 +304,9 @@ msgid "Back"
 msgstr "Zurück"
 
 #: src/contents/ui/settings/MMSSettingsPage.qml:16
-#, fuzzy, kde-format
-#| msgid "Settings"
+#, kde-format
 msgid "MMS Settings"
-msgstr "Einstellungen"
+msgstr "MMS-Einstellungen"
 
 #: src/contents/ui/settings/MMSSettingsPage.qml:36
 #, kde-format
@@ -402,7 +390,7 @@ msgstr "Einstellungen"
 #: src/contents/ui/settings/SettingsPage.qml:40
 #, kde-format
 msgid "General"
-msgstr ""
+msgstr "Allgemein"
 
 #: src/contents/ui/settings/SettingsPage.qml:45
 #, kde-format
@@ -420,10 +408,9 @@ msgid "Restore defaults"
 msgstr "Voreinstellungen wiederherstellen"
 
 #: src/contents/ui/settings/SettingsPage.qml:64
-#, fuzzy, kde-format
-#| msgid "Resend"
+#, kde-format
 msgid "Reset"
-msgstr "Erneut senden"
+msgstr "Zurücksetzen"
 
 #: src/contents/ui/settings/SettingsPage.qml:85
 #, kde-format
@@ -446,10 +433,9 @@ msgid "Outgoing message color"
 msgstr ""
 
 #: src/contents/ui/settings/SettingsPage.qml:145
-#, fuzzy, kde-format
-#| msgid "Message font size:"
+#, kde-format
 msgid "Message font size"
-msgstr "Nachrichten-Schriftgröße:"
+msgstr "Nachrichten-Schriftgröße"
 
 #: src/contents/ui/settings/SettingsPage.qml:165
 #, kde-format
