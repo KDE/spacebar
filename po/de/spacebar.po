@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: spacebar\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-03-18 01:00+0000\n"
-"PO-Revision-Date: 2023-04-26 21:18+0200\n"
+"PO-Revision-Date: 2023-04-29 12:08+0200\n"
 "Last-Translator: Frederik Schwarzer <schwarzer@kde.org>\n"
 "Language-Team: German <kde-i18n-de@kde.org>\n"
 "Language: de\n"
@@ -181,12 +181,12 @@ msgstr "Beim Versenden dieser Premium-SMS-Nummer können Gebühren anfallen"
 #: src/contents/ui/MessagesPage.qml:155
 #, kde-format
 msgid "Max attachment limit exceeded"
-msgstr ""
+msgstr "Maximale Anhanggröße überschritten"
 
 #: src/contents/ui/MessagesPage.qml:166
 #, kde-format
 msgid "No MMSC configured"
-msgstr ""
+msgstr "Keine MMSC eingestellt"
 
 #: src/contents/ui/MessagesPage.qml:177
 #, kde-format
@@ -196,7 +196,7 @@ msgstr "Die Nachricht ist abgelaufen und wird gelöscht"
 #: src/contents/ui/MessagesPage.qml:188
 #, kde-format
 msgid "Message will be sent as individual messages"
-msgstr ""
+msgstr "Nachricht wird in Einzelnachrichten gesendet"
 
 #: src/contents/ui/MessagesPage.qml:463
 #, kde-format
@@ -316,19 +316,17 @@ msgstr ""
 #: src/contents/ui/settings/MMSSettingsPage.qml:43
 #, kde-format
 msgid "MMSC"
-msgstr ""
+msgstr "MMSC"
 
 #: src/contents/ui/settings/MMSSettingsPage.qml:53
-#, fuzzy, kde-format
-#| msgid "Proxy:"
+#, kde-format
 msgid "Proxy"
-msgstr "Proxy:"
+msgstr "Proxy"
 
 #: src/contents/ui/settings/MMSSettingsPage.qml:61
-#, fuzzy, kde-format
-#| msgid "Port:"
+#, kde-format
 msgid "Port"
-msgstr "Port:"
+msgstr "Port"
 
 #: src/contents/ui/settings/MMSSettingsPage.qml:79
 #, kde-format
