@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: spacebar\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-03-18 01:00+0000\n"
-"PO-Revision-Date: 2023-01-07 10:03+0100\n"
+"PO-Revision-Date: 2023-05-02 19:51+0200\n"
 "Last-Translator: Josep M. Ferrer <txemaq@gmail.com>\n"
 "Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
 "Language: ca\n"
@@ -251,7 +251,7 @@ msgstr "Desa l'adjunt"
 #: src/contents/ui/MessagesPage.qml:852
 #, kde-format
 msgid "View slideshow"
-msgstr "Visualitza un passi de diapositives"
+msgstr "Visualitza una presentació de diapositives"
 
 #: src/contents/ui/MessagesPage.qml:865
 #, kde-format
