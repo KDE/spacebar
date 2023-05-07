@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: spacebar\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-03-18 01:00+0000\n"
+"POT-Creation-Date: 2023-05-07 00:52+0000\n"
 "PO-Revision-Date: 2023-03-20 08:37+0100\n"
 "Last-Translator: Matjaž Jeran <matjaz.jeran@amis.net>\n"
 "Language-Team: Slovenian <lugos-slo@lugos.si>\n"
@@ -124,8 +124,10 @@ msgid "Picture"
 msgstr "Slika"
 
 #: src/contents/ui/ChatsPage.qml:270
-#, kde-format
-msgid "Delete this conversation"
+#, fuzzy, kde-format
+#| msgid "Delete this conversation"
+#| msgid_plural "Delete %1 conversations?"
+msgid "Delete this conversation?"
 msgid_plural "Delete %1 conversations?"
 msgstr[0] "Zbriši %1 pogovor"
 msgstr[1] "Naj zbrišem %1 pogovora?"

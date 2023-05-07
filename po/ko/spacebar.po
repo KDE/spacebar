@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: spacebar\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-03-18 01:00+0000\n"
+"POT-Creation-Date: 2023-05-07 00:52+0000\n"
 "PO-Revision-Date: 2023-03-01 01:44+0100\n"
 "Last-Translator: Shinjo Park <kde@peremen.name>\n"
 "Language-Team: Korean <kde-kr@kde.org>\n"
@@ -117,8 +117,10 @@ msgid "Picture"
 msgstr "그림"
 
 #: src/contents/ui/ChatsPage.qml:270
-#, kde-format
-msgid "Delete this conversation"
+#, fuzzy, kde-format
+#| msgid "Delete this conversation"
+#| msgid_plural "Delete %1 conversations?"
+msgid "Delete this conversation?"
 msgid_plural "Delete %1 conversations?"
 msgstr[0] "대화 %1개를 삭제하시겠습니까?"
 
