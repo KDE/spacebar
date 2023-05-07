@@ -23,6 +23,7 @@
 #include <global.h>
 
 #include <QCoroDBusPendingReply>
+#include <QCoroFuture>
 
 static bool isScreenSaverActive()
 {
@@ -229,10 +230,10 @@ void ChannelLogger::handleDownloadedMessage(const QByteArray &response, const QS
                 response.size());
 }
 
-void ChannelLogger::addMessage(const Message &message)
+QCoro::Task<> ChannelLogger::addMessage(const Message &message)
 {
     // save to database
-    m_database.addMessage(message);
+    co_await m_database.addMessage(message);
 
     // add message to open conversation
     if (!message.sentByMe) {
@@ -246,17 +247,17 @@ void ChannelLogger::updateMessage(const Message &message)
     Q_EMIT messageUpdated(message.phoneNumberList.toString(), message.id);
 }
 
-void ChannelLogger::saveMessage(const PhoneNumberList &phoneNumberList,
-                                const QDateTime &datetime,
-                                const QString &text,
-                                const QString &attachments,
-                                const QString &smil,
-                                const QString &fromNumber,
-                                const QString &messageId,
-                                const bool pendingDownload,
-                                const QString &contentLocation,
-                                const QDateTime &expires,
-                                const int size)
+QCoro::Task<void> ChannelLogger::saveMessage(const PhoneNumberList &phoneNumberList,
+                                             const QDateTime &datetime,
+                                             const QString &text,
+                                             const QString &attachments,
+                                             const QString &smil,
+                                             const QString &fromNumber,
+                                             const QString &messageId,
+                                             const bool pendingDownload,
+                                             const QString &contentLocation,
+                                             const QDateTime &expires,
+                                             const int size)
 {
     Message message;
     message.text = text;
@@ -287,11 +288,11 @@ void ChannelLogger::saveMessage(const PhoneNumberList &phoneNumberList,
         message.datetime = QDateTime::currentDateTime();
     }
 
-    if (handleTapbackReaction(message, message.fromNumber.isEmpty() ? message.phoneNumberList.toString() : message.fromNumber)) {
+    if (co_await handleTapbackReaction(message, message.fromNumber.isEmpty() ? message.phoneNumberList.toString() : message.fromNumber)) {
         updateMessage(message);
 
         if (SettingsManager::self()->ignoreTapbacks()) {
-            return;
+            co_return;
         }
     } else {
         addMessage(message);
@@ -300,7 +301,7 @@ void ChannelLogger::saveMessage(const PhoneNumberList &phoneNumberList,
     // TODO add setting to turn off notifications for multiple chats in addition to current chat
     if (message.phoneNumberList == m_disabledNotificationNumber) {
         if (!isScreenSaverActive()) {
-            return;
+            co_return;
         }
     }
 
@@ -345,6 +346,11 @@ void ChannelLogger::sendMessage(const QString &numbers, const QString &id, const
             qDebug() << "Failed successfully" << result;
         }
     }();
+}
+
+void ChannelLogger::sendTapback(const QString &numbers, const QString &id, const QString &tapback, const bool &isRemoved)
+{
+    sendTapbackHandler(numbers, id, tapback, isRemoved);
 }
 
 QCoro::Task<QString> ChannelLogger::sendMessageSMS(const PhoneNumber &phoneNumber, const QString &id, const QString &text)
@@ -466,7 +472,7 @@ ChannelLogger::sendMessageMMS(const PhoneNumberList &phoneNumberList, const QStr
     updateMessage(message);
 
     // add message to database
-    addMessage(message);
+    co_await addMessage(message);
 
     // send message
     const QByteArray response = co_await uploadMessage(data);
@@ -584,40 +590,40 @@ void ChannelLogger::disableNotificationsForNumber(const QString &numbers)
     m_disabledNotificationNumber = PhoneNumberList(numbers);
 }
 
-bool ChannelLogger::handleTapbackReaction(Message &message, const QString &reactNumber)
+QCoro::Task<bool> ChannelLogger::handleTapbackReaction(Message &message, const QString &reactNumber)
 {
     for (const auto &tapback : TAPBACK_REMOVED) {
         if (message.text.startsWith(tapback)) {
-            return saveTapback(message, reactNumber, tapback, TAPBACK_REMOVED, false, false);
+            co_return co_await saveTapback(message, reactNumber, tapback, TAPBACK_REMOVED, false, false);
         } else if (message.text == tapback.left(tapback.length() - 1) + SL("an image")) {
-            return saveTapback(message, reactNumber, tapback, TAPBACK_REMOVED, false, true);
+            co_return co_await saveTapback(message, reactNumber, tapback, TAPBACK_REMOVED, false, true);
         }
     }
 
     for (const auto &tapback : TAPBACK_ADDED) {
         if (message.text.startsWith(tapback)) {
-            return saveTapback(message, reactNumber, tapback, TAPBACK_ADDED, true, false);
+            co_return co_await saveTapback(message, reactNumber, tapback, TAPBACK_ADDED, true, false);
         } else if (message.text == tapback.left(tapback.length() - 1) + SL("an image")) {
-            return saveTapback(message, reactNumber, tapback, TAPBACK_ADDED, true, true);
+            co_return co_await saveTapback(message, reactNumber, tapback, TAPBACK_ADDED, true, true);
         }
     }
 
-    return false;
+    co_return false;
 }
 
-bool ChannelLogger::saveTapback(Message &message,
-                                const QString &reactNumber,
-                                const QStringView &tapback,
-                                std::span<const QStringView> list,
-                                const bool &isAdd,
-                                const bool &isImage)
+QCoro::Task<bool> ChannelLogger::saveTapback(Message &message,
+                                             const QString &reactNumber,
+                                             const QStringView &tapback,
+                                             std::span<const QStringView> list,
+                                             const bool &isAdd,
+                                             const bool &isImage)
 {
     const QString searchText = isImage ? SL("") : message.text.mid(tapback.length(), message.text.length() - tapback.length() - 1);
-    const QString id =
-        isImage ? m_database.lastMessageWithAttachment(message.phoneNumberList) : m_database.lastMessageWithText(message.phoneNumberList, searchText);
+    const auto id = isImage ? co_await m_database.lastMessageWithAttachment(message.phoneNumberList)
+                            : co_await m_database.lastMessageWithText(message.phoneNumberList, searchText);
 
-    if (!id.isEmpty()) {
-        Message msg = m_database.messagesForNumber(message.phoneNumberList, id).first();
+    if (id) {
+        Message msg = (co_await m_database.messagesForNumber(message.phoneNumberList, *id)).front();
         QJsonObject reactions = QJsonDocument::fromJson(msg.tapbacks.toUtf8()).object();
         QJsonArray numbers;
         const QJsonValue number = QJsonValue(reactNumber);
@@ -661,18 +667,18 @@ bool ChannelLogger::saveTapback(Message &message,
             msg.tapbacks = QString::fromUtf8(jsonDoc.toJson(QJsonDocument::Compact));
         }
 
-        m_database.updateMessageTapbacks(id, msg.tapbacks);
+        m_database.updateMessageTapbacks(*id, msg.tapbacks);
 
         message.id = msg.id;
-        return true;
+        co_return true;
     }
 
-    return false;
+    co_return false;
 }
 
-void ChannelLogger::sendTapback(const QString &numbers, const QString &id, const QString &tapback, const bool &isRemoved)
+QCoro::Task<void> ChannelLogger::sendTapbackHandler(const QString &numbers, const QString &id, const QString &tapback, const bool &isRemoved)
 {
-    Message message = m_database.messagesForNumber(PhoneNumberList(numbers), id).first();
+    Message message = (co_await m_database.messagesForNumber(PhoneNumberList(numbers), id)).front();
     const int idx = std::find(TAPBACK_KEYS.cbegin(), TAPBACK_KEYS.cend(), tapback) - TAPBACK_KEYS.cbegin();
 
     if (message.attachments.isEmpty()) {
@@ -701,13 +707,13 @@ void ChannelLogger::sendTapback(const QString &numbers, const QString &id, const
 
         if (!maybeReply) {
             qDebug() << "No modem";
-            return;
+            co_return;
         }
 
         const QDBusReply<QDBusObjectPath> msgPathResult = *maybeReply;
 
         if (!msgPathResult.isValid()) {
-            return;
+            co_return;
         }
 
         ModemManager::Sms::Ptr mmMessage = QSharedPointer<ModemManager::Sms>::create(msgPathResult.value().path());
@@ -716,7 +722,7 @@ void ChannelLogger::sendTapback(const QString &numbers, const QString &id, const
 
         if (!sendResult.isValid()) {
             qDebug() << sendResult.error().message();
-            return;
+            co_return;
         }
     }
 }

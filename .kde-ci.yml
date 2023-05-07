@@ -17,6 +17,7 @@ Dependencies:
     'frameworks/kio': '@stable'
     'frameworks/kwindowsystem': '@stable'
     'libraries/kirigami-addons': '@latest'
+    'libraries/futuresql': '@latest'
     'third-party/qcoro': '@latest'
 
 - 'on': ['Linux/Qt6']
@@ -33,4 +34,5 @@ Dependencies:
     'frameworks/modemmanager-qt': '@latest-kf6'
     'frameworks/kio': '@latest-kf6'
     'libraries/kirigami-addons': '@latest-kf6'
+    'libraries/futuresql': '@latest-kf6'
     'third-party/qcoro': '@latest'

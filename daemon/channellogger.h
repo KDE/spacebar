@@ -46,19 +46,19 @@ private:
     void checkMessages();
     void handleIncomingMessage(ModemManager::Sms::Ptr msg);
     void createDownloadNotification(const MmsMessage &mmsMessage);
-    void addMessage(const Message &message);
+    QCoro::Task<> addMessage(const Message &message);
     void updateMessage(const Message &message);
-    void saveMessage(const PhoneNumberList &phoneNumberList,
-                     const QDateTime &datetime,
-                     const QString &text = QString(),
-                     const QString &attachments = QString(),
-                     const QString &smil = QString(),
-                     const QString &fromNumber = QString(),
-                     const QString &messageId = QString(),
-                     const bool pendingDownload = false,
-                     const QString &contentLocation = QString(),
-                     const QDateTime &expires = QDateTime(),
-                     const int size = 0);
+    QCoro::Task<void> saveMessage(const PhoneNumberList &phoneNumberList,
+                                  const QDateTime &datetime,
+                                  const QString &text = QString(),
+                                  const QString &attachments = QString(),
+                                  const QString &smil = QString(),
+                                  const QString &fromNumber = QString(),
+                                  const QString &messageId = QString(),
+                                  const bool pendingDownload = false,
+                                  const QString &contentLocation = QString(),
+                                  const QDateTime &expires = QDateTime(),
+                                  const int size = 0);
     QCoro::Task<QString> sendMessageSMS(const PhoneNumber &phoneNumber, const QString &id, const QString &text);
     QCoro::Task<QString>
     sendMessageMMS(const PhoneNumberList &phoneNumberList, const QString &id, const QString &text, const QStringList &files, const qint64 totalSize);
@@ -70,13 +70,14 @@ private:
     QCoro::Task<void> downloadMessage(const MmsMessage message);
     void handleDownloadedMessage(const QByteArray &response, const QString &url, const QDateTime &expires);
     void createNotification(Message &message);
-    bool handleTapbackReaction(Message &message, const QString &reactNumber);
-    bool saveTapback(Message &message,
-                     const QString &reactNumber,
-                     const QStringView &tapback,
-                     std::span<const QStringView> list,
-                     const bool &isAdd,
-                     const bool &isImage);
+    QCoro::Task<bool> handleTapbackReaction(Message &message, const QString &reactNumber);
+    QCoro::Task<bool> saveTapback(Message &message,
+                                  const QString &reactNumber,
+                                  const QStringView &tapback,
+                                  std::span<const QStringView> list,
+                                  const bool &isAdd,
+                                  const bool &isImage);
+    QCoro::Task<void> sendTapbackHandler(const QString &numbers, const QString &id, const QString &tapback, const bool &isRemoved);
 
     Database m_database;
 

@@ -4,7 +4,6 @@
 // SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
 
 #include "messagemodel.h"
-#include "asyncdatabase.h"
 #include "channelhandler.h"
 #include "utils.h"
 
@@ -13,6 +12,7 @@
 #include <QMimeType>
 
 #include <contactphonenumbermapper.h>
+#include <database.h>
 #include <global.h>
 #include <phonenumberlist.h>
 
@@ -50,16 +50,18 @@ MessageModel::MessageModel(ChannelHandler &handler, const PhoneNumberList &phone
 
 QCoro::Task<void> MessageModel::fetchMessages(const QString &id, const int limit)
 {
-    const QVector<Message> messages = co_await m_handler.database().messagesForNumber(m_phoneNumberList, id, limit);
+    const auto messages = co_await m_handler.database().messagesForNumber(m_phoneNumberList, id, limit);
 
     if (limit == -1) {
-        beginInsertRows({}, 0, messages.count() - 1);
-        m_messages.append(messages);
+        beginInsertRows({}, 0, messages.size() - 1);
+        for (auto &&message : messages) {
+            m_messages.push_back(message);
+        }
         endInsertRows();
     } else {
-        if (messages.count() == 1) {
-            beginInsertRows({}, m_messages.count(), m_messages.count());
-            m_messages.prepend(messages.at(0));
+        if (messages.size() == 1) {
+            beginInsertRows({}, m_messages.size(), m_messages.size());
+            m_messages.insert(m_messages.begin(), messages.at(0));
             endInsertRows();
         } else {
             beginResetModel();
@@ -74,16 +76,16 @@ QCoro::Task<void> MessageModel::fetchMessages(const QString &id, const int limit
 QCoro::Task<void> MessageModel::fetchUpdatedMessage(const QString &id)
 {
     const auto &[message, i] = getMessageIndex(id);
-    const QVector<Message> messages = co_await m_handler.database().messagesForNumber(m_phoneNumberList, id);
+    const auto messages = co_await m_handler.database().messagesForNumber(m_phoneNumberList, id);
 
-    message->text = messages.first().text;
-    message->datetime = messages.first().datetime;
-    message->deliveryStatus = messages.first().deliveryStatus;
-    message->attachments = messages.first().attachments;
-    message->smil = messages.first().smil;
-    message->deliveryReport = messages.first().deliveryReport;
-    message->readReport = messages.first().readReport;
-    message->tapbacks = messages.first().tapbacks;
+    message->text = messages.front().text;
+    message->datetime = messages.front().datetime;
+    message->deliveryStatus = messages.front().deliveryStatus;
+    message->attachments = messages.front().attachments;
+    message->smil = messages.front().smil;
+    message->deliveryReport = messages.front().deliveryReport;
+    message->readReport = messages.front().readReport;
+    message->tapbacks = messages.front().tapbacks;
 
     Q_EMIT dataChanged(index(i), index(i));
 }
@@ -118,12 +120,12 @@ QHash<int, QByteArray> MessageModel::roleNames() const
 
 QVariant MessageModel::data(const QModelIndex &index, int role) const
 {
-    if (!index.isValid() || index.row() < 0 || index.row() >= m_messages.count()) {
+    if (!index.isValid() || index.row() < 0 || size_t(index.row()) >= m_messages.size()) {
         return false;
     }
 
     // message order is reversed from the C++ side instead of in QML since sectioning doesn't work right otherwise
-    Message message = m_messages.at((m_messages.count() - 1) - index.row());
+    Message message = m_messages.at((m_messages.size() - 1) - index.row());
     switch (role) {
     case Role::TextRole:
         return message.text;
@@ -170,7 +172,7 @@ QVariant MessageModel::data(const QModelIndex &index, int role) const
 
 int MessageModel::rowCount(const QModelIndex &index) const
 {
-    return index.isValid() ? 0 : m_messages.count();
+    return index.isValid() ? 0 : m_messages.size();
 }
 
 QVector<Person> MessageModel::people() const
@@ -250,8 +252,8 @@ void MessageModel::sendMessage(const QString &text, const QStringList &files, co
     message.sentByMe = true;
     message.deliveryStatus = MessageState::Pending;
 
-    beginInsertRows({}, m_messages.count(), m_messages.count());
-    m_messages.prepend(message);
+    beginInsertRows({}, m_messages.size(), m_messages.size());
+    m_messages.insert(m_messages.begin(), message);
     endInsertRows();
 
     m_handler.interface()->sendMessage(m_phoneNumberList.toString(), message.id, text, files, totalSize);
@@ -309,11 +311,11 @@ void MessageModel::deleteMessage(const QString &id, const int index, const QStri
     }
 
     beginRemoveRows(QModelIndex(), index, index);
-    m_messages.remove(m_messages.count() - index - 1);
+    m_messages.erase(m_messages.begin() + (m_messages.size() - index - 1));
     endRemoveRows();
 
     // update chat list only if it was the most recent message
-    if (index == m_messages.count()) {
+    if (size_t(index) == m_messages.size()) {
         Q_EMIT m_handler.messagesChanged(m_phoneNumberList);
     }
 }

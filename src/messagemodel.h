@@ -134,7 +134,7 @@ private:
     void updateMessageState(const QString &id, MessageState state, const bool temp = false);
 
     ChannelHandler &m_handler;
-    QVector<Message> m_messages;
+    std::vector<Message> m_messages;
 
     // properties
     PhoneNumberList m_phoneNumberList;

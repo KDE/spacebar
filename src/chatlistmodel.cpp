@@ -17,10 +17,10 @@
 #include <KPeople/PersonData>
 
 #include "channelhandler.h"
-#include "databasethread.h"
 #include "messagemodel.h"
 #include "settingsmanager.h"
 #include "utils.h"
+#include <database.h>
 #include <global.h>
 
 ChatListModel::ChatListModel(ChannelHandler &handler, QObject *parent)

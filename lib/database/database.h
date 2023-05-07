@@ -9,6 +9,10 @@
 #include <QSqlDatabase>
 #include <QSqlQuery>
 
+#include <ThreadedDatabase>
+
+#include <QCoroTask>
+
 #include <global.h>
 #include <phonenumberlist.h>
 
@@ -35,13 +39,18 @@ inline MessageState parseMessageState(const QString &state)
 }
 
 struct Message {
+    using ColumnTypes =
+        std::tuple<QString, QString, QString, qint64, bool, int, bool, QString, QString, QString, QString, int, QString, bool, QString, qint64, int, QString>;
+
+    static Message fromSql(ColumnTypes &&tuple);
+
     QString id;
     PhoneNumberList phoneNumberList;
     QString text;
     QDateTime datetime;
     bool read;
-    bool sentByMe;
     MessageState deliveryStatus;
+    bool sentByMe;
     QString attachments;
     QString smil;
     QString fromNumber;
@@ -74,40 +83,41 @@ public:
     explicit Database(QObject *parent = nullptr);
 
     // Messages
-    void addMessage(const Message &message);
-    void deleteMessage(const QString &id);
-    QVector<Message> messagesForNumber(const PhoneNumberList &phoneNumberList, const QString &id = QString(), const int limit = 0) const;
-    void updateMessageDeliveryState(const QString &id, const MessageState state);
-    void updateMessageSent(const QString &id, const QString &messageId, const QString &contentLocation);
-    void updateMessageDeliveryReport(const QString &messageId);
-    void updateMessageReadReport(const QString &messageId, const PhoneNumber &fromNumber);
-    void markMessageRead(const int id);
-    void updateMessageTapbacks(const QString &id, const QString tapbacks);
-    QString lastMessageWithText(const PhoneNumberList &phoneNumberList, const QString &text);
-    QString lastMessageWithAttachment(const PhoneNumberList &phoneNumberList);
+    QFuture<void> addMessage(const Message &message);
+    QFuture<void> deleteMessage(const QString &id);
+    QFuture<std::vector<Message>> messagesForNumber(const PhoneNumberList &phoneNumberList, const QString &id = QString(), const int limit = 0) const;
+    QFuture<void> updateMessageDeliveryState(const QString &id, const MessageState state);
+    QFuture<void> updateMessageSent(const QString &id, const QString &messageId, const QString &contentLocation);
+    QFuture<void> updateMessageDeliveryReport(const QString &messageId);
+    QFuture<void> updateMessageReadReport(const QString &messageId, const PhoneNumber &fromNumber);
+    QFuture<void> markMessageRead(const int id);
+    QFuture<void> updateMessageTapbacks(const QString &id, const QString tapbacks);
+    QCoro::Task<std::optional<QString>> lastMessageWithText(const PhoneNumberList &phoneNumberList, const QString &text);
+    QCoro::Task<std::optional<QString>> lastMessageWithAttachment(const PhoneNumberList &phoneNumberList);
 
     // Chats
-    QVector<Chat> chats(const PhoneNumberList &phoneNumberList) const;
-    int unreadMessagesForNumber(const PhoneNumberList &phoneNumberList) const;
-    void markChatAsRead(const PhoneNumberList &phoneNumberList);
-    void deleteChat(const PhoneNumberList &phoneNumberList);
-    void mergeChats(const QString &fromNumbers, const QString toNumbers);
+    QCoro::Task<QVector<Chat>> chats(const PhoneNumberList &phoneNumberList) const;
+    QCoro::Task<std::optional<int>> unreadMessagesForNumber(const PhoneNumberList &phoneNumberList) const;
+    QFuture<void> markChatAsRead(const PhoneNumberList &phoneNumberList);
+    QFuture<void> deleteChat(const PhoneNumberList &phoneNumberList);
+    QCoro::Task<> mergeChats(const QString &fromNumbers, const QString toNumbers);
 
     static QString generateRandomId();
 
     static void exec(QSqlQuery &query);
 
-    void migrate();
+    QCoro::Task<> migrate();
 
 private:
-    void migrationV1(uint current);
-    void migrationV2(uint current);
-    void migrationV3(uint current);
-    void migrationV4(uint current);
-    void migrationV5(uint current);
-    void migrationV6(uint current);
-    void migrationV7(uint current);
-    void migrationV8(uint current);
+    // Ran on the database thread
+    void migrationV1(const QSqlDatabase &db, uint current);
+    void migrationV2(const QSqlDatabase &db, uint current);
+    void migrationV3(const QSqlDatabase &db, uint current);
+    void migrationV4(const QSqlDatabase &db, uint current);
+    void migrationV5(const QSqlDatabase &db, uint current);
+    void migrationV6(const QSqlDatabase &db, uint current);
+    void migrationV7(const QSqlDatabase &db, uint current);
+    void migrationV8(const QSqlDatabase &db, uint current);
 
-    QSqlDatabase m_database;
+    std::unique_ptr<ThreadedDatabase> m_database;
 };

@@ -4,8 +4,6 @@ set(spacebar_SRCS
     chatlistmodel.cpp
     messagemodel.cpp
     utils.cpp
-    databasethread.cpp
-    asyncdatabase.cpp
     channelhandler.cpp
 )
 

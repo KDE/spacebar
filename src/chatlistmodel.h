@@ -11,10 +11,9 @@
 
 #include "qcorotask.h"
 
-#include "database.h"
-#include "databasethread.h"
 #include "global.h"
 #include <contactphonenumbermapper.h>
+#include <database.h>
 
 class MessageModel;
 class ChannelHandler;

@@ -40,8 +40,10 @@ find_package(KF${QT_MAJOR_VERSION}KirigamiAddons 0.6 REQUIRED)
 find_package(PhoneNumber COMPONENTS PhoneNumber REQUIRED)
 find_package(CURL REQUIRED)
 pkg_search_module(c-ares libcares REQUIRED IMPORTED_TARGET)
+find_package(FutureSQL${QT_MAJOR_VERSION} REQUIRED)
 find_package(QCoro${QT_MAJOR_VERSION} COMPONENTS Core DBus REQUIRED)
 
+kde_enable_exceptions()
 qcoro_enable_coroutines()
 
 ################# build and install #################

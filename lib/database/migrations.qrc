@@ -1,0 +1,6 @@
+<RCC>
+    <qresource prefix="/">
+        <file>migrations/2023-05-07-102621_init/down.sql</file>
+        <file>migrations/2023-05-07-102621_init/up.sql</file>
+    </qresource>
+</RCC>

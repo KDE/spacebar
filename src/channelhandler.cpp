@@ -5,8 +5,6 @@
 
 #include "channelhandler.h"
 
-#include "databasethread.h"
-
 #include <QLocale>
 
 #include <database.h>
@@ -39,9 +37,9 @@ ChannelHandler::ChannelHandler(QObject *parent)
     });
 }
 
-AsyncDatabase &ChannelHandler::database()
+Database &ChannelHandler::database()
 {
-    return m_databaseThread.database();
+    return m_database;
 }
 
 org::kde::spacebar::Daemon *ChannelHandler::interface()

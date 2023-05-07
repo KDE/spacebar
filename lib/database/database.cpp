@@ -11,6 +11,8 @@
 #include <QSqlQuery>
 #include <QStandardPaths>
 
+#include <QCoroFuture>
+#include <QCoroTask>
 #include <random>
 
 #include <global.h>
@@ -21,52 +23,36 @@ constexpr auto DATABASE_REVISION = 8; // Keep MIGRATE_TO_LATEST_FROM in sync
 #define MIGRATE_TO(n, current)                                                                                                                                 \
     if (current < n) {                                                                                                                                         \
         qDebug() << "Running migration" << #n;                                                                                                                 \
-        migrationV##n(current);                                                                                                                                \
+        migrationV##n(db, current);                                                                                                                            \
     }
 #define MIGRATE_TO_LATEST_FROM(current) MIGRATE_TO(8, current)
 
-enum Column {
-    IdColumn = 0,
-    PhoneNumberColumn,
-    TextColumn,
-    DateTimeColumn,
-    ReadColumn,
-    DeliveryStateColumn,
-    SentByMeColumn,
-    AttachmentsColumn,
-    SmilColumn,
-    FromNumberColumn,
-    MessageIdColumn,
-    DeliveryReportColumn,
-    ReadReportColumn,
-    PendingDownloadColumn,
-    ContentLocationColumn,
-    ExpiresColumn,
-    SizeColumn,
-    TapbacksColumn
-};
+template<typename T, typename Func>
+std::optional<std::invoke_result_t<Func, T>> map(const std::optional<T> &&in, Func &&f)
+{
+    if (in.has_value()) {
+        return f(std::move(*in));
+    } else {
+        return {};
+    }
+}
 
 Database::Database(QObject *parent)
     : QObject(parent)
-    , m_database(QSqlDatabase::addDatabase(QStringLiteral("QSQLITE"), QStringLiteral("messages")))
 {
     const QString databaseLocation = QStandardPaths::writableLocation(QStandardPaths::GenericDataLocation) + SL("/spacebar");
     if (!QDir().mkpath(databaseLocation)) {
         qDebug() << "Could not create the database directory at" << databaseLocation;
     }
 
-    m_database.setDatabaseName(databaseLocation + SL("/messages.sqlite"));
-    const bool open = m_database.open();
-
-    if (!open) {
-        qWarning() << "Could not open messages database" << m_database.lastError();
-    }
+    DatabaseConfiguration config;
+    config.setDatabaseName(databaseLocation + SL("/messages.sqlite"));
+    config.setType(DatabaseType::SQLite);
+    m_database = ThreadedDatabase::establishConnection(config);
 }
 
-QVector<Message> Database::messagesForNumber(const PhoneNumberList &phoneNumberList, const QString &id, const int limit) const
+QFuture<std::vector<Message>> Database::messagesForNumber(const PhoneNumberList &phoneNumberList, const QString &id, const int limit) const
 {
-    QVector<Message> messages;
-
     QString sql = SL(R"(
         SELECT
             id,
@@ -90,10 +76,8 @@ QVector<Message> Database::messagesForNumber(const PhoneNumberList &phoneNumberL
         FROM Messages
     )");
 
-    QSqlQuery fetch(m_database);
-
     if (id.isEmpty()) {
-        sql.append(SL("WHERE phoneNumber == :phoneNumber ORDER BY time DESC"));
+        sql.append(SL("WHERE phoneNumber == ? ORDER BY time DESC"));
 
         if (limit == 0) {
             sql.append(SL(" LIMIT 30"));
@@ -103,144 +87,88 @@ QVector<Message> Database::messagesForNumber(const PhoneNumberList &phoneNumberL
             sql.append(SL(" LIMIT -1 OFFSET 30"));
         }
 
-        fetch.prepare(sql);
-        fetch.bindValue(SL(":phoneNumber"), phoneNumberList.toString());
+        return m_database->getResults<Message>(sql, phoneNumberList.toString());
     } else {
-        sql.append(SL("WHERE id == :id"));
-        fetch.prepare(sql);
-        fetch.bindValue(SL(":id"), id);
+        sql.append(SL("WHERE id == ?"));
+        return m_database->getResults<Message>(sql, id);
     }
-
-    exec(fetch);
-
-    while (fetch.next()) {
-        Message message;
-        message.id = fetch.value(Column::IdColumn).toString();
-        message.phoneNumberList = phoneNumberList;
-        message.text = fetch.value(Column::TextColumn).toString();
-        message.datetime = QDateTime::fromMSecsSinceEpoch(fetch.value(Column::DateTimeColumn).value<quint64>());
-        message.read = fetch.value(Column::ReadColumn).toBool();
-        message.deliveryStatus = fetch.value(Column::DeliveryStateColumn).value<MessageState>();
-        message.sentByMe = fetch.value(Column::SentByMeColumn).toBool();
-        message.attachments = fetch.value(Column::AttachmentsColumn).toString();
-        message.smil = fetch.value(Column::SmilColumn).toString();
-        message.fromNumber = fetch.value(Column::FromNumberColumn).toString();
-        message.messageId = fetch.value(Column::MessageIdColumn).toString();
-        message.deliveryReport = fetch.value(Column::DeliveryReportColumn).toInt();
-        message.readReport = fetch.value(Column::ReadReportColumn).toString();
-        message.pendingDownload = fetch.value(Column::PendingDownloadColumn).toBool();
-        message.contentLocation = fetch.value(Column::ContentLocationColumn).toString();
-        message.expires = QDateTime::fromMSecsSinceEpoch(fetch.value(Column::ExpiresColumn).value<quint64>());
-        message.size = fetch.value(Column::SizeColumn).toInt();
-        message.tapbacks = fetch.value(Column::TapbacksColumn).toString();
-
-        messages.append(std::move(message));
-    }
-
-    return messages;
 }
 
-void Database::updateMessageDeliveryState(const QString &id, const MessageState state)
+QFuture<void> Database::updateMessageDeliveryState(const QString &id, const MessageState state)
 {
-    QSqlQuery put(m_database);
-    put.prepare(SL("UPDATE Messages SET delivered = :state WHERE id == :id"));
-    put.bindValue(SL(":id"), id);
-    put.bindValue(SL(":state"), state);
-    exec(put);
+    return m_database->execute(SL("UPDATE Messages SET delivered = ? WHERE id == ?"), state, id);
 }
 
-void Database::updateMessageSent(const QString &id, const QString &messageId, const QString &contentLocation)
+QFuture<void> Database::updateMessageSent(const QString &id, const QString &messageId, const QString &contentLocation)
 {
-    QSqlQuery put(m_database);
-    put.prepare(SL("UPDATE Messages SET messageId = :messageId, contentLocation = :contentLocation WHERE id == :id"));
-    put.bindValue(SL(":id"), id);
-    put.bindValue(SL(":messageId"), messageId);
-    put.bindValue(SL(":contentLocation"), contentLocation);
-    exec(put);
+    return m_database->execute(SL("UPDATE Messages SET messageId = ?, contentLocation = ? WHERE id == ?"), messageId, contentLocation, id);
 }
 
-void Database::updateMessageDeliveryReport(const QString &messageId)
+QFuture<void> Database::updateMessageDeliveryReport(const QString &messageId)
 {
-    QSqlQuery put(m_database);
-    put.prepare(SL("UPDATE Messages SET deliveryReport = IFNULL(deliveryReport, 0) + 1 WHERE messageId == :messageId"));
-    put.bindValue(SL(":messageId"), messageId);
-    exec(put);
+    return m_database->execute(SL("UPDATE Messages SET deliveryReport = IFNULL(deliveryReport, 0) + 1 WHERE messageId == ?"), messageId);
 }
 
-void Database::updateMessageReadReport(const QString &messageId, const PhoneNumber &fromNumber)
+QFuture<void> Database::updateMessageReadReport(const QString &messageId, const PhoneNumber &fromNumber)
 {
-    QSqlQuery put(m_database);
-    put.prepare(SL("UPDATE Messages SET readReport = IFNULL(readReport, '') || :fromNumber WHERE messageId == :messageId"));
-    put.bindValue(SL(":messageId"), messageId);
-    put.bindValue(SL(":fromNumber"), fromNumber.toInternational());
-    exec(put);
+    return m_database->execute(SL("UPDATE Messages SET readReport = IFNULL(readReport, '') || ? WHERE messageId == ?"),
+                               fromNumber.toInternational(),
+                               messageId);
 }
 
-void Database::markMessageRead(const int id)
+QFuture<void> Database::markMessageRead(const int id)
 {
-    QSqlQuery put(m_database);
-    put.prepare(SL("UPDATE Messages SET read = True WHERE id == :id AND NOT read = True"));
-    put.bindValue(SL(":id"), id);
-    exec(put);
+    return m_database->execute(SL("UPDATE Messages SET read = True WHERE id == ? AND NOT read = True"), id);
 }
 
-void Database::updateMessageTapbacks(const QString &id, const QString tapbacks)
+QFuture<void> Database::updateMessageTapbacks(const QString &id, const QString tapbacks)
 {
-    QSqlQuery put(m_database);
-    put.prepare(SL("UPDATE Messages SET tapbacks = :tapbacks WHERE id == :id"));
-    put.bindValue(SL(":id"), id);
-    put.bindValue(SL(":tapbacks"), tapbacks);
-    exec(put);
+    return m_database->execute(SL("UPDATE Messages SET tapbacks = ? WHERE id == ?"), tapbacks, id);
 }
 
-QString Database::lastMessageWithText(const PhoneNumberList &phoneNumberList, const QString &text)
+QCoro::Task<std::optional<QString>> Database::lastMessageWithText(const PhoneNumberList &phoneNumberList, const QString &text)
 {
-    QSqlQuery fetch(m_database);
-    fetch.prepare(SL("SELECT id FROM Messages WHERE phoneNumber == :phoneNumber AND text == :text ORDER BY time DESC LIMIT 1"));
-    fetch.bindValue(SL(":phoneNumber"), phoneNumberList.toString());
-    fetch.bindValue(SL(":text"), text);
-    exec(fetch);
-
-    fetch.first();
-    return fetch.value(0).toString();
+    auto id =
+        co_await m_database->getResult<SingleValue<QString>>(SL("SELECT id FROM Messages WHERE phoneNumber == ? AND text == ? ORDER BY time DESC LIMIT 1"),
+                                                             phoneNumberList.toString(),
+                                                             text);
+    co_return map(std::move(id), [](auto &&v) {
+        return v.value;
+    });
 }
 
-QString Database::lastMessageWithAttachment(const PhoneNumberList &phoneNumberList)
+QCoro::Task<std::optional<QString>> Database::lastMessageWithAttachment(const PhoneNumberList &phoneNumberList)
 {
-    QSqlQuery fetch(m_database);
-    fetch.prepare(SL("SELECT id FROM Messages WHERE phoneNumber == :phoneNumber AND attachments IS NOT NULL ORDER BY time DESC LIMIT 1"));
-    fetch.bindValue(SL(":phoneNumber"), phoneNumberList.toString());
-    exec(fetch);
-
-    fetch.first();
-    return fetch.value(0).toString();
+    auto id = co_await m_database->getResult<SingleValue<QString>>(
+        SL("SELECT id FROM Messages WHERE phoneNumber == ? AND attachments IS NOT NULL ORDER BY time DESC LIMIT 1"),
+        phoneNumberList.toString());
+    co_return map(std::move(id), [](auto &&v) {
+        return v.value;
+    });
 }
 
-QVector<Chat> Database::chats(const PhoneNumberList &phoneNumberList) const
+QCoro::Task<QVector<Chat>> Database::chats(const PhoneNumberList &phoneNumberList) const
 {
     QVector<Chat> chats;
 
-    if (phoneNumberList.count() > 0) {
+    if (!phoneNumberList.empty()) {
         Chat chat;
         chat.phoneNumberList = phoneNumberList;
-        chat.unreadMessages = unreadMessagesForNumber(chat.phoneNumberList);
+        chat.unreadMessages = (co_await unreadMessagesForNumber(chat.phoneNumberList)).value_or(0);
 
-        QVector<Message> messages = messagesForNumber(chat.phoneNumberList, QString(), 1);
+        std::vector<Message> messages = co_await messagesForNumber(chat.phoneNumberList, QString(), 1);
 
-        if (messages.length() > 0) {
-            chat.lastMessage = messages.at(0).text;
-            chat.lastDateTime = messages.at(0).datetime;
-            chat.lastSentByMe = messages.at(0).sentByMe;
-            chat.lastAttachment = messages.at(0).attachments;
+        if (!messages.empty()) {
+            auto message = messages.front();
+            chat.lastMessage = message.text;
+            chat.lastDateTime = message.datetime;
+            chat.lastSentByMe = message.sentByMe;
+            chat.lastAttachment = message.attachments;
         }
 
-        chats.append(chat);
+        chats.push_back(std::move(chat));
     } else {
-        auto before = QTime::currentTime().msecsSinceStartOfDay();
-
-        QSqlQuery fetch(m_database);
-
-        fetch.prepare(SL(R"(
+        auto numbers = co_await m_database->getResults<SingleValue<QString>>(SL(R"(
             WITH Numbers AS (
                 SELECT
                     MAX(time) AS maxTime,
@@ -253,52 +181,38 @@ QVector<Chat> Database::chats(const PhoneNumberList &phoneNumberList) const
             ORDER BY maxTime desc
         )"));
 
-        exec(fetch);
-
-        while (fetch.next()) {
+        for (auto &&number : numbers) {
             Chat chat;
-            chat.phoneNumberList = PhoneNumberList(fetch.value(0).toString());
-            chats.append(chat);
+            chat.phoneNumberList = PhoneNumberList(number);
+            chats.push_back(std::move(chat));
         }
-
-        auto after = QTime::currentTime().msecsSinceStartOfDay();
-        qDebug() << "TOOK TIME" << after - before;
     }
 
-    return chats;
+    co_return chats;
 }
 
-int Database::unreadMessagesForNumber(const PhoneNumberList &phoneNumberList) const
+QCoro::Task<std::optional<int>> Database::unreadMessagesForNumber(const PhoneNumberList &phoneNumberList) const
 {
-    QSqlQuery fetch(m_database);
-    fetch.prepare(SL("SELECT Count(*) FROM Messages WHERE phoneNumber == :phoneNumber AND read == False"));
-    fetch.bindValue(SL(":phoneNumber"), phoneNumberList.toString());
-    exec(fetch);
-
-    fetch.first();
-    return fetch.value(0).toInt();
+    auto n = co_await m_database->getResult<SingleValue<int>>(SL("SELECT Count(*) FROM Messages WHERE phoneNumber == ? AND read == False"),
+                                                              phoneNumberList.toString());
+    co_return map(std::move(n), [](auto &&v) {
+        return v.value;
+    });
 }
 
-void Database::markChatAsRead(const PhoneNumberList &phoneNumberList)
+QFuture<void> Database::markChatAsRead(const PhoneNumberList &phoneNumberList)
 {
-    QSqlQuery update(m_database);
-    update.prepare(SL("UPDATE Messages SET read = True WHERE phoneNumber = :phoneNumber AND NOT read == True"));
-    update.bindValue(SL(":phoneNumber"), phoneNumberList.toString());
-    exec(update);
+    return m_database->execute(SL("UPDATE Messages SET read = True WHERE phoneNumber = ? AND NOT read == True"), phoneNumberList.toString());
 }
 
-void Database::deleteChat(const PhoneNumberList &phoneNumberList)
+QFuture<void> Database::deleteChat(const PhoneNumberList &phoneNumberList)
 {
-    QSqlQuery update(m_database);
-    update.prepare(SL("DELETE FROM Messages WHERE phoneNumber = :phoneNumber"));
-    update.bindValue(SL(":phoneNumber"), phoneNumberList.toString());
-    exec(update);
+    return m_database->execute(SL("DELETE FROM Messages WHERE phoneNumber = ?"), phoneNumberList.toString());
 }
 
-void Database::addMessage(const Message &message)
+QFuture<void> Database::addMessage(const Message &message)
 {
-    QSqlQuery putCall(m_database);
-    putCall.prepare(SL(R"(
+    return m_database->execute(SL(R"(
         INSERT INTO Messages (
             id,
             phoneNumber,
@@ -317,53 +231,30 @@ void Database::addMessage(const Message &message)
             contentLocation,
             expires,
             size)
-        VALUES (
-            :id,
-            :phoneNumber,
-            :text,
-            :time,
-            :read,
-            :delivered,
-            :sentByMe,
-            :attachments,
-            :smil,
-            :fromNumber,
-            :messageId,
-            :deliveryReport,
-            :readReport,
-            :pendingDownload,
-            :contentLocation,
-            :expires,
-            :size)
-        )"));
-    putCall.bindValue(SL(":id"), message.id);
-    putCall.bindValue(SL(":phoneNumber"), message.phoneNumberList.toString());
-    putCall.bindValue(SL(":text"), message.text);
-    putCall.bindValue(SL(":time"), message.datetime.toMSecsSinceEpoch());
-    putCall.bindValue(SL(":read"), message.read);
-    putCall.bindValue(SL(":delivered"), message.deliveryStatus);
-    putCall.bindValue(SL(":sentByMe"), message.sentByMe);
-    putCall.bindValue(SL(":attachments"), message.attachments);
-    putCall.bindValue(SL(":smil"), message.smil);
-    putCall.bindValue(SL(":fromNumber"), message.fromNumber);
-    putCall.bindValue(SL(":messageId"), message.messageId);
-    putCall.bindValue(SL(":deliveryReport"), message.deliveryReport);
-    putCall.bindValue(SL(":readReport"), message.readReport);
-    putCall.bindValue(SL(":pendingDownload"), message.pendingDownload);
-    putCall.bindValue(SL(":contentLocation"), message.contentLocation);
-    if (!message.expires.isNull()) {
-        putCall.bindValue(SL(":expires"), message.expires.toMSecsSinceEpoch());
-    }
-    putCall.bindValue(SL(":size"), message.size);
-    exec(putCall);
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+        )"),
+                               message.id,
+                               message.phoneNumberList.toString(),
+                               message.text,
+                               message.datetime.toMSecsSinceEpoch(),
+                               message.read,
+                               message.deliveryStatus,
+                               message.sentByMe,
+                               message.attachments,
+                               message.smil,
+                               message.fromNumber,
+                               message.messageId,
+                               message.deliveryReport,
+                               message.readReport,
+                               message.pendingDownload,
+                               message.contentLocation,
+                               message.expires.isNull() ? QVariant() : message.expires.toMSecsSinceEpoch(),
+                               message.size);
 }
 
-void Database::deleteMessage(const QString &id)
+QFuture<void> Database::deleteMessage(const QString &id)
 {
-    QSqlQuery del(m_database);
-    del.prepare(SL("DELETE FROM Messages WHERE id == :id"));
-    del.bindValue(SL(":id"), id);
-    exec(del);
+    return m_database->execute(SL("DELETE FROM Messages WHERE id == ?"), id);
 }
 
 QString Database::generateRandomId()
@@ -375,13 +266,9 @@ QString Database::generateRandomId()
     return intermediateId;
 }
 
-void Database::mergeChats(const QString &fromNumbers, const QString toNumbers)
+QCoro::Task<> Database::mergeChats(const QString &fromNumbers, const QString toNumbers)
 {
-    QSqlQuery merge(m_database);
-    merge.prepare(SL("UPDATE Messages SET phoneNumber = :toNumbers WHERE phoneNumber = :fromNumbers"));
-    merge.bindValue(SL(":fromNumbers"), fromNumbers);
-    merge.bindValue(SL(":toNumbers"), toNumbers);
-    Database::exec(merge);
+    co_await m_database->execute(SL("UPDATE Messages SET phoneNumber = ? WHERE phoneNumber = ?"), fromNumbers, toNumbers);
 
     // need to move files to correct chat attachment subdirectory
     QDir attachments(QStandardPaths::writableLocation(QStandardPaths::GenericDataLocation) + SL("/spacebar/attachments"));
@@ -403,38 +290,47 @@ void Database::mergeChats(const QString &fromNumbers, const QString toNumbers)
     }
 }
 
-void Database::migrate()
+QCoro::Task<> Database::migrate()
 {
-    // Create migration table if necessary
-    QSqlQuery createMetadata(m_database);
-    createMetadata.prepare(SL("CREATE TABLE IF NOT EXISTS Metadata (migrationId INTEGER NOT NULL)"));
-    exec(createMetadata);
+    // Check whether the database uses the old migration system
+    auto revision = co_await m_database->runOnThread([](auto &db) -> std::optional<int> {
+        // Find out current revision
+        QSqlQuery currentRevision(db);
+        currentRevision.prepare(SL("SELECT migrationId FROM Metadata ORDER BY migrationId DESC LIMIT 1"));
+        exec(currentRevision);
+        currentRevision.first();
 
-    // Find out current revision
-    QSqlQuery currentRevision(m_database);
-    currentRevision.prepare(SL("SELECT migrationId FROM Metadata ORDER BY migrationId DESC LIMIT 1"));
-    exec(currentRevision);
-    currentRevision.first();
+        if (currentRevision.isValid()) {
+            return currentRevision.value(0).toUInt();
+        } else {
+            return {};
+        }
+    });
 
-    uint revision = 0;
-    if (currentRevision.isValid()) {
-        revision = currentRevision.value(0).toUInt();
+    // If it does, first run all pending migrations of the old system
+    if (revision) {
+        qDebug() << "current (old) database revision" << *revision;
+        m_database->runOnThread([this, revision = *revision](auto &db) {
+            // Run migration if necessary
+            if (revision >= DATABASE_REVISION) {
+                return;
+            }
+
+            MIGRATE_TO_LATEST_FROM(revision);
+
+            // Update migration info if necessary
+            QSqlQuery update(db);
+            update.prepare(SL("INSERT INTO Metadata (migrationId) VALUES (:migrationId)"));
+            update.bindValue(SL(":migrationId"), DATABASE_REVISION);
+            exec(update);
+        });
+
+        // Mark an equivalent migration level in the new system.
+        m_database->setCurrentMigrationLevel(QStringLiteral("2023-05-07-102621_init"));
     }
 
-    qDebug() << "current database revision" << revision;
-
-    // Run migration if necessary
-    if (revision >= DATABASE_REVISION) {
-        return;
-    }
-
-    MIGRATE_TO_LATEST_FROM(revision);
-
-    // Update migration info if necessary
-    QSqlQuery update(m_database);
-    update.prepare(SL("INSERT INTO Metadata (migrationId) VALUES (:migrationId)"));
-    update.bindValue(SL(":migrationId"), DATABASE_REVISION);
-    exec(update);
+    // Finally, run all migrations of the new system on top of that
+    m_database->runMigrations(SL(":/migrations"));
 }
 
 void Database::exec(QSqlQuery &query)
@@ -448,45 +344,45 @@ void Database::exec(QSqlQuery &query)
     }
 }
 
-void Database::migrationV1(uint)
+void Database::migrationV1(const QSqlDatabase &db, uint)
 {
-    QSqlQuery createTable(m_database);
+    QSqlQuery createTable(db);
     createTable.prepare(
         SL("CREATE TABLE IF NOT EXISTS Messages (id INTEGER, phoneNumber TEXT, text TEXT, time DATETIME, read BOOLEAN, delivered BOOLEAN, sentByMe BOOLEAN)"));
     Database::exec(createTable);
 }
 
-void Database::migrationV2(uint current)
+void Database::migrationV2(const QSqlDatabase &db, uint current)
 {
     MIGRATE_TO(1, current);
 
-    QSqlQuery tempTable(m_database);
+    QSqlQuery tempTable(db);
     tempTable.prepare(SL("CREATE TABLE temp_table AS SELECT * FROM Messages"));
     Database::exec(tempTable);
 
-    QSqlQuery dropOld(m_database);
+    QSqlQuery dropOld(db);
     dropOld.prepare(SL("DROP TABLE Messages"));
     Database::exec(dropOld);
 
-    QSqlQuery createNew(m_database);
+    QSqlQuery createNew(db);
     createNew.prepare(
         SL("CREATE TABLE IF NOT EXISTS Messages (id TEXT, phoneNumber TEXT, text TEXT, time DATETIME, read BOOLEAN, delivered INTEGER, sentByMe BOOLEAN)"));
     Database::exec(createNew);
 
-    QSqlQuery copyTemp(m_database);
+    QSqlQuery copyTemp(db);
     copyTemp.prepare(SL("INSERT INTO Messages SELECT * FROM temp_table"));
     Database::exec(copyTemp);
 
-    QSqlQuery dropTemp(m_database);
+    QSqlQuery dropTemp(db);
     dropTemp.prepare(SL("DROP TABLE temp_table"));
     Database::exec(dropTemp);
 }
 
-void Database::migrationV3(uint current)
+void Database::migrationV3(const QSqlDatabase &db, uint current)
 {
     MIGRATE_TO(2, current);
 
-    QSqlQuery getPhoneNumbers(m_database);
+    QSqlQuery getPhoneNumbers(db);
     getPhoneNumbers.prepare(SL("SELECT DISTINCT phoneNumber FROM Messages"));
     Database::exec(getPhoneNumbers);
 
@@ -496,7 +392,7 @@ void Database::migrationV3(uint current)
         auto normalized = PhoneNumberList(phoneNumber).toString();
         qDebug() << "to" << normalized;
 
-        QSqlQuery normalizePhoneNumbers(m_database);
+        QSqlQuery normalizePhoneNumbers(db);
         normalizePhoneNumbers.prepare(SL("UPDATE Messages SET phoneNumber = :normalized WHERE phoneNumber == :phoneNumber"));
         normalizePhoneNumbers.bindValue(SL(":normalized"), normalized);
         normalizePhoneNumbers.bindValue(SL(":phoneNumber"), phoneNumber);
@@ -504,11 +400,11 @@ void Database::migrationV3(uint current)
     }
 }
 
-void Database::migrationV4(uint current)
+void Database::migrationV4(const QSqlDatabase &db, uint current)
 {
     MIGRATE_TO(3, current);
 
-    QSqlQuery addMmsColumns(m_database);
+    QSqlQuery addMmsColumns(db);
     addMmsColumns.prepare(SL("ALTER TABLE Messages ADD COLUMN attachments TEXT;"));
     Database::exec(addMmsColumns);
     addMmsColumns.prepare(SL("ALTER TABLE Messages ADD COLUMN smil TEXT;"));
@@ -531,20 +427,20 @@ void Database::migrationV4(uint current)
     Database::exec(addMmsColumns);
 }
 
-void Database::migrationV5(uint current)
+void Database::migrationV5(const QSqlDatabase &db, uint current)
 {
     MIGRATE_TO(4, current);
 
-    QSqlQuery fixDuplicateIds(m_database);
+    QSqlQuery fixDuplicateIds(db);
     fixDuplicateIds.prepare(SL("UPDATE Messages SET id = ROWID WHERE LENGTH(id) <> 10;"));
     Database::exec(fixDuplicateIds);
 }
 
-void Database::migrationV6(uint current)
+void Database::migrationV6(const QSqlDatabase &db, uint current)
 {
     MIGRATE_TO(5, current);
 
-    QSqlQuery removeHtml(m_database);
+    QSqlQuery removeHtml(db);
     removeHtml.prepare(SL("UPDATE Messages SET text = REPLACE(text,'&nbsp;', ' ')"));
     Database::exec(removeHtml);
     removeHtml.prepare(SL("UPDATE Messages SET text = REPLACE(text, '&lt;', '<')"));
@@ -565,20 +461,20 @@ void Database::migrationV6(uint current)
     Database::exec(removeHtml);
 }
 
-void Database::migrationV7(uint current)
+void Database::migrationV7(const QSqlDatabase &db, const uint current)
 {
     MIGRATE_TO(6, current);
 
-    QSqlQuery sql(m_database);
+    QSqlQuery sql(db);
     sql.prepare(SL("ALTER TABLE Messages ADD COLUMN tapbacks TEXT"));
     Database::exec(sql);
 }
 
-void Database::migrationV8(uint current)
+void Database::migrationV8(const QSqlDatabase &db, uint current)
 {
     MIGRATE_TO(7, current);
 
-    QSqlQuery fetch(m_database);
+    QSqlQuery fetch(db);
     fetch.prepare(SL("SELECT DISTINCT phoneNumber FROM Messages"));
     exec(fetch);
 
@@ -600,7 +496,48 @@ void Database::migrationV8(uint current)
         }
     }
 
-    QSqlQuery sql(m_database);
+    QSqlQuery sql(db);
     sql.prepare(SL("UPDATE Messages SET phoneNumber = REPLACE(phoneNumber,';', '~')"));
     Database::exec(sql);
+}
+
+Message Message::fromSql(ColumnTypes &&tuple)
+{
+    auto [id,
+          phoneNumberList,
+          text,
+          datetime,
+          read,
+          deliveryStatus,
+          sentByMe,
+          attachments,
+          smil,
+          fromNumber,
+          messageId,
+          deliveryReport,
+          readReport,
+          pendingDownload,
+          contentLocation,
+          expires,
+          size,
+          tapbacks] = tuple;
+
+    return Message{id,
+                   PhoneNumberList(phoneNumberList),
+                   text,
+                   QDateTime::fromMSecsSinceEpoch(datetime),
+                   read,
+                   MessageState(deliveryStatus),
+                   sentByMe,
+                   attachments,
+                   smil,
+                   fromNumber,
+                   messageId,
+                   deliveryReport,
+                   readReport,
+                   pendingDownload,
+                   contentLocation,
+                   QDateTime::fromMSecsSinceEpoch(expires),
+                   size,
+                   tapbacks};
 }

@@ -6,9 +6,9 @@
 
 #include <QObject>
 
-#include <databasethread.h>
-
 #include "daemoninterface.h"
+
+#include <database.h>
 
 #include <optional>
 
@@ -19,11 +19,11 @@ class ChannelHandler : public QObject
 public:
     explicit ChannelHandler(QObject *parent = nullptr);
 
-    AsyncDatabase &database();
+    Database &database();
     org::kde::spacebar::Daemon *interface();
 
 private:
-    DatabaseThread m_databaseThread;
+    Database m_database;
     org::kde::spacebar::Daemon *m_interface;
 
 Q_SIGNALS:
