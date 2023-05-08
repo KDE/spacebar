@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: spacebar\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-05-07 00:52+0000\n"
-"PO-Revision-Date: 2023-01-07 14:07+0100\n"
+"PO-Revision-Date: 2023-05-07 19:37+0200\n"
 "Last-Translator: Vincenzo Reale <smart2128vr@gmail.com>\n"
 "Language-Team: Italian <kde-i18n-it@kde.org>\n"
 "Language: it\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Lokalize 22.12.1\n"
+"X-Generator: Lokalize 23.04.0\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -119,13 +119,11 @@ msgid "Picture"
 msgstr "Immagine"
 
 #: src/contents/ui/ChatsPage.qml:270
-#, fuzzy, kde-format
-#| msgid "Delete this conversation"
-#| msgid_plural "Delete %1 conversations?"
+#, kde-format
 msgid "Delete this conversation?"
 msgid_plural "Delete %1 conversations?"
-msgstr[0] "Elimina questa conversazione"
-msgstr[1] "Elimina %1 conversazioni"
+msgstr[0] "Vuoi eliminare questa conversazione?"
+msgstr[1] "Vuoi eliminare %1 conversazioni?"
 
 #: src/contents/ui/ChatsPage.qml:271
 #, kde-format

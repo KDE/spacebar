@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: spacebar\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-05-07 00:52+0000\n"
-"PO-Revision-Date: 2023-03-17 12:51+0300\n"
+"PO-Revision-Date: 2023-05-07 13:47+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
 "Language: tr\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Lokalize 22.12.3\n"
+"X-Generator: Lokalize 23.03.70\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -54,7 +54,7 @@ msgstr "Aç"
 #: daemon/main.cpp:29
 #, kde-format
 msgid "Spacebar background service"
-msgstr "Boşluk Düğmesi arka plan hizmeti"
+msgstr "Boşluk Çubuğu arka plan hizmeti"
 
 #: src/chatlistmodel.cpp:95 src/contents/ui/MessagesPage.qml:49
 #, kde-format
@@ -119,9 +119,7 @@ msgid "Picture"
 msgstr "Resim"
 
 #: src/contents/ui/ChatsPage.qml:270
-#, fuzzy, kde-format
-#| msgid "Delete this conversation"
-#| msgid_plural "Delete %1 conversations?"
+#, kde-format
 msgid "Delete this conversation?"
 msgid_plural "Delete %1 conversations?"
 msgstr[0] "Bu konuşma silinsin mi?"
@@ -507,7 +505,7 @@ msgstr "Smitty van Bodegom"
 #: src/main.cpp:73
 #, kde-format
 msgid "Spacebar SMS/MMS client"
-msgstr "Boşluk Düğmesi SMS/MMS istemcisi"
+msgstr "Boşluk Çubuğu SMS/MMS istemcisi"
 
 #: src/main.cpp:74
 #, kde-format

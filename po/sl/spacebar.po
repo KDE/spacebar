@@ -7,15 +7,15 @@ msgstr ""
 "Project-Id-Version: spacebar\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-05-07 00:52+0000\n"
-"PO-Revision-Date: 2023-03-20 08:37+0100\n"
+"PO-Revision-Date: 2023-05-07 08:38+0200\n"
 "Last-Translator: Matjaž Jeran <matjaz.jeran@amis.net>\n"
 "Language-Team: Slovenian <lugos-slo@lugos.si>\n"
 "Language: sl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=4; plural=(n%100==1 ? 1 : n%100==2 ? 2 : n%100==3 || n"
-"%100==4 ? 3 : 0);\n"
+"Plural-Forms: nplurals=4; plural=(n%100==1 ? 0 : n%100==2 ? 1 : n%100>=3 && n"
+"%100<=4 ? 2 : 3);\n"
 "X-Generator: Poedit 3.2.2\n"
 
 #, kde-format
@@ -124,12 +124,10 @@ msgid "Picture"
 msgstr "Slika"
 
 #: src/contents/ui/ChatsPage.qml:270
-#, fuzzy, kde-format
-#| msgid "Delete this conversation"
-#| msgid_plural "Delete %1 conversations?"
+#, kde-format
 msgid "Delete this conversation?"
 msgid_plural "Delete %1 conversations?"
-msgstr[0] "Zbriši %1 pogovor"
+msgstr[0] "Naj zbrišem %1 pogovor?"
 msgstr[1] "Naj zbrišem %1 pogovora?"
 msgstr[2] "Naj zbrišem %1 pogovore?"
 msgstr[3] "Naj zbrišem %1 pogovorov?"
