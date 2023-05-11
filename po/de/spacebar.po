@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: spacebar\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-05-07 00:52+0000\n"
-"PO-Revision-Date: 2023-05-08 23:38+0200\n"
+"PO-Revision-Date: 2023-05-10 20:23+0200\n"
 "Last-Translator: Frederik Schwarzer <schwarzer@kde.org>\n"
 "Language-Team: German <kde-i18n-de@kde.org>\n"
 "Language: de\n"
@@ -359,16 +359,14 @@ msgid "Auto download messages for existing contacts only"
 msgstr ""
 
 #: src/contents/ui/settings/MMSSettingsPage.qml:123
-#, fuzzy, kde-format
-#| msgid "Max message size (KiB):"
+#, kde-format
 msgid "Max message size (KiB)"
-msgstr "Maximale Nachrichtengröße (KiB): "
+msgstr "Maximale Nachrichtengröße (KiB)"
 
 #: src/contents/ui/settings/MMSSettingsPage.qml:135
-#, fuzzy, kde-format
-#| msgid "Max attachments:"
+#, kde-format
 msgid "Max attachments"
-msgstr "Maximale Anhänge:"
+msgstr "Maximale Anhänge"
 
 #: src/contents/ui/settings/MMSSettingsPage.qml:147
 #, kde-format
@@ -418,17 +416,17 @@ msgstr "Erscheinungsbild"
 #: src/contents/ui/settings/SettingsPage.qml:91
 #, kde-format
 msgid "Use custom colors for messages"
-msgstr ""
+msgstr "Benutzerdefinierte Farben für Nachrichten verwenden"
 
 #: src/contents/ui/settings/SettingsPage.qml:99
 #, kde-format
 msgid "Incoming message color"
-msgstr ""
+msgstr "Farbe eingehender Nachrichten"
 
 #: src/contents/ui/settings/SettingsPage.qml:122
 #, kde-format
 msgid "Outgoing message color"
-msgstr ""
+msgstr "Farbe ausgehender Nachrichten"
 
 #: src/contents/ui/settings/SettingsPage.qml:145
 #, kde-format
@@ -452,10 +450,9 @@ msgid "Show a preview of the message content"
 msgstr ""
 
 #: src/contents/ui/settings/SettingsPage.qml:185
-#, fuzzy, kde-format
-#| msgid "Save attachment"
+#, kde-format
 msgid "Show attachment previews"
-msgstr "Anhang speichern"
+msgstr "Anhangvorschau anzeigen"
 
 #: src/contents/ui/settings/SettingsPage.qml:192
 #, kde-format
