@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: spacebar\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-05-07 00:52+0000\n"
-"PO-Revision-Date: 2023-05-10 20:23+0200\n"
+"PO-Revision-Date: 2023-05-12 19:35+0200\n"
 "Last-Translator: Frederik Schwarzer <schwarzer@kde.org>\n"
 "Language-Team: German <kde-i18n-de@kde.org>\n"
 "Language: de\n"
@@ -311,7 +311,7 @@ msgstr "MMS-Einstellungen"
 #: src/contents/ui/settings/MMSSettingsPage.qml:36
 #, kde-format
 msgid "Multimedia messages (MMS)"
-msgstr ""
+msgstr "Multimedia-Nachrichten (MMS)"
 
 #: src/contents/ui/settings/MMSSettingsPage.qml:43
 #, kde-format
@@ -351,12 +351,12 @@ msgstr ""
 #: src/contents/ui/settings/MMSSettingsPage.qml:108
 #, kde-format
 msgid "Auto download messages"
-msgstr ""
+msgstr "Nachrichten automatisch herunterladen"
 
 #: src/contents/ui/settings/MMSSettingsPage.qml:116
 #, kde-format
 msgid "Auto download messages for existing contacts only"
-msgstr ""
+msgstr "Nur Nachrichten bestehender Kontakte automatisch herunterladen"
 
 #: src/contents/ui/settings/MMSSettingsPage.qml:123
 #, kde-format
@@ -396,7 +396,7 @@ msgstr "Über"
 #: src/contents/ui/settings/SettingsPage.qml:53
 #, kde-format
 msgid "Multimedia Messages (MMS)"
-msgstr ""
+msgstr "Multimedia-Nachrichten (MMS)"
 
 #: src/contents/ui/settings/SettingsPage.qml:61
 #, kde-format
@@ -439,15 +439,14 @@ msgid "Notifications"
 msgstr "Benachrichtigungen"
 
 #: src/contents/ui/settings/SettingsPage.qml:171
-#, fuzzy, kde-format
-#| msgid "Search or enter number…"
+#, kde-format
 msgid "Show sender name / number"
-msgstr "Suchen oder eine Nummer eingeben ..."
+msgstr "Namen/Nummer des Absenders anzeigen"
 
 #: src/contents/ui/settings/SettingsPage.qml:178
 #, kde-format
 msgid "Show a preview of the message content"
-msgstr ""
+msgstr "Vorschau des Nachrichteninhalts anzeigen"
 
 #: src/contents/ui/settings/SettingsPage.qml:185
 #, kde-format
