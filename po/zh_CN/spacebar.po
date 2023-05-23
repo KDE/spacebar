@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: kdeorg\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-05-07 00:52+0000\n"
-"PO-Revision-Date: 2023-04-29 08:34\n"
+"PO-Revision-Date: 2023-05-22 14:01\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
 "Language: zh_CN\n"
@@ -117,11 +117,10 @@ msgid "Picture"
 msgstr ""
 
 #: src/contents/ui/ChatsPage.qml:270
-#, fuzzy, kde-format
-#| msgid "Default to group conversations"
+#, kde-format
 msgid "Delete this conversation?"
 msgid_plural "Delete %1 conversations?"
-msgstr[0] "默认分组对话"
+msgstr[0] ""
 
 #: src/contents/ui/ChatsPage.qml:271
 #, kde-format
