@@ -10,7 +10,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
 "X-Accelerator-Marker: &\n"
 "X-Text-Markup: kde4\n"
 
@@ -40,7 +40,6 @@ msgctxt "Number of files attached"
 msgid "%1 Attachment"
 msgid_plural "%1 Attachments"
 msgstr[0] ""
-msgstr[1] ""
 
 #: daemon/channellogger.cpp:563
 #, kde-format
@@ -68,7 +67,6 @@ msgstr ""
 msgid "%1 person"
 msgid_plural "%1 people"
 msgstr[0] ""
-msgstr[1] ""
 
 #: src/contents/ui/ChatDetailPage.qml:52
 #, kde-format
@@ -120,7 +118,6 @@ msgstr ""
 msgid "Delete this conversation?"
 msgid_plural "Delete %1 conversations?"
 msgstr[0] ""
-msgstr[1] ""
 
 #: src/contents/ui/ChatsPage.qml:271
 #, kde-format
@@ -219,7 +216,6 @@ msgstr ""
 msgid "%1 new message"
 msgid_plural "%1 new messages"
 msgstr[0] ""
-msgstr[1] ""
 
 #: src/contents/ui/MessagesPage.qml:811
 #, kde-format
