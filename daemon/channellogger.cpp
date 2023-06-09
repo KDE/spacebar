@@ -8,6 +8,8 @@
 #include "settingsmanager.h"
 
 #include <QCoroFuture>
+#include <QDBusReply>
+#include <QDBusConnection>
 #include <QLocale>
 #include <QTimer>
 #include <QtConcurrent>
