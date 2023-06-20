@@ -441,17 +441,17 @@ msgstr "Notificacións"
 #: src/contents/ui/settings/SettingsPage.qml:171
 #, kde-format
 msgid "Show sender name / number"
-msgstr "Mostrar o nome ou o número da remitente."
+msgstr "Amosar o nome ou o número da remitente."
 
 #: src/contents/ui/settings/SettingsPage.qml:178
 #, kde-format
 msgid "Show a preview of the message content"
-msgstr "Mostrar unha vista previa do contido das mensaxes."
+msgstr "Amosar unha vista previa do contido das mensaxes."
 
 #: src/contents/ui/settings/SettingsPage.qml:185
 #, kde-format
 msgid "Show attachment previews"
-msgstr "Mostrar vista previas dos anexos."
+msgstr "Amosar vista previas dos anexos."
 
 #: src/contents/ui/settings/SettingsPage.qml:192
 #, kde-format
