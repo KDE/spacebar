@@ -7,7 +7,7 @@
 import QtQuick 2.12
 import QtQuick.Controls 2.2 as Controls
 import QtQuick.Layouts 1.2
-import QtGraphicalEffects 1.12
+import Qt5Compat.GraphicalEffects
 import org.kde.kirigami 2.15 as Kirigami
 
 // floating round button for mobile actions

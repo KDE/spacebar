@@ -6,7 +6,7 @@
 import QtQuick 2.15
 import QtQuick.Layouts 1.15
 import QtQuick.Controls 2.15 as Controls
-import QtGraphicalEffects 1.15
+import Qt5Compat.GraphicalEffects
 
 import org.kde.kirigami 2.19 as Kirigami
 
@@ -37,32 +37,29 @@ Kirigami.ScrollablePage {
 
     onWidthChanged: ChatListModel.setCharacterLimit(applicationWindow().width)
     
-    actions {
-        main: Kirigami.Action {
+    actions: [
+        Kirigami.Action {
             visible: !Kirigami.Settings.isMobile
             text: i18n("New Conversation")
             onTriggered: pageStack.push("qrc:/NewConversationPage.qml")
             icon.name: "contact-new"
-        }
-        
-        contextualActions: [
-            Kirigami.Action {
-                displayHint: Kirigami.Action.IconOnly
-                iconName: "settings-configure"
-                text: i18nc("Configuring application settings", "Settings")
-                onTriggered: {
-                    applicationWindow().pageStack.push("qrc:/settings/SettingsPage.qml", {"chatListModel": ChatListModel})
-                }
-            },
-            Kirigami.Action {
-                displayHint: Kirigami.Action.IconOnly
-                iconName: "delete"
-                text: i18nc("Deleting a conversation", "Delete")
-                onTriggered: promptDialog.open()
-                visible: editing === true
+        },
+        Kirigami.Action {
+            displayHint: Kirigami.Action.IconOnly
+            icon.name: "settings-configure"
+            text: i18nc("Configuring application settings", "Settings")
+            onTriggered: {
+                applicationWindow().pageStack.push("qrc:/settings/SettingsPage.qml", {"chatListModel": ChatListModel})
             }
-        ]
-    }
+        },
+        Kirigami.Action {
+            displayHint: Kirigami.Action.IconOnly
+            icon.name: "delete"
+            text: i18nc("Deleting a conversation", "Delete")
+            onTriggered: promptDialog.open()
+            visible: editing === true
+        }
+    ]
 
     ListView {
         id: listView
