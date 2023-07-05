@@ -1,21 +1,21 @@
 # Copyright (C) YEAR This file is copyright:
 # This file is distributed under the same license as the spacebar package.
 #
-# Luiz Fernando Ranghetti <elchevive@opensuse.org>, 2020, 2021, 2022.
+# Luiz Fernando Ranghetti <elchevive@opensuse.org>, 2020, 2021, 2022, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version: spacebar\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-06-12 00:56+0000\n"
-"PO-Revision-Date: 2022-12-20 10:52-0300\n"
+"PO-Revision-Date: 2023-07-04 15:29-0300\n"
 "Last-Translator: Luiz Fernando Ranghetti <elchevive@opensuse.org>\n"
-"Language-Team: Portuguese <kde-i18n-pt_BR@kde.org>\n"
+"Language-Team: Brazilian Portuguese <kde-i18n-pt_BR@kde.org>\n"
 "Language: pt_BR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Lokalize 21.12.3\n"
+"X-Generator: Lokalize 22.12.3\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -59,24 +59,24 @@ msgstr "Serviço de plano de fundo do Spacebar"
 #: src/chatlistmodel.cpp:95 src/contents/ui/MessagesPage.qml:49
 #, kde-format
 msgid "and %1 more"
-msgstr ""
+msgstr "e mais %1"
 
 #: src/contents/ui/ChatDetailPage.qml:14 src/contents/ui/MessagesPage.qml:131
 #, kde-format
 msgid "Details"
-msgstr ""
+msgstr "Detalhes"
 
 #: src/contents/ui/ChatDetailPage.qml:30
 #, kde-format
 msgid "%1 person"
 msgid_plural "%1 people"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%1 pessoa"
+msgstr[1] "%1 pessoas"
 
 #: src/contents/ui/ChatDetailPage.qml:52
 #, kde-format
 msgid "Add people"
-msgstr ""
+msgstr "Adicionar pessoa"
 
 #: src/contents/ui/ChatsPage.qml:17
 #, kde-format
@@ -119,12 +119,10 @@ msgid "Picture"
 msgstr "Imagem"
 
 #: src/contents/ui/ChatsPage.qml:270
-#, fuzzy, kde-format
-#| msgid "Delete this conversation"
-#| msgid_plural "Delete %1 conversations?"
+#, kde-format
 msgid "Delete this conversation?"
 msgid_plural "Delete %1 conversations?"
-msgstr[0] "Excluir esta conversa"
+msgstr[0] "Excluir esta conversa?"
 msgstr[1] "Excluir %1 conversas?"
 
 #: src/contents/ui/ChatsPage.qml:271
@@ -147,7 +145,7 @@ msgstr "%1 selecionado"
 #, kde-format
 msgctxt "Open chat conversation window"
 msgid "Next"
-msgstr ""
+msgstr "Próximo"
 
 #: src/contents/ui/ContactsList.qml:204
 #, kde-format
@@ -172,7 +170,7 @@ msgstr "Nenhum resultado encontrado"
 #: src/contents/ui/MessagesPage.qml:125
 #, kde-format
 msgid "Call"
-msgstr ""
+msgstr "Chamada"
 
 #: src/contents/ui/MessagesPage.qml:144
 #, kde-format
@@ -222,12 +220,11 @@ msgid "View all"
 msgstr "Visualizar todas"
 
 #: src/contents/ui/MessagesPage.qml:733
-#, fuzzy, kde-format
-#| msgid "New message"
+#, kde-format
 msgid "%1 new message"
 msgid_plural "%1 new messages"
-msgstr[0] "Nova mensagem"
-msgstr[1] "Nova mensagem"
+msgstr[0] "%1 nova mensagem"
+msgstr[1] "%1 novas mensagens"
 
 #: src/contents/ui/MessagesPage.qml:811
 #, kde-format
@@ -308,10 +305,9 @@ msgid "Back"
 msgstr "Voltar"
 
 #: src/contents/ui/settings/MMSSettingsPage.qml:16
-#, fuzzy, kde-format
-#| msgid "Settings"
+#, kde-format
 msgid "MMS Settings"
-msgstr "Configurações"
+msgstr "Configurações do MMS"
 
 #: src/contents/ui/settings/MMSSettingsPage.qml:36
 #, kde-format
@@ -319,22 +315,19 @@ msgid "Multimedia messages (MMS)"
 msgstr "Mensagem multimídia (MMS)"
 
 #: src/contents/ui/settings/MMSSettingsPage.qml:43
-#, fuzzy, kde-format
-#| msgid "MMSC:"
+#, kde-format
 msgid "MMSC"
-msgstr "MMSC:"
+msgstr "MMSC"
 
 #: src/contents/ui/settings/MMSSettingsPage.qml:53
-#, fuzzy, kde-format
-#| msgid "Proxy:"
+#, kde-format
 msgid "Proxy"
-msgstr "Proxy:"
+msgstr "Proxy"
 
 #: src/contents/ui/settings/MMSSettingsPage.qml:61
-#, fuzzy, kde-format
-#| msgid "Port:"
+#, kde-format
 msgid "Port"
-msgstr "Porta:"
+msgstr "Porta"
 
 #: src/contents/ui/settings/MMSSettingsPage.qml:79
 #, kde-format
@@ -362,22 +355,19 @@ msgid "Auto download messages"
 msgstr "Baixar automaticamente as mensagens"
 
 #: src/contents/ui/settings/MMSSettingsPage.qml:116
-#, fuzzy, kde-format
-#| msgid "Auto download messages"
+#, kde-format
 msgid "Auto download messages for existing contacts only"
-msgstr "Baixar automaticamente as mensagens"
+msgstr "Baixar automaticamente as mensagens apenas para os contatos existentes"
 
 #: src/contents/ui/settings/MMSSettingsPage.qml:123
-#, fuzzy, kde-format
-#| msgid "Max message size (KiB):"
+#, kde-format
 msgid "Max message size (KiB)"
-msgstr "Tamanho da mensagem da mensagem (KiB):"
+msgstr "Tamanho da mensagem da mensagem (KiB)"
 
 #: src/contents/ui/settings/MMSSettingsPage.qml:135
-#, fuzzy, kde-format
-#| msgid "Max attachments:"
+#, kde-format
 msgid "Max attachments"
-msgstr "Máximo de anexos:"
+msgstr "Máximo de anexos"
 
 #: src/contents/ui/settings/MMSSettingsPage.qml:147
 #, kde-format
@@ -397,7 +387,7 @@ msgstr "Configurações"
 #: src/contents/ui/settings/SettingsPage.qml:40
 #, kde-format
 msgid "General"
-msgstr ""
+msgstr "Geral"
 
 #: src/contents/ui/settings/SettingsPage.qml:45
 #, kde-format
@@ -405,8 +395,7 @@ msgid "About"
 msgstr "Sobre"
 
 #: src/contents/ui/settings/SettingsPage.qml:53
-#, fuzzy, kde-format
-#| msgid "Multimedia messages (MMS)"
+#, kde-format
 msgid "Multimedia Messages (MMS)"
 msgstr "Mensagem multimídia (MMS)"
 
@@ -416,11 +405,9 @@ msgid "Restore defaults"
 msgstr "Restaurar padrões"
 
 #: src/contents/ui/settings/SettingsPage.qml:64
-#, fuzzy, kde-format
-#| msgctxt "Retry sending message"
-#| msgid "Resend"
+#, kde-format
 msgid "Reset"
-msgstr "Reenviar"
+msgstr "Reiniciar"
 
 #: src/contents/ui/settings/SettingsPage.qml:85
 #, kde-format
@@ -435,18 +422,17 @@ msgstr "Usar cores personalizadas para as mensagens"
 #: src/contents/ui/settings/SettingsPage.qml:99
 #, kde-format
 msgid "Incoming message color"
-msgstr ""
+msgstr "Cor da mensagem recebida"
 
 #: src/contents/ui/settings/SettingsPage.qml:122
 #, kde-format
 msgid "Outgoing message color"
-msgstr ""
+msgstr "Cor da mensagem enviada"
 
 #: src/contents/ui/settings/SettingsPage.qml:145
-#, fuzzy, kde-format
-#| msgid "Message font size:"
+#, kde-format
 msgid "Message font size"
-msgstr "Tamanho da mensagem de texto:"
+msgstr "Tamanho da mensagem de texto"
 
 #: src/contents/ui/settings/SettingsPage.qml:165
 #, kde-format
