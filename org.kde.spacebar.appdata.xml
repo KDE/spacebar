@@ -8,6 +8,7 @@
   <name xml:lang="cs">Spacebar</name>
   <name xml:lang="de">Spacebar</name>
   <name xml:lang="en-GB">Spacebar</name>
+  <name xml:lang="eo">Spacebar</name>
   <name xml:lang="es">Spacebar</name>
   <name xml:lang="et">Spacebar</name>
   <name xml:lang="eu">Spacebar</name>
@@ -41,6 +42,7 @@
   <summary xml:lang="ca-valencia">Client de missatgeria SMS/MMS</summary>
   <summary xml:lang="cs">Klient pro zprávy SMS/MMS</summary>
   <summary xml:lang="en-GB">SMS/MMS messaging client</summary>
+  <summary xml:lang="eo">SMS/MMS-mesaĝadokliento</summary>
   <summary xml:lang="es">Cliente de mensajería SMS/MMS</summary>
   <summary xml:lang="eu">SMS/MMS mezularitza bezeroa</summary>
   <summary xml:lang="fi">Teksti- ja multimediaviestiasiakas</summary>
@@ -66,6 +68,7 @@
   <developer_name xml:lang="cs">Komunita KDE</developer_name>
   <developer_name xml:lang="de">KDE-Gemeinschaft</developer_name>
   <developer_name xml:lang="en-GB">KDE Community</developer_name>
+  <developer_name xml:lang="eo">Komunumo de KDE</developer_name>
   <developer_name xml:lang="es">Comunidad KDE</developer_name>
   <developer_name xml:lang="et">KDE kogukond</developer_name>
   <developer_name xml:lang="eu">KDE komunitatea</developer_name>
@@ -99,6 +102,7 @@
     <p xml:lang="ca">L'Spacebar és un client de missatgeria SMS/MMS. Permet que envieu missatges de text, imatges i altres fitxers a través d'una xarxa mòbil.</p>
     <p xml:lang="ca-valencia">Spacebar és un client de missatgeria SMS/MMS. Permet que envieu missatges de text, imatges i altres fitxers a través d'una xarxa mòbil.</p>
     <p xml:lang="en-GB">Spacebar is a SMS/MMS messaging client. It allows you to send text messages, pictures and other files over a cellular network.</p>
+    <p xml:lang="eo">Spacebar estas SMS/MMS-mesaĝa kliento. Ĝi permesas vin sendi tekstmesaĝojn, bildojn kaj aliajn dosierojn tra ĉela reto.</p>
     <p xml:lang="es">Spacebar es un cliente de mensajería SMS/MMS. Le permite enviar mensajes de texto, imágenes y otros archivos a través de una red móvil.</p>
     <p xml:lang="eu">Spacebar SMS/MMS mezularitza bezero bat da. Mugikorreko sare baten bidez testu-mezuak, argazkiak eta beste fitxategi batzuk bidaltzen uzten dizu.</p>
     <p xml:lang="fi">Spacebar on teksti- ja multimediaviestiasiakas, jolla voi lähettää tekstiviestejä, kuvia ja muita tiedostoja matkapuhelinverkossa.</p>
