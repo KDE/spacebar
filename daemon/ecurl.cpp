@@ -3,8 +3,8 @@
 // SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
 
 #include "ecurl.h"
-#include "settingsmanager.h"
 #include "modemcontroller.h"
+#include "settingsmanager.h"
 
 #include <netdb.h>
 
@@ -46,7 +46,7 @@ QByteArray ECurl::networkRequest(const QString &url, const QByteArray &data) con
 
             int aresReturn = ares_init(&channel);
 
-            if(aresReturn != ARES_SUCCESS) {
+            if (aresReturn != ARES_SUCCESS) {
                 qDebug() << "Ares init failed:" << ares_strerror(aresReturn);
             } else {
                 ares_set_local_dev(channel, ifaceName.toUtf8().constData());
@@ -59,7 +59,7 @@ QByteArray ECurl::networkRequest(const QString &url, const QByteArray &data) con
                 curl_url_cleanup(curlUrl);
 
                 char *hostIp = NULL;
-                ares_gethostbyname(channel, hostname, AF_UNSPEC, aresResolveCallback,(void *)&hostIp);
+                ares_gethostbyname(channel, hostname, AF_UNSPEC, aresResolveCallback, (void *)&hostIp);
                 aresResolveWait(channel);
 
                 if (hostIp == NULL) {
@@ -123,7 +123,7 @@ QByteArray ECurl::networkRequest(const QString &url, const QByteArray &data) con
 size_t ECurl::curlWriteFunction(char *chunk, size_t size, size_t len, QByteArray *response)
 {
     response->append(chunk, static_cast<int>(size * len));
-    return  size * len;
+    return size * len;
 }
 
 void ECurl::aresResolveCallback(void *arg, int status, int timeouts, struct hostent *host)
@@ -132,7 +132,7 @@ void ECurl::aresResolveCallback(void *arg, int status, int timeouts, struct host
 
     // when the ares handle is getting destroyed, the 'arg' pointer may not
     // be valid so only defer it when we know the 'status' says its fine!
-    if(!host || status != ARES_SUCCESS) {
+    if (!host || status != ARES_SUCCESS) {
         return;
     }
 
@@ -157,7 +157,7 @@ void ECurl::aresResolveWait(ares_channel channel)
 {
     qint64 start = QTime::currentTime().msecsSinceStartOfDay();
 
-    for(;;){
+    for (;;) {
         struct timeval *tvp, tv;
         fd_set read_fds, write_fds;
         int nfds;
@@ -165,7 +165,7 @@ void ECurl::aresResolveWait(ares_channel channel)
         FD_ZERO(&read_fds);
         FD_ZERO(&write_fds);
         nfds = ares_fds(channel, &read_fds, &write_fds);
-        if(nfds == 0){
+        if (nfds == 0) {
             break;
         }
         tvp = ares_timeout(channel, NULL, &tv);

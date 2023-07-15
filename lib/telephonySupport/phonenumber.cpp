@@ -11,7 +11,7 @@ using namespace i18n;
 struct PhoneNumberPrivate : QSharedData {
     enum Representation {
         Parsed,
-        String
+        String,
     };
 
     i18n::phonenumbers::PhoneNumber number;
@@ -40,7 +40,6 @@ PhoneNumber::PhoneNumber(const QString &number)
         d->representation = PhoneNumberPrivate::String;
     }
 }
-
 
 bool PhoneNumber::operator==(const PhoneNumber &other) const
 {

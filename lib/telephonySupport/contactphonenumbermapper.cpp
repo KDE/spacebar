@@ -47,7 +47,7 @@ void ContactPhoneNumberMapper::processRows(const int first, const int last)
 
         for (const QString &numberString : phoneNumbers) {
             const auto phoneNum = PhoneNumber(numberString);
-            if (phoneNum.isValid()){
+            if (phoneNum.isValid()) {
                 m_numberToUri[phoneNum] = personUri;
                 affectedNumbers.append(phoneNum);
             }

@@ -4,7 +4,6 @@
 
 #include "asyncdatabase.h"
 
-
 AsyncDatabase::AsyncDatabase()
 {
     qRegisterMetaType<Message>();
@@ -16,45 +15,63 @@ AsyncDatabase::AsyncDatabase()
 
 QFuture<void> AsyncDatabase::addMessage(const Message &message)
 {
-    return runAsync<void>([=, this] { m_database.addMessage(message); });
+    return runAsync<void>([=, this] {
+        m_database.addMessage(message);
+    });
 }
 
 QFuture<void> AsyncDatabase::deleteMessage(const QString &id)
 {
-    return runAsync<void>([=, this] { m_database.deleteMessage(id); });
+    return runAsync<void>([=, this] {
+        m_database.deleteMessage(id);
+    });
 }
 
 QFuture<QVector<Message>> AsyncDatabase::messagesForNumber(const PhoneNumberList &phoneNumberList, const QString &id, const int &limit)
 {
-    return runAsync<QVector<Message>>([=, this] { return m_database.messagesForNumber(phoneNumberList, id, limit); });
+    return runAsync<QVector<Message>>([=, this] {
+        return m_database.messagesForNumber(phoneNumberList, id, limit);
+    });
 }
 
 QFuture<void> AsyncDatabase::updateMessageDeliveryState(const QString &id, const MessageState state)
 {
-    return runAsync<void>([=, this] { m_database.updateMessageDeliveryState(id, state); });
+    return runAsync<void>([=, this] {
+        m_database.updateMessageDeliveryState(id, state);
+    });
 }
 
 QFuture<void> AsyncDatabase::updateMessageSent(const QString &id, const QString &messageId, const QString &contentLocation)
 {
-    return runAsync<void>([=, this] { m_database.updateMessageSent(id, messageId, contentLocation); });
+    return runAsync<void>([=, this] {
+        m_database.updateMessageSent(id, messageId, contentLocation);
+    });
 }
 
 QFuture<void> AsyncDatabase::markMessageRead(const int id)
 {
-    return runAsync<void>([=, this] { m_database.markMessageRead(id); });
+    return runAsync<void>([=, this] {
+        m_database.markMessageRead(id);
+    });
 }
 
 QFuture<QVector<Chat>> AsyncDatabase::chats(const PhoneNumberList &phoneNumberList)
 {
-    return runAsync<QVector<Chat>>([=, this] { return  m_database.chats(phoneNumberList); });
+    return runAsync<QVector<Chat>>([=, this] {
+        return m_database.chats(phoneNumberList);
+    });
 }
 
 QFuture<void> AsyncDatabase::markChatAsRead(const PhoneNumberList &phoneNumberList)
 {
-    return runAsync<void>([=, this] { m_database.markChatAsRead(phoneNumberList); });
+    return runAsync<void>([=, this] {
+        m_database.markChatAsRead(phoneNumberList);
+    });
 }
 
 QFuture<void> AsyncDatabase::deleteChat(const PhoneNumberList &phoneNumberList)
 {
-    return runAsync<void>([=, this] { m_database.deleteChat(phoneNumberList); });
+    return runAsync<void>([=, this] {
+        m_database.deleteChat(phoneNumberList);
+    });
 }

@@ -4,10 +4,10 @@
 
 #pragma once
 
-#include <QObject>
 #include <QFuture>
 #include <QFutureInterface>
 #include <QFutureWatcherBase>
+#include <QObject>
 
 #include "database.h"
 
@@ -36,8 +36,9 @@ public:
     QFuture<void> deleteChat(const PhoneNumberList &phoneNumberList);
 
 private:
-    template <typename T, typename Functor>
-    QFuture<T> runAsync(Functor func) {
+    template<typename T, typename Functor>
+    QFuture<T> runAsync(Functor func)
+    {
         auto interface = std::make_shared<QFutureInterface<T>>();
 
         QMetaObject::invokeMethod(this, [interface, func] {

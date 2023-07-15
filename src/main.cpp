@@ -9,31 +9,30 @@
 #include <KWindowSystem>
 
 #include <QApplication>
+#include <QCommandLineParser>
 #include <QQmlApplicationEngine>
-#include <QUrl>
-#include <QtQml>
 #include <QQuickStyle>
 #include <QQuickWindow>
-#include <QCommandLineParser>
+#include <QUrl>
+#include <QtQml>
 
 // Models
 #include "chatlistmodel.h"
 #include "messagemodel.h"
 
-#include <contactphonenumbermapper.h>
-#include "version.h"
-#include "global.h"
-#include "utils.h"
 #include "about.h"
 #include "avatarimageprovider.h"
 #include "channelhandler.h"
+#include "global.h"
 #include "settingsmanager.h"
+#include "utils.h"
+#include "version.h"
+#include <contactphonenumbermapper.h>
 
 #include <coroutine>
 #include <phonenumberlist.h>
 
 constexpr auto APPLICATION_ID = "org.kde.spacebar";
-
 
 Q_DECL_EXPORT int main(int argc, char *argv[])
 {

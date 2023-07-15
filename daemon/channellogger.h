@@ -8,31 +8,22 @@
 
 #include <optional>
 
+#include "ecurl.h"
+#include "modemcontroller.h"
 #include <database.h>
 #include <mms.h>
-#include "modemcontroller.h"
-#include "ecurl.h"
 
 #include "qcorotask.h"
 
-constexpr std::array<QStringView, 6> TAPBACK_KEYS = { u"♥️", u"👍", u"👎", u"😂", u"‼️", u"❓" };
-constexpr std::array<QStringView, 6> TAPBACK_REMOVED = {
-    u"Removed a heart from “",
-    u"Removed a like from “",
-    u"Removed a dislike from “",
-    u"Removed a laugh from “",
-    u"Removed an exclamation from “",
-    u"Removed a question mark from “"
-};
+constexpr std::array<QStringView, 6> TAPBACK_KEYS = {u"♥️", u"👍", u"👎", u"😂", u"‼️", u"❓"};
+constexpr std::array<QStringView, 6> TAPBACK_REMOVED = {u"Removed a heart from “",
+                                                        u"Removed a like from “",
+                                                        u"Removed a dislike from “",
+                                                        u"Removed a laugh from “",
+                                                        u"Removed an exclamation from “",
+                                                        u"Removed a question mark from “"};
 
-constexpr std::array<QStringView, 6> TAPBACK_ADDED = {
-    u"Loved “",
-    u"Liked “",
-    u"Disliked “",
-    u"Laughed at “",
-    u"Emphasized “",
-    u"Questioned “"
-};
+constexpr std::array<QStringView, 6> TAPBACK_ADDED = {u"Loved “", u"Liked “", u"Disliked “", u"Laughed at “", u"Emphasized “", u"Questioned “"};
 
 class ChannelLogger : public QObject
 {
@@ -57,21 +48,20 @@ private:
     void createDownloadNotification(const MmsMessage &mmsMessage);
     void addMessage(const Message &message);
     void updateMessage(const Message &message);
-    void saveMessage(
-        const PhoneNumberList &phoneNumberList,
-        const QDateTime &datetime,
-        const QString &text = QString(),
-        const QString &attachments = QString(),
-        const QString &smil = QString(),
-        const QString &fromNumber = QString(),
-        const QString &messageId = QString(),
-        const bool pendingDownload = false,
-        const QString &contentLocation = QString(),
-        const QDateTime &expires = QDateTime(),
-        const int size = 0
-    );
+    void saveMessage(const PhoneNumberList &phoneNumberList,
+                     const QDateTime &datetime,
+                     const QString &text = QString(),
+                     const QString &attachments = QString(),
+                     const QString &smil = QString(),
+                     const QString &fromNumber = QString(),
+                     const QString &messageId = QString(),
+                     const bool pendingDownload = false,
+                     const QString &contentLocation = QString(),
+                     const QDateTime &expires = QDateTime(),
+                     const int size = 0);
     QCoro::Task<QString> sendMessageSMS(const PhoneNumber &phoneNumber, const QString &id, const QString &text);
-    QCoro::Task<QString> sendMessageMMS(const PhoneNumberList &phoneNumberList, const QString &id, const QString &text, const QStringList &files, const qint64 totalSize);
+    QCoro::Task<QString>
+    sendMessageMMS(const PhoneNumberList &phoneNumberList, const QString &id, const QString &text, const QStringList &files, const qint64 totalSize);
     QCoro::Task<void> sendCancelResponse(const QString &transactionId);
     QCoro::Task<void> sendDeliveryAcknowledgement(const QString &transactionId);
     QCoro::Task<void> sendNotifyResponse(const QString &transactionId, const QString &status);
@@ -81,7 +71,12 @@ private:
     void handleDownloadedMessage(const QByteArray &response, const QString &url, const QDateTime &expires);
     void createNotification(Message &message);
     bool handleTapbackReaction(Message &message, const QString &reactNumber);
-    bool saveTapback(Message &message, const QString &reactNumber, const QStringView &tapback, std::span<const QStringView> list, const bool &isAdd, const bool &isImage);
+    bool saveTapback(Message &message,
+                     const QString &reactNumber,
+                     const QStringView &tapback,
+                     std::span<const QStringView> list,
+                     const bool &isAdd,
+                     const bool &isImage);
 
     Database m_database;
 

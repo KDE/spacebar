@@ -4,8 +4,8 @@
 
 #pragma once
 
-#include <QObject>
 #include <QAbstractListModel>
+#include <QObject>
 
 #include <KPeople/PersonData>
 
@@ -68,9 +68,7 @@ public:
     };
     Q_ENUM(DeliveryState)
 
-    explicit MessageModel(ChannelHandler &handler,
-                          const PhoneNumberList &phoneNumberList,
-                          QObject *parent = nullptr);
+    explicit MessageModel(ChannelHandler &handler, const PhoneNumberList &phoneNumberList, QObject *parent = nullptr);
 
     QHash<int, QByteArray> roleNames() const override;
     QVariant data(const QModelIndex &index, int role) const override;

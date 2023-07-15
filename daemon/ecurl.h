@@ -8,8 +8,8 @@
 
 #include <global.h>
 
-#include <curl/curl.h>
 #include <ares.h>
+#include <curl/curl.h>
 
 class ECurl : public QObject
 {

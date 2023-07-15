@@ -12,17 +12,17 @@
 #include <global.h>
 #include <phonenumberlist.h>
 
-
 enum MessageState {
     Unknown = false,
     Sent = true,
     Pending,
     Failed,
-    Received
+    Received,
 };
 Q_DECLARE_METATYPE(MessageState)
 
-inline MessageState parseMessageState(const QString &state) {
+inline MessageState parseMessageState(const QString &state)
+{
     if (state == SL("pending")) {
         return MessageState::Pending;
     } else if (state == SL("sent")) {

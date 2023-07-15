@@ -8,8 +8,8 @@
 #include "settingsmanager.h"
 
 #include <QCoroFuture>
-#include <QDBusReply>
 #include <QDBusConnection>
+#include <QDBusReply>
 #include <QLocale>
 #include <QTimer>
 #include <QtConcurrent>
@@ -83,11 +83,13 @@ void ChannelLogger::checkMessages()
     }
 }
 
-QString ChannelLogger::ownNumber() {
+QString ChannelLogger::ownNumber()
+{
     return ModemController::instance().ownNumber();
 }
 
-QString ChannelLogger::countryCode() {
+QString ChannelLogger::countryCode()
+{
     QString countryCode = ModemController::instance().countryCode;
 
     if (countryCode.isEmpty()) {
@@ -109,8 +111,8 @@ void ChannelLogger::handleIncomingMessage(ModemManager::Sms::Ptr msg)
 
     const PhoneNumberList phoneNumberList = PhoneNumberList(number);
 
-    //TODO check if blocked number
-    // use phonebook for blocked number storage so can be shared with dialer?
+    // TODO check if blocked number
+    //  use phonebook for blocked number storage so can be shared with dialer?
 
     // text and data are not valid at the same time
     if (!text.isEmpty()) {
@@ -153,11 +155,11 @@ void ChannelLogger::handleIncomingMessage(ModemManager::Sms::Ptr msg)
             if (!mmsMessage.messageId.isEmpty()) {
                 m_database.updateMessageDeliveryReport(mmsMessage.messageId);
             }
-        } else if (mmsMessage.messageType == SL("m-read-orig-ind"))  {
+        } else if (mmsMessage.messageType == SL("m-read-orig-ind")) {
             if (!mmsMessage.messageId.isEmpty()) {
                 m_database.updateMessageReadReport(mmsMessage.messageId, PhoneNumber(mmsMessage.from));
             }
-        } else if (mmsMessage.messageType == SL("m-cancel-req"))  {
+        } else if (mmsMessage.messageType == SL("m-cancel-req")) {
             sendCancelResponse(mmsMessage.transactionId);
         } else {
             qDebug() << "Unknown message type:" << mmsMessage.messageType;
@@ -170,19 +172,17 @@ void ChannelLogger::handleIncomingMessage(ModemManager::Sms::Ptr msg)
 
 void ChannelLogger::createDownloadNotification(const MmsMessage &mmsMessage)
 {
-    saveMessage(
-        PhoneNumberList(mmsMessage.from),
-        mmsMessage.date,
-        QString(), // text
-        QString(), // attachments
-        QString(), // smil
-        QString(), // fromNumber
-        QString(), // messageId
-        true, // pendingDownload
-        mmsMessage.contentLocation,
-        mmsMessage.expiry,
-        mmsMessage.messageSize
-    );
+    saveMessage(PhoneNumberList(mmsMessage.from),
+                mmsMessage.date,
+                QString(), // text
+                QString(), // attachments
+                QString(), // smil
+                QString(), // fromNumber
+                QString(), // messageId
+                true, // pendingDownload
+                mmsMessage.contentLocation,
+                mmsMessage.expiry,
+                mmsMessage.messageSize);
 
     // this is important, otherwise an MMSC server may send repeated notifications
     if (m_dataConnected) {
@@ -216,19 +216,17 @@ void ChannelLogger::handleDownloadedMessage(const QByteArray &response, const QS
     // fromNumber is only useful to know in group conversations
     const QString fromNumber = mmsMessage.to.length() > 1 ? mmsMessage.from : QString();
 
-    saveMessage(
-        mmsMessage.phoneNumberList,
-        mmsMessage.date,
-        mmsMessage.text,
-        mmsMessage.attachments,
-        mmsMessage.smil,
-        fromNumber,
-        mmsMessage.messageId,
-        false,
-        url,
-        expires,
-        response.size()
-    );
+    saveMessage(mmsMessage.phoneNumberList,
+                mmsMessage.date,
+                mmsMessage.text,
+                mmsMessage.attachments,
+                mmsMessage.smil,
+                fromNumber,
+                mmsMessage.messageId,
+                false,
+                url,
+                expires,
+                response.size());
 }
 
 void ChannelLogger::addMessage(const Message &message)
@@ -248,25 +246,23 @@ void ChannelLogger::updateMessage(const Message &message)
     Q_EMIT messageUpdated(message.phoneNumberList.toString(), message.id);
 }
 
-void ChannelLogger::saveMessage(
-    const PhoneNumberList &phoneNumberList,
-    const QDateTime &datetime,
-    const QString &text,
-    const QString &attachments,
-    const QString &smil,
-    const QString &fromNumber,
-    const QString &messageId,
-    const bool pendingDownload,
-    const QString &contentLocation,
-    const QDateTime &expires,
-    const int size
-)
+void ChannelLogger::saveMessage(const PhoneNumberList &phoneNumberList,
+                                const QDateTime &datetime,
+                                const QString &text,
+                                const QString &attachments,
+                                const QString &smil,
+                                const QString &fromNumber,
+                                const QString &messageId,
+                                const bool pendingDownload,
+                                const QString &contentLocation,
+                                const QDateTime &expires,
+                                const int size)
 {
     Message message;
     message.text = text;
     message.sentByMe = false; // SMS doesn't have any kind of synchronization, so received messages are always from the chat partner.
     message.datetime = datetime;
-    message.deliveryStatus =  MessageState::Received; // It arrived, soo
+    message.deliveryStatus = MessageState::Received; // It arrived, soo
     message.phoneNumberList = phoneNumberList;
     message.id = Database::generateRandomId();
     message.read = message.phoneNumberList == m_disabledNotificationNumber;
@@ -301,7 +297,7 @@ void ChannelLogger::saveMessage(
         addMessage(message);
     }
 
-    //TODO add setting to turn off notifications for multiple chats in addition to current chat
+    // TODO add setting to turn off notifications for multiple chats in addition to current chat
     if (message.phoneNumberList == m_disabledNotificationNumber) {
         if (!isScreenSaverActive()) {
             return;
@@ -311,11 +307,11 @@ void ChannelLogger::saveMessage(
     createNotification(message);
 }
 
-void ChannelLogger::sendMessage(const QString &numbers, const QString & id, const QString &text, const QStringList &files, const qint64 &totalSize)
+void ChannelLogger::sendMessage(const QString &numbers, const QString &id, const QString &text, const QStringList &files, const qint64 &totalSize)
 {
     PhoneNumberList phoneNumberList = PhoneNumberList(numbers);
 
-    [this, phoneNumberList, id, text, files, totalSize] () -> QCoro::Task<void> {
+    [this, phoneNumberList, id, text, files, totalSize]() -> QCoro::Task<void> {
         QString result;
         // check if it is a MMS message
         if (phoneNumberList.size() > 1 || files.length() > 0) {
@@ -391,36 +387,36 @@ QCoro::Task<QString> ChannelLogger::sendMessageSMS(const PhoneNumber &phoneNumbe
         qDebug() << "state changed" << mmMessage->state();
 
         switch (mmMessage->state()) {
-            case MM_SMS_STATE_SENT:
-                // The message was successfully sent
-                m_database.updateMessageDeliveryState(message.id, MessageState::Sent);
-                updateMessage(message);
-                break;
-            case MM_SMS_STATE_RECEIVED:
-                // The message has been completely received
-                // Should not happen
-                qWarning() << "Received a message we sent";
-                break;
-            case MM_SMS_STATE_RECEIVING:
-                // The message is being received but is not yet complete
-                // Should not happen
-                qWarning() << "Receiving a message we sent";
-                break;
-            case MM_SMS_STATE_SENDING:
-                // The message is queued for delivery
-                m_database.updateMessageDeliveryState(message.id, MessageState::Pending);
-                updateMessage(message);
-                break;
-            case MM_SMS_STATE_STORED:
-                // The message has been neither received nor yet sent
-                m_database.updateMessageDeliveryState(message.id, MessageState::Pending);
-                updateMessage(message);
-                break;
-            case MM_SMS_STATE_UNKNOWN:
-                // State unknown or not reportable
-                m_database.updateMessageDeliveryState(message.id, MessageState::Unknown);
-                updateMessage(message);
-                break;
+        case MM_SMS_STATE_SENT:
+            // The message was successfully sent
+            m_database.updateMessageDeliveryState(message.id, MessageState::Sent);
+            updateMessage(message);
+            break;
+        case MM_SMS_STATE_RECEIVED:
+            // The message has been completely received
+            // Should not happen
+            qWarning() << "Received a message we sent";
+            break;
+        case MM_SMS_STATE_RECEIVING:
+            // The message is being received but is not yet complete
+            // Should not happen
+            qWarning() << "Receiving a message we sent";
+            break;
+        case MM_SMS_STATE_SENDING:
+            // The message is queued for delivery
+            m_database.updateMessageDeliveryState(message.id, MessageState::Pending);
+            updateMessage(message);
+            break;
+        case MM_SMS_STATE_STORED:
+            // The message has been neither received nor yet sent
+            m_database.updateMessageDeliveryState(message.id, MessageState::Pending);
+            updateMessage(message);
+            break;
+        case MM_SMS_STATE_UNKNOWN:
+            // State unknown or not reportable
+            m_database.updateMessageDeliveryState(message.id, MessageState::Unknown);
+            updateMessage(message);
+            break;
         }
     });
 
@@ -443,7 +439,8 @@ QCoro::Task<QString> ChannelLogger::sendMessageSMS(const PhoneNumber &phoneNumbe
     co_return QString();
 }
 
-QCoro::Task<QString> ChannelLogger::sendMessageMMS(const PhoneNumberList &phoneNumberList, const QString &id, const QString &text, const QStringList &files, const qint64 totalSize)
+QCoro::Task<QString>
+ChannelLogger::sendMessageMMS(const PhoneNumberList &phoneNumberList, const QString &id, const QString &text, const QStringList &files, const qint64 totalSize)
 {
     Message message;
     message.phoneNumberList = phoneNumberList;
@@ -471,7 +468,7 @@ QCoro::Task<QString> ChannelLogger::sendMessageMMS(const PhoneNumberList &phoneN
     // add message to database
     addMessage(message);
 
-    //send message
+    // send message
     const QByteArray response = co_await uploadMessage(data);
     if (response.isEmpty()) {
         m_database.updateMessageDeliveryState(message.id, MessageState::Failed);
@@ -601,10 +598,16 @@ bool ChannelLogger::handleTapbackReaction(Message &message, const QString &react
     return false;
 }
 
-bool ChannelLogger::saveTapback(Message &message, const QString &reactNumber, const QStringView &tapback, std::span<const QStringView> list, const bool &isAdd, const bool &isImage)
+bool ChannelLogger::saveTapback(Message &message,
+                                const QString &reactNumber,
+                                const QStringView &tapback,
+                                std::span<const QStringView> list,
+                                const bool &isAdd,
+                                const bool &isImage)
 {
     const QString searchText = isImage ? SL("") : message.text.mid(tapback.length(), message.text.length() - tapback.length() - 1);
-    const QString id = isImage ? m_database.lastMessageWithAttachment(message.phoneNumberList) : m_database.lastMessageWithText(message.phoneNumberList, searchText);
+    const QString id =
+        isImage ? m_database.lastMessageWithAttachment(message.phoneNumberList) : m_database.lastMessageWithText(message.phoneNumberList, searchText);
 
     if (!id.isEmpty()) {
         Message msg = m_database.messagesForNumber(message.phoneNumberList, id).first();
@@ -621,7 +624,7 @@ bool ChannelLogger::saveTapback(Message &message, const QString &reactNumber, co
                     if (numbers.at(i) == number) {
                         numbers.removeAt(i);
 
-                        if(numbers.isEmpty()) {
+                        if (numbers.isEmpty()) {
                             reactions.remove(keyToRemove);
                         } else {
                             reactions[keyToRemove] = numbers;
@@ -642,7 +645,6 @@ bool ChannelLogger::saveTapback(Message &message, const QString &reactNumber, co
 
             reactions.insert(TAPBACK_KEYS[idx], numbers);
         }
-
 
         if (reactions.isEmpty()) {
             msg.tapbacks = QString();
@@ -725,11 +727,11 @@ QCoro::Task<QByteArray> ChannelLogger::uploadMessage(const QByteArray &data)
         co_return BL("");
     }
 
-    #if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
+#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
     const QByteArray response = co_await QtConcurrent::run(&ECurl::networkRequest, &m_curl, url, data);
-    #else
+#else
     const QByteArray response = co_await QtConcurrent::run(&m_curl, &ECurl::networkRequest, url, data);
-    #endif
+#endif
 
     if (response.isNull()) {
         co_return QByteArray();
@@ -742,11 +744,11 @@ QCoro::Task<void> ChannelLogger::downloadMessage(const MmsMessage message)
 {
     const QString url = message.contentLocation;
 
-    #if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
+#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
     const QByteArray response = co_await QtConcurrent::run(&ECurl::networkRequest, &m_curl, url, BL(""));
-    #else
+#else
     const QByteArray response = co_await QtConcurrent::run(&m_curl, &ECurl::networkRequest, url, BL(""));
-    #endif
+#endif
 
     if (response.isNull()) {
         if (!message.databaseId.isEmpty()) {

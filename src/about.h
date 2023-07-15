@@ -2,8 +2,8 @@
 
 #pragma once
 
-#include <QObject>
 #include <KAboutData>
+#include <QObject>
 
 class AboutType : public QObject
 {
@@ -15,7 +15,7 @@ public:
         static AboutType _instance;
         return _instance;
     }
-    
+
     [[nodiscard]] KAboutData aboutData() const
     {
         return KAboutData::applicationData();

@@ -66,7 +66,7 @@ void ModemController::init(std::optional<QString> modemPath)
     connect(m_interface.get(), &ModemManager::Modem::bearerAdded, this, [this](const QString &bearer) {
         m_bearer = m_interface->findBearer(bearer);
 
-        QList<QSharedPointer<ModemManager::Bearer> > bearers = m_interface->listBearers();
+        QList<QSharedPointer<ModemManager::Bearer>> bearers = m_interface->listBearers();
         for (const ModemManager::Bearer::Ptr &item : bearers) {
             if (item->uni() != bearer) {
                 item->disconnect();
@@ -207,14 +207,12 @@ QString ModemController::ownNumber()
 
 QString ModemController::getDNS(QSharedPointer<ModemManager::Bearer> bearer)
 {
-    QStringList dnsServerList = {
-        bearer->ip4Config().dns1(),
-        bearer->ip4Config().dns2(),
-        bearer->ip4Config().dns3(),
-        bearer->ip6Config().dns1(),
-        bearer->ip6Config().dns2(),
-        bearer->ip6Config().dns3()
-    };
+    QStringList dnsServerList = {bearer->ip4Config().dns1(),
+                                 bearer->ip4Config().dns2(),
+                                 bearer->ip4Config().dns3(),
+                                 bearer->ip6Config().dns1(),
+                                 bearer->ip6Config().dns2(),
+                                 bearer->ip6Config().dns3()};
 
     // remove empty items
     dnsServerList.removeAll(QString());

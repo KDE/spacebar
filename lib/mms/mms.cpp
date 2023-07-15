@@ -106,27 +106,27 @@ QByteArray Mms::encodeDeliveryAcknowledgement(const QString &transactionId)
     return data;
 }
 
-//confirms the read status of the MM to the MMS Proxy-Relay - send when marking mms messages as read
+// confirms the read status of the MM to the MMS Proxy-Relay - send when marking mms messages as read
 QByteArray Mms::encodeReadReport(const QString &messageId)
 {
     QByteArray data;
     data.append(encodeHeaderPrefix(SL("m-read-rec-ind"), messageId, true));
 
     data.append(MMS_HEADER_TO);
-    //data.append();
+    // data.append();
 
     data.append(MMS_HEADER_FROM);
-    //data.append();
+    // data.append();
 
     data.append(MMS_HEADER_READ_STATUS);
-    data.append(MMS_CODE_READ); //MMS_CODE_DELETE_WITHOUT_READ
+    data.append(MMS_CODE_READ); // MMS_CODE_DELETE_WITHOUT_READ
 
-    //TODO: finish this
+    // TODO: finish this
     return data;
 }
 
- //TODO add forwardMessage method - m-forward-req with handling of m-forward-conf - from, to, contentLocation, reportAllowed, deliveryReport, readReport
- //TODO add deleteRequest method - m-delete-req with handling of m-delete-conf - contentLocation
+// TODO add forwardMessage method - m-forward-req with handling of m-forward-conf - from, to, contentLocation, reportAllowed, deliveryReport, readReport
+// TODO add deleteRequest method - m-delete-req with handling of m-delete-conf - contentLocation
 
 QByteArray Mms::encodeCancelResponse(const QString &transactionId)
 {
@@ -155,7 +155,7 @@ void Mms::decodeNotification(MmsMessage &message, const QByteArray &data)
 
     if (data.at(pos) == 40) {
         // skip the open parenthesis
-        pos+=2;
+        pos += 2;
     }
 
     message.contentType = contentTypeValue(data, pos, message);
@@ -165,7 +165,8 @@ void Mms::decodeNotification(MmsMessage &message, const QByteArray &data)
     }
 
     pos += headerLen - pos;
-    while(decodeHeader(message, data, pos));
+    while (decodeHeader(message, data, pos))
+        ;
 
     // use the message transaction id if url does not contain an id
     if (message.contentLocation.endsWith(SL("="))) {
@@ -174,7 +175,7 @@ void Mms::decodeNotification(MmsMessage &message, const QByteArray &data)
 
     // remove if successfully decoded
     if (!message.transactionId.isEmpty()) {
-        QFile file (pathTemp);
+        QFile file(pathTemp);
         file.remove();
     }
 }
@@ -182,7 +183,8 @@ void Mms::decodeNotification(MmsMessage &message, const QByteArray &data)
 void Mms::decodeConfirmation(MmsMessage &message, const QByteArray &data)
 {
     int pos = -1;
-    while(decodeHeader(message, data, pos));
+    while (decodeHeader(message, data, pos))
+        ;
 
     // Save copy for testing/debugging purposes. Delete later
     if (!message.transactionId.isEmpty()) {
@@ -200,7 +202,8 @@ void Mms::decodeMessage(MmsMessage &message, const QByteArray &data)
     saveData(data, pathTemp);
 
     int pos = -1;
-    while(decodeHeader(message, data, pos));
+    while (decodeHeader(message, data, pos))
+        ;
 
     // add from number and normalize numbers
     QStringList numbers = message.to;
@@ -216,19 +219,15 @@ void Mms::decodeMessage(MmsMessage &message, const QByteArray &data)
         message.phoneNumberList.removeAt(index);
     }
 
-    if (message.contentType == SL("application/vnd.wap.multipart.*")
-        || message.contentType == SL("application/vnd.wap.multipart.mixed")
-        || message.contentType == SL("application/vnd.wap.multipart.form-data")
-        || message.contentType == SL("application/vnd.wap.multipart.byteranges")
-        || message.contentType == SL("application/vnd.wap.multipart.alternative")
-        || message.contentType == SL("application/vnd.wap.multipart.related")
-    ) {
+    if (message.contentType == SL("application/vnd.wap.multipart.*") || message.contentType == SL("application/vnd.wap.multipart.mixed")
+        || message.contentType == SL("application/vnd.wap.multipart.form-data") || message.contentType == SL("application/vnd.wap.multipart.byteranges")
+        || message.contentType == SL("application/vnd.wap.multipart.alternative") || message.contentType == SL("application/vnd.wap.multipart.related")) {
         decodeMessageBody(message, data, pos);
     }
 
     // remove if successfully decoded or if is an outgoing message
     if (!message.messageId.isEmpty() || !message.ownNumber.isValid() || PhoneNumber(message.from) == message.ownNumber) {
-        QFile file (pathTemp);
+        QFile file(pathTemp);
         file.remove();
     }
 }
@@ -254,25 +253,25 @@ void Mms::encodeMessage(MmsMessage &message, QByteArray &data, const QStringList
     }
     message.to.clear();
 
-    //TODO add message setting for this
-    //data.append(MMS_HEADER_SENDER_VISIBILITY);
-    //data.append(MMS_CODE_YES);
+    // TODO add message setting for this
+    // data.append(MMS_HEADER_SENDER_VISIBILITY);
+    // data.append(MMS_CODE_YES);
 
-    //TODO add message setting for this
-    //data.append(MMS_HEADER_SUBJECT);
-    //data.append(encodeEncodedStringValue(SL("NoSubject")));
+    // TODO add message setting for this
+    // data.append(MMS_HEADER_SUBJECT);
+    // data.append(encodeEncodedStringValue(SL("NoSubject")));
 
-    //TODO add message setting for this
+    // TODO add message setting for this
     data.append(MMS_HEADER_MESSAGE_CLASS);
     data.append(MMS_CODE_MESSAGE_CLASS_PERSONAL);
 
-    //TODO add message setting for this
-    //data.append(MMS_HEADER_PRIORITY);
-    //data.append(MMS_CODE_PRIORITY_NORMAL);
+    // TODO add message setting for this
+    // data.append(MMS_HEADER_PRIORITY);
+    // data.append(MMS_CODE_PRIORITY_NORMAL);
 
-    //TODO add message setting for this
-    //data.append(MMS_HEADER_DELIVERY_TIME);
-    //data.append(encodeLongInteger(QDateTime::currentSecsSinceEpoch() + delaySeconds));
+    // TODO add message setting for this
+    // data.append(MMS_HEADER_DELIVERY_TIME);
+    // data.append(encodeLongInteger(QDateTime::currentSecsSinceEpoch() + delaySeconds));
 
     data.append(MMS_HEADER_READ_REPORT);
     data.append((settings->requestReadReports() ? MMS_CODE_YES : MMS_CODE_NO));
@@ -354,7 +353,7 @@ void Mms::encodeMessage(MmsMessage &message, QByteArray &data, const QStringList
                     imageModified.save(&buffer, "JPG");
                 }
             }
-            //TODO investigate if feasible to convert/transcode audio?
+            // TODO investigate if feasible to convert/transcode audio?
         }
 
         // shorten name and preserve extension
@@ -400,7 +399,8 @@ void Mms::encodeMessage(MmsMessage &message, QByteArray &data, const QStringList
 
     if (parts > 1 && settings->autoCreateSmil()) {
         // standard layout - image and text, other files currently not included/supported
-        smil.prepend(SL(R"(<smil><head><layout><root-layout/><region id="Image" fit="meet" top="0" left="0" height="80%" width="100%"/><region id="Text" top="80%" left="0" height="20%" width="100%"/></layout></head><body>)"));
+        smil.prepend(SL(
+            R"(<smil><head><layout><root-layout/><region id="Image" fit="meet" top="0" left="0" height="80%" width="100%"/><region id="Text" top="80%" left="0" height="20%" width="100%"/></layout></head><body>)"));
 
         smil.append(SL(R"(</body></smil>)"));
 
@@ -430,36 +430,62 @@ bool Mms::decodeHeader(MmsMessage &message, const QByteArray &data, int &pos)
         if (headerField.id == field) {
             QVariant val;
             QStringView type = headerField.type;
-            if (type == u"") val = data.at(++pos);
-            else if (type == u"unsignedInt") val = unsignedInt(data, pos);
-            else if (type == u"longInteger") val = longInteger(data, pos);
-            else if (type == u"shortInteger") val = shortInteger(data, pos);
-            else if (type == u"integerValue") val = integerValue(data, pos);
-            else if (type == u"textString") val = textString(data, pos);
-            else if (type == u"encodedStringValue") val = encodedStringValue(data, pos);
-            else if (type == u"fromValue") val = fromValue(data, pos);
-            else if (type == u"contentTypeValue") val = contentTypeValue(data, pos, message);
-            else if (type == u"messageTypeValue") val = messageTypeValue(data, pos);
-            else if (type == u"dateValue") val = dateValue(data, pos);
-            else if (type == u"messageClassValue") val = messageClassValue(data, pos);
-            else if (type == u"mmsVersion") val = mmsVersion(data, pos);
+            if (type == u"")
+                val = data.at(++pos);
+            else if (type == u"unsignedInt")
+                val = unsignedInt(data, pos);
+            else if (type == u"longInteger")
+                val = longInteger(data, pos);
+            else if (type == u"shortInteger")
+                val = shortInteger(data, pos);
+            else if (type == u"integerValue")
+                val = integerValue(data, pos);
+            else if (type == u"textString")
+                val = textString(data, pos);
+            else if (type == u"encodedStringValue")
+                val = encodedStringValue(data, pos);
+            else if (type == u"fromValue")
+                val = fromValue(data, pos);
+            else if (type == u"contentTypeValue")
+                val = contentTypeValue(data, pos, message);
+            else if (type == u"messageTypeValue")
+                val = messageTypeValue(data, pos);
+            else if (type == u"dateValue")
+                val = dateValue(data, pos);
+            else if (type == u"messageClassValue")
+                val = messageClassValue(data, pos);
+            else if (type == u"mmsVersion")
+                val = mmsVersion(data, pos);
 
             // capture relevant values
             QStringView name = headerField.name;
-            if (name == u"messageType") message.messageType = val.toString();
-            else if (name == u"transactionId") message.transactionId = val.toString();
-            else if (name == u"messageId") message.messageId = val.toString();
-            else if (name == u"messageSize") message.messageSize = val.toInt();
-            else if (name == u"expiry") message.expiry = val.toDateTime();
-            else if (name == u"date") message.date = val.toDateTime();
-            else if (name == u"to") message.to.append(PhoneNumber(val.toString().remove(QLatin1String("/TYPE=PLMN"))).toInternational());
-            else if (name == u"from") message.from = PhoneNumber(val.toString().remove(QLatin1String("/TYPE=PLMN"))).toInternational();
-            else if (name == u"subject") message.subject = val.toString();
-            else if (name == u"contentType") message.contentType = val.toString();
-            else if (name == u"contentLocation") message.contentLocation = val.toString();
-            else if (name == u"responseStatus") message.responseStatus = val.toInt();
-            else if (name == u"responseText") message.responseText = val.toString();
-            //else qDebug() << headerField.name << ":" << val.toString();
+            if (name == u"messageType")
+                message.messageType = val.toString();
+            else if (name == u"transactionId")
+                message.transactionId = val.toString();
+            else if (name == u"messageId")
+                message.messageId = val.toString();
+            else if (name == u"messageSize")
+                message.messageSize = val.toInt();
+            else if (name == u"expiry")
+                message.expiry = val.toDateTime();
+            else if (name == u"date")
+                message.date = val.toDateTime();
+            else if (name == u"to")
+                message.to.append(PhoneNumber(val.toString().remove(QLatin1String("/TYPE=PLMN"))).toInternational());
+            else if (name == u"from")
+                message.from = PhoneNumber(val.toString().remove(QLatin1String("/TYPE=PLMN"))).toInternational();
+            else if (name == u"subject")
+                message.subject = val.toString();
+            else if (name == u"contentType")
+                message.contentType = val.toString();
+            else if (name == u"contentLocation")
+                message.contentLocation = val.toString();
+            else if (name == u"responseStatus")
+                message.responseStatus = val.toInt();
+            else if (name == u"responseText")
+                message.responseText = val.toString();
+            // else qDebug() << headerField.name << ":" << val.toString();
 
             return true;
         }
@@ -513,7 +539,7 @@ bool Mms::decodeMessageBody(MmsMessage &message, const QByteArray &data, int &po
         pos = temp + 1;
 
         QByteArray fileData = data.mid(pos + headerLen, dataLen);
-        pos += headerLen + dataLen  - 1;
+        pos += headerLen + dataLen - 1;
 
         if (contentType == SL("application/smil")) {
             message.smil += QString::fromUtf8(fileData);
@@ -547,14 +573,13 @@ bool Mms::decodeMessageBody(MmsMessage &message, const QByteArray &data, int &po
             name = message.partNames.length() > i ? message.partNames[i] : fileName;
 
             // json data for use in message page
-            QJsonObject object
-            {
-                { SL("name"), name },
-                { SL("fileName"), fileName },
-                { SL("size"), dataLen },
-                { SL("mimeType"), mime.name() },
-                { SL("iconName"), mime.iconName() },
-                { SL("text"), text },
+            QJsonObject object{
+                {SL("name"), name},
+                {SL("fileName"), fileName},
+                {SL("size"), dataLen},
+                {SL("mimeType"), mime.name()},
+                {SL("iconName"), mime.iconName()},
+                {SL("text"), text},
             };
 
             attachments.append(object);
@@ -610,7 +635,7 @@ bool Mms::saveData(const QByteArray &data, const QString &path)
     return true;
 }
 
-QString Mms::contentTypeValue(const QByteArray &data, int & pos, MmsMessage &message)
+QString Mms::contentTypeValue(const QByteArray &data, int &pos, MmsMessage &message)
 {
     QString type;
     if (data.at(pos + 1) & 0x80) {
@@ -628,26 +653,35 @@ QString Mms::contentTypeValue(const QByteArray &data, int & pos, MmsMessage &mes
             type = lookupValString(data, pos, CONTENT_TYPES);
         }
 
-        while(pos < end) {
+        while (pos < end) {
             unsigned char field = data.at(++pos) & 0x7F;
             int len = PARAM_FIELDS.size();
             for (int i = 0; i < len; i++) {
                 if (PARAM_FIELDS[i].id == field) {
                     QVariant val;
                     QStringView type = PARAM_FIELDS[i].type;
-                    if (type == u"unsignedInt") val = unsignedInt(data, pos);
-                    else if (type == u"longInteger") val = longInteger(data, pos);
-                    else if (type == u"shortInteger") val = shortInteger(data, pos);
-                    else if (type == u"integerValue") val = integerValue(data, pos);
-                    else if (type == u"textString") val = textString(data, pos);
-                    else if (type == u"encodedStringValue") val = encodedStringValue(data, pos);
-                    else if (type == u"fromValue") val = fromValue(data, pos);
-                    else val = data.at(++pos);
+                    if (type == u"unsignedInt")
+                        val = unsignedInt(data, pos);
+                    else if (type == u"longInteger")
+                        val = longInteger(data, pos);
+                    else if (type == u"shortInteger")
+                        val = shortInteger(data, pos);
+                    else if (type == u"integerValue")
+                        val = integerValue(data, pos);
+                    else if (type == u"textString")
+                        val = textString(data, pos);
+                    else if (type == u"encodedStringValue")
+                        val = encodedStringValue(data, pos);
+                    else if (type == u"fromValue")
+                        val = fromValue(data, pos);
+                    else
+                        val = data.at(++pos);
 
                     // store relevant values
                     QStringView name = PARAM_FIELDS[i].name;
-                    if (name == u"name") message.partNames.append(val.toString());
-                    //else qDebug() << param_fields[i].name << ":" << val.toString();
+                    if (name == u"name")
+                        message.partNames.append(val.toString());
+                    // else qDebug() << param_fields[i].name << ":" << val.toString();
 
                     i = len;
                 }
@@ -658,7 +692,7 @@ QString Mms::contentTypeValue(const QByteArray &data, int & pos, MmsMessage &mes
     return type;
 }
 
-QString Mms::messageTypeValue(const QByteArray &data, int & pos)
+QString Mms::messageTypeValue(const QByteArray &data, int &pos)
 {
     return lookupValString(data, pos, MESSAGE_TYPES);
 }
@@ -703,7 +737,7 @@ int Mms::shortInteger(const QByteArray &data, int &pos)
 
 int Mms::integerValue(const QByteArray &data, int &pos)
 {
-    if (data.at(pos + 1) < 31){
+    if (data.at(pos + 1) < 31) {
         return longInteger(data, pos);
     } else if ((unsigned char)data.at(pos + 1) > 127) {
         return shortInteger(data, pos);
@@ -783,7 +817,7 @@ QDateTime Mms::dateValue(const QByteArray &data, int &pos)
         if ((unsigned char)data.at(pos + 1) == MMS_CODE_ABSOLUTE_TOKEN) {
             pos++;
         }
-        while(pos < end) {
+        while (pos < end) {
             value = value << 8;
             value += data.at(++pos);
         }
@@ -800,9 +834,7 @@ QString Mms::messageClassValue(const QByteArray &data, int &pos)
         return QString::number(value);
     } else {
         qDebug() << "Token-text";
-        QVector<unsigned char> separators = {
-            11, 32, 40, 41, 44, 47, 58, 59, 60, 61, 62, 63, 64, 91, 92, 93, 123, 125
-        };
+        QVector<unsigned char> separators = {11, 32, 40, 41, 44, 47, 58, 59, 60, 61, 62, 63, 64, 91, 92, 93, 123, 125};
 
         QByteArray token;
         while (value > 31 && !separators.contains(value)) {
@@ -832,7 +864,7 @@ QByteArray Mms::encodeUnsignedInt(unsigned int value)
 
     bytes.append(value & 0x7F);
     value = value >> 7;
-    while(value > 0) {
+    while (value > 0) {
         bytes.prepend(0x80 | (value & 0x7F));
         value = value >> 7;
     }
@@ -843,7 +875,7 @@ QByteArray Mms::encodeUnsignedInt(unsigned int value)
 QByteArray Mms::encodeLongInteger(quint64 value)
 {
     QByteArray bytes;
-    while(value > 0) {
+    while (value > 0) {
         bytes.prepend(value);
         value = value >> 8;
     }

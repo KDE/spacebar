@@ -13,15 +13,15 @@
 
 #include <random>
 
-#include <phonenumberlist.h>
 #include <global.h>
+#include <phonenumberlist.h>
 
 constexpr auto ID_LEN = 10;
 constexpr auto DATABASE_REVISION = 8; // Keep MIGRATE_TO_LATEST_FROM in sync
-#define MIGRATE_TO(n, current) \
-    if (current < n) { \
-        qDebug() << "Running migration" << #n; \
-        migrationV##n(current); \
+#define MIGRATE_TO(n, current)                                                                                                                                 \
+    if (current < n) {                                                                                                                                         \
+        qDebug() << "Running migration" << #n;                                                                                                                 \
+        migrationV##n(current);                                                                                                                                \
     }
 #define MIGRATE_TO_LATEST_FROM(current) MIGRATE_TO(8, current)
 
@@ -90,7 +90,7 @@ QVector<Message> Database::messagesForNumber(const PhoneNumberList &phoneNumberL
         FROM Messages
     )");
 
-   QSqlQuery fetch(m_database);
+    QSqlQuery fetch(m_database);
 
     if (id.isEmpty()) {
         sql.append(SL("WHERE phoneNumber == :phoneNumber ORDER BY time DESC"));
@@ -418,7 +418,7 @@ void Database::migrate()
 
     uint revision = 0;
     if (currentRevision.isValid()) {
-         revision = currentRevision.value(0).toUInt();
+        revision = currentRevision.value(0).toUInt();
     }
 
     qDebug() << "current database revision" << revision;
@@ -444,14 +444,15 @@ void Database::exec(QSqlQuery &query)
         Q_UNREACHABLE();
     }
     if (!query.exec()) {
-        qWarning() <<  "Query" << query.lastQuery() << "resulted in" << query.lastError();
+        qWarning() << "Query" << query.lastQuery() << "resulted in" << query.lastError();
     }
 }
 
 void Database::migrationV1(uint)
 {
     QSqlQuery createTable(m_database);
-    createTable.prepare(SL("CREATE TABLE IF NOT EXISTS Messages (id INTEGER, phoneNumber TEXT, text TEXT, time DATETIME, read BOOLEAN, delivered BOOLEAN, sentByMe BOOLEAN)"));
+    createTable.prepare(
+        SL("CREATE TABLE IF NOT EXISTS Messages (id INTEGER, phoneNumber TEXT, text TEXT, time DATETIME, read BOOLEAN, delivered BOOLEAN, sentByMe BOOLEAN)"));
     Database::exec(createTable);
 }
 
@@ -468,7 +469,8 @@ void Database::migrationV2(uint current)
     Database::exec(dropOld);
 
     QSqlQuery createNew(m_database);
-    createNew.prepare(SL("CREATE TABLE IF NOT EXISTS Messages (id TEXT, phoneNumber TEXT, text TEXT, time DATETIME, read BOOLEAN, delivered INTEGER, sentByMe BOOLEAN)"));
+    createNew.prepare(
+        SL("CREATE TABLE IF NOT EXISTS Messages (id TEXT, phoneNumber TEXT, text TEXT, time DATETIME, read BOOLEAN, delivered INTEGER, sentByMe BOOLEAN)"));
     Database::exec(createNew);
 
     QSqlQuery copyTemp(m_database);
@@ -557,7 +559,9 @@ void Database::migrationV6(uint current)
     Database::exec(removeHtml);
     removeHtml.prepare(SL("UPDATE Messages SET text = REPLACE(text, '</a>', '')"));
     Database::exec(removeHtml);
-    removeHtml.prepare(SL("UPDATE Messages SET text = REPLACE(text, SUBSTR(text, INSTR(text, '<a href='), INSTR(text, '>http') - INSTR(text, '<a href=') + CASE WHEN INSTR(text, '>http') > 0 THEN 1 ELSE 0 END), '')"));
+    removeHtml.prepare(
+        SL("UPDATE Messages SET text = REPLACE(text, SUBSTR(text, INSTR(text, '<a href='), INSTR(text, '>http') - INSTR(text, '<a href=') + CASE WHEN "
+           "INSTR(text, '>http') > 0 THEN 1 ELSE 0 END), '')"));
     Database::exec(removeHtml);
 }
 

@@ -9,8 +9,8 @@
 
 #include <QLocale>
 
-#include <global.h>
 #include <database.h>
+#include <global.h>
 
 ChannelHandler::ChannelHandler(QObject *parent)
     : QObject(parent)

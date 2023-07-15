@@ -11,10 +11,10 @@
 
 #include "qcorotask.h"
 
-#include <contactphonenumbermapper.h>
 #include "database.h"
-#include "global.h"
 #include "databasethread.h"
+#include "global.h"
+#include <contactphonenumbermapper.h>
 
 class MessageModel;
 class ChannelHandler;
@@ -60,7 +60,7 @@ public Q_SLOTS:
     void deleteChat(const PhoneNumberList &phoneNumberList);
 
 Q_SIGNALS:
-    void chatStarted(MessageModel* messageModel);
+    void chatStarted(MessageModel *messageModel);
     void startingChatFaild(const QString &errorMessage);
 
     void readyChanged();

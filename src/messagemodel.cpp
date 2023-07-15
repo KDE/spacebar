@@ -12,8 +12,8 @@
 #include <QMimeDatabase>
 #include <QMimeType>
 
-#include <global.h>
 #include <contactphonenumbermapper.h>
+#include <global.h>
 #include <phonenumberlist.h>
 
 #include <QCoroFuture>
@@ -95,27 +95,25 @@ void MessageModel::fetchAllMessages()
 
 QHash<int, QByteArray> MessageModel::roleNames() const
 {
-    return {
-        {Role::TextRole, BL("text")},
-        {Role::TimeRole, BL("time")},
-        {Role::DateRole, BL("date")},
-        {Role::SentByMeRole, BL("sentByMe")},
-        {Role::ReadRole, BL("read")},
-        {Role::DeliveryStateRole, BL("deliveryState")},
-        {Role::IdRole, BL("id")},
-        {Role::AttachmentsRole, BL("attachments")},
-        {Role::SmilRole, BL("smil")},
-        {Role::FromNumberRole, BL("fromNumber")},
-        {Role::MessageIdRole, BL("messageId")},
-        {Role::DeliveryReportRole, BL("deliveryReport")},
-        {Role::ReadReportRole, BL("readReport")},
-        {Role::PendingDownloadRole, BL("pendingDownload")},
-        {Role::ContentLocationRole, BL("contentLocation")},
-        {Role::ExpiresRole, BL("expires")},
-        {Role::ExpiresDateTimeRole, BL("expiresDateTime")},
-        {Role::SizeRole, BL("size")},
-        {Role::TapbacksRole, BL("tapbacks")}
-    };
+    return {{Role::TextRole, BL("text")},
+            {Role::TimeRole, BL("time")},
+            {Role::DateRole, BL("date")},
+            {Role::SentByMeRole, BL("sentByMe")},
+            {Role::ReadRole, BL("read")},
+            {Role::DeliveryStateRole, BL("deliveryState")},
+            {Role::IdRole, BL("id")},
+            {Role::AttachmentsRole, BL("attachments")},
+            {Role::SmilRole, BL("smil")},
+            {Role::FromNumberRole, BL("fromNumber")},
+            {Role::MessageIdRole, BL("messageId")},
+            {Role::DeliveryReportRole, BL("deliveryReport")},
+            {Role::ReadReportRole, BL("readReport")},
+            {Role::PendingDownloadRole, BL("pendingDownload")},
+            {Role::ContentLocationRole, BL("contentLocation")},
+            {Role::ExpiresRole, BL("expires")},
+            {Role::ExpiresDateTimeRole, BL("expiresDateTime")},
+            {Role::SizeRole, BL("size")},
+            {Role::TapbacksRole, BL("tapbacks")}};
 }
 
 QVariant MessageModel::data(const QModelIndex &index, int role) const
@@ -210,15 +208,12 @@ QVariant MessageModel::fileInfo(const QUrl &path)
     QMimeType mime = db.mimeTypeForData(data);
     QString fileName = Database::generateRandomId() + SL(".") + mime.preferredSuffix();
 
-    QJsonObject object
-    {
-        { SL("filePath"), path.toString() },
-        { SL("name"), path.fileName() },
-        { SL("fileName"), fileName },
-        { SL("size"), data.length() },
-        { SL("mimeType"), mime.name() },
-        { SL("iconName"), mime.iconName() }
-    };
+    QJsonObject object{{SL("filePath"), path.toString()},
+                       {SL("name"), path.fileName()},
+                       {SL("fileName"), fileName},
+                       {SL("size"), data.length()},
+                       {SL("mimeType"), mime.name()},
+                       {SL("iconName"), mime.iconName()}};
 
     return object;
 }
@@ -327,7 +322,7 @@ void MessageModel::saveAttachments(const QStringList &attachments)
 {
     const QString sourceFolder = attachmentsFolder();
     const QString targetFolder = QStandardPaths::writableLocation(QStandardPaths::DownloadLocation);
-    for (const auto& i : attachments) {
+    for (const auto &i : attachments) {
         QFile::copy(sourceFolder + QStringLiteral("/") + i, targetFolder + QStringLiteral("/") + i);
     }
 }

@@ -22,7 +22,7 @@ class Utils : public QObject
 public:
     enum PassiveNotificationDuation {
         ShortNotificationDuration,
-        LongNotificationDuration
+        LongNotificationDuration,
     };
     Q_ENUM(PassiveNotificationDuation)
 

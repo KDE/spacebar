@@ -4,8 +4,8 @@
 
 #pragma once
 
-#include <QStringLiteral>
 #include <QByteArray>
+#include <QStringLiteral>
 
 #define SL QStringLiteral
 #define BL QByteArrayLiteral

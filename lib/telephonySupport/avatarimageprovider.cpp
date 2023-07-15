@@ -14,14 +14,13 @@
 AvatarImageProvider::AvatarImageProvider()
     : QQuickImageProvider(QQuickImageProvider::ImageType::Image)
 {
-
 }
 
 QImage AvatarImageProvider::requestImage(const QString &number, QSize *size, const QSize &requestedSize)
 {
     const auto personData = KPeople::PersonData(ContactPhoneNumberMapper::instance().uriForNumber(PhoneNumber(number)));
 
-    auto avatar = [&] () -> QImage {
+    auto avatar = [&]() -> QImage {
         QVariant pic = personData.contactCustomProperty(KPeople::AbstractContact::PictureProperty);
 
         if (pic.canConvert<QImage>()) {
@@ -40,7 +39,7 @@ QImage AvatarImageProvider::requestImage(const QString &number, QSize *size, con
 
     if (avatar.size().height() > requestedSize.height()) {
         avatar = avatar.scaledToHeight(requestedSize.height());
-    } else if  (avatar.size().width() > requestedSize.width()) {
+    } else if (avatar.size().width() > requestedSize.width()) {
         avatar = avatar.scaledToWidth(requestedSize.width());
     }
 

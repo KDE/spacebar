@@ -8,8 +8,8 @@
 #include <KDBusService>
 #include <KLocalizedString>
 
-#include "global.h"
 #include "channellogger.h"
+#include "global.h"
 
 int main(int argc, char *argv[])
 {
@@ -34,9 +34,7 @@ int main(int argc, char *argv[])
     KDBusService service(KDBusService::Unique);
 
     // Create observer
-    auto modemPath = parser.isSet(modemOpt) && !parser.value(modemOpt).isEmpty()
-            ? parser.value(modemOpt)
-            : std::optional<QString>();
+    auto modemPath = parser.isSet(modemOpt) && !parser.value(modemOpt).isEmpty() ? parser.value(modemOpt) : std::optional<QString>();
 
     ChannelLogger logger(modemPath);
 

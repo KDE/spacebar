@@ -6,10 +6,10 @@
 
 #include <functional>
 
-#include <QString>
-#include <QSharedDataPointer>
-#include <QDebug>
 #include <QDBusArgument>
+#include <QDebug>
+#include <QSharedDataPointer>
+#include <QString>
 
 struct PhoneNumberPrivate;
 
@@ -42,11 +42,13 @@ private:
     static std::string countryCode;
 };
 
-inline QDebug &operator<<(QDebug &debug, const PhoneNumber &phoneNumber) {
+inline QDebug &operator<<(QDebug &debug, const PhoneNumber &phoneNumber)
+{
     return debug << phoneNumber.toInternational();
 }
 
-inline uint qHash(const PhoneNumber &phoneNum) {
+inline uint qHash(const PhoneNumber &phoneNum)
+{
     return qHash(phoneNum.toInternational());
 }
 
