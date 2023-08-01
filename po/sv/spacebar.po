@@ -1,13 +1,13 @@
 # Copyright (C) YEAR This file is copyright:
 # This file is distributed under the same license as the spacebar package.
 #
-# Stefan Asserhäll <stefan.asserhall@bredband.net>, 2020, 2021, 2022.
+# Stefan Asserhäll <stefan.asserhall@bredband.net>, 2020, 2021, 2022, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version: spacebar\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-07-16 00:51+0000\n"
-"PO-Revision-Date: 2022-09-24 15:17+0200\n"
+"PO-Revision-Date: 2023-07-31 11:47+0200\n"
 "Last-Translator: Stefan Asserhäll <stefan.asserhall@bredband.net>\n"
 "Language-Team: Swedish <kde-i18n-doc@kde.org>\n"
 "Language: sv\n"
@@ -59,24 +59,24 @@ msgstr "Spacebar bakgrundstjänst"
 #: src/chatlistmodel.cpp:95 src/contents/ui/MessagesPage.qml:49
 #, kde-format
 msgid "and %1 more"
-msgstr ""
+msgstr "och %1 flera"
 
 #: src/contents/ui/ChatDetailPage.qml:14 src/contents/ui/MessagesPage.qml:131
 #, kde-format
 msgid "Details"
-msgstr ""
+msgstr "Detaljinformation"
 
 #: src/contents/ui/ChatDetailPage.qml:30
 #, kde-format
 msgid "%1 person"
 msgid_plural "%1 people"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%1 person"
+msgstr[1] "%1 personer"
 
 #: src/contents/ui/ChatDetailPage.qml:52
 #, kde-format
 msgid "Add people"
-msgstr ""
+msgstr "Lägg till personer"
 
 #: src/contents/ui/ChatsPage.qml:17
 #, kde-format
@@ -119,12 +119,10 @@ msgid "Picture"
 msgstr "Bild"
 
 #: src/contents/ui/ChatsPage.qml:270
-#, fuzzy, kde-format
-#| msgid "Delete this conversation"
-#| msgid_plural "Delete %1 conversations?"
+#, kde-format
 msgid "Delete this conversation?"
 msgid_plural "Delete %1 conversations?"
-msgstr[0] "Ta bort den här konversationen"
+msgstr[0] "Ta bort den här konversationen?"
 msgstr[1] "Ta bort %1 konversationer?"
 
 #: src/contents/ui/ChatsPage.qml:271
@@ -147,7 +145,7 @@ msgstr "%1 markerad"
 #, kde-format
 msgctxt "Open chat conversation window"
 msgid "Next"
-msgstr ""
+msgstr "Nästa"
 
 #: src/contents/ui/ContactsList.qml:204
 #, kde-format
@@ -172,7 +170,7 @@ msgstr "Inga resultat hittades"
 #: src/contents/ui/MessagesPage.qml:125
 #, kde-format
 msgid "Call"
-msgstr ""
+msgstr "Ring upp"
 
 #: src/contents/ui/MessagesPage.qml:144
 #, kde-format
@@ -222,12 +220,11 @@ msgid "View all"
 msgstr "Visa alla"
 
 #: src/contents/ui/MessagesPage.qml:733
-#, fuzzy, kde-format
-#| msgid "New message"
+#, kde-format
 msgid "%1 new message"
 msgid_plural "%1 new messages"
-msgstr[0] "Nytt meddelande"
-msgstr[1] "Nytt meddelande"
+msgstr[0] "%1 nytt meddelande"
+msgstr[1] "%1 nya meddelanden"
 
 #: src/contents/ui/MessagesPage.qml:811
 #, kde-format
@@ -308,10 +305,9 @@ msgid "Back"
 msgstr "Tillbaka"
 
 #: src/contents/ui/settings/MMSSettingsPage.qml:16
-#, fuzzy, kde-format
-#| msgid "Settings"
+#, kde-format
 msgid "MMS Settings"
-msgstr "Inställningar"
+msgstr "MMS-inställningar"
 
 #: src/contents/ui/settings/MMSSettingsPage.qml:36
 #, kde-format
@@ -319,22 +315,19 @@ msgid "Multimedia messages (MMS)"
 msgstr "Multimediameddelanden (MMS)"
 
 #: src/contents/ui/settings/MMSSettingsPage.qml:43
-#, fuzzy, kde-format
-#| msgid "MMSC:"
+#, kde-format
 msgid "MMSC"
-msgstr "MMSC:"
+msgstr "MMSC"
 
 #: src/contents/ui/settings/MMSSettingsPage.qml:53
-#, fuzzy, kde-format
-#| msgid "Proxy:"
+#, kde-format
 msgid "Proxy"
-msgstr "Proxy:"
+msgstr "Proxy"
 
 #: src/contents/ui/settings/MMSSettingsPage.qml:61
-#, fuzzy, kde-format
-#| msgid "Port:"
+#, kde-format
 msgid "Port"
-msgstr "Port:"
+msgstr "Port"
 
 #: src/contents/ui/settings/MMSSettingsPage.qml:79
 #, kde-format
@@ -362,22 +355,19 @@ msgid "Auto download messages"
 msgstr "Ladda ner meddelanden automatiskt"
 
 #: src/contents/ui/settings/MMSSettingsPage.qml:116
-#, fuzzy, kde-format
-#| msgid "Auto download messages"
+#, kde-format
 msgid "Auto download messages for existing contacts only"
-msgstr "Ladda ner meddelanden automatiskt"
+msgstr "Ladda bara ner meddelanden automatiskt för befintliga kontakter"
 
 #: src/contents/ui/settings/MMSSettingsPage.qml:123
-#, fuzzy, kde-format
-#| msgid "Max message size (KiB):"
+#, kde-format
 msgid "Max message size (KiB)"
-msgstr "Maximal meddelandestorlek (KiB):"
+msgstr "Maximal meddelandestorlek (KiB)"
 
 #: src/contents/ui/settings/MMSSettingsPage.qml:135
-#, fuzzy, kde-format
-#| msgid "Max attachments:"
+#, kde-format
 msgid "Max attachments"
-msgstr "Maximalt antal bilagor:"
+msgstr "Maximalt antal bilagor"
 
 #: src/contents/ui/settings/MMSSettingsPage.qml:147
 #, kde-format
@@ -397,7 +387,7 @@ msgstr "Inställningar"
 #: src/contents/ui/settings/SettingsPage.qml:40
 #, kde-format
 msgid "General"
-msgstr ""
+msgstr "Allmänt"
 
 #: src/contents/ui/settings/SettingsPage.qml:45
 #, kde-format
@@ -405,8 +395,7 @@ msgid "About"
 msgstr "Om"
 
 #: src/contents/ui/settings/SettingsPage.qml:53
-#, fuzzy, kde-format
-#| msgid "Multimedia messages (MMS)"
+#, kde-format
 msgid "Multimedia Messages (MMS)"
 msgstr "Multimediameddelanden (MMS)"
 
@@ -416,11 +405,9 @@ msgid "Restore defaults"
 msgstr "Återställ förval"
 
 #: src/contents/ui/settings/SettingsPage.qml:64
-#, fuzzy, kde-format
-#| msgctxt "Retry sending message"
-#| msgid "Resend"
+#, kde-format
 msgid "Reset"
-msgstr "Skicka igen"
+msgstr "Återställ"
 
 #: src/contents/ui/settings/SettingsPage.qml:85
 #, kde-format
@@ -435,18 +422,17 @@ msgstr "Använd egna färger för meddelanden"
 #: src/contents/ui/settings/SettingsPage.qml:99
 #, kde-format
 msgid "Incoming message color"
-msgstr ""
+msgstr "Inkommande meddelandefärg"
 
 #: src/contents/ui/settings/SettingsPage.qml:122
 #, kde-format
 msgid "Outgoing message color"
-msgstr ""
+msgstr "Utgående meddelandefärg"
 
 #: src/contents/ui/settings/SettingsPage.qml:145
-#, fuzzy, kde-format
-#| msgid "Message font size:"
+#, kde-format
 msgid "Message font size"
-msgstr "Teckenstorlek för meddelanden:"
+msgstr "Teckenstorlek för meddelanden"
 
 #: src/contents/ui/settings/SettingsPage.qml:165
 #, kde-format
