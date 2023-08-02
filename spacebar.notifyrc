@@ -95,4 +95,4 @@ Comment[uk]=Вхідне повідомлення від когось
 Comment[x-test]=xxIncoming message from someonexx
 Comment[zh_CN]=收到来自某人的消息
 Action=Popup|Sound
-Sound=Oxygen-Im-Nudge.ogg
+Sound=message-new-instant
