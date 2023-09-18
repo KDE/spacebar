@@ -143,9 +143,9 @@ QPair<Chat *, int> ChatListModel::getChatIndex(const PhoneNumberList &phoneNumbe
 
     if (modelIt != m_chats.cend()) {
         const int i = std::distance(m_chats.begin(), modelIt);
-        return qMakePair(modelIt, i);
+        return qMakePair(&(*modelIt), i);
     } else {
-        return qMakePair(modelIt, -1);
+        return qMakePair(&(*modelIt), -1);
     }
 }
 

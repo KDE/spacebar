@@ -269,7 +269,7 @@ QPair<Message *, int> MessageModel::getMessageIndex(const QString &id)
     Q_ASSERT(modelIt != m_messages.cend());
 
     const int i = (m_messages.count() - 1) - std::distance(m_messages.begin(), modelIt);
-    return qMakePair(modelIt, i);
+    return qMakePair(&(*modelIt), i);
 }
 
 void MessageModel::updateMessageState(const QString &id, MessageState state, const bool temp)
