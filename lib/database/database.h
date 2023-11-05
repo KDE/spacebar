@@ -83,7 +83,7 @@ public:
     explicit Database(QObject *parent = nullptr);
 
     // Messages
-    QFuture<void> addMessage(const Message &message);
+    QCoro::Task<> addMessage(const Message &message);
     QFuture<void> deleteMessage(const QString &id);
     QFuture<std::vector<Message>> messagesForNumber(const PhoneNumberList &phoneNumberList, const QString &id = QString(), const int limit = 0) const;
     QFuture<void> updateMessageDeliveryState(const QString &id, const MessageState state);

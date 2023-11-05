@@ -78,16 +78,18 @@ QCoro::Task<void> MessageModel::fetchUpdatedMessage(const QString &id)
     const auto &[message, i] = getMessageIndex(id);
     const auto messages = co_await m_handler.database().messagesForNumber(m_phoneNumberList, id);
 
-    message->text = messages.front().text;
-    message->datetime = messages.front().datetime;
-    message->deliveryStatus = messages.front().deliveryStatus;
-    message->attachments = messages.front().attachments;
-    message->smil = messages.front().smil;
-    message->deliveryReport = messages.front().deliveryReport;
-    message->readReport = messages.front().readReport;
-    message->tapbacks = messages.front().tapbacks;
+    if (!messages.empty()) {
+        message->text = messages.front().text;
+        message->datetime = messages.front().datetime;
+        message->deliveryStatus = messages.front().deliveryStatus;
+        message->attachments = messages.front().attachments;
+        message->smil = messages.front().smil;
+        message->deliveryReport = messages.front().deliveryReport;
+        message->readReport = messages.front().readReport;
+        message->tapbacks = messages.front().tapbacks;
 
-    Q_EMIT dataChanged(index(i), index(i));
+        Q_EMIT dataChanged(index(i), index(i));
+    }
 }
 
 void MessageModel::fetchAllMessages()
@@ -270,8 +272,8 @@ QPair<Message *, int> MessageModel::getMessageIndex(const QString &id)
 
     Q_ASSERT(modelIt != m_messages.cend());
 
-    const int i = (m_messages.count() - 1) - std::distance(m_messages.begin(), modelIt);
-    return qMakePair(&(*modelIt), i);
+    const size_t i = (m_messages.size() - 1) - std::distance(m_messages.begin(), modelIt);
+    return qMakePair(&(*modelIt.base()), i);
 }
 
 void MessageModel::updateMessageState(const QString &id, MessageState state, const bool temp)

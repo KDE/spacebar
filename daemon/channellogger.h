@@ -46,7 +46,7 @@ private:
     void checkMessages();
     void handleIncomingMessage(ModemManager::Sms::Ptr msg);
     void createDownloadNotification(const MmsMessage &mmsMessage);
-    QCoro::Task<> addMessage(const Message &message);
+    QCoro::Task<void> addMessage(const Message &message);
     void updateMessage(const Message &message);
     QCoro::Task<void> saveMessage(const PhoneNumberList &phoneNumberList,
                                   const QDateTime &datetime,

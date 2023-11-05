@@ -230,7 +230,7 @@ void ChannelLogger::handleDownloadedMessage(const QByteArray &response, const QS
                 response.size());
 }
 
-QCoro::Task<> ChannelLogger::addMessage(const Message &message)
+QCoro::Task<void> ChannelLogger::addMessage(const Message &message)
 {
     // save to database
     co_await m_database.addMessage(message);
@@ -295,7 +295,7 @@ QCoro::Task<void> ChannelLogger::saveMessage(const PhoneNumberList &phoneNumberL
             co_return;
         }
     } else {
-        addMessage(message);
+        co_await addMessage(message);
     }
 
     // TODO add setting to turn off notifications for multiple chats in addition to current chat
@@ -369,7 +369,7 @@ QCoro::Task<QString> ChannelLogger::sendMessageSMS(const PhoneNumber &phoneNumbe
     message.deliveryStatus = MessageState::Pending;
 
     // add message to database
-    addMessage(message);
+    co_await addMessage(message);
 
     auto maybeReply = ModemController::instance().createMessage(m);
 

@@ -210,9 +210,9 @@ QFuture<void> Database::deleteChat(const PhoneNumberList &phoneNumberList)
     return m_database->execute(SL("DELETE FROM Messages WHERE phoneNumber = ?"), phoneNumberList.toString());
 }
 
-QFuture<void> Database::addMessage(const Message &message)
+QCoro::Task<> Database::addMessage(const Message &message)
 {
-    return m_database->execute(SL(R"(
+    co_await m_database->execute(SL(R"(
         INSERT INTO Messages (
             id,
             phoneNumber,
@@ -233,23 +233,23 @@ QFuture<void> Database::addMessage(const Message &message)
             size)
         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
         )"),
-                               message.id,
-                               message.phoneNumberList.toString(),
-                               message.text,
-                               message.datetime.toMSecsSinceEpoch(),
-                               message.read,
-                               message.deliveryStatus,
-                               message.sentByMe,
-                               message.attachments,
-                               message.smil,
-                               message.fromNumber,
-                               message.messageId,
-                               message.deliveryReport,
-                               message.readReport,
-                               message.pendingDownload,
-                               message.contentLocation,
-                               message.expires.isNull() ? QVariant() : message.expires.toMSecsSinceEpoch(),
-                               message.size);
+                                 message.id,
+                                 message.phoneNumberList.toString(),
+                                 message.text,
+                                 message.datetime.toMSecsSinceEpoch(),
+                                 message.read,
+                                 message.deliveryStatus,
+                                 message.sentByMe,
+                                 message.attachments,
+                                 message.smil,
+                                 message.fromNumber,
+                                 message.messageId,
+                                 message.deliveryReport,
+                                 message.readReport,
+                                 message.pendingDownload,
+                                 message.contentLocation,
+                                 message.expires.isNull() ? QVariant() : message.expires.toMSecsSinceEpoch(),
+                                 message.size);
 }
 
 QFuture<void> Database::deleteMessage(const QString &id)
