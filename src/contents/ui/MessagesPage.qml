@@ -4,15 +4,18 @@
 //
 // SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
 
-import QtQuick 2.15
-import QtQuick.Layouts 1.15
-import QtQuick.Controls 2.15 as Controls
-import QtGraphicalEffects 1.15
-import QtQuick.Dialogs 1.3
+import QtCore
+import QtQuick
+import QtQuick.Layouts
+import QtQuick.Controls as Controls
+import Qt5Compat.GraphicalEffects
+import QtQuick.Dialogs
+import Qt.labs.platform
 
-import org.kde.kirigami 2.15 as Kirigami
+import org.kde.kirigami as Kirigami
+import org.kde.kirigamiaddons.delegates as Delegates
 
-import org.kde.spacebar 1.0
+import org.kde.spacebar
 
 Kirigami.ScrollablePage {
     id: msgPage
@@ -116,23 +119,21 @@ Kirigami.ScrollablePage {
         }
     }
 
-    actions {
-        contextualActions: [
-            Kirigami.Action {
-                displayHint: Kirigami.Action.IconOnly
-                visible: people.length === 1
-                iconName: "call-start"
-                text: i18n("Call")
-                onTriggered: Qt.openUrlExternally("tel:" + people[0].phoneNumber)
-            },
-            Kirigami.Action {
-                displayHint: Kirigami.Action.IconOnly
-                iconName: "view-list-details"
-                text: i18n("Details")
-                onTriggered: pageStack.push("qrc:/ChatDetailPage.qml", { people: people })
-            }
-        ]
-    }
+    actions: [
+        Kirigami.Action {
+            displayHint: Kirigami.DisplayHint.IconOnly
+            visible: people.length === 1
+            icon.name: "call-start"
+            text: i18n("Call")
+            onTriggered: Qt.openUrlExternally("tel:" + people[0].phoneNumber)
+        },
+        Kirigami.Action {
+            displayHint: Kirigami.DisplayHint.IconOnly
+            icon.name: "view-list-details"
+            text: i18n("Details")
+            onTriggered: pageStack.push("qrc:/ChatDetailPage.qml", { people: people })
+        }
+    ]
 
     header: ColumnLayout {
         Kirigami.InlineMessage {
@@ -262,7 +263,7 @@ Kirigami.ScrollablePage {
 
         WheelHandler {
             acceptedDevices: PointerDevice.Mouse | PointerDevice.TouchPad
-            onWheel: listView.flick(0, event.angleDelta.y * 5)
+            onWheel: event => listView.flick(0, event.angleDelta.y * 5)
         }
 
         onMovementStarted: checkFetchMore()
@@ -530,7 +531,7 @@ Kirigami.ScrollablePage {
                                             type: modelData.mimeType
                                         } )
                                     }
-                                    onPressAndHold: rectMouse.pressAndHold(x, y)
+                                    onPressAndHold: (x, y) => rectMouse.pressAndHold(x, y)
                                 }
 
                                 // rounded corners on image
@@ -785,7 +786,7 @@ Kirigami.ScrollablePage {
                             Text {
                                 anchors.centerIn: parent
                                 text: modelData
-                                font.family: "Noto Sans, Noto Color Emoji"
+                                font.family: "Noto Color Emoji"
                                 fontSizeMode: Text.Fit
                                 minimumPixelSize: 10
                                 font.pixelSize: 72
@@ -806,19 +807,21 @@ Kirigami.ScrollablePage {
                     }
                 }
             }
-            Kirigami.BasicListItem {
+            Delegates.RoundedItemDelegate {
                 visible: menu.text.match(/[0-9]{6}/)
+                Layout.fillWidth: true
                 text: i18n("Copy code")
-                icon: "edit-copy"
+                icon.name: "edit-copy"
                 onClicked: {
                     Utils.copyTextToClipboard(menu.text.match(/[0-9]{6}/))
                     menu.close()
                 }
             }
-            Kirigami.BasicListItem {
+            Delegates.RoundedItemDelegate {
                 visible: menu.text.indexOf('href="') >= 0
+                Layout.fillWidth: true
                 text: i18n("Copy link")
-                icon: "edit-copy"
+                icon.name: "edit-copy"
                 onClicked: {
                     const start = menu.text.indexOf('href="')
                     const finish = menu.text.indexOf('"', start + 6)
@@ -827,19 +830,21 @@ Kirigami.ScrollablePage {
                     menu.close()
                 }
             }
-            Kirigami.BasicListItem {
+            Delegates.RoundedItemDelegate {
                 visible: menu.text || menu.attachments.reduce((a,c) => a += (c.text || ""), "")
+                Layout.fillWidth: true
                 text: i18n("Copy text")
-                icon: "edit-copy"
+                icon.name: "edit-copy"
                 onClicked: {
                     Utils.copyTextToClipboard(menu.text || menu.attachments.reduce((a,c) => a += (c.text || ""), ""))
                     menu.close()
                 }
             }
-            Kirigami.BasicListItem {
+            Delegates.RoundedItemDelegate {
                 visible: menu.attachments.length > 0
+                Layout.fillWidth: true
                 text: i18n("Save attachment")
-                icon: "mail-attachment-symbolic"
+                icon.name: "mail-attachment-symbolic"
                 onClicked: {
                     attachmentList.selected = []
                     attachmentList.items = menu.attachments.filter(o => o.fileName)
@@ -847,33 +852,21 @@ Kirigami.ScrollablePage {
                     menu.close()
                 }
             }
-            Kirigami.BasicListItem {
-                visible: menu.smil
-                text: i18n("View slideshow")
-                icon: "view-presentation-symbolic"
-                onClicked: {
-                    pageStack.layers.push("qrc:/SlideshowPage.qml", {
-                        recipients: msgPage.title,
-                        attachments: menu.attachments,
-                        folder: attachmentsFolder,
-                        smil: menu.smil
-                    } )
-                    menu.close()
-                }
-            }
-            Kirigami.BasicListItem {
+            Delegates.RoundedItemDelegate {
                 text: i18n("Delete message")
-                icon: "edit-delete"
+                Layout.fillWidth: true
+                icon.name: "edit-delete"
                 onClicked: {
                     listView.currentIndex = menu.index
                     messageModel.deleteMessage(menu.id, menu.index, menu.attachments.map(o => o.fileName))
                     menu.close()
                 }
             }
-            Kirigami.BasicListItem {
+            Delegates.RoundedItemDelegate {
                 visible: menu.resend
+                Layout.fillWidth: true
                 text: i18nc("Retry sending message", "Resend")
-                icon: "edit-redo"
+                icon.name: "edit-redo"
                 onClicked: {
                     messageModel.sendMessage(menu.text, menu.attachments.map(o => "file://" + attachmentsFolder + "/" + o.fileName), menu.attachments.reduce((a,c) => a += (c.size || 0), 0))
                     listView.currentIndex = menu.index
@@ -884,33 +877,54 @@ Kirigami.ScrollablePage {
         }
     }
 
-    Kirigami.OverlaySheet {
-        id: attachmentList
-
+    Kirigami.Dialog {
         property var items: []
         property var selected: []
 
+        id: attachmentList
         title: i18n("Save attachment")
 
         ListView {
+            id: listItems
             model: attachmentList.items
             implicitWidth: Kirigami.Units.gridUnit * 30
+            implicitHeight: (Kirigami.Units.iconSizes.medium + Kirigami.Units.largeSpacing * 2) * attachmentList.items.length
             onCountChanged: currentIndex = -1
 
-            delegate: Kirigami.AbstractListItem {
-                Controls.CheckBox {
-                    Layout.fillWidth: true
-                    checked: attachmentList.selected.indexOf(modelData.fileName) >= 0
-                    text: (modelData.name || modelData.fileName)
-                    onClicked: {
-                        const index = attachmentList.selected.indexOf(modelData.fileName)
-                        if (index >=0) {
-                            attachmentList.selected.splice(index, 1)
-                        } else {
-                            attachmentList.selected.push(modelData.fileName)
+            delegate: Delegates.RoundedItemDelegate {
+                id: delegateItem
+                width: listItems.width
+                implicitHeight: Kirigami.Units.iconSizes.medium + Kirigami.Units.largeSpacing * 2
+                verticalPadding: 0
+                contentItem: RowLayout {
+                    spacing: Kirigami.Units.largeSpacing
+
+                    RowLayout {
+                        Controls.CheckBox {
+                            Layout.fillHeight: true
+                            Layout.preferredWidth: height
+                            checked: attachmentList.selected.indexOf(modelData.fileName) >= 0
+                            checkable: true
+                            onToggled: delegateItem.clicked()
                         }
-                        attachmentList.selected = attachmentList.selected
                     }
+
+                    Controls.Label {
+                        Layout.fillWidth: true
+                        text: (modelData.name || modelData.fileName)
+                        elide: Text.ElideRight
+                        color: Kirigami.Theme.textColor
+                    }
+
+                }
+                onClicked: {
+                    const index = attachmentList.selected.indexOf(modelData.fileName)
+                    if (index >=0) {
+                        attachmentList.selected.splice(index, 1)
+                    } else {
+                        attachmentList.selected.push(modelData.fileName)
+                    }
+                    attachmentList.selected = attachmentList.selected
                 }
             }
         }
@@ -940,7 +954,7 @@ Kirigami.ScrollablePage {
 
         Controls.ScrollView {
             id: scrollView
-            Layout.fillWidth: true
+            Layout.minimumWidth: parent.width
             bottomPadding: 0
             implicitWidth: flow.implicitWidth
             implicitHeight: files.count > 0 ? Math.min(msgPage.availableHeight - composeArea.height - Kirigami.Units.largeSpacing, flow.implicitHeight) : 1
@@ -1140,11 +1154,11 @@ Kirigami.ScrollablePage {
         FileDialog {
             id: fileDialog
             title: i18n("Choose a file")
-            folder: shortcuts.pictures
-            selectMultiple: true
+            folder: StandardPaths.standardLocations(StandardPaths.PicturesLocation)[0]
+            fileMode: FileDialog.OpenFiles
             onAccepted: {
-                for (let i = 0; i < fileDialog.fileUrls.length; i++) {
-                    files.append(messageModel.fileInfo(fileDialog.fileUrls[i]))
+                for (let i = 0; i < fileDialog.files.length; i++) {
+                    msgPage.files.append(messageModel.fileInfo(fileDialog.files[i]))
                 }
             }
         }

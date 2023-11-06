@@ -2,14 +2,14 @@
 //
 // SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
 
-import QtQuick 2.15
-import QtQuick.Layouts 1.15
-import QtQuick.Controls 2.15 as Controls
+import QtQuick
+import QtQuick.Layouts
+import QtQuick.Controls as Controls
 
-import org.kde.kirigami 2.20 as Kirigami
+import org.kde.kirigami as Kirigami
 
-import org.kde.spacebar 1.0
-import org.kde.kirigamiaddons.labs.mobileform 0.1 as MobileForm
+import org.kde.spacebar
+import org.kde.kirigamiaddons.formcard as FormCard
 
 Kirigami.ScrollablePage {
     id: page
@@ -30,33 +30,33 @@ Kirigami.ScrollablePage {
     ColumnLayout {
         spacing: 0
 
-        MobileForm.FormCard {
+        FormCard.FormCard {
             Layout.fillWidth: true
 
-            contentItem: ColumnLayout {
+            ColumnLayout {
                 spacing: 0
 
-                MobileForm.FormCardHeader {
+                FormCard.FormHeader {
                     title: i18n("General")
                 }
 
-                MobileForm.FormButtonDelegate {
+                FormCard.FormButtonDelegate {
                     id: aboutButton
                     text: i18n("About")
                     onClicked: applicationWindow().pageStack.push("qrc:/AboutPage.qml")
                 }
 
-                MobileForm.FormDelegateSeparator { above: aboutButton; below: mmsButton }
+                FormCard.FormDelegateSeparator { above: aboutButton; below: mmsButton }
 
-                MobileForm.FormButtonDelegate {
+                FormCard.FormButtonDelegate {
                     id: mmsButton
                     text: i18n("Multimedia Messages (MMS)")
                     onClicked: applicationWindow().pageStack.push("qrc:/settings/MMSSettingsPage.qml")
                 }
 
-                MobileForm.FormDelegateSeparator { above: mmsButton }
+                FormCard.FormDelegateSeparator { above: mmsButton }
 
-                MobileForm.FormTextDelegate {
+                FormCard.FormTextDelegate {
                     id: restoreButton
                     text: i18n("Restore defaults")
 
@@ -74,27 +74,27 @@ Kirigami.ScrollablePage {
             }
         }
 
-        MobileForm.FormCard {
+        FormCard.FormCard {
             Layout.fillWidth: true
             Layout.topMargin: Kirigami.Units.largeSpacing
 
-            contentItem: ColumnLayout {
+            ColumnLayout {
                 spacing: 0
 
-                MobileForm.FormCardHeader {
+                FormCard.FormHeader {
                     title: i18n("Appearance")
                 }
 
-                MobileForm.FormSwitchDelegate {
+                FormCard.FormSwitchDelegate {
                     id: customMessageColors
                     checked: SettingsManager.customMessageColors
                     text: i18n("Use custom colors for messages")
                     onToggled: SettingsManager.customMessageColors = checked
                 }
 
-                MobileForm.FormDelegateSeparator { above: customMessageColors }
+                FormCard.FormDelegateSeparator { above: customMessageColors }
 
-                MobileForm.FormTextDelegate {
+                FormCard.FormTextDelegate {
                     id: incomingMessageColor
                     text: i18n("Incoming message color")
                     visible: SettingsManager.customMessageColors
@@ -115,9 +115,9 @@ Kirigami.ScrollablePage {
                     }
                 }
 
-                MobileForm.FormDelegateSeparator { visible: incomingMessageColor.visible }
+                FormCard.FormDelegateSeparator { visible: incomingMessageColor.visible }
 
-                MobileForm.FormTextDelegate {
+                FormCard.FormTextDelegate {
                     id: outgoingMessageColor
                     text: i18n("Outgoing message color")
                     visible: SettingsManager.customMessageColors
@@ -138,9 +138,9 @@ Kirigami.ScrollablePage {
                     }
                 }
 
-                MobileForm.FormDelegateSeparator { visible: outgoingMessageColor.visible }
+                FormCard.FormDelegateSeparator { visible: outgoingMessageColor.visible }
 
-                MobileForm.FormTextDelegate {
+                FormCard.FormTextDelegate {
                     id: messageFontSize
                     text: i18n("Message font size")
                     trailing: Controls.SpinBox {
@@ -154,39 +154,39 @@ Kirigami.ScrollablePage {
             }
         }
 
-        MobileForm.FormCard {
+        FormCard.FormCard {
             Layout.fillWidth: true
             Layout.topMargin: Kirigami.Units.largeSpacing
 
-            contentItem: ColumnLayout {
+            ColumnLayout {
                 spacing: 0
 
-                MobileForm.FormCardHeader {
+                FormCard.FormHeader {
                     title: i18n("Notifications")
                 }
 
-                MobileForm.FormCheckDelegate {
+                FormCard.FormCheckDelegate {
                     id: showSenderInfo
                     checked: SettingsManager.showSenderInfo
                     text: i18n("Show sender name / number")
                     onToggled: SettingsManager.showSenderInfo = checked
                 }
 
-                MobileForm.FormCheckDelegate {
+                FormCard.FormCheckDelegate {
                     id: showMessageContent
                     checked: SettingsManager.showMessageContent
                     text: i18n("Show a preview of the message content")
                     onToggled: SettingsManager.showMessageContent = checked
                 }
 
-                MobileForm.FormCheckDelegate {
+                FormCard.FormCheckDelegate {
                     id: showAttachments
                     checked: SettingsManager.showAttachments
                     text: i18n("Show attachment previews")
                     onToggled: SettingsManager.showAttachments = checked
                 }
 
-                MobileForm.FormCheckDelegate {
+                FormCard.FormCheckDelegate {
                     id: ignoreTapbacks
                     checked: SettingsManager.ignoreTapbacks
                     text: i18n("Ignore tapbacks")

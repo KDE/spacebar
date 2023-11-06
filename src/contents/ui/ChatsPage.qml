@@ -3,14 +3,16 @@
 //
 // SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
 
-import QtQuick 2.15
-import QtQuick.Layouts 1.15
-import QtQuick.Controls 2.15 as Controls
-import QtGraphicalEffects 1.15
+import QtQuick
+import QtQuick.Layouts
+import QtQuick.Controls as Controls
+import Qt5Compat.GraphicalEffects
 
-import org.kde.kirigami 2.19 as Kirigami
+import org.kde.kirigami as Kirigami
+import org.kde.kirigamiaddons.components as Components
+import org.kde.kirigamiaddons.delegates as Delegates
 
-import org.kde.spacebar 1.0
+import org.kde.spacebar
 
 Kirigami.ScrollablePage {
     id: chatPage
@@ -37,32 +39,29 @@ Kirigami.ScrollablePage {
 
     onWidthChanged: ChatListModel.setCharacterLimit(applicationWindow().width)
     
-    actions {
-        main: Kirigami.Action {
+    actions: [
+        Kirigami.Action {
             visible: !Kirigami.Settings.isMobile
+            icon.name: "contact-new"
             text: i18n("New Conversation")
             onTriggered: pageStack.push("qrc:/NewConversationPage.qml")
-            icon.name: "contact-new"
-        }
-        
-        contextualActions: [
-            Kirigami.Action {
-                displayHint: Kirigami.Action.IconOnly
-                iconName: "settings-configure"
-                text: i18nc("Configuring application settings", "Settings")
-                onTriggered: {
-                    applicationWindow().pageStack.push("qrc:/settings/SettingsPage.qml", {"chatListModel": ChatListModel})
-                }
-            },
-            Kirigami.Action {
-                displayHint: Kirigami.Action.IconOnly
-                iconName: "delete"
-                text: i18nc("Deleting a conversation", "Delete")
-                onTriggered: promptDialog.open()
-                visible: editing === true
+        },
+        Kirigami.Action {
+            displayHint: Kirigami.DisplayHint.IconOnly
+            icon.name: "settings-configure"
+            text: i18nc("Configuring application settings", "Settings")
+            onTriggered: {
+                applicationWindow().pageStack.push("qrc:/settings/SettingsPage.qml", {"chatListModel": ChatListModel})
             }
-        ]
-    }
+        },
+        Kirigami.Action {
+            displayHint: Kirigami.DisplayHint.IconOnly
+            icon.name: "delete"
+            text: i18nc("Deleting a conversation", "Delete")
+            onTriggered: promptDialog.open()
+            visible: editing === true
+        }
+    ]
 
     ListView {
         id: listView
@@ -89,7 +88,7 @@ Kirigami.ScrollablePage {
             anchors.centerIn: parent
             text: i18nc("Selecting recipients from contacts list", "Create a chat")
             icon.name: "dialog-messages"
-            helpfulAction: actions.main
+            helpfulAction: actions[0]
             visible: !loading.visible && listView.count === 0
         }
 
@@ -110,7 +109,7 @@ Kirigami.ScrollablePage {
             visible: Kirigami.Settings.isMobile
         }
 
-        delegate: Kirigami.AbstractListItem {
+        delegate: Delegates.RoundedItemDelegate {
             id: delegateRoot
 
             required property string displayName
@@ -126,17 +125,14 @@ Kirigami.ScrollablePage {
             property var image: attachments.find(o => o.mimeType.indexOf("image/") >= 0)
             property bool selected: conversations.indexOf(delegateRoot.phoneNumberList) >= 0
 
-            checkable: false
-            highlighted: false
-            separatorVisible: false
-            topPadding: Kirigami.Units.smallSpacing
-            bottomPadding: Kirigami.Units.smallSpacing
-            backgroundColor: selected ? Kirigami.Theme.activeBackgroundColor : Kirigami.Theme.backgroundColor
+            width: listView.width
 
             contentItem: Loader {
                 sourceComponent: Component {
                     RowLayout {
-                        Kirigami.Avatar {
+                        spacing: Kirigami.Units.largeSpacing
+
+                        Components.Avatar {
                             Layout.preferredWidth: Kirigami.Units.iconSizes.medium
                             Layout.preferredHeight: Kirigami.Units.iconSizes.medium
                             Layout.rightMargin: Kirigami.Units.largeSpacing
@@ -144,8 +140,8 @@ Kirigami.ScrollablePage {
                             Layout.bottomMargin: Kirigami.Units.largeSpacing
                             source: isContact ? "image://avatar/" + Utils.phoneNumberListToString(delegateRoot.phoneNumberList) : ""
                             name: delegateRoot.displayName
-                            imageMode: Kirigami.Avatar.AdaptiveImageOrInitals
-                            initialsMode: isContact ? Kirigami.Avatar.UseInitials : Kirigami.Avatar.UseIcon
+                            imageMode: Components.Avatar.ImageMode.AdaptiveImageOrInitals
+                            initialsMode: isContact ? Components.Avatar.InitialsMode.UseInitials : Components.Avatar.InitialsMode.UseIcon
 
                             Rectangle {
                                 anchors.fill: parent
@@ -279,4 +275,6 @@ Kirigami.ScrollablePage {
         }
         onRejected: close()
     }
+
+    footer: null
 }

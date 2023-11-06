@@ -9,3 +9,14 @@
 
 #define SL QStringLiteral
 #define BL QByteArrayLiteral
+
+static inline uint hash(const QString &value)
+{
+    uint h = 0;
+    const QChar *p = value.unicode();
+    size_t len = value.size();
+    for (size_t i = 0; i < len; ++i) {
+        h = 31 * h + p[i].unicode();
+    }
+    return h;
+}

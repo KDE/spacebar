@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.16.0)
 
-set(KF_MIN_VERSION "5.102.0")
-set(QT_MIN_VERSION "5.15.0")
+set(KF_MIN_VERSION "5.240.0")
+set(QT_MIN_VERSION "6.5.0")
 
 set(PROJECT_VERSION "23.01")
 project(spacebar VERSION ${PROJECT_VERSION})
@@ -33,15 +33,15 @@ ecm_setup_version(${PROJECT_VERSION}
 )
 
 ################# Find dependencies #################
-find_package(Qt${QT_MAJOR_VERSION} ${QT_MIN_VERSION} REQUIRED COMPONENTS Core Concurrent Gui Qml Quick QuickControls2 Widgets Sql Xml)
-find_package(KF${QT_MAJOR_VERSION} ${KF_MIN_VERSION} REQUIRED COMPONENTS Kirigami2 I18n Contacts People Notifications Config CoreAddons DBusAddons ModemManagerQt KIO WindowSystem)
-find_package(Qt${QT_MAJOR_VERSION}QuickCompiler)
-find_package(KF${QT_MAJOR_VERSION}KirigamiAddons 0.6 REQUIRED)
+find_package(Qt6 ${QT_MIN_VERSION} REQUIRED COMPONENTS Core Concurrent Gui Qml Quick QuickControls2 Widgets Sql)
+find_package(KF6 ${KF_MIN_VERSION} REQUIRED COMPONENTS Kirigami2 I18n Contacts People Notifications Config CoreAddons DBusAddons ModemManagerQt KIO WindowSystem)
+find_package(Qt6 ${QT_MIN_VERSION} NO_MODULE COMPONENTS QuickCompiler)
+find_package(KF6KirigamiAddons 0.6 REQUIRED)
 find_package(PhoneNumber COMPONENTS PhoneNumber REQUIRED)
 find_package(CURL REQUIRED)
 pkg_search_module(c-ares libcares REQUIRED IMPORTED_TARGET)
-find_package(FutureSQL${QT_MAJOR_VERSION} REQUIRED)
-find_package(QCoro${QT_MAJOR_VERSION} COMPONENTS Core DBus REQUIRED)
+find_package(FutureSQL6 REQUIRED)
+find_package(QCoro6 COMPONENTS Core DBus REQUIRED)
 
 kde_enable_exceptions()
 qcoro_enable_coroutines()

@@ -236,7 +236,7 @@ void ChatListModel::deleteChat(const PhoneNumberList &phoneNumberList)
 {
     m_handler.database().deleteChat(phoneNumberList);
 
-    const QString folder = QString::number(qHash(phoneNumberList.toString()));
+    const QString folder = QString::number(hash(phoneNumberList.toString()));
     QDir dir(QStandardPaths::writableLocation(QStandardPaths::GenericDataLocation) + SL("/spacebar/attachments/") + folder);
     dir.removeRecursively();
 
@@ -262,7 +262,7 @@ void ChatListModel::saveSettings()
 
 QString ChatListModel::attachmentsFolder(const PhoneNumberList &phoneNumberList) const
 {
-    const QString folder = QString::number(qHash(phoneNumberList.toString()));
+    const QString folder = QString::number(hash(phoneNumberList.toString()));
     return QStandardPaths::writableLocation(QStandardPaths::GenericDataLocation) + SL("/spacebar/attachments/") + folder;
 }
 

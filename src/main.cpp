@@ -37,7 +37,6 @@ constexpr auto APPLICATION_ID = "org.kde.spacebar";
 Q_DECL_EXPORT int main(int argc, char *argv[])
 {
     QCommandLineParser parser;
-    QGuiApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
     QApplication app(argc, argv);
 
     if (qEnvironmentVariableIsEmpty("QT_QUICK_CONTROLS_STYLE") && QQuickStyle::name().isEmpty()) {

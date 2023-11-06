@@ -11,6 +11,8 @@
 #include <QSharedDataPointer>
 #include <QString>
 
+#include <global.h>
+
 struct PhoneNumberPrivate;
 
 ///
@@ -49,7 +51,7 @@ inline QDebug &operator<<(QDebug &debug, const PhoneNumber &phoneNumber)
 
 inline uint qHash(const PhoneNumber &phoneNum)
 {
-    return qHash(phoneNum.toInternational());
+    return hash(phoneNum.toInternational());
 }
 
 Q_DECLARE_METATYPE(PhoneNumber)

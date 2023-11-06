@@ -2,11 +2,11 @@
 //
 // SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
 
-import QtQuick 2.1
-import org.kde.kirigami 2.4 as Kirigami
-import QtQuick.Controls 2.0 as Controls
+import QtQuick
+import org.kde.kirigami as Kirigami
+import QtQuick.Controls as Controls
 
-import org.kde.spacebar 1.0 as Spacebar
+import org.kde.spacebar as Spacebar
 
 Kirigami.ApplicationWindow {
     id: root
@@ -15,11 +15,14 @@ Kirigami.ApplicationWindow {
         id: contextDrawer
     }
 
-    pageStack.initialPage: "qrc:/ChatsPage.qml"
-    
-    pageStack.globalToolBar.canContainHandles: true
-    pageStack.globalToolBar.style: Kirigami.ApplicationHeaderStyle.ToolBar
-    pageStack.globalToolBar.showNavigationButtons: Kirigami.ApplicationHeaderStyle.ShowBackButton;
+    pageStack {
+        initialPage: "qrc:/ChatsPage.qml"
+        globalToolBar {
+            canContainHandles: true
+            style: Kirigami.ApplicationHeaderStyle.ToolBar
+            showNavigationButtons: Kirigami.ApplicationHeaderStyle.ShowBackButton
+        }
+    }
     
     // pop pages when not in use
     Connections {

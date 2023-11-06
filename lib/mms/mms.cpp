@@ -524,7 +524,7 @@ bool Mms::decodeMessageBody(MmsMessage &message, const QByteArray &data, int &po
         return false;
     }
 
-    const QString folder = QString::number(qHash(message.phoneNumberList.toString()));
+    const QString folder = QString::number(hash(message.phoneNumberList.toString()));
     const QString attachmentsFolder = saveLocation(SL("attachments"), folder);
 
     QJsonArray attachments;

@@ -22,24 +22,24 @@ add_executable(spacebar-daemon ${spacebar_daemon_SRCS})
 kconfig_add_kcfg_files(spacebar-daemon ../src/settingsmanager.kcfgc GENERATE_MOC)
 
 target_compile_definitions(spacebar-daemon PRIVATE -DQT_NO_CAST_FROM_ASCII)
-target_link_libraries(spacebar-daemon
-    Qt::Concurrent
-    Qt::Core
-    Qt::Sql
-    Qt::DBus
-    KF${QT_MAJOR_VERSION}::I18n
-    KF${QT_MAJOR_VERSION}::KIOGui
-    KF${QT_MAJOR_VERSION}::ConfigGui
-    KF${QT_MAJOR_VERSION}::DBusAddons
-    KF${QT_MAJOR_VERSION}::Notifications
-    KF${QT_MAJOR_VERSION}::ModemManagerQt
+target_link_libraries(spacebar-daemon PRIVATE
+    Qt6::Concurrent
+    Qt6::Core
+    Qt6::Sql
+    Qt6::DBus
+    KF6::I18n
+    KF6::KIOGui
+    KF6::ConfigGui
+    KF6::DBusAddons
+    KF6::Notifications
+    KF6::ModemManagerQt
     database
     kTelephonySupport
     macros
     mms
     CURL::libcurl
     PkgConfig::c-ares
-    QCoro::Core
+    QCoro6::Core
 )
 
 

@@ -2,14 +2,16 @@
 //
 // SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
 
-import QtQuick 2.15
-import QtQuick.Layouts 1.15
-import QtQuick.Controls 2.15 as Controls
+import QtQuick
+import QtQuick.Layouts
+import QtQuick.Controls as Controls
 
-import org.kde.kirigami 2.15 as Kirigami
-import org.kde.people 1.0 as KPeople
+import org.kde.kirigami as Kirigami
+import org.kde.kirigamiaddons.components as Components
+import org.kde.kirigamiaddons.delegates as Delegates
+import org.kde.people as KPeople
 
-import org.kde.spacebar 1.0
+import org.kde.spacebar
 
 ListView {
     id: contactsList
@@ -140,10 +142,10 @@ ListView {
 
     MouseArea {
         anchors.fill: contactsList.contentItem
-        onPressed: mouse.accepted = false
+        onPressed: mouse => mouse.accepted = false
     }
 
-    pressDelay: 200
+    pressDelay: Kirigami.Settings.isMobile ? 200 : 0
 
     headerPositioning: ListView.OverlayHeader
     header: Rectangle {
@@ -216,29 +218,58 @@ ListView {
                 }
             }
 
-            Kirigami.BasicListItem {
-                Layout.fillWidth: true
+            Delegates.RoundedItemDelegate {
+                id: delegateItem
                 visible: searchField.text.length > 0
-                backgroundColor: showSections ? "transparent" : Kirigami.Theme.backgroundColor
+                Layout.fillWidth: true
                 implicitHeight: Kirigami.Units.iconSizes.medium + Kirigami.Units.largeSpacing * 2
-                leading: Rectangle {
-                    width: height
-                    radius: height / 2
-                    border.color: Kirigami.Theme.linkColor
-                    border.width: 2
-                    color: "transparent"
+                verticalPadding: 0
+                contentItem: RowLayout {
+                    spacing: Kirigami.Units.largeSpacing
 
-                    Text {
-                        anchors.centerIn: parent
-                        text: "+"
-                        color: Kirigami.Theme.linkColor
-                        font.bold: true
-                        font.pixelSize: parent.height / 1.5
+                    Rectangle {
+                        Layout.preferredWidth: Kirigami.Units.iconSizes.medium
+                        Layout.preferredHeight: Kirigami.Units.iconSizes.medium
+                        radius: width / 2
+                        border.color: Kirigami.Theme.linkColor
+                        border.width: 2
+                        color: "transparent"
+
+                        Text {
+                            anchors.centerIn: parent
+                            text: "+"
+                            color: Kirigami.Theme.linkColor
+                            font.bold: true
+                            font.pixelSize: parent.height / 1.5
+                        }
                     }
+
+                    ColumnLayout {
+                        Layout.fillWidth: true
+                        spacing: 0
+
+                        Controls.Label {
+                            id: labelItem
+                            Layout.fillWidth: true
+                            Layout.alignment: subtitleItem.visible ? Qt.AlignLeft | Qt.AlignBottom : Qt.AlignLeft | Qt.AlignVCenter
+                            text: searchField.text
+                            elide: Text.ElideRight
+                            color: Kirigami.Theme.textColor
+                        }
+                        Controls.Label {
+                            id: subtitleItem
+                            visible: text
+                            Layout.fillWidth: true
+                            Layout.alignment: Qt.AlignLeft | Qt.AlignTop
+                            text: isNaN(searchField.text) ? alphaToNumeric(searchField.text) : ""
+                            elide: Text.ElideRight
+                            color: Kirigami.Theme.textColor
+                            opacity: 0.7
+                            font: Kirigami.Theme.smallFont
+                        }
+                    }
+
                 }
-                text: searchField.text
-                subtitle: isNaN(searchField.text) ? alphaToNumeric(searchField.text) : ""
-                separatorVisible: false
                 onClicked: {
                     const text = isNaN(searchField.text) ? alphaToNumeric(searchField.text) : searchField.text
                     modifySelection(text, text)
@@ -251,7 +282,6 @@ ListView {
     section.property: showSections && searchText === "" ? "display" : ""
     section.criteria: ViewSection.FirstCharacter
     section.delegate: Kirigami.ListSectionHeader {
-        backgroundColor: "transparent"
         width: contactsList.width - Kirigami.Units.smallSpacing
         text: section.toUpperCase()
     }
@@ -273,35 +303,63 @@ ListView {
 
     interactive: showAll || searchText.length > 0
 
-    delegate: Kirigami.BasicListItem {
+    delegate: Delegates.RoundedItemDelegate {
         property bool selected: isSelected(model.personUri)
 
-        width: contactsList.width - Kirigami.Units.smallSpacing
-        implicitHeight: Kirigami.Units.iconSizes.medium + Kirigami.Units.largeSpacing * 2
+        id: delegateItem
         visible: showAll || searchText.length > 0
-        backgroundColor: selected ? Kirigami.Theme.activeBackgroundColor : Kirigami.Theme.backgroundColor
-        highlighted: false
-        separatorVisible: !showSections
-        label: model.display
-        subtitle: showNumber ? Utils.phoneNumberToInternationalString(Utils.phoneNumber(model.phoneNumber)) : ""
-        leading: Kirigami.Avatar {
-            width: height
-            source: model.phoneNumber ? "image://avatar/" + model.phoneNumber : ""
-            name: model.display
-            imageMode: Kirigami.Avatar.AdaptiveImageOrInitals
+        width: contactsList.width
+        implicitHeight: Kirigami.Units.iconSizes.medium + Kirigami.Units.largeSpacing * 2
+        verticalPadding: 0
+        contentItem: RowLayout {
+            spacing: Kirigami.Units.largeSpacing
 
-            Rectangle {
-                anchors.fill: parent
-                radius: width * 0.5
-                color: Kirigami.Theme.highlightColor
-                visible: selected
+            Components.Avatar {
+                Layout.preferredWidth: Kirigami.Units.iconSizes.medium
+                Layout.preferredHeight: Kirigami.Units.iconSizes.medium
+                source: model.phoneNumber ? "image://avatar/" + model.phoneNumber : ""
+                name: model.display
+                imageMode: Components.Avatar.ImageMode.AdaptiveImageOrInitals
 
-                Kirigami.Icon {
+                Rectangle {
                     anchors.fill: parent
-                    source: "checkbox"
-                    color: Kirigami.Theme.highlightedTextColor
+                    radius: width * 0.5
+                    color: Kirigami.Theme.highlightColor
+                    visible: selected
+
+                    Kirigami.Icon {
+                        anchors.fill: parent
+                        source: "checkbox"
+                        color: Kirigami.Theme.highlightedTextColor
+                    }
                 }
             }
+
+            ColumnLayout {
+                Layout.fillWidth: true
+                spacing: 0
+
+                Controls.Label {
+                    id: labelItem
+                    Layout.fillWidth: true
+                    Layout.alignment: subtitleItem.visible ? Qt.AlignLeft | Qt.AlignBottom : Qt.AlignLeft | Qt.AlignVCenter
+                    text: model.display
+                    elide: Text.ElideRight
+                    color: Kirigami.Theme.textColor
+                }
+                Controls.Label {
+                    id: subtitleItem
+                    visible: text
+                    Layout.fillWidth: true
+                    Layout.alignment: Qt.AlignLeft | Qt.AlignTop
+                    text: showNumber ? Utils.phoneNumberToInternationalString(Utils.phoneNumber(model.phoneNumber)) : ""
+                    elide: Text.ElideRight
+                    color: Kirigami.Theme.textColor
+                    opacity: 0.7
+                    font: Kirigami.Theme.smallFont
+                }
+            }
+
         }
         onReleased: selectNumber(model.personUri, model.name)
     }

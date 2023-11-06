@@ -6,11 +6,11 @@ add_library(kTelephonySupport STATIC
     phonenumberlist.cpp)
 target_compile_definitions(kTelephonySupport PRIVATE -DQT_NO_CAST_FROM_ASCII)
 target_link_libraries(kTelephonySupport PUBLIC
-    Qt::Core
-    Qt::Quick
-    KF${QT_MAJOR_VERSION}::People
-    KF${QT_MAJOR_VERSION}::PeopleBackend
-    KF${QT_MAJOR_VERSION}::ModemManagerQt
+    Qt6::Core
+    Qt6::Quick
+    KF6::People
+    KF6::PeopleBackend
+    KF6::ModemManagerQt
     PhoneNumber::PhoneNumber
     macros)
 target_include_directories(kTelephonySupport PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})

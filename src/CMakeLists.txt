@@ -10,11 +10,7 @@ set(spacebar_SRCS
 set(DaemonXML ${CMAKE_CURRENT_BINARY_DIR}/../daemon/org.kde.spacebar.Daemon.xml)
 qt_add_dbus_interface(spacebar_SRCS ${DaemonXML} daemoninterface)
 
-if(QT_MAJOR_VERSION STREQUAL "5")
-    qtquick_compiler_add_resources(RESOURCES resources.qrc)
-else()
-    qt_add_resources(RESOURCES resources.qrc)
-endif()
+qt_add_resources(RESOURCES resources.qrc)
 
 add_executable(spacebar ${spacebar_SRCS} ${RESOURCES})
 
@@ -24,24 +20,24 @@ add_dependencies(spacebar spacebar-daemon)
 
 target_include_directories(spacebar PRIVATE ${CMAKE_BINARY_DIR})
 target_compile_definitions(spacebar PRIVATE -DQT_NO_CAST_FROM_ASCII)
-target_link_libraries(spacebar
-    Qt::Core
-    Qt::Gui
-    Qt::Qml
-    Qt::Quick
-    Qt::QuickControls2
-    Qt::Sql
-    Qt::Widgets
-    Qt::DBus
-    KF${QT_MAJOR_VERSION}::ConfigGui
-    KF${QT_MAJOR_VERSION}::CoreAddons
-    KF${QT_MAJOR_VERSION}::DBusAddons
-    KF${QT_MAJOR_VERSION}::I18n
-    KF${QT_MAJOR_VERSION}::Contacts
-    KF${QT_MAJOR_VERSION}::People
-    KF${QT_MAJOR_VERSION}::PeopleBackend
-    KF${QT_MAJOR_VERSION}::KIOGui
-    KF${QT_MAJOR_VERSION}::WindowSystem
+target_link_libraries(spacebar PRIVATE
+    Qt6::Core
+    Qt6::Gui
+    Qt6::Qml
+    Qt6::Quick
+    Qt6::QuickControls2
+    Qt6::Sql
+    Qt6::Widgets
+    Qt6::DBus
+    KF6::ConfigGui
+    KF6::CoreAddons
+    KF6::DBusAddons
+    KF6::I18n
+    KF6::Contacts
+    KF6::People
+    KF6::PeopleBackend
+    KF6::KIOGui
+    KF6::WindowSystem
     database
     kTelephonySupport
     macros

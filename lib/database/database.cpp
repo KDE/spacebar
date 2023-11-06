@@ -272,8 +272,8 @@ QCoro::Task<> Database::mergeChats(const QString &fromNumbers, const QString toN
 
     // need to move files to correct chat attachment subdirectory
     QDir attachments(QStandardPaths::writableLocation(QStandardPaths::GenericDataLocation) + SL("/spacebar/attachments"));
-    const QString folderFromHash = QString::number(qHash(fromNumbers));
-    const QString folderToHash = QString::number(qHash(toNumbers));
+    const QString folderFromHash = QString::number(hash(fromNumbers));
+    const QString folderToHash = QString::number(hash(toNumbers));
 
     // if folder already exists, just move the files
     if (attachments.exists(folderToHash) && attachments.exists(folderFromHash)) {

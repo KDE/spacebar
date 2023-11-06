@@ -2,14 +2,14 @@
 //
 // SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
 
-import QtQuick 2.15
-import QtQuick.Layouts 1.15
-import QtQuick.Controls 2.15 as Controls
+import QtQuick
+import QtQuick.Layouts
+import QtQuick.Controls as Controls
 
-import org.kde.kirigami 2.15 as Kirigami
+import org.kde.kirigami as Kirigami
 
-import org.kde.spacebar 1.0
-import org.kde.kirigamiaddons.labs.mobileform 0.1 as MobileForm
+import org.kde.spacebar
+import org.kde.kirigamiaddons.formcard as FormCard
 
 Kirigami.ScrollablePage {
     id: page
@@ -26,17 +26,17 @@ Kirigami.ScrollablePage {
     ColumnLayout {
         spacing: 0
 
-        MobileForm.FormCard {
+        FormCard.FormCard {
             Layout.fillWidth: true
 
-            contentItem: ColumnLayout {
+            ColumnLayout {
                 spacing: 0
 
-                MobileForm.FormCardHeader {
+                FormCard.FormHeader {
                     title: i18n("Multimedia messages (MMS)")
                 }
 
-                MobileForm.FormTextFieldDelegate {
+                FormCard.FormTextFieldDelegate {
                     id: mmsc
                     placeholderText: "http://example.com/mms/wapenc"
                     text: SettingsManager.mmsc
@@ -44,9 +44,9 @@ Kirigami.ScrollablePage {
                     onTextChanged: SettingsManager.mmsc = text.trim()
                 }
 
-                MobileForm.FormDelegateSeparator {}
+                FormCard.FormDelegateSeparator {}
 
-                MobileForm.FormTextFieldDelegate {
+                FormCard.FormTextFieldDelegate {
                     id: mmsProxy
                     placeholderText: "proxy.example.com"
                     text: SettingsManager.mmsProxy
@@ -54,9 +54,9 @@ Kirigami.ScrollablePage {
                     onTextChanged: SettingsManager.mmsProxy = text.trim()
                 }
 
-                MobileForm.FormDelegateSeparator {}
+                FormCard.FormDelegateSeparator {}
 
-                MobileForm.FormTextDelegate {
+                FormCard.FormTextDelegate {
                     id: mmsPort
                     text: i18n("Port")
                     trailing: Controls.SpinBox {
@@ -71,30 +71,30 @@ Kirigami.ScrollablePage {
                     }
                 }
 
-                MobileForm.FormDelegateSeparator { below: requestDeliveryReports }
+                FormCard.FormDelegateSeparator { below: requestDeliveryReports }
 
-                MobileForm.FormCheckDelegate {
+                FormCard.FormCheckDelegate {
                     id: requestDeliveryReports
                     checked: SettingsManager.requestDeliveryReports
                     text: i18n("Request delivery reports")
                     onToggled: SettingsManager.requestDeliveryReports = checked
                 }
 
-                MobileForm.FormCheckDelegate {
+                FormCard.FormCheckDelegate {
                     id: requestReadReports
                     checked: SettingsManager.requestReadReports
                     text: i18n("Request read reports")
                     onToggled: SettingsManager.requestReadReports = checked
                 }
 
-                MobileForm.FormCheckDelegate {
+                FormCard.FormCheckDelegate {
                     id: shareDeliveryStatus
                     checked: SettingsManager.shareDeliveryStatus
                     text: i18n("Share delivery status")
                     onToggled: SettingsManager.shareDeliveryStatus = checked
                 }
 
-                MobileForm.FormCheckDelegate {
+                FormCard.FormCheckDelegate {
                     id: shareReadStatus
                     checked: SettingsManager.shareReadStatus
                     text: i18n("Share read status")
@@ -102,14 +102,14 @@ Kirigami.ScrollablePage {
                     enabled: false
                 }
 
-                MobileForm.FormCheckDelegate {
+                FormCard.FormCheckDelegate {
                     id: autoDownload
                     checked: SettingsManager.autoDownload
                     text: i18n("Auto download messages")
                     onToggled: SettingsManager.autoDownload = checked
                 }
 
-                MobileForm.FormCheckDelegate {
+                FormCard.FormCheckDelegate {
                     id: autoDownloadContactsOnly
                     visible: SettingsManager.autoDownload
                     checked: SettingsManager.autoDownloadContactsOnly
@@ -118,7 +118,7 @@ Kirigami.ScrollablePage {
                     enabled: SettingsManager.autoDownload == true
                 }
 
-                MobileForm.FormTextDelegate {
+                FormCard.FormTextDelegate {
                     id: totalMaxAttachmentSize
                     text: i18n("Max message size (KiB)")
                     trailing: Controls.SpinBox {
@@ -130,7 +130,7 @@ Kirigami.ScrollablePage {
                     }
                 }
 
-                MobileForm.FormTextDelegate {
+                FormCard.FormTextDelegate {
                     id: maxAttachments
                     text: i18n("Max attachments")
                     trailing: Controls.SpinBox {
@@ -141,14 +141,14 @@ Kirigami.ScrollablePage {
                     }
                 }
 
-                MobileForm.FormCheckDelegate {
+                FormCard.FormCheckDelegate {
                     id: autoCreateSmil
                     checked: SettingsManager.autoCreateSmil
                     text: i18n("Auto create SMIL")
                     onToggled: SettingsManager.autoCreateSmil = checked
                 }
 
-                MobileForm.FormCheckDelegate {
+                FormCard.FormCheckDelegate {
                     id: groupConversation
                     checked: SettingsManager.groupConversation
                     text: i18n("Default to group conversations")

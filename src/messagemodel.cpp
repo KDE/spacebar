@@ -199,7 +199,7 @@ QString MessageModel::sendingNumber() const
 
 QString MessageModel::attachmentsFolder() const
 {
-    const QString folder = QString::number(qHash(m_phoneNumberList.toString()));
+    const QString folder = QString::number(hash(m_phoneNumberList.toString()));
     return QStandardPaths::writableLocation(QStandardPaths::GenericDataLocation) + SL("/spacebar/attachments/") + folder;
 }
 

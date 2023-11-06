@@ -554,7 +554,7 @@ void ChannelLogger::createNotification(Message &message)
                 QList<QUrl> urls;
                 for (const auto &item : items) {
                     const QString local = QStandardPaths::writableLocation(QStandardPaths::GenericDataLocation);
-                    const QString folder = QString::number(qHash(message.phoneNumberList.toString()));
+                    const QString folder = QString::number(hash(message.phoneNumberList.toString()));
                     const QString fileName = item.toObject()[SL("fileName")].toString();
                     urls.append(QUrl::fromLocalFile(local + SL("/spacebar/attachments/") + folder + SL("/") + fileName));
                 }
@@ -574,13 +574,8 @@ void ChannelLogger::createNotification(Message &message)
         job->start();
     };
 
-#if QT_VERSION_MAJOR == 6
     auto defaultAction = notification->addDefaultAction(i18nc("@action open message in application", "Open"));
     connect(defaultAction, &KNotificationAction::activated, this, openApp);
-#else
-    notification->setDefaultAction(i18nc("@action open message in application", "Open"));
-    connect(notification, &KNotification::defaultActivated, this, openApp);
-#endif
 
     notification->sendEvent();
 }
