@@ -510,6 +510,3 @@ msgstr "Klient pro SMS/MMS Spacebar"
 #, kde-format
 msgid "Open a chat with the given phone number"
 msgstr "Otevřít rozhovor s daným telefonním číslem"
-
-#~ msgid "View slideshow"
-#~ msgstr "Zobrazit promítání"
