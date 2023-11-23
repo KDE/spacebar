@@ -1,13 +1,13 @@
-# Copyright (C) YEAR This file is copyright:
+# Copyright (C) 2023 This file is copyright:
 # This file is distributed under the same license as the spacebar package.
 #
-# Freek de Kruijf <freekdekruijf@kde.nl>, 2020, 2021, 2022, 2023.
+# SPDX-FileCopyrightText: 2020, 2021, 2022, 2023 Freek de Kruijf <freekdekruijf@kde.nl>
 msgid ""
 msgstr ""
 "Project-Id-Version: spacebar\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-11-07 01:23+0000\n"
-"PO-Revision-Date: 2023-05-07 15:25+0200\n"
+"PO-Revision-Date: 2023-11-22 16:49+0100\n"
 "Last-Translator: Freek de Kruijf <freekdekruijf@kde.nl>\n"
 "Language-Team: \n"
 "Language: nl\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 22.12.3\n"
+"X-Generator: Lokalize 23.08.3\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -128,7 +128,7 @@ msgstr[1] "%1 gesprekken verwijderen?"
 #: src/contents/ui/ChatsPage.qml:267
 #, kde-format
 msgid "This is permanent and can't be undone"
-msgstr "Dit is permanent en niet ongedaan worden gemaakt"
+msgstr "Dit is permanent en kan niet ongedaan worden gemaakt"
 
 #: src/contents/ui/ContactsList.qml:47
 #, kde-format
