@@ -121,4 +121,5 @@ Keywords[sv]=SMS;MMS;chatt;meddelande;modem
 Keywords[tr]=SMS;MMS;sohbet;mesajlaşma;iletileşme;modem
 Keywords[uk]=SMS;MMS;chat;messaging;modem;смс;есемес;ммс;емемес;спілкування;повідомлення;модем
 Keywords[x-test]=xxSMSxx;xxMMSxx;xxchatxx;xxmessagingxx;xxmodemxx
+Keywords[zh_CN]=SMS;MMS;chat;messaging;modem;短信;聊天;消息;通讯;调制解调器;duanxin;liaotian;xiaoxi;tongxun;tiaozhijietiaoqi
 MimeType=x-scheme-handler/sms
