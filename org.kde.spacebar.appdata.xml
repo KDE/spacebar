@@ -36,7 +36,7 @@
   <name xml:lang="uk">Spacebar</name>
   <name xml:lang="x-test">xxSpacebarxx</name>
   <name xml:lang="zh-CN">Spacebar</name>
-  <name xml:lang="zh-TW">空間列</name>
+  <name xml:lang="zh-TW">Spacebar</name>
   <summary>SMS/MMS messaging client</summary>
   <summary xml:lang="ca">Client de missatgeria SMS/MMS</summary>
   <summary xml:lang="ca-valencia">Client de missatgeria SMS/MMS</summary>
@@ -53,6 +53,7 @@
   <summary xml:lang="ko">SMS/MMS 메시지 클라이언트</summary>
   <summary xml:lang="lt">SMS/MMS žinučių perdavimo kliento programa</summary>
   <summary xml:lang="nl">Client voor SMS/MMS berichten</summary>
+  <summary xml:lang="pa">SMS/MMS ਸੁਨੇਹੇ ਕਲਾਈਂਟ</summary>
   <summary xml:lang="pl">Program do wiadomości SMS/MMS</summary>
   <summary xml:lang="pt">Cliente de mensagens SMS/MMS</summary>
   <summary xml:lang="pt-BR">Cliente de mensagens SMS/MMS</summary>
@@ -62,6 +63,7 @@
   <summary xml:lang="tr">SMS/MMS İstemcisi</summary>
   <summary xml:lang="uk">Клієнт обміну повідомленнями SMS/MMS</summary>
   <summary xml:lang="x-test">xxSMS/MMS messaging clientxx</summary>
+  <summary xml:lang="zh-TW">SMS/MMS 簡訊用戶端</summary>
   <metadata_license>CC0-1.0</metadata_license>
   <project_license>GPL-2.0-or-later</project_license>
   <developer_name>KDE Community</developer_name>
@@ -125,6 +127,7 @@
     <p xml:lang="tr">Boşluk Çubuğu, bir SMS/MMS iletileşme istemcisidir. Bir hücresel ağ üzerinden metin iletileri, resimler ve diğer dosyaları göndermenize izin verir.</p>
     <p xml:lang="uk">Spacebar є клієнтом обміну повідомленнями SMS/MMS. За допомогою програми ви можете надсилати текстові повідомлення, зображення та інші файли мережею стільникового телефонного зв'язку.</p>
     <p xml:lang="x-test">xxSpacebar is a SMS/MMS messaging client. It allows you to send text messages, pictures and other files over a cellular network.xx</p>
+    <p xml:lang="zh-TW">Spacebar 是一個 SMS/MMS 簡訊用戶端。它讓您透過行動網路傳送文字簡訊、圖片或其他檔案。</p>
   </description>
   <url type="bugtracker">https://bugs.kde.org/describecomponents.cgi?product=spacebar</url>
   <releases>
