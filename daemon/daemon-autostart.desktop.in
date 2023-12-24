@@ -28,5 +28,6 @@ Name[tr]=Boşluk Çubuğu arka plan hizmeti
 Name[uk]=Фонова служба Spacebar
 Name[x-test]=xxSpacebar background servicexx
 Name[zh_CN]=Spacebar 后台服务
+Name[zh_TW]=Spacebar 背景服務
 Exec=@CMAKE_INSTALL_FULL_LIBEXECDIR@/spacebar-daemon
 Type=Application

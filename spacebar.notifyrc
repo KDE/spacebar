@@ -32,6 +32,7 @@ Comment[tr]=Boşluk Çubuğu
 Comment[uk]=Spacebar
 Comment[x-test]=xxSpacebarxx
 Comment[zh_CN]=Spacebar
+Comment[zh_TW]=Spacebar
 
 [Event/incomingMessage]
 Name=Incoming message
@@ -66,6 +67,7 @@ Name[tr]=Gelen ileti
 Name[uk]=Вхідне повідомлення
 Name[x-test]=xxIncoming messagexx
 Name[zh_CN]=收到消息
+Name[zh_TW]=收到簡訊
 Comment=Incoming message from someone
 Comment[az]=Kimdənsə gələn ismarıc
 Comment[ca]=Missatge entrant d'algú
@@ -97,5 +99,6 @@ Comment[tr]=Birisinden gelen ileti
 Comment[uk]=Вхідне повідомлення від когось
 Comment[x-test]=xxIncoming message from someonexx
 Comment[zh_CN]=收到来自某人的消息
+Comment[zh_TW]=收到某人的簡訊
 Action=Popup|Sound
 Sound=Oxygen-Im-Nudge.ogg
