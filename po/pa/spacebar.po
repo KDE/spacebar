@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: spacebar\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-11-07 01:23+0000\n"
-"PO-Revision-Date: 2023-12-22 19:50-0600\n"
+"PO-Revision-Date: 2023-12-25 09:14-0600\n"
 "Last-Translator: A S Alam <aalam@punlinux.org>\n"
 "Language-Team: Punjabi <kde-i18n-doc@kde.org>\n"
 "Language: pa\n"
@@ -119,17 +119,16 @@ msgid "Picture"
 msgstr "ਤਸਵੀਰ"
 
 #: src/contents/ui/ChatsPage.qml:266
-#, fuzzy, kde-format
-#| msgid "New Conversation"
+#, kde-format
 msgid "Delete this conversation?"
 msgid_plural "Delete %1 conversations?"
-msgstr[0] "ਨਵੀਂ ਗੱਲਬਾਤ"
-msgstr[1] "ਨਵੀਂ ਗੱਲਬਾਤ"
+msgstr[0] "ਇਹ ਗੱਲਬਾਤ ਹਟਾਉਣੀ ਹੈ?"
+msgstr[1] "%1 ਗੱਲਾਂਬਾਤਾਂ ਨੂੰ ਹਟਾਉਣਾ ਹੈ?"
 
 #: src/contents/ui/ChatsPage.qml:267
 #, kde-format
 msgid "This is permanent and can't be undone"
-msgstr ""
+msgstr "ਇਹ ਪੱਕੇ ਤੌਰ ਉੱਤੇ ਹੈ ਅਤੇ ਵਾਪਸ ਨਹੀਂ ਲਿਆ ਜਾ ਸਕਦਾ"
 
 #: src/contents/ui/ContactsList.qml:47
 #, kde-format
@@ -137,11 +136,10 @@ msgid "Select a number"
 msgstr "ਨੰਬਰ ਚੁਣੋ"
 
 #: src/contents/ui/ContactsList.qml:173
-#, fuzzy, kde-format
-#| msgid "Selected"
+#, kde-format
 msgctxt "Number of items selected"
 msgid "%1 Selected"
-msgstr "ਚੁਣੇ"
+msgstr "%1 ਚੁਣੇ"
 
 #: src/contents/ui/ContactsList.qml:183
 #, kde-format
@@ -327,27 +325,27 @@ msgstr "ਪੋਰਟ"
 #: src/contents/ui/settings/MMSSettingsPage.qml:79
 #, kde-format
 msgid "Request delivery reports"
-msgstr ""
+msgstr "ਪਹੁੰਚਣ ਰਿਪੋਰਟਾਂ ਲਈ ਬੇਨਤੀ"
 
 #: src/contents/ui/settings/MMSSettingsPage.qml:86
 #, kde-format
 msgid "Request read reports"
-msgstr ""
+msgstr "ਪੜ੍ਹਨ ਰਿਪੋਰਟਾਂ ਲਈ ਬੇਨਤੀ"
 
 #: src/contents/ui/settings/MMSSettingsPage.qml:93
 #, kde-format
 msgid "Share delivery status"
-msgstr ""
+msgstr "ਡਿਲਵਰੀ ਸਥਿਤੀ ਨੂੰ ਸਾਂਝਾ ਕਰੋ"
 
 #: src/contents/ui/settings/MMSSettingsPage.qml:100
 #, kde-format
 msgid "Share read status"
-msgstr ""
+msgstr "ਪੜ੍ਹਨ ਸਥਿਤੀ ਨੂੰ ਸਾਂਝਾ ਕਰੋ"
 
 #: src/contents/ui/settings/MMSSettingsPage.qml:108
 #, kde-format
 msgid "Auto download messages"
-msgstr ""
+msgstr "ਸੁਨੇਹੇ ਆਪਣੇ-ਆਪ ਡਾਊਨਲੋਡ ਕਰੋ"
 
 #: src/contents/ui/settings/MMSSettingsPage.qml:116
 #, kde-format
@@ -417,12 +415,12 @@ msgstr "ਸੁਨੇਹਿਆਂ ਲਈ ਪਸੰਦੀਦਾ ਰੰਗ ਵਰ�
 #: src/contents/ui/settings/SettingsPage.qml:99
 #, kde-format
 msgid "Incoming message color"
-msgstr ""
+msgstr "ਆਉਣ ਵਾਲੇ ਸੁਨੇਹਾ ਦਾ ਰੰਗ"
 
 #: src/contents/ui/settings/SettingsPage.qml:122
 #, kde-format
 msgid "Outgoing message color"
-msgstr ""
+msgstr "ਜਾਣ ਵਾਲੇ ਸੁਨੇਹੇ ਦਾ ਰੰਗ"
 
 #: src/contents/ui/settings/SettingsPage.qml:145
 #, kde-format
@@ -445,10 +443,9 @@ msgid "Show a preview of the message content"
 msgstr ""
 
 #: src/contents/ui/settings/SettingsPage.qml:185
-#, fuzzy, kde-format
-#| msgid "Save attachment"
+#, kde-format
 msgid "Show attachment previews"
-msgstr "ਅਟੈਚਮੈਂਟ ਨੂੰ ਸੰਭਾਲੋ"
+msgstr "ਅਟੈਚਮੈਂਟ ਝਲਕਾਂ ਵੇਖਾਓ"
 
 #: src/contents/ui/settings/SettingsPage.qml:192
 #, kde-format
