@@ -1,12 +1,12 @@
-# Xavier Besnard <xavier.besnard@neuf.fr>, 2020, 2021, 2022.
-# Xavier BESNARD <xavier.besnard@neuf.fr>, 2022, 2023.
+# Xavier Besnard <xavier.besnard@kde.org>, 2020, 2021, 2022.
+# Xavier Besnard <xavier.besnard@kde.org>, 2022, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version: spacebar\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-11-07 01:23+0000\n"
 "PO-Revision-Date: 2023-05-09 13:15+0200\n"
-"Last-Translator: Xavier BESNARD <xavier.besnard]neuf.fr>\n"
+"Last-Translator: Xavier Besnard <xavier.besnard@kde.org>\n"
 "Language-Team: fr\n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
@@ -26,7 +26,7 @@ msgstr "Xavier Besnard"
 #, kde-format
 msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
-msgstr "xavier.besnard@neuf.fr"
+msgstr "xavier.besnard@kde.org"
 
 #: daemon/channellogger.cpp:532 src/contents/ui/MessagesPage.qml:61
 #, kde-format
