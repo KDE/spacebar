@@ -1,13 +1,13 @@
 # Copyright (C) 2023 This file is copyright:
 # This file is distributed under the same license as the spacebar package.
 #
-# SPDX-FileCopyrightText: 2021, 2022, 2023 A S Alam <aalam.yellow@gmail.com>
+# SPDX-FileCopyrightText: 2021, 2022, 2023, 2024 A S Alam <aalam.yellow@gmail.com>
 msgid ""
 msgstr ""
 "Project-Id-Version: spacebar\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-11-07 01:23+0000\n"
-"PO-Revision-Date: 2023-12-25 09:14-0600\n"
+"PO-Revision-Date: 2024-01-01 08:19-0600\n"
 "Last-Translator: A S Alam <aalam@punlinux.org>\n"
 "Language-Team: Punjabi <kde-i18n-doc@kde.org>\n"
 "Language: pa\n"
@@ -20,7 +20,7 @@ msgstr ""
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
 msgid "Your names"
-msgstr "ਅਮਨਪਰੀਤ ਸਿੰਘ ਆਲਮ ੨੦੨੨"
+msgstr "ਅਮਨਪਰੀਤ ਸਿੰਘ ਆਲਮ ੨੦੨੨-੨੦੨੪"
 
 #, kde-format
 msgctxt "EMAIL OF TRANSLATORS"
@@ -195,7 +195,7 @@ msgstr "ਸੁਨੇਹੇ ਦੀ ਮਿਆਦ ਪੁੱਗੀ ਅਤੇ ਹਟ�
 #: src/contents/ui/MessagesPage.qml:189
 #, kde-format
 msgid "Message will be sent as individual messages"
-msgstr ""
+msgstr "ਸੁਨੇਹੇ ਨੂੰ ਇਕੱਲੇ ਇਕੱਲੇ ਸੁਨੇਹੇ ਵਜੋਂ ਭੇਜਿਆ ਜਾਵੇਗਾ"
 
 #: src/contents/ui/MessagesPage.qml:464
 #, kde-format
@@ -350,7 +350,7 @@ msgstr "ਸੁਨੇਹੇ ਆਪਣੇ-ਆਪ ਡਾਊਨਲੋਡ ਕਰੋ"
 #: src/contents/ui/settings/MMSSettingsPage.qml:116
 #, kde-format
 msgid "Auto download messages for existing contacts only"
-msgstr ""
+msgstr "ਸਿਰਫ਼ ਮੌਜੂਦਾ ਸੰਪਰਕਾਂ ਲਈ ਹੀ ਸੁਨੇਹਿਆਂ ਨੂੰ ਆਪਣੇ-ਆਪ ਡਾਊਨਲੋਡ ਕਰੋ"
 
 #: src/contents/ui/settings/MMSSettingsPage.qml:123
 #, kde-format
