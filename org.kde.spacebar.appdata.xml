@@ -68,42 +68,6 @@
   <project_license>GPL-2.0-or-later</project_license>
   <developer id="kde.org">
     <name>KDE Community</name>
-    <name xml:lang="az">KDE İcması</name>
-    <name xml:lang="ca">Comunitat KDE</name>
-    <name xml:lang="ca-valencia">Comunitat KDE</name>
-    <name xml:lang="cs">Komunita KDE</name>
-    <name xml:lang="de">KDE-Gemeinschaft</name>
-    <name xml:lang="en-GB">KDE Community</name>
-    <name xml:lang="eo">Komunumo de KDE</name>
-    <name xml:lang="es">Comunidad KDE</name>
-    <name xml:lang="et">KDE kogukond</name>
-    <name xml:lang="eu">KDE komunitatea</name>
-    <name xml:lang="fi">KDE-yhteisö</name>
-    <name xml:lang="fr">La communauté KDE</name>
-    <name xml:lang="gl">Comunidade KDE</name>
-    <name xml:lang="hi">केडीई समुदाय</name>
-    <name xml:lang="id">Komunitas KDE</name>
-    <name xml:lang="it">Comunità KDE</name>
-    <name xml:lang="ka">KDE-ის საზოგადოება</name>
-    <name xml:lang="ko">KDE 커뮤니티</name>
-    <name xml:lang="lt">KDE bendruomenė</name>
-    <name xml:lang="nl">KDE-gemeenschap</name>
-    <name xml:lang="nn">KDE-fellesskapet</name>
-    <name xml:lang="pa">ਕੇਡੀਈ ਕਮਿਊਨਟੀ</name>
-    <name xml:lang="pl">Społeczność KDE</name>
-    <name xml:lang="pt">Comunidade do KDE</name>
-    <name xml:lang="pt-BR">Comunidade KDE</name>
-    <name xml:lang="ro">Comunitatea KDE</name>
-    <name xml:lang="ru">Сообщество KDE</name>
-    <name xml:lang="sk">KDE komunita</name>
-    <name xml:lang="sl">Skupnost KDE</name>
-    <name xml:lang="sv">KDE-gemenskapen</name>
-    <name xml:lang="tg">Ҷамъияти KDE</name>
-    <name xml:lang="tr">KDE Topluluğu</name>
-    <name xml:lang="uk">Спільнота KDE</name>
-    <name xml:lang="x-test">xxKDE Communityxx</name>
-    <name xml:lang="zh-CN">KDE 社区</name>
-    <name xml:lang="zh-TW">KDE 社群</name>
   </developer>
   <description>
     <p>Spacebar is a SMS/MMS messaging client. It allows you to send text messages, pictures and other files over a cellular network.</p>
