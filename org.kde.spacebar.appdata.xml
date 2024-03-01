@@ -16,6 +16,7 @@
   <name xml:lang="fr">Spacebar</name>
   <name xml:lang="gl">Spacebar</name>
   <name xml:lang="hi">स्पेसबार</name>
+  <name xml:lang="hu">Spacebar</name>
   <name xml:lang="id">Spacebar</name>
   <name xml:lang="it">Spacebar</name>
   <name xml:lang="ka">Spacebar</name>
@@ -48,6 +49,7 @@
   <summary xml:lang="fi">Teksti- ja multimediaviestiasiakas</summary>
   <summary xml:lang="fr">Client de messagerie SMS / MMS.</summary>
   <summary xml:lang="gl">Cliente de SMS e MMS.</summary>
+  <summary xml:lang="hu">SMS/MMS-üzenetküldő kliens</summary>
   <summary xml:lang="it">Client di messaggistica SMS/MMS</summary>
   <summary xml:lang="ka">SMS/MMS შეტყობინებების კლიენტი</summary>
   <summary xml:lang="ko">SMS/MMS 메시지 클라이언트</summary>
@@ -80,6 +82,7 @@
     <p xml:lang="fi">Spacebar on teksti- ja multimediaviestiasiakas, jolla voi lähettää tekstiviestejä, kuvia ja muita tiedostoja matkapuhelinverkossa.</p>
     <p xml:lang="fr">Spacebar est un client de messagerie SMS / MMS. Il vous permet d'envoyer des messages en texte, des images et d'autres fichiers sur un réseau cellulaire.</p>
     <p xml:lang="gl">Spacebar é un cliente de SMS e MMS. Permite enviar mensaxes de texto, imaxes e outros ficheiros pola rede móbil.</p>
+    <p xml:lang="hu">A Spacebar egy SMS/MMS-üzenetküldő kliens. Lehetővé teszi szöveges üzenetek, képek és egyéb fájlok küldését mobilhálózaton keresztül.</p>
     <p xml:lang="it">Spacebar è un client di messaggistica SMS/MMS. Ti permette di inviare messaggi di testo, immagini e altri file su una rete cellulare.</p>
     <p xml:lang="ka">Spacebar არის SMS / MMS შეტყობინებების კლიენტი. ის საშუალებას გაძლევთ გაგზავნოთ ტექსტური შეტყობინებები, სურათები და სხვა ფაილები ფიჭური ქსელით.</p>
     <p xml:lang="ko">Spacebar는 SMS/MMS 메시지 클라이언트입니다. 셀룰러 네트워크를 통해서 텍스트 메시지, 사진, 파일을 전송할 수 있습니다.</p>
