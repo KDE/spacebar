@@ -1,7 +1,7 @@
 {
     "id": "org.kde.spacebar",
     "runtime": "org.kde.Platform",
-    "runtime-version": "5.15-22.08",
+    "runtime-version": "6.6",
     "sdk": "org.kde.Sdk",
     "command": "spacebar",
     "tags": ["nightly"],
@@ -24,7 +24,7 @@
             "name": "kpeople",
             "buildsystem": "cmake-ninja",
             "builddir": true,
-            "sources": [ { "type": "git", "url": "https://invent.kde.org/frameworks/kpeople", "tag": "v5.103.0" } ]
+            "sources": [ { "type": "git", "url": "https://invent.kde.org/frameworks/kpeople", "tag": "v6.0.0" } ]
         },
         {
             "name": "modemmanager",
@@ -36,7 +36,7 @@
             "name": "modemmanager-qt",
             "buildsystem": "cmake-ninja",
             "builddir": true,
-            "sources": [ { "type": "git", "url": "https://invent.kde.org/frameworks/modemmanager-qt", "tag": "v5.103.0" } ]
+            "sources": [ { "type": "git", "url": "https://invent.kde.org/frameworks/modemmanager-qt", "tag": "v6.0.0" } ]
         },
         {
             "name": "kirigami-addons",
@@ -48,8 +48,8 @@
             "sources": [
                 {
                     "type": "archive",
-                    "url": "https://download.kde.org/stable/kirigami-addons/kirigami-addons-0.7.0.tar.xz",
-                    "sha256": "0132a58b150229544a61e17e792c48cfc6daa03a8be9c7acd873a6c30d283df7",
+                    "url": "https://download.kde.org/stable/kirigami-addons/kirigami-addons-1.0.1.tar.xz",
+                    "sha256": "9d013847efb0048c6a2799ee0ed281b14eee15314ac20d7fba853197e45f29b7",
                     "x-checker-data": {
                         "type": "anitya",
                         "project-id": 242933,
@@ -132,7 +132,7 @@
             "name": "futuresql",
             "buildsystem": "cmake-ninja",
             "config-opts": ["-DBUILD_TESTING=OFF", "-DCMAKE_BUILD_TYPE=Release"],
-            "sources": [ { "type": "archive", "url": "https://download.kde.org/stable/futuresql/futuresql-0.1.1.tar.xz", "sha256": "e44ed8d5a9618b3ca7ba2983ed9c5f7572e6e0a5b199f94868834b71ccbebd43" } ]
+            "sources": [ { "type": "git", "url": "https://invent.kde.org/libraries/futuresql.git", "branch": "work/jbb/drop-qt5-support", "commit": "3e552a41c3a0e579554a665f998b45990a983bef" } ]
         },
         {
             "name": "spacebar",
