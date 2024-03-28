@@ -37,6 +37,7 @@ Comment[zh_TW]=Spacebar
 
 [Event/incomingMessage]
 Name=Incoming message
+Name[ast]=Mensaxe entrante
 Name[az]=Gələn ismarıc
 Name[ca]=Missatge entrant
 Name[ca@valencia]=Missatge entrant
