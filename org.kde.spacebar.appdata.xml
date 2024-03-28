@@ -2,6 +2,7 @@
 <component type="desktop-application">
   <id>org.kde.spacebar</id>
   <name>Spacebar</name>
+  <name xml:lang="ast">Spacebar</name>
   <name xml:lang="az">Spacebar</name>
   <name xml:lang="ca">Spacebar</name>
   <name xml:lang="ca-valencia">Spacebar</name>
