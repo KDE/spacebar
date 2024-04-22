@@ -102,6 +102,7 @@
     <p xml:lang="x-test">xxSpacebar is a SMS/MMS messaging client. It allows you to send text messages, pictures and other files over a cellular network.xx</p>
     <p xml:lang="zh-TW">Spacebar 是一個 SMS/MMS 簡訊用戶端。它讓您透過行動網路傳送文字簡訊、圖片或其他檔案。</p>
   </description>
+  <url type="homepage">https://apps.kde.org/spacebar</url>
   <url type="bugtracker">https://bugs.kde.org/describecomponents.cgi?product=spacebar</url>
   <releases>
     <release version="23.01" date="2023-01-30">
