@@ -105,6 +105,11 @@
   <url type="homepage">https://apps.kde.org/spacebar</url>
   <url type="bugtracker">https://bugs.kde.org/describecomponents.cgi?product=spacebar</url>
   <releases>
+    <release version="24.05" date="2025-05-01">
+      <description>
+        <p>This release fixes storing and displaying the incoming SMS.</p>
+      </description>
+    </release>
     <release version="23.01" date="2023-01-30">
       <url>https://plasma-mobile.org/2023/01/30/january-blog-post/</url>
     </release>
