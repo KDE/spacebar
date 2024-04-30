@@ -40,6 +40,8 @@ std::optional<std::invoke_result_t<Func, T>> map(const std::optional<T> &&in, Fu
 Database::Database(QObject *parent)
     : QObject(parent)
 {
+    Q_INIT_RESOURCE(migrations);
+
     const QString databaseLocation = QStandardPaths::writableLocation(QStandardPaths::GenericDataLocation) + SL("/spacebar");
     if (!QDir().mkpath(databaseLocation)) {
         qDebug() << "Could not create the database directory at" << databaseLocation;
