@@ -109,7 +109,7 @@ Kirigami.ScrollablePage {
             visible: Kirigami.Settings.isMobile
         }
 
-        delegate: Delegates.RoundedItemDelegate {
+        delegate: Controls.ItemDelegate {
             id: delegateRoot
 
             required property string displayName
