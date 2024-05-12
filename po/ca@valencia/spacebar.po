@@ -278,13 +278,13 @@ msgstr "Elimina"
 #: src/contents/ui/MessagesPage.qml:1101
 #, kde-format
 msgid "Write Message..."
-msgstr "Escriu un missatge..."
+msgstr "Escriu un missatge…"
 
 #: src/contents/ui/MessagesPage.qml:1103
 #, kde-format
 msgctxt "%1 is a phone number"
 msgid "Send Message from %1..."
-msgstr "Envia un missatge des de %1..."
+msgstr "Envia un missatge des de %1…"
 
 #: src/contents/ui/MessagesPage.qml:1156
 #, kde-format
