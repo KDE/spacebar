@@ -19,8 +19,6 @@ qt_add_dbus_adaptor(spacebar_daemon_SRCS
 
 add_executable(spacebar-daemon ${spacebar_daemon_SRCS})
 
-kconfig_add_kcfg_files(spacebar-daemon ../src/settingsmanager.kcfgc GENERATE_MOC)
-
 target_compile_definitions(spacebar-daemon PRIVATE -DQT_NO_CAST_FROM_ASCII)
 target_link_libraries(spacebar-daemon PRIVATE
     Qt6::Concurrent

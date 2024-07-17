@@ -14,8 +14,6 @@ qt_add_resources(RESOURCES resources.qrc)
 
 add_executable(spacebar ${spacebar_SRCS} ${RESOURCES})
 
-kconfig_add_kcfg_files(spacebar settingsmanager.kcfgc GENERATE_MOC)
-
 add_dependencies(spacebar spacebar-daemon)
 
 target_include_directories(spacebar PRIVATE ${CMAKE_BINARY_DIR})
@@ -41,6 +39,7 @@ target_link_libraries(spacebar PRIVATE
     database
     kTelephonySupport
     macros
+    config
     QCoro::Core
     QCoro::DBus
 )
