@@ -14,8 +14,8 @@
         "--socket=x11",
         "--socket=wayland",
         "--device=dri",
-        "--filesystem=home",
         "--talk-name=org.freedesktop.Notifications",
+        "--own-name=org.kde.Spacebar",
         "--system-talk-name=org.freedesktop.ModemManager1"
     ],
     "separate-locales": false,
