@@ -161,6 +161,14 @@ ListView {
             id: headerColumn
             width: parent.width
 
+            Kirigami.InlineMessage {
+                id: errorInlineMessage
+                Layout.fillWidth: true
+                type: Kirigami.MessageType.Error
+                position: Kirigami.InlineMessage.Header
+                visible: text.length > 0
+            }
+
             RowLayout {
                 visible: multiSelect
                 Layout.fillWidth: true
@@ -181,7 +189,27 @@ ListView {
                     Controls.Button {
                         id: compose
                         text: i18nc("Open chat conversation window", "Next")
-                        onClicked: contactsList.clicked(selected.map(o => o.phoneNumber))
+                        onClicked: {
+                            // Autoselect phone number in searchText if is valid.
+                            if (
+                                selected.length === 0 &&
+                                searchText.length > 0 &&
+                                Utils.isPhoneNumber(searchText)
+                            ) {
+                                let number = formatNumber(searchText)
+                                modifySelection(number, number)
+                            }
+
+                            // Avoid to open chat conversation without phone numbers
+                            const phoneNumbers = selected.map(o => o.phoneNumber);
+                            if (phoneNumbers.length === 0) {
+                                errorInlineMessage.text = i18nc("@info:status Error message displayed when no contact is selected", "No contact selected");
+                                return;
+                            }
+
+                            errorInlineMessage.text = "";
+                            contactsList.clicked(phoneNumbers)
+                        }
                     }
                 }
             }
@@ -201,6 +229,7 @@ ListView {
                     onTextChanged: {
                         contactsProxyModel.setFilterFixedString(text)
                         searchText = text
+                        errorInlineMessage.text = ""
                     }
                     inputMethodHints: Qt.ImhNoPredictiveText
                     placeholderText: i18n("Search or enter number…")
