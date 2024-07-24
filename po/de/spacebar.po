@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: spacebar\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-11-07 01:23+0000\n"
+"POT-Creation-Date: 2024-07-24 00:41+0000\n"
 "PO-Revision-Date: 2023-06-13 22:22+0200\n"
 "Last-Translator: Frederik Schwarzer <schwarzer@kde.org>\n"
 "Language-Team: German <kde-i18n-de@kde.org>\n"
@@ -136,13 +136,13 @@ msgstr "Diese Aktion kann nicht rückgängig gemacht werden"
 msgid "Select a number"
 msgstr "Wählen Sie eine Nummer"
 
-#: src/contents/ui/ContactsList.qml:173
+#: src/contents/ui/ContactsList.qml:181
 #, kde-format
 msgctxt "Number of items selected"
 msgid "%1 Selected"
 msgstr "%1 ausgewählt"
 
-#: src/contents/ui/ContactsList.qml:183
+#: src/contents/ui/ContactsList.qml:191
 #, kde-format
 msgctxt "Open chat conversation window"
 msgid "Next"
@@ -150,20 +150,26 @@ msgstr "Weiter"
 
 #: src/contents/ui/ContactsList.qml:206
 #, kde-format
+msgctxt "@info:status Error message displayed when no contact is selected"
+msgid "No contact selected"
+msgstr ""
+
+#: src/contents/ui/ContactsList.qml:235
+#, kde-format
 msgid "Search or enter number…"
 msgstr "Suchen oder eine Nummer eingeben ..."
 
-#: src/contents/ui/ContactsList.qml:370
+#: src/contents/ui/ContactsList.qml:399
 #, kde-format
 msgid "No contacts with phone numbers yet"
 msgstr "Bisher noch keine Kontakte mit Telefonnummern"
 
-#: src/contents/ui/ContactsList.qml:373
+#: src/contents/ui/ContactsList.qml:402
 #, kde-format
 msgid "Open contacts app"
 msgstr "Kontakt-App öffnen"
 
-#: src/contents/ui/ContactsList.qml:380
+#: src/contents/ui/ContactsList.qml:409
 #, kde-format
 msgid "No results found"
 msgstr "Keine Ergebnisse gefunden"

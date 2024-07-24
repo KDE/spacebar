@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: spacebar\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-11-07 01:23+0000\n"
+"POT-Creation-Date: 2024-07-24 00:41+0000\n"
 "PO-Revision-Date: 2023-05-07 13:47+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
@@ -135,13 +135,13 @@ msgstr "Bu kalıcıdır ve geri alınamaz"
 msgid "Select a number"
 msgstr "Bir numara seçin"
 
-#: src/contents/ui/ContactsList.qml:173
+#: src/contents/ui/ContactsList.qml:181
 #, kde-format
 msgctxt "Number of items selected"
 msgid "%1 Selected"
 msgstr "%1 Seçili"
 
-#: src/contents/ui/ContactsList.qml:183
+#: src/contents/ui/ContactsList.qml:191
 #, kde-format
 msgctxt "Open chat conversation window"
 msgid "Next"
@@ -149,20 +149,26 @@ msgstr "Sonraki"
 
 #: src/contents/ui/ContactsList.qml:206
 #, kde-format
+msgctxt "@info:status Error message displayed when no contact is selected"
+msgid "No contact selected"
+msgstr ""
+
+#: src/contents/ui/ContactsList.qml:235
+#, kde-format
 msgid "Search or enter number…"
 msgstr "Numara girin veya arayın…"
 
-#: src/contents/ui/ContactsList.qml:370
+#: src/contents/ui/ContactsList.qml:399
 #, kde-format
 msgid "No contacts with phone numbers yet"
 msgstr "Telefon numarası olan kişi yok"
 
-#: src/contents/ui/ContactsList.qml:373
+#: src/contents/ui/ContactsList.qml:402
 #, kde-format
 msgid "Open contacts app"
 msgstr "Kişiler uygulamasını aç"
 
-#: src/contents/ui/ContactsList.qml:380
+#: src/contents/ui/ContactsList.qml:409
 #, kde-format
 msgid "No results found"
 msgstr "Sonuç bulunamadı"

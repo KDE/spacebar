@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: spacebar\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-11-07 01:23+0000\n"
+"POT-Creation-Date: 2024-07-24 00:41+0000\n"
 "PO-Revision-Date: 2023-11-15 09:51+0100\n"
 "Last-Translator: Josep M. Ferrer <txemaq@gmail.com>\n"
 "Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
@@ -138,13 +138,13 @@ msgstr "Açò és permanent i no es podrà desfer"
 msgid "Select a number"
 msgstr "Seleccioneu un número"
 
-#: src/contents/ui/ContactsList.qml:173
+#: src/contents/ui/ContactsList.qml:181
 #, kde-format
 msgctxt "Number of items selected"
 msgid "%1 Selected"
 msgstr "%1 seleccionats"
 
-#: src/contents/ui/ContactsList.qml:183
+#: src/contents/ui/ContactsList.qml:191
 #, kde-format
 msgctxt "Open chat conversation window"
 msgid "Next"
@@ -152,20 +152,26 @@ msgstr "Següent"
 
 #: src/contents/ui/ContactsList.qml:206
 #, kde-format
+msgctxt "@info:status Error message displayed when no contact is selected"
+msgid "No contact selected"
+msgstr ""
+
+#: src/contents/ui/ContactsList.qml:235
+#, kde-format
 msgid "Search or enter number…"
 msgstr "Busca o introduïu un número…"
 
-#: src/contents/ui/ContactsList.qml:370
+#: src/contents/ui/ContactsList.qml:399
 #, kde-format
 msgid "No contacts with phone numbers yet"
 msgstr "Encara no hi ha cap contacte amb número de telèfon"
 
-#: src/contents/ui/ContactsList.qml:373
+#: src/contents/ui/ContactsList.qml:402
 #, kde-format
 msgid "Open contacts app"
 msgstr "Obri l'aplicació de contactes"
 
-#: src/contents/ui/ContactsList.qml:380
+#: src/contents/ui/ContactsList.qml:409
 #, kde-format
 msgid "No results found"
 msgstr "No s'ha trobat cap resultat"
