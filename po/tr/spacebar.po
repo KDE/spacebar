@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: spacebar\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-07-24 00:41+0000\n"
-"PO-Revision-Date: 2024-07-24 14:44+0300\n"
+"PO-Revision-Date: 2024-08-06 11:48+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
 "Language: tr\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Lokalize 24.07.70\n"
+"X-Generator: Lokalize 24.11.70\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -286,7 +286,7 @@ msgstr "İleti Yaz…"
 #, kde-format
 msgctxt "%1 is a phone number"
 msgid "Send Message from %1..."
-msgstr "%1 Numarasından İleti Gönder..."
+msgstr "%1 Numarasından İleti Gönder…"
 
 #: src/contents/ui/MessagesPage.qml:1156
 #, kde-format
@@ -471,7 +471,7 @@ msgstr "SMS/MMS ileti istemcisi"
 #: src/main.cpp:59
 #, kde-format
 msgid "© 2020-2021 KDE Community"
-msgstr "© 2020-2021 KDE Community"
+msgstr "© 2020–2021 KDE Community"
 
 #: src/main.cpp:60
 #, kde-format
