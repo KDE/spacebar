@@ -36,6 +36,7 @@ target_link_libraries(spacebar PRIVATE
     KF6::PeopleBackend
     KF6::KIOGui
     KF6::WindowSystem
+    KF6::Crash
     database
     kTelephonySupport
     macros

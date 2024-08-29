@@ -5,20 +5,27 @@
 #include <QCommandLineParser>
 #include <QCoreApplication>
 
+#include <KAboutData>
+#include <KCrash>
 #include <KDBusService>
 #include <KLocalizedString>
 
+#include "../version.h"
 #include "channellogger.h"
 #include "global.h"
+
+using namespace Qt::Literals;
 
 int main(int argc, char *argv[])
 {
     QCommandLineParser parser;
 
     QCoreApplication app(argc, argv);
-    QCoreApplication::setOrganizationName(SL("KDE"));
-    QCoreApplication::setOrganizationDomain(SL("kde.org"));
-    QCoreApplication::setApplicationName(SL("Spacebar"));
+
+    KAboutData about(u"spacebar-daemon"_s, u"Spacebar"_s, QStringLiteral(SPACEBAR_VERSION_STRING));
+    KAboutData::setApplicationData(about);
+
+    KCrash::initialize();
 
     KLocalizedString::setApplicationDomain("spacebar");
 

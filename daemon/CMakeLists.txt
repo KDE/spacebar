@@ -31,6 +31,7 @@ target_link_libraries(spacebar-daemon PRIVATE
     KF6::DBusAddons
     KF6::Notifications
     KF6::ModemManagerQt
+    KF6::Crash
     database
     kTelephonySupport
     macros

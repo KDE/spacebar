@@ -3,6 +3,7 @@
 // SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
 
 #include <KAboutData>
+#include <KCrash>
 #include <KDBusService>
 #include <KLocalizedContext>
 #include <KLocalizedString>
@@ -65,6 +66,8 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
     about.addAuthor(i18n("Smitty van Bodegom"), QString(), QStringLiteral("me@smitop.com"));
     KAboutData::setApplicationData(about);
     QApplication::setWindowIcon(QIcon::fromTheme(QStringLiteral("org.kde.spacebar")));
+
+    KCrash::initialize();
 
     parser.addVersionOption();
     parser.addHelpOption();
