@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: spacebar\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-07-24 00:41+0000\n"
+"POT-Creation-Date: 2024-08-30 00:41+0000\n"
 "PO-Revision-Date: 2024-07-25 07:22+0300\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: צוות התרגום של KDE ישראל\n"
@@ -54,7 +54,7 @@ msgctxt "@action open message in application"
 msgid "Open"
 msgstr "פתיחה"
 
-#: daemon/main.cpp:29
+#: daemon/main.cpp:36
 #, kde-format
 msgid "Spacebar background service"
 msgstr "שירות הרקע של Spacebar"
@@ -472,52 +472,52 @@ msgstr "התעלמות מסימני משוב"
 msgid "Choose a color"
 msgstr "נא לבחור צבע"
 
-#: src/main.cpp:57
+#: src/main.cpp:58
 #, kde-format
 msgid "SMS/MMS messaging client"
 msgstr "לקוח התכתבות ב־SMS/MMS"
 
-#: src/main.cpp:59
+#: src/main.cpp:60
 #, kde-format
 msgid "© 2020-2021 KDE Community"
 msgstr "© 2020‏-2021 קהילת KDE"
 
-#: src/main.cpp:60
+#: src/main.cpp:61
 #, kde-format
 msgid "Bhushan Shah"
 msgstr "בושן צ׳ה"
 
-#: src/main.cpp:61
+#: src/main.cpp:62
 #, kde-format
 msgid "Jonah Brüchert"
 msgstr "יונה ברכרט"
 
-#: src/main.cpp:62
+#: src/main.cpp:63
 #, kde-format
 msgid "Martin Klapetek"
 msgstr "מרטין קלפיטק"
 
-#: src/main.cpp:63
+#: src/main.cpp:64
 #, kde-format
 msgid "Michael Lang"
 msgstr "מייקל לנג"
 
-#: src/main.cpp:64
+#: src/main.cpp:65
 #, kde-format
 msgid "Nicolas Fella"
 msgstr "ניקולס פלה"
 
-#: src/main.cpp:65
+#: src/main.cpp:66
 #, kde-format
 msgid "Smitty van Bodegom"
 msgstr "סמיטי ואן בודגום"
 
-#: src/main.cpp:71
+#: src/main.cpp:74
 #, kde-format
 msgid "Spacebar SMS/MMS client"
 msgstr "Spacebar - לקוח התכתבות ב־SMS/MMS"
 
-#: src/main.cpp:72
+#: src/main.cpp:75
 #, kde-format
 msgid "Open a chat with the given phone number"
 msgstr "פתיחת צ׳אט עם מספר הטלפון שסופק"
