@@ -7,7 +7,7 @@ set(PROJECT_VERSION_MAJOR 6)
 set(PROJECT_DEP_VERSION "6.0.90")
 set(QT_MIN_VERSION "6.7.0")
 set(KF6_MIN_VERSION "6.2.0")
-set(KDE_COMPILERSETTINGS_LEVEL "5.82")
+set(KDE_COMPILERSETTINGS_LEVEL "6.2.0")
 
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
@@ -15,7 +15,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 include(FeatureSummary)
 
 ################# set KDE specific information #################
-find_package(ECM ${KF_MIN_VERSION} REQUIRED NO_MODULE)
+find_package(ECM ${KF6_MIN_VERSION} REQUIRED NO_MODULE)
 find_package(PkgConfig REQUIRED)
 
 # where to look first for cmake modules, before ${CMAKE_ROOT}/Modules/ is checked
