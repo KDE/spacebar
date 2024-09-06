@@ -1,22 +1,23 @@
-# Copyright (C) YEAR This file is copyright:
+# Copyright (C) 2024 This file is copyright:
 # This file is distributed under the same license as the spacebar package.
 # Frederik Schwarzer <schwarzer@kde.org>, 2020, 2022, 2023.
 # Burkhard Lück <lueck@hube-lueck.de>, 2020, 2021.
+# SPDX-FileCopyrightText: 2024 Johannes Obermayr <johannesobermayr@gmx.de>
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: spacebar\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-08-30 00:41+0000\n"
-"PO-Revision-Date: 2023-06-13 22:22+0200\n"
-"Last-Translator: Frederik Schwarzer <schwarzer@kde.org>\n"
+"PO-Revision-Date: 2024-09-03 22:30+0200\n"
+"Last-Translator: Johannes Obermayr <johannesobermayr@gmx.de>\n"
 "Language-Team: German <kde-i18n-de@kde.org>\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Lokalize 23.07.70\n"
+"X-Generator: Lokalize 24.11.70\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -152,7 +153,7 @@ msgstr "Weiter"
 #, kde-format
 msgctxt "@info:status Error message displayed when no contact is selected"
 msgid "No contact selected"
-msgstr ""
+msgstr "Kein Kontakt ausgewählt"
 
 #: src/contents/ui/ContactsList.qml:235
 #, kde-format
@@ -372,12 +373,12 @@ msgstr "Maximale Anhänge"
 #: src/contents/ui/settings/MMSSettingsPage.qml:147
 #, kde-format
 msgid "Auto create SMIL"
-msgstr ""
+msgstr "SMIL automatisch erstellen"
 
 #: src/contents/ui/settings/MMSSettingsPage.qml:154
 #, kde-format
 msgid "Default to group conversations"
-msgstr ""
+msgstr "Gruppenunterhaltung voreingestellt"
 
 #: src/contents/ui/settings/SettingsPage.qml:16
 #, kde-format
@@ -457,7 +458,7 @@ msgstr "Anhangvorschau anzeigen"
 #: src/contents/ui/settings/SettingsPage.qml:192
 #, kde-format
 msgid "Ignore tapbacks"
-msgstr ""
+msgstr "Rückmeldungen ignorieren"
 
 #: src/contents/ui/settings/SettingsPage.qml:209
 #, kde-format
@@ -467,7 +468,7 @@ msgstr "Wählen Sie eine Farbe"
 #: src/main.cpp:58
 #, kde-format
 msgid "SMS/MMS messaging client"
-msgstr ""
+msgstr "SMS/MMS-Anwendung"
 
 #: src/main.cpp:60
 #, kde-format
