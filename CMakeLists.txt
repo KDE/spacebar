@@ -42,7 +42,7 @@ ecm_setup_version(${PROJECT_VERSION}
 ################# Find dependencies #################
 find_package(Qt6 ${QT_MIN_VERSION} REQUIRED COMPONENTS Core Concurrent Gui Qml Quick QuickControls2 Widgets Sql)
 find_package(KF6 ${KF6_MIN_VERSION} REQUIRED COMPONENTS Kirigami I18n Contacts People Notifications Config CoreAddons DBusAddons ModemManagerQt KIO WindowSystem Crash)
-find_package(KF6KirigamiAddons 1.0 REQUIRED)
+find_package(KF6KirigamiAddons 1.4 REQUIRED)
 find_package(PhoneNumber COMPONENTS PhoneNumber REQUIRED)
 find_package(CURL REQUIRED)
 pkg_search_module(c-ares libcares REQUIRED IMPORTED_TARGET)
