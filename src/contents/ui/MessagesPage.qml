@@ -14,6 +14,7 @@ import Qt.labs.platform
 
 import org.kde.kirigami as Kirigami
 import org.kde.kirigamiaddons.delegates as Delegates
+import org.kde.kirigamiaddons.components as Components
 
 import org.kde.spacebar
 
@@ -745,8 +746,9 @@ Kirigami.ScrollablePage {
         }
     }
 
-    Kirigami.OverlayDrawer {
+    Components.BottomDrawer {
         id: menu
+        implicitHeight: messageMenuColumnsLayout.implicitHeight
 
         property int index
         property string id
@@ -756,9 +758,8 @@ Kirigami.ScrollablePage {
         property bool resend: false
         property var tapbacks
 
-        edge: Qt.BottomEdge
-
         contentItem: ColumnLayout {
+            id: messageMenuColumnsLayout
             RowLayout {
                 Repeater {
                     model: tapbackKeys
