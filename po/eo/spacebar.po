@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: spacebar\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-08-30 00:41+0000\n"
+"POT-Creation-Date: 2024-10-02 02:34+0000\n"
 "PO-Revision-Date: 2024-07-27 14:20+0200\n"
 "Last-Translator: Oliver Kellogg <olivermkellogg@gmail.com>\n"
 "Language-Team: Esperanto <kde-i18n-eo@kde.org>\n"
@@ -28,7 +28,7 @@ msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
 msgstr "olivermkellogg@gmail.com"
 
-#: daemon/channellogger.cpp:532 src/contents/ui/MessagesPage.qml:61
+#: daemon/channellogger.cpp:532 src/contents/ui/MessagesPage.qml:62
 #, kde-format
 msgid "New message"
 msgstr "Nova mesaĝo"
@@ -57,12 +57,12 @@ msgstr "Malfermi"
 msgid "Spacebar background service"
 msgstr "Spacebar-fonservo"
 
-#: src/chatlistmodel.cpp:95 src/contents/ui/MessagesPage.qml:52
+#: src/chatlistmodel.cpp:95 src/contents/ui/MessagesPage.qml:53
 #, kde-format
 msgid "and %1 more"
 msgstr "kaj %1 pli"
 
-#: src/contents/ui/ChatDetailPage.qml:16 src/contents/ui/MessagesPage.qml:133
+#: src/contents/ui/ChatDetailPage.qml:16 src/contents/ui/MessagesPage.qml:134
 #, kde-format
 msgid "Details"
 msgstr "Detaloj"
@@ -174,122 +174,122 @@ msgstr "Malfermi la apon pri kontaktoj"
 msgid "No results found"
 msgstr "Neniuj rezultoj trovitaj"
 
-#: src/contents/ui/MessagesPage.qml:127
+#: src/contents/ui/MessagesPage.qml:128
 #, kde-format
 msgid "Call"
 msgstr "Voki"
 
-#: src/contents/ui/MessagesPage.qml:145
+#: src/contents/ui/MessagesPage.qml:146
 #, kde-format
 msgid "Texting this premium SMS number might cause you to be charged money"
 msgstr "Sendi ĉi tiun superan SMSan numeron povus kaŭzi al vi ŝargon de mono"
 
-#: src/contents/ui/MessagesPage.qml:156
+#: src/contents/ui/MessagesPage.qml:157
 #, kde-format
 msgid "Max attachment limit exceeded"
 msgstr "Maksimuma aldonaĵlimo superita"
 
-#: src/contents/ui/MessagesPage.qml:167
+#: src/contents/ui/MessagesPage.qml:168
 #, kde-format
 msgid "No MMSC configured"
 msgstr "Neniu MMSC agordita"
 
-#: src/contents/ui/MessagesPage.qml:178
+#: src/contents/ui/MessagesPage.qml:179
 #, kde-format
 msgid "Message has expired and will be deleted"
 msgstr "Mesaĝo eksvalidiĝis kaj estos forigita"
 
-#: src/contents/ui/MessagesPage.qml:189
+#: src/contents/ui/MessagesPage.qml:190
 #, kde-format
 msgid "Message will be sent as individual messages"
 msgstr "Mesaĝo estos sendita kiel individuaj mesaĝoj"
 
-#: src/contents/ui/MessagesPage.qml:464
+#: src/contents/ui/MessagesPage.qml:465
 #, kde-format
 msgid "MMS message"
 msgstr "MMS-mesaĝo"
 
-#: src/contents/ui/MessagesPage.qml:472
+#: src/contents/ui/MessagesPage.qml:473
 #, kde-format
 msgid "Message size: %1"
 msgstr "Meza grandeco: %1"
 
-#: src/contents/ui/MessagesPage.qml:478
+#: src/contents/ui/MessagesPage.qml:479
 #, kde-format
 msgid "Expires: %1"
 msgstr "Eksvalidiĝas: %1"
 
-#: src/contents/ui/MessagesPage.qml:594
+#: src/contents/ui/MessagesPage.qml:595
 #, kde-format
 msgid "View all"
 msgstr "Rigardi ĉiujn"
 
-#: src/contents/ui/MessagesPage.qml:734
+#: src/contents/ui/MessagesPage.qml:735
 #, kde-format
 msgid "%1 new message"
 msgid_plural "%1 new messages"
 msgstr[0] "%1 nova mesaĝo"
 msgstr[1] "%1 novaj mesaĝoj"
 
-#: src/contents/ui/MessagesPage.qml:813
+#: src/contents/ui/MessagesPage.qml:814
 #, kde-format
 msgid "Copy code"
 msgstr "Kopii kodon"
 
-#: src/contents/ui/MessagesPage.qml:823
+#: src/contents/ui/MessagesPage.qml:824
 #, kde-format
 msgid "Copy link"
 msgstr "Kopii ligilon"
 
-#: src/contents/ui/MessagesPage.qml:836
+#: src/contents/ui/MessagesPage.qml:837
 #, kde-format
 msgid "Copy text"
 msgstr "Kopii tekston"
 
-#: src/contents/ui/MessagesPage.qml:846 src/contents/ui/MessagesPage.qml:885
+#: src/contents/ui/MessagesPage.qml:847 src/contents/ui/MessagesPage.qml:886
 #, kde-format
 msgid "Save attachment"
 msgstr "Konservi aldonaĵon"
 
-#: src/contents/ui/MessagesPage.qml:856
+#: src/contents/ui/MessagesPage.qml:857
 #, kde-format
 msgid "Delete message"
 msgstr "Forigi mesaĝon"
 
-#: src/contents/ui/MessagesPage.qml:868
+#: src/contents/ui/MessagesPage.qml:869
 #, kde-format
 msgctxt "Retry sending message"
 msgid "Resend"
 msgstr "Resendi"
 
-#: src/contents/ui/MessagesPage.qml:938
+#: src/contents/ui/MessagesPage.qml:939
 #, kde-format
 msgid "Save"
 msgstr "Konservi"
 
-#: src/contents/ui/MessagesPage.qml:945
+#: src/contents/ui/MessagesPage.qml:946
 #, kde-format
 msgid "Cancel"
 msgstr "Nuligi"
 
-#: src/contents/ui/MessagesPage.qml:1063
+#: src/contents/ui/MessagesPage.qml:1064
 #, kde-format
 msgctxt "Remove item from list"
 msgid "Remove"
 msgstr "Forigi"
 
-#: src/contents/ui/MessagesPage.qml:1101
+#: src/contents/ui/MessagesPage.qml:1102
 #, kde-format
 msgid "Write Message..."
 msgstr "Skribi Mesaĝon..."
 
-#: src/contents/ui/MessagesPage.qml:1103
+#: src/contents/ui/MessagesPage.qml:1104
 #, kde-format
 msgctxt "%1 is a phone number"
 msgid "Send Message from %1..."
 msgstr "Sendi Mesaĝon de %1..."
 
-#: src/contents/ui/MessagesPage.qml:1156
+#: src/contents/ui/MessagesPage.qml:1157
 #, kde-format
 msgid "Choose a file"
 msgstr "Elekti dosieron"
