@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: spacebar\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-08-30 00:41+0000\n"
+"POT-Creation-Date: 2024-10-02 00:41+0000\n"
 "PO-Revision-Date: 2024-09-16 21:35+0200\n"
 "Last-Translator: Kristof Kiszel <ulysses@fsf.hu>\n"
 "Language-Team: Hungarian <kde-l10n-hu@kde.org>\n"
@@ -27,7 +27,7 @@ msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
 msgstr "ulysses@fsf.hu"
 
-#: daemon/channellogger.cpp:532 src/contents/ui/MessagesPage.qml:61
+#: daemon/channellogger.cpp:532 src/contents/ui/MessagesPage.qml:62
 #, kde-format
 msgid "New message"
 msgstr "Új üzenet"
@@ -56,12 +56,12 @@ msgstr "Megnyitás"
 msgid "Spacebar background service"
 msgstr "Spacebar háttérszolgáltatás"
 
-#: src/chatlistmodel.cpp:95 src/contents/ui/MessagesPage.qml:52
+#: src/chatlistmodel.cpp:95 src/contents/ui/MessagesPage.qml:53
 #, kde-format
 msgid "and %1 more"
 msgstr "és %1 további"
 
-#: src/contents/ui/ChatDetailPage.qml:16 src/contents/ui/MessagesPage.qml:133
+#: src/contents/ui/ChatDetailPage.qml:16 src/contents/ui/MessagesPage.qml:134
 #, kde-format
 msgid "Details"
 msgstr "Részletek"
@@ -173,122 +173,122 @@ msgstr "Névjegyek alkalmazás megnyitása"
 msgid "No results found"
 msgstr "Nincs találat"
 
-#: src/contents/ui/MessagesPage.qml:127
+#: src/contents/ui/MessagesPage.qml:128
 #, kde-format
 msgid "Call"
 msgstr "Hívás"
 
-#: src/contents/ui/MessagesPage.qml:145
+#: src/contents/ui/MessagesPage.qml:146
 #, kde-format
 msgid "Texting this premium SMS number might cause you to be charged money"
 msgstr "Szöveges üzenet küldése erre a prémiun SMS-számra pénzbe kerülhet"
 
-#: src/contents/ui/MessagesPage.qml:156
+#: src/contents/ui/MessagesPage.qml:157
 #, kde-format
 msgid "Max attachment limit exceeded"
 msgstr "Maximális mellékletkorlát túllépve"
 
-#: src/contents/ui/MessagesPage.qml:167
+#: src/contents/ui/MessagesPage.qml:168
 #, kde-format
 msgid "No MMSC configured"
 msgstr "Nincs beállítva MMSC"
 
-#: src/contents/ui/MessagesPage.qml:178
+#: src/contents/ui/MessagesPage.qml:179
 #, kde-format
 msgid "Message has expired and will be deleted"
 msgstr "Az üzenet lejárt és törlődik"
 
-#: src/contents/ui/MessagesPage.qml:189
+#: src/contents/ui/MessagesPage.qml:190
 #, kde-format
 msgid "Message will be sent as individual messages"
 msgstr "Az üzenet önálló üzenetekként lesz elküüldve"
 
-#: src/contents/ui/MessagesPage.qml:464
+#: src/contents/ui/MessagesPage.qml:465
 #, kde-format
 msgid "MMS message"
 msgstr "MMS-üzenet"
 
-#: src/contents/ui/MessagesPage.qml:472
+#: src/contents/ui/MessagesPage.qml:473
 #, kde-format
 msgid "Message size: %1"
 msgstr "Üzenetméret: %1"
 
-#: src/contents/ui/MessagesPage.qml:478
+#: src/contents/ui/MessagesPage.qml:479
 #, kde-format
 msgid "Expires: %1"
 msgstr "Lejár: %1"
 
-#: src/contents/ui/MessagesPage.qml:594
+#: src/contents/ui/MessagesPage.qml:595
 #, kde-format
 msgid "View all"
 msgstr "Összes megtekintése"
 
-#: src/contents/ui/MessagesPage.qml:734
+#: src/contents/ui/MessagesPage.qml:735
 #, kde-format
 msgid "%1 new message"
 msgid_plural "%1 new messages"
 msgstr[0] "%1 új üzenet"
 msgstr[1] "%1 új üzenet"
 
-#: src/contents/ui/MessagesPage.qml:813
+#: src/contents/ui/MessagesPage.qml:814
 #, kde-format
 msgid "Copy code"
 msgstr "Kód másolása"
 
-#: src/contents/ui/MessagesPage.qml:823
+#: src/contents/ui/MessagesPage.qml:824
 #, kde-format
 msgid "Copy link"
 msgstr "Hivatkozás másolása"
 
-#: src/contents/ui/MessagesPage.qml:836
+#: src/contents/ui/MessagesPage.qml:837
 #, kde-format
 msgid "Copy text"
 msgstr "Szöveg másolása"
 
-#: src/contents/ui/MessagesPage.qml:846 src/contents/ui/MessagesPage.qml:885
+#: src/contents/ui/MessagesPage.qml:847 src/contents/ui/MessagesPage.qml:886
 #, kde-format
 msgid "Save attachment"
 msgstr "Melléklet mentése"
 
-#: src/contents/ui/MessagesPage.qml:856
+#: src/contents/ui/MessagesPage.qml:857
 #, kde-format
 msgid "Delete message"
 msgstr "Üzenet törlése"
 
-#: src/contents/ui/MessagesPage.qml:868
+#: src/contents/ui/MessagesPage.qml:869
 #, kde-format
 msgctxt "Retry sending message"
 msgid "Resend"
 msgstr "Újraküldés"
 
-#: src/contents/ui/MessagesPage.qml:938
+#: src/contents/ui/MessagesPage.qml:939
 #, kde-format
 msgid "Save"
 msgstr "Mentés"
 
-#: src/contents/ui/MessagesPage.qml:945
+#: src/contents/ui/MessagesPage.qml:946
 #, kde-format
 msgid "Cancel"
 msgstr "Mégse"
 
-#: src/contents/ui/MessagesPage.qml:1063
+#: src/contents/ui/MessagesPage.qml:1064
 #, kde-format
 msgctxt "Remove item from list"
 msgid "Remove"
 msgstr "Eltávolítás"
 
-#: src/contents/ui/MessagesPage.qml:1101
+#: src/contents/ui/MessagesPage.qml:1102
 #, kde-format
 msgid "Write Message..."
 msgstr "Üzenet írása…"
 
-#: src/contents/ui/MessagesPage.qml:1103
+#: src/contents/ui/MessagesPage.qml:1104
 #, kde-format
 msgctxt "%1 is a phone number"
 msgid "Send Message from %1..."
 msgstr "Üzenet küldése a(z) %1 számról…"
 
-#: src/contents/ui/MessagesPage.qml:1156
+#: src/contents/ui/MessagesPage.qml:1157
 #, kde-format
 msgid "Choose a file"
 msgstr "Válasszon egy fájlt"
