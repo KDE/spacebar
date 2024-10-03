@@ -112,13 +112,11 @@
   <releases>
     <release version="6.2.0" date="2024-10-08"/>
     <release version="6.2.0" date="2024-10-08"/>
+    <release version="6.2.0" date="2024-10-08"/>
     <release version="24.05" date="2024-05-01">
       <description>
         <p>This release fixes storing and displaying the incoming SMS.</p>
       </description>
-    </release>
-    <release version="23.01" date="2023-01-30">
-      <url>https://plasma-mobile.org/2023/01/30/january-blog-post/</url>
     </release>
   </releases>
   <launchable type="desktop-id">org.kde.spacebar.desktop</launchable>
