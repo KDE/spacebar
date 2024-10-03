@@ -110,6 +110,7 @@
   <url type="homepage">https://apps.kde.org/spacebar</url>
   <url type="bugtracker">https://bugs.kde.org/describecomponents.cgi?product=spacebar</url>
   <releases>
+    <release version="6.2.0" date="2024-10-08"/>
     <release version="24.05" date="2024-05-01">
       <description>
         <p>This release fixes storing and displaying the incoming SMS.</p>
@@ -120,85 +121,6 @@
     </release>
     <release version="22.11" date="2022-11-30">
       <url>https://plasma-mobile.org/2022/11/30/plasma-mobile-gear-22-11/</url>
-    </release>
-    <release version="22.09" date="2022-09-27">
-      <url>https://www.plasma-mobile.org/2022/09/27/plasma-mobile-gear-22-09/</url>
-    </release>
-    <release version="22.06" date="2022-06-24">
-      <url>https://www.plasma-mobile.org/2022/06/28/plasma-mobile-gear-22-06/</url>
-      <description>
-        <ul>
-          <li>General bug-fixing and improvements</li>
-          <li>Fix mimetype for VCards</li>
-        </ul>
-      </description>
-    </release>
-    <release version="22.04" date="2022-04-26">
-      <url>https://www.plasma-mobile.org/2022/04/26/plasma-mobile-gear-22-04/</url>
-      <description>
-        <ul>
-          <li>Change header style to toolbar</li>
-          <li>Flatten application navigation</li>
-          <li>Improvements in add attachment layout</li>
-          <li>Add notification settings options</li>
-          <li>Add support for choosing phone number via contact</li>
-          <li>Allow to open the links in messages</li>
-          <li>Mark incoming message as read for open chat conversations</li>
-        </ul>
-      </description>
-    </release>
-    <release version="22.02" date="2022-02-09">
-      <url>https://www.plasma-mobile.org/2022/02/09/plasma-mobile-gear-22-02/</url>
-      <description>
-        <ul>
-          <li>Fix crash when sending message to non-contact</li>
-          <li>Minor user interface improvements and bugfixes</li>
-        </ul>
-      </description>
-    </release>
-    <release version="21.12" date="2021-12-07">
-      <description>
-        <ul>
-          <li>Port spacebar to use ModemManager</li>
-          <li>Support for MMS and group messages</li>
-          <li>Streamlined handling of the phone numbers</li>
-          <li>Options to customize the appearance of the chat bubble colors and message font size</li>
-          <li>Added the ability to delete individual messages</li>
-          <li>Added the ability to extract links and 2FA codes from within a message's text and copy it to the clipboard</li>
-          <li>Added the ability to resend a failed message</li>
-          <li>The current chat's notifications are disabled when viewing it</li>
-          <li>Chat list shows date/time of most recent message</li>
-          <li>Message text input now allows multiple lines</li>
-          <li>Fixed premium number detection</li>
-        </ul>
-      </description>
-      <url>https://www.plasma-mobile.org/2021/12/07/plasma-mobile-gear-21-12/</url>
-    </release>
-    <release version="21.08" date="2021-08-31">
-      <url>https://www.plasma-mobile.org/2021/08/31/plasma-mobile-gear-21-08/</url>
-    </release>
-    <release version="21.07" date="2021-07-20">
-      <description>
-        <ul>
-          <li>Rework the phone number normalization, which should now find more cases of differently formatted numbers belonging to the same contact</li>
-          <li>More possible errors while sending messages are now reported to the user</li>
-          <li>Display dates above messages</li>
-          <li>Phone Numbers are now always displayed in local format</li>
-          <li>It is now visible from which number a message will be sent</li>
-          <li>The chat list is now correctly sorted</li>
-        </ul>
-      </description>
-      <url>https://www.plasma-mobile.org/2021/07/20/plasma-mobile-gear-21-07/</url>
-    </release>
-    <release version="21.06" date="2021-06-10">
-      <description>
-        <ul>
-          <li>Links in messages are now clickable</li>
-          <li>Spacebar now opens sms protocol links</li>
-          <li>There is now a warning when trying to text premium SMS numbers</li>
-        </ul>
-      </description>
-      <url>https://www.plasma-mobile.org/2021/06/10/plasma-mobile-update-june/</url>
     </release>
   </releases>
   <launchable type="desktop-id">org.kde.spacebar.desktop</launchable>
