@@ -110,7 +110,7 @@
   <url type="homepage">https://apps.kde.org/spacebar</url>
   <url type="bugtracker">https://bugs.kde.org/describecomponents.cgi?product=spacebar</url>
   <releases>
-    <release version="6.2.0" date="2024-10-08"/>
+    <release version="6.2.0" date="2024-10-08">
       <description>
         <p>This release fixes storing and displaying the incoming SMS.</p>
       </description>
