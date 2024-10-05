@@ -748,7 +748,6 @@ Kirigami.ScrollablePage {
 
     Components.BottomDrawer {
         id: menu
-        implicitHeight: messageMenuColumnsLayout.implicitHeight
 
         property int index
         property string id
@@ -758,7 +757,7 @@ Kirigami.ScrollablePage {
         property bool resend: false
         property var tapbacks
 
-        contentItem: ColumnLayout {
+        ColumnLayout {
             id: messageMenuColumnsLayout
             RowLayout {
                 Repeater {
