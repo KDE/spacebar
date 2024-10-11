@@ -11,18 +11,21 @@ import org.kde.kirigami as Kirigami
 import org.kde.spacebar
 
 Kirigami.ScrollablePage {
-    title: i18n("Contacts")
+    id: root
+    title: list.multiSelect ? i18n("New Group Chat") : i18n("New Chat")
     padding: 0
 
     property var selected: []
 
-    ContactsList {
+    NewConversationContactsList {
         id: list
         anchors.fill: parent
-        multiSelect: true
         showSections: true
         showNumber: true
-        onClicked: {
+
+        multiSelect: selected.length > 0
+
+        onRequestCreateChat: (numbers) => {
             while (pageStack.depth > 1) {
                 pageStack.pop()
             }

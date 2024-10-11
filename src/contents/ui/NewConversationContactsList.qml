@@ -17,13 +17,16 @@ ListView {
     id: contactsList
 
     property var selected: []
+
+    // Whether to select multiple contacts at once
     property bool multiSelect: false
+
     property bool showAll: true
     property bool showNumber: false
     property bool showSections: false
     property string searchText
 
-    signal clicked(var numbers)
+    signal requestCreateChat(var numbers)
     signal select(var number)
 
     Component {
@@ -60,7 +63,12 @@ ListView {
         } else {
             selected.splice(index, 1)
         }
-        selected = selected
+        selected = selected;
+
+        // Create chat if we aren't in selection mode
+        if (!contactsList.multiSelect) {
+            contactsList.requestCreateChat(contactsList.getPhoneNumbers());
+        }
     }
 
     function isSelected(personUri) {
@@ -140,6 +148,10 @@ ListView {
         }
     }
 
+    function getPhoneNumbers() {
+        return selected.map(o => o.phoneNumber);
+    }
+
     MouseArea {
         anchors.fill: contactsList.contentItem
         onPressed: mouse => mouse.accepted = false
@@ -149,108 +161,174 @@ ListView {
 
     headerPositioning: ListView.OverlayHeader
     header: Rectangle {
-        Kirigami.Theme.inherit: false
-        Kirigami.Theme.colorSet: Kirigami.Theme.View
-
-        width: parent.width
-        height: headerColumn.height
         z: 3
+        width: parent.width
+        height: mainHeaderColumn.height
         color: Kirigami.Theme.backgroundColor
 
+        Kirigami.Separator {
+            visible: !contactsList.atYBeginning
+            opacity: 0.5
+            z: 1
+            anchors.bottom: parent.bottom
+            anchors.left: parent.left
+            anchors.right: parent.right
+        }
+
         ColumnLayout {
-            id: headerColumn
-            width: parent.width
+            id: mainHeaderColumn
+            spacing: 0
+            anchors.top: parent.top
+            anchors.left: parent.left
+            anchors.right: parent.right
 
-            Kirigami.InlineMessage {
-                id: errorInlineMessage
+            Rectangle {
+                Kirigami.Theme.inherit: false
+                Kirigami.Theme.colorSet: Kirigami.Theme.Header
+
                 Layout.fillWidth: true
-                type: Kirigami.MessageType.Error
-                position: Kirigami.InlineMessage.Header
-                visible: text.length > 0
-            }
+                Layout.preferredHeight: headerColumn.height
+                color: Kirigami.Theme.backgroundColor
 
-            RowLayout {
-                visible: multiSelect
-                Layout.fillWidth: true
-                height: compose.height
-
-                Kirigami.Heading {
-                    padding: Kirigami.Units.largeSpacing
-                    level: 4
-                    type: Kirigami.Heading.Type.Normal
-                    text: i18nc("Number of items selected", "%1 Selected", selected.length)
-                    color: Kirigami.Theme.disabledTextColor
+                Kirigami.Separator {
+                    z: 1
+                    anchors.bottom: parent.bottom
+                    anchors.left: parent.left
+                    anchors.right: parent.right
                 }
 
-                Row {
-                    Layout.fillWidth: true
-                    layoutDirection: Qt.RightToLeft
-                    padding: Kirigami.Units.smallSpacing
-                    Controls.Button {
-                        id: compose
-                        text: i18nc("Open chat conversation window", "Next")
-                        onClicked: {
-                            // Autoselect phone number in searchText if is valid.
-                            if (
-                                selected.length === 0 &&
-                                searchText.length > 0 &&
-                                Utils.isPhoneNumber(searchText)
-                            ) {
-                                let number = formatNumber(searchText)
-                                modifySelection(number, number)
-                            }
+                ColumnLayout {
+                    id: headerColumn
+                    width: parent.width
+                    spacing: 0
 
-                            // Avoid to open chat conversation without phone numbers
-                            const phoneNumbers = selected.map(o => o.phoneNumber);
-                            if (phoneNumbers.length === 0) {
-                                errorInlineMessage.text = i18nc("@info:status Error message displayed when no contact is selected", "No contact selected");
-                                return;
-                            }
+                    Kirigami.InlineMessage {
+                        id: errorInlineMessage
+                        Layout.fillWidth: true
+                        Layout.bottomMargin: visible ? Kirigami.Units.smallSpacing : 0
+                        type: Kirigami.MessageType.Error
+                        position: Kirigami.InlineMessage.Header
+                        visible: text.length > 0
+                    }
 
-                            errorInlineMessage.text = "";
-                            contactsList.clicked(phoneNumbers)
+                    Controls.Control {
+                        Layout.fillWidth: true
+                        padding: Kirigami.Units.largeSpacing
+
+                        contentItem: Kirigami.ActionTextField {
+                            id: searchField
+                            onTextChanged: {
+                                contactsProxyModel.setFilterFixedString(text)
+                                searchText = text
+                                errorInlineMessage.text = ""
+                            }
+                            inputMethodHints: Qt.ImhNoPredictiveText
+                            placeholderText: i18n("Search or enter number…")
+                            focusSequence: "Ctrl+F"
+                            rightActions: [
+                                Kirigami.Action {
+                                    icon.name: "edit-delete-remove"
+                                    visible: searchField.text.length > 0
+                                    onTriggered: {
+                                        searchField.text = ""
+                                        searchField.accepted()
+                                    }
+                                }
+                            ]
+                        }
+                    }
+
+                    RowLayout {
+                        visible: multiSelect
+                        Layout.fillWidth: true
+
+                        Kirigami.Heading {
+                            Layout.fillWidth: true
+                            padding: Kirigami.Units.largeSpacing
+                            level: 3
+                            type: Kirigami.Heading.Type.Normal
+                            text: i18nc("Number of items selected", "%1 Selected", selected.length)
+                            color: Kirigami.Theme.disabledTextColor
+                        }
+
+                        Controls.Button {
+                            id: compose
+                            Layout.topMargin: Kirigami.Units.smallSpacing
+                            Layout.bottomMargin: Kirigami.Units.smallSpacing
+
+                            text: i18nc("Open chat conversation window", "Create")
+                            onClicked: {
+                                // Autoselect phone number in searchText if is valid.
+                                if (
+                                    selected.length === 0 &&
+                                    searchText.length > 0 &&
+                                    Utils.isPhoneNumber(searchText)
+                                ) {
+                                    let number = formatNumber(searchText)
+                                    modifySelection(number, number)
+                                }
+
+                                // Avoid opening chat conversation without phone numbers
+                                const phoneNumbers = getPhoneNumbers();
+                                if (phoneNumbers.length === 0) {
+                                    errorInlineMessage.text = i18nc("@info:status Error message displayed when no contact is selected", "No contact selected");
+                                    return;
+                                }
+
+                                errorInlineMessage.text = "";
+                                contactsList.requestCreateChat(phoneNumbers)
+                            }
                         }
                     }
                 }
             }
 
-            Controls.Control {
-                Layout.fillWidth: true
-                padding: Kirigami.Units.largeSpacing
-                topPadding: 0
-
-                contentItem: Kirigami.ActionTextField {
-                    background: Rectangle {
-                        anchors.fill: parent
-                        color: Kirigami.Theme.alternateBackgroundColor
-                    }
-
-                    id: searchField
-                    onTextChanged: {
-                        contactsProxyModel.setFilterFixedString(text)
-                        searchText = text
-                        errorInlineMessage.text = ""
-                    }
-                    inputMethodHints: Qt.ImhNoPredictiveText
-                    placeholderText: i18n("Search or enter number…")
-                    focusSequence: "Ctrl+F"
-                    rightActions: [
-                        Kirigami.Action {
-                            icon.name: "edit-delete-remove"
-                            visible: searchField.text.length > 0
-                            onTriggered: {
-                                searchField.text = ""
-                                searchField.accepted()
-                            }
-                        }
-                    ]
-                }
-            }
-
+            // Create group button
             Delegates.RoundedItemDelegate {
-                id: delegateItem
+                id: groupDelegate
+                visible: !contactsList.multiSelect
+                onClicked: contactsList.multiSelect = true
+
+                Layout.fillWidth: true
+                Layout.bottomMargin: visible ? Kirigami.Units.smallSpacing : 0
+                implicitHeight: Kirigami.Units.iconSizes.medium + Kirigami.Units.largeSpacing * 2
+                verticalPadding: 0
+
+                contentItem: RowLayout {
+                    spacing: Kirigami.Units.largeSpacing
+
+                    Item {
+                        Layout.preferredWidth: Kirigami.Units.iconSizes.medium
+                        Layout.preferredHeight: Kirigami.Units.iconSizes.medium
+
+                        Kirigami.Icon {
+                            anchors.centerIn: parent
+                            implicitWidth: Kirigami.Units.iconSizes.smallMedium
+                            implicitHeight: Kirigami.Units.iconSizes.smallMedium
+                            source: 'group'
+                        }
+                    }
+
+                    ColumnLayout {
+                        Layout.fillWidth: true
+                        spacing: 0
+
+                        Controls.Label {
+                            Layout.fillWidth: true
+                            Layout.alignment: Qt.AlignLeft | Qt.AlignVCenter
+                            text: i18n("New Group")
+                            elide: Text.ElideRight
+                        }
+                    }
+                }
+            }
+
+            // Contact from direct number delegate
+            Delegates.RoundedItemDelegate {
+                id: createFromSearchDelegate
                 visible: searchField.text.length > 0
                 Layout.fillWidth: true
+                Layout.bottomMargin: visible ? Kirigami.Units.smallSpacing : 0
                 implicitHeight: Kirigami.Units.iconSizes.medium + Kirigami.Units.largeSpacing * 2
                 verticalPadding: 0
                 contentItem: RowLayout {
@@ -390,7 +468,9 @@ ListView {
             }
 
         }
-        onReleased: selectNumber(model.personUri, model.name)
+        onReleased: {
+            selectNumber(model.personUri, model.name);
+        }
     }
 
     Kirigami.PlaceholderMessage {
