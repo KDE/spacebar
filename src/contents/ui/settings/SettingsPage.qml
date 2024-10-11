@@ -26,172 +26,154 @@ Kirigami.ScrollablePage {
 
     width: applicationWindow().width
     Kirigami.ColumnView.fillWidth: true
-    
+
     ColumnLayout {
         spacing: 0
 
+        FormCard.FormHeader {
+            title: i18n("General")
+        }
+
         FormCard.FormCard {
             Layout.fillWidth: true
 
-            ColumnLayout {
-                spacing: 0
+            FormCard.FormButtonDelegate {
+                id: aboutButton
+                text: i18n("About")
+                onClicked: applicationWindow().pageStack.push("qrc:/AboutPage.qml")
+            }
 
-                FormCard.FormHeader {
-                    title: i18n("General")
-                }
+            FormCard.FormDelegateSeparator { above: aboutButton; below: mmsButton }
 
-                FormCard.FormButtonDelegate {
-                    id: aboutButton
-                    text: i18n("About")
-                    onClicked: applicationWindow().pageStack.push("qrc:/AboutPage.qml")
-                }
+            FormCard.FormButtonDelegate {
+                id: mmsButton
+                text: i18n("Multimedia Messages (MMS)")
+                onClicked: applicationWindow().pageStack.push("qrc:/settings/MMSSettingsPage.qml")
+            }
 
-                FormCard.FormDelegateSeparator { above: aboutButton; below: mmsButton }
+            FormCard.FormDelegateSeparator { above: mmsButton }
 
-                FormCard.FormButtonDelegate {
-                    id: mmsButton
-                    text: i18n("Multimedia Messages (MMS)")
-                    onClicked: applicationWindow().pageStack.push("qrc:/settings/MMSSettingsPage.qml")
-                }
+            FormCard.FormTextDelegate {
+                id: restoreButton
+                text: i18n("Restore defaults")
 
-                FormCard.FormDelegateSeparator { above: mmsButton }
-
-                FormCard.FormTextDelegate {
-                    id: restoreButton
-                    text: i18n("Restore defaults")
-
-                    trailing: Controls.Button {
-                        text: i18n("Reset")
-                        onClicked: {
-                            const server = SettingsManager.mmsc
-                            const proxy = SettingsManager.mmsProxy
-                            chatListModel.restoreDefaults()
-                            SettingsManager.mmsc = server
-                            SettingsManager.mmsProxy = proxy
-                        }
+                trailing: Controls.Button {
+                    text: i18n("Reset")
+                    onClicked: {
+                        const server = SettingsManager.mmsc
+                        const proxy = SettingsManager.mmsProxy
+                        chatListModel.restoreDefaults()
+                        SettingsManager.mmsc = server
+                        SettingsManager.mmsProxy = proxy
                     }
                 }
             }
         }
 
+        FormCard.FormHeader {
+            title: i18n("Appearance")
+        }
+
         FormCard.FormCard {
-            Layout.fillWidth: true
-            Layout.topMargin: Kirigami.Units.largeSpacing
+            FormCard.FormSwitchDelegate {
+                id: customMessageColors
+                checked: SettingsManager.customMessageColors
+                text: i18n("Use custom colors for messages")
+                onToggled: SettingsManager.customMessageColors = checked
+            }
 
-            ColumnLayout {
-                spacing: 0
+            FormCard.FormDelegateSeparator { above: customMessageColors }
 
-                FormCard.FormHeader {
-                    title: i18n("Appearance")
-                }
+            FormCard.FormTextDelegate {
+                id: incomingMessageColor
+                text: i18n("Incoming message color")
+                visible: SettingsManager.customMessageColors
+                trailing: Controls.Button {
+                    width: Kirigami.Units.gridUnit * 1.5
+                    height: Kirigami.Units.gridUnit * 1.5
+                    onClicked: {
+                        colorDialog.selected = SettingsManager.incomingMessageColor
+                        colorDialog.field = "incomingMessageColor"
+                        colorDialog.open()
+                    }
 
-                FormCard.FormSwitchDelegate {
-                    id: customMessageColors
-                    checked: SettingsManager.customMessageColors
-                    text: i18n("Use custom colors for messages")
-                    onToggled: SettingsManager.customMessageColors = checked
-                }
-
-                FormCard.FormDelegateSeparator { above: customMessageColors }
-
-                FormCard.FormTextDelegate {
-                    id: incomingMessageColor
-                    text: i18n("Incoming message color")
-                    visible: SettingsManager.customMessageColors
-                    trailing: Controls.Button {
-                        width: Kirigami.Units.gridUnit * 1.5
-                        height: Kirigami.Units.gridUnit * 1.5
-                        onClicked: {
-                            colorDialog.selected = SettingsManager.incomingMessageColor
-                            colorDialog.field = "incomingMessageColor"
-                            colorDialog.open()
-                        }
-
-                        Rectangle {
-                            anchors.fill: parent
-                            anchors.margins: 1
-                            color: SettingsManager.incomingMessageColor
-                        }
+                    Rectangle {
+                        anchors.fill: parent
+                        anchors.margins: 1
+                        color: SettingsManager.incomingMessageColor
                     }
                 }
+            }
 
-                FormCard.FormDelegateSeparator { visible: incomingMessageColor.visible }
+            FormCard.FormDelegateSeparator { visible: incomingMessageColor.visible }
 
-                FormCard.FormTextDelegate {
-                    id: outgoingMessageColor
-                    text: i18n("Outgoing message color")
-                    visible: SettingsManager.customMessageColors
-                    trailing: Controls.Button {
-                        width: Kirigami.Units.gridUnit * 1.5
-                        height: Kirigami.Units.gridUnit * 1.5
-                        onClicked: {
-                            colorDialog.selected = SettingsManager.outgoingMessageColor
-                            colorDialog.field = "outgoingMessageColor"
-                            colorDialog.open()
-                        }
+            FormCard.FormTextDelegate {
+                id: outgoingMessageColor
+                text: i18n("Outgoing message color")
+                visible: SettingsManager.customMessageColors
+                trailing: Controls.Button {
+                    width: Kirigami.Units.gridUnit * 1.5
+                    height: Kirigami.Units.gridUnit * 1.5
+                    onClicked: {
+                        colorDialog.selected = SettingsManager.outgoingMessageColor
+                        colorDialog.field = "outgoingMessageColor"
+                        colorDialog.open()
+                    }
 
-                        Rectangle {
-                            anchors.fill: parent
-                            anchors.margins: 1
-                            color: SettingsManager.outgoingMessageColor
-                        }
+                    Rectangle {
+                        anchors.fill: parent
+                        anchors.margins: 1
+                        color: SettingsManager.outgoingMessageColor
                     }
                 }
+            }
 
-                FormCard.FormDelegateSeparator { visible: outgoingMessageColor.visible }
+            FormCard.FormDelegateSeparator { visible: outgoingMessageColor.visible }
 
-                FormCard.FormTextDelegate {
-                    id: messageFontSize
-                    text: i18n("Message font size")
-                    trailing: Controls.SpinBox {
-                        value: SettingsManager.messageFontSize
-                        from: -3
-                        to: 3
-                        stepSize: 1
-                        onValueModified: SettingsManager.messageFontSize = value
-                    }
+            FormCard.FormTextDelegate {
+                id: messageFontSize
+                text: i18n("Message font size")
+                trailing: Controls.SpinBox {
+                    value: SettingsManager.messageFontSize
+                    from: -3
+                    to: 3
+                    stepSize: 1
+                    onValueModified: SettingsManager.messageFontSize = value
                 }
             }
         }
 
+        FormCard.FormHeader {
+            title: i18n("Notifications")
+        }
+
         FormCard.FormCard {
-            Layout.fillWidth: true
-            Layout.topMargin: Kirigami.Units.largeSpacing
+            FormCard.FormCheckDelegate {
+                id: showSenderInfo
+                checked: SettingsManager.showSenderInfo
+                text: i18n("Show sender name / number")
+                onToggled: SettingsManager.showSenderInfo = checked
+            }
 
-            ColumnLayout {
-                spacing: 0
+            FormCard.FormCheckDelegate {
+                id: showMessageContent
+                checked: SettingsManager.showMessageContent
+                text: i18n("Show a preview of the message content")
+                onToggled: SettingsManager.showMessageContent = checked
+            }
 
-                FormCard.FormHeader {
-                    title: i18n("Notifications")
-                }
+            FormCard.FormCheckDelegate {
+                id: showAttachments
+                checked: SettingsManager.showAttachments
+                text: i18n("Show attachment previews")
+                onToggled: SettingsManager.showAttachments = checked
+            }
 
-                FormCard.FormCheckDelegate {
-                    id: showSenderInfo
-                    checked: SettingsManager.showSenderInfo
-                    text: i18n("Show sender name / number")
-                    onToggled: SettingsManager.showSenderInfo = checked
-                }
-
-                FormCard.FormCheckDelegate {
-                    id: showMessageContent
-                    checked: SettingsManager.showMessageContent
-                    text: i18n("Show a preview of the message content")
-                    onToggled: SettingsManager.showMessageContent = checked
-                }
-
-                FormCard.FormCheckDelegate {
-                    id: showAttachments
-                    checked: SettingsManager.showAttachments
-                    text: i18n("Show attachment previews")
-                    onToggled: SettingsManager.showAttachments = checked
-                }
-
-                FormCard.FormCheckDelegate {
-                    id: ignoreTapbacks
-                    checked: SettingsManager.ignoreTapbacks
-                    text: i18n("Ignore tapbacks")
-                    onToggled: SettingsManager.ignoreTapbacks = checked
-                }
+            FormCard.FormCheckDelegate {
+                id: ignoreTapbacks
+                checked: SettingsManager.ignoreTapbacks
+                text: i18n("Ignore tapbacks")
+                onToggled: SettingsManager.ignoreTapbacks = checked
             }
         }
     }
