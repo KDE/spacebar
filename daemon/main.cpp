@@ -22,7 +22,7 @@ int main(int argc, char *argv[])
 
     QCoreApplication app(argc, argv);
 
-    KAboutData about(u"spacebar-daemon"_s, u"Spacebar"_s, QStringLiteral(SPACEBAR_VERSION_STRING));
+    KAboutData about(u"Spacebar"_s, u"Spacebar"_s, QStringLiteral(SPACEBAR_VERSION_STRING));
     KAboutData::setApplicationData(about);
 
     KCrash::initialize();
