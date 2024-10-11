@@ -14,8 +14,8 @@ msgstr ""
 "X-Crowdin-Project: kdeorg\n"
 "X-Crowdin-Project-ID: 269464\n"
 "X-Crowdin-Language: zh-CN\n"
-"X-Crowdin-File: /kf6-trunk/messages/spacebar/spacebar.pot\n"
-"X-Crowdin-File-ID: 48534\n"
+"X-Crowdin-File: /kf6-stable/messages/spacebar/spacebar.pot\n"
+"X-Crowdin-File-ID: 55854\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -42,7 +42,7 @@ msgstr "来自 %1 的消息"
 msgctxt "Number of files attached"
 msgid "%1 Attachment"
 msgid_plural "%1 Attachments"
-msgstr[0] ""
+msgstr[0] "%1 附件"
 
 #: daemon/channellogger.cpp:577
 #, kde-format
@@ -58,23 +58,23 @@ msgstr "Spacebar 后台服务"
 #: src/chatlistmodel.cpp:95 src/contents/ui/MessagesPage.qml:53
 #, kde-format
 msgid "and %1 more"
-msgstr ""
+msgstr "和另外%1个"
 
 #: src/contents/ui/ChatDetailPage.qml:16 src/contents/ui/MessagesPage.qml:134
 #, kde-format
 msgid "Details"
-msgstr ""
+msgstr "详细信息"
 
 #: src/contents/ui/ChatDetailPage.qml:32
 #, kde-format
 msgid "%1 person"
 msgid_plural "%1 people"
-msgstr[0] ""
+msgstr[0] "%1人"
 
 #: src/contents/ui/ChatDetailPage.qml:63
 #, kde-format
 msgid "Add people"
-msgstr ""
+msgstr "添加人员"
 
 #: src/contents/ui/ChatsPage.qml:19
 #, kde-format
@@ -90,42 +90,42 @@ msgstr "新建对话"
 #, kde-format
 msgctxt "Configuring application settings"
 msgid "Settings"
-msgstr ""
+msgstr "设置"
 
 #: src/contents/ui/ChatsPage.qml:60
 #, kde-format
 msgctxt "Deleting a conversation"
 msgid "Delete"
-msgstr ""
+msgstr "删除"
 
 #: src/contents/ui/ChatsPage.qml:89
 #, kde-format
 msgctxt "Selecting recipients from contacts list"
 msgid "Create a chat"
-msgstr ""
+msgstr "创建聊天"
 
 #: src/contents/ui/ChatsPage.qml:177
 #, kde-format
 msgctxt "Indicating that message was sent by you"
 msgid "You"
-msgstr ""
+msgstr "您"
 
 #: src/contents/ui/ChatsPage.qml:177
 #, kde-format
 msgctxt "Indicating that message contains an image"
 msgid "Picture"
-msgstr ""
+msgstr "图片"
 
 #: src/contents/ui/ChatsPage.qml:266
 #, kde-format
 msgid "Delete this conversation?"
 msgid_plural "Delete %1 conversations?"
-msgstr[0] ""
+msgstr[0] "确定要删除这%1个对话吗？"
 
 #: src/contents/ui/ChatsPage.qml:267
 #, kde-format
 msgid "This is permanent and can't be undone"
-msgstr ""
+msgstr "此操作是永久性的，无法撤销"
 
 #: src/contents/ui/ContactsList.qml:47
 #, kde-format
@@ -136,13 +136,13 @@ msgstr "选择号码"
 #, kde-format
 msgctxt "Number of items selected"
 msgid "%1 Selected"
-msgstr ""
+msgstr "已选择 %1 个"
 
 #: src/contents/ui/ContactsList.qml:191
 #, kde-format
 msgctxt "Open chat conversation window"
 msgid "Next"
-msgstr ""
+msgstr "下一步"
 
 #: src/contents/ui/ContactsList.qml:206
 #, kde-format
@@ -173,7 +173,7 @@ msgstr "未找到结果"
 #: src/contents/ui/MessagesPage.qml:128
 #, kde-format
 msgid "Call"
-msgstr ""
+msgstr "呼叫"
 
 #: src/contents/ui/MessagesPage.qml:146
 #, kde-format
@@ -224,7 +224,7 @@ msgstr "查看全部"
 #, kde-format
 msgid "%1 new message"
 msgid_plural "%1 new messages"
-msgstr[0] ""
+msgstr[0] "%1条新消息"
 
 #: src/contents/ui/MessagesPage.qml:814
 #, kde-format
@@ -255,7 +255,7 @@ msgstr "删除消息"
 #, kde-format
 msgctxt "Retry sending message"
 msgid "Resend"
-msgstr ""
+msgstr "重新发送"
 
 #: src/contents/ui/MessagesPage.qml:939
 #, kde-format
@@ -271,7 +271,7 @@ msgstr "取消"
 #, kde-format
 msgctxt "Remove item from list"
 msgid "Remove"
-msgstr ""
+msgstr "移除"
 
 #: src/contents/ui/MessagesPage.qml:1102
 #, kde-format
@@ -302,7 +302,7 @@ msgstr "返回"
 #: src/contents/ui/settings/MMSSettingsPage.qml:16
 #, kde-format
 msgid "MMS Settings"
-msgstr ""
+msgstr "彩信设置"
 
 #: src/contents/ui/settings/MMSSettingsPage.qml:36
 #, kde-format
@@ -312,7 +312,7 @@ msgstr "彩信 (MMS)"
 #: src/contents/ui/settings/MMSSettingsPage.qml:43
 #, kde-format
 msgid "MMSC"
-msgstr ""
+msgstr "彩信"
 
 #: src/contents/ui/settings/MMSSettingsPage.qml:53
 #, kde-format
