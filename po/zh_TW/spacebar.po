@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: spacebar\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-10-02 00:41+0000\n"
+"POT-Creation-Date: 2024-10-13 00:41+0000\n"
 "PO-Revision-Date: 2024-08-03 14:17+0900\n"
 "Last-Translator: Kisaragi Hiu <mail@kisaragi-hiu.com>\n"
 "Language-Team: Traditional Chinese <zh-l10n@lists.slat.org>\n"
@@ -130,49 +130,6 @@ msgstr[0] "要刪除 %1 個會話嗎？"
 msgid "This is permanent and can't be undone"
 msgstr "這個動作是永久的，將無法復原"
 
-#: src/contents/ui/ContactsList.qml:47
-#, kde-format
-msgid "Select a number"
-msgstr "選擇電話號碼"
-
-#: src/contents/ui/ContactsList.qml:181
-#, kde-format
-msgctxt "Number of items selected"
-msgid "%1 Selected"
-msgstr "選取 %1 個"
-
-#: src/contents/ui/ContactsList.qml:191
-#, kde-format
-msgctxt "Open chat conversation window"
-msgid "Next"
-msgstr "下一步"
-
-#: src/contents/ui/ContactsList.qml:206
-#, kde-format
-msgctxt "@info:status Error message displayed when no contact is selected"
-msgid "No contact selected"
-msgstr "未選取聯絡人"
-
-#: src/contents/ui/ContactsList.qml:235
-#, kde-format
-msgid "Search or enter number…"
-msgstr "搜尋或輸入電話號碼…"
-
-#: src/contents/ui/ContactsList.qml:399
-#, kde-format
-msgid "No contacts with phone numbers yet"
-msgstr "尚無有電話號碼的聯絡人"
-
-#: src/contents/ui/ContactsList.qml:402
-#, kde-format
-msgid "Open contacts app"
-msgstr "開啟聯絡人應用程式"
-
-#: src/contents/ui/ContactsList.qml:409
-#, kde-format
-msgid "No results found"
-msgstr "找不到結果"
-
 #: src/contents/ui/MessagesPage.qml:128
 #, kde-format
 msgid "Call"
@@ -292,10 +249,66 @@ msgstr "傳送來自 %1 的簡訊..."
 msgid "Choose a file"
 msgstr "選擇檔案"
 
-#: src/contents/ui/NewConversationPage.qml:14
+#: src/contents/ui/NewConversationContactsList.qml:50
 #, kde-format
-msgid "Contacts"
-msgstr "聯絡人"
+msgid "Select a number"
+msgstr "選擇電話號碼"
+
+#: src/contents/ui/NewConversationContactsList.qml:226
+#, kde-format
+msgid "Search or enter number…"
+msgstr "搜尋或輸入電話號碼…"
+
+#: src/contents/ui/NewConversationContactsList.qml:250
+#, kde-format
+msgctxt "Number of items selected"
+msgid "%1 Selected"
+msgstr "選取 %1 個"
+
+#: src/contents/ui/NewConversationContactsList.qml:259
+#, fuzzy, kde-format
+#| msgctxt "Selecting recipients from contacts list"
+#| msgid "Create a chat"
+msgctxt "Open chat conversation window"
+msgid "Create"
+msgstr "建立聊天"
+
+#: src/contents/ui/NewConversationContactsList.qml:274
+#, kde-format
+msgctxt "@info:status Error message displayed when no contact is selected"
+msgid "No contact selected"
+msgstr "未選取聯絡人"
+
+#: src/contents/ui/NewConversationContactsList.qml:319
+#, kde-format
+msgid "New Group"
+msgstr ""
+
+#: src/contents/ui/NewConversationContactsList.qml:479
+#, kde-format
+msgid "No contacts with phone numbers yet"
+msgstr "尚無有電話號碼的聯絡人"
+
+#: src/contents/ui/NewConversationContactsList.qml:482
+#, kde-format
+msgid "Open contacts app"
+msgstr "開啟聯絡人應用程式"
+
+#: src/contents/ui/NewConversationContactsList.qml:489
+#, kde-format
+msgid "No results found"
+msgstr "找不到結果"
+
+#: src/contents/ui/NewConversationPage.qml:15
+#, kde-format
+msgid "New Group Chat"
+msgstr ""
+
+#: src/contents/ui/NewConversationPage.qml:15
+#, fuzzy, kde-format
+#| msgid "Chats"
+msgid "New Chat"
+msgstr "聊天"
 
 #: src/contents/ui/PreviewPage.qml:32
 #, kde-format
@@ -307,72 +320,72 @@ msgstr "返回"
 msgid "MMS Settings"
 msgstr "MMS 設定"
 
-#: src/contents/ui/settings/MMSSettingsPage.qml:36
+#: src/contents/ui/settings/MMSSettingsPage.qml:30
 #, kde-format
 msgid "Multimedia messages (MMS)"
 msgstr "多媒體簡訊 (MMS)"
 
-#: src/contents/ui/settings/MMSSettingsPage.qml:43
+#: src/contents/ui/settings/MMSSettingsPage.qml:38
 #, kde-format
 msgid "MMSC"
 msgstr "MMSC"
 
-#: src/contents/ui/settings/MMSSettingsPage.qml:53
+#: src/contents/ui/settings/MMSSettingsPage.qml:48
 #, kde-format
 msgid "Proxy"
 msgstr "代理伺服器"
 
-#: src/contents/ui/settings/MMSSettingsPage.qml:61
+#: src/contents/ui/settings/MMSSettingsPage.qml:56
 #, kde-format
 msgid "Port"
 msgstr "連接埠"
 
-#: src/contents/ui/settings/MMSSettingsPage.qml:79
+#: src/contents/ui/settings/MMSSettingsPage.qml:74
 #, kde-format
 msgid "Request delivery reports"
 msgstr "請求送出回報"
 
-#: src/contents/ui/settings/MMSSettingsPage.qml:86
+#: src/contents/ui/settings/MMSSettingsPage.qml:81
 #, kde-format
 msgid "Request read reports"
 msgstr "請求已讀回報"
 
-#: src/contents/ui/settings/MMSSettingsPage.qml:93
+#: src/contents/ui/settings/MMSSettingsPage.qml:88
 #, kde-format
 msgid "Share delivery status"
 msgstr "分享送出狀態"
 
-#: src/contents/ui/settings/MMSSettingsPage.qml:100
+#: src/contents/ui/settings/MMSSettingsPage.qml:95
 #, kde-format
 msgid "Share read status"
 msgstr "分享已讀狀態"
 
-#: src/contents/ui/settings/MMSSettingsPage.qml:108
+#: src/contents/ui/settings/MMSSettingsPage.qml:103
 #, kde-format
 msgid "Auto download messages"
 msgstr "自動下載簡訊"
 
-#: src/contents/ui/settings/MMSSettingsPage.qml:116
+#: src/contents/ui/settings/MMSSettingsPage.qml:111
 #, kde-format
 msgid "Auto download messages for existing contacts only"
 msgstr "只為既有聯絡人自動下載簡訊"
 
-#: src/contents/ui/settings/MMSSettingsPage.qml:123
+#: src/contents/ui/settings/MMSSettingsPage.qml:118
 #, kde-format
 msgid "Max message size (KiB)"
 msgstr "最大簡訊大小 (KiB)"
 
-#: src/contents/ui/settings/MMSSettingsPage.qml:135
+#: src/contents/ui/settings/MMSSettingsPage.qml:130
 #, kde-format
 msgid "Max attachments"
 msgstr "最大附檔"
 
-#: src/contents/ui/settings/MMSSettingsPage.qml:147
+#: src/contents/ui/settings/MMSSettingsPage.qml:142
 #, kde-format
 msgid "Auto create SMIL"
 msgstr "自動建立 SMIL"
 
-#: src/contents/ui/settings/MMSSettingsPage.qml:154
+#: src/contents/ui/settings/MMSSettingsPage.qml:149
 #, kde-format
 msgid "Default to group conversations"
 msgstr "預設使用群組對話"
@@ -382,82 +395,82 @@ msgstr "預設使用群組對話"
 msgid "Settings"
 msgstr "設定"
 
-#: src/contents/ui/settings/SettingsPage.qml:40
+#: src/contents/ui/settings/SettingsPage.qml:34
 #, kde-format
 msgid "General"
 msgstr "一般"
 
-#: src/contents/ui/settings/SettingsPage.qml:45
+#: src/contents/ui/settings/SettingsPage.qml:42
 #, kde-format
 msgid "About"
 msgstr "關於"
 
-#: src/contents/ui/settings/SettingsPage.qml:53
+#: src/contents/ui/settings/SettingsPage.qml:50
 #, kde-format
 msgid "Multimedia Messages (MMS)"
 msgstr "多媒體簡訊 (MMS)"
 
-#: src/contents/ui/settings/SettingsPage.qml:61
+#: src/contents/ui/settings/SettingsPage.qml:58
 #, kde-format
 msgid "Restore defaults"
 msgstr "回復預設值"
 
-#: src/contents/ui/settings/SettingsPage.qml:64
+#: src/contents/ui/settings/SettingsPage.qml:61
 #, kde-format
 msgid "Reset"
 msgstr "重設"
 
-#: src/contents/ui/settings/SettingsPage.qml:85
+#: src/contents/ui/settings/SettingsPage.qml:74
 #, kde-format
 msgid "Appearance"
 msgstr "外觀"
 
-#: src/contents/ui/settings/SettingsPage.qml:91
+#: src/contents/ui/settings/SettingsPage.qml:81
 #, kde-format
 msgid "Use custom colors for messages"
 msgstr "為簡訊使用自訂顏色"
 
-#: src/contents/ui/settings/SettingsPage.qml:99
+#: src/contents/ui/settings/SettingsPage.qml:89
 #, kde-format
 msgid "Incoming message color"
 msgstr "收到簡訊顏色"
 
-#: src/contents/ui/settings/SettingsPage.qml:122
+#: src/contents/ui/settings/SettingsPage.qml:112
 #, kde-format
 msgid "Outgoing message color"
 msgstr "送出簡訊顏色"
 
-#: src/contents/ui/settings/SettingsPage.qml:145
+#: src/contents/ui/settings/SettingsPage.qml:135
 #, kde-format
 msgid "Message font size"
 msgstr "簡訊字型大小"
 
-#: src/contents/ui/settings/SettingsPage.qml:165
+#: src/contents/ui/settings/SettingsPage.qml:147
 #, kde-format
 msgid "Notifications"
 msgstr "通知"
 
-#: src/contents/ui/settings/SettingsPage.qml:171
+#: src/contents/ui/settings/SettingsPage.qml:154
 #, kde-format
 msgid "Show sender name / number"
 msgstr "顯示傳送者姓名 / 號碼"
 
-#: src/contents/ui/settings/SettingsPage.qml:178
+#: src/contents/ui/settings/SettingsPage.qml:161
 #, kde-format
 msgid "Show a preview of the message content"
 msgstr "顯示簡訊內容的預覽"
 
-#: src/contents/ui/settings/SettingsPage.qml:185
+#: src/contents/ui/settings/SettingsPage.qml:168
 #, kde-format
 msgid "Show attachment previews"
 msgstr "顯示附件預覽"
 
-#: src/contents/ui/settings/SettingsPage.qml:192
+#: src/contents/ui/settings/SettingsPage.qml:175
 #, kde-format
 msgid "Ignore tapbacks"
 msgstr "忽略快速回應 (tapback)"
 
-#: src/contents/ui/settings/SettingsPage.qml:209
+#: src/contents/ui/settings/SettingsPage.qml:191
 #, kde-format
 msgid "Choose a color"
 msgstr "選取色彩"
@@ -511,3 +524,10 @@ msgstr "Spacebar SMS/MMS 用戶端"
 #, kde-format
 msgid "Open a chat with the given phone number"
 msgstr "開啟指定電話號碼的聊天"
+
+#~ msgctxt "Open chat conversation window"
+#~ msgid "Next"
+#~ msgstr "下一步"
+
+#~ msgid "Contacts"
+#~ msgstr "聯絡人"

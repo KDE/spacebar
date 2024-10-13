@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: spacebar\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-10-02 00:41+0000\n"
+"POT-Creation-Date: 2024-10-13 00:41+0000\n"
 "PO-Revision-Date: 2024-09-16 21:35+0200\n"
 "Last-Translator: Kristof Kiszel <ulysses@fsf.hu>\n"
 "Language-Team: Hungarian <kde-l10n-hu@kde.org>\n"
@@ -130,49 +130,6 @@ msgstr[1] "Törli ezt a(z) %1 beszélgetést?"
 msgid "This is permanent and can't be undone"
 msgstr "Ez végleges, és nem vonható vissza"
 
-#: src/contents/ui/ContactsList.qml:47
-#, kde-format
-msgid "Select a number"
-msgstr "Válasszon egy számot"
-
-#: src/contents/ui/ContactsList.qml:181
-#, kde-format
-msgctxt "Number of items selected"
-msgid "%1 Selected"
-msgstr "%1 kiválasztva"
-
-#: src/contents/ui/ContactsList.qml:191
-#, kde-format
-msgctxt "Open chat conversation window"
-msgid "Next"
-msgstr "Következő"
-
-#: src/contents/ui/ContactsList.qml:206
-#, kde-format
-msgctxt "@info:status Error message displayed when no contact is selected"
-msgid "No contact selected"
-msgstr "Nincs kiválasztva névjegy"
-
-#: src/contents/ui/ContactsList.qml:235
-#, kde-format
-msgid "Search or enter number…"
-msgstr "Keresés vagy szám megadása…"
-
-#: src/contents/ui/ContactsList.qml:399
-#, kde-format
-msgid "No contacts with phone numbers yet"
-msgstr "Nincsenek telefonszámmal rendelkező névjegyek"
-
-#: src/contents/ui/ContactsList.qml:402
-#, kde-format
-msgid "Open contacts app"
-msgstr "Névjegyek alkalmazás megnyitása"
-
-#: src/contents/ui/ContactsList.qml:409
-#, kde-format
-msgid "No results found"
-msgstr "Nincs találat"
-
 #: src/contents/ui/MessagesPage.qml:128
 #, kde-format
 msgid "Call"
@@ -293,10 +250,66 @@ msgstr "Üzenet küldése a(z) %1 számról…"
 msgid "Choose a file"
 msgstr "Válasszon egy fájlt"
 
-#: src/contents/ui/NewConversationPage.qml:14
+#: src/contents/ui/NewConversationContactsList.qml:50
 #, kde-format
-msgid "Contacts"
-msgstr "Névjegyek"
+msgid "Select a number"
+msgstr "Válasszon egy számot"
+
+#: src/contents/ui/NewConversationContactsList.qml:226
+#, kde-format
+msgid "Search or enter number…"
+msgstr "Keresés vagy szám megadása…"
+
+#: src/contents/ui/NewConversationContactsList.qml:250
+#, kde-format
+msgctxt "Number of items selected"
+msgid "%1 Selected"
+msgstr "%1 kiválasztva"
+
+#: src/contents/ui/NewConversationContactsList.qml:259
+#, fuzzy, kde-format
+#| msgctxt "Selecting recipients from contacts list"
+#| msgid "Create a chat"
+msgctxt "Open chat conversation window"
+msgid "Create"
+msgstr "Csevegés létrehozása"
+
+#: src/contents/ui/NewConversationContactsList.qml:274
+#, kde-format
+msgctxt "@info:status Error message displayed when no contact is selected"
+msgid "No contact selected"
+msgstr "Nincs kiválasztva névjegy"
+
+#: src/contents/ui/NewConversationContactsList.qml:319
+#, kde-format
+msgid "New Group"
+msgstr ""
+
+#: src/contents/ui/NewConversationContactsList.qml:479
+#, kde-format
+msgid "No contacts with phone numbers yet"
+msgstr "Nincsenek telefonszámmal rendelkező névjegyek"
+
+#: src/contents/ui/NewConversationContactsList.qml:482
+#, kde-format
+msgid "Open contacts app"
+msgstr "Névjegyek alkalmazás megnyitása"
+
+#: src/contents/ui/NewConversationContactsList.qml:489
+#, kde-format
+msgid "No results found"
+msgstr "Nincs találat"
+
+#: src/contents/ui/NewConversationPage.qml:15
+#, kde-format
+msgid "New Group Chat"
+msgstr ""
+
+#: src/contents/ui/NewConversationPage.qml:15
+#, fuzzy, kde-format
+#| msgid "Chats"
+msgid "New Chat"
+msgstr "Csevegések"
 
 #: src/contents/ui/PreviewPage.qml:32
 #, kde-format
@@ -308,72 +321,72 @@ msgstr "Vissza"
 msgid "MMS Settings"
 msgstr "MMS-beállítások"
 
-#: src/contents/ui/settings/MMSSettingsPage.qml:36
+#: src/contents/ui/settings/MMSSettingsPage.qml:30
 #, kde-format
 msgid "Multimedia messages (MMS)"
 msgstr "Multimédia üzenetek (MMS)"
 
-#: src/contents/ui/settings/MMSSettingsPage.qml:43
+#: src/contents/ui/settings/MMSSettingsPage.qml:38
 #, kde-format
 msgid "MMSC"
 msgstr "MMSC"
 
-#: src/contents/ui/settings/MMSSettingsPage.qml:53
+#: src/contents/ui/settings/MMSSettingsPage.qml:48
 #, kde-format
 msgid "Proxy"
 msgstr "Proxy"
 
-#: src/contents/ui/settings/MMSSettingsPage.qml:61
+#: src/contents/ui/settings/MMSSettingsPage.qml:56
 #, kde-format
 msgid "Port"
 msgstr "Port"
 
-#: src/contents/ui/settings/MMSSettingsPage.qml:79
+#: src/contents/ui/settings/MMSSettingsPage.qml:74
 #, kde-format
 msgid "Request delivery reports"
 msgstr "Kézbesítési visszaigazolás kérése"
 
-#: src/contents/ui/settings/MMSSettingsPage.qml:86
+#: src/contents/ui/settings/MMSSettingsPage.qml:81
 #, kde-format
 msgid "Request read reports"
 msgstr "Olvasási visszaigazolás kérése"
 
-#: src/contents/ui/settings/MMSSettingsPage.qml:93
+#: src/contents/ui/settings/MMSSettingsPage.qml:88
 #, kde-format
 msgid "Share delivery status"
 msgstr "Kézbesítési állapot megosztása"
 
-#: src/contents/ui/settings/MMSSettingsPage.qml:100
+#: src/contents/ui/settings/MMSSettingsPage.qml:95
 #, kde-format
 msgid "Share read status"
 msgstr "Olvasási állapot megosztása"
 
-#: src/contents/ui/settings/MMSSettingsPage.qml:108
+#: src/contents/ui/settings/MMSSettingsPage.qml:103
 #, kde-format
 msgid "Auto download messages"
 msgstr "Automatikus üzenetletöltés"
 
-#: src/contents/ui/settings/MMSSettingsPage.qml:116
+#: src/contents/ui/settings/MMSSettingsPage.qml:111
 #, kde-format
 msgid "Auto download messages for existing contacts only"
 msgstr "Automatikus üzenetletöltés csak meglévő névjegyekhez"
 
-#: src/contents/ui/settings/MMSSettingsPage.qml:123
+#: src/contents/ui/settings/MMSSettingsPage.qml:118
 #, kde-format
 msgid "Max message size (KiB)"
 msgstr "Maximális üzenetméret (KiB)"
 
-#: src/contents/ui/settings/MMSSettingsPage.qml:135
+#: src/contents/ui/settings/MMSSettingsPage.qml:130
 #, kde-format
 msgid "Max attachments"
 msgstr "Maximális mellékletszám"
 
-#: src/contents/ui/settings/MMSSettingsPage.qml:147
+#: src/contents/ui/settings/MMSSettingsPage.qml:142
 #, kde-format
 msgid "Auto create SMIL"
 msgstr "Automatikus SMIL készítés"
 
-#: src/contents/ui/settings/MMSSettingsPage.qml:154
+#: src/contents/ui/settings/MMSSettingsPage.qml:149
 #, kde-format
 msgid "Default to group conversations"
 msgstr "Csoportos beszélgetések alapértelmezett beállítása"
@@ -383,82 +396,82 @@ msgstr "Csoportos beszélgetések alapértelmezett beállítása"
 msgid "Settings"
 msgstr "Beállítások"
 
-#: src/contents/ui/settings/SettingsPage.qml:40
+#: src/contents/ui/settings/SettingsPage.qml:34
 #, kde-format
 msgid "General"
 msgstr "Általános"
 
-#: src/contents/ui/settings/SettingsPage.qml:45
+#: src/contents/ui/settings/SettingsPage.qml:42
 #, kde-format
 msgid "About"
 msgstr "Névjegy"
 
-#: src/contents/ui/settings/SettingsPage.qml:53
+#: src/contents/ui/settings/SettingsPage.qml:50
 #, kde-format
 msgid "Multimedia Messages (MMS)"
 msgstr "Multimédia üzenetek (MMS)"
 
-#: src/contents/ui/settings/SettingsPage.qml:61
+#: src/contents/ui/settings/SettingsPage.qml:58
 #, kde-format
 msgid "Restore defaults"
 msgstr "Alapértelmezések visszaállítása"
 
-#: src/contents/ui/settings/SettingsPage.qml:64
+#: src/contents/ui/settings/SettingsPage.qml:61
 #, kde-format
 msgid "Reset"
 msgstr "Alapállapot"
 
-#: src/contents/ui/settings/SettingsPage.qml:85
+#: src/contents/ui/settings/SettingsPage.qml:74
 #, kde-format
 msgid "Appearance"
 msgstr "Megjelenés"
 
-#: src/contents/ui/settings/SettingsPage.qml:91
+#: src/contents/ui/settings/SettingsPage.qml:81
 #, kde-format
 msgid "Use custom colors for messages"
 msgstr "Egyéni üzenetszínek használata"
 
-#: src/contents/ui/settings/SettingsPage.qml:99
+#: src/contents/ui/settings/SettingsPage.qml:89
 #, kde-format
 msgid "Incoming message color"
 msgstr "Bejövő üzenetek színe"
 
-#: src/contents/ui/settings/SettingsPage.qml:122
+#: src/contents/ui/settings/SettingsPage.qml:112
 #, kde-format
 msgid "Outgoing message color"
 msgstr "Kimenő üzenetek színe"
 
-#: src/contents/ui/settings/SettingsPage.qml:145
+#: src/contents/ui/settings/SettingsPage.qml:135
 #, kde-format
 msgid "Message font size"
 msgstr "Betűméret"
 
-#: src/contents/ui/settings/SettingsPage.qml:165
+#: src/contents/ui/settings/SettingsPage.qml:147
 #, kde-format
 msgid "Notifications"
 msgstr "Értesítések"
 
-#: src/contents/ui/settings/SettingsPage.qml:171
+#: src/contents/ui/settings/SettingsPage.qml:154
 #, kde-format
 msgid "Show sender name / number"
 msgstr "Feladó nevének / számának megjelenítése"
 
-#: src/contents/ui/settings/SettingsPage.qml:178
+#: src/contents/ui/settings/SettingsPage.qml:161
 #, kde-format
 msgid "Show a preview of the message content"
 msgstr "Üzenet előnézetének megjelenítése"
 
-#: src/contents/ui/settings/SettingsPage.qml:185
+#: src/contents/ui/settings/SettingsPage.qml:168
 #, kde-format
 msgid "Show attachment previews"
 msgstr "Mellékletek előnézetének megjelenítése"
 
-#: src/contents/ui/settings/SettingsPage.qml:192
+#: src/contents/ui/settings/SettingsPage.qml:175
 #, kde-format
 msgid "Ignore tapbacks"
 msgstr "Visszakoppintások mellőzése"
 
-#: src/contents/ui/settings/SettingsPage.qml:209
+#: src/contents/ui/settings/SettingsPage.qml:191
 #, kde-format
 msgid "Choose a color"
 msgstr "Válasszin egy színt"
@@ -512,3 +525,10 @@ msgstr "Spacebar SMS/MMS kliens"
 #, kde-format
 msgid "Open a chat with the given phone number"
 msgstr "Csevegés megnyitása a megadott telefonszámmal"
+
+#~ msgctxt "Open chat conversation window"
+#~ msgid "Next"
+#~ msgstr "Következő"
+
+#~ msgid "Contacts"
+#~ msgstr "Névjegyek"

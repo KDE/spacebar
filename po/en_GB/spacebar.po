@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: spacebar\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-10-02 00:41+0000\n"
+"POT-Creation-Date: 2024-10-13 00:41+0000\n"
 "PO-Revision-Date: 2024-08-03 13:12+0100\n"
 "Last-Translator: Steve Allewell <steve.allewell@gmail.com>\n"
 "Language-Team: British English\n"
@@ -130,49 +130,6 @@ msgstr[1] "Delete %1 conversations?"
 msgid "This is permanent and can't be undone"
 msgstr "This is permanent and cannot be undone"
 
-#: src/contents/ui/ContactsList.qml:47
-#, kde-format
-msgid "Select a number"
-msgstr "Select a number"
-
-#: src/contents/ui/ContactsList.qml:181
-#, kde-format
-msgctxt "Number of items selected"
-msgid "%1 Selected"
-msgstr "%1 Selected"
-
-#: src/contents/ui/ContactsList.qml:191
-#, kde-format
-msgctxt "Open chat conversation window"
-msgid "Next"
-msgstr "Next"
-
-#: src/contents/ui/ContactsList.qml:206
-#, kde-format
-msgctxt "@info:status Error message displayed when no contact is selected"
-msgid "No contact selected"
-msgstr "No contact selected"
-
-#: src/contents/ui/ContactsList.qml:235
-#, kde-format
-msgid "Search or enter number…"
-msgstr "Search or enter number…"
-
-#: src/contents/ui/ContactsList.qml:399
-#, kde-format
-msgid "No contacts with phone numbers yet"
-msgstr "No contacts with phone numbers yet"
-
-#: src/contents/ui/ContactsList.qml:402
-#, kde-format
-msgid "Open contacts app"
-msgstr "Open contacts app"
-
-#: src/contents/ui/ContactsList.qml:409
-#, kde-format
-msgid "No results found"
-msgstr "No results found"
-
 #: src/contents/ui/MessagesPage.qml:128
 #, kde-format
 msgid "Call"
@@ -293,10 +250,66 @@ msgstr "Send Message from %1..."
 msgid "Choose a file"
 msgstr "Choose a file"
 
-#: src/contents/ui/NewConversationPage.qml:14
+#: src/contents/ui/NewConversationContactsList.qml:50
 #, kde-format
-msgid "Contacts"
-msgstr "Contacts"
+msgid "Select a number"
+msgstr "Select a number"
+
+#: src/contents/ui/NewConversationContactsList.qml:226
+#, kde-format
+msgid "Search or enter number…"
+msgstr "Search or enter number…"
+
+#: src/contents/ui/NewConversationContactsList.qml:250
+#, kde-format
+msgctxt "Number of items selected"
+msgid "%1 Selected"
+msgstr "%1 Selected"
+
+#: src/contents/ui/NewConversationContactsList.qml:259
+#, fuzzy, kde-format
+#| msgctxt "Selecting recipients from contacts list"
+#| msgid "Create a chat"
+msgctxt "Open chat conversation window"
+msgid "Create"
+msgstr "Create a chat"
+
+#: src/contents/ui/NewConversationContactsList.qml:274
+#, kde-format
+msgctxt "@info:status Error message displayed when no contact is selected"
+msgid "No contact selected"
+msgstr "No contact selected"
+
+#: src/contents/ui/NewConversationContactsList.qml:319
+#, kde-format
+msgid "New Group"
+msgstr ""
+
+#: src/contents/ui/NewConversationContactsList.qml:479
+#, kde-format
+msgid "No contacts with phone numbers yet"
+msgstr "No contacts with phone numbers yet"
+
+#: src/contents/ui/NewConversationContactsList.qml:482
+#, kde-format
+msgid "Open contacts app"
+msgstr "Open contacts app"
+
+#: src/contents/ui/NewConversationContactsList.qml:489
+#, kde-format
+msgid "No results found"
+msgstr "No results found"
+
+#: src/contents/ui/NewConversationPage.qml:15
+#, kde-format
+msgid "New Group Chat"
+msgstr ""
+
+#: src/contents/ui/NewConversationPage.qml:15
+#, fuzzy, kde-format
+#| msgid "Chats"
+msgid "New Chat"
+msgstr "Chats"
 
 #: src/contents/ui/PreviewPage.qml:32
 #, kde-format
@@ -308,72 +321,72 @@ msgstr "Back"
 msgid "MMS Settings"
 msgstr "MMS Settings"
 
-#: src/contents/ui/settings/MMSSettingsPage.qml:36
+#: src/contents/ui/settings/MMSSettingsPage.qml:30
 #, kde-format
 msgid "Multimedia messages (MMS)"
 msgstr "Multimedia messages (MMS)"
 
-#: src/contents/ui/settings/MMSSettingsPage.qml:43
+#: src/contents/ui/settings/MMSSettingsPage.qml:38
 #, kde-format
 msgid "MMSC"
 msgstr "MMSC"
 
-#: src/contents/ui/settings/MMSSettingsPage.qml:53
+#: src/contents/ui/settings/MMSSettingsPage.qml:48
 #, kde-format
 msgid "Proxy"
 msgstr "Proxy"
 
-#: src/contents/ui/settings/MMSSettingsPage.qml:61
+#: src/contents/ui/settings/MMSSettingsPage.qml:56
 #, kde-format
 msgid "Port"
 msgstr "Port"
 
-#: src/contents/ui/settings/MMSSettingsPage.qml:79
+#: src/contents/ui/settings/MMSSettingsPage.qml:74
 #, kde-format
 msgid "Request delivery reports"
 msgstr "Request delivery reports"
 
-#: src/contents/ui/settings/MMSSettingsPage.qml:86
+#: src/contents/ui/settings/MMSSettingsPage.qml:81
 #, kde-format
 msgid "Request read reports"
 msgstr "Request read reports"
 
-#: src/contents/ui/settings/MMSSettingsPage.qml:93
+#: src/contents/ui/settings/MMSSettingsPage.qml:88
 #, kde-format
 msgid "Share delivery status"
 msgstr "Share delivery status"
 
-#: src/contents/ui/settings/MMSSettingsPage.qml:100
+#: src/contents/ui/settings/MMSSettingsPage.qml:95
 #, kde-format
 msgid "Share read status"
 msgstr "Share read status"
 
-#: src/contents/ui/settings/MMSSettingsPage.qml:108
+#: src/contents/ui/settings/MMSSettingsPage.qml:103
 #, kde-format
 msgid "Auto download messages"
 msgstr "Auto download messages"
 
-#: src/contents/ui/settings/MMSSettingsPage.qml:116
+#: src/contents/ui/settings/MMSSettingsPage.qml:111
 #, kde-format
 msgid "Auto download messages for existing contacts only"
 msgstr "Auto download messages for existing contacts only"
 
-#: src/contents/ui/settings/MMSSettingsPage.qml:123
+#: src/contents/ui/settings/MMSSettingsPage.qml:118
 #, kde-format
 msgid "Max message size (KiB)"
 msgstr "Max message size (KiB)"
 
-#: src/contents/ui/settings/MMSSettingsPage.qml:135
+#: src/contents/ui/settings/MMSSettingsPage.qml:130
 #, kde-format
 msgid "Max attachments"
 msgstr "Max attachments"
 
-#: src/contents/ui/settings/MMSSettingsPage.qml:147
+#: src/contents/ui/settings/MMSSettingsPage.qml:142
 #, kde-format
 msgid "Auto create SMIL"
 msgstr "Auto create SMIL"
 
-#: src/contents/ui/settings/MMSSettingsPage.qml:154
+#: src/contents/ui/settings/MMSSettingsPage.qml:149
 #, kde-format
 msgid "Default to group conversations"
 msgstr "Default to group conversations"
@@ -383,82 +396,82 @@ msgstr "Default to group conversations"
 msgid "Settings"
 msgstr "Settings"
 
-#: src/contents/ui/settings/SettingsPage.qml:40
+#: src/contents/ui/settings/SettingsPage.qml:34
 #, kde-format
 msgid "General"
 msgstr "General"
 
-#: src/contents/ui/settings/SettingsPage.qml:45
+#: src/contents/ui/settings/SettingsPage.qml:42
 #, kde-format
 msgid "About"
 msgstr "About"
 
-#: src/contents/ui/settings/SettingsPage.qml:53
+#: src/contents/ui/settings/SettingsPage.qml:50
 #, kde-format
 msgid "Multimedia Messages (MMS)"
 msgstr "Multimedia Messages (MMS)"
 
-#: src/contents/ui/settings/SettingsPage.qml:61
+#: src/contents/ui/settings/SettingsPage.qml:58
 #, kde-format
 msgid "Restore defaults"
 msgstr "Restore defaults"
 
-#: src/contents/ui/settings/SettingsPage.qml:64
+#: src/contents/ui/settings/SettingsPage.qml:61
 #, kde-format
 msgid "Reset"
 msgstr "Reset"
 
-#: src/contents/ui/settings/SettingsPage.qml:85
+#: src/contents/ui/settings/SettingsPage.qml:74
 #, kde-format
 msgid "Appearance"
 msgstr "Appearance"
 
-#: src/contents/ui/settings/SettingsPage.qml:91
+#: src/contents/ui/settings/SettingsPage.qml:81
 #, kde-format
 msgid "Use custom colors for messages"
 msgstr "Use custom colours for messages"
 
-#: src/contents/ui/settings/SettingsPage.qml:99
+#: src/contents/ui/settings/SettingsPage.qml:89
 #, kde-format
 msgid "Incoming message color"
 msgstr "Incoming message colour"
 
-#: src/contents/ui/settings/SettingsPage.qml:122
+#: src/contents/ui/settings/SettingsPage.qml:112
 #, kde-format
 msgid "Outgoing message color"
 msgstr "Outgoing message colour"
 
-#: src/contents/ui/settings/SettingsPage.qml:145
+#: src/contents/ui/settings/SettingsPage.qml:135
 #, kde-format
 msgid "Message font size"
 msgstr "Message font size"
 
-#: src/contents/ui/settings/SettingsPage.qml:165
+#: src/contents/ui/settings/SettingsPage.qml:147
 #, kde-format
 msgid "Notifications"
 msgstr "Notifications"
 
-#: src/contents/ui/settings/SettingsPage.qml:171
+#: src/contents/ui/settings/SettingsPage.qml:154
 #, kde-format
 msgid "Show sender name / number"
 msgstr "Show sender name / number"
 
-#: src/contents/ui/settings/SettingsPage.qml:178
+#: src/contents/ui/settings/SettingsPage.qml:161
 #, kde-format
 msgid "Show a preview of the message content"
 msgstr "Show a preview of the message content"
 
-#: src/contents/ui/settings/SettingsPage.qml:185
+#: src/contents/ui/settings/SettingsPage.qml:168
 #, kde-format
 msgid "Show attachment previews"
 msgstr "Show attachment previews"
 
-#: src/contents/ui/settings/SettingsPage.qml:192
+#: src/contents/ui/settings/SettingsPage.qml:175
 #, kde-format
 msgid "Ignore tapbacks"
 msgstr "Ignore tapbacks"
 
-#: src/contents/ui/settings/SettingsPage.qml:209
+#: src/contents/ui/settings/SettingsPage.qml:191
 #, kde-format
 msgid "Choose a color"
 msgstr "Choose a colour"
@@ -512,6 +525,13 @@ msgstr "Spacebar SMS/MMS client"
 #, kde-format
 msgid "Open a chat with the given phone number"
 msgstr "Open a chat with the given phone number"
+
+#~ msgctxt "Open chat conversation window"
+#~ msgid "Next"
+#~ msgstr "Next"
+
+#~ msgid "Contacts"
+#~ msgstr "Contacts"
 
 #~ msgid "View slideshow"
 #~ msgstr "View slideshow"

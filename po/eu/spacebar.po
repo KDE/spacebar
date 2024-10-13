@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: spacebar\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-10-02 00:41+0000\n"
+"POT-Creation-Date: 2024-10-13 00:41+0000\n"
 "PO-Revision-Date: 2024-08-19 14:45+0200\n"
 "Last-Translator: Iñigo Salvador Azurmendi <xalba@ni.eus>\n"
 "Language-Team: Basque <kde-i18n-eu@kde.org>\n"
@@ -133,49 +133,6 @@ msgstr[1] "%1 Elkarrizketa ezabatu?"
 msgid "This is permanent and can't be undone"
 msgstr "Hau iraunkorra da eta ezin da desegin"
 
-#: src/contents/ui/ContactsList.qml:47
-#, kde-format
-msgid "Select a number"
-msgstr "Aukeratu zenbaki bat"
-
-#: src/contents/ui/ContactsList.qml:181
-#, kde-format
-msgctxt "Number of items selected"
-msgid "%1 Selected"
-msgstr "%1 hautatuta"
-
-#: src/contents/ui/ContactsList.qml:191
-#, kde-format
-msgctxt "Open chat conversation window"
-msgid "Next"
-msgstr "Hurrengoa"
-
-#: src/contents/ui/ContactsList.qml:206
-#, kde-format
-msgctxt "@info:status Error message displayed when no contact is selected"
-msgid "No contact selected"
-msgstr "Ez da kontakturik hautatu"
-
-#: src/contents/ui/ContactsList.qml:235
-#, kde-format
-msgid "Search or enter number…"
-msgstr "Bilatu edo aurkitu zenbakia..."
-
-#: src/contents/ui/ContactsList.qml:399
-#, kde-format
-msgid "No contacts with phone numbers yet"
-msgstr "Oraindik ez dago telefono zenbakirik duen kontakturik"
-
-#: src/contents/ui/ContactsList.qml:402
-#, kde-format
-msgid "Open contacts app"
-msgstr "Ireki kontaktuen aplikazioa"
-
-#: src/contents/ui/ContactsList.qml:409
-#, kde-format
-msgid "No results found"
-msgstr "Ez du emaitzarik aurkitu"
-
 #: src/contents/ui/MessagesPage.qml:128
 #, kde-format
 msgid "Call"
@@ -298,10 +255,66 @@ msgstr "Bidali mezua %1(e)tik..."
 msgid "Choose a file"
 msgstr "Aukeratu fitxategi bat"
 
-#: src/contents/ui/NewConversationPage.qml:14
+#: src/contents/ui/NewConversationContactsList.qml:50
 #, kde-format
-msgid "Contacts"
-msgstr "Kontaktuak"
+msgid "Select a number"
+msgstr "Aukeratu zenbaki bat"
+
+#: src/contents/ui/NewConversationContactsList.qml:226
+#, kde-format
+msgid "Search or enter number…"
+msgstr "Bilatu edo aurkitu zenbakia..."
+
+#: src/contents/ui/NewConversationContactsList.qml:250
+#, kde-format
+msgctxt "Number of items selected"
+msgid "%1 Selected"
+msgstr "%1 hautatuta"
+
+#: src/contents/ui/NewConversationContactsList.qml:259
+#, fuzzy, kde-format
+#| msgctxt "Selecting recipients from contacts list"
+#| msgid "Create a chat"
+msgctxt "Open chat conversation window"
+msgid "Create"
+msgstr "Sortu berriketa bat"
+
+#: src/contents/ui/NewConversationContactsList.qml:274
+#, kde-format
+msgctxt "@info:status Error message displayed when no contact is selected"
+msgid "No contact selected"
+msgstr "Ez da kontakturik hautatu"
+
+#: src/contents/ui/NewConversationContactsList.qml:319
+#, kde-format
+msgid "New Group"
+msgstr ""
+
+#: src/contents/ui/NewConversationContactsList.qml:479
+#, kde-format
+msgid "No contacts with phone numbers yet"
+msgstr "Oraindik ez dago telefono zenbakirik duen kontakturik"
+
+#: src/contents/ui/NewConversationContactsList.qml:482
+#, kde-format
+msgid "Open contacts app"
+msgstr "Ireki kontaktuen aplikazioa"
+
+#: src/contents/ui/NewConversationContactsList.qml:489
+#, kde-format
+msgid "No results found"
+msgstr "Ez du emaitzarik aurkitu"
+
+#: src/contents/ui/NewConversationPage.qml:15
+#, kde-format
+msgid "New Group Chat"
+msgstr ""
+
+#: src/contents/ui/NewConversationPage.qml:15
+#, fuzzy, kde-format
+#| msgid "Chats"
+msgid "New Chat"
+msgstr "Berriketak"
 
 #: src/contents/ui/PreviewPage.qml:32
 #, kde-format
@@ -313,73 +326,73 @@ msgstr "Atzera"
 msgid "MMS Settings"
 msgstr "MMS ezarpenak"
 
-#: src/contents/ui/settings/MMSSettingsPage.qml:36
+#: src/contents/ui/settings/MMSSettingsPage.qml:30
 #, kde-format
 msgid "Multimedia messages (MMS)"
 msgstr "Multimedia mezuak (MMS)"
 
-#: src/contents/ui/settings/MMSSettingsPage.qml:43
+#: src/contents/ui/settings/MMSSettingsPage.qml:38
 #, kde-format
 msgid "MMSC"
 msgstr "MMSC"
 
-#: src/contents/ui/settings/MMSSettingsPage.qml:53
+#: src/contents/ui/settings/MMSSettingsPage.qml:48
 #, kde-format
 msgid "Proxy"
 msgstr "Ordezkaria"
 
-#: src/contents/ui/settings/MMSSettingsPage.qml:61
+#: src/contents/ui/settings/MMSSettingsPage.qml:56
 #, kde-format
 msgid "Port"
 msgstr "Ataka"
 
-#: src/contents/ui/settings/MMSSettingsPage.qml:79
+#: src/contents/ui/settings/MMSSettingsPage.qml:74
 #, kde-format
 msgid "Request delivery reports"
 msgstr "Eskatu banatu izanaren txostenak"
 
-#: src/contents/ui/settings/MMSSettingsPage.qml:86
+#: src/contents/ui/settings/MMSSettingsPage.qml:81
 #, kde-format
 msgid "Request read reports"
 msgstr "Eskatu irakurri izanaren txostenak"
 
-#: src/contents/ui/settings/MMSSettingsPage.qml:93
+#: src/contents/ui/settings/MMSSettingsPage.qml:88
 #, kde-format
 msgid "Share delivery status"
 msgstr "Partekatu banaketa egoera"
 
-#: src/contents/ui/settings/MMSSettingsPage.qml:100
+#: src/contents/ui/settings/MMSSettingsPage.qml:95
 #, kde-format
 msgid "Share read status"
 msgstr "Partekatu irakurtze egoera"
 
-#: src/contents/ui/settings/MMSSettingsPage.qml:108
+#: src/contents/ui/settings/MMSSettingsPage.qml:103
 #, kde-format
 msgid "Auto download messages"
 msgstr "Mezuak automatikoki zama-jaitsi"
 
-#: src/contents/ui/settings/MMSSettingsPage.qml:116
+#: src/contents/ui/settings/MMSSettingsPage.qml:111
 #, kde-format
 msgid "Auto download messages for existing contacts only"
 msgstr ""
 "Mezuak automatikoki zama-jaitsi existitzen diren kontaktuetarako bakarrik"
 
-#: src/contents/ui/settings/MMSSettingsPage.qml:123
+#: src/contents/ui/settings/MMSSettingsPage.qml:118
 #, kde-format
 msgid "Max message size (KiB)"
 msgstr "Mezuen gehienezko neurria (KiB)"
 
-#: src/contents/ui/settings/MMSSettingsPage.qml:135
+#: src/contents/ui/settings/MMSSettingsPage.qml:130
 #, kde-format
 msgid "Max attachments"
 msgstr "Gehienezko eranskinak"
 
-#: src/contents/ui/settings/MMSSettingsPage.qml:147
+#: src/contents/ui/settings/MMSSettingsPage.qml:142
 #, kde-format
 msgid "Auto create SMIL"
 msgstr "SMIL automatikoki sortu"
 
-#: src/contents/ui/settings/MMSSettingsPage.qml:154
+#: src/contents/ui/settings/MMSSettingsPage.qml:149
 #, kde-format
 msgid "Default to group conversations"
 msgstr "Lehenespena, elkarrizketak taldekatzea"
@@ -389,82 +402,82 @@ msgstr "Lehenespena, elkarrizketak taldekatzea"
 msgid "Settings"
 msgstr "Ezarpenak"
 
-#: src/contents/ui/settings/SettingsPage.qml:40
+#: src/contents/ui/settings/SettingsPage.qml:34
 #, kde-format
 msgid "General"
 msgstr "Orokorra"
 
-#: src/contents/ui/settings/SettingsPage.qml:45
+#: src/contents/ui/settings/SettingsPage.qml:42
 #, kde-format
 msgid "About"
 msgstr "Honi buruz"
 
-#: src/contents/ui/settings/SettingsPage.qml:53
+#: src/contents/ui/settings/SettingsPage.qml:50
 #, kde-format
 msgid "Multimedia Messages (MMS)"
 msgstr "Multimedia mezuak (MMS)"
 
-#: src/contents/ui/settings/SettingsPage.qml:61
+#: src/contents/ui/settings/SettingsPage.qml:58
 #, kde-format
 msgid "Restore defaults"
 msgstr "Leheneratu lehenetsietara"
 
-#: src/contents/ui/settings/SettingsPage.qml:64
+#: src/contents/ui/settings/SettingsPage.qml:61
 #, kde-format
 msgid "Reset"
 msgstr "Berrezarri"
 
-#: src/contents/ui/settings/SettingsPage.qml:85
+#: src/contents/ui/settings/SettingsPage.qml:74
 #, kde-format
 msgid "Appearance"
 msgstr "Itxura"
 
-#: src/contents/ui/settings/SettingsPage.qml:91
+#: src/contents/ui/settings/SettingsPage.qml:81
 #, kde-format
 msgid "Use custom colors for messages"
 msgstr "Erabili mezuetan zure gustura finkatutako koloreak"
 
-#: src/contents/ui/settings/SettingsPage.qml:99
+#: src/contents/ui/settings/SettingsPage.qml:89
 #, kde-format
 msgid "Incoming message color"
 msgstr "Sarrerako mezuen kolorea"
 
-#: src/contents/ui/settings/SettingsPage.qml:122
+#: src/contents/ui/settings/SettingsPage.qml:112
 #, kde-format
 msgid "Outgoing message color"
 msgstr "Irteerako mezuen kolorea"
 
-#: src/contents/ui/settings/SettingsPage.qml:145
+#: src/contents/ui/settings/SettingsPage.qml:135
 #, kde-format
 msgid "Message font size"
 msgstr "Mezuaren letra-tipoaren neurria"
 
-#: src/contents/ui/settings/SettingsPage.qml:165
+#: src/contents/ui/settings/SettingsPage.qml:147
 #, kde-format
 msgid "Notifications"
 msgstr "Jakinarazpenak"
 
-#: src/contents/ui/settings/SettingsPage.qml:171
+#: src/contents/ui/settings/SettingsPage.qml:154
 #, kde-format
 msgid "Show sender name / number"
 msgstr "Erakutsi bidaltzailearen izena / zenbakia"
 
-#: src/contents/ui/settings/SettingsPage.qml:178
+#: src/contents/ui/settings/SettingsPage.qml:161
 #, kde-format
 msgid "Show a preview of the message content"
 msgstr "Erakutsi mezuaren edukiaren aurreikuspegi bat"
 
-#: src/contents/ui/settings/SettingsPage.qml:185
+#: src/contents/ui/settings/SettingsPage.qml:168
 #, kde-format
 msgid "Show attachment previews"
 msgstr "Erakutsi eranskinaren aurreikuspegiak"
 
-#: src/contents/ui/settings/SettingsPage.qml:192
+#: src/contents/ui/settings/SettingsPage.qml:175
 #, kde-format
 msgid "Ignore tapbacks"
 msgstr "Ez ikusi itzulerako tak egiteak"
 
-#: src/contents/ui/settings/SettingsPage.qml:209
+#: src/contents/ui/settings/SettingsPage.qml:191
 #, kde-format
 msgid "Choose a color"
 msgstr "Hautatu kolore bat"
@@ -518,6 +531,13 @@ msgstr "Spacebar SMS/MMS bezeroa"
 #, kde-format
 msgid "Open a chat with the given phone number"
 msgstr "Ireki berriketa bat emandako telefono zenbakiarekin"
+
+#~ msgctxt "Open chat conversation window"
+#~ msgid "Next"
+#~ msgstr "Hurrengoa"
+
+#~ msgid "Contacts"
+#~ msgstr "Kontaktuak"
 
 #~ msgid "View slideshow"
 #~ msgstr "Ikusi diapositiba emanaldia"

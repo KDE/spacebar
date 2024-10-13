@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: spacebar\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-10-02 00:41+0000\n"
+"POT-Creation-Date: 2024-10-13 00:41+0000\n"
 "PO-Revision-Date: 2024-01-01 08:19-0600\n"
 "Last-Translator: A S Alam <aalam@punlinux.org>\n"
 "Language-Team: Punjabi <kde-i18n-doc@kde.org>\n"
@@ -130,49 +130,6 @@ msgstr[1] "%1 ਗੱਲਾਂਬਾਤਾਂ ਨੂੰ ਹਟਾਉਣਾ ਹੈ
 msgid "This is permanent and can't be undone"
 msgstr "ਇਹ ਪੱਕੇ ਤੌਰ ਉੱਤੇ ਹੈ ਅਤੇ ਵਾਪਸ ਨਹੀਂ ਲਿਆ ਜਾ ਸਕਦਾ"
 
-#: src/contents/ui/ContactsList.qml:47
-#, kde-format
-msgid "Select a number"
-msgstr "ਨੰਬਰ ਚੁਣੋ"
-
-#: src/contents/ui/ContactsList.qml:181
-#, kde-format
-msgctxt "Number of items selected"
-msgid "%1 Selected"
-msgstr "%1 ਚੁਣੇ"
-
-#: src/contents/ui/ContactsList.qml:191
-#, kde-format
-msgctxt "Open chat conversation window"
-msgid "Next"
-msgstr "ਅੱਗੇ"
-
-#: src/contents/ui/ContactsList.qml:206
-#, kde-format
-msgctxt "@info:status Error message displayed when no contact is selected"
-msgid "No contact selected"
-msgstr ""
-
-#: src/contents/ui/ContactsList.qml:235
-#, kde-format
-msgid "Search or enter number…"
-msgstr "...ਖੋਜੋ ਜਾਂ ਨੰਬਰ ਦਿਓ"
-
-#: src/contents/ui/ContactsList.qml:399
-#, kde-format
-msgid "No contacts with phone numbers yet"
-msgstr "ਹਾਲੇ ਫ਼ੋਨ ਨੰਬਰ ਨਾਲ ਕੋਈ ਸੰਪਰਕ ਨਹੀਂ ਹੈ"
-
-#: src/contents/ui/ContactsList.qml:402
-#, kde-format
-msgid "Open contacts app"
-msgstr "ਸੰਪਰਕ ਐਪ ਨੂੰ ਖੋਲ੍ਹੋ"
-
-#: src/contents/ui/ContactsList.qml:409
-#, kde-format
-msgid "No results found"
-msgstr "ਕੋਈ ਨਤੀਜੇ ਨਹੀਂ ਲੱਭੇ"
-
 #: src/contents/ui/MessagesPage.qml:128
 #, kde-format
 msgid "Call"
@@ -293,10 +250,66 @@ msgstr "...%1 ਤੋਂ ਸੁਨੇਹਾ ਭੇਜੋ"
 msgid "Choose a file"
 msgstr "ਫਾਇਲ ਚੁਣੋ"
 
-#: src/contents/ui/NewConversationPage.qml:14
+#: src/contents/ui/NewConversationContactsList.qml:50
 #, kde-format
-msgid "Contacts"
-msgstr "ਸੰਪਰਕ"
+msgid "Select a number"
+msgstr "ਨੰਬਰ ਚੁਣੋ"
+
+#: src/contents/ui/NewConversationContactsList.qml:226
+#, kde-format
+msgid "Search or enter number…"
+msgstr "...ਖੋਜੋ ਜਾਂ ਨੰਬਰ ਦਿਓ"
+
+#: src/contents/ui/NewConversationContactsList.qml:250
+#, kde-format
+msgctxt "Number of items selected"
+msgid "%1 Selected"
+msgstr "%1 ਚੁਣੇ"
+
+#: src/contents/ui/NewConversationContactsList.qml:259
+#, fuzzy, kde-format
+#| msgctxt "Selecting recipients from contacts list"
+#| msgid "Create a chat"
+msgctxt "Open chat conversation window"
+msgid "Create"
+msgstr "ਚੈਟ ਬਣਾਓ"
+
+#: src/contents/ui/NewConversationContactsList.qml:274
+#, kde-format
+msgctxt "@info:status Error message displayed when no contact is selected"
+msgid "No contact selected"
+msgstr ""
+
+#: src/contents/ui/NewConversationContactsList.qml:319
+#, kde-format
+msgid "New Group"
+msgstr ""
+
+#: src/contents/ui/NewConversationContactsList.qml:479
+#, kde-format
+msgid "No contacts with phone numbers yet"
+msgstr "ਹਾਲੇ ਫ਼ੋਨ ਨੰਬਰ ਨਾਲ ਕੋਈ ਸੰਪਰਕ ਨਹੀਂ ਹੈ"
+
+#: src/contents/ui/NewConversationContactsList.qml:482
+#, kde-format
+msgid "Open contacts app"
+msgstr "ਸੰਪਰਕ ਐਪ ਨੂੰ ਖੋਲ੍ਹੋ"
+
+#: src/contents/ui/NewConversationContactsList.qml:489
+#, kde-format
+msgid "No results found"
+msgstr "ਕੋਈ ਨਤੀਜੇ ਨਹੀਂ ਲੱਭੇ"
+
+#: src/contents/ui/NewConversationPage.qml:15
+#, kde-format
+msgid "New Group Chat"
+msgstr ""
+
+#: src/contents/ui/NewConversationPage.qml:15
+#, fuzzy, kde-format
+#| msgid "Chats"
+msgid "New Chat"
+msgstr "ਚੈਟ"
 
 #: src/contents/ui/PreviewPage.qml:32
 #, kde-format
@@ -308,72 +321,72 @@ msgstr "ਪਿੱਛੇ"
 msgid "MMS Settings"
 msgstr "MMS ਸੈਟਿੰਗਾਂ"
 
-#: src/contents/ui/settings/MMSSettingsPage.qml:36
+#: src/contents/ui/settings/MMSSettingsPage.qml:30
 #, kde-format
 msgid "Multimedia messages (MMS)"
 msgstr "ਮਲਟੀਮੀਡਿਆ ਸੁਨੇਹੇ (MMS)"
 
-#: src/contents/ui/settings/MMSSettingsPage.qml:43
+#: src/contents/ui/settings/MMSSettingsPage.qml:38
 #, kde-format
 msgid "MMSC"
 msgstr "MMSC"
 
-#: src/contents/ui/settings/MMSSettingsPage.qml:53
+#: src/contents/ui/settings/MMSSettingsPage.qml:48
 #, kde-format
 msgid "Proxy"
 msgstr "ਪਰਾਕਸੀ"
 
-#: src/contents/ui/settings/MMSSettingsPage.qml:61
+#: src/contents/ui/settings/MMSSettingsPage.qml:56
 #, kde-format
 msgid "Port"
 msgstr "ਪੋਰਟ"
 
-#: src/contents/ui/settings/MMSSettingsPage.qml:79
+#: src/contents/ui/settings/MMSSettingsPage.qml:74
 #, kde-format
 msgid "Request delivery reports"
 msgstr "ਪਹੁੰਚਣ ਰਿਪੋਰਟਾਂ ਲਈ ਬੇਨਤੀ"
 
-#: src/contents/ui/settings/MMSSettingsPage.qml:86
+#: src/contents/ui/settings/MMSSettingsPage.qml:81
 #, kde-format
 msgid "Request read reports"
 msgstr "ਪੜ੍ਹਨ ਰਿਪੋਰਟਾਂ ਲਈ ਬੇਨਤੀ"
 
-#: src/contents/ui/settings/MMSSettingsPage.qml:93
+#: src/contents/ui/settings/MMSSettingsPage.qml:88
 #, kde-format
 msgid "Share delivery status"
 msgstr "ਡਿਲਵਰੀ ਸਥਿਤੀ ਨੂੰ ਸਾਂਝਾ ਕਰੋ"
 
-#: src/contents/ui/settings/MMSSettingsPage.qml:100
+#: src/contents/ui/settings/MMSSettingsPage.qml:95
 #, kde-format
 msgid "Share read status"
 msgstr "ਪੜ੍ਹਨ ਸਥਿਤੀ ਨੂੰ ਸਾਂਝਾ ਕਰੋ"
 
-#: src/contents/ui/settings/MMSSettingsPage.qml:108
+#: src/contents/ui/settings/MMSSettingsPage.qml:103
 #, kde-format
 msgid "Auto download messages"
 msgstr "ਸੁਨੇਹੇ ਆਪਣੇ-ਆਪ ਡਾਊਨਲੋਡ ਕਰੋ"
 
-#: src/contents/ui/settings/MMSSettingsPage.qml:116
+#: src/contents/ui/settings/MMSSettingsPage.qml:111
 #, kde-format
 msgid "Auto download messages for existing contacts only"
 msgstr "ਸਿਰਫ਼ ਮੌਜੂਦਾ ਸੰਪਰਕਾਂ ਲਈ ਹੀ ਸੁਨੇਹਿਆਂ ਨੂੰ ਆਪਣੇ-ਆਪ ਡਾਊਨਲੋਡ ਕਰੋ"
 
-#: src/contents/ui/settings/MMSSettingsPage.qml:123
+#: src/contents/ui/settings/MMSSettingsPage.qml:118
 #, kde-format
 msgid "Max message size (KiB)"
 msgstr "ਵੱਧ ਤੋਂ ਵੱਧ ਸੁਨੇਹਾ ਆਕਾਰ (KiB)"
 
-#: src/contents/ui/settings/MMSSettingsPage.qml:135
+#: src/contents/ui/settings/MMSSettingsPage.qml:130
 #, kde-format
 msgid "Max attachments"
 msgstr "ਵੱਧ ਤੋਂ ਵੱਧ ਅਟੈਚਮੈਂਟਾਂ"
 
-#: src/contents/ui/settings/MMSSettingsPage.qml:147
+#: src/contents/ui/settings/MMSSettingsPage.qml:142
 #, kde-format
 msgid "Auto create SMIL"
 msgstr ""
 
-#: src/contents/ui/settings/MMSSettingsPage.qml:154
+#: src/contents/ui/settings/MMSSettingsPage.qml:149
 #, kde-format
 msgid "Default to group conversations"
 msgstr ""
@@ -383,82 +396,82 @@ msgstr ""
 msgid "Settings"
 msgstr "ਸੈਟਿੰਗਾਂ"
 
-#: src/contents/ui/settings/SettingsPage.qml:40
+#: src/contents/ui/settings/SettingsPage.qml:34
 #, kde-format
 msgid "General"
 msgstr "ਆਮ"
 
-#: src/contents/ui/settings/SettingsPage.qml:45
+#: src/contents/ui/settings/SettingsPage.qml:42
 #, kde-format
 msgid "About"
 msgstr "ਇਸ ਬਾਰੇ"
 
-#: src/contents/ui/settings/SettingsPage.qml:53
+#: src/contents/ui/settings/SettingsPage.qml:50
 #, kde-format
 msgid "Multimedia Messages (MMS)"
 msgstr "ਮਲਟੀਮੀਡਿਆ ਸੁਨੇਹੇ (MMS)"
 
-#: src/contents/ui/settings/SettingsPage.qml:61
+#: src/contents/ui/settings/SettingsPage.qml:58
 #, kde-format
 msgid "Restore defaults"
 msgstr "ਡਿਫਾਲਟ ਬਹਾਲ ਕਰੋ"
 
-#: src/contents/ui/settings/SettingsPage.qml:64
+#: src/contents/ui/settings/SettingsPage.qml:61
 #, kde-format
 msgid "Reset"
 msgstr "ਮੁੜ-ਸੈੱਟ ਕਰੋ"
 
-#: src/contents/ui/settings/SettingsPage.qml:85
+#: src/contents/ui/settings/SettingsPage.qml:74
 #, kde-format
 msgid "Appearance"
 msgstr "ਦਿੱਖ"
 
-#: src/contents/ui/settings/SettingsPage.qml:91
+#: src/contents/ui/settings/SettingsPage.qml:81
 #, kde-format
 msgid "Use custom colors for messages"
 msgstr "ਸੁਨੇਹਿਆਂ ਲਈ ਪਸੰਦੀਦਾ ਰੰਗ ਵਰਤੋ"
 
-#: src/contents/ui/settings/SettingsPage.qml:99
+#: src/contents/ui/settings/SettingsPage.qml:89
 #, kde-format
 msgid "Incoming message color"
 msgstr "ਆਉਣ ਵਾਲੇ ਸੁਨੇਹਾ ਦਾ ਰੰਗ"
 
-#: src/contents/ui/settings/SettingsPage.qml:122
+#: src/contents/ui/settings/SettingsPage.qml:112
 #, kde-format
 msgid "Outgoing message color"
 msgstr "ਜਾਣ ਵਾਲੇ ਸੁਨੇਹੇ ਦਾ ਰੰਗ"
 
-#: src/contents/ui/settings/SettingsPage.qml:145
+#: src/contents/ui/settings/SettingsPage.qml:135
 #, kde-format
 msgid "Message font size"
 msgstr "ਸੁਨੇਹਾ ਫ਼ੋਂਟ ਆਕਾਰ"
 
-#: src/contents/ui/settings/SettingsPage.qml:165
+#: src/contents/ui/settings/SettingsPage.qml:147
 #, kde-format
 msgid "Notifications"
 msgstr "ਨੋਟੀਫਿਕੇਸ਼ਨ"
 
-#: src/contents/ui/settings/SettingsPage.qml:171
+#: src/contents/ui/settings/SettingsPage.qml:154
 #, kde-format
 msgid "Show sender name / number"
 msgstr "ਭੇਜਣ ਵਾਲੇ ਦਾ ਨਾਂ / ਨੰਬਰ ਵੇਖਾਓ"
 
-#: src/contents/ui/settings/SettingsPage.qml:178
+#: src/contents/ui/settings/SettingsPage.qml:161
 #, kde-format
 msgid "Show a preview of the message content"
 msgstr ""
 
-#: src/contents/ui/settings/SettingsPage.qml:185
+#: src/contents/ui/settings/SettingsPage.qml:168
 #, kde-format
 msgid "Show attachment previews"
 msgstr "ਅਟੈਚਮੈਂਟ ਝਲਕਾਂ ਵੇਖਾਓ"
 
-#: src/contents/ui/settings/SettingsPage.qml:192
+#: src/contents/ui/settings/SettingsPage.qml:175
 #, kde-format
 msgid "Ignore tapbacks"
 msgstr ""
 
-#: src/contents/ui/settings/SettingsPage.qml:209
+#: src/contents/ui/settings/SettingsPage.qml:191
 #, kde-format
 msgid "Choose a color"
 msgstr "ਰੰਗ ਚੁਣੋ"
@@ -512,6 +525,13 @@ msgstr "ਸਪੇਸਬਾਰ SMS/MMS ਕਲਾਈਂਟ"
 #, kde-format
 msgid "Open a chat with the given phone number"
 msgstr "ਦਿੱਤੇ ਫ਼ੋਨ ਨੰਬਰ ਨਾਲ ਚੈਟ ਕਰੋ"
+
+#~ msgctxt "Open chat conversation window"
+#~ msgid "Next"
+#~ msgstr "ਅੱਗੇ"
+
+#~ msgid "Contacts"
+#~ msgstr "ਸੰਪਰਕ"
 
 #~ msgid "View slideshow"
 #~ msgstr "ਸਲਾਇਡ-ਸ਼ੋਅ ਵੇਖੋ"
