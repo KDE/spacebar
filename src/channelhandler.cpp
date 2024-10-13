@@ -10,11 +10,38 @@
 #include <database.h>
 #include <global.h>
 
+const QString DAEMON_DBUS_SERVICE = QStringLiteral("org.kde.spacebar.Daemon");
+
 ChannelHandler::ChannelHandler(QObject *parent)
     : QObject(parent)
 {
-    // daemon dbus interface
-    m_interface = new org::kde::spacebar::Daemon(QStringLiteral("org.kde.Spacebar"), QStringLiteral("/Daemon"), QDBusConnection::sessionBus(), this);
+    // Daemon DBus interface
+    connectInterface();
+    m_isInterfaceAvailable = m_interface->isValid();
+
+    qDebug() << "Is Daemon DBus service available:" << m_isInterfaceAvailable;
+    if (m_isInterfaceAvailable) {
+        connectInterfaceSignals();
+    }
+
+    // Watch if the spacebar daemon goes missing
+    m_watcher = new QDBusServiceWatcher(DAEMON_DBUS_SERVICE, QDBusConnection::sessionBus(), QDBusServiceWatcher::WatchForOwnerChange, this);
+    connect(m_watcher, &QDBusServiceWatcher::serviceRegistered, this, [this]() -> void {
+        connectInterface();
+
+        m_isInterfaceAvailable = m_interface->isValid();
+        Q_EMIT isInterfaceAvailableChanged();
+        qDebug() << "Daemon DBus service registered, is service available:" << m_isInterfaceAvailable;
+
+        if (m_isInterfaceAvailable) {
+            connectInterfaceSignals();
+        }
+    });
+    connect(m_watcher, &QDBusServiceWatcher::serviceUnregistered, this, [this]() -> void {
+        m_isInterfaceAvailable = false;
+        Q_EMIT isInterfaceAvailableChanged();
+        qDebug() << "Daemon DBus service unregistered";
+    });
 
     const QLocale locale;
     const QStringList qcountry = locale.name().split(u'_');
@@ -28,7 +55,18 @@ ChannelHandler::ChannelHandler(QObject *parent)
             PhoneNumber::setCountryCode(countryCode);
         }
     }
+}
 
+void ChannelHandler::connectInterface()
+{
+    if (m_interface) {
+        m_interface->deleteLater();
+    }
+    m_interface = new org::kde::spacebar::Daemon(DAEMON_DBUS_SERVICE, QStringLiteral("/Daemon"), QDBusConnection::sessionBus(), this);
+}
+
+void ChannelHandler::connectInterfaceSignals()
+{
     // Update the chat list when message arrives
     // The message is saved to the database by the background daemon
     connect(m_interface, &OrgKdeSpacebarDaemonInterface::messageAdded, [this](const QString &phoneNumber, const QString &id) {
@@ -45,4 +83,9 @@ Database &ChannelHandler::database()
 org::kde::spacebar::Daemon *ChannelHandler::interface()
 {
     return m_interface;
+}
+
+bool ChannelHandler::isInterfaceAvailable()
+{
+    return m_isInterfaceAvailable;
 }

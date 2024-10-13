@@ -86,13 +86,14 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
     ChatListModel chatListModel(handler);
 
     // Register types
-    qmlRegisterSingletonInstance("org.kde.spacebar", 1, 0, "AboutType", &AboutType::instance());
+    qmlRegisterSingletonInstance(APPLICATION_ID, 1, 0, "AboutType", &AboutType::instance());
     qmlRegisterSingletonInstance<ChatListModel>(APPLICATION_ID, 1, 0, "ChatListModel", &chatListModel);
+    qmlRegisterSingletonInstance<ChannelHandler>(APPLICATION_ID, 1, 0, "ChannelHandler", &handler);
     qmlRegisterUncreatableType<MessageModel>(APPLICATION_ID, 1, 0, "MessageModel", SL("Created by ChatListModel whenever a new chat was opened"));
     qRegisterMetaType<KPeople::PersonData *>("PersonData*");
     qmlRegisterAnonymousType<QAbstractItemModel>(APPLICATION_ID, 1);
     qmlRegisterSingletonInstance<Utils>(APPLICATION_ID, 1, 0, "Utils", Utils::instance());
-    qmlRegisterSingletonInstance("org.kde.spacebar", 1, 0, "SettingsManager", SettingsManager::self());
+    qmlRegisterSingletonInstance(APPLICATION_ID, 1, 0, "SettingsManager", SettingsManager::self());
     qRegisterMetaType<PhoneNumber>();
     qRegisterMetaType<PhoneNumberList>();
     engine.rootContext()->setContextObject(new KLocalizedContext(&engine));

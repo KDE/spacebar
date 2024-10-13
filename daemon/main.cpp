@@ -22,7 +22,8 @@ int main(int argc, char *argv[])
 
     QCoreApplication app(argc, argv);
 
-    KAboutData about(u"Spacebar"_s, u"Spacebar"_s, QStringLiteral(SPACEBAR_VERSION_STRING));
+    // Ensure DBus service is registered as org.kde.spacebar.Daemon
+    KAboutData about(u"spacebar.Daemon"_s, u"Spacebar"_s, QStringLiteral(SPACEBAR_VERSION_STRING));
     KAboutData::setApplicationData(about);
 
     KCrash::initialize();
