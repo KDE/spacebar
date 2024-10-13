@@ -38,7 +38,7 @@ Kirigami.ScrollablePage {
     }
 
     onWidthChanged: ChatListModel.setCharacterLimit(applicationWindow().width)
-    
+
     actions: [
         Kirigami.Action {
             visible: !Kirigami.Settings.isMobile
@@ -63,6 +63,17 @@ Kirigami.ScrollablePage {
         }
     ]
 
+    header: ColumnLayout {
+        Kirigami.InlineMessage {
+            id: noDaemonError
+            Layout.fillWidth: true
+            Layout.margins: Kirigami.Units.smallSpacing
+            type: Kirigami.MessageType.Error
+            text: "Unable to connect to messaging daemon"
+            visible: !ChannelHandler.isDaemonAvailable
+        }
+    }
+
     ListView {
         id: listView
         model: ChatListModel
@@ -83,7 +94,7 @@ Kirigami.ScrollablePage {
                 loading.visible = false
             }
         }
-        
+
         Kirigami.PlaceholderMessage {
             anchors.centerIn: parent
             text: i18nc("Selecting recipients from contacts list", "Create a chat")
@@ -100,7 +111,7 @@ Kirigami.ScrollablePage {
             width: Kirigami.Units.iconSizes.huge
             height: width
         }
-        
+
         // mobile add action
         FloatingActionButton {
             anchors.fill: parent

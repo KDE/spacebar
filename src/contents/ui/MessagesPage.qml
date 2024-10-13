@@ -138,6 +138,17 @@ Kirigami.ScrollablePage {
 
     header: ColumnLayout {
         Kirigami.InlineMessage {
+            id: noDaemonError
+            Layout.fillWidth: true
+            Layout.leftMargin: Kirigami.Units.smallSpacing
+            Layout.rightMargin: Kirigami.Units.smallSpacing
+            Layout.topMargin: Kirigami.Units.smallSpacing
+            type: Kirigami.MessageType.Error
+            text: "Unable to connect to messaging daemon"
+            visible: !ChannelHandler.isDaemonAvailable
+        }
+
+        Kirigami.InlineMessage {
             id: premiumWarning
             Layout.fillWidth: true
             Layout.margins: Kirigami.Units.largeSpacing

@@ -15,6 +15,7 @@
 class ChannelHandler : public QObject
 {
     Q_OBJECT
+    Q_PROPERTY(bool isDaemonAvailable READ isInterfaceAvailable NOTIFY isInterfaceAvailableChanged)
 
 public:
     explicit ChannelHandler(QObject *parent = nullptr);
@@ -22,11 +23,19 @@ public:
     Database &database();
     org::kde::spacebar::Daemon *interface();
 
+    bool isInterfaceAvailable();
+
 private:
+    void connectInterface();
+    void connectInterfaceSignals();
+
     Database m_database;
-    org::kde::spacebar::Daemon *m_interface;
+    org::kde::spacebar::Daemon *m_interface{nullptr};
+    bool m_isInterfaceAvailable{false};
+    QDBusServiceWatcher *m_watcher{nullptr};
 
 Q_SIGNALS:
+    void isInterfaceAvailableChanged();
     void handlerReady();
     void channelOpen(const QString &phoneNumber);
     void messagesChanged(const PhoneNumberList &phoneNumberList);
