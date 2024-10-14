@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: spacebar\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-10-13 00:41+0000\n"
+"POT-Creation-Date: 2024-10-14 00:41+0000\n"
 "PO-Revision-Date: 2024-07-28 15:17+0200\n"
 "Last-Translator: Vincenzo Reale <smart2128vr@gmail.com>\n"
 "Language-Team: Italian <kde-i18n-it@kde.org>\n"
@@ -51,7 +51,7 @@ msgctxt "@action open message in application"
 msgid "Open"
 msgstr "Apri"
 
-#: daemon/main.cpp:36
+#: daemon/main.cpp:37
 #, kde-format
 msgid "Spacebar background service"
 msgstr "Servizio in background di Spacebar"
@@ -100,32 +100,37 @@ msgctxt "Deleting a conversation"
 msgid "Delete"
 msgstr "Elimina"
 
-#: src/contents/ui/ChatsPage.qml:89
+#: src/contents/ui/ChatsPage.qml:72 src/contents/ui/MessagesPage.qml:147
+#, kde-format
+msgid "Unable to connect to messaging daemon"
+msgstr ""
+
+#: src/contents/ui/ChatsPage.qml:100
 #, kde-format
 msgctxt "Selecting recipients from contacts list"
 msgid "Create a chat"
 msgstr "Crea una chat"
 
-#: src/contents/ui/ChatsPage.qml:177
+#: src/contents/ui/ChatsPage.qml:188
 #, kde-format
 msgctxt "Indicating that message was sent by you"
 msgid "You"
 msgstr "Tu"
 
-#: src/contents/ui/ChatsPage.qml:177
+#: src/contents/ui/ChatsPage.qml:188
 #, kde-format
 msgctxt "Indicating that message contains an image"
 msgid "Picture"
 msgstr "Immagine"
 
-#: src/contents/ui/ChatsPage.qml:266
+#: src/contents/ui/ChatsPage.qml:277
 #, kde-format
 msgid "Delete this conversation?"
 msgid_plural "Delete %1 conversations?"
 msgstr[0] "Vuoi eliminare questa conversazione?"
 msgstr[1] "Vuoi eliminare %1 conversazioni?"
 
-#: src/contents/ui/ChatsPage.qml:267
+#: src/contents/ui/ChatsPage.qml:278
 #, kde-format
 msgid "This is permanent and can't be undone"
 msgstr "Questo è definitivo e non può essere annullato"
@@ -135,119 +140,119 @@ msgstr "Questo è definitivo e non può essere annullato"
 msgid "Call"
 msgstr "Chiamata"
 
-#: src/contents/ui/MessagesPage.qml:146
+#: src/contents/ui/MessagesPage.qml:157
 #, kde-format
 msgid "Texting this premium SMS number might cause you to be charged money"
 msgstr ""
 "Inviare un SMS a questo numero premium potrebbe comportare l'addebito di "
 "denaro"
 
-#: src/contents/ui/MessagesPage.qml:157
+#: src/contents/ui/MessagesPage.qml:168
 #, kde-format
 msgid "Max attachment limit exceeded"
 msgstr "Limite massimo di allegati superato"
 
-#: src/contents/ui/MessagesPage.qml:168
+#: src/contents/ui/MessagesPage.qml:179
 #, kde-format
 msgid "No MMSC configured"
 msgstr "Nessun MMSC configurato"
 
-#: src/contents/ui/MessagesPage.qml:179
+#: src/contents/ui/MessagesPage.qml:190
 #, kde-format
 msgid "Message has expired and will be deleted"
 msgstr "Il messaggio è scaduto e sarà eliminato"
 
-#: src/contents/ui/MessagesPage.qml:190
+#: src/contents/ui/MessagesPage.qml:201
 #, kde-format
 msgid "Message will be sent as individual messages"
 msgstr "Il messaggio sarà inviato come messaggio singolo"
 
-#: src/contents/ui/MessagesPage.qml:465
+#: src/contents/ui/MessagesPage.qml:476
 #, kde-format
 msgid "MMS message"
 msgstr "Messaggio MMS"
 
-#: src/contents/ui/MessagesPage.qml:473
+#: src/contents/ui/MessagesPage.qml:484
 #, kde-format
 msgid "Message size: %1"
 msgstr "Dimensione del messaggio: %1"
 
-#: src/contents/ui/MessagesPage.qml:479
+#: src/contents/ui/MessagesPage.qml:490
 #, kde-format
 msgid "Expires: %1"
 msgstr "Scade il: %1"
 
-#: src/contents/ui/MessagesPage.qml:595
+#: src/contents/ui/MessagesPage.qml:606
 #, kde-format
 msgid "View all"
 msgstr "Visualizza tutti"
 
-#: src/contents/ui/MessagesPage.qml:735
+#: src/contents/ui/MessagesPage.qml:746
 #, kde-format
 msgid "%1 new message"
 msgid_plural "%1 new messages"
 msgstr[0] "%1 nuovo messaggio"
 msgstr[1] "%1 nuovi messaggi"
 
-#: src/contents/ui/MessagesPage.qml:814
+#: src/contents/ui/MessagesPage.qml:825
 #, kde-format
 msgid "Copy code"
 msgstr "Copia codice"
 
-#: src/contents/ui/MessagesPage.qml:824
+#: src/contents/ui/MessagesPage.qml:835
 #, kde-format
 msgid "Copy link"
 msgstr "Copia collegamento"
 
-#: src/contents/ui/MessagesPage.qml:837
+#: src/contents/ui/MessagesPage.qml:848
 #, kde-format
 msgid "Copy text"
 msgstr "Copia testo"
 
-#: src/contents/ui/MessagesPage.qml:847 src/contents/ui/MessagesPage.qml:886
+#: src/contents/ui/MessagesPage.qml:858 src/contents/ui/MessagesPage.qml:897
 #, kde-format
 msgid "Save attachment"
 msgstr "Salva allegato"
 
-#: src/contents/ui/MessagesPage.qml:857
+#: src/contents/ui/MessagesPage.qml:868
 #, kde-format
 msgid "Delete message"
 msgstr "Elimina il messaggio"
 
-#: src/contents/ui/MessagesPage.qml:869
+#: src/contents/ui/MessagesPage.qml:880
 #, kde-format
 msgctxt "Retry sending message"
 msgid "Resend"
 msgstr "Invia di nuovo"
 
-#: src/contents/ui/MessagesPage.qml:939
+#: src/contents/ui/MessagesPage.qml:950
 #, kde-format
 msgid "Save"
 msgstr "Salva"
 
-#: src/contents/ui/MessagesPage.qml:946
+#: src/contents/ui/MessagesPage.qml:957
 #, kde-format
 msgid "Cancel"
 msgstr "Annulla"
 
-#: src/contents/ui/MessagesPage.qml:1064
+#: src/contents/ui/MessagesPage.qml:1075
 #, kde-format
 msgctxt "Remove item from list"
 msgid "Remove"
 msgstr "Rimuovi"
 
-#: src/contents/ui/MessagesPage.qml:1102
+#: src/contents/ui/MessagesPage.qml:1113
 #, kde-format
 msgid "Write Message..."
 msgstr "Scrivi messaggio..."
 
-#: src/contents/ui/MessagesPage.qml:1104
+#: src/contents/ui/MessagesPage.qml:1115
 #, kde-format
 msgctxt "%1 is a phone number"
 msgid "Send Message from %1..."
 msgstr "Invia messaggio da %1..."
 
-#: src/contents/ui/MessagesPage.qml:1157
+#: src/contents/ui/MessagesPage.qml:1168
 #, kde-format
 msgid "Choose a file"
 msgstr "Scegli un file"
