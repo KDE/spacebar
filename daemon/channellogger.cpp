@@ -78,9 +78,7 @@ void ChannelLogger::checkMessages()
     // for any unhandled messages
     const ModemManager::Sms::List messages = ModemController::instance().messages();
     for (const ModemManager::Sms::Ptr &msg : messages) {
-        if (msg->state() == MMSmsState::MM_SMS_STATE_RECEIVED) {
-            handleIncomingMessage(msg);
-        }
+        handleIncomingMessage(msg);
     }
 }
 
@@ -102,12 +100,27 @@ QString ChannelLogger::countryCode()
     return countryCode;
 }
 
-void ChannelLogger::handleIncomingMessage(ModemManager::Sms::Ptr msg)
+QCoro::Task<void> ChannelLogger::handleIncomingMessage(ModemManager::Sms::Ptr msg)
 {
+    // If the message is still being received, handle it later when the state changes
+    if (msg->state() == MMSmsState::MM_SMS_STATE_RECEIVING) {
+        connect(msg.get(), &ModemManager::Sms::stateChanged, this, [this, msg]() {
+            handleIncomingMessage(msg);
+        });
+        co_return;
+    }
+
+    // Ensure that it's actually an incoming message, and not outgoing
+    if (msg->state() != MMSmsState::MM_SMS_STATE_RECEIVED) {
+        co_return;
+    }
+
     const QString number = msg->number();
     const QString text = msg->text();
     const QDateTime datetime = msg->timestamp();
     const QByteArray data = msg->data();
+
+    // Delete message from modem
     ModemController::instance().deleteMessage(msg->uni());
 
     const PhoneNumberList phoneNumberList = PhoneNumberList(number);
@@ -117,7 +130,7 @@ void ChannelLogger::handleIncomingMessage(ModemManager::Sms::Ptr msg)
 
     // text and data are not valid at the same time
     if (!text.isEmpty()) {
-        saveMessage(phoneNumberList, datetime, text);
+        co_await saveMessage(phoneNumberList, datetime, text);
     } else if (!data.isEmpty()) {
         MmsMessage mmsMessage;
         m_mms.decodeNotification(mmsMessage, data);
@@ -154,20 +167,20 @@ void ChannelLogger::handleIncomingMessage(ModemManager::Sms::Ptr msg)
             }
         } else if (mmsMessage.messageType == SL("m-delivery-ind")) {
             if (!mmsMessage.messageId.isEmpty()) {
-                m_database.updateMessageDeliveryReport(mmsMessage.messageId);
+                co_await m_database.updateMessageDeliveryReport(mmsMessage.messageId);
             }
         } else if (mmsMessage.messageType == SL("m-read-orig-ind")) {
             if (!mmsMessage.messageId.isEmpty()) {
-                m_database.updateMessageReadReport(mmsMessage.messageId, PhoneNumber(mmsMessage.from));
+                co_await m_database.updateMessageReadReport(mmsMessage.messageId, PhoneNumber(mmsMessage.from));
             }
         } else if (mmsMessage.messageType == SL("m-cancel-req")) {
-            sendCancelResponse(mmsMessage.transactionId);
+            co_await sendCancelResponse(mmsMessage.transactionId);
         } else {
             qDebug() << "Unknown message type:" << mmsMessage.messageType;
-            sendNotifyResponse(mmsMessage.transactionId, SL("unrecognized"));
+            co_await sendNotifyResponse(mmsMessage.transactionId, SL("unrecognized"));
         }
     } else {
-        saveMessage(phoneNumberList, datetime);
+        co_await saveMessage(phoneNumberList, datetime);
     }
 }
 

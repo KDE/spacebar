@@ -44,7 +44,7 @@ public:
 
 private:
     void checkMessages();
-    void handleIncomingMessage(ModemManager::Sms::Ptr msg);
+    QCoro::Task<void> handleIncomingMessage(ModemManager::Sms::Ptr msg);
     void createDownloadNotification(const MmsMessage &mmsMessage);
     QCoro::Task<void> addMessage(const Message &message);
     void updateMessage(const Message &message);
