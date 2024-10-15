@@ -141,8 +141,8 @@ private:
     QVector<Person> m_peopleData;
 
 private Q_SLOTS:
-    QCoro::Task<void> fetchMessages(const QString &id, const int limit = 0);
-    QCoro::Task<void> fetchUpdatedMessage(const QString &id);
+    void fetchMessages(const QString &id, const int limit = 0);
+    void fetchUpdatedMessage(const QString &id);
     void messageAdded(const QString &numbers, const QString &id);
     void messageUpdated(const QString &numbers, const QString &id);
 

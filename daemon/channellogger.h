@@ -42,6 +42,25 @@ public:
     Q_SCRIPTABLE QString ownNumber();
     Q_SCRIPTABLE QString countryCode();
 
+    /*
+     * For the given phone numbers, return the list of chats associated with them.
+     * Passing an empty list returns all chats.
+     * @returns QList<Chat> (serialized for DBus)
+     */
+    Q_SCRIPTABLE StringMapList chats(const QStringList &phoneNumberList);
+
+    Q_SCRIPTABLE void markChatAsRead(const QStringList &phoneNumberList);
+    Q_SCRIPTABLE void deleteChat(const QStringList &phoneNumberList);
+
+    /*
+     * Fetch messages for the given phone numbers and id.
+     * @returns QList<Message> (serialized for DBus)
+     */
+    Q_SCRIPTABLE StringMapList messagesForNumber(const QStringList &phoneNumberList, const QString &id, int limit);
+    Q_SCRIPTABLE void updateMessageDeliveryState(const QString &id, uint state); // state is of MessageState type
+    Q_SCRIPTABLE void markMessageRead(int id);
+    Q_SCRIPTABLE void deleteMessage(const QString &id);
+
 private:
     void checkMessages();
     QCoro::Task<void> handleIncomingMessage(ModemManager::Sms::Ptr msg);

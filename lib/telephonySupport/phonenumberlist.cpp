@@ -17,6 +17,14 @@ PhoneNumberList::PhoneNumberList(const QString &phoneNumbers)
     });
 }
 
+PhoneNumberList::PhoneNumberList(const QStringList &phoneNumbers)
+    : QVector<PhoneNumber>()
+{
+    for (const auto &phone : phoneNumbers) {
+        emplace_back(phone);
+    }
+}
+
 QString PhoneNumberList::toString() const
 {
     QStringList individualNumbers;
@@ -27,4 +35,13 @@ QString PhoneNumberList::toString() const
     });
 
     return individualNumbers.join(u'~');
+}
+
+QList<QString> PhoneNumberList::toStringList() const
+{
+    QList<QString> numbers;
+    for (auto it = begin(); it != end(); ++it) {
+        numbers.push_back(it->toString());
+    }
+    return numbers;
 }

@@ -53,7 +53,7 @@ Database::Database(QObject *parent)
     m_database = ThreadedDatabase::establishConnection(config);
 }
 
-QFuture<std::vector<Message>> Database::messagesForNumber(const PhoneNumberList &phoneNumberList, const QString &id, const int limit) const
+QCoro::Task<std::vector<Message>> Database::messagesForNumber(const PhoneNumberList &phoneNumberList, const QString &id, const int limit) const
 {
     QString sql = SL(R"(
         SELECT
@@ -89,43 +89,43 @@ QFuture<std::vector<Message>> Database::messagesForNumber(const PhoneNumberList 
             sql.append(SL(" LIMIT -1 OFFSET 30"));
         }
 
-        return m_database->getResults<Message>(sql, phoneNumberList.toString());
+        co_return co_await m_database->getResults<Message>(sql, phoneNumberList.toString());
     } else {
         sql.append(SL("WHERE id == ?"));
-        return m_database->getResults<Message>(sql, id);
+        co_return co_await m_database->getResults<Message>(sql, id);
     }
 }
 
-QFuture<void> Database::updateMessageDeliveryState(const QString &id, const MessageState state)
+QCoro::Task<> Database::updateMessageDeliveryState(const QString &id, const MessageState state)
 {
-    return m_database->execute(SL("UPDATE Messages SET delivered = ? WHERE id == ?"), state, id);
+    co_await m_database->execute(SL("UPDATE Messages SET delivered = ? WHERE id == ?"), state, id);
 }
 
-QFuture<void> Database::updateMessageSent(const QString &id, const QString &messageId, const QString &contentLocation)
+QCoro::Task<> Database::updateMessageSent(const QString &id, const QString &messageId, const QString &contentLocation)
 {
-    return m_database->execute(SL("UPDATE Messages SET messageId = ?, contentLocation = ? WHERE id == ?"), messageId, contentLocation, id);
+    co_await m_database->execute(SL("UPDATE Messages SET messageId = ?, contentLocation = ? WHERE id == ?"), messageId, contentLocation, id);
 }
 
-QFuture<void> Database::updateMessageDeliveryReport(const QString &messageId)
+QCoro::Task<> Database::updateMessageDeliveryReport(const QString &messageId)
 {
-    return m_database->execute(SL("UPDATE Messages SET deliveryReport = IFNULL(deliveryReport, 0) + 1 WHERE messageId == ?"), messageId);
+    co_await m_database->execute(SL("UPDATE Messages SET deliveryReport = IFNULL(deliveryReport, 0) + 1 WHERE messageId == ?"), messageId);
 }
 
-QFuture<void> Database::updateMessageReadReport(const QString &messageId, const PhoneNumber &fromNumber)
+QCoro::Task<> Database::updateMessageReadReport(const QString &messageId, const PhoneNumber &fromNumber)
 {
-    return m_database->execute(SL("UPDATE Messages SET readReport = IFNULL(readReport, '') || ? WHERE messageId == ?"),
-                               fromNumber.toInternational(),
-                               messageId);
+    co_await m_database->execute(SL("UPDATE Messages SET readReport = IFNULL(readReport, '') || ? WHERE messageId == ?"),
+                                 fromNumber.toInternational(),
+                                 messageId);
 }
 
-QFuture<void> Database::markMessageRead(const int id)
+QCoro::Task<> Database::markMessageRead(const int id)
 {
-    return m_database->execute(SL("UPDATE Messages SET read = True WHERE id == ? AND NOT read = True"), id);
+    co_await m_database->execute(SL("UPDATE Messages SET read = True WHERE id == ? AND NOT read = True"), id);
 }
 
-QFuture<void> Database::updateMessageTapbacks(const QString &id, const QString tapbacks)
+QCoro::Task<> Database::updateMessageTapbacks(const QString &id, const QString tapbacks)
 {
-    return m_database->execute(SL("UPDATE Messages SET tapbacks = ? WHERE id == ?"), tapbacks, id);
+    co_await m_database->execute(SL("UPDATE Messages SET tapbacks = ? WHERE id == ?"), tapbacks, id);
 }
 
 QCoro::Task<std::optional<QString>> Database::lastMessageWithText(const PhoneNumberList &phoneNumberList, const QString &text)
@@ -202,14 +202,14 @@ QCoro::Task<std::optional<int>> Database::unreadMessagesForNumber(const PhoneNum
     });
 }
 
-QFuture<void> Database::markChatAsRead(const PhoneNumberList &phoneNumberList)
+QCoro::Task<> Database::markChatAsRead(const PhoneNumberList &phoneNumberList)
 {
-    return m_database->execute(SL("UPDATE Messages SET read = True WHERE phoneNumber = ? AND NOT read == True"), phoneNumberList.toString());
+    co_await m_database->execute(SL("UPDATE Messages SET read = True WHERE phoneNumber = ? AND NOT read == True"), phoneNumberList.toString());
 }
 
-QFuture<void> Database::deleteChat(const PhoneNumberList &phoneNumberList)
+QCoro::Task<> Database::deleteChat(const PhoneNumberList &phoneNumberList)
 {
-    return m_database->execute(SL("DELETE FROM Messages WHERE phoneNumber = ?"), phoneNumberList.toString());
+    co_await m_database->execute(SL("DELETE FROM Messages WHERE phoneNumber = ?"), phoneNumberList.toString());
 }
 
 QCoro::Task<> Database::addMessage(const Message &message)
@@ -254,9 +254,9 @@ QCoro::Task<> Database::addMessage(const Message &message)
                                  message.size);
 }
 
-QFuture<void> Database::deleteMessage(const QString &id)
+QCoro::Task<> Database::deleteMessage(const QString &id)
 {
-    return m_database->execute(SL("DELETE FROM Messages WHERE id == ?"), id);
+    co_await m_database->execute(SL("DELETE FROM Messages WHERE id == ?"), id);
 }
 
 QString Database::generateRandomId()
@@ -524,22 +524,23 @@ Message Message::fromSql(ColumnTypes &&tuple)
           size,
           tapbacks] = tuple;
 
-    return Message{id,
-                   PhoneNumberList(phoneNumberList),
-                   text,
-                   QDateTime::fromMSecsSinceEpoch(datetime),
-                   read,
-                   MessageState(deliveryStatus),
-                   sentByMe,
-                   attachments,
-                   smil,
-                   fromNumber,
-                   messageId,
-                   deliveryReport,
-                   readReport,
-                   pendingDownload,
-                   contentLocation,
-                   QDateTime::fromMSecsSinceEpoch(expires),
-                   size,
-                   tapbacks};
+    Message message;
+    message.id = id, message.phoneNumberList = PhoneNumberList(phoneNumberList);
+    message.text = text;
+    message.datetime = QDateTime::fromMSecsSinceEpoch(datetime);
+    message.read = read;
+    message.deliveryStatus = MessageState(deliveryStatus);
+    message.sentByMe = sentByMe;
+    message.attachments = attachments;
+    message.smil = smil;
+    message.fromNumber = fromNumber;
+    message.messageId = messageId;
+    message.deliveryReport = deliveryReport;
+    message.readReport = readReport;
+    message.pendingDownload = pendingDownload;
+    message.contentLocation = contentLocation;
+    message.expires = QDateTime::fromMSecsSinceEpoch(expires);
+    message.size = size;
+    message.tapbacks = tapbacks;
+    return message;
 }

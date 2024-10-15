@@ -1,0 +1,75 @@
+<!DOCTYPE node PUBLIC "-//freedesktop//DTD D-BUS Object Introspection 1.0//EN" "http://www.freedesktop.org/standards/dbus/1.0/introspect.dtd">
+<node>
+  <interface name="org.kde.spacebar.Daemon">
+    <signal name="messageAdded">
+      <arg name="phoneNumber" type="s" direction="out"/>
+      <arg name="id" type="s" direction="out"/>
+    </signal>
+    <signal name="messageUpdated">
+      <arg name="phoneNumber" type="s" direction="out"/>
+      <arg name="id" type="s" direction="out"/>
+    </signal>
+    <signal name="manualDownloadFinished">
+      <arg name="id" type="s" direction="out"/>
+      <arg name="isEmpty" type="b" direction="out"/>
+    </signal>
+    <method name="disableNotificationsForNumber">
+      <arg name="numbers" type="s" direction="in"/>
+    </method>
+    <method name="manualDownload">
+      <arg name="id" type="s" direction="in"/>
+      <arg name="url" type="s" direction="in"/>
+      <arg name="expires" type="((iii)(iiii)i)" direction="in"/>
+      <annotation name="org.qtproject.QtDBus.QtTypeName.In2" value="QDateTime"/>
+    </method>
+    <method name="sendMessage">
+      <arg name="numbers" type="s" direction="in"/>
+      <arg name="id" type="s" direction="in"/>
+      <arg name="text" type="s" direction="in"/>
+      <arg name="files" type="as" direction="in"/>
+      <arg name="totalSize" type="x" direction="in"/>
+    </method>
+    <method name="sendTapback">
+      <arg name="numbers" type="s" direction="in"/>
+      <arg name="id" type="s" direction="in"/>
+      <arg name="tapback" type="s" direction="in"/>
+      <arg name="isRemoved" type="b" direction="in"/>
+    </method>
+    <method name="syncSettings">
+    </method>
+    <method name="ownNumber">
+      <arg type="s" direction="out"/>
+    </method>
+    <method name="countryCode">
+      <arg type="s" direction="out"/>
+    </method>
+    <method name="chats">
+      <arg type="aa{ss}" direction="out"/>
+      <annotation name="org.qtproject.QtDBus.QtTypeName.Out0" value="StringMapList"/>
+      <arg name="phoneNumberList" type="as" direction="in"/>
+    </method>
+    <method name="markChatAsRead">
+      <arg name="phoneNumberList" type="as" direction="in"/>
+    </method>
+    <method name="deleteChat">
+      <arg name="phoneNumberList" type="as" direction="in"/>
+    </method>
+    <method name="messagesForNumber">
+      <arg type="aa{ss}" direction="out"/>
+      <annotation name="org.qtproject.QtDBus.QtTypeName.Out0" value="StringMapList"/>
+      <arg name="phoneNumberList" type="as" direction="in"/>
+      <arg name="id" type="s" direction="in"/>
+      <arg name="limit" type="i" direction="in"/>
+    </method>
+    <method name="updateMessageDeliveryState">
+      <arg name="id" type="s" direction="in"/>
+      <arg name="state" type="u" direction="in"/>
+    </method>
+    <method name="markMessageRead">
+      <arg name="id" type="i" direction="in"/>
+    </method>
+    <method name="deleteMessage">
+      <arg name="id" type="s" direction="in"/>
+    </method>
+  </interface>
+</node>

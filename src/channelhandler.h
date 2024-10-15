@@ -6,11 +6,9 @@
 
 #include <QObject>
 
-#include "daemoninterface.h"
-
-#include <database.h>
-
 #include <optional>
+
+#include "daemoninterface.h"
 
 class ChannelHandler : public QObject
 {
@@ -20,7 +18,6 @@ class ChannelHandler : public QObject
 public:
     explicit ChannelHandler(QObject *parent = nullptr);
 
-    Database &database();
     org::kde::spacebar::Daemon *interface();
 
     bool isInterfaceAvailable();
@@ -29,7 +26,6 @@ private:
     void connectInterface();
     void connectInterfaceSignals();
 
-    Database m_database;
     org::kde::spacebar::Daemon *m_interface{nullptr};
     bool m_isInterfaceAvailable{false};
     QDBusServiceWatcher *m_watcher{nullptr};

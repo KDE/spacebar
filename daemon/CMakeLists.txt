@@ -5,15 +5,16 @@ set(spacebar_daemon_SRCS
 )
 
 # generate DBus adaptor xml
-qt_generate_dbus_interface(
-    ${CMAKE_CURRENT_SOURCE_DIR}/channellogger.h
-    org.kde.spacebar.Daemon.xml
-    OPTIONS -s -m -P
-)
+# qt_generate_dbus_interface(
+#     ${CMAKE_CURRENT_SOURCE_DIR}/channellogger.h
+#     org.kde.spacebar.Daemon.xml
+#     OPTIONS -s -m -P
+# )
 
 # use generated DBus adapator xml to generate adaptor source code
 qt_add_dbus_adaptor(spacebar_daemon_SRCS
-    ${CMAKE_CURRENT_BINARY_DIR}/org.kde.spacebar.Daemon.xml
+    # ${CMAKE_CURRENT_BINARY_DIR}/org.kde.spacebar.Daemon.xml
+    ${CMAKE_CURRENT_SOURCE_DIR}/org.kde.spacebar.Daemon.xml
     ${CMAKE_CURRENT_SOURCE_DIR}/channellogger.h ChannelLogger
 )
 

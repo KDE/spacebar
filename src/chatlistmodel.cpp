@@ -160,7 +160,7 @@ void ChatListModel::startChat(const PhoneNumberList &phoneNumberList)
 
 void ChatListModel::markChatAsRead(const PhoneNumberList &phoneNumberList)
 {
-    m_handler.database().markChatAsRead(phoneNumberList);
+    m_handler.interface()->markChatAsRead(phoneNumberList.toStringList());
 }
 
 void ChatListModel::fetchChats(const PhoneNumberList &phoneNumberList)
@@ -187,12 +187,16 @@ void ChatListModel::fetchChats(const PhoneNumberList &phoneNumberList)
     }
 }
 
-QCoro::Task<void> ChatListModel::fetchChatsInternal()
+void ChatListModel::fetchChatsInternal()
 {
-    const auto chats = co_await m_handler.database().chats(PhoneNumberList());
+    const StringMapList serializedChats = m_handler.interface()->chats({});
+    QList<Chat> chats;
+    for (const auto &serializedChat : serializedChats) {
+        chats.push_back(Chat{serializedChat});
+    }
 
     beginResetModel();
-    m_chats = chats;
+    m_chats = std::move(chats);
     endResetModel();
 
     Q_EMIT chatsFetched();
@@ -200,26 +204,32 @@ QCoro::Task<void> ChatListModel::fetchChatsInternal()
 
 void ChatListModel::fetchChatDetails(const PhoneNumberList &phoneNumberList, const bool sort)
 {
-    [this, phoneNumberList, sort]() -> QCoro::Task<void> {
-        co_await fetchChatDetailsInternal(phoneNumberList, sort);
-    }();
+    // [this, phoneNumberList, sort]() -> QCoro::Task<void> {
+    fetchChatDetailsInternal(phoneNumberList, sort);
+    // }();
 }
 
-QCoro::Task<void> ChatListModel::fetchChatDetailsInternal(const PhoneNumberList &phoneNumberList, const bool sort)
+void ChatListModel::fetchChatDetailsInternal(const PhoneNumberList &phoneNumberList, const bool sort)
 {
     const auto &[chat, idx] = getChatIndex(phoneNumberList);
 
     if (idx > -1) {
-        const QVector<Chat> chats = co_await m_handler.database().chats(phoneNumberList);
+        const StringMapList serializedChats = m_handler.interface()->chats(phoneNumberList.toStringList());
+        QList<Chat> chats;
+        for (const auto &serializedChat : serializedChats) {
+            chats.push_back(Chat{serializedChat});
+        }
 
-        chat->phoneNumberList = chats.first().phoneNumberList;
-        chat->unreadMessages = chats.first().unreadMessages;
-        chat->lastMessage = chats.first().lastMessage;
-        chat->lastDateTime = chats.first().lastDateTime;
-        chat->lastSentByMe = chats.first().lastSentByMe;
-        chat->lastAttachment = chats.first().lastAttachment;
+        if (!chats.empty()) {
+            chat->phoneNumberList = chats.first().phoneNumberList;
+            chat->unreadMessages = chats.first().unreadMessages;
+            chat->lastMessage = chats.first().lastMessage;
+            chat->lastDateTime = chats.first().lastDateTime;
+            chat->lastSentByMe = chats.first().lastSentByMe;
+            chat->lastAttachment = chats.first().lastAttachment;
 
-        Q_EMIT dataChanged(index(idx), index(idx));
+            Q_EMIT dataChanged(index(idx), index(idx));
+        }
     }
 
     if (sort) {
@@ -234,7 +244,7 @@ QCoro::Task<void> ChatListModel::fetchChatDetailsInternal(const PhoneNumberList 
 
 void ChatListModel::deleteChat(const PhoneNumberList &phoneNumberList)
 {
-    m_handler.database().deleteChat(phoneNumberList);
+    m_handler.interface()->deleteChat(phoneNumberList.toStringList());
 
     const QString folder = QString::number(hash(phoneNumberList.toString()));
     QDir dir(QStandardPaths::writableLocation(QStandardPaths::GenericDataLocation) + SL("/spacebar/attachments/") + folder);

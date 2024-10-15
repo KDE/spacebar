@@ -48,9 +48,13 @@ MessageModel::MessageModel(ChannelHandler &handler, const PhoneNumberList &phone
     fetchMessages(QString());
 }
 
-QCoro::Task<void> MessageModel::fetchMessages(const QString &id, const int limit)
+void MessageModel::fetchMessages(const QString &id, const int limit)
 {
-    const auto messages = co_await m_handler.database().messagesForNumber(m_phoneNumberList, id, limit);
+    const StringMapList serializedMessages = m_handler.interface()->messagesForNumber(m_phoneNumberList.toStringList(), id, limit);
+    std::vector<Message> messages;
+    for (const StringMap &serializedMessage : serializedMessages) {
+        messages.push_back(Message{serializedMessage});
+    }
 
     if (limit == -1) {
         beginInsertRows({}, 0, messages.size() - 1);
@@ -73,10 +77,14 @@ QCoro::Task<void> MessageModel::fetchMessages(const QString &id, const int limit
     Q_EMIT messagesFetched();
 }
 
-QCoro::Task<void> MessageModel::fetchUpdatedMessage(const QString &id)
+void MessageModel::fetchUpdatedMessage(const QString &id)
 {
     const auto &[message, i] = getMessageIndex(id);
-    const auto messages = co_await m_handler.database().messagesForNumber(m_phoneNumberList, id);
+    const StringMapList serializedMessages = m_handler.interface()->messagesForNumber(m_phoneNumberList.toStringList(), id, 0);
+    QList<Message> messages;
+    for (const StringMap &serializedMessage : serializedMessages) {
+        messages.push_back(Message{serializedMessage});
+    }
 
     if (!messages.empty()) {
         message->text = messages.front().text;
@@ -283,7 +291,7 @@ void MessageModel::updateMessageState(const QString &id, MessageState state, con
     message->deliveryStatus = state;
 
     if (!temp) {
-        m_handler.database().updateMessageDeliveryState(id, state);
+        m_handler.interface()->updateMessageDeliveryState(id, static_cast<uint>(state));
     }
 
     Q_EMIT dataChanged(index(i), index(i), {Role::DeliveryStateRole});
@@ -291,7 +299,7 @@ void MessageModel::updateMessageState(const QString &id, MessageState state, con
 
 void MessageModel::markMessageRead(const int id)
 {
-    m_handler.database().markMessageRead(id);
+    m_handler.interface()->markMessageRead(id);
 }
 
 void MessageModel::downloadMessage(const QString &id, const QString &url, const QDateTime &expires)
@@ -302,7 +310,7 @@ void MessageModel::downloadMessage(const QString &id, const QString &url, const 
 
 void MessageModel::deleteMessage(const QString &id, const int index, const QStringList &files)
 {
-    m_handler.database().deleteMessage(id);
+    m_handler.interface()->deleteMessage(id);
 
     // delete attachments
     const QString sourceFolder = attachmentsFolder();

@@ -7,7 +7,10 @@ set(spacebar_SRCS
     channelhandler.cpp
 )
 
-set(DaemonXML ${CMAKE_CURRENT_BINARY_DIR}/../daemon/org.kde.spacebar.Daemon.xml)
+set(DaemonXML ${CMAKE_CURRENT_SOURCE_DIR}/../daemon/org.kde.spacebar.Daemon.xml)
+
+# We need some DBus type definitions from database.h
+set_source_files_properties(${DaemonXML} PROPERTIES INCLUDE database.h)
 qt_add_dbus_interface(spacebar_SRCS ${DaemonXML} daemoninterface)
 
 qt_add_resources(RESOURCES resources.qrc)
