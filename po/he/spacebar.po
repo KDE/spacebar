@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: spacebar\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-10-14 00:41+0000\n"
-"PO-Revision-Date: 2024-07-25 07:22+0300\n"
+"POT-Creation-Date: 2024-10-15 00:41+0000\n"
+"PO-Revision-Date: 2024-10-14 20:12+0300\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: צוות התרגום של KDE ישראל\n"
 "Language: he\n"
@@ -28,17 +28,17 @@ msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
 msgstr "kde-l10n-he@kde.org"
 
-#: daemon/channellogger.cpp:532 src/contents/ui/MessagesPage.qml:62
+#: daemon/channellogger.cpp:545 src/contents/ui/MessagesPage.qml:62
 #, kde-format
 msgid "New message"
 msgstr "הודעה חדשה"
 
-#: daemon/channellogger.cpp:539
+#: daemon/channellogger.cpp:552
 #, kde-format
 msgid "Message from %1"
 msgstr "הודעה מאת %1"
 
-#: daemon/channellogger.cpp:550
+#: daemon/channellogger.cpp:563
 #, kde-format
 msgctxt "Number of files attached"
 msgid "%1 Attachment"
@@ -48,7 +48,7 @@ msgstr[1] "שני קבצים מצורפים"
 msgstr[2] "%1 קבצים מצורפים"
 msgstr[3] "%1 קבצים מצורפים"
 
-#: daemon/channellogger.cpp:577
+#: daemon/channellogger.cpp:590
 #, kde-format
 msgctxt "@action open message in application"
 msgid "Open"
@@ -108,7 +108,7 @@ msgstr "מחיקה"
 #: src/contents/ui/ChatsPage.qml:72 src/contents/ui/MessagesPage.qml:147
 #, kde-format
 msgid "Unable to connect to messaging daemon"
-msgstr ""
+msgstr "לא ניתן להתחבר לסוכן ההתכתבות"
 
 #: src/contents/ui/ChatsPage.qml:100
 #, kde-format
@@ -281,12 +281,10 @@ msgid "%1 Selected"
 msgstr "%1 נבחרו"
 
 #: src/contents/ui/NewConversationContactsList.qml:259
-#, fuzzy, kde-format
-#| msgctxt "Selecting recipients from contacts list"
-#| msgid "Create a chat"
+#, kde-format
 msgctxt "Open chat conversation window"
 msgid "Create"
-msgstr "יצירת צ׳אט"
+msgstr "יצירה"
 
 #: src/contents/ui/NewConversationContactsList.qml:274
 #, kde-format
@@ -297,7 +295,7 @@ msgstr "לא נבחר איש קשר"
 #: src/contents/ui/NewConversationContactsList.qml:319
 #, kde-format
 msgid "New Group"
-msgstr ""
+msgstr "קבוצה חדשה"
 
 #: src/contents/ui/NewConversationContactsList.qml:479
 #, kde-format
@@ -317,13 +315,12 @@ msgstr "לא נמצאו תוצאות"
 #: src/contents/ui/NewConversationPage.qml:15
 #, kde-format
 msgid "New Group Chat"
-msgstr ""
+msgstr "צ׳אט קבוצתי חדש"
 
 #: src/contents/ui/NewConversationPage.qml:15
-#, fuzzy, kde-format
-#| msgid "Chats"
+#, kde-format
 msgid "New Chat"
-msgstr "צ׳אטים"
+msgstr "צ׳אט חדש"
 
 #: src/contents/ui/PreviewPage.qml:32
 #, kde-format

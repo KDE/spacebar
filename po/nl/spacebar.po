@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: spacebar\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-10-14 00:41+0000\n"
-"PO-Revision-Date: 2024-07-24 11:45+0200\n"
+"POT-Creation-Date: 2024-10-15 00:41+0000\n"
+"PO-Revision-Date: 2024-10-14 11:04+0200\n"
 "Last-Translator: Freek de Kruijf <freekdekruijf@kde.nl>\n"
 "Language-Team: \n"
 "Language: nl\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 24.05.2\n"
+"X-Generator: Lokalize 24.08.2\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -27,17 +27,17 @@ msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
 msgstr "freekdekruijf@kde.nl"
 
-#: daemon/channellogger.cpp:532 src/contents/ui/MessagesPage.qml:62
+#: daemon/channellogger.cpp:545 src/contents/ui/MessagesPage.qml:62
 #, kde-format
 msgid "New message"
 msgstr "Nieuw bericht"
 
-#: daemon/channellogger.cpp:539
+#: daemon/channellogger.cpp:552
 #, kde-format
 msgid "Message from %1"
 msgstr "Bericht van %1"
 
-#: daemon/channellogger.cpp:550
+#: daemon/channellogger.cpp:563
 #, kde-format
 msgctxt "Number of files attached"
 msgid "%1 Attachment"
@@ -45,7 +45,7 @@ msgid_plural "%1 Attachments"
 msgstr[0] "%1 bijlage"
 msgstr[1] "%1 bijlagen"
 
-#: daemon/channellogger.cpp:577
+#: daemon/channellogger.cpp:590
 #, kde-format
 msgctxt "@action open message in application"
 msgid "Open"
@@ -103,7 +103,7 @@ msgstr "Verwijderen"
 #: src/contents/ui/ChatsPage.qml:72 src/contents/ui/MessagesPage.qml:147
 #, kde-format
 msgid "Unable to connect to messaging daemon"
-msgstr ""
+msgstr "Kan geen verbinding maken met de daemon voor berichten"
 
 #: src/contents/ui/ChatsPage.qml:100
 #, kde-format
@@ -272,12 +272,10 @@ msgid "%1 Selected"
 msgstr "%1 geselecteerd"
 
 #: src/contents/ui/NewConversationContactsList.qml:259
-#, fuzzy, kde-format
-#| msgctxt "Selecting recipients from contacts list"
-#| msgid "Create a chat"
+#, kde-format
 msgctxt "Open chat conversation window"
 msgid "Create"
-msgstr "Een chat aanmaken"
+msgstr "Aanmaken"
 
 #: src/contents/ui/NewConversationContactsList.qml:274
 #, kde-format
@@ -288,7 +286,7 @@ msgstr "Geen contactpersoon geselecteerd"
 #: src/contents/ui/NewConversationContactsList.qml:319
 #, kde-format
 msgid "New Group"
-msgstr ""
+msgstr "Nieuwe groep"
 
 #: src/contents/ui/NewConversationContactsList.qml:479
 #, kde-format
@@ -308,13 +306,12 @@ msgstr "Geen resultaten gevonden"
 #: src/contents/ui/NewConversationPage.qml:15
 #, kde-format
 msgid "New Group Chat"
-msgstr ""
+msgstr "Nieuwe groeps-chat"
 
 #: src/contents/ui/NewConversationPage.qml:15
-#, fuzzy, kde-format
-#| msgid "Chats"
+#, kde-format
 msgid "New Chat"
-msgstr "Chats"
+msgstr "Nieuwe chat"
 
 #: src/contents/ui/PreviewPage.qml:32
 #, kde-format

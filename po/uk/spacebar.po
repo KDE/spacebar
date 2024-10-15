@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: spacebar\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-10-14 00:41+0000\n"
-"PO-Revision-Date: 2024-10-13 15:49+0300\n"
+"POT-Creation-Date: 2024-10-15 00:41+0000\n"
+"PO-Revision-Date: 2024-10-14 15:37+0300\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
 "Language: uk\n"
@@ -30,17 +30,17 @@ msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
 msgstr "yurchor@ukr.net"
 
-#: daemon/channellogger.cpp:532 src/contents/ui/MessagesPage.qml:62
+#: daemon/channellogger.cpp:545 src/contents/ui/MessagesPage.qml:62
 #, kde-format
 msgid "New message"
 msgstr "Нове повідомлення"
 
-#: daemon/channellogger.cpp:539
+#: daemon/channellogger.cpp:552
 #, kde-format
 msgid "Message from %1"
 msgstr "Повідомлення від %1"
 
-#: daemon/channellogger.cpp:550
+#: daemon/channellogger.cpp:563
 #, kde-format
 msgctxt "Number of files attached"
 msgid "%1 Attachment"
@@ -50,7 +50,7 @@ msgstr[1] "%1 долучення"
 msgstr[2] "%1 долучень"
 msgstr[3] "%1 долучення"
 
-#: daemon/channellogger.cpp:577
+#: daemon/channellogger.cpp:590
 #, kde-format
 msgctxt "@action open message in application"
 msgid "Open"
@@ -110,7 +110,7 @@ msgstr "Вилучити"
 #: src/contents/ui/ChatsPage.qml:72 src/contents/ui/MessagesPage.qml:147
 #, kde-format
 msgid "Unable to connect to messaging daemon"
-msgstr ""
+msgstr "Не вдалося з'єднатися із фоновою службою повідомлень"
 
 #: src/contents/ui/ChatsPage.qml:100
 #, kde-format

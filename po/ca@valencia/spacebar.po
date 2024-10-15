@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: spacebar\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-10-14 00:41+0000\n"
-"PO-Revision-Date: 2024-07-24 09:29+0200\n"
+"POT-Creation-Date: 2024-10-15 00:41+0000\n"
+"PO-Revision-Date: 2024-10-14 09:03+0200\n"
 "Last-Translator: Josep M. Ferrer <txemaq@gmail.com>\n"
 "Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
 "Language: ca@valencia\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Accelerator-Marker: &\n"
-"X-Generator: Lokalize 24.05.2\n"
+"X-Generator: Lokalize 24.08.1\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -30,17 +30,17 @@ msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
 msgstr "txemaq@gmail.com"
 
-#: daemon/channellogger.cpp:532 src/contents/ui/MessagesPage.qml:62
+#: daemon/channellogger.cpp:545 src/contents/ui/MessagesPage.qml:62
 #, kde-format
 msgid "New message"
 msgstr "Missatge nou"
 
-#: daemon/channellogger.cpp:539
+#: daemon/channellogger.cpp:552
 #, kde-format
 msgid "Message from %1"
 msgstr "Missatge de %1"
 
-#: daemon/channellogger.cpp:550
+#: daemon/channellogger.cpp:563
 #, kde-format
 msgctxt "Number of files attached"
 msgid "%1 Attachment"
@@ -48,7 +48,7 @@ msgid_plural "%1 Attachments"
 msgstr[0] "%1 adjunt"
 msgstr[1] "%1 adjunts"
 
-#: daemon/channellogger.cpp:577
+#: daemon/channellogger.cpp:590
 #, kde-format
 msgctxt "@action open message in application"
 msgid "Open"
@@ -106,7 +106,7 @@ msgstr "Suprimix"
 #: src/contents/ui/ChatsPage.qml:72 src/contents/ui/MessagesPage.qml:147
 #, kde-format
 msgid "Unable to connect to messaging daemon"
-msgstr ""
+msgstr "No s'ha pogut connectar amb el dimoni de missatgeria"
 
 #: src/contents/ui/ChatsPage.qml:100
 #, kde-format
@@ -276,12 +276,10 @@ msgid "%1 Selected"
 msgstr "%1 seleccionats"
 
 #: src/contents/ui/NewConversationContactsList.qml:259
-#, fuzzy, kde-format
-#| msgctxt "Selecting recipients from contacts list"
-#| msgid "Create a chat"
+#, kde-format
 msgctxt "Open chat conversation window"
 msgid "Create"
-msgstr "Crea un xat"
+msgstr "Crea"
 
 #: src/contents/ui/NewConversationContactsList.qml:274
 #, kde-format
@@ -292,7 +290,7 @@ msgstr "No s'ha seleccionat cap contacte"
 #: src/contents/ui/NewConversationContactsList.qml:319
 #, kde-format
 msgid "New Group"
-msgstr ""
+msgstr "Grup nou"
 
 #: src/contents/ui/NewConversationContactsList.qml:479
 #, kde-format
@@ -312,13 +310,12 @@ msgstr "No s'ha trobat cap resultat"
 #: src/contents/ui/NewConversationPage.qml:15
 #, kde-format
 msgid "New Group Chat"
-msgstr ""
+msgstr "Xat nou de grup"
 
 #: src/contents/ui/NewConversationPage.qml:15
-#, fuzzy, kde-format
-#| msgid "Chats"
+#, kde-format
 msgid "New Chat"
-msgstr "Xats"
+msgstr "Xat nou"
 
 #: src/contents/ui/PreviewPage.qml:32
 #, kde-format
@@ -534,10 +531,3 @@ msgstr "Client SMS/MMS Spacebar"
 #, kde-format
 msgid "Open a chat with the given phone number"
 msgstr "Obri un xat amb el número de telèfon indicat"
-
-#~ msgctxt "Open chat conversation window"
-#~ msgid "Next"
-#~ msgstr "Següent"
-
-#~ msgid "Contacts"
-#~ msgstr "Contactes"
