@@ -29,6 +29,7 @@
 #include "utils.h"
 #include "version.h"
 #include <contactphonenumbermapper.h>
+#include <database.h>
 
 #include <coroutine>
 #include <phonenumberlist.h>
@@ -75,6 +76,12 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
     parser.addPositionalArgument(QStringLiteral("number"), i18n("Open a chat with the given phone number"));
     parser.process(app);
 
+    // Register DBus types
+    qRegisterMetaType<StringMap>();
+    qRegisterMetaType<StringMapList>();
+    qDBusRegisterMetaType<StringMap>();
+    qDBusRegisterMetaType<StringMapList>();
+
     KDBusService service(KDBusService::Unique);
 
     QQmlApplicationEngine engine;
@@ -96,6 +103,7 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
     qmlRegisterSingletonInstance(APPLICATION_ID, 1, 0, "SettingsManager", SettingsManager::self());
     qRegisterMetaType<PhoneNumber>();
     qRegisterMetaType<PhoneNumberList>();
+
     engine.rootContext()->setContextObject(new KLocalizedContext(&engine));
     engine.addImageProvider(SL("avatar"), new AvatarImageProvider());
     engine.load(QUrl(SL("qrc:///main.qml")));

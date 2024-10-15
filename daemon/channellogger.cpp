@@ -100,6 +100,59 @@ QString ChannelLogger::countryCode()
     return countryCode;
 }
 
+StringMapList ChannelLogger::chats(const QStringList &phoneNumberList)
+{
+    PhoneNumberList phoneList{phoneNumberList};
+
+    const auto chats = QCoro::waitFor(m_database.chats(phoneList));
+    StringMapList serializedChats;
+    for (const auto &chat : chats) {
+        serializedChats.push_back(chat.toMap());
+    }
+
+    return serializedChats;
+}
+
+void ChannelLogger::markChatAsRead(const QStringList &phoneNumberList)
+{
+    PhoneNumberList phoneList{phoneNumberList};
+    QCoro::waitFor(m_database.markChatAsRead(phoneList));
+}
+
+void ChannelLogger::deleteChat(const QStringList &phoneNumberList)
+{
+    PhoneNumberList phoneList{phoneNumberList};
+    QCoro::waitFor(m_database.deleteChat(phoneList));
+}
+
+StringMapList ChannelLogger::messagesForNumber(const QStringList &phoneNumberList, const QString &id, int limit)
+{
+    PhoneNumberList phoneList{phoneNumberList};
+
+    const auto messages = QCoro::waitFor(m_database.messagesForNumber(phoneList, id, limit));
+    StringMapList serializedMessages;
+    for (const auto &message : messages) {
+        serializedMessages.push_back(message.toMap());
+    }
+
+    return serializedMessages;
+}
+
+void ChannelLogger::updateMessageDeliveryState(const QString &id, uint state)
+{
+    QCoro::waitFor(m_database.updateMessageDeliveryState(id, static_cast<MessageState>(state)));
+}
+
+void ChannelLogger::markMessageRead(int id)
+{
+    QCoro::waitFor(m_database.markMessageRead(id));
+}
+
+void ChannelLogger::deleteMessage(const QString &id)
+{
+    QCoro::waitFor(m_database.deleteMessage(id));
+}
+
 QCoro::Task<void> ChannelLogger::handleIncomingMessage(ModemManager::Sms::Ptr msg)
 {
     // If the message is still being received, handle it later when the state changes

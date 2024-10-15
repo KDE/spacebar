@@ -39,6 +39,8 @@ public:
     bool isValid() const;
     static void setCountryCode(const QString &countryCode);
 
+    QString toString() const;
+
 private:
     QSharedDataPointer<PhoneNumberPrivate> d;
     static std::string countryCode;

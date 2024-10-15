@@ -16,8 +16,10 @@ public:
     using QVector<PhoneNumber>::QVector;
 
     explicit PhoneNumberList(const QString &phoneNumbers);
+    explicit PhoneNumberList(const QStringList &phoneNumbers);
 
     QString toString() const;
+    QList<QString> toStringList() const;
 };
 
 Q_DECLARE_METATYPE(PhoneNumberList)

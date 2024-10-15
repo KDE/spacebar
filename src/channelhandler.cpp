@@ -7,7 +7,6 @@
 
 #include <QLocale>
 
-#include <database.h>
 #include <global.h>
 
 const QString DAEMON_DBUS_SERVICE = QStringLiteral("org.kde.spacebar.Daemon");
@@ -73,11 +72,6 @@ void ChannelHandler::connectInterfaceSignals()
         Q_UNUSED(id);
         Q_EMIT messagesChanged(PhoneNumberList(phoneNumber));
     });
-}
-
-Database &ChannelHandler::database()
-{
-    return m_database;
 }
 
 org::kde::spacebar::Daemon *ChannelHandler::interface()

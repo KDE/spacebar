@@ -36,9 +36,9 @@ PhoneNumber::PhoneNumber(const QString &number)
     if (error == phonenumbers::PhoneNumberUtil::ErrorType::NO_PARSING_ERROR) {
         d->representation = PhoneNumberPrivate::Parsed;
     } else {
-        d->numberString = number;
         d->representation = PhoneNumberPrivate::String;
     }
+    d->numberString = number;
 }
 
 bool PhoneNumber::operator==(const PhoneNumber &other) const
@@ -101,4 +101,9 @@ bool PhoneNumber::isValid() const
 void PhoneNumber::setCountryCode(const QString &code)
 {
     countryCode = code.toStdString();
+}
+
+QString PhoneNumber::toString() const
+{
+    return d->numberString;
 }

@@ -38,6 +38,12 @@ inline MessageState parseMessageState(const QString &state)
     Q_UNREACHABLE();
 }
 
+// For use with DBus
+typedef QMap<QString, QString> StringMap;
+typedef QList<StringMap> StringMapList;
+Q_DECLARE_METATYPE(StringMap)
+Q_DECLARE_METATYPE(StringMapList)
+
 struct Message {
     using ColumnTypes =
         std::tuple<QString, QString, QString, qint64, bool, int, bool, QString, QString, QString, QString, int, QString, bool, QString, qint64, int, QString>;
@@ -62,6 +68,54 @@ struct Message {
     QDateTime expires;
     int size = 0;
     QString tapbacks;
+
+    Message() = default;
+
+    Message(const StringMap &map)
+    {
+        id = map[SL("id")];
+        phoneNumberList = PhoneNumberList{map[SL("phoneNumberList")]};
+        text = map[SL("text")];
+        datetime = QDateTime::fromString(map[SL("datetime")]);
+        read = QVariant{map[SL("read")]}.toBool();
+        deliveryStatus = static_cast<MessageState>(map[SL("deliveryStatus")].toUInt());
+        sentByMe = QVariant{map[SL("sentByMe")]}.toBool();
+        attachments = map[SL("attachments")];
+        smil = map[SL("smil")];
+        fromNumber = map[SL("fromNumber")];
+        messageId = map[SL("messageId")];
+        deliveryReport = map[SL("deliveryReport")].toInt();
+        readReport = map[SL("readReport")];
+        pendingDownload = QVariant{map[SL("pendingDownload")]}.toBool();
+        contentLocation = map[SL("contentLocation")];
+        expires = QDateTime::fromString(map[SL("expires")]);
+        size = map[SL("size")].toInt();
+        tapbacks = map[SL("tapbacks")];
+    }
+
+    StringMap toMap() const
+    {
+        return {
+            {SL("id"), id},
+            {SL("phoneNumberList"), phoneNumberList.toString()},
+            {SL("text"), text},
+            {SL("datetime"), datetime.toString()},
+            {SL("read"), QString::number(read)},
+            {SL("deliveryStatus"), QString::number(deliveryStatus)},
+            {SL("sentByMe"), QString::number(sentByMe)},
+            {SL("attachments"), attachments},
+            {SL("smil"), smil},
+            {SL("fromNumber"), fromNumber},
+            {SL("messageId"), messageId},
+            {SL("deliveryReport"), QString::number(deliveryReport)},
+            {SL("readReport"), readReport},
+            {SL("pendingDownload"), QString::number(pendingDownload)},
+            {SL("contentLocation"), contentLocation},
+            {SL("expires"), expires.toString()},
+            {SL("size"), QString::number(size)},
+            {SL("tapbacks"), tapbacks},
+        };
+    }
 };
 Q_DECLARE_METATYPE(Message)
 
@@ -72,7 +126,30 @@ struct Chat {
     QDateTime lastDateTime;
     bool lastSentByMe = false;
     QString lastAttachment;
+
+    Chat() = default;
+
+    Chat(const StringMap &map)
+    {
+        phoneNumberList = PhoneNumberList{map[SL("phoneNumberList")]};
+        unreadMessages = map[SL("unreadMessages")].toInt();
+        lastMessage = map[SL("lastMessage")];
+        lastDateTime = QDateTime::fromString(map[SL("lastDateTime")]);
+        lastSentByMe = QVariant{map[SL("lastSentByMe")]}.toBool();
+        lastAttachment = map[SL("lastAttachment")];
+    }
+
+    StringMap toMap() const
+    {
+        return {{SL("phoneNumberList"), phoneNumberList.toString()},
+                {SL("unreadMessages"), QString::number(unreadMessages)},
+                {SL("lastMessage"), lastMessage},
+                {SL("lastDateTime"), lastDateTime.toString()},
+                {SL("lastSentByMe"), QString::number(lastSentByMe)},
+                {SL("lastAttachment"), lastAttachment}};
+    }
 };
+
 Q_DECLARE_METATYPE(Chat)
 
 class Database : public QObject
@@ -84,22 +161,22 @@ public:
 
     // Messages
     QCoro::Task<> addMessage(const Message &message);
-    QFuture<void> deleteMessage(const QString &id);
-    QFuture<std::vector<Message>> messagesForNumber(const PhoneNumberList &phoneNumberList, const QString &id = QString(), const int limit = 0) const;
-    QFuture<void> updateMessageDeliveryState(const QString &id, const MessageState state);
-    QFuture<void> updateMessageSent(const QString &id, const QString &messageId, const QString &contentLocation);
-    QFuture<void> updateMessageDeliveryReport(const QString &messageId);
-    QFuture<void> updateMessageReadReport(const QString &messageId, const PhoneNumber &fromNumber);
-    QFuture<void> markMessageRead(const int id);
-    QFuture<void> updateMessageTapbacks(const QString &id, const QString tapbacks);
+    QCoro::Task<> deleteMessage(const QString &id);
+    QCoro::Task<std::vector<Message>> messagesForNumber(const PhoneNumberList &phoneNumberList, const QString &id = QString(), const int limit = 0) const;
+    QCoro::Task<> updateMessageDeliveryState(const QString &id, const MessageState state);
+    QCoro::Task<> updateMessageSent(const QString &id, const QString &messageId, const QString &contentLocation);
+    QCoro::Task<> updateMessageDeliveryReport(const QString &messageId);
+    QCoro::Task<> updateMessageReadReport(const QString &messageId, const PhoneNumber &fromNumber);
+    QCoro::Task<> markMessageRead(const int id);
+    QCoro::Task<> updateMessageTapbacks(const QString &id, const QString tapbacks);
     QCoro::Task<std::optional<QString>> lastMessageWithText(const PhoneNumberList &phoneNumberList, const QString &text);
     QCoro::Task<std::optional<QString>> lastMessageWithAttachment(const PhoneNumberList &phoneNumberList);
 
     // Chats
     QCoro::Task<QVector<Chat>> chats(const PhoneNumberList &phoneNumberList) const;
     QCoro::Task<std::optional<int>> unreadMessagesForNumber(const PhoneNumberList &phoneNumberList) const;
-    QFuture<void> markChatAsRead(const PhoneNumberList &phoneNumberList);
-    QFuture<void> deleteChat(const PhoneNumberList &phoneNumberList);
+    QCoro::Task<> markChatAsRead(const PhoneNumberList &phoneNumberList);
+    QCoro::Task<> deleteChat(const PhoneNumberList &phoneNumberList);
     QCoro::Task<> mergeChats(const QString &fromNumbers, const QString toNumbers);
 
     static QString generateRandomId();

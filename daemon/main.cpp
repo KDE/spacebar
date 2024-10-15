@@ -4,6 +4,7 @@
 
 #include <QCommandLineParser>
 #include <QCoreApplication>
+#include <QtDBus/QDBusMetaType>
 
 #include <KAboutData>
 #include <KCrash>
@@ -13,6 +14,7 @@
 #include "../version.h"
 #include "channellogger.h"
 #include "global.h"
+#include <database.h>
 
 using namespace Qt::Literals;
 
@@ -31,6 +33,10 @@ int main(int argc, char *argv[])
     KLocalizedString::setApplicationDomain("spacebar");
 
     app.setQuitLockEnabled(false); // prevent a finishing KJob from closing the daemon
+
+    qRegisterMetaType<StringMapList>();
+    qDBusRegisterMetaType<StringMap>();
+    qDBusRegisterMetaType<StringMapList>();
 
     parser.addVersionOption();
     parser.addHelpOption();

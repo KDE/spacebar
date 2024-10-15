@@ -67,8 +67,8 @@ Q_SIGNALS:
 
 private:
     QPair<Chat *, int> getChatIndex(const PhoneNumberList &phoneNumberList);
-    QCoro::Task<void> fetchChatsInternal();
-    QCoro::Task<void> fetchChatDetailsInternal(const PhoneNumberList &phoneNumberList, const bool sort = false);
+    void fetchChatsInternal();
+    void fetchChatDetailsInternal(const PhoneNumberList &phoneNumberList, const bool sort = false);
 
     ChannelHandler &m_handler;
     QVector<Chat> m_chats;
