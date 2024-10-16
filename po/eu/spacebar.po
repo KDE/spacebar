@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: spacebar\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-10-02 02:34+0000\n"
+"POT-Creation-Date: 2024-10-16 02:36+0000\n"
 "PO-Revision-Date: 2024-08-19 14:45+0200\n"
 "Last-Translator: Iñigo Salvador Azurmendi <xalba@ni.eus>\n"
 "Language-Team: Basque <kde-i18n-eu@kde.org>\n"
@@ -30,17 +30,17 @@ msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
 msgstr "xalba@ni.eus"
 
-#: daemon/channellogger.cpp:532 src/contents/ui/MessagesPage.qml:62
+#: daemon/channellogger.cpp:598 src/contents/ui/MessagesPage.qml:62
 #, kde-format
 msgid "New message"
 msgstr "Mezu berria"
 
-#: daemon/channellogger.cpp:539
+#: daemon/channellogger.cpp:605
 #, kde-format
 msgid "Message from %1"
 msgstr "%1(e)ren mezua"
 
-#: daemon/channellogger.cpp:550
+#: daemon/channellogger.cpp:616
 #, kde-format
 msgctxt "Number of files attached"
 msgid "%1 Attachment"
@@ -48,13 +48,13 @@ msgid_plural "%1 Attachments"
 msgstr[0] "Eranskin %1"
 msgstr[1] "%1 eranskin"
 
-#: daemon/channellogger.cpp:577
+#: daemon/channellogger.cpp:643
 #, kde-format
 msgctxt "@action open message in application"
 msgid "Open"
 msgstr "Ireki"
 
-#: daemon/main.cpp:36
+#: daemon/main.cpp:43
 #, kde-format
 msgid "Spacebar background service"
 msgstr "Spacebar atzeko planoko zerbitzua"
@@ -103,32 +103,32 @@ msgctxt "Deleting a conversation"
 msgid "Delete"
 msgstr "Ezabatu"
 
-#: src/contents/ui/ChatsPage.qml:89
+#: src/contents/ui/ChatsPage.qml:100
 #, kde-format
 msgctxt "Selecting recipients from contacts list"
 msgid "Create a chat"
 msgstr "Sortu berriketa bat"
 
-#: src/contents/ui/ChatsPage.qml:177
+#: src/contents/ui/ChatsPage.qml:188
 #, kde-format
 msgctxt "Indicating that message was sent by you"
 msgid "You"
 msgstr "Zu"
 
-#: src/contents/ui/ChatsPage.qml:177
+#: src/contents/ui/ChatsPage.qml:188
 #, kde-format
 msgctxt "Indicating that message contains an image"
 msgid "Picture"
 msgstr "Irudia"
 
-#: src/contents/ui/ChatsPage.qml:266
+#: src/contents/ui/ChatsPage.qml:277
 #, kde-format
 msgid "Delete this conversation?"
 msgid_plural "Delete %1 conversations?"
 msgstr[0] "Elkarrizketa hau ezabatu?"
 msgstr[1] "%1 Elkarrizketa ezabatu?"
 
-#: src/contents/ui/ChatsPage.qml:267
+#: src/contents/ui/ChatsPage.qml:278
 #, kde-format
 msgid "This is permanent and can't be undone"
 msgstr "Hau iraunkorra da eta ezin da desegin"
@@ -181,119 +181,119 @@ msgstr "Ez du emaitzarik aurkitu"
 msgid "Call"
 msgstr "Deitu"
 
-#: src/contents/ui/MessagesPage.qml:146
+#: src/contents/ui/MessagesPage.qml:157
 #, kde-format
 msgid "Texting this premium SMS number might cause you to be charged money"
 msgstr ""
 "Prima duen SMS zenbaki honetara testu-mezuak bidaltzeak dirua ordaindu behar "
 "izatea ekar diezazuke"
 
-#: src/contents/ui/MessagesPage.qml:157
+#: src/contents/ui/MessagesPage.qml:168
 #, kde-format
 msgid "Max attachment limit exceeded"
 msgstr "Gehienezko eranskin kopurua gainditu da"
 
-#: src/contents/ui/MessagesPage.qml:168
+#: src/contents/ui/MessagesPage.qml:179
 #, kde-format
 msgid "No MMSC configured"
 msgstr "Ez da MMSC konfiguratu"
 
-#: src/contents/ui/MessagesPage.qml:179
+#: src/contents/ui/MessagesPage.qml:190
 #, kde-format
 msgid "Message has expired and will be deleted"
 msgstr "Mezua iraungi egin da eta ezabatu egingo da"
 
-#: src/contents/ui/MessagesPage.qml:190
+#: src/contents/ui/MessagesPage.qml:201
 #, kde-format
 msgid "Message will be sent as individual messages"
 msgstr "Mezua banakako mezu gisa bidaliko da"
 
-#: src/contents/ui/MessagesPage.qml:465
+#: src/contents/ui/MessagesPage.qml:476
 #, kde-format
 msgid "MMS message"
 msgstr "MMS mezua"
 
-#: src/contents/ui/MessagesPage.qml:473
+#: src/contents/ui/MessagesPage.qml:484
 #, kde-format
 msgid "Message size: %1"
 msgstr "Mezuaren neurria: %1"
 
-#: src/contents/ui/MessagesPage.qml:479
+#: src/contents/ui/MessagesPage.qml:490
 #, kde-format
 msgid "Expires: %1"
 msgstr "Iraungitzea: %1"
 
-#: src/contents/ui/MessagesPage.qml:595
+#: src/contents/ui/MessagesPage.qml:606
 #, kde-format
 msgid "View all"
 msgstr "Ikusi dena"
 
-#: src/contents/ui/MessagesPage.qml:735
+#: src/contents/ui/MessagesPage.qml:746
 #, kde-format
 msgid "%1 new message"
 msgid_plural "%1 new messages"
 msgstr[0] "Mezu berri %1"
 msgstr[1] "%1 mezu berri"
 
-#: src/contents/ui/MessagesPage.qml:814
+#: src/contents/ui/MessagesPage.qml:825
 #, kde-format
 msgid "Copy code"
 msgstr "Kopiatu kodea"
 
-#: src/contents/ui/MessagesPage.qml:824
+#: src/contents/ui/MessagesPage.qml:835
 #, kde-format
 msgid "Copy link"
 msgstr "Kopiatu esteka"
 
-#: src/contents/ui/MessagesPage.qml:837
+#: src/contents/ui/MessagesPage.qml:848
 #, kde-format
 msgid "Copy text"
 msgstr "Kopiatu testua"
 
-#: src/contents/ui/MessagesPage.qml:847 src/contents/ui/MessagesPage.qml:886
+#: src/contents/ui/MessagesPage.qml:858 src/contents/ui/MessagesPage.qml:897
 #, kde-format
 msgid "Save attachment"
 msgstr "Gorde eranskina"
 
-#: src/contents/ui/MessagesPage.qml:857
+#: src/contents/ui/MessagesPage.qml:868
 #, kde-format
 msgid "Delete message"
 msgstr "Ezabatu mezua"
 
-#: src/contents/ui/MessagesPage.qml:869
+#: src/contents/ui/MessagesPage.qml:880
 #, kde-format
 msgctxt "Retry sending message"
 msgid "Resend"
 msgstr "Berriz bidali"
 
-#: src/contents/ui/MessagesPage.qml:939
+#: src/contents/ui/MessagesPage.qml:950
 #, kde-format
 msgid "Save"
 msgstr "Gorde"
 
-#: src/contents/ui/MessagesPage.qml:946
+#: src/contents/ui/MessagesPage.qml:957
 #, kde-format
 msgid "Cancel"
 msgstr "Utzi"
 
-#: src/contents/ui/MessagesPage.qml:1064
+#: src/contents/ui/MessagesPage.qml:1075
 #, kde-format
 msgctxt "Remove item from list"
 msgid "Remove"
 msgstr "Kendu"
 
-#: src/contents/ui/MessagesPage.qml:1102
+#: src/contents/ui/MessagesPage.qml:1113
 #, kde-format
 msgid "Write Message..."
 msgstr "Idatzi mezua..."
 
-#: src/contents/ui/MessagesPage.qml:1104
+#: src/contents/ui/MessagesPage.qml:1115
 #, kde-format
 msgctxt "%1 is a phone number"
 msgid "Send Message from %1..."
 msgstr "Bidali mezua %1(e)tik..."
 
-#: src/contents/ui/MessagesPage.qml:1157
+#: src/contents/ui/MessagesPage.qml:1168
 #, kde-format
 msgid "Choose a file"
 msgstr "Aukeratu fitxategi bat"
@@ -469,52 +469,52 @@ msgstr "Ez ikusi itzulerako tak egiteak"
 msgid "Choose a color"
 msgstr "Hautatu kolore bat"
 
-#: src/main.cpp:58
+#: src/main.cpp:59
 #, kde-format
 msgid "SMS/MMS messaging client"
 msgstr "SMS/MMS mezularitza bezeroa"
 
-#: src/main.cpp:60
+#: src/main.cpp:61
 #, kde-format
 msgid "© 2020-2021 KDE Community"
 msgstr "© 2020-2021 KDE Komunitatea"
 
-#: src/main.cpp:61
+#: src/main.cpp:62
 #, kde-format
 msgid "Bhushan Shah"
 msgstr "Bhushan Shah"
 
-#: src/main.cpp:62
+#: src/main.cpp:63
 #, kde-format
 msgid "Jonah Brüchert"
 msgstr "Jonah Brüchert"
 
-#: src/main.cpp:63
+#: src/main.cpp:64
 #, kde-format
 msgid "Martin Klapetek"
 msgstr "Martin Klapetek"
 
-#: src/main.cpp:64
+#: src/main.cpp:65
 #, kde-format
 msgid "Michael Lang"
 msgstr "Michael Lang"
 
-#: src/main.cpp:65
+#: src/main.cpp:66
 #, kde-format
 msgid "Nicolas Fella"
 msgstr "Nicolas Fella"
 
-#: src/main.cpp:66
+#: src/main.cpp:67
 #, kde-format
 msgid "Smitty van Bodegom"
 msgstr "Smitty van Bodegom"
 
-#: src/main.cpp:74
+#: src/main.cpp:75
 #, kde-format
 msgid "Spacebar SMS/MMS client"
 msgstr "Spacebar SMS/MMS bezeroa"
 
-#: src/main.cpp:75
+#: src/main.cpp:76
 #, kde-format
 msgid "Open a chat with the given phone number"
 msgstr "Ireki berriketa bat emandako telefono zenbakiarekin"
