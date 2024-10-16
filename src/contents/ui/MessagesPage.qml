@@ -39,6 +39,19 @@ Kirigami.ScrollablePage {
         }
     }
 
+    // Disable notifications only if the window is active
+    Connections {
+        target: applicationWindow()
+
+        function onActiveChanged() {
+            if (active) {
+                messageModel.disableNotifications(messageModel.phoneNumberList);
+            } else {
+                messageModel.disableNotifications(Utils.phoneNumberList(""));
+            }
+        }
+    }
+
     Component.onCompleted: {
         // 80 is the pixels taken up by other elements in the page header
         const width = Math.max(root.width - pageStack.currentItem.width, pageStack.currentItem.width) - 80
