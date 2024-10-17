@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: spacebar\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-10-15 00:41+0000\n"
+"POT-Creation-Date: 2024-10-17 00:42+0000\n"
 "PO-Revision-Date: 2024-08-20 00:57+0200\n"
 "Last-Translator: Shinjo Park <kde@peremen.name>\n"
 "Language-Team: Korean <kde-kr@kde.org>\n"
@@ -27,30 +27,30 @@ msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
 msgstr "kde@peremen.name"
 
-#: daemon/channellogger.cpp:545 src/contents/ui/MessagesPage.qml:62
+#: daemon/channellogger.cpp:598 src/contents/ui/MessagesPage.qml:62
 #, kde-format
 msgid "New message"
 msgstr "새 메시지"
 
-#: daemon/channellogger.cpp:552
+#: daemon/channellogger.cpp:605
 #, kde-format
 msgid "Message from %1"
 msgstr "%1의 메시지"
 
-#: daemon/channellogger.cpp:563
+#: daemon/channellogger.cpp:616
 #, kde-format
 msgctxt "Number of files attached"
 msgid "%1 Attachment"
 msgid_plural "%1 Attachments"
 msgstr[0] "첨부 %1개"
 
-#: daemon/channellogger.cpp:590
+#: daemon/channellogger.cpp:643
 #, kde-format
 msgctxt "@action open message in application"
 msgid "Open"
 msgstr "열기"
 
-#: daemon/main.cpp:37
+#: daemon/main.cpp:43
 #, kde-format
 msgid "Spacebar background service"
 msgstr "Spacebar 백그라운드 서비스"
@@ -478,52 +478,52 @@ msgstr "탭백 무시"
 msgid "Choose a color"
 msgstr "색상 선택"
 
-#: src/main.cpp:58
+#: src/main.cpp:59
 #, kde-format
 msgid "SMS/MMS messaging client"
 msgstr "SMS/MMS 메시지 클라이언트"
 
-#: src/main.cpp:60
+#: src/main.cpp:61
 #, kde-format
 msgid "© 2020-2021 KDE Community"
 msgstr "© 2020-2021 KDE Community"
 
-#: src/main.cpp:61
+#: src/main.cpp:62
 #, kde-format
 msgid "Bhushan Shah"
 msgstr "Bhushan Shah"
 
-#: src/main.cpp:62
+#: src/main.cpp:63
 #, kde-format
 msgid "Jonah Brüchert"
 msgstr "Jonah Brüchert"
 
-#: src/main.cpp:63
+#: src/main.cpp:64
 #, kde-format
 msgid "Martin Klapetek"
 msgstr "Martin Klapetek"
 
-#: src/main.cpp:64
+#: src/main.cpp:65
 #, kde-format
 msgid "Michael Lang"
 msgstr "Michael Lang"
 
-#: src/main.cpp:65
+#: src/main.cpp:66
 #, kde-format
 msgid "Nicolas Fella"
 msgstr "Nicolas Fella"
 
-#: src/main.cpp:66
+#: src/main.cpp:67
 #, kde-format
 msgid "Smitty van Bodegom"
 msgstr "Smitty van Bodegom"
 
-#: src/main.cpp:74
+#: src/main.cpp:75
 #, kde-format
 msgid "Spacebar SMS/MMS client"
 msgstr "Spacebar SMS/MMS 클라이언트"
 
-#: src/main.cpp:75
+#: src/main.cpp:76
 #, kde-format
 msgid "Open a chat with the given phone number"
 msgstr "지정한 전화번호와의 대화 열기"
