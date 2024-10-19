@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: spacebar\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-10-17 00:42+0000\n"
-"PO-Revision-Date: 2024-07-26 14:53+0200\n"
+"PO-Revision-Date: 2024-10-18 11:34+0200\n"
 "Last-Translator: Vit Pelcak <vit@pelcak.org>\n"
 "Language-Team: Czech <kde-i18n-doc@kde.org>\n"
 "Language: cs\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
-"X-Generator: Lokalize 24.05.2\n"
+"X-Generator: Lokalize 24.08.2\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -105,7 +105,7 @@ msgstr "Smazat"
 #: src/contents/ui/ChatsPage.qml:72 src/contents/ui/MessagesPage.qml:147
 #, kde-format
 msgid "Unable to connect to messaging daemon"
-msgstr ""
+msgstr "Nelze se připojit k démonu pro rozhovory"
 
 #: src/contents/ui/ChatsPage.qml:100
 #, kde-format
@@ -276,12 +276,10 @@ msgid "%1 Selected"
 msgstr "%1 Vybráno"
 
 #: src/contents/ui/NewConversationContactsList.qml:259
-#, fuzzy, kde-format
-#| msgctxt "Selecting recipients from contacts list"
-#| msgid "Create a chat"
+#, kde-format
 msgctxt "Open chat conversation window"
 msgid "Create"
-msgstr "Vytvořit rozhovor"
+msgstr "Vytvořit"
 
 #: src/contents/ui/NewConversationContactsList.qml:274
 #, kde-format
@@ -292,7 +290,7 @@ msgstr "Žádné kontakty nevybrány"
 #: src/contents/ui/NewConversationContactsList.qml:319
 #, kde-format
 msgid "New Group"
-msgstr ""
+msgstr "Nová skupina"
 
 #: src/contents/ui/NewConversationContactsList.qml:479
 #, kde-format
@@ -312,13 +310,12 @@ msgstr "Nenalezeny žádné výsledky"
 #: src/contents/ui/NewConversationPage.qml:15
 #, kde-format
 msgid "New Group Chat"
-msgstr ""
+msgstr "Nový skupinový rozhovor"
 
 #: src/contents/ui/NewConversationPage.qml:15
-#, fuzzy, kde-format
-#| msgid "Chats"
+#, kde-format
 msgid "New Chat"
-msgstr "Rozhovory"
+msgstr "Nový rozhovor"
 
 #: src/contents/ui/PreviewPage.qml:32
 #, kde-format
@@ -534,10 +531,3 @@ msgstr "Klient pro SMS/MMS Spacebar"
 #, kde-format
 msgid "Open a chat with the given phone number"
 msgstr "Otevřít rozhovor s daným telefonním číslem"
-
-#~ msgctxt "Open chat conversation window"
-#~ msgid "Next"
-#~ msgstr "Následující"
-
-#~ msgid "Contacts"
-#~ msgstr "Kontakty"

@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: spacebar\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-10-17 00:42+0000\n"
-"PO-Revision-Date: 2024-07-28 15:17+0200\n"
+"PO-Revision-Date: 2024-10-14 21:39+0200\n"
 "Last-Translator: Vincenzo Reale <smart2128vr@gmail.com>\n"
 "Language-Team: Italian <kde-i18n-it@kde.org>\n"
 "Language: it\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Lokalize 24.05.2\n"
+"X-Generator: Lokalize 24.08.2\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -103,7 +103,7 @@ msgstr "Elimina"
 #: src/contents/ui/ChatsPage.qml:72 src/contents/ui/MessagesPage.qml:147
 #, kde-format
 msgid "Unable to connect to messaging daemon"
-msgstr ""
+msgstr "Impossibile connettersi al demone di messaggistica"
 
 #: src/contents/ui/ChatsPage.qml:100
 #, kde-format
@@ -274,12 +274,10 @@ msgid "%1 Selected"
 msgstr "%1 selezionati"
 
 #: src/contents/ui/NewConversationContactsList.qml:259
-#, fuzzy, kde-format
-#| msgctxt "Selecting recipients from contacts list"
-#| msgid "Create a chat"
+#, kde-format
 msgctxt "Open chat conversation window"
 msgid "Create"
-msgstr "Crea una chat"
+msgstr "Crea"
 
 #: src/contents/ui/NewConversationContactsList.qml:274
 #, kde-format
@@ -290,7 +288,7 @@ msgstr "Nessun contatto selezionato"
 #: src/contents/ui/NewConversationContactsList.qml:319
 #, kde-format
 msgid "New Group"
-msgstr ""
+msgstr "Nuovo gruppo"
 
 #: src/contents/ui/NewConversationContactsList.qml:479
 #, kde-format
@@ -310,13 +308,12 @@ msgstr "Nessun risultato trovato"
 #: src/contents/ui/NewConversationPage.qml:15
 #, kde-format
 msgid "New Group Chat"
-msgstr ""
+msgstr "Nuova chat di gruppo"
 
 #: src/contents/ui/NewConversationPage.qml:15
-#, fuzzy, kde-format
-#| msgid "Chats"
+#, kde-format
 msgid "New Chat"
-msgstr "Chat"
+msgstr "Nuova chat"
 
 #: src/contents/ui/PreviewPage.qml:32
 #, kde-format
