@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: spacebar\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-10-17 00:42+0000\n"
-"PO-Revision-Date: 2024-07-27 09:33+0200\n"
+"PO-Revision-Date: 2024-10-19 13:10+0200\n"
 "Last-Translator: Łukasz Wojniłowicz <lukasz.wojnilowicz@gmail.com>\n"
 "Language-Team: Polish <kde-i18n-doc@kde.org>\n"
 "Language: pl\n"
@@ -106,7 +106,7 @@ msgstr "Usuń"
 #: src/contents/ui/ChatsPage.qml:72 src/contents/ui/MessagesPage.qml:147
 #, kde-format
 msgid "Unable to connect to messaging daemon"
-msgstr ""
+msgstr "Nie można połączyć z usługą wiadomości"
 
 #: src/contents/ui/ChatsPage.qml:100
 #, kde-format
@@ -279,12 +279,10 @@ msgid "%1 Selected"
 msgstr "%1 zaznaczona"
 
 #: src/contents/ui/NewConversationContactsList.qml:259
-#, fuzzy, kde-format
-#| msgctxt "Selecting recipients from contacts list"
-#| msgid "Create a chat"
+#, kde-format
 msgctxt "Open chat conversation window"
 msgid "Create"
-msgstr "Utwórz rozmowę"
+msgstr "Utwórz"
 
 #: src/contents/ui/NewConversationContactsList.qml:274
 #, kde-format
@@ -295,7 +293,7 @@ msgstr "Nie zaznaczono żadnego kontaktu"
 #: src/contents/ui/NewConversationContactsList.qml:319
 #, kde-format
 msgid "New Group"
-msgstr ""
+msgstr "Nowa grupa"
 
 #: src/contents/ui/NewConversationContactsList.qml:479
 #, kde-format
@@ -315,13 +313,12 @@ msgstr "Nie znaleziono żadnych wyników"
 #: src/contents/ui/NewConversationPage.qml:15
 #, kde-format
 msgid "New Group Chat"
-msgstr ""
+msgstr "Nowa rozmowa grupowa"
 
 #: src/contents/ui/NewConversationPage.qml:15
-#, fuzzy, kde-format
-#| msgid "Chats"
+#, kde-format
 msgid "New Chat"
-msgstr "Rozmowy"
+msgstr "Nowa rozmowa"
 
 #: src/contents/ui/PreviewPage.qml:32
 #, kde-format
