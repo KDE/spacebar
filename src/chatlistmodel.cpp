@@ -189,6 +189,10 @@ void ChatListModel::fetchChats(const PhoneNumberList &phoneNumberList)
 
 void ChatListModel::fetchChatsInternal()
 {
+    m_loading = true;
+    Q_EMIT loadingChanged();
+
+    // TODO: async
     const StringMapList serializedChats = m_handler.interface()->chats({});
     QList<Chat> chats;
     for (const auto &serializedChat : serializedChats) {
@@ -199,7 +203,8 @@ void ChatListModel::fetchChatsInternal()
     m_chats = std::move(chats);
     endResetModel();
 
-    Q_EMIT chatsFetched();
+    m_loading = false;
+    Q_EMIT loadingChanged();
 }
 
 void ChatListModel::fetchChatDetails(const PhoneNumberList &phoneNumberList, const bool sort)
@@ -240,6 +245,11 @@ void ChatListModel::fetchChatDetailsInternal(const PhoneNumberList &phoneNumberL
         });
         endResetModel();
     }
+}
+
+bool ChatListModel::loading() const
+{
+    return m_loading;
 }
 
 void ChatListModel::deleteChat(const PhoneNumberList &phoneNumberList)

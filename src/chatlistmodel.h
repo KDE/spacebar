@@ -21,6 +21,7 @@ class ChannelHandler;
 class ChatListModel : public QAbstractListModel
 {
     Q_OBJECT
+    Q_PROPERTY(bool loading READ loading NOTIFY loadingChanged)
 
 public:
     ~ChatListModel();
@@ -53,6 +54,7 @@ public:
     Q_INVOKABLE void setCharacterLimit(const int &width);
 
     bool ready() const;
+    bool loading() const;
 
 public Q_SLOTS:
     void fetchChats(const PhoneNumberList &phoneNumberList);
@@ -63,13 +65,14 @@ Q_SIGNALS:
     void startingChatFaild(const QString &errorMessage);
 
     void readyChanged();
-    void chatsFetched();
+    void loadingChanged();
 
 private:
     QPair<Chat *, int> getChatIndex(const PhoneNumberList &phoneNumberList);
     void fetchChatsInternal();
     void fetchChatDetailsInternal(const PhoneNumberList &phoneNumberList, const bool sort = false);
 
+    bool m_loading{false};
     ChannelHandler &m_handler;
     QVector<Chat> m_chats;
     ContactPhoneNumberMapper &m_mapper;

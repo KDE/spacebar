@@ -89,10 +89,6 @@ Kirigami.ScrollablePage {
 
                 Qt.callLater(pageStack.push, "qrc:/MessagesPage.qml", {"messageModel": messageModel})
             }
-
-            function onChatsFetched() {
-                loading.visible = false
-            }
         }
 
         Kirigami.PlaceholderMessage {
@@ -106,7 +102,7 @@ Kirigami.ScrollablePage {
         Controls.BusyIndicator {
             id: loading
             anchors.centerIn: parent
-            visible: listView.count === 0
+            visible: ChatListModel.loading
             running: visible
             width: Kirigami.Units.iconSizes.huge
             height: width
