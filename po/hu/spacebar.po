@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: spacebar\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-10-17 00:42+0000\n"
+"POT-Creation-Date: 2024-11-09 00:42+0000\n"
 "PO-Revision-Date: 2024-09-16 21:35+0200\n"
 "Last-Translator: Kristof Kiszel <ulysses@fsf.hu>\n"
 "Language-Team: Hungarian <kde-l10n-hu@kde.org>\n"
@@ -105,32 +105,32 @@ msgstr "Törlés"
 msgid "Unable to connect to messaging daemon"
 msgstr ""
 
-#: src/contents/ui/ChatsPage.qml:100
+#: src/contents/ui/ChatsPage.qml:96
 #, kde-format
 msgctxt "Selecting recipients from contacts list"
 msgid "Create a chat"
 msgstr "Csevegés létrehozása"
 
-#: src/contents/ui/ChatsPage.qml:188
+#: src/contents/ui/ChatsPage.qml:184
 #, kde-format
 msgctxt "Indicating that message was sent by you"
 msgid "You"
 msgstr "Ön"
 
-#: src/contents/ui/ChatsPage.qml:188
+#: src/contents/ui/ChatsPage.qml:184
 #, kde-format
 msgctxt "Indicating that message contains an image"
 msgid "Picture"
 msgstr "Kép"
 
-#: src/contents/ui/ChatsPage.qml:277
+#: src/contents/ui/ChatsPage.qml:273
 #, kde-format
 msgid "Delete this conversation?"
 msgid_plural "Delete %1 conversations?"
 msgstr[0] "Törli ezt a beszélgetést?"
 msgstr[1] "Törli ezt a(z) %1 beszélgetést?"
 
-#: src/contents/ui/ChatsPage.qml:278
+#: src/contents/ui/ChatsPage.qml:274
 #, kde-format
 msgid "This is permanent and can't be undone"
 msgstr "Ez végleges, és nem vonható vissza"

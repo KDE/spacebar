@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: spacebar\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-10-17 00:42+0000\n"
+"POT-Creation-Date: 2024-11-09 00:42+0000\n"
 "PO-Revision-Date: 2023-06-04 23:12+0300\n"
 "Last-Translator: Tommi Nieminen <translator@legisign.org>\n"
 "Language-Team: Finnish <kde-i18n-doc@kde.org>\n"
@@ -105,32 +105,32 @@ msgstr "Poista"
 msgid "Unable to connect to messaging daemon"
 msgstr ""
 
-#: src/contents/ui/ChatsPage.qml:100
+#: src/contents/ui/ChatsPage.qml:96
 #, kde-format
 msgctxt "Selecting recipients from contacts list"
 msgid "Create a chat"
 msgstr "Luo keskustelu"
 
-#: src/contents/ui/ChatsPage.qml:188
+#: src/contents/ui/ChatsPage.qml:184
 #, kde-format
 msgctxt "Indicating that message was sent by you"
 msgid "You"
 msgstr "Sinä"
 
-#: src/contents/ui/ChatsPage.qml:188
+#: src/contents/ui/ChatsPage.qml:184
 #, kde-format
 msgctxt "Indicating that message contains an image"
 msgid "Picture"
 msgstr "Kuva"
 
-#: src/contents/ui/ChatsPage.qml:277
+#: src/contents/ui/ChatsPage.qml:273
 #, kde-format
 msgid "Delete this conversation?"
 msgid_plural "Delete %1 conversations?"
 msgstr[0] "Poistetaanko tämä keskustelu?"
 msgstr[1] "Poistetaanko %1 keskustelua?"
 
-#: src/contents/ui/ChatsPage.qml:278
+#: src/contents/ui/ChatsPage.qml:274
 #, kde-format
 msgid "This is permanent and can't be undone"
 msgstr "Tämä on pysyvää eikä sitä voi kumota"

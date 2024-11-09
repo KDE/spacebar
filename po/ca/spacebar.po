@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: spacebar\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-10-17 00:42+0000\n"
+"POT-Creation-Date: 2024-11-09 00:42+0000\n"
 "PO-Revision-Date: 2024-10-14 09:03+0200\n"
 "Last-Translator: Josep M. Ferrer <txemaq@gmail.com>\n"
 "Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
@@ -108,32 +108,32 @@ msgstr "Suprimeix"
 msgid "Unable to connect to messaging daemon"
 msgstr "No s'ha pogut connectar amb el dimoni de missatgeria"
 
-#: src/contents/ui/ChatsPage.qml:100
+#: src/contents/ui/ChatsPage.qml:96
 #, kde-format
 msgctxt "Selecting recipients from contacts list"
 msgid "Create a chat"
 msgstr "Crea un xat"
 
-#: src/contents/ui/ChatsPage.qml:188
+#: src/contents/ui/ChatsPage.qml:184
 #, kde-format
 msgctxt "Indicating that message was sent by you"
 msgid "You"
 msgstr "Tu"
 
-#: src/contents/ui/ChatsPage.qml:188
+#: src/contents/ui/ChatsPage.qml:184
 #, kde-format
 msgctxt "Indicating that message contains an image"
 msgid "Picture"
 msgstr "Imatge"
 
-#: src/contents/ui/ChatsPage.qml:277
+#: src/contents/ui/ChatsPage.qml:273
 #, kde-format
 msgid "Delete this conversation?"
 msgid_plural "Delete %1 conversations?"
 msgstr[0] "Suprimeixo aquesta conversa?"
 msgstr[1] "Suprimeixo %1 converses?"
 
-#: src/contents/ui/ChatsPage.qml:278
+#: src/contents/ui/ChatsPage.qml:274
 #, kde-format
 msgid "This is permanent and can't be undone"
 msgstr "Això és permanent i no es podrà desfer"

@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: spacebar\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-10-17 00:42+0000\n"
+"POT-Creation-Date: 2024-11-09 00:42+0000\n"
 "PO-Revision-Date: 2024-10-19 13:10+0200\n"
 "Last-Translator: Łukasz Wojniłowicz <lukasz.wojnilowicz@gmail.com>\n"
 "Language-Team: Polish <kde-i18n-doc@kde.org>\n"
@@ -108,25 +108,25 @@ msgstr "Usuń"
 msgid "Unable to connect to messaging daemon"
 msgstr "Nie można połączyć z usługą wiadomości"
 
-#: src/contents/ui/ChatsPage.qml:100
+#: src/contents/ui/ChatsPage.qml:96
 #, kde-format
 msgctxt "Selecting recipients from contacts list"
 msgid "Create a chat"
 msgstr "Utwórz rozmowę"
 
-#: src/contents/ui/ChatsPage.qml:188
+#: src/contents/ui/ChatsPage.qml:184
 #, kde-format
 msgctxt "Indicating that message was sent by you"
 msgid "You"
 msgstr "Ty"
 
-#: src/contents/ui/ChatsPage.qml:188
+#: src/contents/ui/ChatsPage.qml:184
 #, kde-format
 msgctxt "Indicating that message contains an image"
 msgid "Picture"
 msgstr "Zdjęcie"
 
-#: src/contents/ui/ChatsPage.qml:277
+#: src/contents/ui/ChatsPage.qml:273
 #, kde-format
 msgid "Delete this conversation?"
 msgid_plural "Delete %1 conversations?"
@@ -134,7 +134,7 @@ msgstr[0] "Czy usunąć rozmowę?"
 msgstr[1] "Czy usunąć %1 rozmowy?"
 msgstr[2] "Czy usunąć %1 rozmów?"
 
-#: src/contents/ui/ChatsPage.qml:278
+#: src/contents/ui/ChatsPage.qml:274
 #, kde-format
 msgid "This is permanent and can't be undone"
 msgstr "To jest trwałe i niemożliwe do wycofania"

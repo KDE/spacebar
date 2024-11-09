@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: spacebar\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-10-17 00:42+0000\n"
+"POT-Creation-Date: 2024-11-09 00:42+0000\n"
 "PO-Revision-Date: 2024-09-03 22:30+0200\n"
 "Last-Translator: Johannes Obermayr <johannesobermayr@gmx.de>\n"
 "Language-Team: German <kde-i18n-de@kde.org>\n"
@@ -107,32 +107,32 @@ msgstr "Löschen"
 msgid "Unable to connect to messaging daemon"
 msgstr ""
 
-#: src/contents/ui/ChatsPage.qml:100
+#: src/contents/ui/ChatsPage.qml:96
 #, kde-format
 msgctxt "Selecting recipients from contacts list"
 msgid "Create a chat"
 msgstr "Chat erstellen"
 
-#: src/contents/ui/ChatsPage.qml:188
+#: src/contents/ui/ChatsPage.qml:184
 #, kde-format
 msgctxt "Indicating that message was sent by you"
 msgid "You"
 msgstr "Sie"
 
-#: src/contents/ui/ChatsPage.qml:188
+#: src/contents/ui/ChatsPage.qml:184
 #, kde-format
 msgctxt "Indicating that message contains an image"
 msgid "Picture"
 msgstr "Bild"
 
-#: src/contents/ui/ChatsPage.qml:277
+#: src/contents/ui/ChatsPage.qml:273
 #, kde-format
 msgid "Delete this conversation?"
 msgid_plural "Delete %1 conversations?"
 msgstr[0] "Diese Unterhaltung löschen?"
 msgstr[1] "%1 Unterhaltungen löschen?"
 
-#: src/contents/ui/ChatsPage.qml:278
+#: src/contents/ui/ChatsPage.qml:274
 #, kde-format
 msgid "This is permanent and can't be undone"
 msgstr "Diese Aktion kann nicht rückgängig gemacht werden"

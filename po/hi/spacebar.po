@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: spacebar\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-10-17 00:42+0000\n"
+"POT-Creation-Date: 2024-11-09 00:42+0000\n"
 "PO-Revision-Date: 2021-07-06 18:44+0530\n"
 "Last-Translator: Raghavendra Kamath <raghu@raghukamath.com>\n"
 "Language-Team: kde-hindi\n"
@@ -108,26 +108,26 @@ msgstr "बातचीत मिटाएँ"
 msgid "Unable to connect to messaging daemon"
 msgstr ""
 
-#: src/contents/ui/ChatsPage.qml:100
+#: src/contents/ui/ChatsPage.qml:96
 #, fuzzy, kde-format
 #| msgid "Delete chat"
 msgctxt "Selecting recipients from contacts list"
 msgid "Create a chat"
 msgstr "बातचीत मिटाएँ"
 
-#: src/contents/ui/ChatsPage.qml:188
+#: src/contents/ui/ChatsPage.qml:184
 #, kde-format
 msgctxt "Indicating that message was sent by you"
 msgid "You"
 msgstr ""
 
-#: src/contents/ui/ChatsPage.qml:188
+#: src/contents/ui/ChatsPage.qml:184
 #, kde-format
 msgctxt "Indicating that message contains an image"
 msgid "Picture"
 msgstr ""
 
-#: src/contents/ui/ChatsPage.qml:277
+#: src/contents/ui/ChatsPage.qml:273
 #, fuzzy, kde-format
 #| msgid "New Conversation"
 msgid "Delete this conversation?"
@@ -135,7 +135,7 @@ msgid_plural "Delete %1 conversations?"
 msgstr[0] "नया वार्तालाप"
 msgstr[1] "नया वार्तालाप"
 
-#: src/contents/ui/ChatsPage.qml:278
+#: src/contents/ui/ChatsPage.qml:274
 #, kde-format
 msgid "This is permanent and can't be undone"
 msgstr ""

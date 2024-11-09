@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: spacebar\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-10-17 00:42+0000\n"
+"POT-Creation-Date: 2024-11-09 00:42+0000\n"
 "PO-Revision-Date: 2022-08-24 17:58+0400\n"
 "Last-Translator: Kheyyam <xxmn77@gmail.com>\n"
 "Language-Team: Azerbaijani <kde-i18n-doc@kde.org>\n"
@@ -108,28 +108,28 @@ msgstr "Silin"
 msgid "Unable to connect to messaging daemon"
 msgstr ""
 
-#: src/contents/ui/ChatsPage.qml:100
+#: src/contents/ui/ChatsPage.qml:96
 #, fuzzy, kde-format
 #| msgid "Create a chat"
 msgctxt "Selecting recipients from contacts list"
 msgid "Create a chat"
 msgstr "Söhbət yaradın"
 
-#: src/contents/ui/ChatsPage.qml:188
+#: src/contents/ui/ChatsPage.qml:184
 #, fuzzy, kde-format
 #| msgid "You: "
 msgctxt "Indicating that message was sent by you"
 msgid "You"
 msgstr "Siz: "
 
-#: src/contents/ui/ChatsPage.qml:188
+#: src/contents/ui/ChatsPage.qml:184
 #, fuzzy, kde-format
 #| msgid "Picture"
 msgctxt "Indicating that message contains an image"
 msgid "Picture"
 msgstr "Şəkil"
 
-#: src/contents/ui/ChatsPage.qml:277
+#: src/contents/ui/ChatsPage.qml:273
 #, fuzzy, kde-format
 #| msgid "Delete this conversation?"
 msgid "Delete this conversation?"
@@ -137,7 +137,7 @@ msgid_plural "Delete %1 conversations?"
 msgstr[0] "Bu söhbət silinsin?"
 msgstr[1] "Bu söhbət silinsin?"
 
-#: src/contents/ui/ChatsPage.qml:278
+#: src/contents/ui/ChatsPage.qml:274
 #, kde-format
 msgid "This is permanent and can't be undone"
 msgstr "Bu daimidir və ləğv edilə biıməz"
