@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: spacebar\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-11-09 00:42+0000\n"
-"PO-Revision-Date: 2024-07-25 16:37+0200\n"
+"PO-Revision-Date: 2024-11-09 16:22+0100\n"
 "Last-Translator: Adrián Chaves (Gallaecio) <adrian@chaves.io>\n"
 "Language-Team: Proxecto Trasno (proxecto@trasno.gal)\n"
 "Language: gl\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 24.05.2\n"
+"X-Generator: Lokalize 24.08.3\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -103,7 +103,7 @@ msgstr "Eliminar"
 #: src/contents/ui/ChatsPage.qml:72 src/contents/ui/MessagesPage.qml:147
 #, kde-format
 msgid "Unable to connect to messaging daemon"
-msgstr ""
+msgstr "Non é posíbel conectar ao servizo de mensaxaría."
 
 #: src/contents/ui/ChatsPage.qml:96
 #, kde-format
@@ -273,12 +273,10 @@ msgid "%1 Selected"
 msgstr "%1 seleccionados"
 
 #: src/contents/ui/NewConversationContactsList.qml:259
-#, fuzzy, kde-format
-#| msgctxt "Selecting recipients from contacts list"
-#| msgid "Create a chat"
+#, kde-format
 msgctxt "Open chat conversation window"
 msgid "Create"
-msgstr "Crear unha charla"
+msgstr "Crear"
 
 #: src/contents/ui/NewConversationContactsList.qml:274
 #, kde-format
@@ -289,7 +287,7 @@ msgstr "Non seleccionou ningún contacto"
 #: src/contents/ui/NewConversationContactsList.qml:319
 #, kde-format
 msgid "New Group"
-msgstr ""
+msgstr "Novo grupo"
 
 #: src/contents/ui/NewConversationContactsList.qml:479
 #, kde-format
@@ -309,13 +307,12 @@ msgstr "Non se atoparon resultados."
 #: src/contents/ui/NewConversationPage.qml:15
 #, kde-format
 msgid "New Group Chat"
-msgstr ""
+msgstr "Nova conversa de grupo"
 
 #: src/contents/ui/NewConversationPage.qml:15
-#, fuzzy, kde-format
-#| msgid "Chats"
+#, kde-format
 msgid "New Chat"
-msgstr "Charlas"
+msgstr "Nova charla"
 
 #: src/contents/ui/PreviewPage.qml:32
 #, kde-format
