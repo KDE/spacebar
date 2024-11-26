@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: spacebar\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-11-09 00:42+0000\n"
-"PO-Revision-Date: 2024-08-03 14:17+0900\n"
+"PO-Revision-Date: 2024-11-25 22:55+0900\n"
 "Last-Translator: Kisaragi Hiu <mail@kisaragi-hiu.com>\n"
 "Language-Team: Traditional Chinese <zh-l10n@lists.slat.org>\n"
 "Language: zh_TW\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Lokalize 24.04.70\n"
+"X-Generator: Lokalize 24.08.3\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -104,7 +104,7 @@ msgstr "刪除"
 #: src/contents/ui/ChatsPage.qml:72 src/contents/ui/MessagesPage.qml:147
 #, kde-format
 msgid "Unable to connect to messaging daemon"
-msgstr ""
+msgstr "無法連線到簡訊伺服程式"
 
 #: src/contents/ui/ChatsPage.qml:96
 #, kde-format
@@ -271,12 +271,10 @@ msgid "%1 Selected"
 msgstr "選取 %1 個"
 
 #: src/contents/ui/NewConversationContactsList.qml:259
-#, fuzzy, kde-format
-#| msgctxt "Selecting recipients from contacts list"
-#| msgid "Create a chat"
+#, kde-format
 msgctxt "Open chat conversation window"
 msgid "Create"
-msgstr "建立聊天"
+msgstr "建立"
 
 #: src/contents/ui/NewConversationContactsList.qml:274
 #, kde-format
@@ -287,7 +285,7 @@ msgstr "未選取聯絡人"
 #: src/contents/ui/NewConversationContactsList.qml:319
 #, kde-format
 msgid "New Group"
-msgstr ""
+msgstr "新群組"
 
 #: src/contents/ui/NewConversationContactsList.qml:479
 #, kde-format
@@ -307,13 +305,12 @@ msgstr "找不到結果"
 #: src/contents/ui/NewConversationPage.qml:15
 #, kde-format
 msgid "New Group Chat"
-msgstr ""
+msgstr "新群組聊天"
 
 #: src/contents/ui/NewConversationPage.qml:15
-#, fuzzy, kde-format
-#| msgid "Chats"
+#, kde-format
 msgid "New Chat"
-msgstr "聊天"
+msgstr "新聊天"
 
 #: src/contents/ui/PreviewPage.qml:32
 #, kde-format
