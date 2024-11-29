@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: spacebar\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-11-09 00:42+0000\n"
-"PO-Revision-Date: 2024-08-20 00:57+0200\n"
+"PO-Revision-Date: 2024-11-28 23:16+0100\n"
 "Last-Translator: Shinjo Park <kde@peremen.name>\n"
 "Language-Team: Korean <kde-kr@kde.org>\n"
 "Language: ko\n"
@@ -101,7 +101,7 @@ msgstr "삭제"
 #: src/contents/ui/ChatsPage.qml:72 src/contents/ui/MessagesPage.qml:147
 #, kde-format
 msgid "Unable to connect to messaging daemon"
-msgstr ""
+msgstr "메시지 데몬에 연결할 수 없음"
 
 #: src/contents/ui/ChatsPage.qml:96
 #, kde-format
@@ -269,12 +269,10 @@ msgid "%1 Selected"
 msgstr "%1개 선택됨"
 
 #: src/contents/ui/NewConversationContactsList.qml:259
-#, fuzzy, kde-format
-#| msgctxt "Selecting recipients from contacts list"
-#| msgid "Create a chat"
+#, kde-format
 msgctxt "Open chat conversation window"
 msgid "Create"
-msgstr "대화 만들기"
+msgstr "생성"
 
 #: src/contents/ui/NewConversationContactsList.qml:274
 #, kde-format
@@ -285,7 +283,7 @@ msgstr "선택한 연락처 없음"
 #: src/contents/ui/NewConversationContactsList.qml:319
 #, kde-format
 msgid "New Group"
-msgstr ""
+msgstr "새 그룹"
 
 #: src/contents/ui/NewConversationContactsList.qml:479
 #, kde-format
@@ -305,13 +303,12 @@ msgstr "결과 없음"
 #: src/contents/ui/NewConversationPage.qml:15
 #, kde-format
 msgid "New Group Chat"
-msgstr ""
+msgstr "새 그룹 대화"
 
 #: src/contents/ui/NewConversationPage.qml:15
-#, fuzzy, kde-format
-#| msgid "Chats"
+#, kde-format
 msgid "New Chat"
-msgstr "대화"
+msgstr "새 대화"
 
 #: src/contents/ui/PreviewPage.qml:32
 #, kde-format
