@@ -32,6 +32,7 @@
   <name xml:lang="pt">Spacebar</name>
   <name xml:lang="pt-BR">Spacebar</name>
   <name xml:lang="ro">Spacebar</name>
+  <name xml:lang="ru">Spacebar</name>
   <name xml:lang="sk">Spacebar</name>
   <name xml:lang="sl">Spacebar</name>
   <name xml:lang="sv">Spacebar</name>
@@ -100,6 +101,7 @@
     <p xml:lang="pl">Spacebar to program do wiadomości SMS/MMS. Umożliwia wysyłanie wiadomości tekstowych, zdjęć i innych plików w sieciach komórkowych.</p>
     <p xml:lang="pt">O Spacebar é um cliente de mensagens SMS/MMS. Permite-lhe enviar mensagens de texto, imagens e outros ficheiros por uma rede móvel.</p>
     <p xml:lang="pt-BR">O Spacebar é um cliente de mensagens SMS/MMS Ele permite que você envie mensagens de texto, fotos e outros arquivos através de uma rede celular.</p>
+    <p xml:lang="ru">Spacebar — программа для обмена SMS и MMS. Она позволяет отправлять текстовые сообщения, изображения и другие файлы по сотовой сети.</p>
     <p xml:lang="sl">Spacebar je odjemalec sporočil SMS/MMS. Dovoljuje pošiljanje besedilnih sporočil, slik in ostalih datotek v mobilnem omrežju.</p>
     <p xml:lang="sv">Spacebar är en SMS/MMS-meddelandeklient. Den låter dig skicka textmeddelanden, bilder och andra filer över ett mobilnätverk.</p>
     <p xml:lang="tr">Boşluk Çubuğu, bir SMS/MMS iletileşme istemcisidir. Bir hücresel ağ üzerinden metin iletileri, resimler ve diğer dosyaları göndermenize izin verir.</p>
