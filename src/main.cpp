@@ -21,7 +21,6 @@
 #include "chatlistmodel.h"
 #include "messagemodel.h"
 
-#include "about.h"
 #include "avatarimageprovider.h"
 #include "channelhandler.h"
 #include "global.h"
@@ -93,7 +92,6 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
     ChatListModel chatListModel(handler);
 
     // Register types
-    qmlRegisterSingletonInstance(APPLICATION_ID, 1, 0, "AboutType", &AboutType::instance());
     qmlRegisterSingletonInstance<ChatListModel>(APPLICATION_ID, 1, 0, "ChatListModel", &chatListModel);
     qmlRegisterSingletonInstance<ChannelHandler>(APPLICATION_ID, 1, 0, "ChannelHandler", &handler);
     qmlRegisterUncreatableType<MessageModel>(APPLICATION_ID, 1, 0, "MessageModel", SL("Created by ChatListModel whenever a new chat was opened"));

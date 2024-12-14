@@ -7,6 +7,5 @@ import org.kde.kirigamiaddons.formcard as FormCard
 import org.kde.spacebar
 
 FormCard.AboutPage {
-    aboutData: AboutType.aboutData
     Kirigami.ColumnView.fillWidth: true
 }
