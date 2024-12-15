@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: spacebar\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-11-09 00:42+0000\n"
+"POT-Creation-Date: 2024-12-15 00:43+0000\n"
 "PO-Revision-Date: 2024-12-05 11:00+0300\n"
 "Last-Translator: Olesya Gerasimenko <translation-team@basealt.ru>\n"
 "Language-Team: Basealt Translation Team\n"
@@ -489,52 +489,52 @@ msgstr "Игнорировать быстрые реакции (tapback)"
 msgid "Choose a color"
 msgstr "Выбор цвета"
 
-#: src/main.cpp:59
+#: src/main.cpp:58
 #, kde-format
 msgid "SMS/MMS messaging client"
 msgstr "Клиент для обмена SMS и MMS"
 
-#: src/main.cpp:61
+#: src/main.cpp:60
 #, kde-format
 msgid "© 2020-2021 KDE Community"
 msgstr "© Сообщество KDE, 2020–2021"
 
-#: src/main.cpp:62
+#: src/main.cpp:61
 #, kde-format
 msgid "Bhushan Shah"
 msgstr "Bhushan Shah"
 
-#: src/main.cpp:63
+#: src/main.cpp:62
 #, kde-format
 msgid "Jonah Brüchert"
 msgstr "Jonah Brüchert"
 
-#: src/main.cpp:64
+#: src/main.cpp:63
 #, kde-format
 msgid "Martin Klapetek"
 msgstr "Martin Klapetek"
 
-#: src/main.cpp:65
+#: src/main.cpp:64
 #, kde-format
 msgid "Michael Lang"
 msgstr "Michael Lang"
 
-#: src/main.cpp:66
+#: src/main.cpp:65
 #, kde-format
 msgid "Nicolas Fella"
 msgstr "Nicolas Fella"
 
-#: src/main.cpp:67
+#: src/main.cpp:66
 #, kde-format
 msgid "Smitty van Bodegom"
 msgstr "Smitty van Bodegom"
 
-#: src/main.cpp:75
+#: src/main.cpp:74
 #, kde-format
 msgid "Spacebar SMS/MMS client"
 msgstr "Spacebar (клиент для обмена SMS и MMS)"
 
-#: src/main.cpp:76
+#: src/main.cpp:75
 #, kde-format
 msgid "Open a chat with the given phone number"
 msgstr "Открыть чат с указанным телефонным номером"
