@@ -57,7 +57,7 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
                      QStringLiteral(SPACEBAR_VERSION_STRING),
                      i18n("SMS/MMS messaging client"),
                      KAboutLicense::GPL,
-                     i18n("© 2020-2021 KDE Community"));
+                     i18n("© 2020-2024 KDE Community"));
     about.addAuthor(i18n("Bhushan Shah"), QString(), QStringLiteral("bhush94@gmail.com"));
     about.addAuthor(i18n("Jonah Brüchert"), QString(), QStringLiteral("jbb@kaidan.im"));
     about.addAuthor(i18n("Martin Klapetek"), QString(), QStringLiteral("mklapetek@kde.org"));
