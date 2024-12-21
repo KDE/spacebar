@@ -20,10 +20,11 @@
     ],
     "separate-locales": false,
     "cleanup": [
-        "/app/include/",
-        "/app/lib/cmake/",
+        "/include/",
+        "/lib/cmake/",
         "/lib/pkgconfig",
-        "/bin/protoc",
+        "/bin/protoc-*",
+        "/share/man/",
         "/lib/*.a"
     ],
     "modules": [
