@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: spacebar\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-12-15 00:43+0000\n"
+"POT-Creation-Date: 2024-12-22 00:42+0000\n"
 "PO-Revision-Date: 2024-01-01 08:19-0600\n"
 "Last-Translator: A S Alam <aalam@punlinux.org>\n"
 "Language-Team: Punjabi <kde-i18n-doc@kde.org>\n"
@@ -487,8 +487,9 @@ msgid "SMS/MMS messaging client"
 msgstr "SMS/MMS ਸੁਨੇਹੇ ਕਲਾਈਂਟ"
 
 #: src/main.cpp:60
-#, kde-format
-msgid "© 2020-2021 KDE Community"
+#, fuzzy, kde-format
+#| msgid "© 2020-2021 KDE Community"
+msgid "© 2020-2024 KDE Community"
 msgstr "© 2020-2021 ਕੇਡੀਈ ਕਮਿਊਨਟੀ"
 
 #: src/main.cpp:61
