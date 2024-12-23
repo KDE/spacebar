@@ -481,7 +481,6 @@ msgstr "短信/彩信客户端"
 
 #: src/main.cpp:60
 #, fuzzy, kde-format
-#| msgid "© 2020-2021 KDE Community"
 msgid "© 2020-2024 KDE Community"
 msgstr "© 2020-2021 KDE Community"
 

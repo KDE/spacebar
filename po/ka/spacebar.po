@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: spacebar\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-12-22 00:42+0000\n"
-"PO-Revision-Date: 2024-10-14 07:20+0200\n"
+"PO-Revision-Date: 2024-12-22 05:46+0100\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
 "Language: ka\n"
@@ -486,10 +486,9 @@ msgid "SMS/MMS messaging client"
 msgstr "SMS/MMS შეტყობინებების კლიენტი"
 
 #: src/main.cpp:60
-#, fuzzy, kde-format
-#| msgid "© 2020-2021 KDE Community"
+#, kde-format
 msgid "© 2020-2024 KDE Community"
-msgstr "© 2020-2021 KDE-ის საზოგადოება. ყველა უფლება დაცულია"
+msgstr "© 2020-2024 KDE-ის საზოგადოება"
 
 #: src/main.cpp:61
 #, kde-format
