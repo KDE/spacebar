@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: spacebar\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-12-22 00:42+0000\n"
-"PO-Revision-Date: 2024-09-03 22:30+0200\n"
+"PO-Revision-Date: 2024-12-23 17:16+0100\n"
 "Last-Translator: Johannes Obermayr <johannesobermayr@gmx.de>\n"
 "Language-Team: German <kde-i18n-de@kde.org>\n"
 "Language: de\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Lokalize 24.11.70\n"
+"X-Generator: Lokalize 25.03.70\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -105,7 +105,7 @@ msgstr "Löschen"
 #: src/contents/ui/ChatsPage.qml:72 src/contents/ui/MessagesPage.qml:147
 #, kde-format
 msgid "Unable to connect to messaging daemon"
-msgstr ""
+msgstr "Der Verbindungsaufbau zum Nachrichtendienst ist nicht möglich"
 
 #: src/contents/ui/ChatsPage.qml:96
 #, kde-format
@@ -274,12 +274,10 @@ msgid "%1 Selected"
 msgstr "%1 ausgewählt"
 
 #: src/contents/ui/NewConversationContactsList.qml:259
-#, fuzzy, kde-format
-#| msgctxt "Selecting recipients from contacts list"
-#| msgid "Create a chat"
+#, kde-format
 msgctxt "Open chat conversation window"
 msgid "Create"
-msgstr "Chat erstellen"
+msgstr "Erstellen"
 
 #: src/contents/ui/NewConversationContactsList.qml:274
 #, kde-format
@@ -290,7 +288,7 @@ msgstr "Kein Kontakt ausgewählt"
 #: src/contents/ui/NewConversationContactsList.qml:319
 #, kde-format
 msgid "New Group"
-msgstr ""
+msgstr "Neue Gruppe"
 
 #: src/contents/ui/NewConversationContactsList.qml:479
 #, kde-format
@@ -310,13 +308,12 @@ msgstr "Keine Ergebnisse gefunden"
 #: src/contents/ui/NewConversationPage.qml:15
 #, kde-format
 msgid "New Group Chat"
-msgstr ""
+msgstr "Neuer Gruppenchat"
 
 #: src/contents/ui/NewConversationPage.qml:15
-#, fuzzy, kde-format
-#| msgid "Chats"
+#, kde-format
 msgid "New Chat"
-msgstr "Chats"
+msgstr "Neuer Chat"
 
 #: src/contents/ui/PreviewPage.qml:32
 #, kde-format
@@ -489,10 +486,9 @@ msgid "SMS/MMS messaging client"
 msgstr "SMS/MMS-Anwendung"
 
 #: src/main.cpp:60
-#, fuzzy, kde-format
-#| msgid "© 2020-2021 KDE Community"
+#, kde-format
 msgid "© 2020-2024 KDE Community"
-msgstr "© 2020-2021 KDE-Gemeinschaft"
+msgstr "© 2020-2024 KDE-Gemeinschaft"
 
 #: src/main.cpp:61
 #, kde-format
