@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: spacebar\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-12-22 00:42+0000\n"
-"PO-Revision-Date: 2024-11-28 23:16+0100\n"
+"PO-Revision-Date: 2024-12-24 19:13+0100\n"
 "Last-Translator: Shinjo Park <kde@peremen.name>\n"
 "Language-Team: Korean <kde-kr@kde.org>\n"
 "Language: ko\n"
@@ -481,10 +481,9 @@ msgid "SMS/MMS messaging client"
 msgstr "SMS/MMS 메시지 클라이언트"
 
 #: src/main.cpp:60
-#, fuzzy, kde-format
-#| msgid "© 2020-2021 KDE Community"
+#, kde-format
 msgid "© 2020-2024 KDE Community"
-msgstr "© 2020-2021 KDE Community"
+msgstr "© 2020-2024 KDE Community"
 
 #: src/main.cpp:61
 #, kde-format
