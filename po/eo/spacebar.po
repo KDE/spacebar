@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: spacebar\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-12-22 00:42+0000\n"
-"PO-Revision-Date: 2024-07-27 14:20+0200\n"
+"PO-Revision-Date: 2024-12-27 17:40+0100\n"
 "Last-Translator: Oliver Kellogg <olivermkellogg@gmail.com>\n"
 "Language-Team: Esperanto <kde-i18n-eo@kde.org>\n"
 "Language: eo\n"
@@ -273,12 +273,10 @@ msgid "%1 Selected"
 msgstr "%1 Elektita"
 
 #: src/contents/ui/NewConversationContactsList.qml:259
-#, fuzzy, kde-format
-#| msgctxt "Selecting recipients from contacts list"
-#| msgid "Create a chat"
+#, kde-format
 msgctxt "Open chat conversation window"
 msgid "Create"
-msgstr "Krei babilejon"
+msgstr "Krei"
 
 #: src/contents/ui/NewConversationContactsList.qml:274
 #, kde-format
@@ -289,7 +287,7 @@ msgstr "Neniu kontakto elektita"
 #: src/contents/ui/NewConversationContactsList.qml:319
 #, kde-format
 msgid "New Group"
-msgstr ""
+msgstr "Nova Grupo"
 
 #: src/contents/ui/NewConversationContactsList.qml:479
 #, kde-format
@@ -309,13 +307,12 @@ msgstr "Neniuj rezultoj trovitaj"
 #: src/contents/ui/NewConversationPage.qml:15
 #, kde-format
 msgid "New Group Chat"
-msgstr ""
+msgstr "Nova Grupbabilo"
 
 #: src/contents/ui/NewConversationPage.qml:15
-#, fuzzy, kde-format
-#| msgid "Chats"
+#, kde-format
 msgid "New Chat"
-msgstr "Babilejoj"
+msgstr "Nova Babilo"
 
 #: src/contents/ui/PreviewPage.qml:32
 #, kde-format
@@ -488,10 +485,9 @@ msgid "SMS/MMS messaging client"
 msgstr "SMS/MMS mesaĝa kliento"
 
 #: src/main.cpp:60
-#, fuzzy, kde-format
-#| msgid "© 2020-2021 KDE Community"
+#, kde-format
 msgid "© 2020-2024 KDE Community"
-msgstr "© 2020-2021 KDE-Komunumo"
+msgstr "© 2020-2024 KDE-Komunumo"
 
 #: src/main.cpp:61
 #, kde-format
@@ -532,10 +528,3 @@ msgstr "Spacebar SMS/MMS-kliento"
 #, kde-format
 msgid "Open a chat with the given phone number"
 msgstr "Malfermi babilejon kun la donita telefonnumero"
-
-#~ msgctxt "Open chat conversation window"
-#~ msgid "Next"
-#~ msgstr "Poste"
-
-#~ msgid "Contacts"
-#~ msgstr "Kontaktoj"
