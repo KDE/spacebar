@@ -112,10 +112,10 @@
   <url type="homepage">https://apps.kde.org/spacebar</url>
   <url type="bugtracker">https://bugs.kde.org/describecomponents.cgi?product=spacebar</url>
   <releases>
+    <release version="6.2.5" date="2024-12-31"/>
     <release version="6.2.4" date="2024-11-26"/>
     <release version="6.2.3" date="2024-11-05"/>
     <release version="6.2.2" date="2024-10-22"/>
-    <release version="6.2.1" date="2024-10-15"/>
   </releases>
   <launchable type="desktop-id">org.kde.spacebar.desktop</launchable>
 </component>
