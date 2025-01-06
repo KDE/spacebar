@@ -313,7 +313,6 @@ msgstr ""
 
 #: src/contents/ui/NewConversationPage.qml:15
 #, fuzzy, kde-format
-#| msgid "Chats"
 msgid "New Chat"
 msgstr "Samtalar"
 
