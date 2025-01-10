@@ -488,10 +488,9 @@ msgid "SMS/MMS messaging client"
 msgstr "Klient pro zprávy SMS/MMS"
 
 #: src/main.cpp:60
-#, fuzzy, kde-format
-#| msgid "© 2020-2021 KDE Community"
+#, kde-format
 msgid "© 2020-2024 KDE Community"
-msgstr "© 2020-2021 Komunita KDE"
+msgstr "© 2020-2024 Komunita KDE"
 
 #: src/main.cpp:61
 #, kde-format
