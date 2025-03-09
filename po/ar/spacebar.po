@@ -1,13 +1,13 @@
-# Copyright (C) YEAR This file is copyright:
+# Copyright (C) 2025 This file is copyright:
 # This file is distributed under the same license as the spacebar package.
+# SPDX-FileCopyrightText: 2023, 2025 Zayed Al-Saidi <zayed.alsaidi@gmail.com>
 #
-# Zayed Al-Saidi <zayed.alsaidi@gmail.com>, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version: spacebar\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-12-22 00:42+0000\n"
-"PO-Revision-Date: 2023-05-11 10:44+0400\n"
+"PO-Revision-Date: 2025-03-08 23:05+0400\n"
 "Last-Translator: Zayed Al-Saidi <zayed.alsaidi@gmail.com>\n"
 "Language-Team: ar\n"
 "Language: ar\n"
@@ -16,6 +16,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 "
 "&& n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;\n"
+"X-Generator: Lokalize 23.08.5\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -84,7 +85,7 @@ msgstr[5] "ناس"
 #: src/contents/ui/ChatDetailPage.qml:63
 #, kde-format
 msgid "Add people"
-msgstr ""
+msgstr "أضف أشخاص"
 
 #: src/contents/ui/ChatsPage.qml:19
 #, kde-format
@@ -94,7 +95,7 @@ msgstr "الدردشات"
 #: src/contents/ui/ChatsPage.qml:46
 #, kde-format
 msgid "New Conversation"
-msgstr ""
+msgstr "محادثة جديدة"
 
 #: src/contents/ui/ChatsPage.qml:52
 #, kde-format
@@ -123,7 +124,7 @@ msgstr "أنشئ دردشة"
 #, kde-format
 msgctxt "Indicating that message was sent by you"
 msgid "You"
-msgstr ""
+msgstr "لنفسك"
 
 #: src/contents/ui/ChatsPage.qml:184
 #, kde-format
@@ -190,12 +191,12 @@ msgstr ""
 #: src/contents/ui/MessagesPage.qml:490
 #, kde-format
 msgid "Expires: %1"
-msgstr ""
+msgstr "تنقضي في: %1"
 
 #: src/contents/ui/MessagesPage.qml:606
 #, kde-format
 msgid "View all"
-msgstr ""
+msgstr "اعرض الكل"
 
 #: src/contents/ui/MessagesPage.qml:746
 #, fuzzy, kde-format
@@ -211,7 +212,7 @@ msgstr[5] "رسائل جديدة"
 #: src/contents/ui/MessagesPage.qml:825
 #, kde-format
 msgid "Copy code"
-msgstr ""
+msgstr "انسخ الرمز"
 
 #: src/contents/ui/MessagesPage.qml:835
 #, kde-format
@@ -237,7 +238,7 @@ msgstr "احذف الرّسالة"
 #, kde-format
 msgctxt "Retry sending message"
 msgid "Resend"
-msgstr ""
+msgstr "أعد الإرسال"
 
 #: src/contents/ui/MessagesPage.qml:950
 #, kde-format
@@ -269,7 +270,7 @@ msgstr ""
 #: src/contents/ui/MessagesPage.qml:1168
 #, kde-format
 msgid "Choose a file"
-msgstr ""
+msgstr "اختر ملفًا"
 
 #: src/contents/ui/NewConversationContactsList.qml:50
 #, kde-format
@@ -288,12 +289,10 @@ msgid "%1 Selected"
 msgstr ""
 
 #: src/contents/ui/NewConversationContactsList.qml:259
-#, fuzzy, kde-format
-#| msgctxt "Selecting recipients from contacts list"
-#| msgid "Create a chat"
+#, kde-format
 msgctxt "Open chat conversation window"
 msgid "Create"
-msgstr "أنشئ دردشة"
+msgstr "أنشئ"
 
 #: src/contents/ui/NewConversationContactsList.qml:274
 #, kde-format
@@ -304,7 +303,7 @@ msgstr ""
 #: src/contents/ui/NewConversationContactsList.qml:319
 #, kde-format
 msgid "New Group"
-msgstr ""
+msgstr "مجموعة جديدة"
 
 #: src/contents/ui/NewConversationContactsList.qml:479
 #, kde-format
@@ -495,7 +494,7 @@ msgstr ""
 #: src/contents/ui/settings/SettingsPage.qml:191
 #, kde-format
 msgid "Choose a color"
-msgstr ""
+msgstr "اختر لونًا"
 
 #: src/main.cpp:58
 #, kde-format
@@ -505,27 +504,27 @@ msgstr ""
 #: src/main.cpp:60
 #, kde-format
 msgid "© 2020-2024 KDE Community"
-msgstr ""
+msgstr "© 2020-2024 مجتمع كِيدِي"
 
 #: src/main.cpp:61
 #, kde-format
 msgid "Bhushan Shah"
-msgstr ""
+msgstr "بوشان شاه"
 
 #: src/main.cpp:62
 #, kde-format
 msgid "Jonah Brüchert"
-msgstr ""
+msgstr "جوناه بروكيرت"
 
 #: src/main.cpp:63
 #, kde-format
 msgid "Martin Klapetek"
-msgstr ""
+msgstr "مارتن كلابيتيك"
 
 #: src/main.cpp:64
 #, kde-format
 msgid "Michael Lang"
-msgstr ""
+msgstr "ميشائيل لانغ"
 
 #: src/main.cpp:65
 #, kde-format
@@ -535,7 +534,7 @@ msgstr "نيكولاس فلا"
 #: src/main.cpp:66
 #, kde-format
 msgid "Smitty van Bodegom"
-msgstr ""
+msgstr "سميتي فان بوديجوم"
 
 #: src/main.cpp:74
 #, kde-format
