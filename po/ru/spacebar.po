@@ -2,13 +2,13 @@
 # This file is distributed under the same license as the spacebar package.
 #
 # SPDX-FileCopyrightText: 2023 Alexander Yavorsky <kekcuha@gmail.com>
-# SPDX-FileCopyrightText: 2024 Olesya Gerasimenko <translation-team@basealt.ru>
+# SPDX-FileCopyrightText: 2024, 2025 Olesya Gerasimenko <translation-team@basealt.ru>
 msgid ""
 msgstr ""
 "Project-Id-Version: spacebar\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-12-22 00:42+0000\n"
-"PO-Revision-Date: 2024-12-05 11:00+0300\n"
+"PO-Revision-Date: 2025-04-08 10:55+0300\n"
 "Last-Translator: Olesya Gerasimenko <translation-team@basealt.ru>\n"
 "Language-Team: Basealt Translation Team\n"
 "Language: ru\n"
@@ -109,7 +109,7 @@ msgstr "Удалить"
 #: src/contents/ui/ChatsPage.qml:72 src/contents/ui/MessagesPage.qml:147
 #, kde-format
 msgid "Unable to connect to messaging daemon"
-msgstr ""
+msgstr "Не удалось подключиться к службе обмена сообщениями"
 
 #: src/contents/ui/ChatsPage.qml:96
 #, kde-format
@@ -283,10 +283,10 @@ msgid "%1 Selected"
 msgstr "Выбрано: %1"
 
 #: src/contents/ui/NewConversationContactsList.qml:259
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "Open chat conversation window"
 msgid "Create"
-msgstr "Создать чат"
+msgstr "Создать"
 
 #: src/contents/ui/NewConversationContactsList.qml:274
 #, kde-format
@@ -297,7 +297,7 @@ msgstr "Не выбран контакт"
 #: src/contents/ui/NewConversationContactsList.qml:319
 #, kde-format
 msgid "New Group"
-msgstr ""
+msgstr "Новая группа"
 
 #: src/contents/ui/NewConversationContactsList.qml:479
 #, kde-format
@@ -317,12 +317,12 @@ msgstr "Результаты не найдены"
 #: src/contents/ui/NewConversationPage.qml:15
 #, kde-format
 msgid "New Group Chat"
-msgstr ""
+msgstr "Новый групповой чат"
 
 #: src/contents/ui/NewConversationPage.qml:15
-#, fuzzy, kde-format
+#, kde-format
 msgid "New Chat"
-msgstr "Чаты"
+msgstr "Новый чат"
 
 #: src/contents/ui/PreviewPage.qml:32
 #, kde-format
@@ -495,10 +495,9 @@ msgid "SMS/MMS messaging client"
 msgstr "Клиент для обмена SMS и MMS"
 
 #: src/main.cpp:60
-#, fuzzy, kde-format
-#| msgid "© 2020-2021 KDE Community"
+#, kde-format
 msgid "© 2020-2024 KDE Community"
-msgstr "© Сообщество KDE, 2020–2021"
+msgstr "© Сообщество KDE, 2020–2024"
 
 #: src/main.cpp:61
 #, kde-format
