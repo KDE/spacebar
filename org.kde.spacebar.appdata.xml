@@ -116,9 +116,9 @@
   <url type="bugtracker">https://bugs.kde.org/describecomponents.cgi?product=spacebar</url>
   <releases>
     <release version="6.3.90" date="2025-05-15"/>
+    <release version="6.3.90" date="2025-05-15"/>
     <release version="6.3.5" date="2025-05-06"/>
     <release version="6.3.4" date="2025-04-01"/>
-    <release version="6.3.3" date="2025-03-11"/>
   </releases>
   <requires>
     <display_length compare="ge">360</display_length>
