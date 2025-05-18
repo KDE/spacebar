@@ -1,6 +1,7 @@
 [Global]
 IconName=org.kde.spacebar
 Comment=Spacebar
+Comment[ar]=رسالة
 Comment[az]=Spacebar
 Comment[ca]=Spacebar
 Comment[ca@valencia]=Spacebar
@@ -41,6 +42,7 @@ Comment[zh_TW]=Spacebar
 
 [Event/incomingMessage]
 Name=Incoming message
+Name[ar]=رسالة الواردة
 Name[ast]=Mensaxe entrante
 Name[az]=Gələn ismarıc
 Name[ca]=Missatge entrant
@@ -80,6 +82,7 @@ Name[x-test]=xxIncoming messagexx
 Name[zh_CN]=收到消息
 Name[zh_TW]=收到簡訊
 Comment=Incoming message from someone
+Comment[ar]=رسالة الواردة من شخص ما
 Comment[az]=Kimdənsə gələn ismarıc
 Comment[ca]=Missatge entrant d'algú
 Comment[ca@valencia]=Missatge entrant d'algú
