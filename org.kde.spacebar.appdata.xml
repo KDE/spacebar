@@ -2,6 +2,7 @@
 <component type="desktop-application">
   <id>org.kde.spacebar</id>
   <name>Spacebar</name>
+  <name xml:lang="ar">رسالة</name>
   <name xml:lang="ast">Spacebar</name>
   <name xml:lang="az">Spacebar</name>
   <name xml:lang="ca">Spacebar</name>
@@ -44,6 +45,7 @@
   <name xml:lang="zh-CN">Spacebar</name>
   <name xml:lang="zh-TW">Spacebar</name>
   <summary>SMS/MMS messaging client</summary>
+  <summary xml:lang="ar">عميل الرسائل النصية القصيرة/رسائل الوسائط المتعددة</summary>
   <summary xml:lang="ca">Client de missatgeria SMS/MMS</summary>
   <summary xml:lang="ca-valencia">Client de missatgeria SMS/MMS</summary>
   <summary xml:lang="cs">Klient pro zprávy SMS/MMS</summary>
@@ -82,6 +84,7 @@
   </developer>
   <description>
     <p>Spacebar is a SMS/MMS messaging client. It allows you to send text messages, pictures and other files over a cellular network.</p>
+    <p xml:lang="ar">تطبيق رسالة هو عميل رسائل نصية قصيرة/رسائل نصية قصيرة. يسمح لك بإرسال رسائل نصية وصور وملفات أخرى عبر شبكة خلوية.</p>
     <p xml:lang="ca">L'Spacebar és un client de missatgeria SMS/MMS. Permet que envieu missatges de text, imatges i altres fitxers a través d'una xarxa mòbil.</p>
     <p xml:lang="ca-valencia">Spacebar és un client de missatgeria SMS/MMS. Permet que envieu missatges de text, imatges i altres fitxers a través d'una xarxa mòbil.</p>
     <p xml:lang="de">Spacebar ist eine Anwendung für SMS/MMS-Nachrichten. Es können Textnachrichten, Bilder und andere Dateien über ein Mobilfunknetz gesendet werden.</p>
