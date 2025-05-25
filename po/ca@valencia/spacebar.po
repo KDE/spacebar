@@ -257,7 +257,7 @@ msgstr "Envia un missatge des de %1…"
 #: src/contents/ui/MessagesPage.qml:1168
 #, kde-format
 msgid "Choose a file"
-msgstr "Escolliu un fitxer"
+msgstr "Trieu un fitxer"
 
 #: src/contents/ui/NewConversationContactsList.qml:50
 #, kde-format
@@ -480,7 +480,7 @@ msgstr "Ignora els «tapbacks»"
 #: src/contents/ui/settings/SettingsPage.qml:191
 #, kde-format
 msgid "Choose a color"
-msgstr "Escolliu un color"
+msgstr "Trieu un color"
 
 #: src/main.cpp:58
 #, kde-format
