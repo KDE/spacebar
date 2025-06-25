@@ -1,13 +1,13 @@
 # Copyright (C) 2024 This file is copyright:
 # This file is distributed under the same license as the spacebar package.
-# SPDX-FileCopyrightText: 2021, 2023, 2024 Tommi Nieminen <translator@legisign.org>
+# SPDX-FileCopyrightText: 2021, 2023, 2024, 2025 Tommi Nieminen <translator@legisign.org>
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: spacebar\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-12-22 00:42+0000\n"
-"PO-Revision-Date: 2024-10-27 10:07+0200\n"
+"PO-Revision-Date: 2025-05-31 10:57+0300\n"
 "Last-Translator: Tommi Nieminen <translator@legisign.org>\n"
 "Language-Team: Finnish <kde-i18n-doc@kde.org>\n"
 "Language: fi\n"
@@ -468,10 +468,11 @@ msgstr "Näytä viestisisällöstä esikatselu"
 msgid "Show attachment previews"
 msgstr "Näytä liitteistä esikatselu"
 
+# ”Tapback” vaikuttaisi guuglauksen perusteella olevan Applen käyttämä sana pikareaktioille kuten peukutuksille; Applen sivuilla sanaa ei ole suomennettu.
 #: src/contents/ui/settings/SettingsPage.qml:175
 #, kde-format
 msgid "Ignore tapbacks"
-msgstr ""
+msgstr "Sivuuta reaktiot"
 
 #: src/contents/ui/settings/SettingsPage.qml:191
 #, kde-format
@@ -484,10 +485,9 @@ msgid "SMS/MMS messaging client"
 msgstr "Teksti- ja multimediaviestiasiakas"
 
 #: src/main.cpp:60
-#, fuzzy, kde-format
-#| msgid "© 2020-2021 KDE Community"
+#, kde-format
 msgid "© 2020-2024 KDE Community"
-msgstr "© 2020–2021 KDE-yhteisö"
+msgstr "© 2020–2024 KDE-yhteisö"
 
 #: src/main.cpp:61
 #, kde-format
