@@ -393,7 +393,7 @@ msgstr "SMIL-ის ავტომატური შექმნა"
 #: src/contents/ui/settings/MMSSettingsPage.qml:149
 #, kde-format
 msgid "Default to group conversations"
-msgstr "ჯგუფური საუბრების ნაგულისხმები გამოყენება"
+msgstr "ჯგუფური საუბრების ნაგულისხმევი გამოყენება"
 
 #: src/contents/ui/settings/SettingsPage.qml:16
 #, kde-format
@@ -418,12 +418,12 @@ msgstr "მულტიმედია შეტყობინებები (
 #: src/contents/ui/settings/SettingsPage.qml:58
 #, kde-format
 msgid "Restore defaults"
-msgstr "ნაგულისხმები მნიშვნელობების აღდგენა"
+msgstr "ნაგულისხმევი მნიშვნელობების აღდგენა"
 
 #: src/contents/ui/settings/SettingsPage.qml:61
 #, kde-format
 msgid "Reset"
-msgstr "საწყისი მნიშვნელობებზე დაბრუნება"
+msgstr "ჩამოყრა"
 
 #: src/contents/ui/settings/SettingsPage.qml:74
 #, kde-format
