@@ -262,7 +262,7 @@ msgstr "Trieu un fitxer"
 #: src/contents/ui/NewConversationContactsList.qml:50
 #, kde-format
 msgid "Select a number"
-msgstr "Seleccioneu un número"
+msgstr "Trieu un número"
 
 #: src/contents/ui/NewConversationContactsList.qml:226
 #, kde-format
