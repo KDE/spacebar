@@ -14,8 +14,8 @@ msgstr ""
 "X-Crowdin-Project: kdeorg\n"
 "X-Crowdin-Project-ID: 269464\n"
 "X-Crowdin-Language: zh-CN\n"
-"X-Crowdin-File: /kf6-trunk/messages/spacebar/spacebar.pot\n"
-"X-Crowdin-File-ID: 48534\n"
+"X-Crowdin-File: /kf6-stable/messages/spacebar/spacebar.pot\n"
+"X-Crowdin-File-ID: 55854\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -101,7 +101,7 @@ msgstr "删除"
 #: src/contents/ui/ChatsPage.qml:72 src/contents/ui/MessagesPage.qml:147
 #, kde-format
 msgid "Unable to connect to messaging daemon"
-msgstr ""
+msgstr "无法连接到消息守护进程"
 
 #: src/contents/ui/ChatsPage.qml:96
 #, kde-format
@@ -271,18 +271,18 @@ msgstr "已选择 %1 个"
 #, kde-format
 msgctxt "Open chat conversation window"
 msgid "Create"
-msgstr ""
+msgstr "创建"
 
 #: src/contents/ui/NewConversationContactsList.qml:274
 #, kde-format
 msgctxt "@info:status Error message displayed when no contact is selected"
 msgid "No contact selected"
-msgstr ""
+msgstr "未选择联系人"
 
 #: src/contents/ui/NewConversationContactsList.qml:319
 #, kde-format
 msgid "New Group"
-msgstr ""
+msgstr "新建群组"
 
 #: src/contents/ui/NewConversationContactsList.qml:479
 #, kde-format
@@ -302,12 +302,12 @@ msgstr "未找到结果"
 #: src/contents/ui/NewConversationPage.qml:15
 #, kde-format
 msgid "New Group Chat"
-msgstr ""
+msgstr "新建群组聊天"
 
 #: src/contents/ui/NewConversationPage.qml:15
 #, kde-format
 msgid "New Chat"
-msgstr ""
+msgstr "新聊天"
 
 #: src/contents/ui/PreviewPage.qml:32
 #, kde-format
@@ -482,7 +482,7 @@ msgstr "短信/彩信客户端"
 #: src/main.cpp:60
 #, kde-format
 msgid "© 2020-2024 KDE Community"
-msgstr ""
+msgstr "© 2020-2024 KDE 社区"
 
 #: src/main.cpp:61
 #, kde-format
