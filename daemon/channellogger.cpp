@@ -68,6 +68,9 @@ ChannelLogger::ChannelLogger(std::optional<QString> &modemPath, QObject *parent)
     connect(&ModemController::instance(), &ModemController::countryCodeChanged, this, [](const QString &countryCode) {
         PhoneNumber::setCountryCode(countryCode);
     });
+
+    // Check for any unhandled messages from the modem
+    checkMessages();
 }
 
 void ChannelLogger::checkMessages()
