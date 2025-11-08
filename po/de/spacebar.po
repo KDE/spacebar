@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: spacebar\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-12-22 00:42+0000\n"
+"POT-Creation-Date: 2025-11-08 00:44+0000\n"
 "PO-Revision-Date: 2024-12-23 17:16+0100\n"
 "Last-Translator: Johannes Obermayr <johannesobermayr@gmx.de>\n"
 "Language-Team: German <kde-i18n-de@kde.org>\n"
@@ -28,17 +28,17 @@ msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
 msgstr "kde-i18n-de@kde.org"
 
-#: daemon/channellogger.cpp:598 src/contents/ui/MessagesPage.qml:62
+#: daemon/channellogger.cpp:601 src/contents/ui/MessagesPage.qml:62
 #, kde-format
 msgid "New message"
 msgstr "Neue Nachricht"
 
-#: daemon/channellogger.cpp:605
+#: daemon/channellogger.cpp:608
 #, kde-format
 msgid "Message from %1"
 msgstr "Nachricht von %1"
 
-#: daemon/channellogger.cpp:616
+#: daemon/channellogger.cpp:619
 #, kde-format
 msgctxt "Number of files attached"
 msgid "%1 Attachment"
@@ -46,7 +46,7 @@ msgid_plural "%1 Attachments"
 msgstr[0] "%1 Anhang"
 msgstr[1] "%1 Anhänge"
 
-#: daemon/channellogger.cpp:643
+#: daemon/channellogger.cpp:646
 #, kde-format
 msgctxt "@action open message in application"
 msgid "Open"
