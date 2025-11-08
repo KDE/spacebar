@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: spacebar\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-12-22 00:42+0000\n"
+"POT-Creation-Date: 2025-11-08 02:37+0000\n"
 "PO-Revision-Date: 2024-12-15 19:31+0530\n"
 "Last-Translator: kali <skkalwar999@gmail.com>\n"
 "Language-Team: Sanskrit <kde-i18n-doc@kde.org>\n"
@@ -29,18 +29,18 @@ msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
 msgstr ""
 
-#: daemon/channellogger.cpp:598 src/contents/ui/MessagesPage.qml:62
+#: daemon/channellogger.cpp:601 src/contents/ui/MessagesPage.qml:62
 #, fuzzy, kde-format
 #| msgid "Delete chat"
 msgid "New message"
 msgstr "बातचीत मिटाएँ"
 
-#: daemon/channellogger.cpp:605
+#: daemon/channellogger.cpp:608
 #, kde-format
 msgid "Message from %1"
 msgstr "%1 से सन्देश है"
 
-#: daemon/channellogger.cpp:616
+#: daemon/channellogger.cpp:619
 #, kde-format
 msgctxt "Number of files attached"
 msgid "%1 Attachment"
@@ -48,7 +48,7 @@ msgid_plural "%1 Attachments"
 msgstr[0] ""
 msgstr[1] ""
 
-#: daemon/channellogger.cpp:643
+#: daemon/channellogger.cpp:646
 #, kde-format
 msgctxt "@action open message in application"
 msgid "Open"
