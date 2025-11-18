@@ -87,7 +87,7 @@ public:
     Q_INVOKABLE void fetchAllMessages();
 
     /**
-     * @brief adds a tapack reaction to a previously sent or recieved message,
+     * @brief adds a tapback reaction to a previously sent or received message,
      * and updates the model and database
      * @param id
      * @param tapback

@@ -175,7 +175,7 @@ void ECurl::aresResolveWait(ares_channel channel)
             break;
         }
         if (QTime::currentTime().msecsSinceStartOfDay() - start > 15 * 1000) {
-            qDebug() << "Resovler timeout";
+            qDebug() << "Resolver timeout";
             break;
         }
         ares_process(channel, &read_fds, &write_fds);

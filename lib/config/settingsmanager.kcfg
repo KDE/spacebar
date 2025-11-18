@@ -68,7 +68,7 @@
             <default>15</default>
         </entry>
         <entry name="autoCreateSmil" type="Bool">
-            <label>Auto create SMIL for outgoing messages containting multiple attachments</label>
+            <label>Auto create SMIL for outgoing messages containing multiple attachments</label>
             <default>true</default>
         </entry>
         <entry name="groupConversation" type="Bool">
