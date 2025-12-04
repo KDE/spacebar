@@ -4,15 +4,13 @@
 -->
 
 # Spacebar <img src="logo.png" width="40"/>
-Spacebar is a SMS/MMS messaging client. It allows you to send text messages, pictures and other files over a cellular network.
-
-## Get it
-A stable release [is available](https://apps.kde.org/spacebar) for download for Linux distributions.
+Spacebar is a SMS/MMS messaging client. It allows you to send text messages, pictures and other files over a cellular network, using [ModemManager](https://modemmanager.org/).
 
 ## Links
 * Project page: https://invent.kde.org/plasma-mobile/spacebar
 * File issues: https://bugs.kde.org/describecomponents.cgi?product=spacebar
 * Development channel: https://matrix.to/#/#plasmamobile:matrix.org
+* Releases: https://apps.kde.org/spacebar
 
 ## Building and Installing
 ```sh
@@ -20,42 +18,6 @@ git clone https://invent.kde.org/plasma-mobile/spacebar.git
 cd spacebar
 cmake -B build && cmake --build build
 sudo cmake --install build
-```
-
-## Dependencies
-```
-Qt5Qml
-Qt5Quick
-Qt5QuickControls2
-Qt5Sql
-Gettext
-PkgConfig
-PhoneNumber
-Qt5Core
-QCoro5
-CURL
-c-ares
-
-(Required version >= 5.88.0)
-ECM
-KF5Kirigami2
-KF5I18n
-KF5People
-KF5Notifications
-KF5Config
-KF5CoreAddons
-KF5DBusAddons
-KF5ModemManagerQt
-KF5
-
-(Required version >= 5.15.2)
-Qt5QmlModels
-Qt5Gui
-Qt5Widgets
-Qt5Xml
-
-(Required version >= 5.15.0)
-Qt5
 ```
 
 ## Components
@@ -76,3 +38,9 @@ Run with these environment variables to have mobile controls:
 ```
 QT_QUICK_CONTROLS_MOBILE=true spacebar
 ```
+
+## Testing
+
+The `spacebar-fakeserver` testing app in the [test](/test) folder can simulate ModemManager and provides a GUI to test sending and receiving messages.
+
+See details on how to use it [here](/test/fakeserver).
