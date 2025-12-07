@@ -1,1 +1,216 @@
-org.kde.spacebar.json
+{
+    "id": "org.kde.spacebar",
+    "runtime": "org.kde.Platform",
+    "runtime-version": "6.10",
+    "sdk": "org.kde.Sdk",
+    "command": "spacebar",
+    "tags": [
+        "nightly"
+    ],
+    "desktop-file-name-suffix": " (Nightly)",
+    "finish-args": [
+        "--share=ipc",
+        "--share=network",
+        "--socket=x11",
+        "--socket=wayland",
+        "--device=dri",
+        "--talk-name=org.freedesktop.Notifications",
+        "--own-name=org.kde.Spacebar",
+        "--system-talk-name=org.freedesktop.ModemManager1"
+    ],
+    "separate-locales": false,
+    "cleanup": [
+        "/include/",
+        "/lib/cmake/",
+        "/lib/pkgconfig",
+        "/bin/protoc-*",
+        "/share/man/",
+        "/lib/*.a"
+    ],
+    "modules": [
+        {
+            "name": "kpeople",
+            "buildsystem": "cmake-ninja",
+            "builddir": true,
+            "sources": [
+                {
+                    "type": "git",
+                    "url": "https://invent.kde.org/frameworks/kpeople",
+                    "tag": "v6.13.0"
+                }
+            ],
+            "cleanup": [
+                "/bin/"
+            ]
+        },
+        {
+            "name": "modemmanager",
+            "buildsystem": "autotools",
+            "config-opts": [
+                "--without-udev",
+                "--without-mbim",
+                "--without-qmi",
+                "--with-udev-base-dir=/app/"
+            ],
+            "sources": [
+                {
+                    "type": "archive",
+                    "url": "https://www.freedesktop.org/software/ModemManager/ModemManager-1.18.12.tar.xz",
+                    "sha256": "b464e4925d955a6ca86dd08616e763b26ae46d7fd37dbe281678e34065b1e430"
+                }
+            ],
+            "cleanup": [
+                "/bin/",
+                "/lib/ModemManager"
+            ]
+        },
+        {
+            "name": "modemmanager-qt",
+            "buildsystem": "cmake-ninja",
+            "builddir": true,
+            "sources": [
+                {
+                    "type": "git",
+                    "url": "https://invent.kde.org/frameworks/modemmanager-qt",
+                    "tag": "v6.13.0"
+                }
+            ]
+        },
+        {
+            "name": "kirigami-addons",
+            "config-opts": [
+                "-DBUILD_TESTING=OFF",
+                "-DCMAKE_BUILD_TYPE=Release"
+            ],
+            "buildsystem": "cmake-ninja",
+            "sources": [
+                {
+                    "type": "archive",
+                    "url": "https://download.kde.org/stable/kirigami-addons/kirigami-addons-1.10.0.tar.xz",
+                    "sha256": "c98f92bf7c452e12f6dc403404215413db3959fe904ad830ead0db6bb09b3d11",
+                    "x-checker-data": {
+                        "type": "anitya",
+                        "project-id": 242933,
+                        "stable-only": true,
+                        "url-template": "https://download.kde.org/stable/kirigami-addons/kirigami-addons-$version.tar.xz"
+                    }
+                }
+            ]
+        },
+        {
+            "name": "abseil-cpp",
+            "buildsystem": "cmake-ninja",
+            "config-opts": [
+                "-DCMAKE_BUILD_TYPE=Release",
+                "-DBUILD_SHARED_LIBS=ON",
+                "-DABSL_PROPAGATE_CXX_STD=ON",
+                "-DCMAKE_POSITION_INDEPENDENT_CODE=ON"
+            ],
+            "sources": [
+                {
+                    "type": "archive",
+                    "url": "https://github.com/abseil/abseil-cpp/archive/refs/tags/20250814.1.tar.gz",
+                    "sha256": "1692f77d1739bacf3f94337188b78583cf09bab7e420d2dc6c5605a4f86785a1",
+                    "x-checker-data": {
+                        "type": "anitya",
+                        "project-id": 115295,
+                        "stable-only": true,
+                        "url-template": "https://github.com/abseil/abseil-cpp/archive/refs/tags/$version.tar.gz"
+                    }
+                }
+            ]
+        },
+        {
+            "name": "protobuf",
+            "buildsystem": "cmake-ninja",
+            "config-opts": [
+                "-Dprotobuf_BUILD_TESTS=OFF",
+                "-Dprotobuf_ABSL_PROVIDER=package",
+                "-DBUILD_SHARED_LIBS=ON"
+            ],
+            "sources": [
+                {
+                    "type": "archive",
+                    "url": "https://github.com/protocolbuffers/protobuf/archive/refs/tags/v33.2.tar.gz",
+                    "sha256": "eb671d900b05d8e17f4cd6ca61bfcc60770d209af1a289cb1a200815d6b621ae",
+                    "x-checker-data": {
+                        "type": "anitya",
+                        "project-id": 3715,
+                        "stable-only": true,
+                        "url-template": "https://github.com/protocolbuffers/protobuf/archive/refs/tags/v$version.tar.gz"
+                    }
+                }
+            ]
+        },
+        {
+            "name": "libphonenumer",
+            "buildsystem": "cmake-ninja",
+            "subdir": "cpp",
+            "config-opts": [
+                "-DUSE_BOOST=OFF",
+                "-DBUILD_TESTING=OFF",
+                "-DREGENERATE_METADATA=OFF",
+                "-DBUILD_STATIC_LIB=OFF"
+            ],
+            "sources": [
+                {
+                    "type": "archive",
+                    "url": "https://github.com/google/libphonenumber/archive/refs/tags/v9.0.20.tar.gz",
+                    "sha256": "5de298e4a8c72564ac9cdae415f6cc9ea2952e9f1f9e71dd6d1c70755c92bf2f",
+                    "x-checker-data": {
+                        "type": "anitya",
+                        "project-id": 89344,
+                        "stable-only": true,
+                        "url-template": "https://github.com/google/libphonenumber/archive/refs/tags/v$version.tar.gz"
+                    }
+                }
+            ]
+        },
+        {
+            "name": "c-ares",
+            "buildsystem": "cmake-ninja",
+            "sources": [
+                {
+                    "type": "archive",
+                    "url": "https://github.com/c-ares/c-ares/releases/download/v1.34.5/c-ares-1.34.5.tar.gz",
+                    "sha256": "7d935790e9af081c25c495fd13c2cfcda4792983418e96358ef6e7320ee06346",
+                    "x-checker-data": {
+                        "type": "anitya",
+                        "project-id": 5840,
+                        "stable-only": true,
+                        "url-template": "https://github.com/c-ares/c-ares/releases/download/v$version/c-ares-$version.tar.gz"
+                    }
+                }
+            ]
+        },
+        {
+            "name": "futuresql",
+            "buildsystem": "cmake-ninja",
+            "config-opts": [
+                "-DBUILD_TESTING=OFF",
+                "-DQT_MAJOR_VERSION=6"
+            ],
+            "sources": [
+                {
+                    "type": "archive",
+                    "url": "https://download.kde.org/stable/futuresql/futuresql-0.1.1.tar.xz",
+                    "sha256": "e44ed8d5a9618b3ca7ba2983ed9c5f7572e6e0a5b199f94868834b71ccbebd43"
+                }
+            ]
+        },
+        {
+            "name": "spacebar",
+            "buildsystem": "cmake-ninja",
+            "builddir": true,
+            "sources": [
+                {
+                    "type": "dir",
+                    "path": ".",
+                    "skip": [
+                        ".git"
+                    ]
+                }
+            ]
+        }
+    ]
+}
