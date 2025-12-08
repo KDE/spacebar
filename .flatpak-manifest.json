@@ -35,8 +35,7 @@
             "sources": [
                 {
                     "type": "git",
-                    "url": "https://invent.kde.org/frameworks/kpeople",
-                    "tag": "v6.13.0"
+                    "url": "https://invent.kde.org/frameworks/kpeople"
                 }
             ],
             "cleanup": [
@@ -71,8 +70,7 @@
             "sources": [
                 {
                     "type": "git",
-                    "url": "https://invent.kde.org/frameworks/modemmanager-qt",
-                    "tag": "v6.13.0"
+                    "url": "https://invent.kde.org/frameworks/modemmanager-qt"
                 }
             ]
         },
