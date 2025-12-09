@@ -1,15 +1,15 @@
 # Spanish translations for spacebar.po package.
-# Copyright (C) 2020 This file is copyright:
+# Copyright (C) 2020-2025 This file is copyright:
 # This file is distributed under the same license as the spacebar package.
-#
 # Automatically generated, 2020.
-# SPDX-FileCopyrightText: 2020, 2021, 2022, 2023, 2024 Eloy Cuadra <ecuadra@eloihr.net>
+#
+# SPDX-FileCopyrightText: 2020, 2021, 2022, 2023, 2024, 2025 Eloy Cuadra <ecuadra@eloihr.net>
 msgid ""
 msgstr ""
 "Project-Id-Version: spacebar\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-11-17 11:54+0000\n"
-"PO-Revision-Date: 2024-12-22 19:45+0100\n"
+"PO-Revision-Date: 2025-12-08 12:01+0100\n"
 "Last-Translator: Eloy Cuadra <ecuadra@eloihr.net>\n"
 "Language-Team: Spanish <kde-l10n-es@kde.org>\n"
 "Language: es\n"
@@ -246,13 +246,13 @@ msgstr "Eliminar"
 #: src/contents/ui/MessagesPage.qml:1113
 #, kde-format
 msgid "Write Message..."
-msgstr "Escribir mensaje..."
+msgstr "Escribir mensaje…"
 
 #: src/contents/ui/MessagesPage.qml:1115
 #, kde-format
 msgctxt "%1 is a phone number"
 msgid "Send Message from %1..."
-msgstr "Enviar mensaje desde %1..."
+msgstr "Enviar mensaje desde %1…"
 
 #: src/contents/ui/MessagesPage.qml:1168
 #, kde-format
@@ -267,7 +267,7 @@ msgstr "Seleccione un número"
 #: src/contents/ui/NewConversationContactsList.qml:226
 #, kde-format
 msgid "Search or enter number…"
-msgstr "Buscar o introducir número..."
+msgstr "Buscar o introducir número…"
 
 #: src/contents/ui/NewConversationContactsList.qml:250
 #, kde-format
@@ -531,84 +531,3 @@ msgstr "Cliente SMS/MMS Spacebar"
 #, kde-format
 msgid "Open a chat with the given phone number"
 msgstr "Abrir una conversación con el número de teléfono indicado"
-
-#~ msgctxt "Open chat conversation window"
-#~ msgid "Next"
-#~ msgstr "Siguiente"
-
-#~ msgid "Contacts"
-#~ msgstr "Contactos"
-
-#~ msgid "View slideshow"
-#~ msgstr "Ver presentación"
-
-#~ msgid "Incoming"
-#~ msgstr "Entrantes"
-
-#~ msgid "Outgoing"
-#~ msgstr "Salientes"
-
-#~ msgid "Existing contacts only"
-#~ msgstr "Solo contactos existentes"
-
-#~ msgid "Other"
-#~ msgstr "Otro"
-
-#~ msgid "Set"
-#~ msgstr "Definir"
-
-#~ msgctxt "Invalid phone number"
-#~ msgid "Unknown"
-#~ msgstr "Desconocido"
-
-#~ msgctxt "Open chat conversation window"
-#~ msgid "Compose"
-#~ msgstr "Componer"
-
-#~ msgid "Add/remove"
-#~ msgstr "Añadir/eliminar"
-
-#~ msgid "Duplicate recipient"
-#~ msgstr "Duplicar destinatario"
-
-#~ msgid "Attachments"
-#~ msgstr "Adjuntos"
-
-#, fuzzy
-#~| msgid "New Conversation"
-#~ msgid "conversations?"
-#~ msgstr "Nueva conversación"
-
-#~ msgid "Recipient"
-#~ msgstr "Destinatario"
-
-#~ msgid "No chats yet"
-#~ msgstr "Todavía no hay conversaciones"
-
-#~ msgid "Defaults"
-#~ msgstr "Valores predeterminados"
-
-#~ msgid "Attach"
-#~ msgstr "Adjuntar"
-
-#~ msgid "Send"
-#~ msgstr "Enviar"
-
-#~ msgid "The modem interface is not available"
-#~ msgstr "La interfaz del módem no está disponible"
-
-#~ msgid ""
-#~ "Could not find a sim account, can't open chat. Please check the log for "
-#~ "details"
-#~ msgstr ""
-#~ "No se ha encontrado ninguna cuenta SIM: no se puede abrir una "
-#~ "conversación. Compruebe el registro para más detalles."
-
-#~ msgid "Failed to open chat: %1"
-#~ msgstr "No se ha podido abrir la conversación: %1"
-
-#~ msgid "Loading..."
-#~ msgstr "Cargando..."
-
-#~ msgid "spacebar"
-#~ msgstr "spacebar"
