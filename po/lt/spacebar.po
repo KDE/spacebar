@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: spacebar\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-11-17 11:54+0000\n"
-"PO-Revision-Date: 2024-07-27 19:25+0300\n"
+"PO-Revision-Date: 2026-01-23 14:33+0200\n"
 "Last-Translator: Moo <<>>\n"
 "Language-Team: none\n"
 "Language: lt\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n==1 ? 0 : n%10>=2 && (n%100<10 || n"
 "%100>=20) ? 1 : n%10==0 || (n%100>10 && n%100<20) ? 2 : 3);\n"
-"X-Generator: Poedit 3.4.2\n"
+"X-Generator: Poedit 3.8\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -109,7 +109,7 @@ msgstr "Ištrinti"
 #: src/contents/ui/ChatsPage.qml:72 src/contents/ui/MessagesPage.qml:147
 #, kde-format
 msgid "Unable to connect to messaging daemon"
-msgstr ""
+msgstr "Nepavyko prisijungti prie žinučių perdavimo tarnybos"
 
 #: src/contents/ui/ChatsPage.qml:96
 #, kde-format
@@ -282,12 +282,10 @@ msgid "%1 Selected"
 msgstr "Pažymėta: %1"
 
 #: src/contents/ui/NewConversationContactsList.qml:259
-#, fuzzy, kde-format
-#| msgctxt "Selecting recipients from contacts list"
-#| msgid "Create a chat"
+#, kde-format
 msgctxt "Open chat conversation window"
 msgid "Create"
-msgstr "Sukurti pokalbį"
+msgstr "Sukurti"
 
 #: src/contents/ui/NewConversationContactsList.qml:274
 #, kde-format
@@ -298,7 +296,7 @@ msgstr "Nepasirinktas joks adresatas"
 #: src/contents/ui/NewConversationContactsList.qml:319
 #, kde-format
 msgid "New Group"
-msgstr ""
+msgstr "Nauja grupė"
 
 #: src/contents/ui/NewConversationContactsList.qml:479
 #, kde-format
@@ -318,13 +316,12 @@ msgstr "Rezultatų nerasta"
 #: src/contents/ui/NewConversationPage.qml:15
 #, kde-format
 msgid "New Group Chat"
-msgstr ""
+msgstr "Naujas grupės pokalbis"
 
 #: src/contents/ui/NewConversationPage.qml:15
-#, fuzzy, kde-format
-#| msgid "Chats"
+#, kde-format
 msgid "New Chat"
-msgstr "Pokalbiai"
+msgstr "Naujas pokalbis"
 
 #: src/contents/ui/PreviewPage.qml:32
 #, kde-format
@@ -497,10 +494,9 @@ msgid "SMS/MMS messaging client"
 msgstr "SMS/MMS žinučių perdavimo kliento programa"
 
 #: src/main.cpp:60
-#, fuzzy, kde-format
-#| msgid "© 2020-2021 KDE Community"
+#, kde-format
 msgid "© 2020-2024 KDE Community"
-msgstr "© 2020-2021 KDE bendruomenė"
+msgstr "© 2020–2024 KDE bendruomenė"
 
 #: src/main.cpp:61
 #, kde-format
