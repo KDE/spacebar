@@ -65,14 +65,7 @@ void ModemController::init(std::optional<QString> modemPath)
 
     connect(m_interface.get(), &ModemManager::Modem::bearerAdded, this, [this](const QString &bearer) {
         m_bearer = m_interface->findBearer(bearer);
-
         QList<QSharedPointer<ModemManager::Bearer>> bearers = m_interface->listBearers();
-        for (const ModemManager::Bearer::Ptr &item : bearers) {
-            if (item->uni() != bearer) {
-                item->disconnect();
-                m_interface->deleteBearer(item->uni());
-            }
-        }
 
         // whether or not the bearer is connected and thus whether packet data communication using this bearer is possible
         connect(m_bearer.data(), &ModemManager::Bearer::connectedChanged, this, [this](bool isConnected) {
