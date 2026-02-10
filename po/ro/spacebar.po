@@ -1,13 +1,13 @@
 # Copyright (C) 2025 This file is copyright:
 # This file is distributed under the same license as the spacebar package.
-# SPDX-FileCopyrightText: 2025 Sergiu Bivol <sergiu@cip.md>
+# SPDX-FileCopyrightText: 2025, 2026 Sergiu Bivol <sergiu@cip.md>
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: spacebar\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-11-17 11:54+0000\n"
-"PO-Revision-Date: 2025-10-01 17:19+0100\n"
+"PO-Revision-Date: 2026-02-08 17:14+0000\n"
 "Last-Translator: Sergiu Bivol <sergiu@cip.md>\n"
 "Language-Team: Romanian <kde-i18n-ro@kde.org>\n"
 "Language: ro\n"
@@ -296,7 +296,7 @@ msgstr "Grup nou"
 #: src/contents/ui/NewConversationContactsList.qml:479
 #, kde-format
 msgid "No contacts with phone numbers yet"
-msgstr ""
+msgstr "Încă nu sunt contacte cu numere de telefon"
 
 #: src/contents/ui/NewConversationContactsList.qml:482
 #, kde-format
@@ -391,144 +391,144 @@ msgstr "Maximum atașamente"
 #: src/contents/ui/settings/MMSSettingsPage.qml:142
 #, kde-format
 msgid "Auto create SMIL"
-msgstr ""
+msgstr "Creează automat SMIL"
 
 #: src/contents/ui/settings/MMSSettingsPage.qml:149
 #, kde-format
 msgid "Default to group conversations"
-msgstr ""
+msgstr "Preferă conversații de grup"
 
 #: src/contents/ui/settings/SettingsPage.qml:16
 #, kde-format
 msgid "Settings"
-msgstr ""
+msgstr "Configurări"
 
 #: src/contents/ui/settings/SettingsPage.qml:34
 #, kde-format
 msgid "General"
-msgstr ""
+msgstr "Generale"
 
 #: src/contents/ui/settings/SettingsPage.qml:42
 #, kde-format
 msgid "About"
-msgstr ""
+msgstr "Despre"
 
 #: src/contents/ui/settings/SettingsPage.qml:50
 #, kde-format
 msgid "Multimedia Messages (MMS)"
-msgstr ""
+msgstr "Mesaje multimedia (MMS)"
 
 #: src/contents/ui/settings/SettingsPage.qml:58
 #, kde-format
 msgid "Restore defaults"
-msgstr ""
+msgstr "Restabilește implicite"
 
 #: src/contents/ui/settings/SettingsPage.qml:61
 #, kde-format
 msgid "Reset"
-msgstr ""
+msgstr "Reinițializează"
 
 #: src/contents/ui/settings/SettingsPage.qml:74
 #, kde-format
 msgid "Appearance"
-msgstr ""
+msgstr "Aspect"
 
 #: src/contents/ui/settings/SettingsPage.qml:81
 #, kde-format
 msgid "Use custom colors for messages"
-msgstr ""
+msgstr "Folosește culori personalizate pentru mesaje"
 
 #: src/contents/ui/settings/SettingsPage.qml:89
 #, kde-format
 msgid "Incoming message color"
-msgstr ""
+msgstr "Culoarea mesajului de intrare"
 
 #: src/contents/ui/settings/SettingsPage.qml:112
 #, kde-format
 msgid "Outgoing message color"
-msgstr ""
+msgstr "Culoarea mesajului de ieșire"
 
 #: src/contents/ui/settings/SettingsPage.qml:135
 #, kde-format
 msgid "Message font size"
-msgstr ""
+msgstr "Dimensiunea fontului mesajului"
 
 #: src/contents/ui/settings/SettingsPage.qml:147
 #, kde-format
 msgid "Notifications"
-msgstr ""
+msgstr "Notificări"
 
 #: src/contents/ui/settings/SettingsPage.qml:154
 #, kde-format
 msgid "Show sender name / number"
-msgstr ""
+msgstr "Arată numele/numărul expeditorului"
 
 #: src/contents/ui/settings/SettingsPage.qml:161
 #, kde-format
 msgid "Show a preview of the message content"
-msgstr ""
+msgstr "Arată o previzualizare a conținutului mesajului"
 
 #: src/contents/ui/settings/SettingsPage.qml:168
 #, kde-format
 msgid "Show attachment previews"
-msgstr ""
+msgstr "Arată previzualizările atașamentelor"
 
 #: src/contents/ui/settings/SettingsPage.qml:175
 #, kde-format
 msgid "Ignore tapbacks"
-msgstr ""
+msgstr "Ignoră emoticoanele de reacție"
 
 #: src/contents/ui/settings/SettingsPage.qml:191
 #, kde-format
 msgid "Choose a color"
-msgstr ""
+msgstr "Alege o culoare"
 
 #: src/main.cpp:58
 #, kde-format
 msgid "SMS/MMS messaging client"
-msgstr ""
+msgstr "Client de mesagerie SMS/MMS"
 
 #: src/main.cpp:60
 #, kde-format
 msgid "© 2020-2024 KDE Community"
-msgstr ""
+msgstr "© 2020-2024 Comunitatea KDE"
 
 #: src/main.cpp:61
 #, kde-format
 msgid "Bhushan Shah"
-msgstr ""
+msgstr "Bhushan Shah"
 
 #: src/main.cpp:62
 #, kde-format
 msgid "Jonah Brüchert"
-msgstr ""
+msgstr "Jonah Brüchert"
 
 #: src/main.cpp:63
 #, kde-format
 msgid "Martin Klapetek"
-msgstr ""
+msgstr "Martin Klapetek"
 
 #: src/main.cpp:64
 #, kde-format
 msgid "Michael Lang"
-msgstr ""
+msgstr "Michael Lang"
 
 #: src/main.cpp:65
 #, kde-format
 msgid "Nicolas Fella"
-msgstr ""
+msgstr "Nicolas Fella"
 
 #: src/main.cpp:66
 #, kde-format
 msgid "Smitty van Bodegom"
-msgstr ""
+msgstr "Smitty van Bodegom"
 
 #: src/main.cpp:74
 #, kde-format
 msgid "Spacebar SMS/MMS client"
-msgstr ""
+msgstr "Client pentru SMS/MMS Spacebar"
 
 #: src/main.cpp:75
 #, kde-format
 msgid "Open a chat with the given phone number"
-msgstr ""
+msgstr "Deschide o discuție cu numărul dat"
