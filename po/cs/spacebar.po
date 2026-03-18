@@ -1,31 +1,31 @@
 # Copyright (C) 2024 This file is copyright:
 # This file is distributed under the same license as the spacebar package.
-# SPDX-FileCopyrightText: 2020, 2021, 2022, 2023, 2024 Vit Pelcak <vit@pelcak.org>
+# SPDX-FileCopyrightText: 2020, 2021, 2022, 2023, 2024, 2026 Vit Pelcak <vit@pelcak.org>
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: spacebar\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-11-17 11:54+0000\n"
-"PO-Revision-Date: 2024-10-18 11:34+0200\n"
-"Last-Translator: Vit Pelcak <vit@pelcak.org>\n"
+"PO-Revision-Date: 2026-03-16 15:47+0100\n"
+"Last-Translator:  Vít Pelčák <vit@pelcak.org>\n"
 "Language-Team: Czech <kde-i18n-doc@kde.org>\n"
 "Language: cs\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
-"X-Generator: Lokalize 24.08.2\n"
+"X-Generator: Lokalize 25.12.3\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
 msgid "Your names"
-msgstr "Vít Pelčák"
+msgstr "Vít Pelčák,Libor Filípek"
 
 #, kde-format
 msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
-msgstr "vit@pelcak.org"
+msgstr "vit@pelcak.org,libor.filipek@gmail.com"
 
 #: daemon/channellogger.cpp:601 src/contents/ui/MessagesPage.qml:62
 #, kde-format
@@ -136,7 +136,7 @@ msgstr[2] "Smazat těchto %1 rozhovorů?"
 #: src/contents/ui/ChatsPage.qml:274
 #, kde-format
 msgid "This is permanent and can't be undone"
-msgstr ""
+msgstr "Toto je trvalé a nelze to vrátit zpět"
 
 #: src/contents/ui/MessagesPage.qml:128
 #, kde-format
@@ -166,7 +166,7 @@ msgstr "Platnost zprávy vypršela a zpráva bude smazána"
 #: src/contents/ui/MessagesPage.qml:201
 #, kde-format
 msgid "Message will be sent as individual messages"
-msgstr ""
+msgstr "Zpráva bude odeslána jako jednotlivé zprávy"
 
 #: src/contents/ui/MessagesPage.qml:476
 #, kde-format
@@ -350,17 +350,17 @@ msgstr "Port"
 #: src/contents/ui/settings/MMSSettingsPage.qml:74
 #, kde-format
 msgid "Request delivery reports"
-msgstr ""
+msgstr "Požadovat hlášení o doručení"
 
 #: src/contents/ui/settings/MMSSettingsPage.qml:81
 #, kde-format
 msgid "Request read reports"
-msgstr ""
+msgstr "Požadovat hlášení o přečtení"
 
 #: src/contents/ui/settings/MMSSettingsPage.qml:88
 #, kde-format
 msgid "Share delivery status"
-msgstr ""
+msgstr "Sdílet stav doručení"
 
 #: src/contents/ui/settings/MMSSettingsPage.qml:95
 #, kde-format
@@ -375,7 +375,7 @@ msgstr "Automaticky stáhnout zprávy"
 #: src/contents/ui/settings/MMSSettingsPage.qml:111
 #, kde-format
 msgid "Auto download messages for existing contacts only"
-msgstr ""
+msgstr "Automaticky stáhnout zprávy pouze pro existující kontakty"
 
 #: src/contents/ui/settings/MMSSettingsPage.qml:118
 #, kde-format
@@ -395,7 +395,7 @@ msgstr "Automaticky vytvořit SMIL"
 #: src/contents/ui/settings/MMSSettingsPage.qml:149
 #, kde-format
 msgid "Default to group conversations"
-msgstr ""
+msgstr "Výchozí nastavení pro skupinové konverzace"
 
 #: src/contents/ui/settings/SettingsPage.qml:16
 #, kde-format
@@ -475,7 +475,7 @@ msgstr "Zobrazit náhledy příloh"
 #: src/contents/ui/settings/SettingsPage.qml:175
 #, kde-format
 msgid "Ignore tapbacks"
-msgstr ""
+msgstr "Ignorovat zpětné odkazy"
 
 #: src/contents/ui/settings/SettingsPage.qml:191
 #, kde-format
