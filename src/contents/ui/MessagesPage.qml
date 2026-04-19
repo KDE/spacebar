@@ -1122,7 +1122,6 @@ Kirigami.ScrollablePage {
                 background: Rectangle {
                     color: Kirigami.Theme.backgroundColor
                 }
-                inputMethodHints: Qt.ImhNoPredictiveText
             }
 
             Controls.Action {
