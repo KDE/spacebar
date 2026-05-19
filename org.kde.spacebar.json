@@ -36,7 +36,7 @@
                 {
                     "type": "git",
                     "url": "https://invent.kde.org/frameworks/kpeople",
-                    "tag": "v6.13.0"
+                    "tag": "v6.24.0"
                 }
             ],
             "cleanup": [
@@ -45,18 +45,25 @@
         },
         {
             "name": "modemmanager",
-            "buildsystem": "autotools",
+            "buildsystem": "meson",
             "config-opts": [
-                "--without-udev",
-                "--without-mbim",
-                "--without-qmi",
-                "--with-udev-base-dir=/app/"
+                "-Dudev=false",
+                "-Dmbim=false",
+                "-Dqmi=false",
+                "-Dudevdir=/app/",
+                "-Dbash_completion=false",
+                "-Dsystemd_suspend_resume=false",
+                "-Dpowerd_suspend_resume=false",
+                "-Dsystemd_journal=false",
+                "-Dsystemdsystemunitdir=no",
+                "-Dpolkit=no",
+                "-Dqrtr=false"
             ],
             "sources": [
                 {
                     "type": "archive",
-                    "url": "https://www.freedesktop.org/software/ModemManager/ModemManager-1.18.12.tar.xz",
-                    "sha256": "b464e4925d955a6ca86dd08616e763b26ae46d7fd37dbe281678e34065b1e430"
+                    "url": "https://gitlab.freedesktop.org/mobile-broadband/ModemManager/-/archive/1.24.2/ModemManager-1.24.2.zip?ref_type=tags",
+                    "sha256": "94585740d456232d38f88c3d87bcdec3b93d2390fbf2c9fde2dcf67f113dc145"
                 }
             ],
             "cleanup": [
@@ -72,28 +79,7 @@
                 {
                     "type": "git",
                     "url": "https://invent.kde.org/frameworks/modemmanager-qt",
-                    "tag": "v6.13.0"
-                }
-            ]
-        },
-        {
-            "name": "kirigami-addons",
-            "config-opts": [
-                "-DBUILD_TESTING=OFF",
-                "-DCMAKE_BUILD_TYPE=Release"
-            ],
-            "buildsystem": "cmake-ninja",
-            "sources": [
-                {
-                    "type": "archive",
-                    "url": "https://download.kde.org/stable/kirigami-addons/kirigami-addons-1.10.0.tar.xz",
-                    "sha256": "c98f92bf7c452e12f6dc403404215413db3959fe904ad830ead0db6bb09b3d11",
-                    "x-checker-data": {
-                        "type": "anitya",
-                        "project-id": 242933,
-                        "stable-only": true,
-                        "url-template": "https://download.kde.org/stable/kirigami-addons/kirigami-addons-$version.tar.xz"
-                    }
+                    "tag": "v6.24.0"
                 }
             ]
         },
