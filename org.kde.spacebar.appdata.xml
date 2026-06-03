@@ -40,6 +40,7 @@
   <name xml:lang="sv">Spacebar</name>
   <name xml:lang="tg">Фосилагузор</name>
   <name xml:lang="tr">Boşluk Çubuğu</name>
+  <name xml:lang="ug">بوشلۇق بالداق</name>
   <name xml:lang="uk">Spacebar</name>
   <name xml:lang="zh-CN">Spacebar</name>
   <name xml:lang="zh-TW">Spacebar</name>
@@ -75,6 +76,7 @@
   <summary xml:lang="sl">Odjemalec za SMS/MMS</summary>
   <summary xml:lang="sv">SMS/MMS-meddelandeklient</summary>
   <summary xml:lang="tr">SMS/MMS İstemcisi</summary>
+  <summary xml:lang="ug">قىسقا ئۇچۇر/كۆپ ۋاسىتە ئۇچۇر خېرىدارى</summary>
   <summary xml:lang="uk">Клієнт обміну повідомленнями SMS/MMS</summary>
   <summary xml:lang="zh-TW">SMS/MMS 簡訊用戶端</summary>
   <metadata_license>CC0-1.0</metadata_license>
