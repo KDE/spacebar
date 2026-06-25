@@ -136,7 +136,12 @@
                 "-DUSE_BOOST=OFF",
                 "-DBUILD_TESTING=OFF",
                 "-DREGENERATE_METADATA=OFF",
-                "-DBUILD_STATIC_LIB=OFF"
+                "-DBUILD_STATIC_LIB=OFF",
+                "-DBUILD_SHARED_LIBS=ON",
+                "-DUSE_PROTOBUF_LITE=ON",
+                "-DBUILD_GEOCODER=OFF",
+                "-DFETCHCONTENT_FULLY_DISCONNECTED=ON",
+                "-DCMAKE_POSITION_INDEPENDENT_CODE=ON"
             ],
             "sources": [
                 {
