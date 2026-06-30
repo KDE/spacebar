@@ -120,10 +120,10 @@
   <url type="homepage">https://apps.kde.org/</url>
   <url type="bugtracker">https://bugs.kde.org/describecomponents.cgi?product=spacebar</url>
   <releases>
+    <release version="6.7.2" date="2026-06-30"/>
     <release version="6.7.1" date="2026-06-23"/>
     <release version="6.7.0" date="2026-06-16"/>
     <release version="6.6.5" date="2026-05-12"/>
-    <release version="6.6.4" date="2026-04-06"/>
   </releases>
   <requires>
     <display_length compare="ge">360</display_length>
