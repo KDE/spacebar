@@ -531,10 +531,3 @@ msgstr "Client SMS/MMS Spacebar"
 #, kde-format
 msgid "Open a chat with the given phone number"
 msgstr "Obre un xat amb el número de telèfon indicat"
-
-#~ msgctxt "Open chat conversation window"
-#~ msgid "Next"
-#~ msgstr "Següent"
-
-#~ msgid "Contacts"
-#~ msgstr "Contactes"
