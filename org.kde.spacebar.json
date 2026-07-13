@@ -63,7 +63,13 @@
                 {
                     "type": "archive",
                     "url": "https://gitlab.freedesktop.org/mobile-broadband/ModemManager/-/archive/1.24.2/ModemManager-1.24.2.zip?ref_type=tags",
-                    "sha256": "94585740d456232d38f88c3d87bcdec3b93d2390fbf2c9fde2dcf67f113dc145"
+                    "sha256": "94585740d456232d38f88c3d87bcdec3b93d2390fbf2c9fde2dcf67f113dc145",
+                    "x-checker-data": {
+                        "type": "anitya",
+                        "project-id": 7306,
+                        "stable-only": true,
+                        "url-template": "https://gitlab.freedesktop.org/mobile-broadband/ModemManager/-/archive/$version/ModemManager-$version.zip"
+                    }
                 }
             ],
             "cleanup": [
