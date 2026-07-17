@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: spacebar\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-11-17 11:54+0000\n"
+"POT-Creation-Date: 2026-07-17 00:46+0000\n"
 "PO-Revision-Date: 2024-12-23 09:03+0100\n"
 "Last-Translator: Xavier Besnard <xavier.besnard@kde.org>\n"
 "Language-Team: French <French <kde-francophone@kde.org>>\n"
@@ -251,7 +251,7 @@ msgctxt "%1 is a phone number"
 msgid "Send Message from %1..."
 msgstr "Envoyer un message vers %1..."
 
-#: src/contents/ui/MessagesPage.qml:1168
+#: src/contents/ui/MessagesPage.qml:1167
 #, kde-format
 msgid "Choose a file"
 msgstr "Sélectionnez un fichier"

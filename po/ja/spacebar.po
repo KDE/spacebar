@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: spacebar\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-11-17 11:54+0000\n"
+"POT-Creation-Date: 2026-07-17 00:46+0000\n"
 "PO-Revision-Date: 2020-06-20 13:28-0700\n"
 "Last-Translator: Japanese KDE translation team <kde-jp@kde.org>\n"
 "Language-Team: Japanese <kde-jp@kde.org>\n"
@@ -243,7 +243,7 @@ msgctxt "%1 is a phone number"
 msgid "Send Message from %1..."
 msgstr ""
 
-#: src/contents/ui/MessagesPage.qml:1168
+#: src/contents/ui/MessagesPage.qml:1167
 #, kde-format
 msgid "Choose a file"
 msgstr ""

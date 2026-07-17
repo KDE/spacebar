@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: spacebar\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-11-17 11:54+0000\n"
+"POT-Creation-Date: 2026-07-17 00:46+0000\n"
 "PO-Revision-Date: 2025-07-22 20:43+0200\n"
 "Last-Translator: Iñigo Salvador Azurmendi <xalba@ni.eus>\n"
 "Language-Team: Basque <kde-i18n-eu@kde.org>\n"
@@ -255,7 +255,7 @@ msgctxt "%1 is a phone number"
 msgid "Send Message from %1..."
 msgstr "Bidali mezua %1(e)tik..."
 
-#: src/contents/ui/MessagesPage.qml:1168
+#: src/contents/ui/MessagesPage.qml:1167
 #, kde-format
 msgid "Choose a file"
 msgstr "Aukeratu fitxategi bat"

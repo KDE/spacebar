@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: spacebar\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-11-17 11:54+0000\n"
+"POT-Creation-Date: 2026-07-17 00:46+0000\n"
 "PO-Revision-Date: 2025-09-04 15:01+0300\n"
 "Last-Translator: Emir SARI <emir_sari@îcloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
@@ -250,7 +250,7 @@ msgctxt "%1 is a phone number"
 msgid "Send Message from %1..."
 msgstr "%1 Numarasından İleti Gönder…"
 
-#: src/contents/ui/MessagesPage.qml:1168
+#: src/contents/ui/MessagesPage.qml:1167
 #, kde-format
 msgid "Choose a file"
 msgstr "Bir dosya seçin"
