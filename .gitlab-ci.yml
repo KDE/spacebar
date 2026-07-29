@@ -5,5 +5,5 @@ include:
   - project: sysadmin/ci-utilities
     file:
       - /gitlab-templates/xml-lint.yml
-      - /gitlab-templates/linux-qt6.yml
+      - /gitlab-templates/linux-qt6-lts.yml
       - /gitlab-templates/flatpak.yml
