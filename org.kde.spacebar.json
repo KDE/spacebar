@@ -101,8 +101,8 @@
             "sources": [
                 {
                     "type": "archive",
-                    "url": "https://github.com/abseil/abseil-cpp/archive/refs/tags/20260526.0.tar.gz",
-                    "sha256": "6e1aee535473414164bf83e4ebc40240dec71a4701f8a642d906e95bea1aea0c",
+                    "url": "https://github.com/abseil/abseil-cpp/archive/refs/tags/20260817.0.tar.gz",
+                    "sha256": "f7e05179df39c45434cad433f5783840bb3788ef322976f9138bc6b72b3a107d",
                     "x-checker-data": {
                         "type": "anitya",
                         "project-id": 115295,
@@ -123,8 +123,8 @@
             "sources": [
                 {
                     "type": "archive",
-                    "url": "https://github.com/protocolbuffers/protobuf/archive/refs/tags/v35.1.tar.gz",
-                    "sha256": "22775f9376938295efa2d59a59bde4cd075a42df5a9b4d27aa9b99fa6a413bd2",
+                    "url": "https://github.com/protocolbuffers/protobuf/archive/refs/tags/v36.0.tar.gz",
+                    "sha256": "d120933b88a2857c1b5fb6dafe387cca1b96762c2263cb53d945dcae34e88a3f",
                     "x-checker-data": {
                         "type": "anitya",
                         "project-id": 3715,
@@ -152,8 +152,8 @@
             "sources": [
                 {
                     "type": "archive",
-                    "url": "https://github.com/google/libphonenumber/archive/refs/tags/v9.0.36.tar.gz",
-                    "sha256": "43b8fa34f80f84dddc591406d97fbe7f81cf35ce5d83621e67a1b6fa6afac548",
+                    "url": "https://github.com/google/libphonenumber/archive/refs/tags/v9.0.37.tar.gz",
+                    "sha256": "4bd34bc3aec5a89dc9035d15aaf2256c5e8f7e0524e6eb3e7bac1e811987c230",
                     "x-checker-data": {
                         "type": "anitya",
                         "project-id": 89344,
