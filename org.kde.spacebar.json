@@ -123,8 +123,8 @@
             "sources": [
                 {
                     "type": "archive",
-                    "url": "https://github.com/protocolbuffers/protobuf/archive/refs/tags/v35.1.tar.gz",
-                    "sha256": "22775f9376938295efa2d59a59bde4cd075a42df5a9b4d27aa9b99fa6a413bd2",
+                    "url": "https://github.com/protocolbuffers/protobuf/archive/refs/tags/v36.1.tar.gz",
+                    "sha256": "7a7baff8207a57f3fe5c233d432a09eba67bdfb55a3145839d0817cae8e807a4",
                     "x-checker-data": {
                         "type": "anitya",
                         "project-id": 3715,
@@ -152,8 +152,8 @@
             "sources": [
                 {
                     "type": "archive",
-                    "url": "https://github.com/google/libphonenumber/archive/refs/tags/v9.0.37.tar.gz",
-                    "sha256": "4bd34bc3aec5a89dc9035d15aaf2256c5e8f7e0524e6eb3e7bac1e811987c230",
+                    "url": "https://github.com/google/libphonenumber/archive/refs/tags/v9.0.39.tar.gz",
+                    "sha256": "e30c2aea5b66f53821d1eb971f81b9be1350e4b04a4577c8283803a1c8c5210b",
                     "x-checker-data": {
                         "type": "anitya",
                         "project-id": 89344,
