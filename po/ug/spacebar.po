@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: spacebar\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-07-17 00:46+0000\n"
-"PO-Revision-Date: 2026-06-01 18:48-0400\n"
+"PO-Revision-Date: 2026-09-22 18:03+0900\n"
 "Last-Translator: Abduqadir Abliz <sahranbay@gmail.com>\n"
 "Language-Team: Uyghur <kde-i18n-doc@kde.org>\n"
 "Language: ug\n"
@@ -488,17 +488,17 @@ msgstr "© 2020-2024 KDE جامائىتى"
 #: src/main.cpp:61
 #, kde-format
 msgid "Bhushan Shah"
-msgstr "Bhushan Shah"
+msgstr ""
 
 #: src/main.cpp:62
 #, kde-format
 msgid "Jonah Brüchert"
-msgstr "Jonah Brüchert"
+msgstr ""
 
 #: src/main.cpp:63
 #, kde-format
 msgid "Martin Klapetek"
-msgstr "Martin Klapetek"
+msgstr ""
 
 #: src/main.cpp:64
 #, kde-format
@@ -508,7 +508,7 @@ msgstr ""
 #: src/main.cpp:65
 #, kde-format
 msgid "Nicolas Fella"
-msgstr "Nicolas Fella"
+msgstr ""
 
 #: src/main.cpp:66
 #, kde-format
