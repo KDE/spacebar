@@ -1,12 +1,12 @@
 # Translation of spacebar to Norwegian Nynorsk
 #
-# Karl Ove Hufthammer <karl@huftis.org>, 2020, 2021.
+# Karl Ove Hufthammer <karl@huftis.org>, 2020, 2021, 2026.
 msgid ""
 msgstr ""
 "Project-Id-Version: spacebar\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-07-17 00:46+0000\n"
-"PO-Revision-Date: 2021-02-06 13:59+0100\n"
+"PO-Revision-Date: 2026-09-25 18:10+0200\n"
 "Last-Translator: Karl Ove Hufthammer <karl@huftis.org>\n"
 "Language-Team: Norwegian Nynorsk <l10n-no@nuug.no>\n"
 "Language: nn\n"
@@ -14,7 +14,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 21.03.70\n"
+"X-Generator: Lokalize 26.08.1\n"
 "X-Environment: kde\n"
 "X-Accelerator-Marker: &\n"
 "X-Text-Markup: kde4\n"
@@ -22,17 +22,17 @@ msgstr ""
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
 msgid "Your names"
-msgstr ""
+msgstr "Karl Ove Hufthammer"
 
 #, kde-format
 msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
-msgstr ""
+msgstr "karl@huftis.org"
 
 #: daemon/channellogger.cpp:601 src/contents/ui/MessagesPage.qml:62
 #, kde-format
 msgid "New message"
-msgstr ""
+msgstr "Ny melding"
 
 #: daemon/channellogger.cpp:608
 #, kde-format
@@ -44,8 +44,8 @@ msgstr "Melding frå %1"
 msgctxt "Number of files attached"
 msgid "%1 Attachment"
 msgid_plural "%1 Attachments"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%1 vedlegg"
+msgstr[1] "%1 vedlegg"
 
 #: daemon/channellogger.cpp:646
 #, kde-format
@@ -61,24 +61,24 @@ msgstr ""
 #: src/chatlistmodel.cpp:95 src/contents/ui/MessagesPage.qml:53
 #, kde-format
 msgid "and %1 more"
-msgstr ""
+msgstr "og %1 fleire"
 
 #: src/contents/ui/ChatDetailPage.qml:16 src/contents/ui/MessagesPage.qml:134
 #, kde-format
 msgid "Details"
-msgstr ""
+msgstr "Detaljar"
 
 #: src/contents/ui/ChatDetailPage.qml:32
 #, kde-format
 msgid "%1 person"
 msgid_plural "%1 people"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%1 person"
+msgstr[1] "%1 personar"
 
 #: src/contents/ui/ChatDetailPage.qml:63
 #, kde-format
 msgid "Add people"
-msgstr ""
+msgstr "Legg til personar"
 
 #: src/contents/ui/ChatsPage.qml:19
 #, kde-format
@@ -94,13 +94,13 @@ msgstr "Ny samle"
 #, kde-format
 msgctxt "Configuring application settings"
 msgid "Settings"
-msgstr ""
+msgstr "Innstillingar"
 
 #: src/contents/ui/ChatsPage.qml:60
 #, kde-format
 msgctxt "Deleting a conversation"
 msgid "Delete"
-msgstr ""
+msgstr "Slett"
 
 #: src/contents/ui/ChatsPage.qml:72 src/contents/ui/MessagesPage.qml:147
 #, kde-format
@@ -111,31 +111,31 @@ msgstr ""
 #, kde-format
 msgctxt "Selecting recipients from contacts list"
 msgid "Create a chat"
-msgstr ""
+msgstr "Start ny prat"
 
 #: src/contents/ui/ChatsPage.qml:184
 #, kde-format
 msgctxt "Indicating that message was sent by you"
 msgid "You"
-msgstr ""
+msgstr "Du"
 
 #: src/contents/ui/ChatsPage.qml:184
 #, kde-format
 msgctxt "Indicating that message contains an image"
 msgid "Picture"
-msgstr ""
+msgstr "Bilete"
 
 #: src/contents/ui/ChatsPage.qml:273
 #, kde-format
 msgid "Delete this conversation?"
 msgid_plural "Delete %1 conversations?"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Vil du sletta samtalen?"
+msgstr[1] "Vil du sletta dei %1 samtalane?"
 
 #: src/contents/ui/ChatsPage.qml:274
 #, kde-format
 msgid "This is permanent and can't be undone"
-msgstr ""
+msgstr "Dette er for alltid og kan ikkje angrast."
 
 #: src/contents/ui/MessagesPage.qml:128
 #, kde-format
@@ -170,76 +170,76 @@ msgstr ""
 #: src/contents/ui/MessagesPage.qml:476
 #, kde-format
 msgid "MMS message"
-msgstr ""
+msgstr "MMS-melding"
 
 #: src/contents/ui/MessagesPage.qml:484
 #, kde-format
 msgid "Message size: %1"
-msgstr ""
+msgstr "Meldingsstorleik: %1"
 
 #: src/contents/ui/MessagesPage.qml:490
 #, kde-format
 msgid "Expires: %1"
-msgstr ""
+msgstr "Utløpsdato: %1"
 
 #: src/contents/ui/MessagesPage.qml:606
 #, kde-format
 msgid "View all"
-msgstr ""
+msgstr "Vis alle"
 
 #: src/contents/ui/MessagesPage.qml:746
 #, kde-format
 msgid "%1 new message"
 msgid_plural "%1 new messages"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%1 ny melding"
+msgstr[1] "%1 nye meldingar"
 
 #: src/contents/ui/MessagesPage.qml:825
 #, kde-format
 msgid "Copy code"
-msgstr ""
+msgstr "Kopier koden"
 
 #: src/contents/ui/MessagesPage.qml:835
 #, kde-format
 msgid "Copy link"
-msgstr ""
+msgstr "Kopier lenkja"
 
 #: src/contents/ui/MessagesPage.qml:848
 #, kde-format
 msgid "Copy text"
-msgstr ""
+msgstr "Kopier teksten"
 
 #: src/contents/ui/MessagesPage.qml:858 src/contents/ui/MessagesPage.qml:897
 #, kde-format
 msgid "Save attachment"
-msgstr ""
+msgstr "Lagra vedlegget"
 
 #: src/contents/ui/MessagesPage.qml:868
 #, kde-format
 msgid "Delete message"
-msgstr ""
+msgstr "Slett meldinga"
 
 #: src/contents/ui/MessagesPage.qml:880
 #, kde-format
 msgctxt "Retry sending message"
 msgid "Resend"
-msgstr ""
+msgstr "Send på nytt"
 
 #: src/contents/ui/MessagesPage.qml:950
 #, kde-format
 msgid "Save"
-msgstr ""
+msgstr "Lagra"
 
 #: src/contents/ui/MessagesPage.qml:957
 #, kde-format
 msgid "Cancel"
-msgstr ""
+msgstr "Avbryt"
 
 #: src/contents/ui/MessagesPage.qml:1075
 #, kde-format
 msgctxt "Remove item from list"
 msgid "Remove"
-msgstr ""
+msgstr "Fjern"
 
 #: src/contents/ui/MessagesPage.qml:1113
 #, kde-format
@@ -250,12 +250,12 @@ msgstr "Skriv melding …"
 #, kde-format
 msgctxt "%1 is a phone number"
 msgid "Send Message from %1..."
-msgstr ""
+msgstr "Send melding frå %1 …"
 
 #: src/contents/ui/MessagesPage.qml:1167
 #, kde-format
 msgid "Choose a file"
-msgstr ""
+msgstr "Vel fil"
 
 #: src/contents/ui/NewConversationContactsList.qml:50
 #, kde-format
@@ -278,7 +278,7 @@ msgstr ""
 #, kde-format
 msgctxt "Open chat conversation window"
 msgid "Create"
-msgstr ""
+msgstr "Opprett"
 
 #: src/contents/ui/NewConversationContactsList.qml:274
 #, kde-format
@@ -289,7 +289,7 @@ msgstr ""
 #: src/contents/ui/NewConversationContactsList.qml:319
 #, kde-format
 msgid "New Group"
-msgstr ""
+msgstr "Ny gruppe"
 
 #: src/contents/ui/NewConversationContactsList.qml:479
 #, kde-format
@@ -304,47 +304,47 @@ msgstr "Opna kontaktapp"
 #: src/contents/ui/NewConversationContactsList.qml:489
 #, kde-format
 msgid "No results found"
-msgstr ""
+msgstr "Fann ingen treff"
 
 #: src/contents/ui/NewConversationPage.qml:15
 #, kde-format
 msgid "New Group Chat"
-msgstr ""
+msgstr "Ny gruppeprat"
 
 #: src/contents/ui/NewConversationPage.qml:15
-#, fuzzy, kde-format
+#, kde-format
 msgid "New Chat"
-msgstr "Samtalar"
+msgstr "Ny prat"
 
 #: src/contents/ui/PreviewPage.qml:32
 #, kde-format
 msgid "Back"
-msgstr ""
+msgstr "Tilbake"
 
 #: src/contents/ui/settings/MMSSettingsPage.qml:16
 #, kde-format
 msgid "MMS Settings"
-msgstr ""
+msgstr "MMS-innstillingar"
 
 #: src/contents/ui/settings/MMSSettingsPage.qml:30
 #, kde-format
 msgid "Multimedia messages (MMS)"
-msgstr ""
+msgstr "Multimediameldingar (MMS)"
 
 #: src/contents/ui/settings/MMSSettingsPage.qml:38
 #, kde-format
 msgid "MMSC"
-msgstr ""
+msgstr "MMSC"
 
 #: src/contents/ui/settings/MMSSettingsPage.qml:48
 #, kde-format
 msgid "Proxy"
-msgstr ""
+msgstr "Mellomtenar"
 
 #: src/contents/ui/settings/MMSSettingsPage.qml:56
 #, kde-format
 msgid "Port"
-msgstr ""
+msgstr "Port"
 
 #: src/contents/ui/settings/MMSSettingsPage.qml:74
 #, kde-format
@@ -359,17 +359,17 @@ msgstr ""
 #: src/contents/ui/settings/MMSSettingsPage.qml:88
 #, kde-format
 msgid "Share delivery status"
-msgstr ""
+msgstr "Del leveringsstatus"
 
 #: src/contents/ui/settings/MMSSettingsPage.qml:95
 #, kde-format
 msgid "Share read status"
-msgstr ""
+msgstr "Del lesestatus"
 
 #: src/contents/ui/settings/MMSSettingsPage.qml:103
 #, kde-format
 msgid "Auto download messages"
-msgstr ""
+msgstr "Last automatisk ned meldingar"
 
 #: src/contents/ui/settings/MMSSettingsPage.qml:111
 #, kde-format
@@ -399,37 +399,37 @@ msgstr ""
 #: src/contents/ui/settings/SettingsPage.qml:16
 #, kde-format
 msgid "Settings"
-msgstr ""
+msgstr "Innstillingar"
 
 #: src/contents/ui/settings/SettingsPage.qml:34
 #, kde-format
 msgid "General"
-msgstr ""
+msgstr "Generelt"
 
 #: src/contents/ui/settings/SettingsPage.qml:42
 #, kde-format
 msgid "About"
-msgstr ""
+msgstr "Om"
 
 #: src/contents/ui/settings/SettingsPage.qml:50
 #, kde-format
 msgid "Multimedia Messages (MMS)"
-msgstr ""
+msgstr "Multimediameldingar (MMS)"
 
 #: src/contents/ui/settings/SettingsPage.qml:58
 #, kde-format
 msgid "Restore defaults"
-msgstr ""
+msgstr "Tilbakestill til standard"
 
 #: src/contents/ui/settings/SettingsPage.qml:61
 #, kde-format
 msgid "Reset"
-msgstr ""
+msgstr "Tilbakestill"
 
 #: src/contents/ui/settings/SettingsPage.qml:74
 #, kde-format
 msgid "Appearance"
-msgstr ""
+msgstr "Utsjånad"
 
 #: src/contents/ui/settings/SettingsPage.qml:81
 #, kde-format
