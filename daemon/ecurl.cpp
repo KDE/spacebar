@@ -54,7 +54,7 @@ QByteArray ECurl::networkRequest(const QString &url, const QByteArray &data) con
 
                 CURLU *curlUrl = curl_url();
                 curl_url_set(curlUrl, CURLUPART_URL, url.toUtf8().constData(), 0);
-                char *hostname = url.toUtf8().data();
+                char *hostname = NULL;
                 curl_url_get(curlUrl, CURLUPART_HOST, &hostname, 0);
                 curl_url_cleanup(curlUrl);
 
