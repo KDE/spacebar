@@ -66,8 +66,8 @@ QByteArray ECurl::networkRequest(const QString &url, const QByteArray &data) con
                     qDebug() << "Failed to resolve:" << hostname;
                 }
 
-                const char *resolve = QByteArray("+").append(hostname).append(":80:[").append(hostIp).append("]").constData();
-                host = curl_slist_append(NULL, resolve);
+                QByteArray resolve = QByteArray("+").append(hostname).append(":80:[").append(hostIp).append("]");
+                host = curl_slist_append(NULL, resolve.constData());
                 curl_easy_setopt(curl, CURLOPT_RESOLVE, host);
 
                 curl_free(hostname);
