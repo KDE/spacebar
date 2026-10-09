@@ -22,19 +22,15 @@ Kirigami.ScrollablePage {
     property bool editing: false
 
     function setConversations (phoneNumberList) {
-        if (conversations.length === 0) {
-            editing = true
-        }
-        const index = conversations.indexOf(phoneNumberList)
+        const updatedConversations = conversations.slice()
+        const index = updatedConversations.indexOf(phoneNumberList)
         if (index === -1) {
-            conversations.push(phoneNumberList)
+            updatedConversations.push(phoneNumberList)
         } else {
-            conversations.splice(index, 1)
+            updatedConversations.splice(index, 1)
         }
-        conversations = conversations
-        if (conversations.length === 0) {
-            editing = false
-        }
+        conversations = updatedConversations
+        editing = conversations.length > 0
     }
 
     onWidthChanged: ChatListModel.setCharacterLimit(applicationWindow().width)
@@ -137,14 +133,15 @@ Kirigami.ScrollablePage {
             contentItem: Loader {
                 sourceComponent: Component {
                     RowLayout {
-                        spacing: Kirigami.Units.largeSpacing
+                        spacing: 0
 
                         Components.Avatar {
-                            Layout.preferredWidth: Kirigami.Units.iconSizes.medium
-                            Layout.preferredHeight: Kirigami.Units.iconSizes.medium
+                            Layout.preferredWidth: Kirigami.Units.iconSizes.large
+                            Layout.preferredHeight: Kirigami.Units.iconSizes.large
                             Layout.rightMargin: Kirigami.Units.largeSpacing
-                            Layout.topMargin: Kirigami.Units.largeSpacing
-                            Layout.bottomMargin: Kirigami.Units.largeSpacing
+                            Layout.topMargin: Kirigami.Units.smallSpacing
+                            Layout.bottomMargin: Kirigami.Units.smallSpacing
+                            Layout.leftMargin: Kirigami.Units.smallSpacing
                             source: isContact ? "image://avatar/" + Utils.phoneNumberListToString(delegateRoot.phoneNumberList) : ""
                             name: delegateRoot.displayName
                             imageMode: Components.Avatar.ImageMode.AdaptiveImageOrInitals
@@ -154,7 +151,7 @@ Kirigami.ScrollablePage {
                                 anchors.fill: parent
                                 radius: width * 0.5
                                 color: Kirigami.Theme.highlightColor
-                                visible: selected
+                                visible: delegateRoot.selected
 
                                 Kirigami.Icon {
                                     anchors.fill: parent
@@ -167,49 +164,27 @@ Kirigami.ScrollablePage {
                         ColumnLayout {
                             Layout.fillHeight: true
                             Layout.fillWidth: true
-
                             spacing: 0
-                            Kirigami.Heading {
+
+                            Controls.Label {
                                 id: nameLabel
-                                level: 5
-                                type: Kirigami.Heading.Type.Normal
                                 Layout.fillWidth: true
                                 text: delegateRoot.displayName
+                                font.weight: Font.Medium
                                 wrapMode: Text.WrapAnywhere
+                                textFormat: Text.PlainText
                                 maximumLineCount: 1
                             }
-                            Text {
+                            Controls.Label {
                                 id: lastMessage
                                 Layout.fillWidth: true
                                 text: (delegateRoot.lastSentByMe ? i18nc("Indicating that message was sent by you", "You") + ": " : "") + (delegateRoot.lastMessage || (delegateRoot.image ? i18nc("Indicating that message contains an image", "Picture") : ""))
                                 wrapMode: Text.WrapAnywhere
                                 textFormat: Text.PlainText
-                                maximumLineCount: 1
+                                maximumLineCount: 2
                                 elide: Qt.ElideRight
-                                font.pointSize: Kirigami.Theme.defaultFont.pointSize - 2
                                 font.family: "Noto Sans, Noto Color Emoji"
                                 color: Kirigami.Theme.disabledTextColor
-                            }
-                        }
-
-                        // spacer
-                        Item {
-                            Layout.fillWidth: true
-                        }
-
-                        Rectangle {
-                            Layout.alignment: Qt.AlignRight
-                            visible: delegateRoot.unreadMessages !== 0
-                            height: Kirigami.Units.gridUnit * 1.2
-                            width: number.width + 5 < height ? height: number.width + 5
-                            radius: height * 0.5
-                            color: Kirigami.Theme.highlightColor
-                            Controls.Label {
-                                id: number
-                                anchors.centerIn: parent
-                                visible: delegateRoot.unreadMessages !== 0
-                                text: delegateRoot.unreadMessages
-                                color: Qt.rgba(1, 1, 1, 1)
                             }
                         }
 
@@ -237,14 +212,38 @@ Kirigami.ScrollablePage {
                             }
                         }
 
-                        Text {
-                            visible: !delegateRoot.image
-                            Layout.minimumWidth: Kirigami.Units.smallSpacing * 13
-                            horizontalAlignment: Text.AlignRight
-                            topPadding: Kirigami.Units.largeSpacing * 2
-                            text: delegateRoot.lastContacted
-                            font.pointSize: Kirigami.Theme.defaultFont.pointSize - 2
-                            color: Kirigami.Theme.disabledTextColor
+                        ColumnLayout {
+                            Layout.fillHeight: true
+
+                            Controls.Label {
+                                id: dateText
+                                visible: !delegateRoot.image
+                                Layout.minimumWidth: Kirigami.Units.smallSpacing * 13
+                                horizontalAlignment: Text.AlignRight
+                                text: delegateRoot.lastContacted
+                                font.pointSize: Kirigami.Theme.defaultFont.pointSize - 2
+                                color: Kirigami.Theme.disabledTextColor
+                            }
+
+                            Rectangle {
+                                id: unreadMessages
+                                Layout.alignment: Qt.AlignRight
+                                opacity: (delegateRoot.unreadMessages !== 0) ? 1 : 0
+                                height: Kirigami.Units.gridUnit * 0.8
+                                width: number.width + 5 < height ? height: number.width + 5
+                                radius: height * 0.5
+                                color: Kirigami.Theme.highlightColor
+                                Controls.Label {
+                                    id: number
+                                    anchors.centerIn: parent
+                                    visible: delegateRoot.unreadMessages !== 0
+                                    text: delegateRoot.unreadMessages
+                                    color: Qt.rgba(1, 1, 1, 1)
+                                    font.pointSize: Kirigami.Theme.defaultFont.pointSize * 0.6
+                                }
+                            }
+
+                            Item { Layout.fillHeight: true }
                         }
                     }
                 }
