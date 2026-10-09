@@ -8,7 +8,6 @@ import QtQuick.Controls as Controls
 
 import org.kde.kirigami as Kirigami
 import org.kde.kirigamiaddons.components as Components
-import org.kde.kirigamiaddons.delegates as Delegates
 import org.kde.people as KPeople
 
 import org.kde.spacebar
@@ -157,8 +156,6 @@ ListView {
         onPressed: mouse => mouse.accepted = false
     }
 
-    pressDelay: Kirigami.Settings.isMobile ? 200 : 0
-
     headerPositioning: ListView.OverlayHeader
     header: Rectangle {
         z: 3
@@ -284,7 +281,7 @@ ListView {
             }
 
             // Create group button
-            Delegates.RoundedItemDelegate {
+            Controls.ItemDelegate {
                 id: groupDelegate
                 visible: !contactsList.multiSelect
                 onClicked: contactsList.multiSelect = true
@@ -324,7 +321,7 @@ ListView {
             }
 
             // Contact from direct number delegate
-            Delegates.RoundedItemDelegate {
+            Controls.ItemDelegate {
                 id: createFromSearchDelegate
                 visible: searchField.text.length > 0
                 Layout.fillWidth: true
@@ -408,9 +405,7 @@ ListView {
         Component.onCompleted: sort(0)
     }
 
-    interactive: showAll || searchText.length > 0
-
-    delegate: Delegates.RoundedItemDelegate {
+    delegate: Controls.ItemDelegate {
         property bool selected: isSelected(model.personUri)
 
         id: delegateItem
@@ -468,7 +463,7 @@ ListView {
             }
 
         }
-        onReleased: {
+        onClicked: {
             selectNumber(model.personUri, model.name);
         }
     }

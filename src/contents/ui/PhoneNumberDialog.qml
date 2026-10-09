@@ -9,7 +9,6 @@ import QtQuick.Layouts
 import QtQuick.Controls as Controls
 
 import org.kde.kirigami as Kirigami
-import org.kde.kirigamiaddons.delegates as Delegates
 
 import org.kde.spacebar
 
@@ -27,7 +26,7 @@ Kirigami.Dialog {
         implicitHeight: contentHeight
         currentIndex: -1
 
-        delegate: Delegates.RoundedItemDelegate {
+        delegate: Controls.ItemDelegate {
             id: delegateItem
             width: parent.width
             implicitHeight: Kirigami.Units.iconSizes.medium + Kirigami.Units.largeSpacing * 2

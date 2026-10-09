@@ -8,7 +8,6 @@ import QtQuick.Controls as Controls
 
 import org.kde.kirigami as Kirigami
 import org.kde.kirigamiaddons.components as Components
-import org.kde.kirigamiaddons.delegates as Delegates
 
 import org.kde.spacebar
 
@@ -33,7 +32,7 @@ Kirigami.ScrollablePage {
                 color: Kirigami.Theme.disabledTextColor
             }
 
-            Delegates.RoundedItemDelegate {
+            Controls.ItemDelegate {
                 id: delegateItem
                 width: parent.width
                 implicitHeight: Kirigami.Units.iconSizes.medium + Kirigami.Units.largeSpacing * 2
@@ -74,7 +73,7 @@ Kirigami.ScrollablePage {
 
         model: people
 
-        delegate: Delegates.RoundedItemDelegate {
+        delegate: Controls.ItemDelegate {
             id: delegateItem
             width: contactsList.width
             implicitHeight: Kirigami.Units.iconSizes.medium + Kirigami.Units.largeSpacing * 2
