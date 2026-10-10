@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: spacebar\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-07-17 00:46+0000\n"
+"POT-Creation-Date: 2026-10-10 03:19+0000\n"
 "PO-Revision-Date: 2025-08-09 21:17+0400\n"
 "Last-Translator: Zayed Al-Saidi <zayed.alsaidi@gmail.com>\n"
 "Language-Team: ar\n"
@@ -66,12 +66,12 @@ msgstr "خدمة خلفية لتطبيق رسالة"
 msgid "and %1 more"
 msgstr "و %1 أكثر"
 
-#: src/contents/ui/ChatDetailPage.qml:16 src/contents/ui/MessagesPage.qml:134
+#: src/contents/ui/ChatDetailPage.qml:15 src/contents/ui/MessagesPage.qml:134
 #, kde-format
 msgid "Details"
 msgstr "التفاصيل"
 
-#: src/contents/ui/ChatDetailPage.qml:32
+#: src/contents/ui/ChatDetailPage.qml:31
 #, kde-format
 msgid "%1 person"
 msgid_plural "%1 people"
@@ -82,7 +82,7 @@ msgstr[3] "%1 أشخاص"
 msgstr[4] "%1 شخصًا"
 msgstr[5] "%1 شخص"
 
-#: src/contents/ui/ChatDetailPage.qml:63
+#: src/contents/ui/ChatDetailPage.qml:62
 #, kde-format
 msgid "Add people"
 msgstr "أضف أشخاص"
@@ -92,47 +92,47 @@ msgstr "أضف أشخاص"
 msgid "Chats"
 msgstr "الدردشات"
 
-#: src/contents/ui/ChatsPage.qml:46
+#: src/contents/ui/ChatsPage.qml:42
 #, kde-format
 msgid "New Conversation"
 msgstr "محادثة جديدة"
 
-#: src/contents/ui/ChatsPage.qml:52
+#: src/contents/ui/ChatsPage.qml:48
 #, kde-format
 msgctxt "Configuring application settings"
 msgid "Settings"
 msgstr "إعدادات"
 
-#: src/contents/ui/ChatsPage.qml:60
+#: src/contents/ui/ChatsPage.qml:56
 #, kde-format
 msgctxt "Deleting a conversation"
 msgid "Delete"
 msgstr "احذف"
 
-#: src/contents/ui/ChatsPage.qml:72 src/contents/ui/MessagesPage.qml:147
+#: src/contents/ui/ChatsPage.qml:68 src/contents/ui/MessagesPage.qml:147
 #, kde-format
 msgid "Unable to connect to messaging daemon"
 msgstr "غير قادر على الاتصال بخادم الرسائل"
 
-#: src/contents/ui/ChatsPage.qml:96
+#: src/contents/ui/ChatsPage.qml:92
 #, kde-format
 msgctxt "Selecting recipients from contacts list"
 msgid "Create a chat"
 msgstr "أنشئ دردشة"
 
-#: src/contents/ui/ChatsPage.qml:184
+#: src/contents/ui/ChatsPage.qml:181
 #, kde-format
 msgctxt "Indicating that message was sent by you"
 msgid "You"
 msgstr "لنفسك"
 
-#: src/contents/ui/ChatsPage.qml:184
+#: src/contents/ui/ChatsPage.qml:181
 #, kde-format
 msgctxt "Indicating that message contains an image"
 msgid "Picture"
 msgstr "الصّورة"
 
-#: src/contents/ui/ChatsPage.qml:273
+#: src/contents/ui/ChatsPage.qml:272
 #, kde-format
 msgid "Delete this conversation?"
 msgid_plural "Delete %1 conversations?"
@@ -143,7 +143,7 @@ msgstr[3] "هل تريد حذف هذه %1 المحادثات؟"
 msgstr[4] "هل تريد حذف هذه %1 المحادثة؟"
 msgstr[5] "هل تريد حذف هذه %1 المحادثة؟"
 
-#: src/contents/ui/ChatsPage.qml:274
+#: src/contents/ui/ChatsPage.qml:273
 #, kde-format
 msgid "This is permanent and can't be undone"
 msgstr "هذا لا يمكن التراجع عنه"
@@ -272,50 +272,50 @@ msgstr "أرسل رسالة من %1…"
 msgid "Choose a file"
 msgstr "اختر ملفًا"
 
-#: src/contents/ui/NewConversationContactsList.qml:50
+#: src/contents/ui/NewConversationContactsList.qml:49
 #, kde-format
 msgid "Select a number"
 msgstr "حدد رقم"
 
-#: src/contents/ui/NewConversationContactsList.qml:226
+#: src/contents/ui/NewConversationContactsList.qml:223
 #, kde-format
 msgid "Search or enter number…"
 msgstr "ابحث أو أدخل رقم…"
 
-#: src/contents/ui/NewConversationContactsList.qml:250
+#: src/contents/ui/NewConversationContactsList.qml:247
 #, kde-format
 msgctxt "Number of items selected"
 msgid "%1 Selected"
 msgstr "%1 محدّدة"
 
-#: src/contents/ui/NewConversationContactsList.qml:259
+#: src/contents/ui/NewConversationContactsList.qml:256
 #, kde-format
 msgctxt "Open chat conversation window"
 msgid "Create"
 msgstr "أنشئ"
 
-#: src/contents/ui/NewConversationContactsList.qml:274
+#: src/contents/ui/NewConversationContactsList.qml:271
 #, kde-format
 msgctxt "@info:status Error message displayed when no contact is selected"
 msgid "No contact selected"
 msgstr "لم تُحدَّد متراسل"
 
-#: src/contents/ui/NewConversationContactsList.qml:319
+#: src/contents/ui/NewConversationContactsList.qml:316
 #, kde-format
 msgid "New Group"
 msgstr "مجموعة جديدة"
 
-#: src/contents/ui/NewConversationContactsList.qml:479
+#: src/contents/ui/NewConversationContactsList.qml:474
 #, kde-format
 msgid "No contacts with phone numbers yet"
 msgstr "لا يوجد متراسل برقم هاتف بعد"
 
-#: src/contents/ui/NewConversationContactsList.qml:482
+#: src/contents/ui/NewConversationContactsList.qml:477
 #, kde-format
 msgid "Open contacts app"
 msgstr "افتح تطبيق المتراسلين"
 
-#: src/contents/ui/NewConversationContactsList.qml:489
+#: src/contents/ui/NewConversationContactsList.qml:484
 #, kde-format
 msgid "No results found"
 msgstr "لا نتائج"
