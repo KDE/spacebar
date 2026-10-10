@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kdeorg\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-07-17 00:46+0000\n"
+"POT-Creation-Date: 2026-10-10 00:49+0000\n"
 "PO-Revision-Date: 2024-04-22 15:58\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
@@ -60,18 +60,18 @@ msgstr "Spacebar 后台服务"
 msgid "and %1 more"
 msgstr "和另外%1个"
 
-#: src/contents/ui/ChatDetailPage.qml:16 src/contents/ui/MessagesPage.qml:134
+#: src/contents/ui/ChatDetailPage.qml:15 src/contents/ui/MessagesPage.qml:134
 #, kde-format
 msgid "Details"
 msgstr "详细信息"
 
-#: src/contents/ui/ChatDetailPage.qml:32
+#: src/contents/ui/ChatDetailPage.qml:31
 #, kde-format
 msgid "%1 person"
 msgid_plural "%1 people"
 msgstr[0] "%1人"
 
-#: src/contents/ui/ChatDetailPage.qml:63
+#: src/contents/ui/ChatDetailPage.qml:62
 #, kde-format
 msgid "Add people"
 msgstr "添加人员"
@@ -81,53 +81,53 @@ msgstr "添加人员"
 msgid "Chats"
 msgstr "对话"
 
-#: src/contents/ui/ChatsPage.qml:46
+#: src/contents/ui/ChatsPage.qml:42
 #, kde-format
 msgid "New Conversation"
 msgstr "新建对话"
 
-#: src/contents/ui/ChatsPage.qml:52
+#: src/contents/ui/ChatsPage.qml:48
 #, kde-format
 msgctxt "Configuring application settings"
 msgid "Settings"
 msgstr "设置"
 
-#: src/contents/ui/ChatsPage.qml:60
+#: src/contents/ui/ChatsPage.qml:56
 #, kde-format
 msgctxt "Deleting a conversation"
 msgid "Delete"
 msgstr "删除"
 
-#: src/contents/ui/ChatsPage.qml:72 src/contents/ui/MessagesPage.qml:147
+#: src/contents/ui/ChatsPage.qml:68 src/contents/ui/MessagesPage.qml:147
 #, kde-format
 msgid "Unable to connect to messaging daemon"
 msgstr "无法连接到消息守护进程"
 
-#: src/contents/ui/ChatsPage.qml:96
+#: src/contents/ui/ChatsPage.qml:92
 #, kde-format
 msgctxt "Selecting recipients from contacts list"
 msgid "Create a chat"
 msgstr "创建聊天"
 
-#: src/contents/ui/ChatsPage.qml:184
+#: src/contents/ui/ChatsPage.qml:181
 #, kde-format
 msgctxt "Indicating that message was sent by you"
 msgid "You"
 msgstr "您"
 
-#: src/contents/ui/ChatsPage.qml:184
+#: src/contents/ui/ChatsPage.qml:181
 #, kde-format
 msgctxt "Indicating that message contains an image"
 msgid "Picture"
 msgstr "图片"
 
-#: src/contents/ui/ChatsPage.qml:273
+#: src/contents/ui/ChatsPage.qml:272
 #, kde-format
 msgid "Delete this conversation?"
 msgid_plural "Delete %1 conversations?"
 msgstr[0] "确定要删除这%1个对话吗？"
 
-#: src/contents/ui/ChatsPage.qml:274
+#: src/contents/ui/ChatsPage.qml:273
 #, kde-format
 msgid "This is permanent and can't be undone"
 msgstr "此操作是永久性的，无法撤销"
@@ -251,50 +251,50 @@ msgstr "使用 %1 发送消息..."
 msgid "Choose a file"
 msgstr "选择文件"
 
-#: src/contents/ui/NewConversationContactsList.qml:50
+#: src/contents/ui/NewConversationContactsList.qml:49
 #, kde-format
 msgid "Select a number"
 msgstr "选择号码"
 
-#: src/contents/ui/NewConversationContactsList.qml:226
+#: src/contents/ui/NewConversationContactsList.qml:223
 #, kde-format
 msgid "Search or enter number…"
 msgstr "搜索或输入号码…"
 
-#: src/contents/ui/NewConversationContactsList.qml:250
+#: src/contents/ui/NewConversationContactsList.qml:247
 #, kde-format
 msgctxt "Number of items selected"
 msgid "%1 Selected"
 msgstr "已选择 %1 个"
 
-#: src/contents/ui/NewConversationContactsList.qml:259
+#: src/contents/ui/NewConversationContactsList.qml:256
 #, kde-format
 msgctxt "Open chat conversation window"
 msgid "Create"
 msgstr "创建"
 
-#: src/contents/ui/NewConversationContactsList.qml:274
+#: src/contents/ui/NewConversationContactsList.qml:271
 #, kde-format
 msgctxt "@info:status Error message displayed when no contact is selected"
 msgid "No contact selected"
 msgstr "未选择联系人"
 
-#: src/contents/ui/NewConversationContactsList.qml:319
+#: src/contents/ui/NewConversationContactsList.qml:316
 #, kde-format
 msgid "New Group"
 msgstr "新建群组"
 
-#: src/contents/ui/NewConversationContactsList.qml:479
+#: src/contents/ui/NewConversationContactsList.qml:474
 #, kde-format
 msgid "No contacts with phone numbers yet"
 msgstr "没有已设置电话号码的联系人"
 
-#: src/contents/ui/NewConversationContactsList.qml:482
+#: src/contents/ui/NewConversationContactsList.qml:477
 #, kde-format
 msgid "Open contacts app"
 msgstr "打开通讯录应用"
 
-#: src/contents/ui/NewConversationContactsList.qml:489
+#: src/contents/ui/NewConversationContactsList.qml:484
 #, kde-format
 msgid "No results found"
 msgstr "未找到结果"
