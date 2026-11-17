@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: spacebar\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-10-10 00:49+0000\n"
-"PO-Revision-Date: 2026-11-15 18:55+0300\n"
+"PO-Revision-Date: 2026-11-16 18:35+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
 "Language: tr\n"
@@ -461,12 +461,12 @@ msgstr "Gönderen adını/numarasını göster"
 #: src/contents/ui/settings/SettingsPage.qml:161
 #, kde-format
 msgid "Show a preview of the message content"
-msgstr "İleti içeriğinin bir önizlemesini göster"
+msgstr "İleti içeriğinin bir ön izlemesini göster"
 
 #: src/contents/ui/settings/SettingsPage.qml:168
 #, kde-format
 msgid "Show attachment previews"
-msgstr "Ek önizlemelerini göster"
+msgstr "Ek ön izlemelerini göster"
 
 #: src/contents/ui/settings/SettingsPage.qml:175
 #, kde-format
