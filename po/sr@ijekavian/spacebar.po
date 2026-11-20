@@ -1,0 +1,538 @@
+# Nemanja Hiršl <nemhirsl@gmail.com>, 2026.
+msgid ""
+msgstr ""
+"Project-Id-Version: spacebar\n"
+"Report-Msgid-Bugs-To: https://bugs.kde.org\n"
+"POT-Creation-Date: 2026-10-10 03:19+0000\n"
+"PO-Revision-Date: 2026-11-19 09:26+0100\n"
+"Last-Translator: Nemanja Hiršl <nemhirsl@gmail.com>\n"
+"Language-Team: Serbian <kde-i18n-sr@kde.org>\n"
+"Language: sr@ijekavian\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=4; plural=n==1 ? 3 : n%10==1 && n%100!=11 ? 0 : n"
+"%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+"X-Accelerator-Marker: &\n"
+"X-Text-Markup: kde4\n"
+"X-Environment: kde\n"
+
+#, kde-format
+msgctxt "NAME OF TRANSLATORS"
+msgid "Your names"
+msgstr "Немања Хиршл"
+
+#, kde-format
+msgctxt "EMAIL OF TRANSLATORS"
+msgid "Your emails"
+msgstr "nemhirsl@gmail.com"
+
+#: daemon/channellogger.cpp:601 src/contents/ui/MessagesPage.qml:62
+#, kde-format
+msgid "New message"
+msgstr "Нова порука"
+
+#: daemon/channellogger.cpp:608
+#, kde-format
+msgid "Message from %1"
+msgstr "Порука од %1"
+
+#: daemon/channellogger.cpp:619
+#, kde-format
+msgctxt "Number of files attached"
+msgid "%1 Attachment"
+msgid_plural "%1 Attachments"
+msgstr[0] "%1 прилог"
+msgstr[1] "%1 прилога"
+msgstr[2] "%1 прилога"
+msgstr[3] "%1 прилог"
+
+#: daemon/channellogger.cpp:646
+#, kde-format
+msgctxt "@action open message in application"
+msgid "Open"
+msgstr "Отвори"
+
+#: daemon/main.cpp:43
+#, kde-format
+msgid "Spacebar background service"
+msgstr "Позадински сервис програма Spacebar"
+
+#: src/chatlistmodel.cpp:95 src/contents/ui/MessagesPage.qml:53
+#, kde-format
+msgid "and %1 more"
+msgstr "и још %1"
+
+#: src/contents/ui/ChatDetailPage.qml:15 src/contents/ui/MessagesPage.qml:134
+#, kde-format
+msgid "Details"
+msgstr "Детаљи"
+
+#: src/contents/ui/ChatDetailPage.qml:31
+#, kde-format
+msgid "%1 person"
+msgid_plural "%1 people"
+msgstr[0] "%1 особа"
+msgstr[1] "%1 особе"
+msgstr[2] "%1 особа"
+msgstr[3] "%1 особа"
+
+#: src/contents/ui/ChatDetailPage.qml:62
+#, kde-format
+msgid "Add people"
+msgstr "Додај особе"
+
+#: src/contents/ui/ChatsPage.qml:19
+#, kde-format
+msgid "Chats"
+msgstr "Ћаскања"
+
+#: src/contents/ui/ChatsPage.qml:42
+#, kde-format
+msgid "New Conversation"
+msgstr "Нови разговор"
+
+#: src/contents/ui/ChatsPage.qml:48
+#, kde-format
+msgctxt "Configuring application settings"
+msgid "Settings"
+msgstr "Поставке"
+
+#: src/contents/ui/ChatsPage.qml:56
+#, kde-format
+msgctxt "Deleting a conversation"
+msgid "Delete"
+msgstr "Обриши"
+
+#: src/contents/ui/ChatsPage.qml:68 src/contents/ui/MessagesPage.qml:147
+#, kde-format
+msgid "Unable to connect to messaging daemon"
+msgstr "Не могу да се повежем са демоном за поруке"
+
+#: src/contents/ui/ChatsPage.qml:92
+#, kde-format
+msgctxt "Selecting recipients from contacts list"
+msgid "Create a chat"
+msgstr "Направите ћаскање"
+
+#: src/contents/ui/ChatsPage.qml:181
+#, kde-format
+msgctxt "Indicating that message was sent by you"
+msgid "You"
+msgstr "Ви"
+
+#: src/contents/ui/ChatsPage.qml:181
+#, kde-format
+msgctxt "Indicating that message contains an image"
+msgid "Picture"
+msgstr "Слика"
+
+#: src/contents/ui/ChatsPage.qml:272
+#, kde-format
+msgid "Delete this conversation?"
+msgid_plural "Delete %1 conversations?"
+msgstr[0] "Обрисати %1 разговор?"
+msgstr[1] "Обрисати %1 разговора?"
+msgstr[2] "Обрисати %1 разговора?"
+msgstr[3] "Обрисати овај разговор?"
+
+#: src/contents/ui/ChatsPage.qml:273
+#, kde-format
+msgid "This is permanent and can't be undone"
+msgstr "Ово је трајно и не може се опозвати"
+
+#: src/contents/ui/MessagesPage.qml:128
+#, kde-format
+msgid "Call"
+msgstr "Позови"
+
+#: src/contents/ui/MessagesPage.qml:157
+#, kde-format
+msgid "Texting this premium SMS number might cause you to be charged money"
+msgstr ""
+"Слање порука на овај СМС број са посебном тарифом може вам бити наплаћено"
+
+#: src/contents/ui/MessagesPage.qml:168
+#, kde-format
+msgid "Max attachment limit exceeded"
+msgstr "Премашено је ограничење броја прилога"
+
+#: src/contents/ui/MessagesPage.qml:179
+#, kde-format
+msgid "No MMSC configured"
+msgstr "Није подешен MMSC"
+
+#: src/contents/ui/MessagesPage.qml:190
+#, kde-format
+msgid "Message has expired and will be deleted"
+msgstr "Порука је истекла и биће обрисана"
+
+#: src/contents/ui/MessagesPage.qml:201
+#, kde-format
+msgid "Message will be sent as individual messages"
+msgstr "Порука ће бити послата као појединачне поруке"
+
+#: src/contents/ui/MessagesPage.qml:476
+#, kde-format
+msgid "MMS message"
+msgstr "ММС порука"
+
+#: src/contents/ui/MessagesPage.qml:484
+#, kde-format
+msgid "Message size: %1"
+msgstr "Величина поруке: %1"
+
+#: src/contents/ui/MessagesPage.qml:490
+#, kde-format
+msgid "Expires: %1"
+msgstr "Истиче: %1"
+
+#: src/contents/ui/MessagesPage.qml:606
+#, kde-format
+msgid "View all"
+msgstr "Прикажи све"
+
+#: src/contents/ui/MessagesPage.qml:746
+#, kde-format
+msgid "%1 new message"
+msgid_plural "%1 new messages"
+msgstr[0] "%1 нова порука"
+msgstr[1] "%1 нове поруке"
+msgstr[2] "%1 нових порука"
+msgstr[3] "%1 нова порука"
+
+#: src/contents/ui/MessagesPage.qml:825
+#, kde-format
+msgid "Copy code"
+msgstr "Копирај код"
+
+#: src/contents/ui/MessagesPage.qml:835
+#, kde-format
+msgid "Copy link"
+msgstr "Копирај везу"
+
+#: src/contents/ui/MessagesPage.qml:848
+#, kde-format
+msgid "Copy text"
+msgstr "Копирај текст"
+
+#: src/contents/ui/MessagesPage.qml:858 src/contents/ui/MessagesPage.qml:897
+#, kde-format
+msgid "Save attachment"
+msgstr "Сачувај прилог"
+
+#: src/contents/ui/MessagesPage.qml:868
+#, kde-format
+msgid "Delete message"
+msgstr "Обриши поруку"
+
+#: src/contents/ui/MessagesPage.qml:880
+#, kde-format
+msgctxt "Retry sending message"
+msgid "Resend"
+msgstr "Пошаљи поново"
+
+#: src/contents/ui/MessagesPage.qml:950
+#, kde-format
+msgid "Save"
+msgstr "Сачувај"
+
+#: src/contents/ui/MessagesPage.qml:957
+#, kde-format
+msgid "Cancel"
+msgstr "Одустани"
+
+#: src/contents/ui/MessagesPage.qml:1075
+#, kde-format
+msgctxt "Remove item from list"
+msgid "Remove"
+msgstr "Уклони"
+
+#: src/contents/ui/MessagesPage.qml:1113
+#, kde-format
+msgid "Write Message..."
+msgstr "Напишите поруку..."
+
+#: src/contents/ui/MessagesPage.qml:1115
+#, kde-format
+msgctxt "%1 is a phone number"
+msgid "Send Message from %1..."
+msgstr "Пошаљите поруку са %1..."
+
+#: src/contents/ui/MessagesPage.qml:1167
+#, kde-format
+msgid "Choose a file"
+msgstr "Избор фајла"
+
+#: src/contents/ui/NewConversationContactsList.qml:49
+#, kde-format
+msgid "Select a number"
+msgstr "Избор броја"
+
+#: src/contents/ui/NewConversationContactsList.qml:223
+#, kde-format
+msgid "Search or enter number…"
+msgstr "Тражите или унесите број…"
+
+#: src/contents/ui/NewConversationContactsList.qml:247
+#, kde-format
+msgctxt "Number of items selected"
+msgid "%1 Selected"
+msgstr "Изабрано: %1"
+
+#: src/contents/ui/NewConversationContactsList.qml:256
+#, kde-format
+msgctxt "Open chat conversation window"
+msgid "Create"
+msgstr "Направи"
+
+#: src/contents/ui/NewConversationContactsList.qml:271
+#, kde-format
+msgctxt "@info:status Error message displayed when no contact is selected"
+msgid "No contact selected"
+msgstr "Није изабран ниједан контакт"
+
+#: src/contents/ui/NewConversationContactsList.qml:316
+#, kde-format
+msgid "New Group"
+msgstr "Нова група"
+
+#: src/contents/ui/NewConversationContactsList.qml:474
+#, kde-format
+msgid "No contacts with phone numbers yet"
+msgstr "Још нема контаката са бројевима телефона"
+
+#: src/contents/ui/NewConversationContactsList.qml:477
+#, kde-format
+msgid "Open contacts app"
+msgstr "Отвори програм за контакте"
+
+#: src/contents/ui/NewConversationContactsList.qml:484
+#, kde-format
+msgid "No results found"
+msgstr "Нису нађени резултати"
+
+#: src/contents/ui/NewConversationPage.qml:15
+#, kde-format
+msgid "New Group Chat"
+msgstr "Ново групно ћаскање"
+
+#: src/contents/ui/NewConversationPage.qml:15
+#, kde-format
+msgid "New Chat"
+msgstr "Ново ћаскање"
+
+#: src/contents/ui/PreviewPage.qml:32
+#, kde-format
+msgid "Back"
+msgstr "Назад"
+
+#: src/contents/ui/settings/MMSSettingsPage.qml:16
+#, kde-format
+msgid "MMS Settings"
+msgstr "ММС поставке"
+
+#: src/contents/ui/settings/MMSSettingsPage.qml:30
+#, kde-format
+msgid "Multimedia messages (MMS)"
+msgstr "Мултимедијалне поруке (ММС)"
+
+#: src/contents/ui/settings/MMSSettingsPage.qml:38
+#, kde-format
+msgid "MMSC"
+msgstr "MMSC"
+
+#: src/contents/ui/settings/MMSSettingsPage.qml:48
+#, kde-format
+msgid "Proxy"
+msgstr "Прокси"
+
+#: src/contents/ui/settings/MMSSettingsPage.qml:56
+#, kde-format
+msgid "Port"
+msgstr "Порт"
+
+#: src/contents/ui/settings/MMSSettingsPage.qml:74
+#, kde-format
+msgid "Request delivery reports"
+msgstr "Захтијевај извјештаје о испоруци"
+
+#: src/contents/ui/settings/MMSSettingsPage.qml:81
+#, kde-format
+msgid "Request read reports"
+msgstr "Захтијевај извјештаје о читању"
+
+#: src/contents/ui/settings/MMSSettingsPage.qml:88
+#, kde-format
+msgid "Share delivery status"
+msgstr "Дијели стање испоруке"
+
+#: src/contents/ui/settings/MMSSettingsPage.qml:95
+#, kde-format
+msgid "Share read status"
+msgstr "Дијели стање читања"
+
+#: src/contents/ui/settings/MMSSettingsPage.qml:103
+#, kde-format
+msgid "Auto download messages"
+msgstr "Аутоматски преузимај поруке"
+
+#: src/contents/ui/settings/MMSSettingsPage.qml:111
+#, kde-format
+msgid "Auto download messages for existing contacts only"
+msgstr "Аутоматски преузимај поруке само за постојеће контакте"
+
+#: src/contents/ui/settings/MMSSettingsPage.qml:118
+#, kde-format
+msgid "Max message size (KiB)"
+msgstr "Највећа величина поруке (KiB)"
+
+#: src/contents/ui/settings/MMSSettingsPage.qml:130
+#, kde-format
+msgid "Max attachments"
+msgstr "Највише прилога"
+
+#: src/contents/ui/settings/MMSSettingsPage.qml:142
+#, kde-format
+msgid "Auto create SMIL"
+msgstr "Аутоматски прави SMIL"
+
+#: src/contents/ui/settings/MMSSettingsPage.qml:149
+#, kde-format
+msgid "Default to group conversations"
+msgstr "Подразумијевано користи групне разговоре"
+
+#: src/contents/ui/settings/SettingsPage.qml:16
+#, kde-format
+msgid "Settings"
+msgstr "Поставке"
+
+#: src/contents/ui/settings/SettingsPage.qml:34
+#, kde-format
+msgid "General"
+msgstr "Опште"
+
+#: src/contents/ui/settings/SettingsPage.qml:42
+#, kde-format
+msgid "About"
+msgstr "О програму"
+
+#: src/contents/ui/settings/SettingsPage.qml:50
+#, kde-format
+msgid "Multimedia Messages (MMS)"
+msgstr "Мултимедијалне поруке (ММС)"
+
+#: src/contents/ui/settings/SettingsPage.qml:58
+#, kde-format
+msgid "Restore defaults"
+msgstr "Врати подразумијевано"
+
+#: src/contents/ui/settings/SettingsPage.qml:61
+#, kde-format
+msgid "Reset"
+msgstr "Ресетуј"
+
+#: src/contents/ui/settings/SettingsPage.qml:74
+#, kde-format
+msgid "Appearance"
+msgstr "Изглед"
+
+#: src/contents/ui/settings/SettingsPage.qml:81
+#, kde-format
+msgid "Use custom colors for messages"
+msgstr "Користи посебне боје за поруке"
+
+#: src/contents/ui/settings/SettingsPage.qml:89
+#, kde-format
+msgid "Incoming message color"
+msgstr "Боја долазних порука"
+
+#: src/contents/ui/settings/SettingsPage.qml:112
+#, kde-format
+msgid "Outgoing message color"
+msgstr "Боја одлазних порука"
+
+#: src/contents/ui/settings/SettingsPage.qml:135
+#, kde-format
+msgid "Message font size"
+msgstr "Величина фонта порука"
+
+#: src/contents/ui/settings/SettingsPage.qml:147
+#, kde-format
+msgid "Notifications"
+msgstr "Обавјештења"
+
+#: src/contents/ui/settings/SettingsPage.qml:154
+#, kde-format
+msgid "Show sender name / number"
+msgstr "Прикажи име / број пошиљаоца"
+
+#: src/contents/ui/settings/SettingsPage.qml:161
+#, kde-format
+msgid "Show a preview of the message content"
+msgstr "Прикажи преглед садржаја поруке"
+
+#: src/contents/ui/settings/SettingsPage.qml:168
+#, kde-format
+msgid "Show attachment previews"
+msgstr "Прикажи прегледе прилога"
+
+#: src/contents/ui/settings/SettingsPage.qml:175
+#, kde-format
+msgid "Ignore tapbacks"
+msgstr "Игнориши реакције"
+
+#: src/contents/ui/settings/SettingsPage.qml:191
+#, kde-format
+msgid "Choose a color"
+msgstr "Избор боје"
+
+#: src/main.cpp:58
+#, kde-format
+msgid "SMS/MMS messaging client"
+msgstr "Клијент за СМС/ММС поруке"
+
+#: src/main.cpp:60
+#, kde-format
+msgid "© 2020-2024 KDE Community"
+msgstr "© 2020–2024, заједница КДЕ‑а"
+
+#: src/main.cpp:61
+#, kde-format
+msgid "Bhushan Shah"
+msgstr "Bhushan Shah"
+
+#: src/main.cpp:62
+#, kde-format
+msgid "Jonah Brüchert"
+msgstr "Jonah Brüchert"
+
+#: src/main.cpp:63
+#, kde-format
+msgid "Martin Klapetek"
+msgstr "Мартин Клапетек"
+
+#: src/main.cpp:64
+#, kde-format
+msgid "Michael Lang"
+msgstr "Michael Lang"
+
+#: src/main.cpp:65
+#, kde-format
+msgid "Nicolas Fella"
+msgstr "Nicolas Fella"
+
+#: src/main.cpp:66
+#, kde-format
+msgid "Smitty van Bodegom"
+msgstr "Smitty van Bodegom"
+
+#: src/main.cpp:74
+#, kde-format
+msgid "Spacebar SMS/MMS client"
+msgstr "Spacebar, клијент за СМС/ММС поруке"
+
+#: src/main.cpp:75
+#, kde-format
+msgid "Open a chat with the given phone number"
+msgstr "Отвори ћаскање са датим бројем телефона"
