@@ -37,6 +37,10 @@
   <name xml:lang="sa">स्पेसबार</name>
   <name xml:lang="sk">Spacebar</name>
   <name xml:lang="sl">Spacebar</name>
+  <name xml:lang="sr">Spacebar</name>
+  <name xml:lang="sr-Latn">Spacebar</name>
+  <name xml:lang="sr-ijekavian">Spacebar</name>
+  <name xml:lang="sr-ijekavianlatin">Spacebar</name>
   <name xml:lang="sv">Spacebar</name>
   <name xml:lang="tg">Фосилагузор</name>
   <name xml:lang="tr">Boşluk Çubuğu</name>
@@ -74,6 +78,10 @@
   <summary xml:lang="sa">SMS/MMS सन्देशप्रसारणग्राहकः</summary>
   <summary xml:lang="sk">Klient na SMS/MMS správy</summary>
   <summary xml:lang="sl">Odjemalec za SMS/MMS</summary>
+  <summary xml:lang="sr">Клијент за СМС/ММС поруке</summary>
+  <summary xml:lang="sr-Latn">Klijent za SMS/MMS poruke</summary>
+  <summary xml:lang="sr-ijekavian">Клијент за СМС/ММС поруке</summary>
+  <summary xml:lang="sr-ijekavianlatin">Klijent za SMS/MMS poruke</summary>
   <summary xml:lang="sv">SMS/MMS-meddelandeklient</summary>
   <summary xml:lang="tr">SMS/MMS İstemcisi</summary>
   <summary xml:lang="ug">قىسقا ئۇچۇر/كۆپ ۋاسىتە ئۇچۇر خېرىدارى</summary>
@@ -114,6 +122,10 @@
     <p xml:lang="sa">स्पेसबार एकः SMS/MMS सन्देशप्रसारणग्राहकः अस्ति । एतेन भवन्तः सेलुलरजालद्वारा पाठसन्देशान्, चित्राणि, अन्यसञ्चिकाः च प्रेषयितुं शक्नुवन्ति ।</p>
     <p xml:lang="sk">Spacebar je klient na posielanie SMS/MMS správ. Umožňuje Vám odosielať textové správy, obrázky a ďalšie súbory cez mobilnú sieť.</p>
     <p xml:lang="sl">Spacebar je odjemalec sporočil SMS/MMS. Dovoljuje pošiljanje besedilnih sporočil, slik in ostalih datotek v mobilnem omrežju.</p>
+    <p xml:lang="sr">Spacebar је клијент за СМС/ММС поруке. Омогућава вам да шаљете текстуалне поруке, слике и друге фајлове преко мобилне мреже.</p>
+    <p xml:lang="sr-Latn">Spacebar je klijent za SMS/MMS poruke. Omogućava vam da šaljete tekstualne poruke, slike i druge fajlove preko mobilne mreže.</p>
+    <p xml:lang="sr-ijekavian">Spacebar је клијент за СМС/ММС поруке. Омогућава вам да шаљете текстуалне поруке, слике и друге фајлове преко мобилне мреже.</p>
+    <p xml:lang="sr-ijekavianlatin">Spacebar je klijent za SMS/MMS poruke. Omogućava vam da šaljete tekstualne poruke, slike i druge fajlove preko mobilne mreže.</p>
     <p xml:lang="sv">Spacebar är en SMS/MMS-meddelandeklient. Den låter dig skicka textmeddelanden, bilder och andra filer över ett mobilnätverk.</p>
     <p xml:lang="tr">Boşluk Çubuğu, bir SMS/MMS iletileşme istemcisidir. Bir hücresel ağ üzerinden metin iletileri, resimler ve diğer dosyaları göndermenize izin verir.</p>
     <p xml:lang="uk">Spacebar є клієнтом обміну повідомленнями SMS/MMS. За допомогою програми ви можете надсилати текстові повідомлення, зображення та інші файли мережею стільникового телефонного зв'язку.</p>
